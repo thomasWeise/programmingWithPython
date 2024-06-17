@@ -15,17 +15,19 @@ echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We are working in directory: '$currentDir'
 scriptDir="$currentDir/scripts"
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): The script directory is '$scriptDir'."
 
-echo "$(date +'%0Y-%0m-%0d %0R:%0S'): First we delete all left over data."
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We delete all left over data."
 rm "book.pdf" || true
 rm -rf "$currentDir/website" || true
 
-echo "$(date +'%0Y-%0m-%0d %0R:%0S'): First, we need to setup a virtual environment in a temp directory."
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We setup a virtual environment in a temp directory."
 tempDir="$(mktemp -d)"
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Got temp dir '$tempDir', now creating environment in it."
 python3 -m venv "$tempDir"
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Activating virtual environment in '$tempDir'."
 . "$tempDir/bin/activate"
-echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Initialization: We install all required Python packages from requirements.txt to virtual environment in '$tempDir'."
+export PYTHON_INTERPRETER="$tempDir/bin/python3"
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Setting python interpreter to '$PYTHON_INTERPRETER'."
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We install all required Python packages from requirements.txt to virtual environment in '$tempDir'."
 pip install --no-input --timeout 360 --retries 100 -r requirements.txt
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Finished installing the requirements, now printing all installed packages."
 pip freeze

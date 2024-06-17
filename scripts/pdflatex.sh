@@ -28,7 +28,15 @@ echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We will use ${texProgram[@]} to compile th
 bibProgram="$(readlink -f "$(which biber)")"
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We will use '$bibProgram' to process bibliography files."
 "$bibProgram" --version
-latexGitProgram=("$(readlink -f "$(which python3)")" "-m" "latexgit.aux")
+
+if [[ $(declare -p PYTHON_INTERPRETER) == declare\ ?x* ]]; then
+  echo "Found python interpreter as: '$PYTHON_INTERPRETER'"
+else
+  export PYTHON_INTERPRETER="$(readlink -f "$(which python3)")"
+  echo "Setting up python interpreter as '$PYTHON_INTERPRETER'."
+fi
+
+latexGitProgram=("$PYTHON_INTERPRETER" "-m" "latexgit.aux")
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We will use latexgit like ${latexGitProgram[@]}."
 ${latexGitProgram[@]} --version
 makeIndexProgram="$(readlink -f "$(which makeindex)")"
