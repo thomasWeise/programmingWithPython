@@ -36,12 +36,12 @@ echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Finished printing all installed packages."
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We now execute the pdflatex compiler script."
 "$scriptDir/pdflatex.sh" "book.tex"
 
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We now execute the website building script."
+"$scriptDir/website.sh"
+
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Deactivating virtual environment."
 deactivate
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Deleting virtual environment."
 rm -rf "$tempDir"
-
-echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We now execute the website building script."
-"$scriptDir/website.sh"
 
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We have finished the book building process."
