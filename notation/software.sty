@@ -14,6 +14,29 @@ description={The \href{https://python.org/}{\softwareStyle{Python}} programming 
 \xdef\pythonVersion{3.10}%
 \protected\gdef\pythonWithVersion{\softwareStyle{\python~\pythonVersion}}%
 %
+%
+\newglossaryentry{linux}{%
+name={\softwareStyle{Linux}},
+sort={Linux},
+description={%
+\href{https://www.linux.org/}{\softwareStyle{Linux}} is an open source operating system, i.e., a free alternative for \windows. %
+Its variant \ubuntu\ is particularly easy to use and install. %
+We recommend using it for this course, for software development, and for research.%
+}%
+}%
+\protected\gdef\linux{\gls{linux}}%
+%
+%
+\newglossaryentry{pycharm}{%
+name={\softwareStyle{PyCharm}},
+sort={PyCharm},
+description={%
+\href{https://www.jetbrains.com/pycharm/}{\softwareStyle{PyCharm}} is the convenient \python\ \gls{ide} that we recommend for this course.%
+}%
+}%
+\protected\gdef\pycharm{\gls{pycharm}}%
+%
+%
 \newglossaryentry{ubuntu}{%
 name={\softwareStyle{Ubuntu}},
 sort={Ubuntu},
@@ -26,16 +49,6 @@ If you are in China, you can download it from \expandafter{\ubuntuDownloadUrl}.%
 \protected\gdef\ubuntu{\gls{ubuntu}}%
 \xdef\ubuntuDownloadUrl{https://mirrors.ustc.edu.cn/ubuntu-releases/}%
 %
-\newglossaryentry{linux}{%
-name={\softwareStyle{Linux}},
-sort={Linux},
-description={%
-\href{https://www.linux.org/}{\softwareStyle{Linux}} is an open source operating system, i.e., a free alternative for \windows. %
-Its variant \ubuntu\ is particularly easy to use and install. %
-We recommend using it for this course, for software development, and for research.%
-}%
-}%
-\protected\gdef\linux{\gls{linux}}%
 %
 \newglossaryentry{windows}{%
 name={\softwareStyle{Windows}},
