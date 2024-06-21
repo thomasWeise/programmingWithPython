@@ -1,0 +1,12 @@
+%%
+%% Figure and Table tools.
+%%
+%
+\RequirePackage{subfig}%
+%
+\protected\gdef\tightbox#1{\bgroup%
+\fboxsep=0pt%
+\fboxrule=0.5pt%
+\mbox{\fcolorbox{black}{listing-background}{\mbox{#1}}}%
+\egroup}%
+%

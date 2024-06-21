@@ -85,19 +85,25 @@ literate=%
 \mbox{\fcolorbox{listing-rule}{listing-background}{\mbox{#1}}}%
 \egroup}%
 %
-%% print some code inline
+%% print some Python code inline
 %% #1 the optional args
 %% #2 the code to be printed inline
-\gdef\codeil#1{%
+\gdef\pythonil#1{%
 \@inlinelistingbox{\lstinline[style=python_style]$#1$}}%
+%
+%% print some Bash code inline
+%% #1 the optional args
+%% #2 the code to be printed inline
+\gdef\bashil#1{%
+\@inlinelistingbox{\lstinline[language=bash]$#1$}}%
 %
 \newlength\@lstbasicstylesheight%
 \settoheight{\@lstbasicstylesheight}{\mbox{\bgroup\@lstbasicstyle{s}\egroup}}%
 %
-%% print some code inline with an 's' added for plural
+%% print some Python code inline with an 's' added for plural
 %% #1 the optional args
 %% #2 the code to be printed inline
-\gdef\codeils#1{%
+\gdef\pythons#1{%
 \@inlinelistingbox{\lstinline[style=python_style]$#1$\resizebox{!}{\@lstbasicstylesheight}{\color{darkgray}s}}}%
 %
 %%

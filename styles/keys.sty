@@ -1,0 +1,13 @@
+%%
+%% Keyboard keys.
+%%
+%
+\RequirePackage[os=win]{menukeys}%
+\renewmenumacro{\keys}[+]{shadowedroundedkeys}%
+%
+%% see https://tex.stackexchange.com/questions/387952
+\RequirePackage{fontawesome}%
+\tw@make@key@box{OS@mac}{\faApple}%
+\tw@make@key@box{OS@win}{\faWindows}%
+\tw@make@key@macro*{\OS}%
+%

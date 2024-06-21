@@ -1,0 +1,49 @@
+%%
+%% Access to Source Codes
+%%
+%
+\protected\gdef\softwareStyle#1{\textrm{#1}}%
+%
+\newglossaryentry{python}{%
+name={\softwareStyle{Python}},
+sort={Python},
+description={The \href{https://python.org/}{\softwareStyle{Python}} programming language, i.e., what you will learn about in this book.}
+}%
+\protected\gdef\python{\gls{python}}%
+%
+\xdef\pythonVersion{3.10}%
+\protected\gdef\pythonWithVersion{\softwareStyle{\python~\pythonVersion}}%
+%
+\newglossaryentry{ubuntu}{%
+name={\softwareStyle{Ubuntu}},
+sort={Ubuntu},
+description={%
+\href{https://ubuntu.com/}{\softwareStyle{Ubuntu}} is a variant of the open source operating system \linux. %
+We recommend that you use this operating system to follow this class, for software development, and for research. %
+If you are in China, you can download it from \expandafter{\ubuntuDownloadUrl}.%
+}%
+}%
+\protected\gdef\ubuntu{\gls{ubuntu}}%
+\xdef\ubuntuDownloadUrl{https://mirrors.ustc.edu.cn/ubuntu-releases/}%
+%
+\newglossaryentry{linux}{%
+name={\softwareStyle{Linux}},
+sort={Linux},
+description={%
+\href{https://www.linux.org/}{\softwareStyle{Linux}} is an open source operating system, i.e., a free alternative for \windows. %
+Its variant \ubuntu\ is particularly easy to use and install. %
+We recommend using it for this course, for software development, and for research.%
+}%
+}%
+\protected\gdef\linux{\gls{linux}}%
+%
+\newglossaryentry{windows}{%
+name={\softwareStyle{Windows}},
+sort={Windows},
+description={%
+\href{https://www.microsoft.com/windows/}{\softwareStyle{Microsoft Windows}} is a commerical proprietary operating system. %
+It is widely spread, but we recommend using a \linux\ variant such as \ubuntu\ for software development and for our course.%
+}%
+}%
+\protected\gdef\windows{\gls{windows}}%
+%
