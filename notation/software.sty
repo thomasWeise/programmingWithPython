@@ -2,61 +2,137 @@
 %% Access to Source Codes
 %%
 %
-\protected\gdef\softwareStyle#1{\textrm{#1}}%
-%
-\newglossaryentry{python}{%
-name={\softwareStyle{Python}},
-sort={Python},
-description={The \href{https://python.org/}{\softwareStyle{Python}} programming language, i.e., what you will learn about in this book.}
-}%
-\protected\gdef\python{\gls{python}}%
-%
-\xdef\pythonVersion{3.10}%
-\protected\gdef\pythonWithVersion{\softwareStyle{\python~\pythonVersion}}%
+\protected\gdef\softwareStyle#1{\scalebox{0.95}[1]{\texttt{#1}}}%
 %
 %
 \newglossaryentry{linux}{%
 name={\softwareStyle{Linux}},
 sort={Linux},
 description={%
-is an open source operating system, i.e., a free alternative for \windows. %
+is the leading open source operating system, i.e., a free alternative for \windows~\cite{T1999TLE}. %
 Its variant \ubuntu\ is particularly easy to use and install. %
-We recommend using it for this course, for software development, and for research.%
+We recommend using it for this course, for software development, and for research. %
+Learn more at \url{https://www.linux.org/}.%
 }%
 }%
-\protected\gdef\linux{\gls{linux}}%
+\protected\gdef\linux{\pgls{linux}}%
+%
+%
+\newglossaryentry{matplotlib}{%
+name={\softwareStyle{Matplotlib}},
+sort={Matplotlib},
+description={%
+is a \python\ package for plotting diagrams and charts~\cite{H2007MA2GE}. %
+Learn more at at \url{https://matplotlib.org}.%
+}%
+}%
+\protected\gdef\matplotlib{\pgls{matplotlib}}%
+%
+%
+\newglossaryentry{moptipy}{%
+name={\softwareStyle{moptipy}},
+sort={moptipy},
+description={%
+is the \emph{Metaheuristic Optimization in \python} library~\cite{WW2023RSDEWASSAA}. %
+Learn more at \url{https://thomasweise.github.io/moptipy}.%
+}%
+}%
+\protected\gdef\moptipy{\pgls{moptipy}}%
+%
+\newglossaryentry{numpy}{%
+name={\softwareStyle{NumPy}},
+sort={NumPy},
+description={%
+is a fundamental package for scientific computing with \python, which offers efficient array datastructures~\cite{HMvdWGVCWTBSKPHvKBHFdRWPGMSRWAGO2020APWN}. %
+Learn more at \url{https://numpy.org/}.%
+}%
+}%
+\protected\gdef\numpy{\pgls{numpy}}%
+%
+%
+\newglossaryentry{pandas}{%
+name={\softwareStyle{Pandas}},
+sort={Pandas},
+description={%
+is a \python\ data analysis and manipulation library~\cite{B2012DPWP}. %
+Learn more at \url{https://pandas.pydata.org}.%
+}%
+}%
+\protected\gdef\pandas{\pgls{pandas}}%
 %
 %
 \newglossaryentry{pycharm}{%
 name={\softwareStyle{PyCharm}},
 sort={PyCharm},
 description={%
-is the convenient \python\ \gls{ide} that we recommend for this course.%
+is the convenient \python\ \pgls{ide} that we recommend for this course~\cite{VHN2023HOADWP}. %
+Learn more at \url{https://www.jetbrains.com/pycharm}.%
 }%
 }%
-\protected\gdef\pycharm{\gls{pycharm}}%
+\protected\gdef\pycharm{\pgls{pycharm}}%
+%
+%
+\newglossaryentry{python}{%
+name={\softwareStyle{Python}},
+sort={Python},
+description={The \softwareStyle{Python} programming language~\cite{H2023ABGTP3P,LH2015DSAAWP}, i.e., what you will learn about in this book. %
+Learn more at \url{https://python.org}.}
+}%
+\protected\gdef\python{\pgls{python}}%
+%
+\xdef\pythonVersion{3.10}%
+\protected\gdef\pythonWithVersion{\softwareStyle{\python~\pythonVersion}}%
+%
+%
+\newglossaryentry{scikitlearn}{%
+name={\softwareStyle{Scikit-learn}},
+sort={Scikit-learn},
+description={is a \python\ library offering various machine learning tools~\cite{PVGMTGBPWDVPCBPD2011SMLIP}. %
+Learn more at \url{https://scikit-learn.org}.}
+}%
+\protected\gdef\scikitlearn{\pgls{scikitlearn}}%
+%
+%
+\newglossaryentry{scipy}{%
+name={\softwareStyle{SciPy}},
+sort={SciPy},
+description={is a \python\ library for scientific computing~\cite{VGOHRCBPWBvdWBWMMNJKLCPFMVLPCHQHARPvMS2020SFAFSCIP}. %
+Learn more at \url{https://scipy.org}.}
+}%
+\protected\gdef\scipy{\pgls{scipy}}%
+%
+%
+\newglossaryentry{tensorflow}{%
+name={\softwareStyle{TensorFlow}},
+sort={TensorFlow},
+description={is a \python\ library for implementing machine learning, especially suitable for training of neural networks~\cite{ABCCDDDGIIKLMMMSTVWWYZ2016TASFLSML}. %
+Learn more at \url{https://www.tensorflow.org}.}
+}%
+\protected\gdef\tensorflow{\pgls{tensorflow}}%
 %
 %
 \newglossaryentry{ubuntu}{%
 name={\softwareStyle{Ubuntu}},
 sort={Ubuntu},
 description={%
-is a variant of the open source operating system \linux. %
+is a variant of the open source operating system \linux~\cite{CN2020ULB}. %
 We recommend that you use this operating system to follow this class, for software development, and for research. %
+Learn more at \url{https://ubuntu.com}. %
 If you are in China, you can download it from \expandafter\url{\ubuntuDownloadUrl}.%
 }%
 }%
-\protected\gdef\ubuntu{\gls{ubuntu}}%
-\xdef\ubuntuDownloadUrl{https://mirrors.ustc.edu.cn/ubuntu-releases/}%
+\protected\gdef\ubuntu{\pgls{ubuntu}}%
+\xdef\ubuntuDownloadUrl{https://mirrors.ustc.edu.cn/ubuntu-releases}%
 %
 %
 \newglossaryentry{windows}{%
 name={\softwareStyle{Windows}},
 sort={Windows},
 description={%
-\href{https://www.microsoft.com/windows/}{\softwareStyle{Microsoft Windows}} is a commerical proprietary operating system. %
-It is widely spread, but we recommend using a \linux\ variant such as \ubuntu\ for software development and for our course.%
+Microsoft~\softwareStyle{Windows} is a commerical proprietary operating system~\cite{B2023W1IO}. %
+It is widely spread, but we recommend using a \linux\ variant such as \ubuntu\ for software development and for our course. %
+Learn more at \url{https://www.microsoft.com/windows}.%
 }%
 }%
-\protected\gdef\windows{\gls{windows}}%
+\protected\gdef\windows{\pgls{windows}}%
 %
