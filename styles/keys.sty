@@ -4,6 +4,7 @@
 %
 \RequirePackage[os=win]{menukeys}%
 \renewmenumacro{\keys}[+]{shadowedroundedkeys}%
+\renewmenumacro{\directory}[/]{hyphenatepaths}%
 %
 %% see https://tex.stackexchange.com/questions/387952
 \RequirePackage{fontawesome}%
@@ -13,3 +14,7 @@
 %
 \protected\gdef\ubuntuTerminal{\keys{\ctrl+\Alt+T}}%
 \protected\gdef\windowsTerminal{press \keys{\OSwin + R}, type in \bashil{cmd}, and hit \keys{\return}}%
+%
+%% the main menu key
+\protected\gdef\pycharmMainMenu{\ensuremath{\mathrel{\rlap{\raisebox{\fontdimen22\textfont2}{\ensuremath{=}}}\raisebox{-0.5\fontdimen22\textfont2}{\ensuremath{=}}}}}
+%

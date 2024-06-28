@@ -5,4 +5,12 @@
 \xdef\programmingWithPythonRepo{https://github.com/thomasWeise/programmingWithPython}%
 \xdef\programmingWithPythonUrl{https://thomasweise.github.io/programmingWithPython}%
 %
-
+\xdef\programmingWithPythonCodeRepo{https://github.com/thomasWeise/programmingWithPythonCode}%
+%
+%%% Print some example code
+%% #1 the path
+%% #2 the arguments
+%% #3 the label
+%% #4 the caption
+\protected\gdef\exCode#1#2#3#4{\expandafter\gitPython{\programmingWithPythonCodeRepo}{#1}{#2}{#3}{#4}}%
+%

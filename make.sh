@@ -22,7 +22,7 @@ rm -rf "$currentDir/website" || true
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We setup a virtual environment in a temp directory."
 tempDir="$(mktemp -d)"
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Got temp dir '$tempDir', now creating environment in it."
-python3 -m venv "$tempDir"
+python3 -m venv --system-site-packages "$tempDir"
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Activating virtual environment in '$tempDir'."
 . "$tempDir/bin/activate"
 export PYTHON_INTERPRETER="$tempDir/bin/python3"
