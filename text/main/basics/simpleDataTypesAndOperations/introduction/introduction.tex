@@ -1,0 +1,52 @@
+\hsection{Primitive Data Types and Operations}%
+%
+We now know how to create and run \python\ programs, both in the \pgls{IDE} and \pgls{terminal}.
+We have also already learned our first two \python\ commands:%
+%
+\begin{itemize}%
+\item \pythonil{print("Hello World!")} prints the text \inQuotes{Hello World!} to the output.
+\item \pythonil{exit()} exits and terminates the \python\ interpreter.%
+\end{itemize}%
+%
+Now, it would be very strange if the \pythonil{print} function could print \inQuotes{Hello World!}.
+That would not make much sense.
+\pythonil{print} expects one parameter.
+This parameter cannot just be anything.
+It must be a text.
+
+The command \pythonil{exit}, on the other hand, can either have no parameter or one parameter.
+If it receives one parameter, this parameter will be the exit code of the program.
+Here, \pythonil{0} indicates success.
+If no parameter is provided, this will be used as default value.
+We need to invoke \pythonil{exit} if we use the \python\ console in the \pgls{terminal} explicitly.
+If we just run a program, then after the last instruction of the program was executed, then the interpreter will also terminate with exit code~0.
+Indeed, when we executed our first program in \cref{sec:ourFirstProgram}, we saw exactly that happen in \cref{fig:firstProgram09programResult}.
+Different from the parameter of \pythonil{print}, which must be some text, the parameter of \pythonil{exit} needs to be a number.
+
+We realize:
+Distinguishing different types of data makes sense.
+Sometimes we need to do something with text.
+Sometimes we want to do something with numbers.
+Somtimes, we want to just handle a decision which can be either \inQuotes{yes} or \inQuotes{no}.
+
+Of course, for these different situations, different possible operations may be useful.
+For example, when we use numbers, we may want to divide or multiply them.
+When we handle text, we may want to concatenate two portions of text, or maybe we want to convert lowercase characters to uppercase.
+We may want to do something if two decision variables are both \inQuotes{yes} or, maybe, if at least one of them is.
+
+In this chapter, we will look into the simple datatypes of \python, namely:%
+%
+\begin{itemize}%
+%
+\item \pythonil{int}: the integer datatype, which represents integers numbers~\integerNumbers~(\cref{sec:int}),%
+\item \pythonil{float}: the floating point numbers, i.e., a subset of the real numbers~\realNumbers,%
+\item \pythonil{bool}: Boolean values, which can be either \pythonil{True} or \pythonil{False}, and%
+\item \pythonil{str}: strings, i.e., portions of text of arbitrary length.%
+\item \pythonil{None}: nothing, which is the result of any command that does not expliclty return a value.%
+%
+\end{itemize}%
+%
+\hinput{int}{int.tex}%
+%
+\endhsection%
+%

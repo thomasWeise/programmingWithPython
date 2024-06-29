@@ -164,6 +164,7 @@
 @string { l_australia_hobart = "{{Hobart}, {TAS}, {Australia}}" }
 @string { l_portugal_lisbon = "{{Lisbon}, {Portugal}}" }
 @string { l_switzerland_cham = "{{Cham}, {Switzerland}}" }
+@string { l_switzerland_geneva = "{{Geneva}, {Switzerland}}" }
 @string { l_uk_birmingham = "{{Birmingham}, {England}, {UK}} " }
 @string { l_uk_cambridge = "{{Cambridge}, {England}, {UK}}" }
 @string { l_uk_chichester = "{{Chichester}, {West Sussex}, {England}, {UK}}" }
@@ -189,7 +190,10 @@
 @string { p_cnri = "{Corporation for National Research Initiatives~({CNRI})}" }
 @string { p_cornell_university_library = "{Cornell Universiy Library}" }
 @string { p_github = "{{GitHub} Inc}" }
+@string { p_iec = "{International Electrotechnical Commission~{(IEC)}}" }
 @string { p_ieee = "{Institute of Electrical and Electronics Engineers~{(IEEE)}}" }
+@string { p_iso = "{International Organization for Standardization~{(ISO)}}" }
+@string { p_iso_iec = "{International Organization for Standardization~{(ISO)} / International Electrotechnical Commission~{(IEC)}}" }
 @string { p_informs = "{The Institute for Operations Research and the Management Sciences~({INFORMS})}" }
 @string { p_mit_press = "{{MIT} Press}" }
 @string { p_oreilly = "{{O'Reilly} Media, Inc.}" }
@@ -210,13 +214,14 @@
 @string { pa_cnri = l_usa_reston }
 @string { pa_cornell_university_library = l_usa_ithaca }
 @string { pa_github = l_usa_san_francisco }
+@string { pa_iso_iec = l_switzerland_geneva }
 @string { pa_ieee = l_usa_piscataway }
 @string { pa_informs = l_usa_catonsville }
 @string { pa_mit_press = l_usa_cambridge }
 @string { pa_oreilly = l_usa_sebastopol }
 @string { pa_packt = l_uk_birmingham }
 @string { pa_pearson_education = l_usa_hoboken }
-@string { pa_ploss = l_usa_san_francisco }
+@string { pa_plos = l_usa_san_francisco }
 @string { pa_microsoft_press = pa_pearson_education }
 @string { pa_springer_cham = l_switzerland_cham }
 @string { pa_springer_nature_limited = l_uk_london }
@@ -312,6 +317,12 @@
  institution = p_cnri,
  address = pa_cnri,
  type = {CNRI Proposal},
+}
+
+@xdata{rep_iso_iec_standard,
+ institution = p_iso_iec,
+ address = pa_iso_iec,
+ type = {International Standard},
 }
 
 
@@ -447,6 +458,15 @@
  pages = {357--362},
  date = {2020},
  doi = {10.1038/S41586-020-2649-2},
+}
+
+@techreport{ISOIEC207PLCWDOS,
+ title = {Programming Languages -- \softwareStyle{C}, Working Document of~{SC22/WG14}},
+ number = {{ISO/\linebreak{3}IEC9899:2017} {C17~ballot} {N2176}},
+ xdata = {rep_iso_iec_standard},
+ date = {2017-11},
+ url = {https://files.lhmouse.com/standards/ISO%20C%20N2176.pdf},
+ urldate = {2024-06-29},
 }
 
 @book{LH2015DSAAWP,
