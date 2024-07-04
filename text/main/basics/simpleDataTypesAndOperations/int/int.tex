@@ -13,25 +13,26 @@ The different integer types of both languages have different ranges and sizes, a
 
 \python\ only has one integer type, called \pythonil{int}.
 This type has basically an unbounded range.
-The \python\ interpreter will allocate as much memory as is needed to store the number you want.
-(Ok, so the range is not actually \emph{unbounded}, it is bounded by the amount of memory available on your computer{\dots} {\dots}but for all intents and purposes within this book, we can assume that~$\pythonil{int}\equiv\integerNumbers$.)
-
+The \python\ interpreter will allocate as much memory as is needed to store the number you want.\footnote{%
+Ok, the range is not actually \emph{unbounded}, it is bounded by the amount of memory available on your computer{\dots} {\dots}but for all intents and purposes within this book, we can assume that~$\pythonil{int}\equiv\integerNumbers$.}%
+%
+\hsection{Integer Arithmetics}%
 Now, what can we do with integer numbers?
 We can add, subtract, multiply, divide, modulo divide, and raise them to powers.
 
 \begin{figure}%
 \centering%
-\includegraphics[width=0.8\linewidth]{\currentDir/pythonIntMathInConsoleA}%
-\caption{Examples for \python\ integer math in the console, part~1 (see \cref{fig:pythonIntMathInConsoleB} for part~2).}%
-\label{fig:pythonIntMathInConsoleA}%
+\includegraphics[width=0.8\linewidth]{\currentDir/pythonIntMathInConsoleArith}%
+\caption{Examples for \python\ integer math in the console, part~1 (see \cref{fig:pythonIntMathInConsolePower} for part~2).}%
+\label{fig:pythonIntMathInConsoleArith}%
 \end{figure}%
 
-In \cref{fig:pythonIntMathInConsoleA}, you can find some examples for this.
+In \cref{fig:pythonIntMathInConsoleArith}, you can find some examples for this.
 Like back in \cref{sec:terminalConsolem}, press \ubuntuTerminal\ under \ubuntu\ \linux\ or \windowsTerminal\ under \windows\ to open a \pgls{terminal}.
 After entering \bashil{python3} and hitting \keys{\enter}, we can begin experimenting with integer maths.
 The lines with \python\ commands in the console begin with \pythonil{>>>}, whereas the result is directly output below them without prefix string.
 
-In the very first line of \cref{fig:pythonIntMathInConsoleA}, we enter \pythonil{4 + 3} and hit \keys{\enter}.
+In the very first line of \cref{fig:pythonIntMathInConsoleArith}, we enter \pythonil{4 + 3} and hit \keys{\enter}.
 The result is displayed on the next line and, as expected, is \pythonil{7}.
 We then attempt to multiply the two integers \pythonil{7} and \pythonil{5} by typing \pythonil{7 * 5} and hitting \keys{\enter}.
 The result is \pythonil{35}.
@@ -61,12 +62,12 @@ We also find that \pythonil{34 \% 4} yields \pythonil{2}, \pythonil{35 \% 4} giv
 
 \begin{figure}%
 \centering%
-\includegraphics[width=0.8\linewidth]{\currentDir/pythonIntMathInConsoleB}%
-\caption{Examples for \python\ integer math in the console, part~2 (see \cref{fig:pythonIntMathInConsoleA} for part~1).}%
-\label{fig:pythonIntMathInConsoleB}%
+\includegraphics[width=0.8\linewidth]{\currentDir/pythonIntMathInConsolePower}%
+\caption{Examples for \python\ integer math in the console, part~2 (see \cref{fig:pythonIntMathInConsoleArith} for part~1).}%
+\label{fig:pythonIntMathInConsolePower}%
 \end{figure}%
 
-As you will find in \cref{fig:pythonIntMathInConsoleB}, integers can also be raised to a power.
+As you will find in \cref{fig:pythonIntMathInConsolePower}, integers can also be raised to a power.
 For example, $2^7$~is expressed as \pythonil{2 ** 7} in \python\ (and yields~\pythonil{128}).
 \pythonil{7 ** 11}, i.e., $7^{11}$ gives us~1\decSep977\decSep326\decSep743 and shows as \pythonil{1977326743} in the output.
 
@@ -76,46 +77,84 @@ An unsinged 64~bit integer type, such as \pythonil{unsigned long long} in \pgls{
 In \python\, we can compute $2^{63}$~(\pythonil{2 ** 63}), namely 9\decSep223\decSep372\decSep036\decSep854\decSep775\decSep808, and
 $2^{64}$~(\pythonil{2 ** 64}), which is~18\decSep446\decSep744\decSep073\decSep709\decSep551\decSep616.
 These are very large numbers and the latter one would overflow the range of the standard integer types of \pgls{Java} and \pgls{C}.
-However, we can also keep going and compute \pythonil{2 ** 1024}, which is such a huge number that it wraps four times in the output of our \python\ console in \cref{fig:pythonIntMathInConsoleB}!
+However, we can also keep going and compute \pythonil{2 ** 1024}, which is such a huge number that it wraps four times in the output of our \python\ console in \cref{fig:pythonIntMathInConsolePower}!
 \python\ integers are basically unbounded.
 However, the larger they get, the more memory they need and the longer it will take to compute with them.
-
+\endhsection%
+%
+\hsection{Operations on Bit Strings}%
+%
+First time readers are encouraged to skip over this section.
+This section is about integers numbers from the perspective of bit strings and the bit string based operations that we can apply to them.
+If you are learning programming, then this part is not important now.
+You can circle back to it later.%
+%
 \begin{figure}%
 \centering%
 \includegraphics[width=0.8\linewidth]{\currentDir/binaryMath}%
 \caption{Examples for how integer numbers are represented as bit strings in the computer (upper part) and for the binary (bitwise) operations \emph{and}, \emph{or}, and \emph{exclusive or} (often called~\emph{xor}).}%
 \label{fig:binaryMath}%
 \end{figure}
+\begin{figure}%
+\centering%
+\includegraphics[width=0.8\linewidth]{\currentDir/pythonIntMathInConsoleBin}%
+\caption{Examples for the binary representation of integers and the operations that apply to it.}%
+\label{fig:pythonIntMathInConsoleBin}%
+\end{figure}
 
-\emph{The following paragraphs is just for the sake of completeness. %
-You do not necessarily need to understand it when reading this book for the first time.}
-As a small excursion for the binary mathematics aficionados:
 All integer numbers can be represented as bit strings.
 In other words, a number $z\in\integerNumbers$ can be expressed as $b_0 2^0 + b_1 2^1 + b_2 2^2 + b_3 2^3 + b_4 2^4\dots$, where the $b_i$-values each are either~0 or~1.
 Then, $\dots b_4 b_3 b_2 b_1 b_0$ is a bit string.
 If we represent integers with such strings of five bits, then the number~1 would have representation~\texttt{00001}, because it is equivalent to~$2^0$.
 In in \cref{fig:binaryMath}, we illustrate that the number~22 would be \texttt{10110} because $22=2^4+2^2+2^1$ and the number~15 would correspond to \texttt{01111}, as~$15=2^3+2^2+2^1+2^0$.
-In \python, we can compute the bitwise (i.e., binary) \emph{or}, \emph{and}, as well as the and \emph{exclusive~or} of this binary representation of integers using the \pythonil{|}, \pythonil{&}, and \pythonil{^} operators, respectively.
 
+We can obtain the binary representation of integer numbers as text using the \pythonil{bin} function in \python.
+As shown in \cref{fig:pythonIntMathInConsoleBin}, \pythonil{bin(22)} yields \pythonil{'0b10110'}.
+Here, the \pythonil{0b} prefix means that the following number is in binary representation.
+We can also enter numbers in binary representation in the console.
+Typing \pythonil{0b10110} corresponds to the number \pythonil{22}.
+Similarly, \pythonil{bin(15)} yields \pythonil{'0b1111'} and entering \pythonil{0b1111} into the console corresponds to entering the number~\pythonil{15}.
+
+In \python, we can compute the bitwise (i.e., binary) \emph{or}, \emph{and}, as well as the and \emph{exclusive~or} of this binary representation of integers using the \pythonil{|}, \pythonil{&}, and \pythonil{^} operators, respectively.
 Binary \emph{or} returns an integer in which all bits are set to~1 which were~1 in either of its two operands.
 \pythonil{22 | 1} yields \pythonil{23}, because the bit with value~1 is not set in~22 and the binary~\emph{or} sets it (effectively adding~1 to~22).
 The slightly more comprehensive example \pythonil{22 | 15} sketched in \cref{fig:binaryMath} gives us \pythonil{31}, because $22=2^4+2^2+2^1$ and $15=2^3+2^2+2^1+2^0$, which \pythonil{|} combines to $31=2^4+2^3+2^2+2^1+2^0$, i.e., each power of~2 that occurred in either of the two operands is present in the result.
+\pythonil{bin(31)} yields \pythonil{'0b11111'}.
 
 Binary \emph{and} returns the integer where only the bits remain~1 that were~1 in \emph{both} operands.
 Applying binary \emph{and} instead of \emph{or}, i.e., doing \pythonil{22 & 1} results in \pythonil{0}, because, as said before, the bit $2^0$ is not set in~22.
 \pythonil{22 & 15}, yields~\pythonil{6}, because only $2^2$ and $2^1$ appear both in~22 and~15.
+Thus, \pythonil{bin(6)} corresponds to \pythonil{'0b110'}.
 
 The \emph{exclusive~or}, which is often called \emph{xor}, will set a bit to~1 if it is~1 in exactly one of the two operands.
 Therefore, \pythonil{22 ^ 1} gives~\pythonil{23}, since only the bit with value $2^0$ is set in~1 and the other bits that are~1 in~22 are not.
 \pythonil{22 ^ 15} yields \pythonil{25}, because $2^4$, $2^3$, and $2^0$ occur only once in the two operators (whereas $2^2$ and $2^1$ occured in both of them).
-With this, our excursion into binary maths ends and we now welcome back all first-time readers.
+This is confirmed by typing \pythonil{bin(25)}, which results in \pythonil{'0b11001'}.
 
+Finally, we can also shift bit strings to the left or right by $i$~places.
+The former corresponds to multiplying with~$2^i$, the latter is the same as an integer division by~$2^i$.
+Shifting \pythonil{22} by one bit position to the \emph{left} -- which is done by entering \pythonil{22 << 1} -- therefore results in~\pythonil{44}.
+We already know that \pythonil{bin(22)} is \pythonil{'0b10110'} and so it comes at no surprise that \pythonil{bin(44)} is \pythonil{'0b101100'} (notice the additional \pythonil{0} that appeared on the right hand side).
+Shifting \pythonil{22} by two bit positions to the \emph{right} -- which is done by entering \pythonil{22 >> 2} -- results in \pythonil{5}.
+The \pythonil{10} on the right hand side of the binary representation disappeared, as \pythonil{bin(5)} is \pythonil{'0b101'}.
+
+Besides the binary representation of integer numbers, which is to the basis~2, there also exists the hexadecimal representation (base~16) and the octal representation (base~7).
+We can obtain the hexadecimal representation of~22 by computing \pythonil{hex(22)} and get \pythonil{0x16}, which corresponds to~$1*16^1+6*1=22$.
+We can also enter hexadecimal numbers in the console like \pythonil{0x16}, which yields~\pythonil{22}.
+The octal representation of~22 is obtained as \pythonil{oct(22)}, which produces \pythonil{0o26}, which, in turn, corresponds to~$2*8^1+6$.
+Similarly, this octal number can be entered as \pythonil{0o26}.
+
+With this, our excursion into binary maths ends and we now welcome back all first-time readers.%
+%
+\endhsection%
+%
+\hsection{Summary}%
 In conclusion, the integer type \pythonil{int} represents whole numbers.
 Integers can be positive or negative or zero.
 All the primitive mathematical operations like addition, subtraction, multiplication, and division that you learned in school can be applied to integers.
 The normal arithmetic precedence rules (that you also have learned in school) apply.
 Parentheses can be used to group operations.
 Finally, \python\ also provides the same binary logic operators, working on the bit string representation of integers, that you may or or may not know from other programming languages as well.
-%
+\endhsection%
 \endhsection%
 %
