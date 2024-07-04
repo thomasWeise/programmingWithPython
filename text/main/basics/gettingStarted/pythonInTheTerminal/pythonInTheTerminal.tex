@@ -131,17 +131,19 @@ We just did this in the previous section and illustrated it in \cref{fig:veryFir
 A \python\ program is just a normal text file, after all. %
 We can execute such a text file by entering its directory and typing \bashil{python3 programName} (where \bashil{programName} is \bashil{very_first_program.py}, in our case) and hitting \keys{\enter}. %
 Then the program is executed directly in the \pgls{terminal}. %
-This process is shown in \cref{fig:terminalPython}.%
+This process is shown in \cref{sec:terminalPython,fig:terminalPython}.%
 %
 \item Alternatively, we could open the \python\ interpreter console in \pycharm\ and enter and execute our code line-by-line. %
-This is sketched in \cref{fig:pycharmConsoleA}.%
+This is sketched in \cref{sec:pycharmConsole,fig:pycharmConsoleA}.%
 %
 \item Besides using the \python\ console inside \pycharm, we can also open it inside a \pgls{terminal}. %
 We can then enter separate \python\ instructions and run them there. %
-This fourth option is outlined in \cref{fig:terminalConsoleA}.%
+This fourth option is outlined in \cref{sec:terminalConsolem,fig:terminalConsoleA}.%
 %
 \end{enumerate}%
 %
+\hsection{Executing a \python\ Program in a Terminal}%
+\label{sec:terminalPython}%
 In order to directly execute a \python\ program in a \pgls{terminal}, we first need to open one.
 Under \ubuntu\ \linux, we simply press \ubuntuTerminal.
 Under \windows, we have to \windowsTerminal.
@@ -151,8 +153,11 @@ Under \windows, you may also need to change into the correct drive first.}
 We provide a screenshot for that, taken under \ubuntu\ \linux, in \cref{fig:terminalPython1cd}.
 Now we simply call the \python\ interpreter by writing \bashil{python3} followed by the file name of our program, which is \bashil{very_first_program.py} in our case.
 In \cref{fig:terminalPython2python} we do this and hit \keys{\enter}, which causes the \python\ interpreter to execute our program.
-The output \inQuotes{Hello World!} is then printed into the \pgls{terminal} in \cref{fig:terminalPython3result}.
-
+The output \inQuotes{Hello World!} is then printed into the \pgls{terminal} in \cref{fig:terminalPython3result}.%
+\endhsection%
+%
+\hsection{Entering Commands in the \python\ Console inside \pycharm}%
+\label{sec:pycharmConsole}%
 Besides writing programs in files and executing them, we can also directly enter them into the \python\ console and execute them step-by-step.
 This does not make sense if we want to reuse our programs later.
 But it does make a lot of sense when we just want to test some commands or functions or quickly test some idea.
@@ -161,14 +166,21 @@ A \python\ console can be used directly in \pycharm~(\cref{fig:pycharmConsoleA})
 To explore entering \python\ code in the \python\ console inside \pycharm, we continue where we left of in \cref{sec:ourFirstProgram}.
 In \pycharm, we first click the \menu{\pycharmConsole} on the vertical icon bar on the left side of the \pycharm\ window, as shown in \cref{fig:pycharmConsole1consoleButton}.
 This directly brings us to the \python\ console~(\cref{fig:pycharmConsole2consoleOpen}).
-We can enter the one-line-program from \cref{lst:very_first_program} and press \keys{\enter}, as illustrated in \cref{fig:pycharmConsole3writingCode}, which leads to the expected output shown in \cref{fig:pycharmConsole4codeOutput}.
-
+We can enter the one-line-program from \cref{lst:very_first_program}, as illustrated in \cref{fig:pycharmConsole3writingCode}.
+Notice that the input prompt of the console is marked by the three greater characters \bashil{>>>} after which we enter our text.
+Pressing \keys{\enter} after writing the code leads to the expected output shown in \cref{fig:pycharmConsole4codeOutput}.
+This output directly appears in the console and is not preceded by any other text, in particular not by \bashil{>>>}, which makes it easy to visually distinguish what the input and output in a \python\ console are.%
+\endhsection%
+%
+\hsection{Entering Commands in the \python\ Console in a Terminal}%
+\label{sec:terminalConsolem}%
 Let us now open a \python\ console from the \pgls{terminal} instead of using the one in \pycharm.
 We therefore first need to open a normal terminal.
 Under \ubuntu\ \linux, we simply press \ubuntuTerminal.
 Under \windows, we have to \windowsTerminal.
 Either way, the terminal opens and we can enter \bashil{python3} and press \keys{\enter}, as shown in \cref{fig:terminalConsole1python}.
 Now the \python\ interpreter starts right inside the \pgls{terminal}~(\cref{fig:terminalConsole2pythonRunning}).
+The prompt, i.e., the place where we can write our code, again is preceded by the \bashil{>>>} characters.
 As illustrated in \cref{fig:terminalConsole3writingCode}, we copy the single line of code, \pythonil{print("Hello World!")} from \cref{lst:very_first_program} and press \keys{\enter}.
 The output \inQuotes{Hello World!} is printed as expected in \cref{fig:terminalConsole4codeOutput}.
 However, we now are still in the \python\ interpreter.
@@ -177,6 +189,6 @@ We type in \pythonil{exit()} and press \keys{\enter}, as shown in \cref{fig:term
 We are now back in the basic terminal, as shown in \cref{fig:terminalConsole6left}.
 In these figures, I was using \ubuntu\ \linux.
 On \windows\ or other \linux\ variants, the process would have looked quite similar.%
-%
+\endhsection%
 \endhsection%
 %
