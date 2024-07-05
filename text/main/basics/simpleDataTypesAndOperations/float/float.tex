@@ -16,11 +16,19 @@ We cannot really represent the real numbers~\realNumbers\ exactly in the memory 
 %
 \hsection{How Floating Point Numbers Work}%
 \label{sec:howFloatingPointNumbersWork}%
+%
+\begin{figure}%
+\centering%
+\includegraphics[width=0.7\linewidth]{\currentDir/floatIEEEStructure}%
+\caption{The structure of an 64~bit / double precision IEEE~Standard 754 floating point number~\cite{IEEE2019ISFFPA,H1997IS7FPN}.}%
+\label{fig:floatIEEEStructure}%
+\end{figure}%
+%
 With \pythonil{float}, \python\ offers us one type for fractional numbers.
 This datatype represents numbers usually in the same format as \pythonil{double}s in the \pgls{C}~programming language~\cite{PSF2024NTIFC}, which, in turn, internally have a 64~bit IEEE~Standard 754 floating point number layout~\cite{IEEE2019ISFFPA,H1997IS7FPN}.
 
 The idea behind this standard is to represent both very large numbers, like~$10^{300}$ and very small numbers, like~$10^{-300}$.
-In order to achieve this, the 64~bits are divided into three pieces.
+In order to achieve this, the 64~bits are divided into three pieces, as illustrated in \cref{fig:floatIEEEStructure}.
 
 The first part, the so-called \pgls{significand} or \pgls{mantissa}, consists of 52~bits, represents the digits of the number.
 52~bits can represent $52\log_2 10\approx 15$~decimal digits, meaning that we can represent numbers to a precision of about 15~digits.
