@@ -3,11 +3,63 @@
 %%
 %
 %
+\newglossaryentry{bias}{%
+name={bias},%
+description={%
+The bias is subtracted from the value stored in the \pgls{exponent} field of a floating point number. %
+This allows for representing both positive and negative exponents. %
+In the 64~bit double precision IEEE~Standard 754 floating point number layout~\cite{IEEE2019ISFFPA,H1997IS7FPN}, the bias is~1023. %
+See \cref{sec:howFloatingPointNumbersWork}.%
+}%
+}%
+%
+%
 \newglossaryentry{C}{%
-name={\softwareStyle{C}},
-sort={C},
+name={\softwareStyle{C}},%
+sort={C},%
 description={%
 is another programming language, which is very successful in system programming situations~\cite{ISOIEC207PLCWDOS,D2024MCFABAFITTCPL}.%
+}%
+}%
+%
+%
+\newglossaryentry{exponent}{%
+name={exponent},%
+description={%
+The exponent is the part of a floating point number that stores a power of~2 with which the \pgls{significand} is multiplied. %
+This allows for covering a wide range of different precisions and representing both very large and very small numbers. %
+In the 64~bit double precision IEEE~Standard 754 floating point number layout~\cite{IEEE2019ISFFPA,H1997IS7FPN}, the exponent is 11~bits with a \pgls{bias} of~1023. %
+See \cref{sec:howFloatingPointNumbersWork}.%
+}%
+}%
+%
+%
+\newglossaryentry{git}{%
+name={Git},%
+description={%
+Git is a distributed \acrfull{VCS} which allows multiple users to work on the same code while preserving the history of the code changes~\cite{S2023LG,T2024BGAGVCPMATFTND}.%
+}%
+}%
+\protected\gdef\git{\pgls{git}}%
+%
+%
+\newglossaryentry{github}{%
+name={GitHub},%
+description={%
+GitHub is a website where software projects can be hosted and managed via the \pgls{git} \pgls{vcs}~\cite{PRGWSUdVLFTEKPKFBV2016TSRFTAOGAG,T2024BGAGVCPMATFTND}. %
+Learn more at \url{https://github.com}.%
+}%
+}%
+\protected\gdef\github{\pgls{github}}%
+%
+%
+\newglossaryentry{ide}{%
+name={Integrated Development Environment},%
+sort={Integrated Development Environment},%
+description={%
+An \acrfull{IDE} is a program that allows the user do multiple different activities required for software development in one single system. %
+It often offers functionality such as editing source code, debugging, testing, or interaction with a distributed version control system. %
+For this course, we recommend using \pycharm.%
 }%
 }%
 %
@@ -20,39 +72,37 @@ is another very success programming language, with roots in the \pgls{C}~family 
 }%
 }%
 %
-\newglossaryentry{git}{%
-name={Git},
+%
+\newglossaryentry{mantissa}{%
+name={mantissa},%
 description={%
-Git is a distributed \acrfull{VCS} which allows multiple users to work on the same code while preserving the history of the code changes~\cite{S2023LG,T2024BGAGVCPMATFTND}.%
+See \gls{significand}.%
 }%
 }%
-\protected\gdef\git{\pgls{git}}
 %
 %
-\newglossaryentry{github}{%
-name={GitHub},
+\newglossaryentry{significand}{%
+name={significand},%
 description={%
-GitHub is a website where software projects can be hosted and managed via the \pgls{git} \pgls{vcs}~\cite{PRGWSUdVLFTEKPKFBV2016TSRFTAOGAG,T2024BGAGVCPMATFTND}. %
-Learn more at \url{https://github.com}.%
+The significand is the part of a floating point number that stores the digits of the number (in binary representation). %
+In the 64~bit double precision IEEE~Standard 754 floating point number layout~\cite{IEEE2019ISFFPA,H1997IS7FPN}, the exponent is 52~bits. %
+See \cref{sec:howFloatingPointNumbersWork}.%
 }%
 }%
-\protected\gdef\github{\pgls{github}}
 %
 %
-\newglossaryentry{ide}{%
-name={Integrated Development Environment},
-sort={Integrated Development Environment},
+\newglossaryentry{signBit}{%
+name={sign bit},%
 description={%
-An \acrfull{IDE} is a program that allows the user do multiple different activities required for software development in one single system. %
-It often offers functionality such as editing source code, debugging, testing, or interaction with a distributed version control system. %
-For this course, we recommend using \pycharm.%
+The sign bit indicates whether a floating point number is positive or negative in the 64~bit double precision IEEE~Standard 754 floating point number layout~\cite{IEEE2019ISFFPA,H1997IS7FPN}. %
+See \cref{sec:howFloatingPointNumbersWork}.%
 }%
 }%
 %
 %
 \newglossaryentry{sudo}{%
-name={\texttt{sudo}},
-sort={sudo},
+name={\texttt{sudo}},%
+sort={sudo},%
 description={%
 In order to perform administrative tasks such as installing new software under \linux, root (or ``super'') user privileges as needed~\cite{CN2020ULB}. %
 A normal user can execute a program in the \gls{terminal} as super user by pre-pending \bashil{sudo}, often referred to as ``super user do.'' %
@@ -62,8 +112,8 @@ This requires the root password.%
 %
 %
 \newglossaryentry{terminal}{%
-name={terminal},
-plural={terminals},
+name={terminal},%
+plural={terminals},%
 description={%
 A terminal is a text-based window where you can enter commands and execute them~\cite{CN2020ULB}. %
 Knowing what a terminal is and how to use it is very essential in any programming- or system administration-related task. %
@@ -74,8 +124,8 @@ Under \ubuntu\ \linux, \ubuntuTerminal\ opens a terminal.%
 %
 %
 \newglossaryentry{vcs}{%
-name={Version Control System},
-plural={Version Control Systems},
+name={Version Control System},%
+plural={Version Control Systems},%
 description={%
 A \acrfull{VCS} is a software which allows you to manage and preserve the historical development of your program code~\cite{T2024BGAGVCPMATFTND}. %
 A distributed \gls{VCS} allows multiple users to work on the same code and upload their changes to the server, which then preserves the change history.
