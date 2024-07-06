@@ -31,7 +31,11 @@ With \pythonil{float}, \python\ offers us one type for fractional numbers.
 This datatype represents numbers usually in the same format as \pythonil{double}s in the \pgls{C}~programming language~\cite{PSF2024NTIFC}, which, in turn, internally have a 64~bit IEEE~Standard 754 floating point number layout~\cite{IEEE2019ISFFPA,H1997IS7FPN}.
 The idea behind this standard is to represent both very large numbers, like~$10^{300}$ and very small numbers, like~$10^{-300}$.
 In order to achieve this, the 64~bits are divided into three pieces, as illustrated in \cref{fig:floatIEEEStructure}.
-
+%
+\noviceHint{%
+You just need to understand that \pythonil{float}s have limited precision. %
+You can jump right to the next section.}%
+%
 The first part, the so-called \pgls{significand} or \pgls{mantissa}, consists of 52~bits, represents the digits of the number.
 52~bits can represent $52\log_2 10\approx 15$~decimal digits, meaning that we can represent numbers to a precision of about 15~digits.
 If we would just use 52~bits, then this would limit us to represent numbers maybe from~$0$ to~$2^{52}-1$ at a resolution of~$1$.
@@ -131,7 +135,81 @@ Obviously, $\arcsin{\sin{0.925}}$ should be~$0.925$.
 Calculating \pythonil{asin(sin(0.925))} indeed yields~\pythonil{0.9250000000000002}.
 Due to the periodicity of the trigonometric functions, $\arccos{\cos{-0.3}}$ is~$0.3$ and \pythonil{acos(cos(-0.3))} results in~\pythonil{0.30000000000000016}.
 For $\arctan{\tan{1}}$ we even get the exact result \pythonil{1.0} by computing \pythonil{atan(tan(1))}.%
+\endhsection%
 %
+\hsection{The Scientific Notation}%
+%
+\begin{figure}%
+\centering%
+\begin{tabular}{r@{}r@{{\color{orange}\textbf{e}}}l@{~~$\equiv$~~}r@{}l}%
+\multicolumn{2}{c}{$\beta$}&$\gamma$&\multicolumn{2}{c}{$\alpha$}\\\hline%
+&\texttt{A.BCDEFG}{\dots}&\texttt{\color{red}{+}}\texttt{HIJ}&&$\texttt{A.BCDEFG}{\dots}*10^{HIJ}$\\
+&\texttt{A.BCDEFG}{\dots}&\texttt{\color{red}{-}}\texttt{HIJ}&&$\texttt{A.BCDEFG}{\dots}*10^{{\color{red}{-}}HIJ}$\\
+{\color{blue}{-}}&\texttt{A.BCDEFG}{\dots}&\texttt{\color{red}{+}}\texttt{HIJ}&${\color{blue}{-}}$&$\texttt{A.BCDEFG}{\dots}*10^{HIJ}$\\
+{\color{blue}{-}}&\texttt{A.BCDEFG}{\dots}&\texttt{\color{red}{-}}\texttt{HIJ}&${\color{blue}{-}}$&$\texttt{A.BCDEFG}{\dots}*10^{{\color{red}{-}}HIJ}$%
+\end{tabular}%
+%
+\caption{The structure of the scientific notation for floating point numbers in \python, which represent a value~$\alpha$ in the form~$\beta*10^{\gamma}$.}%
+\label{fig:scientificNotation}%
+\end{figure}%
+%
+\begin{figure}%
+\centering%
+%
+\includegraphics[width=0.8\linewidth]{\currentDir/floatMathInConsoleSciNot}%
+\caption{Examples for the scientific notation in \python.}%
+\label{fig:floatMathInConsoleSciNot}%
+\end{figure}%
+%
+Earlier on, we wrote that \pythonil{float}s can represent numbers as large as~$10^{300}$ or as small as~$10^{-300}$.
+This leads to the question how it would print such values on the console and how we can read them.
+While it would be hugely impractical to write a~1 followed by 300~zeros to represent~$10^{300}$, it would also be \emph{wrong}.
+We also already know the reason for this:
+A \pythonil{float} is accurate to 15~decimals.
+So basically, the first 15~zeros would be correct, but the values of the other digits are actually \emph{undefined}.
+
+\python, like many programming languages, solves this problem by using the \emph{scientific notation} for floating point numbers.
+It uses this notation for any (absolute) \pythonil{float} value smaller than~$10^{-4}$ or larger than or equal to~$10^{16}$.
+Such numbers~$\alpha$ are then represented in the form~$\beta*10^{\gamma}$ (such that $\beta*10^{\gamma}=\alpha$, obviously).
+Since we cannot write this so nicely in a console, a lowercase~\texttt{e} takes the place of the~$10$ and $\beta$ and $\gamma$ are written as normal text.
+In order to make sure that each number~$\alpha$ has unique representation, it is defined that $\alpha$ must have exactly one non-zero leading digit, which may be followed by a decimal dot and then a fractional part.
+This notation is illustrated in \cref{fig:scientificNotation}.
+\emph{This notation only applies to \pythonil{float}s, \textbf{not} \pythonil{int}s.}
+
+In \cref{fig:floatMathInConsoleSciNot} we provide some examples for this notation.
+When we write \pythonil{0.001} or \pythonil{0.0001} in a \python\ console, the output is still this same number.
+However, \pythonil{0.00009} is presented as \pythonil{9e-05}, which stands for~$9*10^{-5}$.%
+%
+\begin{sloppypar}%
+Did you know that you are allowed to insert underscores (\pythonil{_}) anywhere in a number as a visual aid?
+If not, you know now.
+We can write $10^{15}$ as \pythonil{float} by typing \pythonil{1_000_000_000_000_000.0}.
+This equals the much less readable \pythonil{1000000000000000.0}.
+We can do the same for $9*10^{15}$ by writing \pythonil{9_000_000_000_000_000.0} and get \pythonil{9000000000000000.0}.
+However, if we write \pythonil{9_999_999_999_999_999.0}, something interesting happens:
+We get \pythonil{1e+16}, i.e., $10^{16}$.
+This is because of the limited precision of the floating point numbers, namely the 15~digits often mentioned above.
+We cannot distinguish $10^{16}$ and $10^{16}-1$ when using \python's \pythonil{float}s.
+Indeed, writing \pythonil{10_000_000_000_000_000.0} also yields \pythonil{1e+16}.%
+\end{sloppypar}%
+%
+This notation can also show really big numbers.
+For example $10^{200}$, i.e., \pythonil{10.0 ** 200}, shows up as \pythonil{1e+200}.
+The really really small number $-10^{-200}$ in turn, computed via \pythonil{-(10.0 ** -200)}, is denoted as \pythonil{-1e-200}.
+
+The numbers are always scaled such that they begin with non-zero digit followed by the fractional part separated with a decimal dot, if need be.
+Examples for this are \pythonil{2.1 ** -300.1} which yields \pythonil{2.0044242594658263e-97} and \pythonil{10.0 ** 200.1}, which turns up as \pythonil{1.2589254117941507e+200}.
+
+Of course, you can also input numbers in scientific notation.
+If you write \pythonil{2e5}, this turns into \pythonil{200000.0}.
+Of course, the number is stored as a \pythonil{float} internally and this \pythonil{float} does not know from which kind of text it was created.
+When it is turned back into text, it becomes a \inQuotes{normal number,} because it is less than~$10^{16}$.
+And so does \pythonil{2.34e10}, which becomes \pythonil{23400000000.0}.
+\pythonil{2.3456e16} however indeed remains \pythonil{2.3456e16}.
+
+You can even violate the scientific notation a bit when entering numbers if you feel naughty.
+\pythonil{-12e30}, for example, would better be written as \pythonil{-1.2e+31}, which the \python\ console will do for you in its output.
+Similarly, \pythonil{0.023e-20} becomes \pythonil{2.3e-22}.
 \endhsection%
 %
 \endhsection%
