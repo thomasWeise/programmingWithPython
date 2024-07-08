@@ -37,7 +37,7 @@ You just need to understand that \pythonil{float}s have limited precision. %
 You can jump right to the next section.}%
 %
 The first part, the so-called \pgls{significand} or \pgls{mantissa}, consists of 52~bits, represents the digits of the number.
-52~bits can represent $52\log_2 10\approx 15$~decimal digits, meaning that we can represent numbers to a precision of about 15~digits.
+52~bits can represent $52\log_2 10\approx 15$~to 16~decimal digits, meaning that we can represent numbers to a precision of about 15~digits.
 If we would just use 52~bits, then this would limit us to represent numbers maybe from~$0$ to~$2^{52}-1$ at a resolution of~$1$.
 Of course, we could also choose some other resolution, say~$0.001$.
 In this case, we could represent numbers from~$0$ to $0.001*(2^{52}-1)$ and the smallest non-zero number would be~$0.001$ instead of~$1$.
@@ -143,10 +143,10 @@ For $\arctan{\tan{1}}$ we even get the exact result \pythonil{1.0} by computing 
 \centering%
 \begin{tabular}{r@{}r@{{\color{orange}\textbf{e}}}l@{~~$\equiv$~~}r@{}l}%
 \multicolumn{2}{c}{$\beta$}&$\gamma$&\multicolumn{2}{c}{$\alpha$}\\\hline%
-&\texttt{A.BCDEFG}{\dots}&\texttt{\color{red}{+}}\texttt{HIJ}&&$\texttt{A.BCDEFG}{\dots}*10^{HIJ}$\\
-&\texttt{A.BCDEFG}{\dots}&\texttt{\color{red}{-}}\texttt{HIJ}&&$\texttt{A.BCDEFG}{\dots}*10^{{\color{red}{-}}HIJ}$\\
-{\color{blue}{-}}&\texttt{A.BCDEFG}{\dots}&\texttt{\color{red}{+}}\texttt{HIJ}&${\color{blue}{-}}$&$\texttt{A.BCDEFG}{\dots}*10^{HIJ}$\\
-{\color{blue}{-}}&\texttt{A.BCDEFG}{\dots}&\texttt{\color{red}{-}}\texttt{HIJ}&${\color{blue}{-}}$&$\texttt{A.BCDEFG}{\dots}*10^{{\color{red}{-}}HIJ}$%
+&\texttt{A.BCDEFG}{\dots}&\texttt{\color{red}{+}}\texttt{HIJ}&&$\texttt{A.BCDEFG}{\dots}*{\color{orange}10}^{HIJ}$\\
+&\texttt{A.BCDEFG}{\dots}&\texttt{\color{red}{-}}\texttt{HIJ}&&$\texttt{A.BCDEFG}{\dots}*{\color{orange}10}^{{\color{red}{-}}HIJ}$\\
+{\color{blue}{-}}&\texttt{A.BCDEFG}{\dots}&\texttt{\color{red}{+}}\texttt{HIJ}&${\color{blue}{-}}$&$\texttt{A.BCDEFG}{\dots}*{\color{orange}10}^{HIJ}$\\
+{\color{blue}{-}}&\texttt{A.BCDEFG}{\dots}&\texttt{\color{red}{-}}\texttt{HIJ}&${\color{blue}{-}}$&$\texttt{A.BCDEFG}{\dots}*{\color{orange}10}^{{\color{red}{-}}HIJ}$%
 \end{tabular}%
 %
 \caption{The structure of the scientific notation for floating point numbers in \python, which represent a value~$\alpha$ in the form~$\beta*10^{\gamma}$.}%
@@ -210,6 +210,98 @@ And so does \pythonil{2.34e10}, which becomes \pythonil{23400000000.0}.
 You can even violate the scientific notation a bit when entering numbers if you feel naughty.
 \pythonil{-12e30}, for example, would better be written as \pythonil{-1.2e+31}, which the \python\ console will do for you in its output.
 Similarly, \pythonil{0.023e-20} becomes \pythonil{2.3e-22}.
+\endhsection%
+%
+\hsection{Limits and Special Floating Point Values: Infinity and \inQuotes{Not a Number}}%
+%
+\begin{figure}%
+\centering%
+\includegraphics[width=0.7\linewidth]{\currentDir/floatMathInConsoleZero}%
+\caption{What happens with very small floating point numbers in \python?}%
+\label{fig:floatMathInConsoleZero}%
+\end{figure}%
+%
+We already learned that the floating point type \pythonil{float} can represent both very small and very large numbers.
+But we also know that it is internally stored as chunk of 64~bits.
+So its range must be somehow finite.
+What happens if we exceed this finite range?
+
+First the easy part:
+Now, we said that \python\ can store very small numbers, like $10^{-300}$ in \pythonil{float} data types.
+But how small really?
+Finding this out from the documentation is actually not so easy.
+Luckily, \pgls{Java} uses the same standard for its class \pythonil{Double}.
+In its documentation~\cite{O2024CD}, we find that the minimum value is~$2^{-1074}$, which is approximately~$4.940\decSep656\decSep458\decSep412\decSep465\decSep44*10^{-324}$.
+So we would expect the smallest possible floating point value in \python\ to also be in this range.
+
+In \cref{fig:floatMathInConsoleInf}, we take a look what happens if we approach this number.
+We use the scientific notation and begin to print the number~\pythonil{1e-323} (which is~$10^{-323}$).
+This number is correctly represented as \pythonil{float} and shows up in the console exactly as we wrote it.
+However, if we go a bit smaller and enter \pythonil{9e-324}, which is~$9*10^{-324}=0.9*10^{-323}$, we find that it again shows up in the console as \pythonil{1e-323}.
+This is because the number is already subnormal~\cite{IEEE2019ISFFPA,H1997IS7FPN}, i.e., uses only a few of the significand bits.
+The full precision of 15~digits is no longer available at this small scale.
+Thus \pythonil{9e-324} and \pythonil{1e-323} map to the same \pythonil{float}.
+Converting this \pythonil{float} to text yields \pythonil{'1e-323'}.
+The same happens for \pythonil{8e-324}, which also maps to \pythonil{1e-323}.
+\pythonil{7e-324}, however, is the same as \pythonil{5e-324}.
+Matter of fact, \pythonil{6e-324}, \pythonil{5e-324}, \pythonil{4e-324}, and \pythonil{3e-324} all map to this same \pythonil{float}.
+
+It turns out that this number is already the smallest \pythonil{float} that can be represented:
+\pythonil{2e-324} simply becomes \pythonil{0.0}.
+This value is simply too small to be represented as a 64~bit / double precision IEEE~Standard 754 floating point number~\cite{IEEE2019ISFFPA,H1997IS7FPN}.
+The text \pythonil{2e-324} that we enter into the \python\ console will therefore be translated to the \pythonil{float}~\pythonil{0.0}.
+The comparison \pythonil{2e-324 == 0.0} therefore results in \pythonil{True}, while \pythonil{3e-324 == 0.0} is still \pythonil{False}.
+So we learned what happens if we try to define very small floating point numbers:
+They become zero.
+
+\begin{figure}%
+\centering%
+\includegraphics[width=0.7\linewidth]{\currentDir/floatMathInConsoleInf}%
+\caption{What happens with very large floating point numbers in \python?}%
+\label{fig:floatMathInConsoleInf}%
+\end{figure}%
+
+But what happens to numbers that are too big for the available range?
+Again, according to the nice documentation of \pgls{Java}, the maximum 64~bit double precision floating point number value is~$(2-2^{-52})*2^{1023}\approx1.797\decSep693\decSep134\decSep862\decSep315\decSep708\dots*10^{308}$.
+We can enter this value as \pythonil{1.7976931348623157e+308} and it indeed prints correctly in \cref{fig:floatMathInConsoleInf}.
+If we step it up a little bit and enter \pythonil{1.7976931348623158e+308}, due to the limited precision, we again get \pythonil{1.7976931348623157e+308}.
+However, if we try entering \pythonil{1.7976931348623159e+308} into the \python\ console, something strange happens:
+The output is \pythonil{inf}.
+\pythonil{-1.7976931348623159e+308} gives us \pythonil{-inf}.
+Multiplying this value by two, i.e., computing \pythonil{-1.7976931348623157e+308 * 2}, still yields \pythonil{-inf}.
+\pythonil{inf} stands for \inQuotes{infinity} or~$\infty$.
+However, it \emph{actually} means \emph{too big to represent as \pythonil{float}}.
+If we enter numbers that are too big or exceed the valid range of \pythonil{float} by multiplication, addition, subtraction, or division, we simply get~\pythonil{inf}.
+This does not actually mean \inQuotes{mathematical infinity,} because, while \pythonil{-1.7976931348623159e+308} is very big, it is not infinitely big.
+It simply means that the number is too big to put it into a 64~bit \pythonil{float}.
+
+Actually, the \pythonil{int} type can represent larger numbers easily.includegraphics
+\pythonil{1.7976931348623157e+308} is equivalent to \pythonil{17_976_931_348_623_157 * 10 ** 292}.
+This prints as a number with many zeros.
+Multiplying it with \pythonil{1.0} yields a \pythonil{float} with value \pythonil{1.7976931348623157e+308}, exactly as expected.
+If we try a number ten times as large, i.e., \pythonil{17_976_931_348_623_157 * 10 ** 293}, this is no problem with the \pythonil{int}.
+But we can no longer convert it to a \pythonil{float} by multiplying with~\pythonil{1.0}.
+Trying to do that with a ten times larger number, i.e., computing \pythonil{17_976_931_348_623_157 * 10 ** 293 * 1.0} leads to an exception:
+The output is \pythonil{OverflowError: int too large to convert to float}.
+An exception terminates the current flow of execution and signals an error.
+We will learn later what exceptions actually are and how to handle them properly.
+
+The important thing to realize is that an overflow of a \pythonil{float} may either lead to the \pythonil{inf} value or to an error that stops your computation from continuing.
+As another example, let us again import the natural logarithm function \pythonil{log} and the Euler's constant~\pythonil{e} from the \pythonil{math} module by doing \pythonil{from math import e, log}.
+We now can compute the natural logrithm from the largest possible \pythonil{float} via \pythonil{log(1.7976931348623157e+308)}.
+We get \pythonil{709.782712893384}.
+Raising~$e$ to this power by doing \pythonil{e ** 709.782712893384} leads to the slightly smaller number~\pythonil{1.7976931348622053e+308} due to the limited precision of the \pythonil{float} type.
+However, if we try to raise~$e$ to a slightly larger power, and, for example, try to do \pythonil{e ** 709.782712893385}, we again face an \pythonil{OverflowError}.
+
+We can also try to divide~1 by the largest \pythonil{float} and do \pythonil{1 / 1.7976931348623157e+308}.
+The result is the very small number \pythonil{5.562684646268003e-309}.
+However, if we divide~1 by \pythonil{1.7976931348623159e+308}, we get~\pythonil{0.0}.
+The reason is that \pythonil{1.7976931348623159e+308} becomes \pythonil{inf} and \pythonil{1 / inf} is~\pythonil{0}.
+
+Finally, \pythonil{inf} also exists as constant in the \pythonil{math} module.
+We can import it via \pythonil{from math import inf}.
+And indeed, since the text \pythonil{1.7976931348623159e+308} is parsed to a \pythonil{float} value of \pythonil{inf}, we find that \pythonil{1.7976931348623159e+308 == inf} yields~\pythonil{True}.%
+%
 \endhsection%
 %
 \endhsection%
