@@ -27,7 +27,7 @@ We cannot really represent the real numbers~\realNumbers\ exactly in the memory 
 %
 But how does it work in \python?
 How can we deal with the fact that we cannot dynamically represent fractional numbers exactly even in typical everyday cases?
-With \pythonil{float}, \python\ offers us one type for fractional numbers.
+With \pythonilIdx{float}, \python\ offers us one type for fractional numbers.
 This datatype represents numbers usually in the same format as \pythonil{double}s in the \pgls{C}~programming language~\cite{PSF2024NTIFC}, which, in turn, internally have a 64~bit IEEE~Standard 754 floating point number layout~\cite{IEEE2019ISFFPA,H1997IS7FPN}.
 The idea behind this standard is to represent both very large numbers, like~$10^{300}$ and very small numbers, like~$10^{-300}$.
 In order to achieve this, the 64~bits are divided into three pieces, as illustrated in \cref{fig:floatIEEEStructure}.
@@ -63,7 +63,7 @@ Floating point numbers can represent a wide range of different values.
 Their range is large but still limited.
 They can represent integers and fractions.
 However, their accuracy is always limited to about 15~digits.
-In other words, regardless whether your \pythonil{float} stores a very large or a very small number, you can have at most 15~digits of precision.
+In other words, regardless whether your \pythonilIdx{float} stores a very large or a very small number, you can have at most 15~digits of precision.
 For example, adding~1 to~$10^{16}$ would still yield~$10^{16}$, because only 15~digits are \inQuotes{stored} and the~1 will just \inQuotes{fall off.}
 You cannot represent numbers arbitrarily precisely.%
 \endhsection%
@@ -77,22 +77,23 @@ You cannot represent numbers arbitrarily precisely.%
 \label{fig:floatMathInConsoleArith}%
 \end{figure}%
 %
-Floating point numbers in \python\ can be distinguished from \pythonil{ints} by having a decimal dot in their text representation, i.e., \pythonil{5.0} is a \pythonil{float} and \pythonil{5} is an \pythonil{int}.
-Let us now look at some examples for the basic arithmetic operations available for \pythonil{float}s in \cref{fig:floatMathInConsoleArith}.
+Floating point numbers in \python\ can be distinguished from \pythonilIdx{int}s by having a decimal dot in their text representation, i.e., \pythonil{5.0} is a \pythonil{float} and \pythonil{5} is an \pythonil{int}.
+Let us now look at some examples for the basic arithmetic operations available for \pythonilIdx{float}s in \cref{fig:floatMathInConsoleArith}.
 
-We already learned that the division operator~\pythonil{/} always yields a \pythonil{float} result.
+We already learned that the division operator~\pythonilIdx{/} always yields a \pythonilIdx{float} result.
 Therefore \pythonil{6 / 3} yields \pythonil{2.0} instead of \pythonil{2}.
 
 The normal arithmetic operations like addition, subtraction, multiplication, division, and powers all work with \pythonil{float}s as expected.
 Remember, however, that if \pythonil{float} and \pythonil{int} numbers are mixed, the results are always \pythonil{float}s.
-Thus, \pythonil{1.0 + 7} gives us \pythonil{8} and \pythonil{2 * 3.0} yields \pythonil{6.0}.
+Thus, \pythonil{1.0 + 7}\pythonIdx{+} gives us \pythonil{8} and \pythonil{2 * 3.0}\pythonIdx{*} yields \pythonil{6.0}.
 In other words, if one \pythonil{float} occurs somewhere in an expression, it will \inQuotes{infect} everything that it touches to become a \pythonil{float} too, even if the result could be repreented as \pythonil{int}.
-Some results cannot be integers anyway, for example \pythonil{5 - 3.6} evaluates to~\pythonil{1.4}.
+Some results cannot be integers anyway, for example \pythonil{5 - 3.6}\pythonIdx{-} evaluates to~\pythonil{1.4}.
 The remainder (the modulo) of a division can also be computed for floating point numbers.
-The remainder of the division of 6.5 by 2, i.e., \expandafter\pythonil{6.5 \% 2} is \pythonil{0.5}.
-
+The remainder of the division of 6.5 by 2, i.e., \expandafter\pythonil{6.5 \% 2}\pythonIdx{\%} is~\pythonil{0.5}.%
+%
+\begin{sloppypar}%
 The square root of 3.3 can be computed as $3.3^{0.5}$.
-\pythonil{3.3 ** 0.5} yields \pythonil{1.816590212458495}.
+We can write this as \pythonil{3.3 ** 0.5}\pythonIdx{**}, which yields \pythonil{1.816590212458495}.
 This brings us back to the previous section:
 $\sqrt{3.3}$~is not actually 1.816\decSep590\decSep212\decSep458\decSep495.
 It is an irrational number~\cite{S1988WPCHD,B1991IWNT} and irrational numbers cannot be expressed as fractions of integer numbers (by definition, otherwise they would be rational numbers).
@@ -100,6 +101,7 @@ Since they cannot be expressed as integer numbers, we cannot write them in any w
 Hence, we cannot represent them exactly using discrete binary values of our computer's memory.
 Hence, the floating point representation cuts off somewhere.
 And this somewhere is after 15~decimal places.%
+\end{sloppypar}%
 %
 \begin{sloppypar}%
 We can of course also write and compute more complex mathematical expressions.
@@ -112,29 +114,79 @@ Let us recall our initial example of the transcendental irrational numbers~$\pi$
 Certainly, these are very important constants that would be used in many computations.
 We can make them accessible in our code by importing them from the \pythonil{math} module.\footnote{%
 We will learn about these mechanism in detail later on.}
-This can be done by typing \pythonil{from math import pi, e}.
-When we then type \pythonil{pi} and \pythonil{e}, we can get to see their value in floating point representations: \pythonil{3.141592653589793} and \pythonil{2.718281828459045}, respectively.
+This can be done by typing \pythonil{from math import pi, e}\pythonIdx{import}\pythonIdx{from}\pythonIdx{math}.
+When we then type \pythonilIdx{pi} and \pythonilIdx{e}, we can get to see their value in floating point representations: \pythonil{3.141592653589793} and \pythonil{2.718281828459045}, respectively.
 Again, these are not the exact values, but they are as close as we can get in this format.
 
 Of course, $\pi$ and~$e$ alone are not that much useful.
 If you reach back into your highschool days again, you will remember many interesting functions that are related to them.
-Let us import a few of them, again from the \pythonil{math} module, via \pythonil{from math import sin, cos, tan, log}.
+Let us import a few of them, again from the \pythonil{math} module, via \pythonil{from math import sin, cos, tan, log}\pythonIdx{sin}\pythonIdx{cos}\pythonIdx{tan}\pythonIdx{log}.
 I think you can guess what these functions do.
 
 From highschool, you may remember that~$\sin{\frac{\pi}{4}}=\frac{\sqrt{2}}{2}$ and thus~$\sin^2{\frac{\pi}{4}}=0.5$.
-Let us compute this in \python\ by doing \pythonil{sin(0.25 * pi) ** 2}.
+Let us compute this in \python\ by doing \pythonil{sin(0.25 * pi) ** 2}\pythonIdx{sin}.
 Surprisingly, we get \pythonil{0.4999999999999999} instead of \pythonil{0.5}.
 The reason is again the limited precision of \pythonil{float}, which cannot represent~$\frac{\sqrt{2}}{2}$ exactly.
-Similarly, $\cos{\frac{\pi}{3}}=\frac{1}{2}$ but \pythonil{cos(pi / 3)} yields \pythonil{0.5000000000000001} and $\tan{\frac{\pi}{4}}$ expressed as \pythonil{tan(pi / 4)} returns \pythonil{0.9999999999999999} instead of~$1$.
+Similarly, $\cos{\frac{\pi}{3}}=\frac{1}{2}$ but \pythonil{cos(pi / 3)}\pythonIdx{cos} yields \pythonil{0.5000000000000001} and $\tan{\frac{\pi}{4}}$ expressed as \pythonil{tan(pi / 4)}\pythonIdx{tan} returns \pythonil{0.9999999999999999} instead of~$1$.
 Then again, these values are incredibly close to the exact results.
 They are off by \emph{less than~$10^{-15}$} so for all practical concerns, they are close enough.
-Sometimes, we even get the accurate result, e.g., when computing $\ln(e^{10})$ by evaluating \pythonil{log(e ** 10)}, which results in~\pythonil{10.0}.
+Sometimes, we even get the accurate result, e.g., when computing $\ln(e^{10})$ by evaluating \pythonil{log(e ** 10)}\pythonIdx{log}, which results in~\pythonil{10.0}.
 
-As final example for floating point arithmetics, let us import the inverse trigonometric functions by doing \pythonil{from math import asin, acos, atan}.
+As final example for floating point arithmetics, let us import the inverse trigonometric functions by doing \pythonil{from math import asin, acos, atan}\pythonIdx{math}\pythonIdx{asin}\pythonIdx{acos}\pythonIdx{atan}.
 Obviously, $\arcsin{\sin{0.925}}$ should be~$0.925$.
-Calculating \pythonil{asin(sin(0.925))} indeed yields~\pythonil{0.9250000000000002}.
-Due to the periodicity of the trigonometric functions, $\arccos{\cos{-0.3}}$ is~$0.3$ and \pythonil{acos(cos(-0.3))} results in~\pythonil{0.30000000000000016}.
-For $\arctan{\tan{1}}$ we even get the exact result \pythonil{1.0} by computing \pythonil{atan(tan(1))}.%
+Calculating \pythonil{asin(sin(0.925))}\pythonIdx{asin}\pythonIdx{sin} indeed yields~\pythonil{0.9250000000000002}.
+Due to the periodicity of the trigonometric functions, $\arccos{\cos{-0.3}}$ is~$0.3$ and \pythonil{acos(cos(-0.3))}\pythonIdx{acos}\pythonIdx{cos} results in~\pythonil{0.30000000000000016}.
+For $\arctan{\tan{1}}$ we even get the exact result \pythonil{1.0} by computing \pythonil{atan(tan(1))}\pythonIdx{atan}\pythonIdx{tan}.%
+\endhsection%
+%
+\hsection{Back to Integers: Rounding}%
+%
+\begin{figure}%
+\centering%
+\includegraphics[width=0.8\linewidth]{\currentDir/floatMathInConsoleRound}%
+\caption{Rounding \pythonil{float} values to \pythonil{int} values.}%
+\label{fig:floatMathInConsoleRound}%
+\end{figure}%
+%
+We already learned that a single \pythonil{float} value inside a computation that otherwise uses \pythonil{int}s basically forces the whole result to become a \pythonil{float} as well.
+But maybe sometimes we want to have an \pythonil{int} as result.
+Therefore, we need a \inQuotes{way back} from \pythonil{float} to \pythonil{int}.
+\python\ offers several functions for this.
+
+The first and maybe most common one is \pythonilIdx{round}.
+This function accepts a \pythonil{float} and rounds it to the nearest integer.
+If two integer numbers are equally close, it rounds it to the one that is even.
+This can be very surprising, as we learned in school that $x.5$ should be rounded to $x+1$.
+This will only happen with \pythonilIdx{round} if $x+1$~is even.
+We find examples for the behavior of \pythonilIdx{round} in \cref{fig:floatMathInConsoleRound}.
+\pythonil{round(0.4)} yields the integer~\pythonil{0}, as expected.
+\pythonil{round(0.5)} returns~\pythonil{0} as well, which one may not expect -- but \pythonil{0} is even and \pythonil{1} would be odd.
+\pythonil{round(0.6)} gives us the integer~\pythonil{1}.
+If we compute \pythonil{round(1.4)}, we still get~\pythonil{1}.
+However, doing \pythonil{round(1.5)} gives us~\pythonil{2}.
+This is because \pythonil{2} is even.
+
+Three more common functions to turn \pythonilIdx{float}s to \pythonilIdx{int}s are given in the \pythonilIdx{math} module.
+We can import them via \pythonil{from math import floor, trunc, ceil}\pythonIdx{from}\pythonIdx{import}\pythonIdx{math}\pythonIdx{floor}\pythonIdx{trunc}\pythonIdx{ceil}.
+(Again, we will learn later how \pythonilIdx{import} actually works.
+For now, just accept that it makes some functions available.)
+
+\pythonilIdx{floor} rounds the \pythonil{float} it receives to the nearest integer which is less than or equal to.
+\pythonil{floor(0.4)}, \pythonil{floor(0.5)}, and \pythonil{floor(0.6)} all yield \pythonil{0}.
+\pythonil{floor(-0.4)} gives us \pythonil{-1}.
+
+\pythonilIdx{trunc} just discards any fractional digits and only returns the integer part of a number.
+Hence, \pythonil{trunc(-0.6)}, \pythonil{trunc(-0.4)}, \pythonil{trunc(0.4)}, and \pythonil{trunc(0.6)} all yield~\pythonil{0}.
+
+Finally, \pythonilIdx{ceil} rounds to the nearest integer which is greater than or equal to its argument.
+\pythonil{ceil(0.4)} yields \pythonil{1} and \pythonil{-0.4} results in~\pythonil{0}.
+\pythonil{ceil(-11.1)} and \pythonil{ceil(-11.6)} both result in \pythonil{11}.
+\pythonil{ceil(11.6)} gives us~\pythonil{12}.
+
+With this, we have several ways to turn \pythonil{float}s to \pythonil{int}s.
+However, especially with the function \pythonilIdx{round}, we need to be careful.
+It does \emph{not} work as one would expect!%
+%
 \endhsection%
 %
 \hsection{The Scientific Notation}%
@@ -181,9 +233,9 @@ When we write \pythonil{0.001} or \pythonil{0.0001} in a \python\ console, the o
 However, \pythonil{0.00009} is presented as \pythonil{9e-05}, which stands for~$9*10^{-5}$.%
 %
 \begin{sloppypar}%
-Did you know that you are allowed to insert underscores (\pythonil{_}) anywhere in a number as a visual aid?
+Did you know that you are allowed to insert underscores (\pythonil{_}\pythonIdx{\_}) anywhere in a number as a visual aid?
 If not, you know now.
-We can write $10^{15}$ as \pythonil{float} by typing \pythonil{1_000_000_000_000_000.0}.
+We can write $10^{15}$ as \pythonilIdx{float} by typing \pythonil{1_000_000_000_000_000.0}.
 This equals the much less readable \pythonil{1000000000000000.0}.
 We can do the same for $9*10^{15}$ by writing \pythonil{9_000_000_000_000_000.0} and get \pythonil{9000000000000000.0}.
 However, if we write \pythonil{9_999_999_999_999_999.0}, something interesting happens:
@@ -243,14 +295,14 @@ The full precision of 15~digits is no longer available at this small scale.
 Thus \pythonil{9e-324} and \pythonil{1e-323} map to the same \pythonil{float}.
 Converting this \pythonil{float} to text yields \pythonil{'1e-323'}.
 The same happens for \pythonil{8e-324}, which also maps to \pythonil{1e-323}.
-\pythonil{7e-324}, however, is the same as \pythonil{5e-324}.
+\pythonil{7e-324}, however, is the same as \pythonilIdx{5e-324}.
 Matter of fact, \pythonil{6e-324}, \pythonil{5e-324}, \pythonil{4e-324}, and \pythonil{3e-324} all map to this same \pythonil{float}.
 
 It turns out that this number is already the smallest \pythonil{float} that can be represented:
 \pythonil{2e-324} simply becomes \pythonil{0.0}.
 This value is simply too small to be represented as a 64~bit / double precision IEEE~Standard 754 floating point number~\cite{IEEE2019ISFFPA,H1997IS7FPN}.
 The text \pythonil{2e-324} that we enter into the \python\ console will therefore be translated to the \pythonil{float}~\pythonil{0.0}.
-The comparison \pythonil{2e-324 == 0.0} therefore results in \pythonil{True}, while \pythonil{3e-324 == 0.0} is still \pythonil{False}.
+The comparison \pythonil{2e-324 == 0.0}\pythonIdx{==} therefore results in \pythonilIdx{True}, while \pythonil{3e-324 == 0.0} is still \pythonilIdx{False}.
 So we learned what happens if we try to define very small floating point numbers:
 They become zero.
 
@@ -263,11 +315,11 @@ They become zero.
 
 But what happens to numbers that are too big for the available range?
 Again, according to the nice documentation of \pgls{Java}, the maximum 64~bit double precision floating point number value is~$(2-2^{-52})*2^{1023}\approx1.797\decSep693\decSep134\decSep862\decSep315\decSep708\dots*10^{308}$.
-We can enter this value as \pythonil{1.7976931348623157e+308} and it indeed prints correctly in \cref{fig:floatMathInConsoleInf}.
+We can enter this value as \pythonilIdx{1.7976931348623157e+308} and it indeed prints correctly in \cref{fig:floatMathInConsoleInf}.
 If we step it up a little bit and enter \pythonil{1.7976931348623158e+308}, due to the limited precision, we again get \pythonil{1.7976931348623157e+308}.
 However, if we try entering \pythonil{1.7976931348623159e+308} into the \python\ console, something strange happens:
-The output is \pythonil{inf}.
-\pythonil{-1.7976931348623159e+308} gives us \pythonil{-inf}.
+The output is \pythonilIdx{inf}.
+\pythonil{-1.7976931348623159e+308} gives us \pythonilIdx{-inf}.
 Multiplying this value by two, i.e., computing \pythonil{-1.7976931348623157e+308 * 2}, still yields \pythonil{-inf}.
 \pythonil{inf} stands for \inQuotes{infinity} or~$\infty$.
 However, it \emph{actually} means \emph{too big to represent as \pythonil{float}}.
@@ -282,16 +334,16 @@ Multiplying it with \pythonil{1.0} yields a \pythonil{float} with value \pythoni
 If we try a number ten times as large, i.e., \pythonil{17_976_931_348_623_157 * 10 ** 293}, this is no problem with the \pythonil{int}.
 But we can no longer convert it to a \pythonil{float} by multiplying with~\pythonil{1.0}.
 Trying to do that with a ten times larger number, i.e., computing \pythonil{17_976_931_348_623_157 * 10 ** 293 * 1.0} leads to an exception:
-The output is \pythonil{OverflowError: int too large to convert to float}.
+The output is \pythonil{OverflowError: int too large to convert to float}\pythonIdx{OverflowError}.
 An exception terminates the current flow of execution and signals an error.
 We will learn later what exceptions actually are and how to handle them properly.
 
 The important thing to realize is that an overflow of a \pythonil{float} may either lead to the \pythonil{inf} value or to an error that stops your computation from continuing.
-As another example, let us again import the natural logarithm function \pythonil{log} and the Euler's constant~\pythonil{e} from the \pythonil{math} module by doing \pythonil{from math import e, log}.
+As another example, let us again import the natural logarithm function \pythonilIdx{log} and the Euler's constant~\pythonilIdx{e} from the \pythonil{math} module by doing \pythonil{from math import e, log}\pythonIdx{from}\pythonIdx{math}\pythonIdx{import}.
 We now can compute the natural logrithm from the largest possible \pythonil{float} via \pythonil{log(1.7976931348623157e+308)}.
 We get \pythonil{709.782712893384}.
 Raising~$e$ to this power by doing \pythonil{e ** 709.782712893384} leads to the slightly smaller number~\pythonil{1.7976931348622053e+308} due to the limited precision of the \pythonil{float} type.
-However, if we try to raise~$e$ to a slightly larger power, and, for example, try to do \pythonil{e ** 709.782712893385}, we again face an \pythonil{OverflowError}.
+However, if we try to raise~$e$ to a slightly larger power, and, for example, try to do \pythonil{e ** 709.782712893385}, we again face an \pythonilIdx{OverflowError}.
 
 We can also try to divide~1 by the largest \pythonil{float} and do \pythonil{1 / 1.7976931348623157e+308}.
 The result is the very small number \pythonil{5.562684646268003e-309}.
@@ -299,8 +351,8 @@ However, if we divide~1 by \pythonil{1.7976931348623159e+308}, we get~\pythonil{
 The reason is that \pythonil{1.7976931348623159e+308} becomes \pythonil{inf} and \pythonil{1 / inf} is~\pythonil{0}.
 
 Finally, \pythonil{inf} also exists as constant in the \pythonil{math} module.
-We can import it via \pythonil{from math import inf}.
-And indeed, since the text \pythonil{1.7976931348623159e+308} is parsed to a \pythonil{float} value of \pythonil{inf}, we find that \pythonil{1.7976931348623159e+308 == inf} yields~\pythonil{True}.%
+We can import it via \pythonil{from math import inf}\pythonIdx{inf}.
+And indeed, since the text \pythonil{1.7976931348623159e+308} is parsed to a \pythonil{float} value of \pythonil{inf}, we find that \pythonil{1.7976931348623159e+308 == inf} yields~\pythonilIdx{True}.%
 %
 \endhsection%
 %

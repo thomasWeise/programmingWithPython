@@ -470,3 +470,8 @@ dmypy.json
 # Pyre type checker
 .pyre/
 /.github/
+
+# Python index
+python.idx
+python.ilg
+python.ind
