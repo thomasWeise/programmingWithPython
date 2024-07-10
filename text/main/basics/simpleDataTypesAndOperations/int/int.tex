@@ -7,14 +7,14 @@ Integer arithmetic is also the very first thing you learn here.
 The integers include all whole numbers and negative numbers and zero, without fractions and decimals.
 
 In many programming languages, there are different integer datatypes with different ranges.
-In \pgls{Java}, a \pythonil{byte} is an integer datatype with range~\intRange{-2^7}{2^7-1}, a \pythonil{short} has range~\intRange{-2^{15}}{2^{17}-1}, an \pythonil{int} has range~\intRange{-2^{31}}{2^{31}-1}, and \pythonil{long} has range~\intRange{-2^{63}}{2^{63}-1}, for example.
+In \pgls{Java}, a \pythonil{byte} is an integer datatype with range~\intRange{-2^7}{2^7-1}, a \pythonil{short} has range~\intRange{-2^{15}}{2^{17}-1}, an \pythonilIdx{int} has range~\intRange{-2^{31}}{2^{31}-1}, and \pythonil{long} has range~\intRange{-2^{63}}{2^{63}-1}, for example.
 The draft for the \softwareStyle{C17} standard for the \pgls{C}~programming language lists five signed and five unsigned integer types, plus several ways to extend them~\cite{ISOIEC207PLCWDOS}.
 The different integer types of both languages have different ranges and sizes, and the programmer must carefully choose which she needs to use in which situation.
 
 \python\ only has one integer type, called \pythonilIdx{int}.
 This type has basically an unbounded range.
 The \python\ interpreter will allocate as much memory as is needed to store the number you want.\footnote{%
-Ok, the range is not actually \emph{unbounded}, it is bounded by the amount of memory available on your computer{\dots} {\dots}but for all intents and purposes within this book, we can assume that~$\pythonil{int}\equiv\integerNumbers$.}%
+Ok, the range is not actually \emph{unbounded}, it is bounded by the amount of memory available on your computer{\dots} {\dots}but for all intents and purposes within this book, we can assume that~$\pythonilIdx{int}\equiv\integerNumbers$.}%
 %
 \hsection{Integer Arithmetics}%
 Now, what can we do with integer numbers?
@@ -49,7 +49,7 @@ There are \emph{two kinds} of division in \python: Integer division, denoted by 
 \pythonil{32 // 4} yields \pythonil{8}, because \pythonil{4} fits \pythonil{8} times into~\pythonil{32}.
 \pythonil{33 // 4}, \pythonil{34 // 4}, and \pythonil{35 // 4} all still yield~\pythonil{8}, as \pythonil{4} \emph{completely} fits \pythonil{8} times into these numbers (leavin some remainder left over).
 \pythonil{36 // 4} then finally yields~\pythonil{9}.
-The results of the integer division operator \pythonil{//} are always also \pythonil{int}s.
+The results of the integer division operator \pythonilIdx{//} are always also \pythonilIdx{int}s.
 
 Fractional division, however, returns \pythonilIdx{float} values, which we will explore in the next section (\cref{sec:floats}) in detail.
 For now, let's just say that they can represent fractional parts (to a limited precision), which is denoted by having a \python{.} in the text output of the numbers.
@@ -149,7 +149,7 @@ With this, our excursion into binary maths ends and we now welcome back all firs
 \endhsection%
 %
 \hsection{Summary}%
-In conclusion, the integer type \pythonil{int} represents whole numbers.
+In conclusion, the integer type \pythonilIdx{int} represents whole numbers.
 Integers can be positive or negative or zero.
 All the primitive mathematical operations like addition, subtraction, multiplication, and division that you learned in school can be applied to integers.
 The normal arithmetic precedence rules (that you also have learned in school) apply.
