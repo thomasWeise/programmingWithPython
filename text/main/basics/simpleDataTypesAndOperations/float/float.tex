@@ -409,5 +409,46 @@ Finally, we can check whether a \pythonilIdx{float} is \pythonilIdx{nan} via the
 %
 \endhsection%
 %
+\hsection{Summary}%
+%
+In many situations, integer numbers are the way to go, for example when we count things or add discrete quantities.
+However, fractional numbers are also very common and we encounter them all the time in our daily life.
+Fractional numbers can be represented by the \pythonilIdx{float} datatype in \python.
+
+\python\ offers us the very cool feature that basically arbitrary integer numbers can be represented by the \pythonilIdx{int} datatype.
+We can store very large numbers and are only limited by the memory available on our computer.
+Very large integer numbers are, however, something of a corner case {\dots} they do not happen often.
+
+Real numbers in~\realNumbers\ are a whole different beast.
+They include irrational numbers like~$\sqrt{2}$ and transcendental numbers like~$\pi$.
+These numbers are needed \emph{often} and they have infinitely many fractional digits.
+Thus, there is no way to exactly represent them in computer memory exactly.
+Another problem is that we may need both very large numbers like~$10^{300}$ and very small numbery like~$10^{-300}$.
+
+Floating point numbers, provided as the \python\ datatype \pythonilIdx{float}, solve all of these problems (to some degree).
+They offer a precision of about 15~digits for a wide range of large and small numbers.
+15~digits are more than enough for most applications.
+Many functions for floating point numbers, like logarithms and trigonometric functions, are offered by the \pythonilIdx{math} module.
+
+Floating point numbers can be converted back to integers via rounding or truncating.
+Since writing out numbers such as $5.235^{212}$ in their full length would waste a lot of space and also make no sense, since only the highest 15~digits are actually stored and the rest would be random nonsense, the scientific notation was developed.
+It would represent this number as \pythonil{5.235e+212}, which is quite readable if you know that the~\pythonil{e} in \pythonil{eXXX} here just means~$10^{\mathtt{XXX}}$.
+
+However, when one deals with floating point numbers, a set of nasty problems can occur.
+For example, it could happen that we want to represent a number which is just \emph{too big} of the available range.
+This number would be rendered as \pythonilIdx{inf}, which stands for both mathematical infinity~$\infty$ and, well, \inQuotes{too big to be represented}.
+In some cases, computations that would exceed the available range may also raise an \pythonilIdx{OverflowError}, which simply terminates them (we learn about this later).
+Numbers which are too tiny, on the other hand, simply become~\pythonilIdx{0}.
+Finally, there are also situations where the result of a computation is neither too big nor too small and, yet, not an actual number.
+For example, a way to make mathematicians cry would be to try to compute \pythonil{inf - inf} or \pythonil{inf / inf}.
+The result is then \pythonilIdx{nan}, i.e., \inQuotes{Not a Number}\pythonIdx{Not a Number}.
+The value \pythonilIdx{nan} has the interesting property that it is (to my knowledge) the only native \python\ value which is \emph{different from itself}, i.e., \pythonil{nan != nan}.
+The \pythonilIdx{math} module offers a set of functions to check whether a value is finite~(\pythonilIdx{isfinite}), infinite~(\pythonilIdx{isinf}), or \pythonil{nan}~(\pythonilIdx{isnan}).
+
+When doing floating point computations, these are the issues that you should aware about.
+The precision and range is limited and strange things happen at its limits.%
+%
+\endhsection%
+%
 \endhsection%
 %
