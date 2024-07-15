@@ -51,7 +51,7 @@ Thus, a stored value of 2000 in the exponent fields leads to an actual exponent 
 %
 \begin{sloppypar}%
 Finally, the \pgls{signBit} in the floating point number dataformat indicates whether the number is positive or negative.
-Together, this allows us to represent numbers from $2.225\decSep073\decSep858\decSep507\decSep201\decSep4*10^{-308}$ to $1.797\decSep693\decSep134\decSep8623\decSep157*10^{308}$ with a resolution of approximately 15~digits.
+Together, this allows us to represent numbers from $2.225\decSep073\decSep858\decSep507\decSep201\decSep4*10^{-308}$ to $1.797\decSep693\decSep134\decSep8623\decSep157*10^{308}$\pythonIdx{1.7976931348623157e+308}\pythonIdx{float!largest} with a resolution of approximately 15~digits.
 Of course, the same range also applies to negative numbers and $0$~can be represented as well.
 Indeed, there are even special floating point values for infinity and errors.
 But more about this later.%
@@ -301,8 +301,8 @@ The full precision of 15~digits is no longer available at this small scale.
 Thus \pythonil{9e-324} and \pythonil{1e-323} map to the same \pythonilIdx{float}.
 Converting this \pythonilIdx{float} to text yields \pythonil{'1e-323'}.
 The same happens for \pythonil{8e-324}, which also maps to \pythonil{1e-323}.
-\pythonil{7e-324}, however, is the same as \pythonilIdx{5e-324}.
-Matter of fact, \pythonil{6e-324}, \pythonil{5e-324}, \pythonil{4e-324}, and \pythonil{3e-324} all map to this same \pythonilIdx{float}.
+\pythonil{7e-324}, however, is the same as \pythonilIdx{5e-324}\pythonIdx{float!smallest}.
+Matter of fact, \pythonil{6e-324}, \pythonilIdx{5e-324}, \pythonil{4e-324}, and \pythonil{3e-324} all map to this same \pythonilIdx{float}\pythonIdx{float!smallest}.
 
 It turns out that this number is already the smallest \pythonilIdx{float} that can be represented:
 \pythonil{2e-324} simply becomes \pythonilIdx{0.0}.
@@ -321,8 +321,8 @@ They become zero.
 
 But what happens to numbers that are too big for the available range?
 Again, according to the nice documentation of \pgls{Java}, the maximum 64~bit double precision floating point number value is~$(2-2^{-52})*2^{1023}\approx1.797\decSep693\decSep134\decSep862\decSep315\decSep708\dots*10^{308}$.
-We can enter this value as \pythonilIdx{1.7976931348623157e+308} and it indeed prints correctly in \cref{fig:floatMathInConsoleInf}.
-If we step it up a little bit and enter \pythonil{1.7976931348623158e+308}, due to the limited precision, we again get \pythonil{1.7976931348623157e+308}.
+We can enter this value as \pythonilIdx{1.7976931348623157e+308}\pythonIdx{float!largest} and it indeed prints correctly in \cref{fig:floatMathInConsoleInf}.
+If we step it up a little bit and enter \pythonil{1.7976931348623158e+308}, due to the limited precision, we again get \pythonilIdx{1.7976931348623157e+308}\pythonIdx{float!largest}.
 However, if we try entering \pythonil{1.7976931348623159e+308} into the \python\ console, something strange happens:
 The output is \pythonilIdx{inf}.
 \pythonil{-1.7976931348623159e+308} gives us \pythonilIdx{-inf}.
@@ -330,13 +330,13 @@ Multiplying this value by two, i.e., computing \pythonil{-1.7976931348623157e+30
 Intuitively, based on its name, one would assume that \pythonilIdx{inf} stands for \inQuotes{infinity} or~$\infty$.
 However, it \emph{actually} means \emph{too big to represent as \pythonilIdx{float} or~$\infty$}.
 If we enter numbers that are too big or exceed the valid range of \pythonilIdx{float} by multiplication, addition, subtraction, or division, we simply get~\pythonilIdx{inf}.
-This does not actually mean \inQuotes{mathematical infinity,} because, while \pythonil{-1.7976931348623159e+308} is very big, it is not infinitely big.
+This does not actually mean \inQuotes{mathematical infinity,} because, while \pythonil{-1.7976931348623159e+308}\pythonIdx{float!largest} is very big, it is not infinitely big.
 It simply means that the number is too big to put it into a 64~bit \pythonilIdx{float}.
 
 Actually, the \pythonilIdx{int} type can represent larger numbers easily.
-\pythonil{1.7976931348623157e+308} is equivalent to \pythonil{17_976_931_348_623_157 * 10 ** 292}.
+\pythonilIdx{1.7976931348623157e+308}\pythonIdx{float!largest} is equivalent to \pythonil{17_976_931_348_623_157 * 10 ** 292}.
 This prints as a number with many zeros.
-Multiplying it with \pythonil{1.0} yields a \pythonilIdx{float} with value \pythonil{1.7976931348623157e+308}, exactly as expected.
+Multiplying it with \pythonil{1.0} yields a \pythonilIdx{float} with value \pythonilIdx{1.7976931348623157e+308}\pythonIdx{float!largest}, exactly as expected.
 If we try a number ten times as large, i.e., \pythonil{17_976_931_348_623_157 * 10 ** 293}, this is no problem with the \pythonilIdx{int}.
 But we can no longer convert it to a \pythonilIdx{float} by multiplying with~\pythonil{1.0}.
 Trying to do that with a ten times larger number, i.e., computing \pythonil{17_976_931_348_623_157 * 10 ** 293 * 1.0} leads to an exception:
@@ -446,7 +446,7 @@ The value \pythonilIdx{nan} has the interesting property that it is (to my knowl
 The \pythonilIdx{math} module offers a set of functions to check whether a value is finite~(\pythonilIdx{isfinite}), infinite~(\pythonilIdx{isinf}), or \pythonil{nan}~(\pythonilIdx{isnan}).
 
 When doing floating point computations, these are the issues that you should aware about.
-The precision and range is limited and strange things happen at its limits.%
+The precision and range is limited and strange things happen at these limits.%
 %
 \endhsection%
 %
