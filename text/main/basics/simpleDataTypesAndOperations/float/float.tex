@@ -1,12 +1,12 @@
 \hsection{Floating Point Numbers}%
-\label{sec:floats}%
+\label{sec:float}%
 %
 In the previous section, we have discussed integers in \python.
 One of the very nice features of the \python~3 language is that integers can basically become arbitrarily large.
 There is only the single type \pythonilIdx{int} and it can store any integer value, as long as the memory of our computer is large enough.%
 %
 \begin{sloppypar}%
-In an ideal world, we would have a similar feature also for fractional numbers.
+In an ideal world, we would have a similar feature also for real numbers.
 However, such a thing cannot be practically implemented.
 You will certainly remember the numbers $\pi\approx3.141\decSep592\decSep653\decSep590\dots$ and $e\approx2.718\decSep281\decSep828\decSep459\dots$ from highschool maths.
 They are transcendental~\cite{N1939TTOP,APM1991TOEAP,F2011TTOEAP}, i.e., their fractional digits never end and nobody has yet detected an orderly pattern in them.
@@ -28,7 +28,7 @@ We cannot really represent the real numbers~\realNumbers\ exactly in the memory 
 But how does it work in \python?
 How can we deal with the fact that we cannot dynamically represent fractional numbers exactly even in typical everyday cases?
 With \pythonilIdx{float}, \python\ offers us one type for fractional numbers.
-This datatype represents numbers usually in the same format as \pythonil{double}s in the \pgls{C}~programming language~\cite{PSF2024NTIFC}, which, in turn, internally have a 64~bit IEEE~Standard 754 floating point number layout~\cite{IEEE2019ISFFPA,H1997IS7FPN}.
+This datatype represents numbers usually in the same internal structure as \pythonil{double}s in the \pgls{C}~programming language~\cite{PSF2024NTIFC}, which, in turn, internally have a 64~bit IEEE~Standard 754 floating point number layout~\cite{IEEE2019ISFFPA,H1997IS7FPN}.
 The idea behind this standard is to represent both very large numbers, like~$10^{300}$ and very small numbers, like~$10^{-300}$.
 In order to achieve this, the 64~bits are divided into three pieces, as illustrated in \cref{fig:floatIEEEStructure}.
 %
@@ -105,7 +105,7 @@ And this somewhere is after 15~decimal places.%
 %
 \begin{sloppypar}%
 We can of course also write and compute more complex mathematical expressions.
-\pythonil{((3.4 * 5.5) - 1.2) ** (4.4 / 3.3)} corresponds to $((3.4*5.5)-1.2)^{\frac{4.4}{3.3}}$ and yields \pythonil{45.43432339119718}.
+\pythonil{((3.4 * 5.5) - 1.2) ** (4.4 / 3.3)}\pythonIdx{(}\pythonIdx{)} corresponds to $((3.4*5.5)-1.2)^{\frac{4.4}{3.3}}$ and yields \pythonil{45.43432339119718}.
 This is again not an exact value but a rounded value.
 We always need to keep this in mind.%
 \end{sloppypar}%
@@ -271,6 +271,7 @@ Similarly, \pythonil{0.023e-20} becomes \pythonil{2.3e-22}.
 \endhsection%
 %
 \hsection{Limits and Special Floating Point Values: Infinity and \inQuotes{Not a Number}}%
+\label{sec:float:special}%
 %
 \begin{figure}%
 \centering%
@@ -308,7 +309,9 @@ It turns out that this number is already the smallest \pythonilIdx{float} that c
 \pythonil{2e-324} simply becomes \pythonilIdx{0.0}.
 This value is simply too small to be represented as a 64~bit / double precision IEEE~Standard 754 floating point number~\cite{IEEE2019ISFFPA,H1997IS7FPN}.
 The text \pythonil{2e-324} that we enter into the \python\ console will therefore be translated to the \pythonilIdx{float}~\pythonil{0.0}.
-The comparison \pythonil{2e-324 == 0.0}\pythonIdx{==} therefore results in \pythonilIdx{True}, while \pythonil{3e-324 == 0.0} is still \pythonilIdx{False}.
+The comparison \pythonil{2e-324 == 0.0}\pythonIdx{==} therefore results in \pythonilIdx{True}, while \pythonil{3e-324 == 0.0} is still \pythonilIdx{False}.\footnote{%
+See \cref{sec:bool} for more information on comparisons and the \pythonilIdx{bool} datatype with its values \pythonilIdx{True} and \pythonilIdx{False}.%
+}
 So we learned what happens if we try to define very small floating point numbers:
 They become zero.
 
@@ -388,7 +391,7 @@ Thus \pythonil{1 != 1} is obviously \pythonilIdx{False}.
 In floating point mathematics, \pythonil{inf == inf} is \pythonilIdx{True} and \pythonil{inf != inf} is \pythonilIdx{False}\footnote{%
 Mathematicians may have mixed feelings about proclaiming that $\infty=\infty$ holds while $\infty-\infty$ is undefined\dots}.
 However, \pythonilIdx{nan} is \emph{really} different from really \emph{anything}.
-Therefore, \pythonil{nan == nan} is \pythonilIdx{False} and \pythonil{nan != nan} is \pythonilIdx{True}!
+Therefore, \pythonil{nan == nan}\pythonIdx{==} is \pythonilIdx{False} and \pythonil{nan != nan}\pythonIdx{!=} is \pythonilIdx{True}!
 
 \begin{figure}%
 \centering%
@@ -425,7 +428,7 @@ These numbers are needed \emph{often} and they have infinitely many fractional d
 Thus, there is no way to exactly represent them in computer memory exactly.
 Another problem is that we may need both very large numbers like~$10^{300}$ and very small numbery like~$10^{-300}$.
 
-Floating point numbers, provided as the \python\ datatype \pythonilIdx{float}, solve all of these problems (to some degree).
+Floating point numbers~\cite{G2023CAIP}, provided as the \python\ datatype \pythonilIdx{float}, solve all of these problems (to some degree).
 They offer a precision of about 15~digits for a wide range of large and small numbers.
 15~digits are more than enough for most applications.
 Many functions for floating point numbers, like logarithms and trigonometric functions, are offered by the \pythonilIdx{math} module.

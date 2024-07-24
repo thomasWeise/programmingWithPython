@@ -38,20 +38,20 @@ We then attempt to multiply the two integers \pythonil{7} and \pythonil{5} by ty
 The result is \pythonil{35}.
 
 \python\ does not just support normal arithmetics as you have learned it in school, it also follows the operator precedence rules.
-If we type in \pythonil{4 + 3 * 5}, it will compute $4+(3*5)=4+15=19$ and, hence, print~\pythonil{19}.
+If we type in \pythonil{4 + 3 * 5}, it will compute $4+(3*5)=4+15=19$\pythonIdx{(}\pythonIdx{)} and, hence, print~\pythonil{19}.
 We can also use parentheses and type in \pythonil{(4 + 3) * 5}, which will be evaluated as, well $(4+3)*5=7*5=35$, and we get \pythonil{35}.
 Integers can be signed, so typing \pythonil{4 - -12}\pythonIdx{-} yields~\python{16}.
-Parentheses can be arbitrarily nested, so we can also compute \pythonil{((4 + 3) * (4 - -12) - 5) * 3}, which evaluates to $((7 * 16) - 5) * 3 = (112-5)*3=107*3=321$.
+Parentheses can be arbitrarily nested, so we can also compute \pythonil{((4 + 3) * (4 - -12) - 5) * 3}, which evaluates to $((7 * 16) - 5) * 3 = (112-5)*3=107*3=321$\pythonIdx{(}\pythonIdx{)}.
 
 Division is a bit tricky in programming in general and in \python\ as well.
 There are \emph{two kinds} of division in \python: Integer division, denoted by \pythonilIdx{//} and fractional division, denoted as \pythonilIdx{/}.
 
 \pythonil{32 // 4} yields \pythonil{8}, because \pythonil{4} fits \pythonil{8} times into~\pythonil{32}.
-\pythonil{33 // 4}, \pythonil{34 // 4}, and \pythonil{35 // 4} all still yield~\pythonil{8}, as \pythonil{4} \emph{completely} fits \pythonil{8} times into these numbers (leavin some remainder left over).
+\pythonil{33 // 4}, \pythonil{34 // 4}, and \pythonil{35 // 4} all still yield~\pythonil{8}, as \pythonil{4} \emph{completely} fits \pythonil{8} times into these numbers (leaving some remainder left over).
 \pythonil{36 // 4} then finally yields~\pythonil{9}.
 The results of the integer division operator \pythonilIdx{//} are always also \pythonilIdx{int}s.
 
-Fractional division, however, returns \pythonilIdx{float} values, which we will explore in the next section (\cref{sec:floats}) in detail.
+Fractional division, however, returns \pythonilIdx{float} values, which we will explore in the next section (\cref{sec:float}) in detail.
 For now, let's just say that they can represent fractional parts (to a limited precision), which is denoted by having a \python{.} in the text output of the numbers.
 Computing \pythonil{32 / 4} thus yields~\pythonil{8.0}, \pythonil{33 / 4} gives us \pythonil{8.25}, \pythonil{34 / 4} yields~\pythonil{8.5}, \pythonil{35 / 4} results in \pythonil{8.75}, and, finally, \pythonil{36 / 4} returns~\pythonil{9.0}.
 Notice that the result of this division operator is always a floating point number, even if the number itself is an integer.
