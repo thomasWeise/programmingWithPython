@@ -148,7 +148,7 @@ You can find more in the \href{https://docs.python.org/3/library/stdtypes.html\#
 \label{fig:fstrings}%
 \end{figure}%
 %
-Let us now discuss, preliminary, a very powerful gadget in \python's string processing toolbox: format strings, or f\nobreakdash-strings\pythonIdx{f-strings}\pythonIdx{str!f} for short~\cite{PSF2024FSL,S2016P4LSI,M2017WAFSIPAHCIUT,B2023PFS}.
+\pythonIdx{str!f}\pythonIdx{f-string}Let us now discuss, preliminary, a very powerful gadget in \python's string processing toolbox: format strings, or f\nobreakdash-strings\pythonIdx{f-string}\pythonIdx{str!f} for short~\cite{PSF2024FSL,S2016P4LSI,M2017WAFSIPAHCIUT,B2023PFS}.
 An f-string is like a normal string, except that it starts with \pythonil{f"}\pythonIdx{f\textquotedbl} instead of \pythonil{"}.
 And, most importantly, it can contain other data and even complete expressions inside curly braces (\pythonil{\{...\}}\pythonIdx{\textbraceleft}\pythonIdx{\textbraceright}) which are then embedded into the string.%
 %
@@ -162,6 +162,7 @@ The opening curly brace~(\inQuotes{\textbraceleft}) right at its beginning signi
 The actual expression, \pythonil{12345678901234} is just a really big integer.
 The closing curly brace~(\inQuotes{\textbraceright}) signifies the end of the expression.
 The \python\ interpreter evaluates all expressions inside such curly braces inside the f-string and then turns their results to strings (and removes the curly braces).
+This process is called \emph{interpolation}\pythonIdx{f-string!interpolation}\pythonIdx{str!interpolation}.
 \pythonil{f"\{12345678901234\}\ is a really big integer."} simply becomes \pythonil{f"12345678901234 is a really big integer."}%
 \end{sloppypar}%
 %
@@ -310,6 +311,32 @@ We already leared the sequences \inQuotes{\textbraceleft\textbraceleft}\pythonId
 The backslash-based escape sequence we discussed in this section work for both f-strings and normal strings.%
 \endhsection%
 %
+\hsection{Multi-Line Strings}%
+%
+\begin{figure}%
+\centering%
+\includegraphics[width=0.8\linewidth]{\currentDir/strMultiline}%
+\caption{Examples for multi-line strings.}%
+\label{fig:strMultiline}%
+\end{figure}%
+%
+Before we discussed that strings in \python\ are delimited either by \pythonil{"}\pythonIdx{\textquotedbl} or \pythonil{'}\pythonIdx{\textquotesingle} on each side.
+However, we can actually delimit them also delimit them with \emph{three quotation marks} on each side, i.e., with either \pythonil{"""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl} or \pythonil{'''}\pythonIdx{\textquotesingle\textquotesingle\textquotesingle}.
+The double quotation mark variant is again preferred.
+Such string delimiters are used for multi-line strings.
+In such strings, you can insert linebreaks by hitting \keys{\enter} completely normally.
+You can use the escape sequences from the previous section as well.
+The main use case are docstrings, which we will discuss much later.
+
+\cref{fig:strMultiline} shows what happens if we print such a multi-line string.
+We first create the string by writing the three lines \inlinelistingbox{\texttt{This is a multi-line string.}}, \inlinelistingbox{\texttt{I can hit enter to begin a new line.}}, and \inlinelistingbox{\texttt{This linebreak is then part of the string.}}.
+The first line begins with \pythonil{"""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl} and the last one ends with \pythonil{"""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl} as well.
+Passing this text to the \pythonilIdx{print} function, well, prints exactly this three-line string.
+
+We can also have multi-line f-strings\pythonIdx{str!f}\pythonIdx{f-string!multi-line}.
+These then simply start with \pythonil{f"""}\pythonIdx{f\textquotedbl\textquotedbl\textquotedbl}.
+The example in \cref{fig:strMultiline} presents such a multi-line f-string with two expressions for interpolation which spans over three lines.%
+\endhsection%
 %
 \endhsection%
 %
