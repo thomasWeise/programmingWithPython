@@ -254,6 +254,62 @@ It will be interpreted as a single \inQuotes{\textbraceright}~brace.
 You are now able to convert the results of your computations to nice text.%
 \endhsection%
 %
+\hsection{Escaping Characters}%
+%
+\begin{figure}%
+\centering%
+\includegraphics[width=0.8\linewidth]{\currentDir/strEscapes}%
+\caption{Escaping special characters in \python\ strings.}%
+\label{fig:strEscapes}%
+\end{figure}%
+%
+The last example of f-strings brought up an interesting topic:
+\inQuotes{What do we do if we want to use a character in a string which we cannot use?}
+For example, if our string is delimited with double quotation marks~\pythonil{"}\pythonIdx{\textquotedbl}, then we cannot put the character \inQuotes{\pythonil{"}} into it, because it would then be interpreted as the end of the string.
+On the other hand, if our string is delimited with single quotation marks~\pythonil{'}\pythonIdx{\textquotesingle}, then we cannot put the character \inQuotes{\pythonil{'}} into it, because it would then be interpreted as the end of the string.
+Well, you can say, if I need a double quotation mark, then I will delimit my string with single quotation marks and vice versa.
+This is all good as long as you do not need \emph{both} single and double quotation marks inside the string.
+
+The answer to this problem is \emph{escaping}\pythonIdx{str!escaping}.
+The idea is very simple:
+If we need a certain quotation mark, then we simply put a backslash~(\inQuotes{\textbackslash})\pythonIdx{\textbackslash} before it.
+The backslash tells the \python\ interpreter that the next character should be considered as a normal character and not be interpreted as any special character, like a string delimiter.
+
+In \cref{fig:strEscapes}, we present several strings with escape sequences.
+For clarity reasons, we pass them to the \pythonilIdx{print} function to output them, which means that they show up undelimited in the console.
+A double quotation mark can be printed as \pythonil{print("\\"")}, i.e., as a string which is delimited and that then contains the escape sequence {\textbackslash\textquotedbl}\pythonIdx{\textbackslash\textquotedbl}.
+It then shows up as~\inlinelistingbox{\texttt{"}} in the output.
+A single quotation mark can be printed as \pythonil{print("\\'")}, i.e., via the escape sequence {\textbackslash\textquotesingle}\pythonIdx{\textbackslash\textquotesingle}.
+It appears as~\inlinelistingbox{\texttt{'}} in the output.
+
+If the use the backslash character~\inQuotes{\textbackslash}\pythonIdx{\textbackslash} to escape characters which may otherwise have some special meaning {\dots} then what do we do if we need a backslash inside of a string?
+Easy: We escape it.
+The escape sequence \inQuotes{\textbackslash\textbackslash}\pythonIdx{\textbackslash\textbackslash} is converted to a single backslash and \expandafter\pythonil{print("\\\\")} writes \inlinelistingbox{\texttt{\\}} to the output.
+Knowing these sequences, we can now try to \pythonil{print("\\"\\'\\\\")}.
+The result printed to the output then is~\inlinelistingbox{\texttt{"'\\}}.
+
+Another situation where escape sequences are nice is when we want to have strings that span over multiple lines.
+The newline sequence \inQuotes{\textbackslash{n}}\pythonIdx{\textbackslash{n}} represents a \inQuotes{newline character} which causes the console to skip to the next line.
+\pythonil{print("Hello\\nWorld!")} will first print \inlinelistingbox{\texttt{Hello}}, then end the current line and begin a new line, and then print \inlinelistingbox{\texttt{World!}}.
+Notice that the newline character sequence \inQuotes{\textbackslash{n}} is used in \linux\ and similar systems, whereas \windows\ uses \inQuotes{\textbackslash{r}\textbackslash{n}}\pythonIdx{\textbackslash{r}\textbackslash{n}}.
+Under \python, both always work, regardless under which operating system you are working, and you should \emph{always} use \inQuotes{\textbackslash{n}}.
+However, only for the sake of completeness, I include the example \pythonil{print("Hello\\r\\nWorld!")} as well, which produces the same output as \pythonil{print("Hello\\nWorld!")}.
+
+You probably have pressed the tabulator key~\keys{\tab} on your keyboard at some time in the past.
+It produces something like a \inQuotes{longer space}.
+If you want to include a horizontal tabulator in a string, the escape sequence \inQuotes{\textbackslash{t}}\pythonIdx{\textbackslash{t}} is your friend:
+\pythonil{print("The horizontal tab is like a bigger space: '\\t'.")} yields \inlinelistingbox{\texttt{The~horizontal~tab~is~like~a~bigger~space:~'~~~~'.}}.
+
+Finally, a backslash can also escape an actual newline in your string.
+If you have a string that is too long to write on a single line but you do not want to have a linebreak inside the actual string, you can simply put a backslash, hit \keys{\enter}, and continue the typing the string.
+The linebreak will then be ignored entirely.
+Therefore, if you print~\pythonil{print("Hello\\}, hit \keys{\enter}, and then continue to write \pythonil{World!")}, this produces the output~\inlinelistingbox{\texttt{HelloWorld!}}.
+
+Escape sequences allow us to write arbitrary text in strings.
+We already leared the sequences \inQuotes{\textbraceleft\textbraceleft}\pythonIdx{\textbraceleft\textbraceleft} and \inQuotes{\textbraceright\textbraceright}\pythonIdx{\textbraceright\textbraceright} that were designed for f-strings only.
+The backslash-based escape sequence we discussed in this section work for both f-strings and normal strings.%
+\endhsection%
+%
 %
 \endhsection%
 %

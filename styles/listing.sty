@@ -79,7 +79,7 @@ literate=%
 \lstset{style=python_style}%
 %
 %% the box around the inline listings
-\def\@inlinelistingbox#1{\bgroup%
+\protected\gdef\inlinelistingbox#1{\bgroup%
 \fboxsep=0.5pt%
 \fboxrule=0.5pt%
 \mbox{\fcolorbox{listing-rule}{listing-background}{\mbox{#1}}}%
@@ -89,13 +89,13 @@ literate=%
 %% #1 the optional args
 %% #2 the code to be printed inline
 \gdef\pythonil#1{%
-\@inlinelistingbox{\lstinline[style=python_style]$#1$}}%
+\inlinelistingbox{\lstinline[style=python_style]$#1$}}%
 %
 %% print some Bash code inline
 %% #1 the optional args
 %% #2 the code to be printed inline
 \gdef\bashil#1{%
-\@inlinelistingbox{\lstinline[language=bash]$#1$}}%
+\inlinelistingbox{\lstinline[language=bash]$#1$}}%
 %
 \newlength\@lstbasicstylesheight%
 \settoheight{\@lstbasicstylesheight}{\mbox{\bgroup\@lstbasicstyle{s}\egroup}}%
@@ -104,7 +104,7 @@ literate=%
 %% #1 the optional args
 %% #2 the code to be printed inline
 \gdef\pythons#1{%
-\@inlinelistingbox{\lstinline[style=python_style]$#1$\resizebox{!}{\@lstbasicstylesheight}{\color{darkgray}s}}}%
+\inlinelistingbox{\lstinline[style=python_style]$#1$\resizebox{!}{\@lstbasicstylesheight}{\color{darkgray}s}}}%
 %
 %%
 %% Use latexgit to place a listing.
