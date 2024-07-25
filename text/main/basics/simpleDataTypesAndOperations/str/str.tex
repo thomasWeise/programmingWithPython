@@ -139,5 +139,121 @@ Of course, these were just a small selection of the many string operations avail
 You can find more in the \href{https://docs.python.org/3/library/stdtypes.html\#textseq}{official documentation}~\cite{PSF2024TSTS}.%
 \endhsection%
 %
+\hsection{f-strings}%
+%
+\begin{figure}%
+\centering%
+\includegraphics[width=0.8\linewidth]{\currentDir/fstrings}%
+\caption{\python\ f-strings in action.}%
+\label{fig:fstrings}%
+\end{figure}%
+%
+Let us now discuss, preliminary, a very powerful gadget in \python's string processing toolbox: format strings, or f\nobreakdash-strings\pythonIdx{f-strings}\pythonIdx{str!f} for short~\cite{PSF2024FSL,S2016P4LSI,M2017WAFSIPAHCIUT,B2023PFS}.
+An f-string is like a normal string, except that it starts with \pythonil{f"}\pythonIdx{f\textquotedbl} instead of \pythonil{"}.
+And, most importantly, it can contain other data and even complete expressions inside curly braces (\pythonil{\{...\}}\pythonIdx{\textbraceleft}\pythonIdx{\textbraceright}) which are then embedded into the string.%
+%
+\begin{sloppypar}%
+In \cref{fig:fstrings}, we first consider the f-string \pythonil{f"\{12345678901234\}\ is a really big integer."}\footnote{
+The code that formats my inline \python\ examples sometimes eats spaces after \textbraceleft\ or \textbraceright. %
+Therefore, some of the strings presented here may look a bit off. %
+In \cref{fig:fstrings}, they are printed correctly, though.}.
+This is basically a normal string, except that it contains an integer value.
+The opening curly brace~(\inQuotes{\textbraceleft}) right at its beginning signifies that some \python\ expression will begin which must be translated to a string.
+The actual expression, \pythonil{12345678901234} is just a really big integer.
+The closing curly brace~(\inQuotes{\textbraceright}) signifies the end of the expression.
+The \python\ interpreter evaluates all expressions inside such curly braces inside the f-string and then turns their results to strings (and removes the curly braces).
+\pythonil{f"\{12345678901234\}\ is a really big integer."} simply becomes \pythonil{f"12345678901234 is a really big integer."}%
+\end{sloppypar}%
+%
+\begin{sloppypar}%
+This first example was not very spectacular.
+But we f-string offer us several interesting means to format data.
+For example, we can add some formatting specifiers after the expression, separated by~\pythonilIdx{:}.
+If our expression evaluates to an \pythonilIdx{int}, then we can specify a \inQuotes{thousand separator} after the~\pythonilIdx{:}.
+In western languages, it is usually to group the digits of large numbers in groups of~3.
+In Chinese, they tend to use groups of~4 instead.
+To the best of my knowledge, we can only specify thousand separators, thought.
+This separator will be placed every three digits in the generated text.
+As example, \pythonil{f"12345678901234 with thousand separator ',' is \{12345678901234:,\}."} turns into \pythonil{"12345678901234 with thousand separator ',' is 12,345,678,901,234."}.%
+\end{sloppypar}%
+%
+\begin{sloppypar}%
+Back in \cref{sec:int:bitstrings}, we learned that integers can also be represented in hexadecimal and binary format.
+f-strings conveniently offer this out-of-the-box, we just need to add a~\pythonilIdx{:x} or a~\pythonilIdx{:b} format specifier to the expression, respectively.
+For example, the f-string \pythonil{f"\{12345678901234\}\ in hexadecimal notation is \{12345678901234:x\}."} becomes \pythonil{"12345678901234 in hexadecimal notation is b3a73ce2ff2."} and the f-string \pythonil{f"\{1234567890\}\ in binary notation is \{1234567890:b\}."} is turned to \pythonil{"1234567890 in binary notation is 1001001100101100000001011010010."}.
+We can also add the \pythonilIdx{0x} and \pythonilIdx{0b} prefixes to the generated number strings by using the \pythonilIdx{:\#x} and \pythonilIdx{:\#b} format specifiers instead.
+Let us use the same examples again but instead with the \#-prefixes in the format specifiers.
+The hexadecimal variant \pythonil{f"\{12345678901234\}\ in 0x-hexadecimal notation is \{12345678901234:\#x\}."} then becomes \pythonil{"12345678901234 in 0x-hexadecimal notation is 0xb3a73ce2ff2."}.
+The binary formatting string \pythonil{f"\{1234567890\}\ in 0b-binary notation is \{1234567890:#b\}."} turns into \pythonil{"1234567890 in 0b-binary notation is 0b1001001100101100000001011010010."}.%
+\end{sloppypar}%
+%
+\begin{sloppypar}%
+But f-strings allow us to do even more.
+They can contain complete \python\ expressions.
+\pythonil{f"\{5\}\ + \{4\}\ = \{5 + 4\}"} is evaluated to \pythonil{"5 + 4 = 9"}.%
+\end{sloppypar}%
+%
+\begin{sloppypar}%
+We can also access constants and variables from within the f-string.
+Let us again import the constant~$\pi$ from the \pythonilIdx{math} module by doing \pythonil{from math import pi}\pythonIdx{from}\pythonIdx{math}\pythonIdx{import}\pythonIdx{pi}.
+We can print it as string by typing \pythonil{f"pi is approximately \{pi\}."} into the \python\ console.
+The result is the string \pythonil{"pi is approximately 3.141592653589793."}%
+\end{sloppypar}%
+%
+\begin{sloppypar}%
+In many situations, we do not want to see the full \pythonilIdx{float} value with all available significant digits.
+We can round it to two decimals by adding the \pythonilIdx{.2f} format specifier.
+Three digits would be \pythonilIdx{.3f} and so on{\dots}
+Anyway, \pythonil{f"pi rounded to two decimals is \{pi:.2f\}."} gives us \pythonil{"pi rounded to two decimals is 3.14."}.%
+\end{sloppypar}%
+%
+\begin{sloppypar}%
+Sometimes, we want to present a floating point value as a percentage.
+For example, $\frac{1}{321}=0.003115265\approx0.31\%$.
+How can we convert such value to a nice string?
+By using the \pythonilIdx{:.2\%} format specifier, which gives us a percentage with two decimals.
+\pythonilIdx{:.4\%} would yield three decimals, and so on{\dots}
+Therefore \pythonil{f"1/321 as percentage with 2 decimals is \{1/321:.2\%\}."} turns into \pythonil{"1/321 as percentage with 2 decimals is 0.31\%."}.%
+\end{sloppypar}%
+%
+\begin{sloppypar}%
+We can also combine thousand separators and rounding to decimals.
+The format specifier \pythonilIdx{,.1f} will use the comma~\inQuotes{,} as thousand separator and print a floating point number rounded to one decimal.
+The f-string \pythonil{f"1.2345533e6 with thousand separator and 1 decimal is \{1.2345533e6:,.1f\}."} thus is evaluated to \pythonil{"1.2345533e6 with thousand separator and 1 decimal is 1,234,553.3."}.%
+\end{sloppypar}%
+%
+\begin{sloppypar}%
+Let us also insert a floating point arithmetic expression in an f-string.
+We therefore import the sine function \pythonilIdx{sin} from the \pythonilIdx{math} module via \pythonil{from math import sin}\pythonIdx{from}\pythonIdx{math}\pythonIdx{import}\pythonIdx{sin}.
+The f-string \pythonil{f"sin(0.25pi) is approximately \{sin(0.25*pi):.5f\}."} computes the expression \pythonil{sin(0.25*pi)} and presents its result rounded to five decimals via the \pythonilIdx{:.5f} format specifier.
+It therefore becomes \pythonil{"sin(0.25pi) is approximately 0.70711."}.%
+\end{sloppypar}%
+%
+\begin{sloppypar}%
+We can also use the scientific notation.
+The format speciier \pythonilIdx{:e} simply prints a number in scientific notation back from \cref{sec:scientificNotation}.
+\pythonilIdx{:.3g} uses scientific notation, but only presents three digits, whereas \pythonilIdx{:.4g} would present four digits, and so on{\dots}
+\pythonil{f"\{1.2359817e12\}\ is \{1.2359817e12:e\}\ and approximately \{1.2359817e12:.3g\}."} prints the same number three times.
+First, it is simply rendered as normal \pythonilIdx{float} value, then it is rendered in scientific notation, and then it is rendered in scientific notation, but rounded to three digits.
+This gives us \pythonil{"235981700000.0 is 1.235982e+12 and approximately 1.24e+12."}.%
+\end{sloppypar}%
+%
+The keen reader may have encountered a question at this stage:
+\emph{\inQuotes{What do I do if I want to include a curly brace, say \textbraceleft\ or \textbraceright\ inside my f-string?}}
+Well, if you include a single brace, it would be interpreted as start or end of an expression.
+If the following text makes sense as expression, it will be interpreted.
+If not, an error will occur.
+Either way, the curly brace would disappear.
+The solution is simple:
+If you need \inQuotes{\textbraceleft}, just write \inQuotes{\textbraceleft\textbraceleft}.\pythonIdx{\textbraceleft}\pythonIdx{\textbraceleft\textbraceleft}
+It will be interpreted as a single \inQuotes{\textbraceleft}~brace.
+If you need \inQuotes{\textbraceright}, just write \inQuotes{\textbraceright\textbraceright}.\pythonIdx{\textbraceright}\pythonIdx{\textbraceright\textbraceright}
+It will be interpreted as a single \inQuotes{\textbraceright}~brace.
+\pythonil{f"Single braces without expression: \{\{ and \}\}."} simply becomes \pythonil{"Single braces without expression: \{ and \}."}
+
+You are now able to convert the results of your computations to nice text.%
+\endhsection%
+%
+%
 \endhsection%
 %
