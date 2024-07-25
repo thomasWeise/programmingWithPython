@@ -123,6 +123,7 @@
 @string { a_loy_marc = "Marc Loy" }
 @string { a_mann_samuel = "Samuel Mann" }
 @string { a_massa_francisco = "Francisco Massa" }
+@string { a_maxwell_aaron = "Aaron Maxwell" }
 @string { a_mayorov_nikolay = "Nikolay Mayorov" }
 @string { a_michel_vincent = "Vincent Michel" }
 @string { a_millman_jarrod_k = "K.\ Jarrod Millman" }
@@ -214,6 +215,7 @@
 
 %% locations
 @string { l_australia_hobart = "{{Hobart}, {TAS}, {Australia}}" }
+@string { l_canada_oakville = "{{Oakville}, {ON}, {Canada}}" }
 @string { l_canada_vancouver = "{{Vancouver}, {BC}, {Canada}}" }
 @string { l_portugal_lisbon = "{{Lisbon}, {Portugal}}" }
 @string { l_switzerland_cham = "{{Cham}, {Switzerland}}" }
@@ -255,9 +257,10 @@
 @string { p_github = "{{GitHub} Inc}" }
 @string { p_iec = "{International Electrotechnical Commission~{(IEC)}}" }
 @string { p_ieee = "{Institute of Electrical and Electronics Engineers~{(IEEE)}}" }
+@string { p_infinite_skills = "Infinite Skills Inc" }
+@string { p_informs = "{The Institute for Operations Research and the Management Sciences~({INFORMS})}" }
 @string { p_iso = "{International Organization for Standardization~{(ISO)}}" }
 @string { p_iso_iec = "{International Organization for Standardization~{(ISO)} / International Electrotechnical Commission~{(IEC)}}" }
-@string { p_informs = "{The Institute for Operations Research and the Management Sciences~({INFORMS})}" }
 @string { p_manning_publications = "{Manning Publications}" }
 @string { p_microsoft_press = "{Microsoft Press}, " # p_pearson_education }
 @string { p_mit_press = "{{MIT} Press}" }
@@ -290,6 +293,7 @@
 @string { pa_iso_iec = l_switzerland_geneva }
 @string { pa_ieee = l_usa_piscataway }
 @string { pa_ieee_ny = l_usa_new_york }
+@string { pa_infinite_skills = l_canada_oakville }
 @string { pa_informs = l_usa_catonsville }
 @string { pa_manning_publications = l_usa_shelter_island }
 @string { pa_microsoft_press = pa_pearson_education }
@@ -732,6 +736,15 @@
  isbn = {9781492056270},
 }
 
+@book{M2017WAFSIPAHCIUT,
+ author = a_maxwell_aaron,
+ title = {What are f-strings in \python\ and how can I use them?},
+ publisher = p_infinite_skills,
+ address = pa_infinite_skills,
+ date = {2017-06},
+ isbn = {9781491994863}
+}
+
 @article{N1939TTOP,
  author = a_niven_ivan,
  title = {The Transcendence of~$\pi$},
@@ -845,6 +858,13 @@
  crossref = {PSF2024P3D},
  url = {https://docs.python.org/3/using},
  urldate = {2024-07-05},
+}
+
+@inbook{PSF2024TSTS,
+ title = {Text Sequence Type -- \pythonilIdx{str}},
+ crossref = {PSF2024P3D},
+ url = {https://docs.python.org/3/library/stdtypes.html#textseq},
+ urldate = {2024-07-25},
 }
 
 @article{PVGMTGBPWDVPCBPD2011SMLIP,

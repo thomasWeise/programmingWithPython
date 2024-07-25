@@ -37,7 +37,7 @@ The expression \pythonil{6 > 6}\pythonIdx{>} gives us \pythonilIdx{False}, but \
 \pythonil{6 < 6}\pythonIdx{<} is also \pythonilIdx{False} while \pythonil{6 <= 6} is, of course, \pythonilIdx{True}.
 While \pythonil{5 > 6}\pythonIdx{>} is not \pythonilIdx{True}, \pythonil{6 > 5}\pythonIdx{>} is.
 It is also possible to compare floating point numbers with integers and vice versa.
-\pythonil{5.5 == 5}\pythonIdx{==} is \pythonilIdx{False}, while \pythonilIdx{5.0 == 5} is \pythonilIdx{True}.
+\pythonil{5.5 == 5}\pythonIdx{==} is \pythonilIdx{False}, while \pythonil{5.0 == 5} is \pythonilIdx{True}.
 
 Comparisons can also be chained:
 \pythonil{3 < 4 < 5 < 6} is \pythonilIdx{True}, because \pythonil{3 < 4} and \pythonil{4 < 5} and \pythonil{5 < 6}.
@@ -59,7 +59,7 @@ This is the only primitive value (to my knowledge) which is not equal to itself.
 \centering%
 %
 \subfloat[][%
-The truth table for the logical conjunction (\emph{logical and}\pythonIdx{and}): \pythonil{a and b}.%
+The truth table for the logical conjunction\pythonIdx{bool!conjunction} (\emph{logical and}\pythonIdx{and}): \pythonil{a and b}.%
 \label{fig:booleanAnd}%
 ]{%
 ~~~~%
@@ -82,7 +82,7 @@ The truth table for the logical conjunction (\emph{logical and}\pythonIdx{and}):
 \strut\hfill\strut%
 %
 \subfloat[][%
-The truth table for the logical disjunction (\emph{logical or})\pythonIdx{or}: \pythonil{a or b}.%
+The truth table for the logical disjunction\pythonIdx{bool!disjunction} (\emph{logical or})\pythonIdx{or}: \pythonil{a or b}.%
 \label{fig:booleanOr}%
 ]{%
 ~~~~%
@@ -105,7 +105,7 @@ The truth table for the logical disjunction (\emph{logical or})\pythonIdx{or}: \
 \strut\hfill\strut%
 %
 \subfloat[][%
-The truth table for the logical negation (\emph{logical not}\pythonIdx{not}): \pythonil{not a}.%
+The truth table for the logical negation\pythonIdx{bool!negation} (\emph{logical not}\pythonIdx{not}): \pythonil{not a}.%
 \label{fig:booleanNot}%
 ]{%
 ~~~~%
@@ -137,11 +137,11 @@ Their truth tables are illustrated in \cref{fig:boolLogicTables}.%
 %
 \begin{itemize}%
 %
-\item A Boolean conjunction, i.e., \pythonilIdx{and}, is \pythonilIdx{True} if and only both of its operands are also \pythonilIdx{True} and \pythonilIdx{False} otherwise, as shown in \cref{fig:booleanAnd}.%
+\item A Boolean conjunction\pythonIdx{bool!conjunction}, i.e., \pythonilIdx{and}, is \pythonilIdx{True} if and only both of its operands are also \pythonilIdx{True} and \pythonilIdx{False} otherwise, as shown in \cref{fig:booleanAnd}.%
 %
-\item A Boolean disjunction, i.e., \pythonilIdx{and}, is \pythonilIdx{True} if at least one of its two operands is \pythonilIdx{True} and \pythonilIdx{False} otherwise, as shown in \cref{fig:booleanOr}.%
+\item A Boolean disjunction\pythonIdx{bool!disjunction}, i.e., \pythonilIdx{and}, is \pythonilIdx{True} if at least one of its two operands is \pythonilIdx{True} and \pythonilIdx{False} otherwise, as shown in \cref{fig:booleanOr}.%
 %
-\item The Boolean negation, i.e., \pythonilIdx{not}, is \pythonilIdx{True} if its operand is \pythonilIdx{False}. %
+\item The Boolean negation\pythonIdx{bool!negation}, i.e., \pythonilIdx{not}, is \pythonilIdx{True} if its operand is \pythonilIdx{False}. %
 Otherwise, it is \pythonilIdx{False}, as shown in \cref{fig:booleanNot}.%
 %
 \end{itemize}%
