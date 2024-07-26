@@ -12,7 +12,7 @@ echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Welcome to the pdf filtering script."
 fileIn="$1"
 fileOut="$2"
 
-echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We will filter '$fileIn' to '$fileOut using ghostscipt."
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We will filter '$fileIn' to '$fileOut using ghostscript."
 
 gs -dAntiAliasColorImages=true \
    -dAntiAliasGrayImages=true \
@@ -58,5 +58,4 @@ gs -dAntiAliasColorImages=true \
    -c "<</NeverEmbed [ ]>> setdistillerparams" \
    -q
 
-echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Successfully finished filtering '$fileIn' to '$fileOut using ghostscipt."
-
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Successfully finished filtering '$fileIn' to '$fileOut using ghostscript."

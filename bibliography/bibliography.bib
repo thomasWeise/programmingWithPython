@@ -219,6 +219,7 @@
 @string { l_australia_hobart = "{{Hobart}, {TAS}, {Australia}}" }
 @string { l_canada_oakville = "{{Oakville}, {ON}, {Canada}}" }
 @string { l_canada_vancouver = "{{Vancouver}, {BC}, {Canada}}" }
+@string { l_china_beijing = "{{China}, {Beijing}}" }
 @string { l_portugal_lisbon = "{{Lisbon}, {Portugal}}" }
 @string { l_switzerland_cham = "{{Cham}, {Switzerland}}" }
 @string { l_switzerland_geneva = "{{Geneva}, {Switzerland}}" }
@@ -246,6 +247,7 @@
 @string { l_usa_seattle = "{{Seattle}, {WA}, {USA}}" }
 @string { l_usa_sebastopol = "{{Sebastopol}, {CA}, {USA}}" }
 @string { l_usa_shelter_island = "{{Shelter Island}, {NY}, {USA}}" }
+@string { l_usa_south_san_francisco = "{{South San Francisco}, {CA}, {USA}}" }
 @string { l_usa_new_york = "{{New York}, {NY}, {USA}}" }
 
 
@@ -253,6 +255,7 @@
 @string { p_aci_learning = "{{ACI} Learning}" }
 @string { p_acm = "{Association for Computing Machinery~({ACM})}" }
 @string { p_apress = "{Apress Media, LLC}" }
+@string { p_asa = "{American Standards Association Incorporated}" }
 @string { p_bruhin_software = "{Bruhin Software}" }
 @string { p_cambridge_uni_press_ass = "{Cambridge University Press \& Assessment}" }
 @string { p_cnri = "{Corporation for National Research Initiatives~({CNRI})}" }
@@ -264,7 +267,6 @@
 @string { p_infinite_skills = "Infinite Skills Inc" }
 @string { p_informs = "{The Institute for Operations Research and the Management Sciences~({INFORMS})}" }
 @string { p_iso = "{International Organization for Standardization~{(ISO)}}" }
-@string { p_iso_iec = "{International Organization for Standardization~{(ISO)} / International Electrotechnical Commission~{(IEC)}}" }
 @string { p_manning_publications = "{Manning Publications}" }
 @string { p_microsoft_press = "{Microsoft Press}, " # p_pearson_education }
 @string { p_mit_press = "{{MIT} Press}" }
@@ -279,8 +281,10 @@
 @string { p_springer_nature_limited = "{Springer Nature Limited}" }
 @string { p_springer_new_york = "{Springer New York}" }
 @string { p_taylor_and_francis = "{Taylor and Francis Ltd.}" }
+@string { p_unicode_consortium = "{The Unicode Consortium}" }
 @string { p_university_of_south_carolina = "{University of South Carolina}" }
 @string { p_university_of_washington = "{University of Washington}" }
+@string { p_usas = "{United States of America Standards Institute~{(USAS)}}" }
 @string { p_usenix = "{{USENIX} Association}" }
 @string { p_wiley_and_sons_ltd = "{John Wiley and Sons Ltd.}" }
 
@@ -289,6 +293,7 @@
 @string { pa_aci_learning = l_usa_centennial }
 @string { pa_acm = l_usa_new_york }
 @string { pa_apress = l_usa_new_york }
+@string { pa_asa = l_usa_new_york }
 @string { pa_bruhin_software = l_switzerland_winterthur }
 @string { pa_cambridge_uni_press_ass = l_uk_cambridge }
 @string { pa_cnri = l_usa_reston }
@@ -313,8 +318,10 @@
 @string { pa_springer_cham = l_switzerland_cham }
 @string { pa_springer_nature_limited = l_uk_london }
 @string { pa_springer_new_york = l_usa_new_york }
+@string { pa_unicode_consortium = l_usa_south_san_francisco }
 @string { pa_university_of_south_carolina = l_usa_columbia }
 @string { pa_university_of_washington = l_usa_seattle }
+@string { pa_usas = l_usa_new_york }
 @string { pa_usenix = l_usa_berkeley }
 @string { pa_taylor_and_francis = l_uk_london }
 @string { pa_wiley_and_sons_ltd = l_uk_chichester }
@@ -418,7 +425,7 @@
 }
 
 @xdata{rep_iso_iec_standard,
- institution = p_iso_iec,
+ institution = p_iso # and # p_iec,
  address = pa_iso_iec,
  type = {International Standard},
 }
@@ -427,6 +434,11 @@
  institution = p_ieee,
  address = pa_ieee_ny,
  type = {{IEEE}~Std},
+}
+
+@xdata{rep_nsotprocg,
+ type = {National Standard of the People's Republic of China~{(GB)}},
+ address = l_china_beijing
 }
 
 
@@ -484,6 +496,16 @@
  chapter = {9},
  pages = {115--161},
  doi = {10.1007/978-1-4419-8552-1_8},
+}
+
+@techreport{ASA1963ASCII,
+ title = {American Standard Code for Information Interchange~{(ASCII~1963)}},
+ date = {1963-06-17},
+ number = {ASA~X3.4-1963},
+ institution = p_asa,
+ address = pa_asa,
+ url = {https://www.sensitiveresearch.com/Archive/CharCodeHist/Files/CODES%20standards%20documents%20ASCII%20Sean%20Leonard%20Oct%202015/ASCII%2063,%20X3.4-1963.pdf},
+ urldate = {2024-07-26}
 }
 
 @article{B1991IWNT,
@@ -629,6 +651,27 @@
  address = pa_crc_press
 }
 
+@techreport{GB180302022ITCCCS,
+ title = {Information Technology -- Chinese Coded Character Set},
+ xdata = {rep_nsotprocg},
+ number = {\mbox{GB~18030-2022}},
+ date = {2022-07-19/2023-08-01},
+ institution = {State Administration for Market Regulation} # and # {Standardization Administration of the People's Republic of China},
+ address = l_china_beijing,
+ url = {https://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=A1931A578FE14957104988029B0833D3},
+ urldate = {2024-07-26}
+}
+
+@techreport{GBT23121980PROCNSG21CCECSFIE,
+ title = {Code of Chinese Graphic Character Set for Information Interchange -- Primary Set},
+ xdata = {rep_nsotprocg},
+ number = {\mbox{GB/T 2312-1980}},
+ date = {1980/1981-05-01},
+ institution = {National Standards Administration},
+ url = {https://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=5664A728BD9D523DE3B99BC37AC7A2CC},
+ urldate = {2024-07-26},
+}
+
 @inproceedings{GPBS2006WCTIPIHSUP,
  author = a_grendell_lina # and # a_peltomaeki_mia # and # a_back_ralph_johan # and # a_salakoski_tapio,
  title = {Why complicate things? Introducing Programming in High School using \python},
@@ -696,9 +739,17 @@
  isbn = {978-1-5044-5925-9},
 }
 
-@techreport{ISOIEC207PLCWDOS,
+@techreport{ISOIEC106462020ITUCCSU,
+ title = {Information Technology -- Universal Coded Character Set~(UCS)},
+ number = {ISO/IEC~10646:2020},
+ edition = {6},
+ xdata = {rep_iso_iec_standard},
+ date = {2020-12},
+}
+
+@techreport{ISOIEC98892017PLCWDOS,
  title = {Programming Languages -- \pgls{C}, Working Document of~{SC22/WG14}},
- number = {{ISO/\linebreak{3}IEC9899:2017} {C17~ballot} {N2176}},
+ number = {{ISO/\linebreak{3}IEC9899:2017} {C17~Ballot} {N2176}},
  xdata = {rep_iso_iec_standard},
  date = {2017-11},
  url = {https://files.lhmouse.com/standards/ISO%20C%20N2176.pdf},
@@ -979,6 +1030,44 @@
  publisher = p_apress,
  address = pa_apress,
  execute = {\sloppy}
+}
+
+@techreport{TSSL1995CICSNSE,
+ title = {Chinese Internal Code Specification, National Standard Extended~{(GBK)}},
+ type = {Technical Supervision Standard Letter},
+ number = {1995~229},
+ date = {1995-12-15},
+ institution = {Standardization Department of the State Administration of Technical Supervision} # and # {Department of Science and Quality Supervision of the Ministry of Electronics Industry},
+ address = l_china_beijing,
+}
+
+@book{TUC2023U1510,
+ title = {\pgls{unicode}\textsuperscript{\textregistered}~15.1.0},
+ date = {2023-09-12},
+ publisher = p_unicode_consortium,
+ address = pa_unicode_consortium,
+ isbn = {978-1-936213-33-7},
+ url = {https://www.unicode.org/versions/Unicode15.1.0},
+ urldate = {2024-07-26}
+}
+
+@book{TUC2023U151ACS,
+ title = {The Unicode Standard, Version~15.1:~Archived Code Charts},
+ date = {2023-08-25},
+ publisher = p_unicode_consortium,
+ address = pa_unicode_consortium,
+ url = {https://www.unicode.org/Public/15.1.0/charts/CodeCharts.pdf},
+ urldate = {2024-07-26}
+}
+
+@techreport{USAS1967USCFII,
+ title = {USA Standard Code for Information Interchange~{(ASCII~1967)}},
+ date = {1967-07-07},
+ number = {USAS~X3.4-1967},
+ institution = p_usas,
+ address = pa_usas,
+ url = {https://www.sensitiveresearch.com/Archive/CharCodeHist/Files/CODES%20standards%20documents%20ASCII%20Sean%20Leonard%20Oct%202015/ASCII%2068,%20X3.4-1967.pdf},
+ urldate = {2024-07-26}
 }
 
 @article{VGOHRCBPWBvdWBWMMNJKLCPFMVLPCHQHARPvMS2020SFAFSCIP,

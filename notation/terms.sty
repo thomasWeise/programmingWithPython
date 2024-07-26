@@ -19,7 +19,7 @@ text={\softwareStyle{C}},%
 name={C},%
 sort={C},%
 description={%
-is another programming language, which is very successful in system programming situations~\cite{ISOIEC207PLCWDOS,D2024MCFABAFITTCPL}.%
+is another programming language, which is very successful in system programming situations~\cite{ISOIEC98892017PLCWDOS,D2024MCFABAFITTCPL}.%
 }%
 }%
 %
@@ -31,6 +31,17 @@ The exponent is the part of a floating point number that stores a power of~2 wit
 This allows for covering a wide range of different precisions and representing both very large and very small numbers. %
 In the 64~bit double precision IEEE~Standard 754 floating point number layout~\cite{IEEE2019ISFFPA,H1997IS7FPN}, the exponent is 11~bits with a \pgls{bias} of~1023. %
 See \cref{sec:howFloatingPointNumbersWork}.%
+}%
+}%
+%
+%
+\newglossaryentry{fstring}{%
+name={f-string},%
+plural={f-strings},%
+sort={f-string},
+description={%
+is a special string in \python, which delimited by \pythonil{f"..."} which can contain expressions in curly braces like \pythonil{f"a\{6-1\}b"} that are then turned to text via \pgls{strinterpolation}, which turns the string to~\pythonil{"a5b"}. %
+f\nobreakdash-strings are discussed in \cref{sec:fstrings}.%
 }%
 }%
 %
@@ -65,6 +76,17 @@ For this course, we recommend using \pycharm.%
 }%
 %
 %
+\newglossaryentry{strinterpolation}{%
+name={(string) interpolation},%
+sort={string interpolation},
+description={%
+In \python, string interpolation is the process where all the expressions in an \pgls{fstring} are evaluated and the final string is constructed. %
+An example for string interpolation is turning \pythonil{f"Rounded \{1.234:.2f\}"} to \pythonil{"Rounded 1.23"}\pythonIdx{.2f}. %
+This is discussed in \cref{sec:fstrings}.%
+}%
+}%
+%
+%
 \newglossaryentry{Java}{%
 text={\softwareStyle{Java}},%
 name={Java},%
@@ -79,6 +101,16 @@ is another very success programming language, with roots in the \pgls{C}~family 
 name={mantissa},%
 description={%
 See \gls{significand}.%
+}%
+}%
+%
+%
+\newglossaryentry{modulodiv}{%
+name={modulo division},%
+description={%
+is, in \python, done by the operator \pythonil{\%} that computes the remainder of a division. %
+\pythonil{15 \% 6} gives us \pythonil{3}. %
+Modulo division is mentioned in \cref{sec:int,sec:floatarith}.%
 }%
 }%
 %
@@ -122,6 +154,16 @@ A terminal is a text-based window where you can enter commands and execute them~
 Knowing what a terminal is and how to use it is very essential in any programming- or system administration-related task. %
 If you want to open a terminal under \windows, you can \windowsTerminal, as shown, e.g., in \cpageref{fig:installingPythonWindows01openTerminal}. %
 Under \ubuntu\ \linux, \ubuntuTerminal\ opens a terminal.%
+}%
+}%
+%
+%
+\newglossaryentry{unicode}{%
+name={Unicode},%
+description={%
+A standard for assigning characters to numbers~\cite{TUC2023U1510,TUC2023U151ACS,ISOIEC106462020ITUCCSU}. %
+The Unicode standard supports basically all characters from all languages that are currently in use, as well as many special symbols. %
+It is the predominantly used way to represent characters in computers and is regularly updated and improved.%
 }%
 }%
 %

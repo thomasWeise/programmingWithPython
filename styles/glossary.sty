@@ -94,9 +94,18 @@ description={\sloppy#4.}%
 %%
 %% Invoke the glossary term, but link only once per page.
 %%
+%% Print the glosary entry in the singular form.
 \protected\gdef\pgls#1{%
 \expandafter\ifcsname @@@@#1\endcsname\else%
 \oncePerPage{@@@@#1}{\gls{#1}}{\gls[hyper=false]{#1}}%
+\fi%
+\expandafter\csname @@@@#1\endcsname%
+}%
+%
+%% Print the glosary entry in the plural form.
+\protected\gdef\pglspl#1{%
+\expandafter\ifcsname @@@@#1\endcsname\else%
+\oncePerPage{@@@@#1}{\glspl{#1}}{\glspl[hyper=false]{#1}}%
 \fi%
 \expandafter\csname @@@@#1\endcsname%
 }%

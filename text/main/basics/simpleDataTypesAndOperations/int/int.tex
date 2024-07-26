@@ -8,7 +8,7 @@ The integers include all whole numbers and negative numbers and zero, without fr
 
 In many programming languages, there are different integer datatypes with different ranges.
 In \pgls{Java}, a \pythonil{byte} is an integer datatype with range~\intRange{-2^7}{2^7-1}, a \pythonil{short} has range~\intRange{-2^{15}}{2^{17}-1}, an \pythonilIdx{int} has range~\intRange{-2^{31}}{2^{31}-1}, and \pythonil{long} has range~\intRange{-2^{63}}{2^{63}-1}, for example.
-The draft for the \softwareStyle{C17} standard for the \pgls{C}~programming language lists five signed and five unsigned integer types, plus several ways to extend them~\cite{ISOIEC207PLCWDOS}.
+The draft for the \softwareStyle{C17} standard for the \pgls{C}~programming language lists five signed and five unsigned integer types, plus several ways to extend them~\cite{ISOIEC98892017PLCWDOS}.
 The different integer types of both languages have different ranges and sizes, and the programmer must carefully choose which she needs to use in which situation.
 
 \python\ only has one integer type, called \pythonilIdx{int}.
@@ -18,7 +18,7 @@ Ok, the range is not actually \emph{unbounded}, it is bounded by the amount of m
 %
 \hsection{Integer Arithmetics}%
 Now, what can we do with integer numbers?
-We can add, subtract, multiply, divide, modulo divide, and raise them to powers.
+We can add, subtract, multiply, divide, \glsdisp{modulodiv}{modulo divide}, and raise them to powers, for example.
 
 \begin{figure}%
 \centering%
@@ -57,7 +57,7 @@ Computing \pythonil{32 / 4} thus yields~\pythonil{8.0}, \pythonil{33 / 4} gives 
 Notice that the result of this division operator is always a floating point number, even if the number itself is an integer.
 
 Now above we have said that \pythonil{33 // 4} yields the integer~\pythonil{8}.
-The remainder of this operation can be computed using the modulo operator \expandafter\pythonilIdx{\%}, i.e., by typing \pythonil{33 \% 4}, which yields~\pythonil{1}.
+The remainder of this operation can be computed using the \pgls{modulodiv} operator \expandafter\pythonilIdx{\%}, i.e., by typing \pythonil{33 \% 4}, which yields~\pythonil{1}.
 We also find that \expandafter\pythonil{34 \% 4} yields~\pythonil{2}, \expandafter\pythonil{35 \% 4} gives us~\pythonil{3}, and \expandafter\pythonil{36 \% 4} is~\pythonil{0}.
 
 \begin{figure}%

@@ -69,6 +69,7 @@ You cannot represent numbers arbitrarily precisely.%
 \endhsection%
 %
 \hsection{Floating Point Arithmetic}%
+\label{sec:floatarith}%
 %
 \begin{figure}%
 \centering%
@@ -88,7 +89,7 @@ Remember, however, that if \pythonilIdx{float} and \pythonilIdx{int} numbers are
 Thus, \pythonil{1.0 + 7}\pythonIdx{+} gives us \pythonil{8} and \pythonil{2 * 3.0}\pythonIdx{*} yields \pythonil{6.0}.
 In other words, if one \pythonilIdx{float} occurs somewhere in an expression, it will \inQuotes{infect} everything that it touches to become a \pythonilIdx{float} too, even if the result could be represented as \pythonilIdx{int}.
 Some results cannot be integers anyway, for example \pythonil{5 - 3.6}\pythonIdx{-} evaluates to~\pythonil{1.4}.
-The remainder (the modulo) of a division can also be computed for floating point numbers.
+The remainder (the \glsdisp{modulodiv}{modulo}) of a division can also be computed for floating point numbers.
 The remainder of the division of 6.5 by 2, i.e., \expandafter\pythonil{6.5 \% 2}\pythonIdx{\%} is~\pythonil{0.5}.%
 %
 \begin{sloppypar}%

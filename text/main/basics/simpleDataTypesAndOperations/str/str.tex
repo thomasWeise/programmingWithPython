@@ -140,6 +140,7 @@ You can find more in the \href{https://docs.python.org/3/library/stdtypes.html\#
 \endhsection%
 %
 \hsection{f-strings}%
+\label{sec:fstrings}%
 %
 \begin{figure}%
 \centering%
@@ -148,7 +149,7 @@ You can find more in the \href{https://docs.python.org/3/library/stdtypes.html\#
 \label{fig:fstrings}%
 \end{figure}%
 %
-\pythonIdx{str!f}\pythonIdx{f-string}Let us now discuss, preliminary, a very powerful gadget in \python's string processing toolbox: format strings, or f\nobreakdash-strings\pythonIdx{f-string}\pythonIdx{str!f} for short~\cite{PSF2024FSL,S2016P4LSI,M2017WAFSIPAHCIUT,B2023PFS}.
+\pythonIdx{str!f}\pythonIdx{f-string}Let us now discuss, preliminary, a very powerful gadget in \python's string processing toolbox: format strings, or \pglspl{fstring}\pythonIdx{f-string}\pythonIdx{str!f} for short~\cite{PSF2024FSL,S2016P4LSI,M2017WAFSIPAHCIUT,B2023PFS}.
 An f-string is like a normal string, except that it starts with \pythonil{f"}\pythonIdx{f\textquotedbl} instead of \pythonil{"}.
 And, most importantly, it can contain other data and even complete expressions inside curly braces (\pythonil{\{...\}}\pythonIdx{\textbraceleft}\pythonIdx{\textbraceright}) which are then embedded into the string.%
 %
@@ -161,14 +162,14 @@ This is basically a normal string, except that it contains an integer value.
 The opening curly brace~(\inQuotes{\textbraceleft}) right at its beginning signifies that some \python\ expression will begin which must be translated to a string.
 The actual expression, \pythonil{12345678901234} is just a really big integer.
 The closing curly brace~(\inQuotes{\textbraceright}) signifies the end of the expression.
-The \python\ interpreter evaluates all expressions inside such curly braces inside the f-string and then turns their results to strings (and removes the curly braces).
-This process is called \emph{interpolation}\pythonIdx{f-string!interpolation}\pythonIdx{str!interpolation}.
+The \python\ interpreter evaluates all expressions inside such curly braces inside the \pgls{fstring} and then turns their results to strings (and removes the curly braces).
+This process is called \emph{\pgls{strinterpolation}}\pythonIdx{f-string!interpolation}\pythonIdx{str!interpolation}.
 \pythonil{f"\{12345678901234\}\ is a really big integer."} simply becomes \pythonil{f"12345678901234 is a really big integer."}%
 \end{sloppypar}%
 %
 \begin{sloppypar}%
 This first example was not very spectacular.
-But we f-string offer us several interesting means to format data.
+But \pglspl{fstring} offer us several interesting means to format data.
 For example, we can add some formatting specifiers after the expression, separated by~\pythonilIdx{:}.
 If our expression evaluates to an \pythonilIdx{int}, then we can specify a \inQuotes{thousand separator} after the~\pythonilIdx{:}.
 In western languages, it is usually to group the digits of large numbers in groups of~3.
@@ -180,8 +181,8 @@ As example, \pythonil{f"12345678901234 with thousand separator ',' is \{12345678
 %
 \begin{sloppypar}%
 Back in \cref{sec:int:bitstrings}, we learned that integers can also be represented in hexadecimal and binary format.
-f-strings conveniently offer this out-of-the-box, we just need to add a~\pythonilIdx{:x} or a~\pythonilIdx{:b} format specifier to the expression, respectively.
-For example, the f-string \pythonil{f"\{12345678901234\}\ in hexadecimal notation is \{12345678901234:x\}."} becomes \pythonil{"12345678901234 in hexadecimal notation is b3a73ce2ff2."} and the f-string \pythonil{f"\{1234567890\}\ in binary notation is \{1234567890:b\}."} is turned to \pythonil{"1234567890 in binary notation is 1001001100101100000001011010010."}.
+\pglspl{fstring} conveniently offer this out-of-the-box, we just need to add a~\pythonilIdx{:x} or a~\pythonilIdx{:b} format specifier to the expression, respectively.
+For example, the \pgls{fstring} \pythonil{f"\{12345678901234\}\ in hexadecimal notation is \{12345678901234:x\}."} becomes \pythonil{"12345678901234 in hexadecimal notation is b3a73ce2ff2."} and the \pgls{fstring} \pythonil{f"\{1234567890\}\ in binary notation is \{1234567890:b\}."} is turned to \pythonil{"1234567890 in binary notation is 1001001100101100000001011010010."}.
 We can also add the \pythonilIdx{0x} and \pythonilIdx{0b} prefixes to the generated number strings by using the \pythonilIdx{:\#x} and \pythonilIdx{:\#b} format specifiers instead.
 Let us use the same examples again but instead with the \#-prefixes in the format specifiers.
 The hexadecimal variant \pythonil{f"\{12345678901234\}\ in 0x-hexadecimal notation is \{12345678901234:\#x\}."} then becomes \pythonil{"12345678901234 in 0x-hexadecimal notation is 0xb3a73ce2ff2."}.
@@ -189,13 +190,13 @@ The binary formatting string \pythonil{f"\{1234567890\}\ in 0b-binary notation i
 \end{sloppypar}%
 %
 \begin{sloppypar}%
-But f-strings allow us to do even more.
+But \pglspl{fstring} allow us to do even more.
 They can contain complete \python\ expressions.
 \pythonil{f"\{5\}\ + \{4\}\ = \{5 + 4\}"} is evaluated to \pythonil{"5 + 4 = 9"}.%
 \end{sloppypar}%
 %
 \begin{sloppypar}%
-We can also access constants and variables from within the f-string.
+We can also access constants and variables from within the \pgls{fstring}.
 Let us again import the constant~$\pi$ from the \pythonilIdx{math} module by doing \pythonil{from math import pi}\pythonIdx{from}\pythonIdx{math}\pythonIdx{import}\pythonIdx{pi}.
 We can print it as string by typing \pythonil{f"pi is approximately \{pi\}."} into the \python\ console.
 The result is the string \pythonil{"pi is approximately 3.141592653589793."}%
@@ -220,13 +221,13 @@ Therefore \pythonil{f"1/321 as percentage with 2 decimals is \{1/321:.2\%\}."} t
 \begin{sloppypar}%
 We can also combine thousand separators and rounding to decimals.
 The format specifier \pythonilIdx{,.1f} will use the comma~\inQuotes{,} as thousand separator and print a floating point number rounded to one decimal.
-The f-string \pythonil{f"1.2345533e6 with thousand separator and 1 decimal is \{1.2345533e6:,.1f\}."} thus is evaluated to \pythonil{"1.2345533e6 with thousand separator and 1 decimal is 1,234,553.3."}.%
+The \pgls{fstring} \pythonil{f"1.2345533e6 with thousand separator and 1 decimal is \{1.2345533e6:,.1f\}."} thus is evaluated to \pythonil{"1.2345533e6 with thousand separator and 1 decimal is 1,234,553.3."}.%
 \end{sloppypar}%
 %
 \begin{sloppypar}%
-Let us also insert a floating point arithmetic expression in an f-string.
+Let us also insert a floating point arithmetic expression in an \pgls{fstring}.
 We therefore import the sine function \pythonilIdx{sin} from the \pythonilIdx{math} module via \pythonil{from math import sin}\pythonIdx{from}\pythonIdx{math}\pythonIdx{import}\pythonIdx{sin}.
-The f-string \pythonil{f"sin(0.25pi) is approximately \{sin(0.25*pi):.5f\}."} computes the expression \pythonil{sin(0.25*pi)} and presents its result rounded to five decimals via the \pythonilIdx{:.5f} format specifier.
+The \pgls{fstring} \pythonil{f"sin(0.25pi) is approximately \{sin(0.25*pi):.5f\}."} computes the expression \pythonil{sin(0.25*pi)} and presents its result rounded to five decimals via the \pythonilIdx{:.5f} format specifier.
 It therefore becomes \pythonil{"sin(0.25pi) is approximately 0.70711."}.%
 \end{sloppypar}%
 %
@@ -240,7 +241,7 @@ This gives us \pythonil{"235981700000.0 is 1.235982e+12 and approximately 1.24e+
 \end{sloppypar}%
 %
 The keen reader may have encountered a question at this stage:
-\emph{\inQuotes{What do I do if I want to include a curly brace, say \textbraceleft\ or \textbraceright\ inside my f-string?}}
+\emph{\inQuotes{What do I do if I want to include a curly brace, say \textbraceleft\ or \textbraceright\ inside my \pgls{fstring}?}}
 Well, if you include a single brace, it would be interpreted as start or end of an expression.
 If the following text makes sense as expression, it will be interpreted.
 If not, an error will occur.
@@ -264,7 +265,7 @@ You are now able to convert the results of your computations to nice text.%
 \label{fig:strEscapes}%
 \end{figure}%
 %
-The last example of f-strings brought up an interesting topic:
+The last example of \pglspl{fstring} brought up an interesting topic:
 \inQuotes{What do we do if we want to use a character in a string which we cannot use?}
 For example, if our string is delimited with double quotation marks~\pythonil{"}\pythonIdx{\textquotedbl}, then we cannot put the character \inQuotes{\pythonil{"}} into it, because it would then be interpreted as the end of the string.
 On the other hand, if our string is delimited with single quotation marks~\pythonil{'}\pythonIdx{\textquotesingle}, then we cannot put the character \inQuotes{\pythonil{'}} into it, because it would then be interpreted as the end of the string.
@@ -307,8 +308,8 @@ The linebreak will then be ignored entirely.
 Therefore, if you print~\pythonil{print("Hello\\}, hit \keys{\enter}, and then continue to write \pythonil{World!")}, this produces the output~\inlinelistingbox{\texttt{HelloWorld!}}.
 
 Escape sequences allow us to write arbitrary text in strings.
-We already leared the sequences \inQuotes{\textbraceleft\textbraceleft}\pythonIdx{\textbraceleft\textbraceleft} and \inQuotes{\textbraceright\textbraceright}\pythonIdx{\textbraceright\textbraceright} that were designed for f-strings only.
-The backslash-based escape sequence we discussed in this section work for both f-strings and normal strings.%
+We already leared the sequences \inQuotes{\textbraceleft\textbraceleft}\pythonIdx{\textbraceleft\textbraceleft} and \inQuotes{\textbraceright\textbraceright}\pythonIdx{\textbraceright\textbraceright} that were designed for \pglspl{fstring} only.
+The backslash-based escape sequence we discussed in this section work for both \pglspl{fstring} and normal strings.%
 \endhsection%
 %
 \hsection{Multi-Line Strings}%
@@ -333,9 +334,89 @@ We first create the string by writing the three lines \inlinelistingbox{\texttt{
 The first line begins with \pythonil{"""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl} and the last one ends with \pythonil{"""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl} as well.
 Passing this text to the \pythonilIdx{print} function, well, prints exactly this three-line string.
 
-We can also have multi-line f-strings\pythonIdx{str!f}\pythonIdx{f-string!multi-line}.
+We can also have multi-line \pglspl{fstring}\pythonIdx{str!f}\pythonIdx{f-string!multi-line}.
 These then simply start with \pythonil{f"""}\pythonIdx{f\textquotedbl\textquotedbl\textquotedbl}.
-The example in \cref{fig:strMultiline} presents such a multi-line f-string with two expressions for interpolation which spans over three lines.%
+The example in \cref{fig:strMultiline} presents such a multi-line \pgls{fstring} with two expressions for \pgls{strinterpolation} which spans over three lines.%
+\endhsection%
+%
+\hsection{Unicode and Character Representation}%
+%
+\noviceHint{%
+This section is for readers who want to learn how text is mapped to numbers in order to store it in a computer. %
+First-time readers can safely skip over it.}%
+%
+\begin{figure}%
+\centering%
+\includegraphics[width=0.65\linewidth]{\currentDir/unicodeCharacterTableSubset}%
+\caption{A subset of the \pgls{unicode} character table including the Basic Lating characters as well as some Simplified Chinese characters.}%
+\label{fig:unicodeCharacterTableSubset}%
+\end{figure}%
+%
+\begin{figure}%
+\centering%
+\includegraphics[width=0.65\linewidth]{\currentDir/strUnicodeEscape}%
+\caption{\inQuotes{Hello} in Simplified Chinese and entered via \pgls{unicode} escaped string.}%
+\label{fig:strUnicodeEscape}%
+\end{figure}%
+%
+The memory of our computers basically stores chunks of bits of certain fixed sizes, say, bytes that are composed of8~bit each.
+Usually, these are interpreted as integer numbers.
+While \python\ supports arbitrarily large integers, usually we deal with integers composed of 8~bytes, i.e., 64~bits.
+The \pythonil{float} datatype in \python\ is also usually 8~bytes large, but these are interpreted differently in order to facilitate fractional numbers (see, e.g., \cref{fig:floatIEEEStructure}).
+But how does this work with text?
+
+Well, by mapping characters to numbers.
+A \pythonilIdx{str} is then nothing but a list of these numbers.
+The system then knows how to interpret these numbers as characters.
+Maybe the most well-known historical mapping is ASCII~\cite{ASA1963ASCII,USAS1967USCFII}, which, however, contained only latin characters, punctuation marks, numbers, and some control characters (like the newline and tab characters we learned when discussing string escaping).
+Since different languages use different characters, many different mappings have historically evolved and still exist today.
+In China, different mappings specialized to Chinese characters exist additionally, including the historical GB~2312~\cite{GBT23121980PROCNSG21CCECSFIE}, GBK~\cite{TSSL1995CICSNSE}, or the newer GB~18030~\cite{GB180302022ITCCCS}.
+Today, the vast majority of computers and systems understand one common standard that covers all languages:
+\pgls{unicode}~\cite{TUC2023U1510,TUC2023U151ACS,ISOIEC106462020ITUCCSU}, the most frequently used mapping of characters to numbers.
+Therefore, \python\ uses \pgls{unicode} as well\pythonIdx{str!unicode}.
+
+\cref{fig:unicodeCharacterTableSubset} illustrates a subset of the \pgls{unicode} code table, including the Basic Latin characters, which are basically still compatible with~ASCII, and some Simplified Chinese characters.
+Most \pgls{unicode} characters can be identified by a number represented as four hexadecimal digits (mentioned back in \cref{sec:int:bitstrings}).
+The rows \cref{fig:unicodeCharacterTableSubset} are annotated with the first three of these digits and the columns with fourth and last hexadecimal digits.
+
+\python\ allows us to enter \pgls{unicode} characters via a special escape code starting with \pythonil{\\u}\pythonIdx{\textbackslash{u}} followed by these four digits.
+This is very useful.
+Imagine that you are sharing a program file with some colleagues.
+Depending on how their computer encodes text, the Basic Latin characters are usually always interpreted correctly.
+But some computers may misinterpret \pgls{unicode} text as something else because the mix up the file encoding.
+If we use the \pythonil{\\u}-based\pythonIdx{\textbackslash{u}} escape, then we can represent \emph{any} character as Basic Latin text sequence.
+It is also useful if we want to, e.g., enter Chinese text on a machine that does not have an IME or other corresponding tools.
+
+Anyway, in \cref{fig:strUnicodeEscape}, we use the information obtained in \cref{fig:unicodeCharacterTableSubset} to print the Chinese text \inQuotes{Ni Hao.} standing for \inQuotes{Hello.} as unicode escaped string.
+We found that the character for \inQuotes{Ni} has unicode number~4f60, \inQuotes{Hao} has~597d, and the big period has~3002.
+The string \pythonil{"\\u4f60\\u597d\\u3002"} then corresponds to the correct Chinese text.%
+\endhsection%
+%
+\hsection{Summary}%
+Strings, i.e., instances of \pythonilIdx{str}, represent text.
+Text is obviously an important element of any program, not just because programs are usually written as text, but because they often receive text as input and send text back as output as well.
+Strings are therefore an essential element of programming.
+They are basically lists of characters.
+We can index them, i.e., extract portions of text, we can search inside a string to check whether and where it contains a certain substring, and we can manipulate strings, e.g., by replacing substrings.
+
+It is also important that we can transform data such as \pythonil{int}s, \pythonil{float}s, or \pythonil{bool}s to strings.
+Because we actually \emph{always} print them as strings to the console.
+The user cannot interprete the binary representation of such data, they only want text.
+\pglspl{fstring} are the tool for that.
+They can render almost arbitrary data as nicely formatted strings and take care of things such as rounding or inserting thousand separators.
+
+Sometimes we want to include characters in our strings that are dodgy.
+For example, if our string is delimited by \pythonil{"} marking its begin and end, inserting such a \pythonil{"} inside the string would be awkward.
+Indeed, the \python\ interpreter would think that it marks the end of the string and then confuse the \pythonil{"} marking the actual end as the beginning of a new string.
+Escape sequences solve this problem:
+We would just write \pythonil{\\"} instead of \pythonil{"} if we want to insert a double quotation mark inside a string.
+Multi-line strings solve the problem that we sometimes want to enter text as strings that, well, spans multiple lines.
+
+Finally, we learned that strings internally are \pgls{unicode} character sequences.
+\pgls{unicode} is a standard that maps the characters of all common languages to numbers.
+We can look up the number corresponding to a character in a \pgls{unicode} code table.
+Usually, these are four-digit hexadecimal numbers, which we can then use with the special \pythonil{\\u}\pythonIdx{\textbackslash{u}} escape codes in \python.
+This allows us to basically represent arbitrary text from arbitrary languages using only the Basic Latin characters.%
 \endhsection%
 %
 \endhsection%
