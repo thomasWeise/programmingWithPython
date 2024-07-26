@@ -36,6 +36,7 @@ First, we need to know the length of a string.
 For this purpose, we can invoke the \pythonilIdx{len}\pythonIdx{str!len}\pythonIdx{str!length} function:
 \pythonil{len("Hello")} is \pythonil{5}, because there are five characters in \inQuotes{Hello}.
 \pythonil{len("Hello World!")} would give us \pythonil{12}, because \pythonil{"Hello"} has five characters, \pythonil{"World!"} has six characters (the \pythonil{"!"} does count!) and there is the single space character in the middle, so $5+6+1=12$.
+By the way, the empty string~\pythonilIdx{""}\pythonIdx{str!empty} has length~\pythonil{0}, i.e., \pythonilIdx{len("")} yields~\pythonil{0}.
 
 Knowing the length\pythonIdx{str!length} of a string, we can now safely access its single characters.
 These characters are obtained using the square brackets \pythonil{[]}\pythonIdx{str![]}\pythonIdx{[}\pythonIdx{]} with the character index inbetween.
@@ -306,6 +307,11 @@ With this, you are also able to convert strings to data that you can use as inpu
 %
 %
 \hsection{Escaping Characters}%
+%
+\noviceHint{%
+This section tells you how to include special characters in strings that you otherwise could not include, like quotation marks. %
+You can skip this section and circle back to it when you need it.%
+}%
 %
 \begin{figure}%
 \centering%
