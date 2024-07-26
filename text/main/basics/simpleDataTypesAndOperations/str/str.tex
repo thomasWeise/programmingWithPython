@@ -139,17 +139,37 @@ Of course, these were just a small selection of the many string operations avail
 You can find more in the \href{https://docs.python.org/3/library/stdtypes.html\#textseq}{official documentation}~\cite{PSF2024TSTS}.%
 \endhsection%
 %
-\hsection{f-strings}%
+\hsection{The str Function and f-strings}%
 \label{sec:fstrings}%
 %
+\begin{figure}%
+\centering%
+\includegraphics[width=0.8\linewidth]{\currentDir/strStr}%
+\caption{The \pythonilIdx{str} function converts objects to strings.}%
+\label{fig:strStr}%
+\end{figure}%
+%
+We now have learned the basic operations that can process strings.
+However, we did not yet learn one essential thing:
+How can we convert an object, like an \pythonilIdx{int} or \pythonilIdx{float} value to a \pythonilIdx{str}?
+Very often, we want to perform some complicated calculation that produces a number and then print this number.
+
+In \python, you can convert many different objects to strings by passing them to the function \pythonilIdx{str}\pythonIdx{str!function}.
+As \cref{fig:strStr} shows, passing the integer number~\pythonil{23} to \pythonilIdx{str}, i.e., invoking \pythonil{str(23)}, yields the string~\pythonil{"23"}.
+Similarly, invoking \pythonil{str} with the \pythonilIdx{float} value \pythonil{23.5} produces the string~\pythonil{"23.5"}.
+
+We can of course concatenate the results of such computations to form more comprehensive texts:
+\pythonil{str(1 < 5) + " is True and " + str(1 + 5) + " = 6."} produces \pythonil{"True is True and 6 = 6."}, because \pythonil{1 < 5} evaluated to \pythonilIdx{True}, which is converted to a string, and \pythonil{1 + 5} gives us \pythonil{6}, which, too, is converted to a string.
+However, converting data to strings like this is rather tedious.
+
 \begin{figure}%
 \centering%
 \includegraphics[width=0.8\linewidth]{\currentDir/fstrings}%
 \caption{\python\ f-strings in action.}%
 \label{fig:fstrings}%
-\end{figure}%
-%
-\pythonIdx{str!f}\pythonIdx{f-string}Let us now discuss, preliminary, a very powerful gadget in \python's string processing toolbox: format strings, or \pglspl{fstring}\pythonIdx{f-string}\pythonIdx{str!f} for short~\cite{PSF2024FSL,S2016P4LSI,M2017WAFSIPAHCIUT,B2023PFS}.
+\end{figure}
+
+\pythonIdx{str!f}\pythonIdx{f-string}Let us therefore discuss a very powerful and much more convenient gadget in \python's string processing toolbox: format strings, or \pglspl{fstring}\pythonIdx{f-string}\pythonIdx{str!f} for short~\cite{PSF2024FSL,S2016P4LSI,M2017WAFSIPAHCIUT,B2023PFS}.
 An f-string is like a normal string, except that it starts with \pythonil{f"}\pythonIdx{f\textquotedbl} instead of \pythonil{"}.
 And, most importantly, it can contain other data and even complete expressions inside curly braces (\pythonil{\{...\}}\pythonIdx{\textbraceleft}\pythonIdx{\textbraceright}) which are then embedded into the string.%
 %
@@ -401,7 +421,8 @@ We can index them, i.e., extract portions of text, we can search inside a string
 
 It is also important that we can transform data such as \pythonil{int}s, \pythonil{float}s, or \pythonil{bool}s to strings.
 Because we actually \emph{always} print them as strings to the console.
-The user cannot interprete the binary representation of such data, they only want text.
+The user cannot interpret the binary representation of such data, they only want text.
+While the function \pythonil{str} can convert many different types of objects to strings, we often want to combine several different pieces of information to an output text.
 \pglspl{fstring} are the tool for that.
 They can render almost arbitrary data as nicely formatted strings and take care of things such as rounding or inserting thousand separators.
 
