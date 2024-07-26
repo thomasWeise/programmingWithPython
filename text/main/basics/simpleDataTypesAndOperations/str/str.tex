@@ -276,6 +276,35 @@ It will be interpreted as a single \inQuotes{\textbraceright}~brace.
 You are now able to convert the results of your computations to nice text.%
 \endhsection%
 %
+\hsection{Converting Strings to other Datatypes}%
+\begin{figure}%
+\centering%
+\includegraphics[width=0.8\linewidth]{\currentDir/fromStr}%
+\caption{Converting strings to other datatypes.}%
+\label{fig:fromStr}%
+\end{figure}%
+%
+While converting the other datatypes to strings is important to produce output, converting strings to the other datatypes is also important.
+If our programs accept input from the console, the command line, or from text files, we need to somehow translate these input strings to whatever datatype we actually need.
+Luckily, the datatypes we have discussed so far conveniently provide functions for doing so, and these functions are named like the datatypes themselves.
+
+\cref{fig:fromStr} shows that we can convert the string \pythonil{"1111"} to an integer \pythonil{1111} simply by passing it to the function \pythonilIdx{int}\pythonIdx{int!function}.
+If we want to convert hexadecimal-formatted text such as the string \pythonil{"0x1111"} instead, we need to tell the \pythonilIdx{int} function that the basis for conversion is~16.
+Doing \pythonil{int("0x1111", 16)} yields \pythonil{4369}, because~$1+16^1+16^2+16^3=1+16+256+4096=4369$.
+Similarly, if we have a string in binary annotation, we pass~2 as second parameter to \pythonilIdx{int}.
+Calling \pythonil{int("0b1111", 2)} returns~\pythonil{15}, because~$1+2+4+8=15$.
+
+We can also convert strings to floating point numbers by using the \pythonilIdx{float}\pythonIdx{float!function} function.
+This works for scientific notation~(\pythonil{float("2.233e4")} yields \pythonil{22330.0}) as well as for \inQuotes{normal} floating point numbers~(\pythonil{float("0.1123")} yields the \pythonil{float} \pythonil{0.1123}).
+The \pythonilIdx{float} function also extends the special values that a floating point value can take one.
+Consequently, \pythonil{float("inf")} gives us~\pythonilIdx{inf} and \pythonil{float("nan")} returns~\pythonilIdx{nan}.
+
+Finally, the function \pythonilIdx{bool}\pythonIdx{bool!function} converts the strings \pythonil{"True"} and \pythonil{"False"} to \pythonilIdx{True} and \pythonilIdx{False}, respectively.
+With this, you are also able to convert strings to data that you can use as input for your computations.%
+%
+\endhsection%
+%
+%
 \hsection{Escaping Characters}%
 %
 \begin{figure}%
@@ -425,6 +454,11 @@ The user cannot interpret the binary representation of such data, they only want
 While the function \pythonil{str} can convert many different types of objects to strings, we often want to combine several different pieces of information to an output text.
 \pglspl{fstring} are the tool for that.
 They can render almost arbitrary data as nicely formatted strings and take care of things such as rounding or inserting thousand separators.
+
+Converting strings to the other datatypes that we have discussed so far can, conveniently, be done by using functions of the same names:
+The function \pythonilIdx{int} converts its argument string to an instance of \pythonilIdx{int}.
+The function \pythonilIdx{float} converts its argument string to an instance of \pythonilIdx{float}.
+And the function \pythonilIdx{bool}, well, you guess it.
 
 Sometimes we want to include characters in our strings that are dodgy.
 For example, if our string is delimited by \pythonil{"} marking its begin and end, inserting such a \pythonil{"} inside the string would be awkward.
