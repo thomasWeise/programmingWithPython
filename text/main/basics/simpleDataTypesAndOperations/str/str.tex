@@ -18,9 +18,10 @@ Indeed, we have already used it before, even in our very first example program b
 %
 As \cref{fig:strIndexing} shows, there are two basic ways to specify a text string literal\pythonIdx{str!literal}:
 Either enclosed by double quotes, e.g., \pythonil{"Hello World!"}\pythonIdx{\textquotedbl} or enclosed by single quotes, e.g., \pythonil{'Hello World!'}\pythonIdx{\textquotesingle}.
-The double-quote variant is usually preferred and we should always use it in our programs.
 The quotation marks are only used to delimit the strings, i.e., to tell \python\ where the string begins or ends.
 They are not themselves part of the string.
+
+\bestPractice{strDoubleQuote}{When defining a string literal, the double-quotation mark variant~(\pythonil{"..."}\pythonIdx{\textquotedbl}) is usually preferred over the single-quotation mark variant~(\pythonil{'...'}\pythonIdx{\textquotesingle}).}
 
 One basic operation is string concatenation\pythonIdx{str!concatenation}\pythonIdx{str!+}\pythonIdx{+}:
 \pythonil{"Hello" + ' ' + "World"}\pythonIdx{\textquotedbl}\pythonIdx{\textquotesingle} concatenates the three strings \pythonil{"Hello"}, \pythonil{" "}, and \pythonil{"World"}.
@@ -170,7 +171,7 @@ However, converting data to strings like this is rather tedious.
 \label{fig:fstrings}%
 \end{figure}
 
-\pythonIdx{str!f}\pythonIdx{f-string}Let us therefore discuss a very powerful and much more convenient gadget in \python's string processing toolbox: format strings, or \pglspl{fstring}\pythonIdx{f-string}\pythonIdx{str!f} for short~\cite{PSF2024FSL,S2016P4LSI,M2017WAFSIPAHCIUT,B2023PFS}.
+\pythonIdx{str!f}\pythonIdx{f-string}Let us therefore discuss a very powerful and much more convenient gadget in \python's string processing toolbox: format strings, or \pglspl{fstring}\pythonIdx{f-string}\pythonIdx{str!f} for short~\cite{PSF2024FSL,PEP498,M2017WAFSIPAHCIUT,B2023PFS}.
 An f-string is like a normal string, except that it starts with \pythonil{f"}\pythonIdx{f\textquotedbl} instead of \pythonil{"}.
 And, most importantly, it can contain other data and even complete expressions inside curly braces (\pythonil{\{...\}}\pythonIdx{\textbraceleft}\pythonIdx{\textbraceright}) which are then embedded into the string.%
 %
@@ -378,11 +379,12 @@ The backslash-based escape sequence we discussed in this section work for both \
 %
 Before we discussed that strings in \python\ are delimited either by \pythonil{"}\pythonIdx{\textquotedbl} or \pythonil{'}\pythonIdx{\textquotesingle} on each side.
 However, we can actually delimit them also delimit them with \emph{three quotation marks} on each side, i.e., with either \pythonil{"""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl} or \pythonil{'''}\pythonIdx{\textquotesingle\textquotesingle\textquotesingle}.
-The double quotation mark variant is again preferred.
 Such string delimiters are used for multi-line strings.
 In such strings, you can insert linebreaks by hitting \keys{\enter} completely normally.
 You can use the escape sequences from the previous section as well.
 The main use case are docstrings, which we will discuss much later.
+
+\bestPractice{longstrDoubleQuote}{When defining a multi-line string literal, the double-quotation mark variant~(\pythonil{"""..."""})\pythonIdx{\textquotedbl\textquotedbl\textquotedbl} is usually preferred over the single-quotation mark variant~(\pythonil{'''...'''}\pythonIdx{\textquotesingle\textquotesingle\textquotesingle})~\cite{PEP257,PEP8}.}
 
 \cref{fig:strMultiline} shows what happens if we print such a multi-line string.
 We first create the string by writing the three lines \inlinelistingbox{\texttt{This is a multi-line string.}}, \inlinelistingbox{\texttt{I can hit enter to begin a new line.}}, and \inlinelistingbox{\texttt{This linebreak is then part of the string.}}.

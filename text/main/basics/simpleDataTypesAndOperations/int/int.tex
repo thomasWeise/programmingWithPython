@@ -56,6 +56,8 @@ For now, let's just say that they can represent fractional parts (to a limited p
 Computing \pythonil{32 / 4} thus yields~\pythonil{8.0}, \pythonil{33 / 4} gives us \pythonil{8.25}, \pythonil{34 / 4} yields~\pythonil{8.5}, \pythonil{35 / 4} results in \pythonil{8.75}, and, finally, \pythonil{36 / 4} returns~\pythonil{9.0}.
 Notice that the result of this division operator is always a floating point number, even if the number itself is an integer.
 
+\bestPractice{intDivision}{Always be careful with which division operator you use for \pythonilIdx{int}s. If you need an integer result, make sure to use \pythonilIdx{//}. Remember that \pythonilIdx{/} always returns a \pythonilIdx{float} (and see \cref{bp:floatImprecise}), even if the result is a whole number.}
+
 Now above we have said that \pythonil{33 // 4} yields the integer~\pythonil{8}.
 The remainder of this operation can be computed using the \pgls{modulodiv} operator \expandafter\pythonilIdx{\%}, i.e., by typing \pythonil{33 \% 4}, which yields~\pythonil{1}.
 We also find that \expandafter\pythonil{34 \% 4} yields~\pythonil{2}, \expandafter\pythonil{35 \% 4} gives us~\pythonil{3}, and \expandafter\pythonil{36 \% 4} is~\pythonil{0}.

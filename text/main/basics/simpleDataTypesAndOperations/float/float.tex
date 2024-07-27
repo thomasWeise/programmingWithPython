@@ -66,6 +66,7 @@ However, their accuracy is always limited to about 15~digits.
 In other words, regardless whether your \pythonilIdx{float} stores a very large or a very small number, you can have at most 15~digits of precision.
 For example, adding~1 to~$10^{16}$ would still yield~$10^{16}$, because only 15~digits are \inQuotes{stored} and the~1 will just \inQuotes{fall off.}
 You cannot represent numbers arbitrarily precisely.%
+%
 \endhsection%
 %
 \hsection{Floating Point Arithmetic}%
@@ -138,6 +139,17 @@ Obviously, $\arcsin{\sin{0.925}}$ should be~$0.925$.
 Calculating \pythonil{asin(sin(0.925))}\pythonIdx{asin}\pythonIdx{sin} indeed yields~\pythonil{0.9250000000000002}.
 Due to the periodicity of the trigonometric functions, $\arccos{\cos{-0.3}}$ is~$0.3$ and \pythonil{acos(cos(-0.3))}\pythonIdx{acos}\pythonIdx{cos} results in~\pythonil{0.30000000000000016}.
 For $\arctan{\tan{1}}$ we even get the exact result \pythonil{1.0} by computing \pythonil{atan(tan(1))}\pythonIdx{atan}\pythonIdx{tan}.%
+%
+\bestPractice{floatImprecise}{%
+Always assume that any \pythonilIdx{float} value is imprecise. %
+Never expect it to be exact~\cite{PTVF2007EAAS,BHK2006NS}.%
+}%
+%
+Due to the limited precision, it could be that you add two numbers $c=a+b$ but then find that $c-a\neq b$, because some digit was lost. %
+This is obvious when adding a very small number to a very large number.
+We only have about 15~digits, so doing something like~$10^{20} + 1$ will usually work out to just be~$10^{20}$ in floating point arithmetics~\cite{PTVF2007EAAS}.
+But digits could also be lost when adding numbers of roughly the same scale, because their sum could just be larger so that the 15-digit-window shifts such that the least-significant digit falls off~\cite{BHK2006NS}{\dots}%
+%
 \endhsection%
 %
 \hsection{Back to Integers: Rounding}%
