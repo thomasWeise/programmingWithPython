@@ -6,7 +6,7 @@
 # You can find it at https://thomasweise.github.io/latexgit_py,
 # https://github.com/thomasWeise/latexgit_py, or at
 # https://pypi.org/project/latexgit.
-latexgit == 0.8.13
+latexgit == 0.8.14
 
 # minify_html is needed to minify html output.
 minify_html == 0.15.0
@@ -15,4 +15,4 @@ minify_html == 0.15.0
 markdown == 3.6
 
 # for converting files to HTML
-Pygments == 2.16.1
+Pygments == 2.18.0

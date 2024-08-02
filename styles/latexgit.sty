@@ -6,9 +6,9 @@
 %%
 %% latexgit.dtx  (with options: `package')
 %% This is a generated file.
-%%
-%% Copyright (C) 2023 by Thomas Weise <http://iao.hfuu.edu.cn/5>
-%%
+%% 
+%% Copyright (C) 2023--24 by Thomas Weise <http://iao.hfuu.edu.cn/5>
+%% 
 %% This file may be distributed and/or modified under the conditions of the
 %% GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007.
 %% The license can be found at
@@ -19,7 +19,7 @@
 %% This work is author-maintained, i.e., it can only be maintained by
 %% Thomas Weise.
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]%
-\ProvidesPackage{latexgit}[2023/12/05 0.8.1 A version with slightly improved documentation.]%
+\ProvidesPackage{latexgit}[2024/08/02 0.8.4 Improved Build Process.]%
 %%
 %%
 %%
@@ -35,6 +35,7 @@
 
 \end{filecontents*}
 \protected\gdef\@latexgit@gitFile#1#2#3{}%
+\protected\gdef\@latexgit@process#1#2#3{}%
 %%
 %% Define a query to load and post-process a file from a |git| repository.
 %% #1 is the repository URL
@@ -60,6 +61,31 @@
 \else%
 \xdef\gitUrl{http://example.com}%
 \fi%  If we get here, the |\gitUrl| holds a valid URL.
+}%
+%%
+%% Define a query to execute a command, optionally in a |git| repository.
+%% #1 is the repository URL, or empty if no repository is needed
+%% #2 is the path to a directory inside the repository or empty
+%% #3 is a command to be executed
+\protected\gdef\gitExec#1#2#3{%
+\edef\@latexgit@pA{#1}%  fully expand the repository URL
+\edef\@latexgit@pB{#2}%  fully expand the path into the repository
+\edef\@latexgit@pC{#3}%  fully expand the (optional) shell command
+\immediate\write\@mainaux{%
+\noexpand\@latexgit@process{\@latexgit@pA}{\@latexgit@pB}{\@latexgit@pC}}%
+\advance\@latexgit@counter by 1\relax%
+\edef\@latexgit@pathCmd{@latexgit@path\alphalph{\the\@latexgit@counter}}%
+\expandafter\ifcsname\@latexgit@pathCmd\endcsname\relax%
+\xdef\gitFile{\csname\@latexgit@pathCmd\endcsname}%
+\else%
+\xdef\gitFile{\@latexgit@dummyPath}%
+\fi%  If we get here, the |\gitFile| command holds a valid path.
+\edef\@latexgit@urlCmd{@latexgit@url\alphalph{\the\@latexgit@counter}}%
+\expandafter\ifcsname\@latexgit@urlCmd\endcsname\relax%
+\xdef\gitUrl{\csname\@latexgit@urlCmd\endcsname}%
+\else%
+\xdef\gitUrl{}%
+\fi%  If we get here, the |\gitUrl| holds a valid URL or is empty.
 }%
 \endinput
 %%

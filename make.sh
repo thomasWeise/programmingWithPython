@@ -20,14 +20,14 @@ rm "book.pdf" || true
 rm -rf "$currentDir/website" || true
 
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We setup a virtual environment in a temp directory."
-tempDir="$(mktemp -d)"
-echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Got temp dir '$tempDir', now creating environment in it."
-python3 -m venv --system-site-packages "$tempDir"
-echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Activating virtual environment in '$tempDir'."
-. "$tempDir/bin/activate"
-export PYTHON_INTERPRETER="$tempDir/bin/python3"
+venvDir="$(mktemp -d)"
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Got temp dir '$venvDir', now creating environment in it."
+python3 -m venv --system-site-packages "$venvDir"
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Activating virtual environment in '$venvDir'."
+. "$venvDir/bin/activate"
+export PYTHON_INTERPRETER="$venvDir/bin/python3"
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Setting python interpreter to '$PYTHON_INTERPRETER'."
-echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We install all required Python packages from requirements.txt to virtual environment in '$tempDir'."
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We install all required Python packages from requirements.txt to virtual environment in '$venvDir'."
 pip install --no-input --timeout 360 --retries 100 -r requirements.txt
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Finished installing the requirements, now printing all installed packages."
 pip freeze
@@ -42,6 +42,6 @@ echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We now execute the website building script
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Deactivating virtual environment."
 deactivate
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Deleting virtual environment."
-rm -rf "$tempDir"
+rm -rf "$venvDir"
 
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We have finished the book building process."

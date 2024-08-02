@@ -14,6 +14,9 @@ fileOut="$2"
 
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We will filter '$fileIn' to '$fileOut using ghostscript."
 
+tempFileA="$(mktemp --suffix=.pdf)"
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We will first filter '$fileIn' to '$tempFileA' using ghostscript."
+
 gs -dAntiAliasColorImages=true \
    -dAntiAliasGrayImages=true \
    -dAntiAliasMonoImages=true \
@@ -54,8 +57,58 @@ gs -dAntiAliasColorImages=true \
    -dSubsetFonts=true \
    -dUNROLLFORMS \
    -sDEVICE=pdfwrite \
-   -sOutputFile="$fileOut" "$fileIn" \
+   -sOutputFile="$tempFileA" "$fileIn" \
    -c "<</NeverEmbed [ ]>> setdistillerparams" \
    -q
+
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We now filter '$tempFileA' to '$fileOut' using ghostscript."
+
+gs -dAntiAliasColorImages=true \
+   -dAntiAliasGrayImages=true \
+   -dAntiAliasMonoImages=true \
+   -dAutoFilterColorImages=false \
+   -dAutoFilterGrayImages=false \
+   -dAutoRotatePages=/None \
+   -dBATCH \
+   -dCannotEmbedFontPolicy=/Error \
+   -dColorConversionStrategy=/LeaveColorUnchanged \
+   -dColorImageFilter=/FlateEncode \
+   -dCompressFonts=true \
+   -dCompressStreams=true \
+   -dDetectDuplicateImages=true \
+   -dDownsampleColorImages=false \
+   -dDownsampleGrayImages=false \
+   -dDownsampleMonoImages=false \
+   -dEmbedAllFonts=true \
+   -dFastWebView=false \
+   -dGrayImageFilter=/FlateEncode \
+   -dHaveTransparency=true \
+   -dMaxBitmap=2147483647 \
+   -dNOPAUSE \
+   -dOptimize=true \
+   -dPassThroughJPEGImages=true \
+   -dPassThroughJPXImages=true \
+   -dPDFSTOPONERROR=true \
+   -dPDFSTOPONWARNING=true \
+   -dPreserveCopyPage=false \
+   -dPreserveEPSInfo=false \
+   -dPreserveHalftoneInfo=false \
+   -dPreserveOPIComments=false \
+   -dPreserveOverprintSettings=false \
+   -dPreserveSeparation=false \
+   -dPreserveDeviceN=false \
+   -dPrinted=false \
+   -dQUIET \
+   -dSAFER \
+   -dSubsetFonts=true \
+   -dUNROLLFORMS \
+   -sDEVICE=pdfwrite \
+   -sOutputFile="$fileOut" "$tempFileA" \
+   -c "<</NeverEmbed [ ]>> setdistillerparams" \
+   -q
+
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Now deleing '$tempFileA'."
+
+rm "$tempFileA"
 
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Successfully finished filtering '$fileIn' to '$fileOut using ghostscript."
