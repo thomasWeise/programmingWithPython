@@ -11,6 +11,10 @@ set -o errexit   # set -e : exit the script if any statement returns a non-true 
 # get the script directory
 scriptDir="$(dirname "$0")"
 
+# print operating systems infos
+( lsb_release -ds || cat /etc/*release || uname -om ) 2>/dev/null | head -n1
+uname -mrs
+echo ""
 # Print the python version.
 echo "python: $(python3 --version | sed -n 's/.*Python\s*\([.0-9]*\)/\1/p')"
 echo "latexgit_py: $(pip freeze | grep latexgit | sed -n 's/.*==*\([.0-9]*\)/\1/p')"
