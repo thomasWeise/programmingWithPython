@@ -28,7 +28,7 @@ We cannot really represent the real numbers~\realNumbers\ exactly in the memory 
 But how does it work in \python?
 How can we deal with the fact that we cannot dynamically represent fractional numbers exactly even in typical everyday cases?
 With \pythonilIdx{float}, \python\ offers us one type for fractional numbers.
-This datatype represents numbers usually in the same internal structure as \pythonil{double}s in the \pgls{C}~programming language~\cite{PSF2024NTIFC}, which, in turn, internally have a 64~bit IEEE~Standard 754 floating point number layout~\cite{IEEE2019ISFFPA,H1997IS7FPN}.
+This datatype represents numbers usually in the same internal structure as \pythonils{double} in the \pgls{C}~programming language~\cite{PSF2024NTIFC}, which, in turn, internally have a 64~bit IEEE~Standard 754 floating point number layout~\cite{IEEE2019ISFFPA,H1997IS7FPN}.
 The idea behind this standard is to represent both very large numbers, like~$10^{300}$ and very small numbers, like~$10^{-300}$.
 In order to achieve this, the 64~bits are divided into three pieces, as illustrated in \cref{fig:floatIEEEStructure}.
 %
