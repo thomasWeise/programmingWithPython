@@ -14,7 +14,7 @@ fileOut="$2"
 
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We will filter '$fileIn' to '$fileOut using ghostscript."
 
-tempFileA="$(mktemp --suffix=.pdf)"
+tempFileA="$(mktemp)"
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We will first filter '$fileIn' to '$tempFileA' using ghostscript."
 
 gs -dAntiAliasColorImages=true \
