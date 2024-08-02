@@ -94,9 +94,8 @@ language={},%
 sensitive=true,%
 %
 basicstyle=\@lstbasicstyle,%
-numberstyle=\@lstbasicstyle,%
+numberstyle=\color{listing-line-numbers},%
 identifierstyle=\@lstbasicstyle,%
-numberstyle=\@lstbasicstyle,%
 keywordstyle=\@lstbasicstyle,%
 emphstyle=\@lstbasicstyle,%
 commentstyle=\@lstbasicstyle,%
@@ -156,9 +155,10 @@ literate=%
 %% #3 the post-processing
 %% #4 the label (lst: will be pre-pended)
 %% #5 the caption
-\protected\gdef\gitCode#1#2#3#4#5{%
+%% #6 the style to use
+\protected\gdef\gitCode#1#2#3#4#5#6{%
 \gitLoad{#1}{#2}{#3}%
-\lstinputlisting[float,label={lst:#4},caption={#5~(\href{\gitUrl}{src})}]{\gitFile}%
+\lstinputlisting[float,label={lst:#4}#6,caption={#5~(\href{\gitUrl}{src})}]{\gitFile}%
 }%
 %
 %%
@@ -169,7 +169,7 @@ literate=%
 %% #4 the label (lst: will be pre-pended)
 %% #5 the caption
 \protected\gdef\gitPython#1#2#3#4#5{%
-\gitCode{#1}{#2}{python3 -m latexgit.formatters.python #3}{#4}{#5}%
+\gitCode{#1}{#2}{python3 -m latexgit.formatters.python #3}{#4}{#5}{,style=python_style}%
 }%
 %
 %
@@ -191,5 +191,26 @@ literate=%
 \protected\gdef\gitOutput#1#2#3#4#5{%
 \gitExec{#1}{#2}{#3}%
 \lstinputlisting[float,style=text_style,label={exec:#4},caption={#5}]{\gitFile}%
+}%
+%
+%% Use latexgit to place a listing with code and the program output.
+%% #1 the git repository
+%% #2 the path to the directory
+%% #3 the path to the file inside the directory
+%% #4 the post-processing
+%% #5 the label (lst: will be prepended to the program, exec: will be
+%%    pre-pended to the output)
+%% #6 the caption
+\protected\gdef\gitPythonAndOutput#1#2#3#4#5#6{%
+\begin{figure}[tb]%
+\centering%
+\gitLoad{#1}{#2/#3}{python3 -m latexgit.formatters.python #4}%
+\lstinputlisting[label={lst:#5},caption={#6~(\href{\gitUrl}{src}; output in~\cref{exec:#5})}]{\gitFile}%
+%\\[5pt]%
+$\downarrow$~~\expandafter\bashil{python3 #3}~~$\downarrow$%
+%\\[5pt]%
+\gitExec{#1}{#2}{python3 #3}%
+\lstinputlisting[label={exec:#5},style=text_style,caption={The standard output of~\cref{lst:#5}.}]{\gitFile}%
+\end{figure}%
 }%
 %
