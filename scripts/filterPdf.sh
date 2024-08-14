@@ -9,12 +9,22 @@ set -o nounset   # set -u : exit the script if you try to use an uninitialized v
 set -o errexit   # set -e : exit the script if any statement returns a non-true return value
 
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Welcome to the pdf filtering script."
-fileIn="$1"
+
+currentDir="$(pwd)"
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We are working in directory: '$currentDir'."
+
+fileIn="$(readlink -f "$1")"
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): The full input document path is '$fileIn'."
+
 fileOut="$2"
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We will filter the input document '$fileIn' to '$fileOut'."
 
-echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We will filter '$fileIn' to '$fileOut using ghostscript."
+tempDir="$(mktemp -d)"
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We will use the temporary directory '$tempDir'."
 
-tempFileSrc="$(mktemp)"
+cd "$tempDir"
+
+tempFileSrc="$(mktemp --tmpdir="$tempDir")"
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We will first copy '$fileIn' to '$tempFileSrc'."
 cp "$fileIn" "$tempFileSrc"
 fileSize="$(stat -c%s "$tempFileSrc")"
@@ -24,7 +34,7 @@ cycle=0
 while :
 do
   cycle=$((cycle+1))
-  tempFileDst="$(mktemp)"
+  tempFileDst="$(mktemp --tmpdir="$tempDir")"
   echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Now beginning filter cycle $cycle with destination '$tempFileDst'."
 
   echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We ghostscript to filter '$tempFileSrc' to '$tempFileDst'."
@@ -104,6 +114,10 @@ do
   done
 
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Now moving '$tempFileSrc' to '$fileOut'."
+cd "$currentDir"
 mv "$tempFileSrc" "$fileOut"
+
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Now cleaning up '$tempDir'."
+rm -rf "$tempDir"
 
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Successfully finished filtering '$fileIn' to '$fileOut using ghostscript."

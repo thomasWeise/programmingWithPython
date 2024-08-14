@@ -63,6 +63,9 @@ echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Now minifying website."
 find -type f -name "*.html" -exec "$PYTHON_INTERPRETER" -c "print('{}');import minify_html;f=open('{}','r');s=f.read();f.close();s=minify_html.minify(s,do_not_minify_doctype=True,ensure_spec_compliant_unquoted_attribute_values=True,keep_html_and_head_opening_tags=False,minify_css=True,minify_js=True,remove_bangs=True,remove_processing_instructions=True);f=open('{}','w');f.write(s);f.close()" \;
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Done minifying website."
 
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Setting permissions of '$websiteDir' and everything below to 777."
+chmod -R 777 "$websiteDir"
+
 cd "$currentDir"
 
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): The website building script has successfully completed."
