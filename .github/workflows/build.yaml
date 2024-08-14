@@ -18,7 +18,7 @@ jobs:
             ./make.sh
 # deploy to github pages
       - name: deploy documentation
-        uses: JamesIves/github-pages-deploy-action@65b5dfd4f5bcd3a7403bbc2959c144256167464e
+        uses: JamesIves/github-pages-deploy-action@94f3c658273cf92fb48ef99e5fbc02bd2dc642b2
         with:
           branch: gh-pages
           folder: /home/runner/work/programmingWithPython/programmingWithPython/website/
