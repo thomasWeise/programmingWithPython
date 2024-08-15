@@ -1,0 +1,29 @@
+\hsection{Multiple Assignments and Value Swapping}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{01_variables}{multi_and_swap.py}{--args format}{variables:multi_and_swap}{%
+A \python\ program assigning multiple values to multiple variables and using the same method to swap variable values.}%
+%
+In \python, we can assign values to multiple variables at once.
+In this case, we separate both the variable names and the values with commas.
+The first line (\pythonil{a, b = 5, 10}\pythonIdx{=!multiple}\pythonIdx{,}) in \cref{lst:variables:multi_and_swap} assigns the values~\pythonil{5} and~\pythonil{10}, respectively, to the variables~\pythonil{a} and~\pythonil{b}, respectively.
+After this assignment step, \pythonil{a == 5} and \pythonil{b == 10} holds.
+\pythonil{print(f"a={a}, b={b}")} therefore prints \textit{a=5, b=10}.
+
+This method can also be used to \emph{swap} the values of two variables\pythonIdx{=!swap}\pythonIdx{swap}.
+Writing \pythonil{a, b = b, a} looks a bit strange but it basically means \inQuotes{the \emph{new} value of \pythonil{a} will be the \emph{present} value of \pythonil{b} and the \emph{new} value of \pythonil{b} will be the \emph{present} value of \pythonil{a}.}
+The line is therefore basically equivalent to first storing~\pythonil{a} in a temporary variable~\pythonil{t}, then overwriting \pythonil{a} with \pythonil{b}, and finally copying the value of \pythonil{t} to \pythonil{t}.
+But it accomplishes this in single line of code instead of three.
+\pythonil{print(f"a={a}, b={b}")} thus now prints \textit{a=10, b=5}.%
+%
+\bestPractice{swap}{Swapping of variable values can best be done with a multi-assignment statement, e.g., \pythonil{a, b = b, a}\pythonIdx{=!swap}\pythonIdx{swap}.}%
+%
+The same concept of multiple assignments works for arbitrarily many variables.
+\pythonil{z, y, x = 1, 2, 3} assigns, respectively, \pythonil{1} to \pythonil{z}, \pythonil{2} to \pythonil{y}, and \pythonil{3} to \pythonil{x}.
+\pythonil{print(f"x={x}, y={y}, z={z}")} thus yields \textil{x=3, y=2, z=1}.
+
+We can also swap multiple values.
+\pythonil{x, y, z = z, y, x} assigns the present value of \pythonil{z} to become the new value of \pythonil{x}, the present value of \pythonil{y} to also be the new value of \pythonil{y}, and the present value of \pythonil{x} to become the new value of \pythonil{z}.
+\pythonil{print(f"x={x}, y={y}, z={z}")} now gives us \textil{x=1, y=2, z=3}.
+%
+\endhsection%
+%
