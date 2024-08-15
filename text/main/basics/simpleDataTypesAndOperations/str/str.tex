@@ -336,19 +336,19 @@ The backslash tells the \python\ interpreter that the next character should be c
 In \cref{fig:strEscapes}, we present several strings with escape sequences.
 For clarity reasons, we pass them to the \pythonilIdx{print} function to output them, which means that they show up undelimited in the console.
 A double quotation mark can be printed as \pythonil{print("\\"")}, i.e., as a string which is delimited and that then contains the escape sequence {\textbackslash\textquotedbl}\pythonIdx{\textbackslash\textquotedbl}.
-It then shows up as~\inlinelistingbox{\texttt{"}} in the output.
+It then shows up as~\textil{"} in the output.
 A single quotation mark can be printed as \pythonil{print("\\'")}, i.e., via the escape sequence {\textbackslash\textquotesingle}\pythonIdx{\textbackslash\textquotesingle}.
-It appears as~\inlinelistingbox{\texttt{'}} in the output.
+It appears as~\textil{'} in the output.
 
 If the use the backslash character~\inQuotes{\textbackslash}\pythonIdx{\textbackslash} to escape characters which may otherwise have some special meaning {\dots} then what do we do if we need a backslash inside of a string?
 Easy: We escape it.
-The escape sequence \inQuotes{\textbackslash\textbackslash}\pythonIdx{\textbackslash\textbackslash} is converted to a single backslash and \expandafter\pythonil{print("\\\\")} writes \inlinelistingbox{\texttt{\\}} to the output.
+The escape sequence \inQuotes{\textbackslash\textbackslash}\pythonIdx{\textbackslash\textbackslash} is converted to a single backslash and \expandafter\pythonil{print("\\\\")} writes \textil{\\} to the output.
 Knowing these sequences, we can now try to \pythonil{print("\\"\\'\\\\")}.
-The result printed to the output then is~\inlinelistingbox{\texttt{"'\\}}.
+The result printed to the output then is~\textil{"'\\}.
 
 Another situation where escape sequences are nice is when we want to have strings that span over multiple lines.
 The newline sequence \inQuotes{\textbackslash{n}}\pythonIdx{\textbackslash{n}} represents a \inQuotes{newline character} which causes the console to skip to the next line.
-\pythonil{print("Hello\\nWorld!")} will first print \inlinelistingbox{\texttt{Hello}}, then end the current line and begin a new line, and then print \inlinelistingbox{\texttt{World!}}.
+\pythonil{print("Hello\\nWorld!")} will first print \textil{Hello}, then end the current line and begin a new line, and then print \textil{World!}.
 Notice that the newline character sequence \inQuotes{\textbackslash{n}} is used in \linux\ and similar systems, whereas \windows\ uses \inQuotes{\textbackslash{r}\textbackslash{n}}\pythonIdx{\textbackslash{r}\textbackslash{n}}.
 Under \python, both always work, regardless under which operating system you are working, and you should \emph{always} use \inQuotes{\textbackslash{n}}.
 However, only for the sake of completeness, I include the example \pythonil{print("Hello\\r\\nWorld!")} as well, which produces the same output as \pythonil{print("Hello\\nWorld!")}.
@@ -361,7 +361,7 @@ If you want to include a horizontal tabulator in a string, the escape sequence \
 Finally, a backslash can also escape an actual newline in your string.
 If you have a string that is too long to write on a single line but you do not want to have a linebreak inside the actual string, you can simply put a backslash, hit \keys{\enter}, and continue the typing the string.
 The linebreak will then be ignored entirely.
-Therefore, if you print~\pythonil{print("Hello\\}, hit \keys{\enter}, and then continue to write \pythonil{World!")}, this produces the output~\inlinelistingbox{\texttt{HelloWorld!}}.
+Therefore, if you print~\pythonil{print("Hello\\}, hit \keys{\enter}, and then continue to write \pythonil{World!")}, this produces the output~\textil{HelloWorld!}.
 
 Escape sequences allow us to write arbitrary text in strings.
 We already leared the sequences \inQuotes{\textbraceleft\textbraceleft}\pythonIdx{\textbraceleft\textbraceleft} and \inQuotes{\textbraceright\textbraceright}\pythonIdx{\textbraceright\textbraceright} that were designed for \pglspl{fstring} only.
@@ -387,7 +387,7 @@ The main use case are docstrings, which we will discuss much later.
 \bestPractice{longstrDoubleQuote}{When defining a multi-line string literal, the double-quotation mark variant~(\pythonil{"""..."""})\pythonIdx{\textquotedbl\textquotedbl\textquotedbl} is usually preferred over the single-quotation mark variant~(\pythonil{'''...'''}\pythonIdx{\textquotesingle\textquotesingle\textquotesingle})~\cite{PEP257,PEP8}.}
 
 \cref{fig:strMultiline} shows what happens if we print such a multi-line string.
-We first create the string by writing the three lines \inlinelistingbox{\texttt{This is a multi-line string.}}, \inlinelistingbox{\texttt{I can hit enter to begin a new line.}}, and \inlinelistingbox{\texttt{This linebreak is then part of the string.}}.
+We first create the string by writing the three lines \textil{This is a multi-line string.}, \textil{I can hit enter to begin a new line.}, and \textil{This linebreak is then part of the string.}.
 The first line begins with \pythonil{"""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl} and the last one ends with \pythonil{"""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl} as well.
 Passing this text to the \pythonilIdx{print} function, well, prints exactly this three-line string.
 
@@ -397,6 +397,7 @@ The example in \cref{fig:strMultiline} presents such a multi-line \pgls{fstring}
 \endhsection%
 %
 \hsection{Unicode and Character Representation}%
+\label{sec:unicodeChars}%
 %
 \noviceHint{%
 This section is for readers who want to learn how text is mapped to numbers in order to store it in a computer. %
@@ -442,7 +443,7 @@ Imagine that you are sharing a program file with some colleagues.
 Depending on how their computer encodes text, the Basic Latin characters are usually always interpreted correctly.
 But some computers may misinterpret \pgls{unicode} text as something else because the mix up the file encoding.
 If we use the \pythonil{\\u}-based\pythonIdx{\textbackslash{u}} escape, then we can represent \emph{any} character as Basic Latin text sequence.
-It is also useful if we want to, e.g., enter Chinese text on a machine that does not have an IME or other corresponding tools.
+It is also useful if we want to, e.g., enter Chinese text on a machine that does not have an IME or other corresponding tools, or text in any other kind of language where we do not have corresponding keys on the keyboard (see, e.g., \cref{lst:variables:pi_liu_hui} later on).
 
 Anyway, in \cref{fig:strUnicodeEscape}, we use the information obtained in \cref{fig:unicodeCharacterTableSubset} to print the Chinese text \inQuotes{Ni Hao.} standing for \inQuotes{Hello.} as unicode escaped string.
 We found that the character for \inQuotes{Ni} has unicode number~4f60, \inQuotes{Hao} has~597d, and the big period has~3002.

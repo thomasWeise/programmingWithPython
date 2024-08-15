@@ -21,3 +21,6 @@
 %% the PyCharm python console menu key
 \protected\gdef\pycharmConsole{\raisebox{-1.75pt}{\includegraphics[width=1em,keepaspectratio]{styles/icons/pycharmPythonConsole}}}%
 %
+%% Include a pdf with chinese characters
+%% the pdf should have 0.2pt space around the characters of height 11pt, font should be KaiTi
+\protected\gdef\cnPdf#1{(\raisebox{-0.4ex}{\includegraphics[height=2.1ex,keepaspectratio]{\currentDir/#1}})}

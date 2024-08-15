@@ -74,7 +74,7 @@ literate=%
 {€}{{\EUR}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1%
 {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1%
 {…}{{\ldots}}1 {≥}{{>=}}1 {≤}{{<=}}1 {„}{{\glqq}}1 {“}{{\grqq}}1%
-{”}{{''}}1%
+{”}{{''}}1 {π}{{$\pi$}}1%
 }%
 \lstset{style=python_style}%
 %
@@ -96,10 +96,32 @@ sensitive=true,%
 basicstyle=\@lstbasicstyle,%
 numberstyle=\color{listing-line-numbers},%
 identifierstyle=\@lstbasicstyle,%
+keywords={},%
+otherkeywords={},%
 keywordstyle=\@lstbasicstyle,%
 emphstyle=\@lstbasicstyle,%
 commentstyle=\@lstbasicstyle,%
 stringstyle=\@lstbasicstyle,%
+keywordstyle={[2]\@lstbasicstyle},%
+keywordstyle={[3]\@lstbasicstyle},%
+keywordstyle={[4]\@lstbasicstyle},%
+keywordstyle={[5]\@lstbasicstyle},%
+keywordstyle={[6]\@lstbasicstyle},%
+keywordstyle={[7]\@lstbasicstyle},%
+emph={[2]},%
+emphstyle={[2]\@lstbasicstyle},%
+emph={[3]},%
+emphstyle={[3]\@lstbasicstyle},%
+emph={[4]},%
+emphstyle={[4]\@lstbasicstyle},%
+emph={[5]},%
+emphstyle={[5]\@lstbasicstyle},%
+emph={[6]},%
+emphstyle={[6]\@lstbasicstyle},%
+emph={[7]},%
+emphstyle={[7]\@lstbasicstyle},%
+emph={[8]},%
+emphstyle={[8]\@lstbasicstyle},%
 %
 literate=%
 {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1%
@@ -115,7 +137,7 @@ literate=%
 {€}{{\EUR}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1%
 {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1%
 {…}{{\ldots}}1 {≥}{{>=}}1 {≤}{{<=}}1 {„}{{\glqq}}1 {“}{{\grqq}}1%
-{”}{{''}}1%
+{”}{{''}}1 {π}{{$\pi$}}1%
 }%
 %
 %
@@ -126,6 +148,12 @@ literate=%
 \fboxrule=0.5pt%
 \mbox{\fcolorbox{listing-rule}{listing-background}{\mbox{#1}}}%
 \egroup}%
+%
+%% print some text inline
+%% #1 the optional args
+%% #2 the code to be printed inline
+\gdef\textil#1{%
+\inlinelistingbox{\lstinline[style=text_style]$#1$}}%
 %
 %% print some Python code inline
 %% #1 the optional args
@@ -158,7 +186,9 @@ literate=%
 %% #6 the style to use
 \protected\gdef\gitCode#1#2#3#4#5#6{%
 \gitLoad{#1}{#2}{#3}%
-\lstinputlisting[float,label={lst:#4}#6,caption={#5~(\href{\gitUrl}{src})}]{\gitFile}%
+\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitUrl:lst:#5\endcsname{\gitUrl}%
+\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:lst:#5\endcsname{\gitFile}%
+\lstinputlisting[float,label={lst:#4}#6,caption={#5~(\href{\csname @pwp@gitUrl:lst:#5\endcsname}{src})}]{\csname @pwp@gitFile:lst:#5\endcsname}%
 }%
 %
 %%
@@ -190,7 +220,8 @@ literate=%
 %% #5 the caption
 \protected\gdef\gitOutput#1#2#3#4#5{%
 \gitExec{#1}{#2}{#3}%
-\lstinputlisting[float,style=text_style,label={exec:#4},caption={#5}]{\gitFile}%
+\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:exec:#5\endcsname{\gitFile}%
+\lstinputlisting[float,style=text_style,label={exec:#4},caption={#5}]{\csname @pwp@gitFile:exec:#5\endcsname}%
 }%
 %
 %% Use latexgit to place a listing with code and the program output.
@@ -202,15 +233,20 @@ literate=%
 %%    pre-pended to the output)
 %% #6 the caption
 \protected\gdef\gitPythonAndOutput#1#2#3#4#5#6{%
+%
+\gitLoad{#1}{#2/#3}{python3 -m latexgit.formatters.python #4}%
+\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitUrl:lst:#5\endcsname{\gitUrl}%
+\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:lst:#5\endcsname{\gitFile}%
+\gitExec{#1}{#2}{python3 #3}%
+\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:exec:#5\endcsname{\gitFile}%
+%
 \begin{figure}[tb]%
 \centering%
-\gitLoad{#1}{#2/#3}{python3 -m latexgit.formatters.python #4}%
-\lstinputlisting[label={lst:#5},caption={#6~(\href{\gitUrl}{src}; output in~\cref{exec:#5})}]{\gitFile}%
-%\\[5pt]%
+\lstinputlisting[label={lst:#5},caption={#6~(stored in file~\href{\csname @pwp@gitUrl:lst:#5\endcsname}{\textil{#3}}; output in~\cref{exec:#5})}]{\csname @pwp@gitFile:lst:#5\endcsname}%
+%
 $\downarrow$~~\expandafter\bashil{python3 #3}~~$\downarrow$%
-%\\[5pt]%
-\gitExec{#1}{#2}{python3 #3}%
-\lstinputlisting[label={exec:#5},style=text_style,caption={The standard output of~\cref{lst:#5}.}]{\gitFile}%
+%
+\lstinputlisting[label={exec:#5},style=text_style,caption={The standard output of the program~\href{\csname @pwp@gitUrl:lst:#5\endcsname}{\textil{#3}} given in~\cref{lst:#5}.}]{\csname @pwp@gitFile:exec:#5\endcsname}%
 \end{figure}%
 }%
 %

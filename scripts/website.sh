@@ -57,7 +57,6 @@ sed -i "s/=$BASE_URL/=.\//g" "$websiteDir/index.html"
 sed -i "s/<\/h1>/<\/h1><h2>built on\&nbsp;$(date +'%0Y-%0m-%0d %0R:%0S')<\/h2>/g" "$websiteDir/index.html"
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Finished copying README.md to index.html."
 
-
 cd "$websiteDir"
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Now minifying website."
 find -type f -name "*.html" -exec "$PYTHON_INTERPRETER" -c "print('{}');import minify_html;f=open('{}','r');s=f.read();f.close();s=minify_html.minify(s,do_not_minify_doctype=True,ensure_spec_compliant_unquoted_attribute_values=True,keep_html_and_head_opening_tags=False,minify_css=True,minify_js=True,remove_bangs=True,remove_processing_instructions=True);f=open('{}','w');f.write(s);f.close()" \;

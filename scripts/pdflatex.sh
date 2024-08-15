@@ -151,7 +151,7 @@ while [ "$watchFileContents" != "$oldWatchFileContents" ] ; do
          [[ "$fileContents" = *"\\abx@aux@segm"* ]]; then
         auxName="${anyAuxFile%%.*}"
         echo "$(date +'%0Y-%0m-%0d %0R:%0S'): File '$auxFile' contains citations, so we applying '$bibProgram' to '$auxName'."
-        "$bibProgram" "$auxName"
+        "$bibProgram" --dieondatamodel --isbn-normalise --sortcase=false --sortupper=false "$auxName"
         echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Finished applying '$bibProgram' to '$auxFile'."
       else
         echo "$(date +'%0Y-%0m-%0d %0R:%0S'): File '$auxFile' does not contain any citation, so we do not apply '$bibProgram'."
