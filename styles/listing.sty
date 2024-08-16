@@ -122,6 +122,8 @@ emph={[7]},%
 emphstyle={[7]\@lstbasicstyle},%
 emph={[8]},%
 emphstyle={[8]\@lstbasicstyle},%
+breaklines=true,%
+postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},%
 %
 literate=%
 {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1%
@@ -220,8 +222,8 @@ literate=%
 %% #5 the caption
 \protected\gdef\gitOutput#1#2#3#4#5{%
 \gitExec{#1}{#2}{#3}%
-\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:exec:#5\endcsname{\gitFile}%
-\lstinputlisting[float,style=text_style,label={exec:#4},caption={#5}]{\csname @pwp@gitFile:exec:#5\endcsname}%
+\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:exec:#4\endcsname{\gitFile}%
+\lstinputlisting[float,style=text_style,label={exec:#4},caption={#5}]{\csname @pwp@gitFile:exec:#4\endcsname}%
 }%
 %
 %% Use latexgit to place a listing with code and the program output.

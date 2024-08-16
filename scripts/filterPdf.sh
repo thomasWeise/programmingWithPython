@@ -37,7 +37,7 @@ do
   tempFileDst="$(mktemp --tmpdir="$tempDir")"
   echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Now beginning filter cycle $cycle with destination '$tempFileDst'."
 
-  echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We ghostscript to filter '$tempFileSrc' to '$tempFileDst'."
+  echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We use ghostscript to filter '$tempFileSrc' to '$tempFileDst'."
   gs -dAntiAliasColorImages=true \
      -dAntiAliasGrayImages=true \
      -dAntiAliasMonoImages=true \

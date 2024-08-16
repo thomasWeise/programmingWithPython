@@ -50,6 +50,7 @@
 @string { a_carey_cj = "CJ Carey" }
 @string { a_castro_oscar = "Oscar Castro" }
 @string { a_chanan_gregory = "Gregory Chanan" }
+@string { a_chen_boqi = "Boqi Chen" }
 @string { a_chen_jianmin = "Jianmin Chen" }
 @string { a_chen_zhifeng = "Zhifeng Chen" }
 @string { a_chen_zhi = "Zhi Chen" }
@@ -114,6 +115,7 @@
 @string { a_katz_daniel_s = "Daniel S.\ Katz" }
 @string { a_keeton_kimberly = "Kimberly Keeton" }
 @string { a_kern_robert = "Robert Kern" }
+@string { a_khan_faizan = "Faizan Khan" }
 @string { a_killeen_trevor = "Trevor Killeen" }
 @string { a_klopf_andreas = "Andreas K{\"o}pf" }
 @string { a_konovalov_alexander = "Alexander Konovalov" }
@@ -136,6 +138,7 @@
 @string { a_massa_francisco = "Francisco Massa" }
 @string { a_maxwell_aaron = "Aaron Maxwell" }
 @string { a_mayorov_nikolay = "Nikolay Mayorov" }
+@string { a_mcintosh_shane = "Shane McIntosh" }
 @string { a_michel_vincent = "Vincent Michel" }
 @string { a_millman_jarrod_k = "K.\ Jarrod Millman" }
 @string { a_mirjalili_vahid = "Vahid Mirjalili" }
@@ -209,6 +212,7 @@
 @string { a_van_rossum_guido = "Guido {van Rossum}" }
 @string { a_van_rysdam = "Peter {van Rysdam}" }
 @string { a_varoquaux_gael = "Ga{\"e}l Varoquaux" }
+@string { a_varro_daniel = "D{\'a}niel Varr{\'o}" }
 @string { a_vasudevan_vijay = "Vijay Vasudevan" }
 @string { a_vetterling_william_t = "William T.\ Vetterling" }
 @string { a_virtanen_pauli = "Pauli Virtanen" }
@@ -301,7 +305,7 @@
 @string { p_pearson_education = "Pearson Education, Inc." }
 @string { p_microsoft_press = "{Microsoft Press}, " # p_pearson_education }
 @string { p_plos = "Public Library of Science~{(PLOS)}" }
-@string { p_python_software_foundation = "{Python Software Foundation~{(PSF)}}" }
+@string { p_python_software_foundation = "{\python\ Software Foundation~{(PSF)}}" }
 @string { p_springer = "{Springer}" }
 @string { p_springer_nature_limited = "{Springer Nature Limited}" }
 @string { p_springer_new_york = "{Springer New York}" }
@@ -401,6 +405,20 @@
  address = pa_informs
 }
 
+@xdata{j_itose,
+ journal = {{IEEE} Transactions on Software Engineering},
+ publisher = p_ieee,
+ address = pa_ieee,
+ issn = {0098-5589},
+}
+
+@xdata{j_jomlr,
+ journal = {Journal of Machine Learning Research~{(JMLR)}},
+ issn = {1532-4435},
+ publisher = p_mit_press,
+ address = pa_mit_press,
+}
+
 @xdata{j_lum,
  journal = {;login: Usenix Magazin},
  publisher = p_usenix,
@@ -413,20 +431,6 @@
  publisher = p_taylor_and_francis,
  address = pa_taylor_and_francis,
  issn = {0025-570X},
-}
-
-@xdata{j_jomlr,
- journal = {Journal of Machine Learning Research~{(JMLR)}},
- issn = {1532-4435},
- publisher = p_mit_press,
- address = pa_mit_press,
-}
-
-@xdata{j_oscdo,
- journal = {Ontology Studies (Cuadernos de Ontolog{\'i}a)},
- issn = {1576-2270},
- publisher = p_universidad_del_pais_vasco,
- address = pa_universidad_del_pais_vasco,
 }
 
 @xdata{j_n,
@@ -448,6 +452,13 @@
  publisher = p_ams,
  address = pa_ams,
  issn = {1088-9477}
+}
+
+@xdata{j_oscdo,
+ journal = {Ontology Studies (Cuadernos de Ontolog{\'i}a)},
+ issn = {1576-2270},
+ publisher = p_universidad_del_pais_vasco,
+ address = pa_universidad_del_pais_vasco,
 }
 
 @xdata{j_pcb,
@@ -491,7 +502,7 @@
 }
 
 @xdata{rep_pep,
- type = {Python Enhancement Proposal~{(PEP)}},
+ type = {\python\ Enhancement Proposal~{(PEP)}},
  institution = p_python_software_foundation,
  address = pa_python_software_foundation
 }
@@ -745,7 +756,7 @@
 
 @book{G2019DSFSFPWP,
  author = a_grus_joel,
- title = {Data Science from Scratch: First Principles with Python},
+ title = {Data Science from Scratch: First Principles with \python},
  edition = {2},
  date = {2019-05},
  publisher = p_oreilly,
@@ -876,6 +887,19 @@
  isbn = {9781484242469}
 }
 
+@article{KCVM2022AESOTRDIPP,
+ author = a_khan_faizan # and # a_chen_boqi # and # a_varro_daniel # and # a_mcintosh_shane,
+ title = {An Empirical Study of Type-Related Defects in \python\ Projects},
+ xdata = {j_itose},
+ volume = {48},
+ number = {8},
+ pages = {3145--3158},
+ date = {2022-08-01},
+ doi = {10.1109/TSE.2021.3082068},
+ url = {https://www.researchgate.net/publication/351729684},
+ urldate = {2024-08-16}
+}
+
 @book{L2023TDDBTADMLMWT,
  author = a_landau_charles,
  title = {\tensorflow\ Deep Dive: Build, Train, and Deploy Machine Learning Models with \tensorflow},
@@ -959,7 +983,7 @@
 }
 
 @techreport{PEP8,
- title = {Style Guide for Python Code},
+ title = {Style Guide for \python\ Code},
  author = a_van_rossum_guido # and # a_warsaw_barry # and # a_coghlan_alyssa,
  xdata = {rep_pep},
  number = {8},
