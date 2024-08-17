@@ -14,6 +14,7 @@ There really is not much to say about that.%
 \endhsection%
 %
 \hsection{Types and Confusion}%
+\label{sec:typesAndConfusion}%
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{01_variables}{variable_types_wrong.py}{--args format}{variables:types_wrong}{%
 An example for the confusing variable types.}
 
@@ -62,9 +63,9 @@ Luckily, there are two things that we can do to prevent such situations from pas
 %
 \begin{enumerate}%
 %
-\item Use static type-checking tools to find such potential errors in our code.%
+\item Use static type checking tools to find such potential errors in our code.%
 %
-\item Use type hints to annotate variables with their types to \emph{a)}~make our intention clearer and \emph{b)}~support type-checking tools.%
+\item Use type hints to annotate variables with their types to \emph{a)}~make our intention clearer and \emph{b)}~support type checking tools.%
 %
 \end{enumerate}%
 %
@@ -95,7 +96,7 @@ In languages like \pgls{C}, the compiler will take care of that for you.
 In \python, which allows for dynamic typing and is an interpreted language, we will use a tool like \mypy~\cite{LLHSVRZSJYYMC2024MOSTFP}.
 You can install this tool by opening a terminal.
 Under \ubuntu, you therefore press \ubuntuTerminal, and under \windows, you \windowsTerminal.
-Then type in \bashil{pip install mypy} and hit \keys{\enter}.
+Then type in \bashil{pip install mypy}\pythonIdx{Mypy}\pythonIdx{pip} and hit \keys{\enter}.
 The \mypy\ tool will be installed as illustrated in \cref{fig:pipInstallMypy}.
 
 We can now apply the tool to the program from \cref{lst:variables:types_wrong}.
@@ -115,14 +116,39 @@ This will obviously have no impact on the programs performance or speed.
 It also cannot fix the errors, as it cannot what the programmer actually intended to do.
 But knowing that line~4 in \cref{lst:variables:types_wrong} is probably wrong will help the programmer to fix that error or oversight before passing the program on to someone else.%
 %
-\bestPractice{staticTypeChecking}{Every program should pass static type-checking with tools such as \mypy. %
+\bestPractice{staticTypeChecking}{Every program should pass static type checking with tools such as \mypy. %
 Any issue found by the tools should be fixed. %
-In other words, type-check the program. %
-If there is an error, fix the error and \emph{type-check it again}. %
-Repeat this until no errors are found anyore.%
+In other words, type check the program. %
+If there is an error, fix the error and \emph{type check it again}. %
+Repeat this until no errors are found anymore.%
 }%
 %
 \endhsection%
+%
+\hsection{Type Hints}%
+%
+When we discussed \cref{lst:variables:types_wrong} in \cref{sec:typesAndConfusion}, we stated that there could be two reasons for the error in the code:
+Either, the author accidentally mixed-up two datatypes or operators~(\pythonilIdx{/}~vs.~\pythonilIdx{//}) or they chose a misleading name for their variable~\pythonil{int_var}.
+The problem that any type checking tool faces is that it cannot know the intention of the programmer.
+It can find that line~4 four is probably wrong, because the variable \pythonil{int_var}, which former contained an~\pythonil{int}, now gets a \pythonil{float} value assigned to it.
+
+Oddly enough, the problem of guessing the intention of the programmer does not exist in a statically typed language like~pgls{C}.
+Here, we \emph{need} to define the type of every variable before assigning a value to it.
+Therefore, if the programmer would have wanted \pythonil{int_var} to strictly be an integer, they would have declared it as an integer variable.
+If they wanted to store \pythonils{float} in it, they would have declared it as a \pythonil{float} variable.
+The compiler would have seen any malpractice right away and could tell us that either line~4 is wrong or our initial assignment of an \pythonil{int} to the variable in line~1.
+
+This is where the dynamic typing and lenience of \python\ comes back to bite us.
+It is very convenient for small projects, but as soon as the projects get bigger, it creates a mess.
+Remember that \inQuotes{real programs} are much more complex than \cref{lst:variables:types_wrong}.
+Imagine wading through thousands of lines of code to figure out what type a variable has, and, while doing so, remember that \python\ permits overwriting the contents of a variable with objects of an entirely different type whenever it pleases us.
+
+Realizing that dynamic typing can be a blessing but also a problem, \emph{optional} type hints were introduced into the \python\ language.
+We can now declare the type of a variable if we want.
+This solves the above problem basically entirely and allows us to tell type checking tools our intention.%
+%
+\endhsection%
+%
 \FloatBarrier%
 \endhsection%
 %
