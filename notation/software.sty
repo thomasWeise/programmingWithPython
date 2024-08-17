@@ -42,6 +42,19 @@ Learn more at \url{https://thomasweise.github.io/moptipy}.%
 }%
 \protected\gdef\moptipy{\pgls{moptipy}}%
 %
+%
+\newglossaryentry{mypy}{%
+text={\softwareStyle{Mypy}},%
+name={Mypy},%
+sort={Mypy},%
+description={%
+is the static type-checking tool for \python~\cite{LLHSVRZSJYYMC2024MOSTFP}. %
+Learn more at \url{https://github.com/python/mypy} or in \cref{sec:variableTypesAndTypeHints}.%
+}%
+}%
+\protected\gdef\mypy{\pgls{mypy}}%
+%
+%
 \newglossaryentry{numpy}{%
 text={\softwareStyle{NumPy}},%
 name={NumPy},%
@@ -64,6 +77,19 @@ Learn more at \url{https://pandas.pydata.org}.%
 }%
 }%
 \protected\gdef\pandas{\pgls{pandas}}%
+%
+%
+\newglossaryentry{pip}{%
+text={\softwareStyle{pip}},%
+name={pip},%
+sort={pip},%
+description={%
+is the standard tool to install \python\ software packages from the \pgls{pypi} repository~\cite{PSF2024IPM}. %
+To install a package \bashil{thepackage} hosted on \pgls{pypi}, type \bashil{pip install thepackage} into the \pgls{terminal}. %
+Learn more at \url{https://packaging.python.org/installing}.%
+}%
+}%
+\protected\gdef\pip{\pgls{pip}}%
 %
 %
 \newglossaryentry{pycharm}{%
@@ -89,6 +115,18 @@ Learn more at \url{https://python.org}.}
 %
 \xdef\pythonVersion{3.10}%
 \protected\gdef\pythonWithVersion{\softwareStyle{\python~\pythonVersion}}%
+%
+%
+\newglossaryentry{pypi}{%
+text={\softwareStyle{PyPI}},%
+name={PyPI},%
+sort={PyPI},%
+description={%
+The \python\ Package Index~(PyPI) is an online repository that provides the software packages that you can install with~\pip~\cite{PSF2024TPPIP,BB2019AEAOTPPIP,VVH2018ELDOSAIOSPACSOTPE}. %
+Learn more at \url{https://pypi.org}.%
+}%
+}%
+\protected\gdef\pypi{\pgls{pypi}}%
 %
 %
 \newglossaryentry{pytorch}{%

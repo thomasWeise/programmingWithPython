@@ -1,4 +1,5 @@
 \hsection{Variable Types and Type Hints}%
+\label{sec:variableTypesAndTypeHints}%
 %
 \hsection{Variable Types}%
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{01_variables}{variable_types.py}{--args format}{variables:types}{%
@@ -17,7 +18,7 @@ There really is not much to say about that.%
 An example for the confusing variable types.}
 
 Well, actually, there is.
-You see, when you declare a variable in a language like \texttt{C}, you have to specify its \emph{type}.
+You see, when you declare a variable in a language like \pgls{C}, you have to specify its \emph{type}.
 You are then permitted to only assign values that have exactly this type to the variable.
 In \python, you do not need to specify a type and you can assign whatever you want to a variable.
 This has the advantage that the code is shorter (because you do not need to write the type), looks more elegant, and programming becomes easier.
@@ -39,35 +40,87 @@ If you read this program, then you find that a variable named \pythonil{int_var}
 This is not forbidden, but when reading the code, it must strike you as odd.
 
 Indeed, there are at least two possible explanations for this:
-Either, the original author of this code mistakenly mixed up the \pythonilIdx{/} operator for the \pythonilIdx{//}.
+On the one hand, maybe, the original author of this code mistakenly mixed up the \pythonilIdx{/} operator for the \pythonilIdx{//}.
 Maybe they wanted to do an integer division and accidentally did a floating point division.
 Depending on what the code later on (in our imaginary larger program) does, it could be very hard to find such an error.
 
-Or maybe the author fully well wanted to do a floating point division and expected a \pythonil{float} to be stored in \pythonil{int_var}, but chose a misleading name.
+On the other hand, maybe, the author fully well wanted to do a floating point division and expected a \pythonil{float} to be stored in \pythonil{int_var}, but chose a misleading name.
 Choosing this name, however, can be very dangerous:
 What if another programmer continues to work on this code and, based on the variable's name, expects it to contain an \pythonil{int} whereas it actually contains a \pythonil{float}.
 This could again lead to all sorts of strange errors later on in her code.
 
 Regardless of what is true, you will certainly agree that something is wrong with this program.
-And since you are not the author of the program, you do not know what is wrong.
+And most certainly, it was just a small oversight, maybe even just a typo.
+Unfortunately, since you are not the author of the program, you do not know what is wrong.
 This code will cause some problem down the line.
 Many such problems exist in many software projects and they indeed are hard to find~\cite{KCVM2022AESOTRDIPP}.
 So here, the lenience of \python\ of allowing us to not specify types comes back to bite us.
 
-Luckily, there are two things that we can do to prevent such situations:%
+Everyone of us makes such mistakes.
+It is impossible to completely avoid them.
+Luckily, there are two things that we can do to prevent such situations from passing our \inQuotes{quality control}:%
+%
 \begin{enumerate}%
-\item Use static type checking tools to find such potential errors in our code.%
-\item Use type hints to annotate variables with their types.%
+%
+\item Use static type-checking tools to find such potential errors in our code.%
+%
+\item Use type hints to annotate variables with their types to \emph{a)}~make our intention clearer and \emph{b)}~support type-checking tools.%
+%
 \end{enumerate}%
+%
 And if you are in one of my classes, you better do both.
 And now we will learn how to do that.%
 \endhsection%
 %
+%
 \hsection{Static Type Checking}%
+%
+\begin{figure}%
+\centering%
+\includegraphics[width=0.7\linewidth]{\currentDir/pipInstallMypy}%
+\caption{Installing \mypy\ in a \ubuntu\ \pgls{terminal} via \pip.}%
+\label{fig:pipInstallMypy}%
+\end{figure}%
+%
 \gitOutput{\programmingWithPythonCodeRepo}{.}{scripts/mypy.sh 01_variables variable_types_wrong.py}{variables:variable_types_wrong:mypy}{%
-The static type checking results of the program given in \cref{lst:variables:types_wrong}.}%
+The results of static type checking with \mypy\ of the program given in \cref{lst:variables:types_wrong}.}%
+%
 \gitOutput{\programmingWithPythonCodeRepo}{.}{scripts/mypy.sh 01_variables variable_types.py}{variables:variable_types:mypy}{%
-The static type checking results of the program given in \cref{lst:variables:types}.}%
+The results of static type checking with \mypy\ of the program given in \cref{lst:variables:types}.}%
+%
+A first step to avoiding any type-related errors in programs is, ofcourse, careful programming.
+The second step is to use tools that check whether your program code contains ambiguities or errors.
+In languages like \pgls{C}, the compiler will take care of that for you.
+
+In \python, which allows for dynamic typing and is an interpreted language, we will use a tool like \mypy~\cite{LLHSVRZSJYYMC2024MOSTFP}.
+You can install this tool by opening a terminal.
+Under \ubuntu, you therefore press \ubuntuTerminal, and under \windows, you \windowsTerminal.
+Then type in \bashil{pip install mypy} and hit \keys{\enter}.
+The \mypy\ tool will be installed as illustrated in \cref{fig:pipInstallMypy}.
+
+We can now apply the tool to the program from \cref{lst:variables:types_wrong}.
+All we have to do is invoke it in the terminal, giving the program to be checked as argument as well as some additional parameters.
+In \cref{exec:variables:variable_types_wrong:mypy}, we invoke \bashil{mypy variable_types_wrong.py --no-strict-optional --check-untyped-defs}, where \textil{variable_types_wrong.py} is the (very fitting) name of the program to check.
+Indeed, \mypy\ tells us that something dodgy is going on in the fourth line of that program, i.e., \pythonil{int_var = int_var / 3}.
+It will fail with an exit code of~\bashil{1}.
+Programs usually return~\bashil{0} as exit code if everything went well and some non-zero value if something went wrong.
+And wrong it went.
+
+If we instead apply \mypy\ the completely fine (albeit useless) program \cref{lst:variables:types}, it will tell us that there is no error, as illustrated in \cref{exec:variables:variable_types:mypy}.
+So we now have one tool at our hands with which we can check our source code for type-related problems.
+Notice that this program just checks the source code.
+It does not change the code and it does not execute our program.
+It just reads in the code and looks for type-related errors.
+This will obviously have no impact on the programs performance or speed.
+It also cannot fix the errors, as it cannot what the programmer actually intended to do.
+But knowing that line~4 in \cref{lst:variables:types_wrong} is probably wrong will help the programmer to fix that error or oversight before passing the program on to someone else.%
+%
+\bestPractice{staticTypeChecking}{Every program should pass static type-checking with tools such as \mypy. %
+Any issue found by the tools should be fixed. %
+In other words, type-check the program. %
+If there is an error, fix the error and \emph{type-check it again}. %
+Repeat this until no errors are found anyore.%
+}%
 %
 \endhsection%
 \FloatBarrier%
