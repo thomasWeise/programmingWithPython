@@ -5,6 +5,18 @@
 \protected\gdef\softwareStyle#1{\scalebox{0.95}[1]{\texttt{#1}}}%
 %
 %
+\newglossaryentry{bash}{%
+text={\softwareStyle{Bash}},%
+name={Bash},%
+sort={Bash},%
+description={%
+is a the shell used under \ubuntu\ \linux, i.e., the program that \inQuotes{runs} in the \pgls{terminal} and interprets your commands, allowing you to start and interact with other programs~\cite{Z2017MB,BN2018BC}. %
+Learn more at \url{https://www.gnu.org/software/bash/}.%
+}%
+}%
+\protected\gdef\bash{\pgls{bash}}%
+%
+%
 \newglossaryentry{linux}{%
 text={\softwareStyle{Linux}},%
 name={Linux},%
