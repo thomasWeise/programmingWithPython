@@ -178,7 +178,7 @@ While the name of the variable already indicates that we want it to hold integer
 The \mypy\ type checker tells is in \cref{exec:variables:variable_types_wrong_hints_1:mypy} basically the same as it stated In \cref{exec:variables:variable_types_wrong:mypy}, namely that assigning a \pythonil{float} to this variable is wrong.
 
 However, if the intention of the author wanted that the variable could hold either an \pythonil{int} or a \pythonil{float}, they could have annotated with the type hint \pythonil{int | float}.
-The \pythonil{|}\pythonIdx{|!type hints} here is not the \inQuotes{bit-wise or} we learned back in \cref{sec:int:bitstrings}, but instead indicates that both \pythonils{int} and \pythonils{float} are acceptable values for a variable.\footnote{%
+The \pythonil{|}\pythonIdx{\textbar!type hints} here is not the \inQuotes{bit-wise or} we learned back in \cref{sec:int:bitstrings}, but instead indicates that both \pythonils{int} and \pythonils{float} are acceptable values for a variable.\footnote{%
 Technically speaking, the type hint specification in PEP484~\cite{PEP484} allows all variables annotated with \pythonil{float} to also accept \pythonil{int} values in section \href{https://peps.python.org/pep-0484/\#the-numeric-tower}{The Numeric Tower}. %
 Thus annotating the variable only with \pythonil{: float} would have been sufficient. %
 However, since \pythonil{int} is actually not a subclass of \pythonil{float} in \python, this can be confusing in some cases. %

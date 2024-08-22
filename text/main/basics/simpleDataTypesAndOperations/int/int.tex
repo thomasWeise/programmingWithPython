@@ -123,7 +123,7 @@ Similarly, \pythonil{bin(15)} yields \pythonil{'0b1111'} and entering \pythonil{
 
 In \python, we can compute the bitwise (i.e., binary) \emph{or}, \emph{and}, as well as the and \emph{exclusive~or} of this binary representation of integers using the \pythonil{|}, \pythonil{&}, and \pythonil{^} operators, respectively.
 Binary \emph{or} returns an integer in which all bits are set to~1 which were~1 in either of its two operands.
-\pythonil{22 | 1}\pythonIdx{|!bit-wise or} yields \pythonil{23}, because the bit with value~1 is not set in~22 and the binary~\emph{or} sets it (effectively adding~1 to~22).
+\pythonil{22 | 1}\pythonIdx{\textbar!bit-wise or} yields \pythonil{23}, because the bit with value~1 is not set in~22 and the binary~\emph{or} sets it (effectively adding~1 to~22).
 The slightly more comprehensive example \pythonil{22 | 15} sketched in \cref{fig:binaryMath} gives us \pythonil{31}, because $22=2^4+2^2+2^1$ and $15=2^3+2^2+2^1+2^0$, which \pythonil{|} combines to $31=2^4+2^3+2^2+2^1+2^0$, i.e., each power of~2 that occurred in either of the two operands is present in the result.
 \pythonil{bin(31)} yields \pythonil{'0b11111'}.
 

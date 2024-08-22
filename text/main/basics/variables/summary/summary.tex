@@ -1,0 +1,43 @@
+\hsection{Summary}%
+%
+Variables allow us to store and access data.
+After gaining this ability, we finally can begin to write \inQuotes{real} programs.
+We do no longer just execute single commands in the \python\ console.
+Instead, we can write \python\ program files (with the name suffix~\textil{.py}) that perform computations in multiple steps.
+Our implementation of the ideas of LIU Hui~\cnPdf{../assignment/liuHui} to approximate the ratio of the circumference of a circle to its diameter, i.e., the number~$\pi$, \cref{lst:variables:pi_liu_hui}, was a first example.
+Here, we refined the approximation in several steps and ended up with some pretty good estimate.
+
+The elegant syntax of \python\ allows us to assign and reassign variables.
+We can swap the values of two variables \pythonil{a} and \pythonil{b} by writing \pythonil{a, b = b, a}.
+
+However, the elegant and simply syntax also has drawbacks.
+It does not force us to define the type of a variable.
+As a result, it does not prevent us from first storing an integer inside a variable and then storing a string into it.
+This can lead to problems and confusion.
+The \python\ interpreter does not care about such potential issues and will happy obey any command we give to it.
+Therefore, we need additional tools:
+Type checkers like \mypy\ help us to detect such potential problems.
+They can tell us if we try to store something in a variable which is of a different type than the previous usage of the variable.
+These programs are applied to the program files, read them, and look for errors.
+
+These type checkers cannot guess whether the previous usage was wrong or our attempt to overwrite the value with one of a different type.
+Or maybe all is good and we intended from the beginning to allow the variable to store different kinds of objects.
+To allow us to create some clarity, type hints were introduced.
+We can annotate variables with type hints that, basically, specify the type of objects we want to be stored in the variables.
+This gives the dynamically typed \python\ language the same expressiveness of statically typed languages like \pgls{Java}.
+The \python\ interpreter does not care about this and, again, happily ignores all such type hints and obeys all of our commands.
+Static type checking tools, like \mypy, however, now can see our intend and provide better error messages when they detect an issue.
+
+As final topic in this section, we tackled the issue of equality versus identity.
+Two variables \pythonil{x} and \pythonil{y} are identical if they point to the same object.
+Then, \pythonil{x is y} and \pythonil{y is x} will be \pythonil{True}.
+Even if this is not the case, i.e., \pythonil{x is y} is \pythonil{False}, then the variables do not point to one and the same object.
+However, they could still point to two objects which have the same value.
+Nothing can prevent me from storing \pythonil{"Hello!"} multiple times at multiple different locations in memory.
+I can let \pythonil{x} and \pythonil{y} point to two different locations both storing the same string \pythonil{"Hello!"}.
+Then, \pythonil{x is y} may be \pythonil{False}, but \pythonil{x == y} could be \pythonil{True}.
+
+Having discussed all of these issues, we can not depart from the interesting topic of variables.%
+%
+\endhsection%
+%
