@@ -49,14 +49,14 @@ There are \emph{two kinds} of division in \python: Integer division, denoted by 
 \pythonil{32 // 4} yields \pythonil{8}, because \pythonil{4} fits \pythonil{8} times into~\pythonil{32}.
 \pythonil{33 // 4}, \pythonil{34 // 4}, and \pythonil{35 // 4} all still yield~\pythonil{8}, as \pythonil{4} \emph{completely} fits \pythonil{8} times into these numbers (leaving some remainder left over).
 \pythonil{36 // 4} then finally yields~\pythonil{9}.
-The results of the integer division operator \pythonilIdx{//} are always also \pythonilIdx{int}s.
+The results of the integer division operator \pythonilIdx{//} are always also \pythonils{int}\pythonIdx{int}.
 
 Fractional division, however, returns \pythonilIdx{float} values, which we will explore in the next section (\cref{sec:float}) in detail.
 For now, let's just say that they can represent fractional parts (to a limited precision), which is denoted by having a \python{.} in the text output of the numbers.
 Computing \pythonil{32 / 4} thus yields~\pythonil{8.0}, \pythonil{33 / 4} gives us \pythonil{8.25}, \pythonil{34 / 4} yields~\pythonil{8.5}, \pythonil{35 / 4} results in \pythonil{8.75}, and, finally, \pythonil{36 / 4} returns~\pythonil{9.0}.
 Notice that the result of this division operator is always a floating point number, even if the number itself is an integer.
 
-\bestPractice{intDivision}{Always be careful with which division operator you use for \pythonilIdx{int}s. %
+\bestPractice{intDivision}{Always be careful with which division operator you use for \pythonils{int}\pythonIdx{int}. %
 If you need an integer result, make sure to use \pythonilIdx{//}. %
 Remember that \pythonilIdx{/} always returns a \pythonilIdx{float} (and see \cref{bp:floatImprecise}), even if the result is a whole number.}
 

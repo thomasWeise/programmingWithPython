@@ -33,7 +33,7 @@ The idea behind this standard is to represent both very large numbers, like~$10^
 In order to achieve this, the 64~bits are divided into three pieces, as illustrated in \cref{fig:floatIEEEStructure}.
 %
 \noviceHint{%
-You just need to understand that \pythonilIdx{float}s have limited precision. %
+You just need to understand that \pythonils{float}\pythonIdx{float} have limited precision. %
 You can jump right to the next section.}%
 %
 The first part, the so-called \pgls{significand} or \pgls{mantissa}, consists of 52~bits, represents the digits of the number.
@@ -79,14 +79,14 @@ You cannot represent numbers arbitrarily precisely.%
 \label{fig:floatMathInConsoleArith}%
 \end{figure}%
 %
-Floating point numbers in \python\ can be distinguished from \pythonilIdx{int}s by having a decimal dot in their text representation, i.e., \pythonil{5.0} is a \pythonilIdx{float} and \pythonil{5} is an \pythonilIdx{int}.
-Let us now look at some examples for the basic arithmetic operations available for \pythonilIdx{float}s in \cref{fig:floatMathInConsoleArith}.
+Floating point numbers in \python\ can be distinguished from \pythonils{int}\pythonIdx{int} by having a decimal dot in their text representation, i.e., \pythonil{5.0} is a \pythonilIdx{float} and \pythonil{5} is an \pythonilIdx{int}.
+Let us now look at some examples for the basic arithmetic operations available for \pythonils{float}\pythonIdx{float} in \cref{fig:floatMathInConsoleArith}.
 
 We already learned that the division operator~\pythonilIdx{/} always yields a \pythonilIdx{float} result.
 Therefore \pythonil{6 / 3} yields \pythonil{2.0} instead of \pythonil{2}.
 
-The normal arithmetic operations like addition, subtraction, multiplication, division, and powers all work with \pythonilIdx{float}s as expected.
-Remember, however, that if \pythonilIdx{float} and \pythonilIdx{int} numbers are mixed, the results are always \pythonilIdx{float}s.
+The normal arithmetic operations like addition, subtraction, multiplication, division, and powers all work with \pythonils{float}\pythonIdx{float} as expected.
+Remember, however, that if \pythonilIdx{float} and \pythonilIdx{int} numbers are mixed, the results are always \pythonils{float}\pythonIdx{float}.
 Thus, \pythonil{1.0 + 7}\pythonIdx{+} gives us \pythonil{8} and \pythonil{2 * 3.0}\pythonIdx{*} yields \pythonil{6.0}.
 In other words, if one \pythonilIdx{float} occurs somewhere in an expression, it will \inQuotes{infect} everything that it touches to become a \pythonilIdx{float} too, even if the result could be represented as \pythonilIdx{int}.
 Some results cannot be integers anyway, for example \pythonil{5 - 3.6}\pythonIdx{-} evaluates to~\pythonil{1.4}.
@@ -161,7 +161,7 @@ But digits could also be lost when adding numbers of roughly the same scale, bec
 \label{fig:floatMathInConsoleRound}%
 \end{figure}%
 %
-We already learned that a single \pythonilIdx{float} value inside a computation that otherwise uses \pythonilIdx{int}s basically forces the whole result to become a \pythonilIdx{float} as well.
+We already learned that a single \pythonilIdx{float} value inside a computation that otherwise uses \pythonils{int}\pythonIdx{int} basically forces the whole result to become a \pythonilIdx{float} as well.
 But maybe sometimes we want to have an \pythonilIdx{int} as result.
 Therefore, we need a \inQuotes{way back} from \pythonilIdx{float} to \pythonilIdx{int}.
 \python\ offers several functions for this.
@@ -179,7 +179,7 @@ If we compute \pythonil{round(1.4)}, we still get~\pythonil{1}.
 However, doing \pythonil{round(1.5)} gives us~\pythonil{2}.
 This is because \pythonil{2} is even.
 
-Three more common functions to turn \pythonilIdx{float}s to \pythonilIdx{int}s are given in the \pythonilIdx{math} module.
+Three more common functions to turn \pythonils{float}\pythonIdx{float} to \pythonils{int}\pythonIdx{int} are given in the \pythonilIdx{math} module.
 We can import them via \pythonil{from math import floor, trunc, ceil}\pythonIdx{from}\pythonIdx{import}\pythonIdx{math}\pythonIdx{floor}\pythonIdx{trunc}\pythonIdx{ceil}.
 (Again, we will learn later how \pythonilIdx{import} actually works.
 For now, just accept that it makes some functions available.)
@@ -198,11 +198,11 @@ Finally, \pythonilIdx{ceil} rounds to the nearest integer which is greater than 
 
 You can also try to directly convert any datatype (that supports it) to an \pythonilIdx{int}.
 This works by simply putting it as argument to the function \pythonilIdx{int}.
-With \pythonilIdx{float}s, this works exactly as invoking \pythonilIdx{trunc}:
+With \pythonils{float}\pythonIdx{float}, this works exactly as invoking \pythonilIdx{trunc}:
 \pythonil{int(0.9)} and \pythonil{int(-0.9)} both give us~\pythonil{1}.
 \pythonil{11.6} yields~\pythonil{11}.
 
-With this, we have several ways to turn \pythonilIdx{float}s to \pythonilIdx{int}s.
+With this, we have several ways to turn \pythonils{float}\pythonIdx{float} to \pythonils{int}\pythonIdx{int}.
 However, especially with the function \pythonilIdx{round}, we need to be careful.
 It does \emph{not} work as one would expect!%
 %
@@ -233,7 +233,7 @@ It does \emph{not} work as one would expect!%
 \label{fig:floatMathInConsoleSciNot}%
 \end{figure}%
 %
-Earlier on, we wrote that \pythonilIdx{float}s can represent numbers as large as~$10^{300}$ or as small as~$10^{-300}$.
+Earlier on, we wrote that \pythonils{float}\pythonIdx{float} can represent numbers as large as~$10^{300}$ or as small as~$10^{-300}$.
 This leads to the question how it would print such values on the console and how we can read them.
 While it would be hugely impractical to write a~1 followed by 300~zeros to represent~$10^{300}$, it would also be \emph{wrong}.
 We also already know the reason for this:
@@ -246,7 +246,7 @@ Such numbers~$\alpha$ are then represented in the form~$\beta*10^{\gamma}$ (such
 Since we cannot write this so nicely in a console, a lowercase~\texttt{e} takes the place of the~$10$ and $\beta$ and $\gamma$ are written as normal text.
 In order to make sure that each number~$\alpha$ has unique representation, it is defined that $\alpha$ must have exactly one non-zero leading digit, which may be followed by a decimal dot and then a fractional part.
 This notation is illustrated in \cref{fig:scientificNotation}.
-\emph{This notation only applies to \pythonilIdx{float}s, \textbf{not} \pythonilIdx{int}s.}
+\emph{This notation only applies to \pythonils{float}\pythonIdx{float}, \textbf{not} \pythonils{int}\pythonIdx{int}.}
 
 In \cref{fig:floatMathInConsoleSciNot} we provide some examples for this notation.
 When we write \pythonil{0.001} or \pythonil{0.0001} in a \python\ console, the output is still this same number.
@@ -261,7 +261,7 @@ We can do the same for $9*10^{15}$ by writing \pythonil{9_000_000_000_000_000.0}
 However, if we write \pythonil{9_999_999_999_999_999.0}, something interesting happens:
 We get \pythonil{1e+16}, i.e., $10^{16}$.
 This is because of the limited precision of the floating point numbers, namely the 15~digits often mentioned above.
-We cannot distinguish $10^{16}$ and $10^{16}-1$ when using \python's \pythonilIdx{float}s.
+We cannot distinguish $10^{16}$ and $10^{16}-1$ when using \python's \pythonils{float}\pythonIdx{float}.
 Indeed, writing \pythonil{10_000_000_000_000_000.0} also yields \pythonil{1e+16}.%
 \end{sloppypar}%
 %
