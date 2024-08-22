@@ -22,6 +22,7 @@
 %%authors
 @string { a_abadi_marin = "Mart{\'i}n Abadi" }
 @string { a_abbasi_hameer = "Hameer Abbasi" }
+@string { a_ali_karim = "Karim Ali" }
 @string { a_antiga_luca = "Luca Antiga" }
 @string { a_archibald_anne_m = "Anne M.\ Archibald" }
 @string { a_arthur_jones = "Arthur Jones" }
@@ -129,6 +130,7 @@
 @string { a_krueger_richard = "Richard Krueger" }
 @string { a_kudlur_manjunath = "Manjunath Kudlur" }
 @string { a_landau_charles = "Charles Landau" }
+@string { a_langa_lukasz = "{\L}ukasz Langa" }
 @string { a_larochelle_hugo = "Hugo Larochelle" }
 @string { a_larson_eric = "Eric Larson" }
 @string { a_laxalde_denis = "Denis Laxalde" }
@@ -192,10 +194,12 @@
 @string { a_robertson_edmund_f = "Edmund F.\ Robertson" }
 @string { a_roscoe_timothy = "Timothy Roscoe" }
 @string { a_rosenblatt_bill = "Bill Rosenblatt" }
+@string { a_roth_ori = "Ori Roth" }
 @string { a_russel_stuart = "Stuart J.\ Russell" }
 @string { a_sachsenberg_timo = "Timo Sachsenberg" }
 @string { a_sagher_yoram = "Yoram Sagher" }
 @string { a_salakoski_tapio = "Tapio Salakoski" }
+@string { a_salvaneschi_guido = "Guido Salvaneschi" }
 @string { a_scipy_1 = "{{SciPy 1.0 Contributors}}" }
 @string { a_shalev_shwartz_shai = "Shai Shalev{-}Shwartz" }
 @string { a_shen_kangshen = "Shen Kangshen" }
@@ -266,6 +270,7 @@
 @string { l_canada_toronto = "{{Toronto}, {ON}, {Canada}}" }
 @string { l_canada_vancouver = "{{Vancouver}, {BC}, {Canada}}" }
 @string { l_china_beijing = "{{China}, {Beijing}}" }
+@string { l_germany_wadern = "{{Wadern}, {Saarland}, {Germany}}" }
 @string { l_portugal_lisbon = "{{Lisbon}, {Portugal}}" }
 @string { l_spain_leioa = "{{Leioa}, {Bizkaia}, {Spain}}" }
 @string { l_switzerland_cham = "{{Cham}, {Switzerland}}" }
@@ -319,6 +324,7 @@
 @string { p_infinite_skills = "Infinite Skills Inc" }
 @string { p_informs = "{The Institute for Operations Research and the Management Sciences~({INFORMS})}" }
 @string { p_iso = "{International Organization for Standardization~{(ISO)}}" }
+@string { p_leibniz_zentrum_fur_informatik = "{{Schloss Dagstuhl} -- {Leibniz-Zentrum f{\"u}r Informatik}}" }
 @string { p_manning_publications = "{Manning Publications}" }
 @string { p_mit_press = "{{MIT} Press}" }
 @string { p_neurips = "{The Neural Information Processing Systems Foundation~{(NeurIPS)}}" }
@@ -362,6 +368,7 @@
 @string { pa_ieee_ny = l_usa_new_york }
 @string { pa_infinite_skills = l_canada_oakville }
 @string { pa_informs = l_usa_catonsville }
+@string { pa_leibniz_zentrum_fur_informatik = l_germany_wadern }
 @string { pa_manning_publications = l_usa_shelter_island }
 @string { pa_mit_press = l_usa_cambridge }
 @string { pa_neurips = l_usa_san_diego }
@@ -551,6 +558,13 @@
  issn = {0884-8289},
 }
 
+@xdata{ser_lipics,
+ series = {Leibniz International Proceedings in Informatics~{(LIPIcs)}},
+ issn = {1868-8969},
+ publisher = p_leibniz_zentrum_fur_informatik,
+ address = pa_leibniz_zentrum_fur_informatik
+}
+
 @xdata{ser_u,
  series = {Universitext~{(UTX)}},
  issn = {0172-5939},
@@ -569,7 +583,6 @@
  title = {\tensorflow: {A} System for Large-Scale Machine Learning},
  crossref = {PROC2016OSDI},
  pages = {265--283},
- isbn = {978-1-931971-33-1},
  url = {https://www.usenix.org/conference/osdi16/technical-sessions/presentation/abadi},
  urldate = {2024-06-26}
 }
@@ -950,8 +963,7 @@
  title = {\tensorflow\ Deep Dive: Build, Train, and Deploy Machine Learning Models with \tensorflow},
  date = {2023-12},
  publisher = p_oreilly,
- address = pa_oreilly,
- isbn = {0636920924425},
+ address = pa_oreilly
 }
 
 @book{L2024PW,
@@ -1067,6 +1079,16 @@
  urldate = {2024-07-27},
 }
 
+@techreport{PEP484,
+ title = {Type Hints},
+ author = a_van_rossum_guido # and # a_langa_lukasz,
+ number = {484},
+ xdata = {rep_pep},
+ date = {2014-09-29},
+ url = {https://peps.python.org/pep-0484},
+ urldate = {2024-08-22},
+}
+
 @techreport{PEP498,
  author = a_smith_eric_v,
  title = {Literal String Interpolation},
@@ -1132,6 +1154,15 @@
  publisher = p_neurips,
  address = pa_neurips,
  isbn = {9781713807933}
+}
+
+@proceedings{PROC2023ECOOP,
+ title = {37th European Conference on Object-Oriented Programming~{(ECOOP'23)}, } # jul # {~17-21, 2023, } # l_usa_seattle,
+ editor = a_ali_karim # and # a_salvaneschi_guido,
+ xdata = {ser_lipics},
+ volume = {263},
+ date = {2023-07-11},
+ isbn = {978-3-95977-281-5},
 }
 
 @proceedings{PROC2023GECCO,
@@ -1223,6 +1254,14 @@
  pages = {2825--2830},
  date = {2011-10},
  doi = {10.5555/1953048.2078195},
+}
+
+@inproceedings{R2023PTHATCPBNI,
+ author = a_roth_ori,
+ title = {\python\ Type Hints Are Turing Complete (Pearl/Brave New Idea)},
+ crossref = {PROC2023ECOOP},
+ pages = {44:1--44:15},
+ doi = {10.4230/LIPICS.ECOOP.2023.44},
 }
 
 @book{RLM2022MLWPAS,
