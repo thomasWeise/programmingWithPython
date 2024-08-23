@@ -1,28 +1,27 @@
 %
 \backmatter%
 \bookmarksetup{startatroot}%
-%\pdfbookmark[-1]{Backmatter}{Backmatter}%
 \hsection{Backmatter}%
+\refstepcounter{chapter}%
 %
 %% Use smaller margins for backmatter.
 \setlrmarginsandblock{2cm}{2cm}{*}%
 \setulmarginsandblock{2.5cm}{2.5cm}{*}%0
 \checkandfixthelayout%
 %
-%\hsection{}%
-\hinput{.}{scripts.tex}%
-%\endhsection%
-%
 \printBestPractices%
+\printUsefulTools%
 \printglossaries%
 %
-\renewcommand{\indexname}{Index of \python\ Commands}%
+\renewcommand{\indexname}{\python\ Commands}%
 \printindex[python]%
 %
 \begingroup%
 \setlength{\emergencystretch}{6em}%
 \printbibliography%
 \endgroup%
+%
+\hinput{.}{scripts.tex}%
 %
 \endhsection%
 %

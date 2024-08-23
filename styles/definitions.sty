@@ -5,6 +5,10 @@
 \theorembodyfont{\normalfont}%
 \newcommand{\definitionautorefname}{Definition}%%
 %
+%%% Best Practices
+%% The best practices suite offers the command \bestPractice that prints
+%% information  about a best practice in a framed box.
+%% The list of all best practices can be printed via \printBestPractices.
 \newmdtheoremenv[%
 linewidth=2pt,%
 linecolor=definition-frame,%
@@ -43,6 +47,41 @@ font={}%
 \@bestPractices%
 }%
 %
+%
+%%% Useful Tools
+%% The useful tools command suite offers the command \usefulTool that
+%% prints information about a useful tool in a framed box.
+%% The list of all useful tools can be printed via \printUsefulTools.
+\newcommand{\@usefulToolautorefname}{Useful Tool}%
+%
+\newmdtheoremenv[%
+linewidth=2pt,%
+linecolor=usefultool-frame,%
+roundcorner=4pt,%
+backgroundcolor=usefultool-background,%
+leftmargin=5pt,%
+rightmargin=5pt,%
+font={}%
+]{@usefulTool}{\@usefulToolautorefname}%
+%
+\xdef\@usefulTools{}%
+%
+\gdef\usefulTool#1#2{%
+\begin{@usefulTool}\label{ut:#1}#2\end{@usefulTool}%
+%
+\ifx\@usefulTools\empty\expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi%
+{\gdef\@usefulTools{\noindent\cref{ut:#1}:~#2}}%
+{\g@addto@macro\@usefulTools{\medskip\par\noindent\cref{ut:#1}: #2}}%
+}%
+%
+\gdef\printUsefulTools{%
+\chapter*{Useful Tools}%
+\pdfbookmark{Useful Tools}{Useful Tools}%
+\@usefulTools%
+}%
+%
+%%% A Novice Hint is a box intended to give some useful information for novies
+%%% or first-time readers.
 \protected\gdef\noviceHint#1{%
 \begin{center}%
 \fcolorbox{novice-hint-frame}{novice-hint-background}{%

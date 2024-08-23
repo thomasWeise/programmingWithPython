@@ -110,8 +110,15 @@ In \cref{exec:variables:variable_types_wrong:mypy}, we invoke \bashil{mypy varia
 Indeed, \mypy\ tells us that something dodgy is going on in the fourth line of that program, i.e., \pythonil{int_var = int_var / 3}.
 It will fail with an exit code of~\bashil{1}.
 Programs usually return~\bashil{0} as exit code if everything went well and some non-zero value if something went wrong.
-And wrong it went.
-
+And something went wrong, because \mypy\ found the error.%
+%
+\usefulTool{mypy}{%
+\mypy~\cite{LLHSVRZSJYYMC2024MOSTFP} is a static type checking tool for \python. %
+This tool can warn you if you, e.g., assign values to a variable that have a different type than the values previously stored in the variable, which often indicates a potential programming error. %
+It can be installed via \bashil{pip install mypy}, as illustrated in \cref{fig:pipInstallMypy} on \cpageref{fig:pipInstallMypy}. %
+We use the \bash\ script given in \cref{lst:bash:mypy} on \cpageref{lst:bash:mypy} to apply \mypy\ to the example programs in this book.%
+}%
+%
 If we instead apply \mypy\ the completely fine (albeit useless) program \cref{lst:variables:types}, it will tell us that there is no error, as illustrated in \cref{exec:variables:variable_types:mypy}.
 So we now have one tool at our hands with which we can check our source code for type-related problems.
 Notice that this program just checks the source code.
@@ -121,7 +128,7 @@ This will obviously have no impact on the programs performance or speed.
 It also cannot fix the errors, as it cannot what the programmer actually intended to do.
 But knowing that line~4 in \cref{lst:variables:types_wrong} is probably wrong will help the programmer to fix that error or oversight before passing the program on to someone else.%
 %
-\bestPractice{staticTypeChecking}{Every program should pass static type checking with tools such as \mypy. %
+\bestPractice{staticTypeChecking}{Every program should pass static type checking with tools such as \mypy~(see \cref{ut:mypy}). %
 Any issue found by the tools should be fixed. %
 In other words, type check the program. %
 If there is an error, fix the error and \emph{type check it again}. %

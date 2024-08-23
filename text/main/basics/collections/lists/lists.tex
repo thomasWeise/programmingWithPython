@@ -1,0 +1,87 @@
+\hsection{Lists}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{lists_1.py}{--args format}{variables:lists_1}{%
+A first example for using lists in \python.}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{lists_2.py}{--args format}{variables:lists_2}{%
+A second example for using lists in \python.}%
+%
+A \pythonilIdx{list} is a sequence of objects which can be accessed via their index.
+They work very similar to the strings we already discussed in \cref{sec:str}, but instead of characters, they can contain any kind of objects and they can be modified.
+
+In \cref{lst:variables:lists_1}, we provide some first examples for using lists.
+A list can be defined by simply writing its contents, separated by~\pythonilIdx{,} inside square brackets~\pythonilIdx{[...]}.
+\pythonil{["apple", "pear", "orange"]} creates a list with three elements, namely the strings \pythonil{"apple"}, \pythonil{"pear"}, and~\pythonil{"orange"}.
+If we want to store a list in a variable, then we can use the type hint~\pythonil{list[elementType]}\pythonIdx{list!type hint} where \pythonil{elementType} is to be replaced with the type of the list elements.
+\pythonil{fruits: list[str] = ["apple", "pear", "orange"]} therefore creates the list \pythonil{fruits} with the contents listed above.
+It also tells any automated type checking tool and other programmers that we intent that only \pythonil{str} values should be stored inside the list.
+
+The length of a list is can be obtained using the \pythonilIdx{len}\pythonIdx{list!len} function.
+\pythonil{len(fruits)} will therefore return the value~\pythonil{3}.
+We can use lists in \pglspl{fstring} just like any other datatype.
+The string representation of \pythonil{fruits} which then would be used is simply \pythonil{"['apple', 'pear', 'orange']"}.%
+%
+\begin{sloppypar}%
+We can add single elements to a list by using the \pythonilIdx{append}\pythonIdx{list!append} method.
+Invoking \pythonil{fruits.append("cherry")} will append the string \pythonil{"cherry"} to the list \pythonil{fruits}.
+The list then equals \pythonil{["apple", "pear", "orange", "cherry"]} and has \pythonil{len(fruits) == 4}.%
+\end{sloppypar}%
+%
+Of course we can have multiple lists in a program.
+In \cref{lst:variables:lists_1}, we now create the second list \pythonil{vegetables} with the three elements \pythonil{"onion"}, \pythonil{"potato"}, and~\pythonil{"leek"}.
+
+An empty list is created with expression~\pythonilIdx{[]}\pythonIdx{empty}, which consists of just the square brackets with no contents inside.
+We can append \emph{all} the elements of one collection to a list by using the \pythonilIdx{extend}\pythonIdx{list!extend} method.
+We start with the empty list~\pythonil{food} and then invoke~\pythonil{food.extend(fruits)}.
+Now all the contents of the list \pythonil{fruits} are appended to \pythonil{food}.
+We then invoke~\pythonil{food.extend(vegetables)}, which will add all the elements from the list \pythonil{vegetables} to \pythonil{food} as well.
+\pythonil{fruits} and \pythonil{vegetables} remain unchanged during this procedure, but \pythonil{food} now contains all of their elements as well.
+It contains all seven fruits and vegetables and its \pythonil{len(food)} is therefore~\pythonil{7}.
+
+We can access the elements of a list by their index, again in the same way we access the characters in a string.
+\pythonil{food[0]} returns the first element of the list \pythonil{food}, which is \pythonil{"apple"}.
+\pythonil{food[1]} returns the second element of the list \pythonil{food}, which is \pythonil{"pear"}.
+And so on.
+We can also access the elements using the end of the list as reference:
+\pythonil{food[-1]} returns the last element of the list \pythonil{food}, which is \pythonil{"leek"}.
+\pythonil{food[-2]} returns the second-to-last element of the list \pythonil{food}, which is \pythonil{"potato"}.
+And so on.
+
+Finally, elements can also be deleted from the list by their index.
+\pythonil{del food[1]} deletes the second element from the list~\pythonil{food}.
+The second element is \pythonil{pear} and if we print \pythonil{food} again, it has indeed disappeared.
+
+In \cref{lst:variables:lists_2}, we illustrate some more operations on lists.
+We begin again by creating a list, this time of numbers: \pythonil{numbers: list[int] = [1, 7, 56, 2, 4]} creates (and type-hints) a list of five integers.
+If we want to know at which index a certain element in the list is located, we can use the \pythonilIdx{index}\pythonIdx{list!index} method.
+\pythonil{numbers.index(7)} will search where the number~\pythonil{7} is located inside~\pythonil{numbers}.
+Since it is the second elements and indices start at~0, it returns~\pythonil{1}.
+Similarly, \pythonil{numbers.index(7)} returns~\pythonil{3}, because \pythonil{numbers[3] == 2}.
+
+The \pythonilIdx{insert}\pythonIdx{list!insert} method allows us insert an element at a specific index.
+The elements which are currently at that or higher indices are moved up one slot.
+\pythonil{numbers.insert(2, 12)} will insert the number~\pythonil{12} at index~\pythonil{2} into the list~\pythonil{numbers}.
+The element~\pythonil{56} which currently occupies this spot is moved to index~\pythonil{3}, which means that the~\pythonil{2} located at this place is moved to index~\pythonil{4}, which means that the value~\pythonil{4} which right now is stored in this location will move to index~\pythonil{5}.
+The list \pythonil{numbers} now looks like this: \pythonil{[1, 7, 12, 56, 2, 4]}.
+
+If we want to remove a specific element from the list without knowing its location, the \pythonilIdx{remove}\pythonIdx{list!remove} method will do the trick.
+\pythonil{numbers.remove(56)} searches through the list~\pythonil{numbers} for the element~\pythonil{56} and, once it finds it, deletes it.
+The list becomes~\pythonil{[1, 7, 12, 2, 4]}.
+
+We can sort a list inplace by using the~\pythonilIdx{sort}\pythonIdx{list!sort} method.
+\pythonil{numbers.sort()} sorts the list~\pythonil{numbers}, which then becomes~\pythonil{[1, 2, 4, 7, 12]}.
+Similarly, we can reverse a list, i.e., make the last element become the first, the second-to-last element the second, and so on, by using the method~\pythonil{reverse}\pythonIdx{list!reverse}.
+Reversing the list~\pythonil{numbers} after we sorted it will turn it into~\pythonil{[12, 7, 4, 2, 1]}.
+
+If we want to create a list copy of an existing sequence, we can just invoke the constructor~\pythonilIdx{list} directly.
+\pythonil{cpy: list[int] = list(numbers)} creates the new list~\pythonil{cpy} which has the same contents as~\pythonil{numbers}.
+This means that \pythonil{cpy == numbers} will be~\pythonil{True}, because \pythonil{cpy} is an exact copy of~\pythonil{numbers}.
+\pythonil{cpy is numbers}, however, is~\pythonil{False}.
+They are not the same object.
+
+We can change~\pythonil{cpy} by deleting its first element via~\pythonil{del cpy[0]}.
+\pythonil{numbers} will be unaffected by this and stays unchanged.
+Now, both \pythonil{cpy == numbers} and \pythonil{cpy is numbers} will be~\pythonil{False}.%
+%
+\endhsection%
+%
