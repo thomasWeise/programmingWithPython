@@ -118,13 +118,17 @@
 @string { a_irving_geoffrey = "Geoffrey Irving" }
 @string { a_isard_michael = "Michael Isard" }
 @string { a_jain_shantanu = "Shantanu Jain" }
+@string { a_joh_sangwoo = "Sangwoo Joh" }
 @string { a_johansson_robert = "Robert Johansson" }
+@string { a_johnson_stephen_curtis = "Stephen Curtis Johnson" }
 @string { a_jones_eric = "Eric Jones" }
 @string { a_katz_daniel_s = "Daniel S.\ Katz" }
 @string { a_keeton_kimberly = "Kimberly Keeton" }
 @string { a_kern_robert = "Robert Kern" }
 @string { a_khan_faizan = "Faizan Khan" }
 @string { a_killeen_trevor = "Trevor Killeen" }
+@string { a_kim_sujin = "Sujin Kim" }
+@string { a_kim_youil = "Youil Kim" }
 @string { a_klopf_andreas = "Andreas K{\"o}pf" }
 @string { a_konovalov_alexander = "Alexander Konovalov" }
 @string { a_krueger_richard = "Richard Krueger" }
@@ -147,6 +151,7 @@
 @string { a_loy_marc = "Marc Loy" }
 @string { a_lun_anthony_w_c = "Anthony W.-C.\ Lun" }
 @string { a_mann_samuel = "Samuel Mann" }
+@string { a_marsh_charlie = "Charlie Marsh" }
 @string { a_massa_francisco = "Francisco Massa" }
 @string { a_maxwell_aaron = "Aaron Maxwell" }
 @string { a_mayorov_nikolay = "Nikolay Mayorov" }
@@ -196,6 +201,7 @@
 @string { a_rosenblatt_bill = "Bill Rosenblatt" }
 @string { a_roth_ori = "Ori Roth" }
 @string { a_russel_stuart = "Stuart J.\ Russell" }
+@string { a_ryou_yeonhee = "Yeonhee Ryou" }
 @string { a_sachsenberg_timo = "Timo Sachsenberg" }
 @string { a_sagher_yoram = "Yoram Sagher" }
 @string { a_salakoski_tapio = "Tapio Salakoski" }
@@ -255,6 +261,7 @@
 @string { a_xiong_peng = "Peng Xiong" }
 @string { a_yanev_martin = "Martin Yanev" }
 @string { a_yang_edward_z = "Edward Z.\ Yang" }
+@string { a_yang_joonmo = "Joonmo Yang" }
 @string { a_yang_xuanda = "Xuanda Yang" }
 @string { a_ye_jingchen = "Jingchen Ye" }
 @string { a_yu_yuan = "Yuan Yu" }
@@ -297,6 +304,7 @@
 @string { l_usa_providence = "{{Providence}, {RI}, {USA}}" }
 @string { l_usa_redwood_shores = "{{Redwood Shores}, {CA}, {USA}}" }
 @string { l_usa_reston = "{{Reston}, {VA}, {USA}}" }
+@string { l_usa_rochester = "{{Rochester}, {MI}, {USA}}" }
 @string { l_usa_san_diego = "{{San Diego}, {CA}, {USA}}" }
 @string { l_usa_san_francisco = "{{San Francisco}, {CA}, {USA}}" }
 @string { l_usa_savannah = "{{Savannah}, {GA}, {USA}}" }
@@ -313,6 +321,8 @@
 @string { p_ams = "{American Mathematical Society~({AMS})}" }
 @string { p_apress = "{Apress Media, LLC}" }
 @string { p_asa = "{American Standards Association Incorporated}" }
+@string { p_astral = "Astral Software Inc." }
+@string { p_bell_labs = "{Bell Telephone Laboratories, Incorporated}" }
 @string { p_bruhin_software = "{Bruhin Software}" }
 @string { p_cambridge_uni_press_ass = "{Cambridge University Press \& Assessment}" }
 @string { p_cnri = "{Corporation for National Research Initiatives~({CNRI})}" }
@@ -357,6 +367,8 @@
 @string { pa_ams = l_usa_providence }
 @string { pa_apress = l_usa_new_york }
 @string { pa_asa = l_usa_new_york }
+@string { pa_astral = l_usa_new_york }
+@string { pa_bell_labs = l_usa_new_york }
 @string { pa_bruhin_software = l_switzerland_winterthur }
 @string { pa_cambridge_uni_press_ass = l_uk_cambridge }
 @string { pa_cnri = l_usa_reston }
@@ -514,10 +526,16 @@
  address = pa_cornell_university_library
 }
 
+@xdata{rep_blcstr,
+ type = {Computing Science Technical Report},
+ institution = p_bell_labs,
+ address = pa_bell_labs
+}
+
 @xdata{rep_cnri_proposal,
  institution = p_cnri,
  address = pa_cnri,
- type = {CNRI Proposal},
+ type = {{CNRI}~Proposal},
 }
 
 @xdata{rep_iso_iec_standard,
@@ -772,7 +790,7 @@
 
 @book{D2024MCFABAFITTCPL,
  author = a_dimitrovic_slobodan,
- title = {Modern~\pgls{C} for Absolute Beginners: A Friendly Introduction to the \pgls{C}~Programming Language},
+ title = {Modern~\Pgls{C} for Absolute Beginners: A Friendly Introduction to the \Pgls{C}~Programming Language},
  date = {2024-03},
  publisher = p_apress,
  address = pa_apress,
@@ -928,12 +946,22 @@
 }
 
 @techreport{ISOIEC98892017PLCWDOS,
- title = {Programming Languages -- \pgls{C}, Working Document of~{SC22/WG14}},
+ title = {Programming Languages -- \Pgls{C}, Working Document of~{SC22/WG14}},
  number = {{ISO/\linebreak{3}IEC9899:2017} {C17~Ballot} {N2176}},
  xdata = {rep_iso_iec_standard},
  date = {2017-11},
  url = {https://files.lhmouse.com/standards/ISO%20C%20N2176.pdf},
  urldate = {2024-06-29},
+}
+
+@techreport{J1978LACPC,
+ author = a_johnson_stephen_curtis,
+ title = {Lint, a \Pgls{C} Program Checker},
+ date = {1978-10-25},
+ xdata = {rep_blcstr},
+ number = {78–1273},
+ url = {https://wolfram.schneider.org/bsd/7thEdManVol2/lint/lint.pdf},
+ urldate = {2024-08-23}
 }
 
 @book{J2018NPSCADSAWNSAM,
@@ -996,7 +1024,7 @@
 
 @book{LNL2020LJ,
  author = a_loy_marc # and # a_niemeyer_patrick # and # a_leuck_daniel,
- title = {Learning \pgls{Java}},
+ title = {Learning \Pgls{Java}},
  edition = {5},
  date = {2020-03},
  publisher = p_oreilly,
@@ -1011,6 +1039,16 @@
  address = pa_infinite_skills,
  date = {2017-06},
  isbn = {9781491994863}
+}
+
+@book{M2022RAEFPLACFWIR,
+ author = a_marsh_charlie,
+ title = {\ruff: An Extremely Fast \python\ \Pgls{linter} and Code Formatter, Written in Rust},
+ date = {2022-08-28},
+ publisher = p_astral,
+ address = pa_astral,
+ url = {https://docs.astral.sh/ruff},
+ urldate = {2024-08-23}
 }
 
 @article{N1939TTOP,
@@ -1042,7 +1080,7 @@
 }
 
 @book{O2024JPSEJDKV2AS,
- title = {\pgls{Java}\textsuperscript{\textregistered} Platform, Standard Edition \& \pgls{Java} Development Kit Version~22 {API} Specification},
+ title = {\Pgls{Java}\textsuperscript{\textregistered} Platform, Standard Edition \& \Pgls{Java} Development Kit Version~22 {API} Specification},
  publisher = p_oracle,
  address = pa_oracle,
  date = {2024-04-09},
@@ -1070,11 +1108,11 @@
 }
 
 @techreport{PEP257,
- title = {Docstring Conventions},
+ title = {\Pgls{docstring} Conventions},
  author = a_goodger_david # and # a_van_rossum_guido,
  number = {257},
  xdata = {rep_pep},
- date = {2001-05-29},
+ date = {2001-05-29/2001-06-13},
  url = {https://peps.python.org/pep-0257},
  urldate = {2024-07-27},
 }
@@ -1154,6 +1192,14 @@
  publisher = p_neurips,
  address = pa_neurips,
  isbn = {9781713807933}
+}
+
+@proceedings{PROC2022ASE,
+ title = {37th {IEEE/ACM} International Conference on Automated Software Engineering~{(ASE'22)}, } # oct # {~10-14, 2022, } # l_usa_rochester,
+ publisher = p_acm,
+ address = pa_acm,
+ date = {2022},
+ isbn = {978-1-4503-9475-8},
 }
 
 @proceedings{PROC2023ECOOP,
@@ -1287,6 +1333,14 @@
  doi = {10.4230/LIPICS.ECOOP.2023.44},
 }
 
+@inproceedings{RJYKK2022CULTDVM,
+ author = a_ryou_yeonhee # and # a_joh_sangwoo # and # a_yang_joonmo # and # a_kim_sujin # and # a_kim_youil,
+ title = {Code Understanding \Pgls{linter} to Detect Variable Misuse},
+ crossref = {PROC2022ASE},
+ pages = {133:1--133:5},
+ doi = {10.1145/3551349.3559497},
+}
+
 @book{RLM2022MLWPAS,
  author = a_raschka_sebastian # and # a_liu_yuxi # and # a_mirjalili_vahid,
  title = {Machine Learning with \pytorch\ and \scikitlearn},
@@ -1392,7 +1446,7 @@
 }
 
 @book{TUC2023U1510,
- title = {\pgls{unicode}\textsuperscript{\textregistered}~15.1.0},
+ title = {\Pgls{unicode}\textsuperscript{\textregistered}~15.1.0},
  date = {2023-09-12},
  publisher = p_unicode_consortium,
  address = pa_unicode_consortium,

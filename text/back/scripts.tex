@@ -1,5 +1,11 @@
 \hsection{Scripts}%
 %
+\gitBash{\programmingWithPythonCodeRepo}{scripts/mypy.sh}{bash:mypy}{%
+A \bash\ script for executing \mypy, which prints the command line and the exit code; see \cref{ut:mypy}.}%
+%
+\gitBash{\programmingWithPythonCodeRepo}{scripts/ruff.sh}{bash:ruff}{%
+A \bash\ script for executing \ruff, which prints the command line and the exit code; see \cref{ut:ruff}.}%
+%
 Here we provide some scripts that are used within this book.
 These scripts are written for the \bash\ shell, which is the default interpreter running in \ubuntu\ \linux\ \pglspl{terminal}.
 Therefore, they will not work under \windows\ or other operating systems.
@@ -9,11 +15,22 @@ There exist plenty of books and resources on this interesting topic, such as~\ci
 If we would include the scripts in the places where we use them in this book, then this would lead to confusion or tangents in the text which would mess up the flow of chapters.
 Nevertheless, the book would be incomplete if these scripts were not provided at all.
 So we put them here, at the end of the book, where they do not hurt anyone and where the interested reader may check them out.%
+
+\Cref{lst:bash:mypy} is a \bash\ script which first checks whether \mypy\ is installed.
+If \mypy\ is not installed, it silently installs it.
+The script then composes the command for applying \mypy\ to the target file(s) in the target directory.
+It then prints the command with a prepended~\expandafter\textil{\$}.
+Then, it executes it.
+\mypy\ will print its comments and messages to the standard output.
+Finally, the script shows the \mypy\ version and exit code in a brief success or failure message (with a prepended~\expandafter\textil{\#}).
+
+\Cref{lst:bash:ruff} works basically the same way, just for \ruff.
+However, it sets a lot more parameters to \ruff.
+See, \ruff\ offers many more configuration options and many more different things that it can check for, compared to \mypy.
+In it's present form, it does not check for type errors, as far as I know, though.
+Either way, it is harder to balance the strictness of the tool and there are even some rules which are sometimes mutually exclusive.
+Hence, we compose a more complex command.
+Apart from that, this script works pretty much the same as \cref{lst:bash:mypy}.%
 %
-\gitBash{\programmingWithPythonCodeRepo}{scripts/mypy.sh}{bash:mypy}{%
-A \bash\ script for executing \mypy, which prints the command line and the exit code.%
-}%
-%
-\FloatBarrier%
 \endhsection%
 %

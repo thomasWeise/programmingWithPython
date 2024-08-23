@@ -1,15 +1,18 @@
 \hsection{Lists}%
-%
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{lists_1.py}{--args format}{variables:lists_1}{%
-A first example for using lists in \python.}%
-%
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{lists_2.py}{--args format}{variables:lists_2}{%
-A second example for using lists in \python.}%
+\label{sec:lists}%
 %
 A \pythonilIdx{list} is a sequence of objects which can be accessed via their index.
-They work very similar to the strings we already discussed in \cref{sec:str}, but instead of characters, they can contain any kind of objects and they can be modified.
-
-In \cref{lst:variables:lists_1}, we provide some first examples for using lists.
+They work very similar to the strings we already discussed in \cref{sec:str}, but instead of characters, they can contain any kind of objects and they can be modified.%
+%
+\hsection{Basic Functionality and Examples}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{lists_1.py}{--args format}{lists:lists_1}{%
+A first example for using lists in \python.}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{lists_2.py}{--args format}{lists:lists_2}{%
+A second example for using lists in \python.}%
+%
+In \cref{lst:lists:lists_1}, we provide some first examples for using lists.
 A list can be defined by simply writing its contents, separated by~\pythonilIdx{,} inside square brackets~\pythonilIdx{[...]}.
 \pythonil{["apple", "pear", "orange"]} creates a list with three elements, namely the strings \pythonil{"apple"}, \pythonil{"pear"}, and~\pythonil{"orange"}.
 If we want to store a list in a variable, then we can use the type hint~\pythonil{list[elementType]}\pythonIdx{list!type hint} where \pythonil{elementType} is to be replaced with the type of the list elements.
@@ -28,7 +31,7 @@ The list then equals \pythonil{["apple", "pear", "orange", "cherry"]} and has \p
 \end{sloppypar}%
 %
 Of course we can have multiple lists in a program.
-In \cref{lst:variables:lists_1}, we now create the second list \pythonil{vegetables} with the three elements \pythonil{"onion"}, \pythonil{"potato"}, and~\pythonil{"leek"}.
+In \cref{lst:lists:lists_1}, we now create the second list \pythonil{vegetables} with the three elements \pythonil{"onion"}, \pythonil{"potato"}, and~\pythonil{"leek"}.
 
 An empty list is created with expression~\pythonilIdx{[]}\pythonIdx{empty}, which consists of just the square brackets with no contents inside.
 We can append \emph{all} the elements of one collection to a list by using the \pythonilIdx{extend}\pythonIdx{list!extend} method.
@@ -51,7 +54,7 @@ Finally, elements can also be deleted from the list by their index.
 \pythonil{del food[1]} deletes the second element from the list~\pythonil{food}.
 The second element is \pythonil{pear} and if we print \pythonil{food} again, it has indeed disappeared.
 
-In \cref{lst:variables:lists_2}, we illustrate some more operations on lists.
+In \cref{lst:lists:lists_2}, we illustrate some more operations on lists.
 We begin again by creating a list, this time of numbers: \pythonil{numbers: list[int] = [1, 7, 56, 2, 4]} creates (and type-hints) a list of five integers.
 If we want to know at which index a certain element in the list is located, we can use the \pythonilIdx{index}\pythonIdx{list!index} method.
 \pythonil{numbers.index(7)} will search where the number~\pythonil{7} is located inside~\pythonil{numbers}.
@@ -83,5 +86,96 @@ We can change~\pythonil{cpy} by deleting its first element via~\pythonil{del cpy
 \pythonil{numbers} will be unaffected by this and stays unchanged.
 Now, both \pythonil{cpy == numbers} and \pythonil{cpy is numbers} will be~\pythonil{False}.%
 %
+\FloatBarrier%
+\endhsection%
+%
+\hsection{An Example for Errors and a new Tool}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{lists_error.py}{--args format}{lists:lists_error}{%
+A program processing lists which exhibits some subtle errors and inefficiencies.}
+
+Now, in the previous chapter, we learned that static code analysis tools can help us to discover subtle problems in our programs.
+Obviously, when dealing with more complex datastructures like lists, there are also more potential problems, more mistakes that one could make.
+Let us look at the very short example \cref{lst:lists:lists_error}.
+The program consists of only two lines, \pythonil{my_list: list[str] = list([1, 2, 3])} and \pythonil{print(my_list)}.
+It does not have any \emph{error} in the strict sense.
+We can execute it just fine and it will produce the output \textil{[1, 2, 3]} as shown in \cref{exec:lists:lists_error}.
+
+\gitOutput{\programmingWithPythonCodeRepo}{.}{scripts/mypy.sh 02_collections lists_error.py}{lists:lists_error:mypy}{%
+The results of static type checking with \mypy\ of the program given in \cref{lst:lists:lists_error}.}
+
+However, upon closer inspection, we discover some issues.
+In a first step, we would apply \mypy~(as~\cref{ut:mypy}) to check for problems with the types of variables.
+And indeed, \cref{exec:lists:lists_error:mypy} shows us \emph{three} errors!
+We defined \pythonil{my_list} as a list of strings by using the type hint \pythonil{list[str]}.
+However, we then set its value to be a list of three integer numbers (hence, three errors).
+As promised in the title of this section, we will also use another tool to analyze this program:~\ruff.
+
+\begin{figure}%
+\centering%
+\includegraphics[width=0.7\linewidth]{\currentDir/pipInstallRuff}%
+\caption{Installing \ruff\ in a \ubuntu\ \pgls{terminal} via \pip.}%
+\label{fig:pipInstallRuff}%
+\end{figure}%
+%
+\FloatBarrier%
+%
+\usefulTool{ruff}{%
+\ruff\ is a very fast \python\ \pgls{linter} that checks the code for all kinds of problems, ranging from formatting and style issues over missing documentation to performance problems and potential errors~\cite{M2022RAEFPLACFWIR}. %
+It can be installed via \bashil{pip install ruff} as shown in \cref{fig:pipInstallRuff} on \cpageref{fig:pipInstallRuff}. %
+You can then apply \ruff\ using the command \bashil{ruff check fileToScan.py}. %
+We provide a script for using \ruff\ with a reasonable default configuration in \cref{lst:bash:ruff} on \cpageref{lst:bash:ruff}.%
+}%
+%
+\gitOutput{\programmingWithPythonCodeRepo}{.}{scripts/ruff.sh 02_collections lists_error.py}{lists:lists_error:ruff}{%
+The results of linting with \ruff\ of the program given in \cref{lst:lists:lists_error}. (We used the script given in \cref{lst:bash:ruff} on \cpageref{lst:bash:ruff} to apply \ruff.)}%
+%
+Let us apply \ruff\ to the program \textil{lists_error.py} given in \cref{lst:lists:lists_error}.
+\ruff\ finds two errors in this file:
+First, it complains that any python file should start with multi-line string specifying the purpose of the file.
+The use of such \pglspl{docstring} makes it easier for other programmers to understand what is done by which file in projects that are composed of multiple \python\ scripts.%
+%
+\bestPractice{module:docstrings}{
+Each \python\ file should start with a string describing its purpose~\cite{PEP257}. %
+This can either be a single line, like a headline, or a longer text. %
+In the second case, the first line must be a headline, followed by an empty line, followed by the rest of the text. %
+Either way, it must be a string delimited by~\pythonil{"""..."""}\pythonIdx{"""}~\cite{PEP257,PEP8}.%
+\pythonIdx{str!doc}%
+}%
+%
+Additionally, \ruff\ finds that writing \pythonil{list([1, 2, 3])} is actually useless waste of speed and memory:
+It basically creates a list via \pythonil{[1, 2, 3]} and then immediately makes a copy of it via the \pythonilIdx{list} function wrapped around the list specification.
+We can leave this outer call to \pythonil{list} away.
+
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{lists_fixed.py}{--args format}{lists:lists_fixed}{%
+The corrected version of~\cref{lst:lists:lists_error}, taking into account the information given by \mypy\ in \cref{exec:lists:lists_error:mypy} and \ruff\ in \cref{exec:lists:lists_error:ruff}.}%
+%
+%
+In \cref{lst:lists:lists_fixed} we implement the three recommendations from the two tools.
+We change the type hint of the list to \pythonil{list[int]}, which solves the type confusion that \mypy\ discovered.
+We remove the useless copying of the list as \ruff\ recommended.
+Finally, we add a proper \pgls{docstring} at the top of the file, in which we even document the changes we applied.
+The output \cref{exec:lists:lists_fixed} of the new program remains the same.
+But now, both tools are satisfied, as shown in \cref{exec:lists:lists_fixed:mypy,exec:lists:lists_fixed:ruff}.
+And our program is much clearer and faster.%
+%
+\FloatBarrier%
+%
+\gitOutput{\programmingWithPythonCodeRepo}{.}{scripts/mypy.sh 02_collections lists_fixed.py}{lists:lists_fixed:mypy}{%
+The results of static type checking with \mypy\ of the program given in \cref{lst:lists:lists_fixed}.}%
+%
+\gitOutput{\programmingWithPythonCodeRepo}{.}{scripts/ruff.sh 02_collections lists_fixed.py}{lists:lists_fixed:ruff}{%
+The results of static type checking with \ruff\ of the program given in \cref{lst:lists:lists_fixed}.}
+
+Well, this was only a two-line program.
+But ask yourself:
+Did you spot the incorrect type hint when you read the program?
+Did you see that we actually created a list and then copied it instead of using it directly?
+(The \pgls{docstring} I give you, no chance of seeing that as we did not mention it before.)
+Imagine that your job would be to work on a program with thousands of lines that was developed by a colleague.
+Wouldn't you love it if that colleague had thoroughly documented and type-hinted and checked their code?
+Be that colleague.%
+%
+\endhsection%
 \endhsection%
 %

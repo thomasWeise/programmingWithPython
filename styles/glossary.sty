@@ -80,15 +80,21 @@ description={\sloppy#4.}%
 \expandafter\protected\expandafter\gdef\csname#1Of\endcsname##1{\ensuremath{##1_{\gls{#1}}}}%
 }%
 %
-%% Create a command #1 that evaluates to #2 exactly once per page and to #3 afterwards.
+\xdef\@@@mode@@on{A}%
+\xdef\@@@mode@@off{B}%
+%%
+%% This command evaluates to #2 when encountered the first time on a page with parameter #1.
+%% It evaluates to #3 for the rest of the page.
 \protected\gdef\oncePerPage#1#2#3{%
-\expandafter\protected\expandafter\gdef\csname @#1A\endcsname{%
+\ifcsname @#1@mode\endcsname\relax\else\expandafter\xdef\csname @#1@mode\endcsname{\@@@mode@@on}\fi%
+\edef\@@@@tmp@exp{\csname @#1@mode\endcsname}%
+\ifx\@@@@tmp@exp\@@@mode@@on\relax%
+\expandafter\@firstoftwo\else\expandafter\@secondoftwo\fi%
+{%
+\expandafter\xdef\csname @#1@mode\endcsname{\@@@mode@@off}%
 #2%
-\expandafter\protected\expandafter\gdef\csname #1\endcsname{\csname @#1B\endcsname}%
-\afterpage{\expandafter\protected\expandafter\gdef\csname #1\endcsname{\csname @#1A\endcsname}}%
-}%
-\expandafter\protected\expandafter\gdef\csname @#1B\endcsname{#3}%
-\expandafter\protected\expandafter\gdef\csname #1\endcsname{\csname @#1A\endcsname}%
+\afterpage{\expandafter\xdef\csname @#1@mode\endcsname{\@@@mode@@on}}%
+}{#3}%
 }%
 %
 %%
@@ -96,17 +102,20 @@ description={\sloppy#4.}%
 %%
 %% Print the glosary entry in the singular form.
 \protected\gdef\pgls#1{%
-\expandafter\ifcsname @@@@#1\endcsname\else%
-\oncePerPage{@@@@#1}{\gls{#1}}{\gls[hyper=false]{#1}}%
-\fi%
-\expandafter\csname @@@@#1\endcsname%
+\oncePerPage{@gls@#1}{\gls{#1}}{\gls[hyper=false]{#1}}%
+}%
+%% Print the glosary entry in the singular form starting with capital letter.
+\protected\gdef\Pgls#1{%
+\oncePerPage{@gls@#1}{\Gls{#1}}{\Gls[hyper=false]{#1}}%
 }%
 %
 %% Print the glosary entry in the plural form.
 \protected\gdef\pglspl#1{%
-\expandafter\ifcsname @@@@#1\endcsname\else%
-\oncePerPage{@@@@#1}{\glspl{#1}}{\glspl[hyper=false]{#1}}%
-\fi%
-\expandafter\csname @@@@#1\endcsname%
+\oncePerPage{@gls@#1}{\glspl{#1}}{\glspl[hyper=false]{#1}}%
+}%
+%
+%% Print the glosary entry in the plural form starting with capital letter.
+\protected\gdef\Pglspl#1{%
+\oncePerPage{@gls@#1}{\Glspl{#1}}{\Glspl[hyper=false]{#1}}%
 }%
 %
