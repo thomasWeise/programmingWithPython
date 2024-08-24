@@ -8,6 +8,7 @@ Indeed, we have already used it before, even in our very first example program b
 \pythonil{"Hello World"} is such a text string.%
 %
 \hsection{Basic String Operations}%
+\label{sec:strBasicOperations}%
 %
 \begin{figure}%
 \centering%
@@ -60,6 +61,7 @@ Of course, using a negative index that would bring us out of the string's valid 
 
 We can also obtain whole substrings by using index ranges, where the inclusive starting index and the \emph{exclusive} end index are separated by a~\pythonilIdx{:}.
 In other words, applying the index \pythonil{[a:b]} to a string results in all characters in the index range from \pythonil{a} to \pythonil{b - 1}.
+Doing this is called \emph{string slicing}\pythonIdx{str!slicing}\pythonIdx{slicing}.
 \pythonil{"Hello"[0:3]} yields a string composed of the characters at positions~0, 1, and~2 inside \pythonil{"Hello"}, i.e., \pythonil{"Hel"}.
 The end index is always excluded, so the character at index~3 is not part of the result.
 If we do \pythonil{"Hello"[1:3]}, we get \pythonil{"He"}, because only the characters at indices~1 and~2 are included.
@@ -70,6 +72,7 @@ Therefore, \pythonil{"Hello"[1:-2]} yields \pythonil{"el"}
 Finally, we can also omit the start index, in which case everything until right before the end index is returned.
 Therefore, \pythonil{"Hello"[:-2]} will return everything from the beginning of the string until right before the second-to-last character.
 This gives us \pythonil{"Hel"}.
+We will discussing slicing again later when discussing lists in~\cref{sec:lists}.
 
 \begin{figure}%
 \centering%
