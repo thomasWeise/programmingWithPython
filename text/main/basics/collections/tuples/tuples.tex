@@ -1,5 +1,118 @@
 \hsection{Tuples}%
 \label{sec:tuples}%
 %
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{tuples_1.py}{--args format}{tuples:tuples_1}{%
+A first example for using tuples in \python: creating, indexing, and printing of tuples.}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{tuples_2.py}{--args format}{tuples:tuples_2}{%
+A second example for using tuples in \python: tuples with elements of different types and tuple unpacking.}%
+%
+\gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{02_collections}{tuples_3.py}{--args format}{tuples:tuples_3}{%
+A third example for using tuples in \python: testing the immutability property.}%
+%
+\gitOutput{\programmingWithPythonCodeRepo}{.}{scripts/mypy.sh 02_collections tuples_3.py}{tuples:tuples_3:mypy}{%
+The results of static type checking with \mypy\ of the program given in \cref{lst:tuples:tuples_3}.}%
+%
+\pythonIdx{tuple}%
+Tuples are very similar to lists, with three differences:
+First, they are immutable.
+You cannot add, delete, or change the elements of a tuple.
+Second, on a semantic level, lists are intended to hold objects of the same type.
+The type hint~\pythonil{list[int]} indicates that we want something to be list of integer numbers.
+While the \python\ interpreter permits us to ignore this and still store arbitrary objects in that list, this would violate the idea behind lists.
+Tuples, on the other hand, are designed to contain elements of different types.
+Since they cannot be changed, it will always be clear which element of which type is at which location.
+Three, tuples are defined using parentheses instead of square brackets, i.e., with~\pythonilIdx{(...)}.%
+%
+\begin{sloppypar}%
+\Cref{lst:tuples:tuples_1} shows us some of the things we can do with tuples.
+We create a tuple \pythonil{fruits} to hold three strings.
+The proper type hint for this is \pythonil{tuple[str, str, str]}\pythonIdx{tuple!type hint}.
+The line \pythonil{fruits: tuple[str, str, str] = ("apple", "pear", "orange")} thus creates a tuple~\pythonil{fruits} which contains three strings, namely \pythonil{"apple"}, \pythonil{"pear"}, and~\pythonil{"orange"}
+We also annotated the variable with a type hint informing any static code analysis tool that we indeed intend to store three strings in the tuple.
+Notice that the tuple is defined using parentheses, whereas a list with the same content would have been defined using square brackets, e.g., as \pythonil{fruits: list[str] = ["apple", "pear", "orange"]}.%
+\end{sloppypar}%
+%
+\begin{sloppypar}%
+If we are not sure about the actual number of elements that we will put in a tuple but know that they are all of the same type, we can use the ellipsis~\pythonilIdx{...} in the type hint.
+\pythonil{tuple[str, ...]} denotes a tuple that can receive an arbitrary amount of strings.\pythonIdx{tuple!type hint!...}
+The line \pythonil{veggies: tuple[str, ...] = ("onion", "potato", "leek", "garlic")} is therefore correct and defined a tuple~\pythonil{veggies} consisting of four strings.%
+\end{sloppypar}%
+%
+The elements of tuples can be accessed using the normal square brackets, exactly like list elements.
+\pythonil{veggies[0]} gives us the first element of the tuple~\pythonil{veggies}, namely \pythonil{"onion"}.
+\pythonil{veggies[1]} gives us the second element of the tuple~\pythonil{veggies}, namely \pythonil{"potato"}.
+Negative indices also work and index the tuple from the end.
+\pythonil{veggies[-1]} gives us the last element of the tuple~\pythonil{veggies}, namely \pythonil{"garlic"}.
+\pythonil{veggies[-2]} gives us the second-to-last element of the tuple~\pythonil{veggies}, namely \pythonil{"leek"}.%
+%
+\begin{sloppypar}%
+In \cref{lst:tuples:tuples_2} we explore tuples containing elements of multiple types.
+The type hint \pythonil{tuple[str, int, float]} states that we want to define a tuple where the first element is a string, the second element is an integer number, and the third element is a floating point number.
+The line \pythonil{mixed: tuple[str, int, float] = ("apple", 12, 1e25)} stores such a tuple in the variable~\pythonil{mixed}.
+The first element of the tuple is the string~\pythonil{"apple"}.
+The second element is the integer~\pythonil{12} and the third element is the floating point number~\pythonil{1e25}, i.e.,~$10^{25}$.
+With the line \pythonil{other: tuple[str, int, float] = ("pear", 1, 1.2)} we create another such tuple.%
+\end{sloppypar}%
+%
+\begin{sloppypar}%
+We now want to create a list of such tuples.
+This list should, of course, also be annotated with the proper type hint.
+This is easy:
+The type hint for our kind of tuples is \pythonil{tuple[str, int, float]}.
+The type hint for a list is \pythonil{list[elementType]}, where \pythonil{elementType} is the type of the elements.
+If we want to create a list containing tuples of our kind, then the proper type hint would be \pythonil{list[tuple[str, int, float]]}.
+Having realized this, we can now create the list~\pythonil{tuples}.
+We use the square bracket syntax for this.
+As first element, we put the tuple stored in the variable~\pythonil{mixed}.
+Then we simply define another tuple~\pythonil{("pear", -2, 4.5)} inline.
+The third element is the tuple stored in variable~\pythonil{other}.
+As last element, we again define a tuple~\pythonil{("pear", -2, 3.3)}.
+\Cref{exec:tuples:tuples_2} shows that we can print this list of tuples just like any other list (using an~\pgls{fstring}).%
+\end{sloppypar}%
+%
+There is an order defined on tuples.
+Two tuples~\pythonil{x} and~\pythonil{y} are compared elementwise lexicographically.
+If the first element of~\pythonil{x} is less than the first element of~\pythonil{y}, then~\pythonil{x < y}.
+If the first element of~\pythonil{x} is greater than the first element of~\pythonil{y}, then~\pythonil{x > y}.
+If the first elements of both tuples are the same, the comparison continues at the second element, and so on.
+This means that we can sort our list of tuples by writing~\pythonil{tuples.sort()}\pythonIdx{list!sort}.
+As a result, the tuple with the string \pythonil{"apples"} remains at the first position.
+All other tuples have \pythonil{"pear"} as first element and thus are \inQuotes{greater.}
+Two of them have the integer~\pythonil{-2} as the second element and thus are located before the tuple with~\pythonil{1} as second element.
+Among these two tuples, the one with the smallest third element comes first.
+
+Finally, this example program shows us that we can unpack tuples just like lists\pythonIdx{tuple!unpacking}\pythonIdx{unpacking}.
+\pythonil{a, b, c = mixed} stores \pythonil{"apple"} in~\pythonil{a}, \pythonil{12} in~\pythonil{b}, and~\pythonil{1e25} in~\pythonil{c}.
+Interestingly, we can also create tuples the other way around.
+We can leave away the parentheses when creating tuples in cases where no confusion is possible.
+\pythonil{mixed = "x", 4, 4.5} has the same effect as \pythonil{mixed = ("x", 4, 4.5)}.
+
+Let us finally explore the immutability of tuples in \cref{lst:tuples:tuples_2}.
+As stated before, we are not permitted to add, remove, insert, delete, or overwrite any element of a tuple.
+What happens if we try create a tuple that contains a list?
+The line \pythonil{mt: tuple[int, list[int]] = (1, [2])} does just this.
+It creates a new tuple~\pythonil{mt} whose first element is the integer number~\pythonil{1} and whose second element is a list of integers, namely~\pythonil{[2]}.
+We can access this list via~\pythonil{mt[1]}.
+While the tuple cannot be changed, this list can!
+\pythonil{mt[1].append(2)} will append the number~\pythonil{2} to the list, which now is~\pythonil{[2, 2]}.
+Printing \pythonil{f"mt == {mt}"} therefore yields~\textil{mt == (1, [2, 2])}.
+
+What we are never permitted to do is to change the contents of the tuple itself.
+Trying to do \pythonil{mt[1] = [3, 4]} will raise a~\pythonilIdx{TypeError}.
+This is an exception which, unless properly caught and handled, will terminate the program immediately.
+\Cref{exec:tuples:tuples_3} shows us this.
+While the first two \pythonilIdx{print} commands still succeed, the program crashes when we lay our hands on the tuple directly.
+The \python\ interpreter is kind enough to print the error as well as where it happened.
+This would help the programmer to find the problem.
+
+Had the programmer used \mypy\ to check the code before running it, however, they would have found the error already.
+The output of \mypy\ given in \cref{exec:tuples:tuples_3:mypy} shows us that a tuple is an \emph{Unsupported target for indexed assignment}.
+And indeed it is.
+
+In summary, tuples are like lists, just immutable and they are semantically conceptualized to contain objects of different types.
+Careful with immutability, though, as it can only be guaranteed if the tuple itself consists of only immutable objects.%
+%
+\FloatBarrier%
 \endhsection%
 %
