@@ -59,6 +59,10 @@ The second element is \pythonil{pear} and if we print \pythonil{food} again, it 
 
 In \cref{lst:lists:lists_2}, we illustrate some more operations on lists.
 We begin again by creating a list, this time of numbers: \pythonil{numbers: list[int] = [1, 7, 56, 2, 4]} creates (and type-hints) a list of five integers.
+If we want to know whether an element is included in a list, we can use the \pythonilIdx{in}~operator\pythonIdx{list!in}.
+\pythonil{7 in numbers} returns \pythonil{True} if \pythonil{7} is located somewhere inside the list~\pythonil{numbers} and \pythonil{False} otherwise.
+The \pythonilIdx{not in}\pythonIdx{list!not in} operator inquires the exact opposite:
+\pythonil{2 not in numbers} becomes \pythonil{True} if \pythonil{2} is \emph{not} in the list~\pythonil{numbers} and is \pythonil{False} if it is in the list.
 If we want to know at which index a certain element in the list is located, we can use the \pythonilIdx{index}\pythonIdx{list!index} method.
 \pythonil{numbers.index(7)} will search where the number~\pythonil{7} is located inside~\pythonil{numbers}.
 Since it is the second elements and indices start at~0, it returns~\pythonil{1}.
@@ -87,7 +91,9 @@ They are not the same object.
 
 We can change~\pythonil{cpy} by deleting its first element via~\pythonil{del cpy[0]}.
 \pythonil{numbers} will be unaffected by this and stays unchanged.
-Now, both \pythonil{cpy == numbers} and \pythonil{cpy is numbers} will be~\pythonil{False}.
+Now, both \pythonil{cpy == numbers} and \pythonil{cpy is numbers}\pythonIdx{is} will be~\pythonil{False}.
+By the way, in the same manner as \pythonil{not in} is the opposite of the \pythonil{in}~operator, \pythonilIdx{not is} is the opposite of~\pythonilIdx{is}:
+\pythonil{cpy is not numbers} yields \pythonil{True} because \pythonil{cpy} is not the same object as \pythonil{numbers}.
 
 In \cref{lst:lists:lists_3}, we continue our journey through the magical land of \python\ \pythonils{list}.
 You can add two lists~\pythonil{a} and~\pythonil{b} using \pythonilIdx{+}\pythonIdx{list!+}, i.e., do \pythonil{c = a + b}.
@@ -184,7 +190,7 @@ The use of such \pglspl{docstring} makes it easier for other programmers to unde
 Each \python\ file should start with a string describing its purpose~\cite{PEP257}. %
 This can either be a single line, like a headline, or a longer text. %
 In the second case, the first line must be a headline, followed by an empty line, followed by the rest of the text. %
-Either way, it must be a string delimited by~\pythonil{"""..."""}\pythonIdx{"""}~\cite{PEP257,PEP8}.%
+Either way, it must be a string delimited by~\pythonil{"""..."""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl}~\cite{PEP257,PEP8}.%
 \pythonIdx{str!doc}%
 }%
 %

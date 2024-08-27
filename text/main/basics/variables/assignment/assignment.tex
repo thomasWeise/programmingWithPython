@@ -277,7 +277,7 @@ We begin by setting the number of edges \pythonil{e = 6} and the side length to 
 In each iteration of the approximation, we simply set \pythonil{e *= 2}\pythonIdx{*=}, which is equivalent to \pythonil{e = e * 2}, to double the number of edges.
 We compute \pythonil{s = sqrt(2 - sqrt(4 - (s ** 2)))}\pythonIdx{sqrt} having imported\pythonIdx{import} the \pythonilIdx{sqrt} function from the \pythonilIdx{math} module.
 We print the approximated value of~$\pi$ as \pythonil{e * s / 2}.
-Notice how elegantly we use the unicode character~$\pi$ via the escape~\pythonil{\\u03c0}\pythonIdx{\textbackslash{u}} from back in~\cref{sec:unicodeChars} (and how nicely it indeed prints the greek character~$\pi$ in the standard output in \cref{exec:variables:pi_liu_hui}).
+Notice how elegantly we use the unicode characters~$\pi$ and~$\approx$ via the escapes~\pythonil{\\u03c0} and \pythonil{\\u2248}\pythonIdx{\textbackslash{u}}, respectively, from back in~\cref{sec:unicodeChars} (and how nicely it indeed prints the greek character~$\pi$ in the standard output in \cref{exec:variables:pi_liu_hui}).
 Either way, since \cref{eq:liuhui:sidelength,eq:liuhui:approx} are always the same, we can simply copy-paste the lines of code for updating~\pythonil{s}, \pythonil{e}, and printing the approximated value of~$\pi$ several times.
 
 \Cref{exec:variables:pi_liu_hui} shows the standard output produced by this program.

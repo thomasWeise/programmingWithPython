@@ -24,6 +24,10 @@ Tuples, on the other hand, are designed to contain elements of different types.
 Since they cannot be changed, it will always be clear which element of which type is at which location.
 Three, tuples are defined using parentheses instead of square brackets, i.e., with~\pythonilIdx{(...)}.%
 %
+\bestPractice{listOrTuple}{%
+When you need to use an indexable sequence of objects, use a list if you intent to modify this sequence. %
+If you do not intent to change the sequence, use a tuple.}%
+%
 \begin{sloppypar}%
 \Cref{lst:tuples:tuples_1} shows us some of the things we can do with tuples.
 We create a tuple \pythonil{fruits} to hold three strings.
@@ -44,7 +48,12 @@ The elements of tuples can be accessed using the normal square brackets, exactly
 \pythonil{veggies[1]} gives us the second element of the tuple~\pythonil{veggies}, namely \pythonil{"potato"}.
 Negative indices also work and index the tuple from the end.
 \pythonil{veggies[-1]} gives us the last element of the tuple~\pythonil{veggies}, namely \pythonil{"garlic"}.
-\pythonil{veggies[-2]} gives us the second-to-last element of the tuple~\pythonil{veggies}, namely \pythonil{"leek"}.%
+\pythonil{veggies[-2]} gives us the second-to-last element of the tuple~\pythonil{veggies}, namely \pythonil{"leek"}.
+
+Tuples support many of the same non-modifying operators as lists.
+The \pythonilIdx{in}\pythonIdx{tuple!in} and \pythonilIdx{not in}\pythonIdx{tuple!not in} operators both work.
+We quickly test only the former by asking \pythonil{'pear' in fruits}, which evaluates to~\pythonil{True} and \pythonil{'pear' in veggies}, which is~\pythonil{False}.
+The \pythonilIdx{index}\pythonIdx{tuple!index}, too, is available and \pythonil{fruits.index('apple')} returns~\pythonil{0} because \pythonil{"apple"} is the very first element of~\pythonil{fruits}.
 %
 \begin{sloppypar}%
 In \cref{lst:tuples:tuples_2} we explore tuples containing elements of multiple types.
@@ -108,8 +117,14 @@ This would help the programmer to find the problem.
 
 Had the programmer used \mypy\ to check the code before running it, however, they would have found the error already.
 The output of \mypy\ given in \cref{exec:tuples:tuples_3:mypy} shows us that a tuple is an \emph{Unsupported target for indexed assignment}.
-And indeed it is.
-
+And indeed it is.%
+%
+\bestPractice{noModifiableObjectInATuple}{%
+Only put immutable objects into tuples. %
+Mutable objects inside tuples makes the tuples modifiable as well, while other programmers may assume that they are immutable. %
+This can lead to strange errors down the line.%
+}%
+%
 In summary, tuples are like lists, just immutable and they are semantically conceptualized to contain objects of different types.
 Careful with immutability, though, as it can only be guaranteed if the tuple itself consists of only immutable objects.%
 %
