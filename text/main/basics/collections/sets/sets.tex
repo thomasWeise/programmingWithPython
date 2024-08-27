@@ -27,7 +27,7 @@ Only put immutable objects into sets.%
 }%
 %
 Different from tuples, sets themselves are not immutable.
-Furtheremore, sets are \emph{unordered} collections~\cite{PSF2024STSF}.
+Furthermore, sets are \emph{unordered} collections~\cite{PSF2024STSF}.
 Therefore, also different from tuples and lists, they cannot be indexed, i.e., the square-bracket notation does not work with sets.%
 %
 \bestPractice{setsUnordered}{%
@@ -35,6 +35,13 @@ Sets are unordered. %
 Never expect anything about how the objects you put into a set are actually stored there.%
 }%
 %
+At this point, you may ask:
+\emph{What do I need sets for?}
+Adding and removing objects and checking whether an object is contained in a collection {\dots} lists can do all of that as well.
+Plus lists are ordered and indexable.
+So what is the advantage of sets?
+Sets are fast.
+The operation for checking whether one object is contained in a set can be done in \bigOb{1}, whereas lists need \bigOb{n}, with $n$~being the list length.%
 %
 \begin{sloppypar}%
 In \cref{lst:sets:sets_1}, we provide a first example for creating and working with sets.
@@ -60,13 +67,16 @@ We can also create a set by passing a sequence into the constructor~\pythonilIdx
 To demonstrate this, we first create the tuple~\pythonil{lower_tuple} to hold the lowercase characters \pythonil{("b", "i", "j", "c", "t", "i")}.
 The command \pythonil{lower: set[str] = set(lower_tuple)} creates the set \pythonil{lower}, type hints it as set of strings, and lets it contain all the elements of~\pythonil{lower_tuple}.
 \pythonil{lower_tuple} contains the letter \pythonil{"i"} twice, but it will appear only once in the set that we have created.
+Notice: Just calling \pythonil{set()} without argument (or with an empty collection inside) creates an empty set\pythonIdx{set!empty}.
+We can delete an element of a set using the \pythonilIdx{remove}\pythonIdx{set!remove} function:
+\pythonil{lower.remove("b")} deletes the element~\pythonil{"b"} from the set~\pythonil{lower}.
 
 We now copy the set \pythonil{upper} by invoking \pythonil{set(upper)} and obtain the new set~\pythonil{letters}.
 We add all the elements of set \pythonil{lower} to the set \pythonil{letters} by calling \pythonil{letters.update(lower)}.
 
 We can also convert the set \pythonil{letters} to a list or tuple.
 \pythonil{list(letters)}\pythonIdx{list} will achieve the former, \pythonil{tuple(letters)}\pythonil{tuple} the latter.
-However, since sets are unordered~\cite{PSF2024STSF} and the order in which the elements would appear in the created list or tuple is not defined.
+However, since sets are unordered~\cite{PSF2024STSF,PSF2024ST} and the order in which the elements would appear in the created list or tuple is not defined.
 They may appear in a strange or unexpected order.
 Here we therefore use the function \pythonilIdx{sorted}, which accepts an arbitrary collection of objects as input and returns a sorted list.
 \pythonil{sorted(letters)} therefore creates a list where all the elements of letters appear in a sorted fashion.

@@ -1,0 +1,76 @@
+\hsection{Dictionaries}%
+\label{sec:dictionaries}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{dicts_1.py}{--args format}{dicts:dicts_1}{%
+An example for using dictionaries in \python.}%
+%
+Dictionaries in \python\ are containers that store key-value pairs.
+The value associated with a given key is accessed via the \pythonilIdx{[...]}-based indexing.
+The keys are unique and can be of an arbitrary type, as long as they are immutable.
+The concept of dictionary is also known as hash table or hash map in other languages or domains.%
+%
+\begin{sloppypar}%
+\cref{lst:dicts:dicts_1} shows some examples of how we can use dictionaries.
+A dictionary can be created again using the \pythonilIdx{\{...\}} syntax, however, this time, we place comma-separated \pythonil{key-value} pairs within the curly braces.
+The type hints for dictionaries\pythonIdx{dict!type hint} is \pythonil{dict[keyType][valueType]}, where \pythonil{keyType} is the type for the keys and \pythonil{valueType} is the type for the values.
+The line \pythonil{num_str: dict[int, str] = \{2: "two", 1: "one", 3: "three", 4: "four"\}} therefore creates a new dictionary and stores it in the variable \pythonil{num_str}.
+The type-hint of the variable states that it can point only to dictionaries that have integers as keys and strings as values.
+The contents of the dictionary are the key-value pairs \pythonil{2: "two"}, \pythonil{1: "one"}, \pythonil{3: "three"}, and \pythonil{4: "four"}.
+This means that the value string \pythonil{"one"} is stored under the key \pythonil{1}, the value string \pythonil{"two"} is stored under the key \pythonil{2}, and so on.%
+\end{sloppypar}%
+%
+We can use dictionaries in \pglspl{fstring} like any other \python\ object.
+The function \pythonilIdx{len}\pythonIdx{dict!len} can give us the number of elements in a dictionary.
+For our dictionary \pythonil{num_str} with four key-value pairs, it returns \pythonil{4}.
+The elements of the dictionary can be accessed by their keys using square brackets.
+Therefore \pythonil{num_str[2]} will return the string~\pythonil{"two"} associated with key~\pythonil{2} and \pythonil{num_str[1]} returns the string~\pythonil{"one"}.%
+%
+\begin{sloppypar}%
+We can access the keys, values, and key-value pairs of a dictionary as collections using the \pythonilIdx{keys}\pythonIdx{dict!keys}, \pythonilIdx{values}\pythonIdx{dict!values}, and \pythonilIdx{items}\pythonIdx{dict!items} functions, respectively.
+In the example \cref{lst:dicts:dicts_1}, we convert them to lists:
+\pythonil{list(num_str.keys())} gives us all the keys in the dictionary \pythonil{num_str} as a \pythonilIdx{list}, which thus equals \pythonil{[2, 1, 3, 4]}.
+Similarly, \pythonil{list(num_str.values())} gives us all the values in the dictionary \pythonil{num_str} as a \pythonilIdx{list}, which thus equals \pythonil{["two", "one", "three", "four"]}.
+Finally, \pythonil{num_str.items()} returns the key-value pairs a sequence of tuples and wrapping this into a list yields \pythonil{[(2, "two"), (1, "one"), (3, "three"), (4, "four")]}.
+You may notice that all of these sequences have the same order of elements that was used when we created the dictionary.
+They key-value pair \pythonil{2: "two"} comes before \pythonil{1: "one"}.
+This is because dictionaries, different from sets, are ordered data structures.
+Their elements appear in all sequenced versions always in the same order in which they were originally inserted into the dictionary~\cite{PSF2024D}.%
+\end{sloppypar}%
+%
+\begin{sloppypar}%
+Dictionaries can be modified.
+We can add an entry simply by assigning a value to a key.
+\pythonil{num_str[5] = "fivv"} assigns the value \pythonil{"fivv"} to the key~\pythonil{5}.
+This association is now part of the dictionary.
+Oops, we noticed a typo:
+We wanted to add \pythonil{"five"}, not \pythonil{"fivv"}.
+\pythonil{num_str[5] = "five"} will overwrite this faulty assignment.
+All keys in a dictionary are unique, so there can only be one value associated with key~\pythonil{5}.
+This also means that dictionary keys must obeye the same requirement as set elements:%
+\end{sloppypar}%
+%
+\bestPractice{dictKeys}{Dictionary keys must be immutable.}%
+%
+We can also delete key-value pairs.
+This is done by invoking \pythonil{del dict[key]}\pythonIdx{del}\pythonIdx{dict!del}, which deletes the key~\pythonil{key} and its associated value from the dictionary.
+The method \pythonilIdx{pop}\pythonIdx{dict!pop} allows us to get the value of a given key and then immediately deletes the key-value pair from the dictionary.
+\pythonil{num_str.pop(5)} will return \pythonil{"five"} and remove the key-value pair~\pythonil{5: "five"} from the dictionary.
+Afterwards, requesting \pythonil{num_str[5]} would lead to an \pythonIdx{KeyError} which would terminate the program (unless properly caught).%
+%
+\begin{sloppypar}%
+As stated before, the types for keys and values in a dictionary can be chosen arbitrary, with the limitation that keys must be immutable.
+We now create the empty dictionary \pythonil{str_num: dict[str, int] = \{\}}\pythonIdx{\{\}}\pythonIdx{dict!empty}.\footnote{%
+Using the \pythonil{dict()}\pythonIdx{dict!empty} without arguments has the same effect, but several \pglspl{linter} discourage this and encourage using \pythonilIdx{\{\}} instead.%
+}
+Notice that only due to the type hint \pythonil{dict[str, int]}, other programmers and static type-checking tools can know at this point that we intend to use strings as keys and integers as values in this new dictionary.
+The \pythonilIdx{update}\pythonIdx{dict!update} method allows us to append the values of an existing dictionary to a given dictionary.
+\pythonil{str_num.update(\{"one": 1, "three": 3, "two": 2, "four": 4\})} therefore stores four key-value pairs into our new dictionary.
+This time, the keys are indeed strings and the values are integers.
+The slightly convoluted \pgls{fstring} \pythonil{f"\{num_str[1]\} + \{num_str[2]\} = \{str_num['three']\}"} evaluates to \pythonil{"one + two = 3"}.
+The first two values are looked up in the \pythonil{num_str} dictionary under keys \pythonil{1} and \pythonil{2}, respectively.
+The last value is obtained from \pythonil{str_num} under key~\pythonil{"three"}.%
+\end{sloppypar}%
+%
+\FloatBarrier%
+\endhsection%
+%

@@ -4,8 +4,13 @@
 \protected\gdef\mathSpace#1{\ensuremath{\mathbb{#1}}}%
 %
 \newSymbol{realNumbers}{\mathSpace{R}}{R}{the set of the real numbers}%
+\newSymbol{realNumbersP}{\ensuremath{\mathSpace{R}^+}}{R+}{the set of the positive real numbers, i.e., $\mathSpace{R}^+=\{x\in\realNumbers:x>0\}$}%
 \newSymbol{integerNumbers}{\ensuremath{\mathSpace{Z}}}{Z}{the set of the integers numbers including positive and negative numbers and~0, i.e., {\dots}, -3, -2, -1, 0, 1, 2, 3, {\dots}, and so on}%
 %
 \protected\gdef\intRange#1#2{\ensuremath{#1..#2}}%
 \protected\gdef\decSep{\hspace*{0.175em}}%
+%
+\newFunc{bigO}{\ensuremath{\mathcal{O}}}{O(g(x))}{g(x)}{%
+\mbox{If $f(x)={\mathcal{O}}(g(x))$,} then there exist positive numbers~$x_0\in\realNumbersP$ and~$c\in\realNumbersP$ such that~\mbox{$f(x)\leq c*g(x)\forall x\geq x_0$}~\cite{B1894DAZDVPB,L1909HDLVDVDP}. %
+In other words, ${\mathcal{O}}(g(x))$~describes an upper bound for function growth}%
 %

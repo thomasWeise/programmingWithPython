@@ -26,6 +26,7 @@
 @string { a_antiga_luca = "Luca Antiga" }
 @string { a_archibald_anne_m = "Anne M.\ Archibald" }
 @string { a_arthur_jones = "Arthur Jones" }
+@string { a_bachmann_paul_gustav_heinrich = "Paul Gustav Heinrich Bachmann" }
 @string { a_back_ralph_johan = "Ralph{-}Johan Back" }
 @string { a_bai_junjie = "Junjie Bai" }
 @string { a_barham_paul = "Paul Barham" }
@@ -134,6 +135,7 @@
 @string { a_krueger_richard = "Richard Krueger" }
 @string { a_kudlur_manjunath = "Manjunath Kudlur" }
 @string { a_landau_charles = "Charles Landau" }
+@string { a_landau_edmund = "Edmund Landau" }
 @string { a_langa_lukasz = "{\L}ukasz Langa" }
 @string { a_larochelle_hugo = "Hugo Larochelle" }
 @string { a_larson_eric = "Eric Larson" }
@@ -277,6 +279,7 @@
 @string { l_canada_toronto = "{{Toronto}, {ON}, {Canada}}" }
 @string { l_canada_vancouver = "{{Vancouver}, {BC}, {Canada}}" }
 @string { l_china_beijing = "{{China}, {Beijing}}" }
+@string { l_germany_leipzig = "{{Leipzig}, {Sachsen}, {Germany}}" }
 @string { l_germany_wadern = "{{Wadern}, {Saarland}, {Germany}}" }
 @string { l_portugal_lisbon = "{{Lisbon}, {Portugal}}" }
 @string { l_spain_leioa = "{{Leioa}, {Bizkaia}, {Spain}}" }
@@ -350,6 +353,7 @@
 @string { p_springer_nature_limited = "{Springer Nature Limited}" }
 @string { p_springer_new_york = "{Springer New York}" }
 @string { p_taylor_and_francis = "{Taylor and Francis Ltd.}" }
+@string { p_teubner_b_g = "{B.\ G.\ Teubner}" }
 @string { p_unicode_consortium = "{The Unicode Consortium}" }
 @string { p_universidad_del_pais_vasco = "{{Universidad del Pa{\'i}s Vasco} / {Euskal Herriko Unibertsitatea}}" }
 @string { p_university_of_south_carolina = "{University of South Carolina}" }
@@ -395,6 +399,8 @@
 @string { pa_springer_cham = l_switzerland_cham }
 @string { pa_springer_nature_limited = l_uk_london }
 @string { pa_springer_new_york = l_usa_new_york }
+@string { pa_taylor_and_francis = l_uk_london }
+@string { pa_teubner_b_g = l_germany_leipzig }
 @string { pa_unicode_consortium = l_usa_south_san_francisco }
 @string { pa_universidad_del_pais_vasco = l_spain_leioa }
 @string { pa_university_of_south_carolina = l_usa_columbia }
@@ -403,7 +409,6 @@
 @string { pa_university_of_washington = l_usa_seattle }
 @string { pa_usas = l_usa_new_york }
 @string { pa_usenix = l_usa_berkeley }
-@string { pa_taylor_and_francis = l_uk_london }
 @string { pa_wiley_and_sons_ltd = l_uk_chichester }
 
 
@@ -594,6 +599,13 @@
  series = {Undergraduate Topics in Computer Science~{(UTICS)}},
 }
 
+@xdata{ser_zvegdwiih,
+ author = a_bachmann_paul_gustav_heinrich,
+ publisher = p_teubner_b_g,
+ address = pa_teubner_b_g,
+ series = {Zahlentheorie: Versuch einer Gesamtdarstellung dieser Wissenschaft in ihren Haupttheilen}
+}
+
 
 %% contents
 @inproceedings{ABCCDDDGIIKLMMMSTVWWYZ2016TASFLSML,
@@ -632,6 +644,16 @@
  address = pa_asa,
  url = {https://www.sensitiveresearch.com/Archive/CharCodeHist/Files/CODES%20standards%20documents%20ASCII%20Sean%20Leonard%20Oct%202015/ASCII%2063,%20X3.4-1963.pdf},
  urldate = {2024-07-26}
+}
+
+@book{B1894DAZDVPB,
+ title = {{Die Analytische Zahlentheorie} / {Dargestellt von Paul Bachmann}},
+ xdata = {ser_zvegdwiih},
+ number = {{Zweiter Theil}},
+ date = {1894},
+ isbn = {1418169633},
+ url = {http://gallica.bnf.fr/ark:/12148/bpt6k994750},
+ urldate = {2023-12-13}
 }
 
 @article{B1991IWNT,
@@ -986,6 +1008,15 @@
  urldate = {2024-08-16}
 }
 
+@book{L1909HDLVDVDP,
+ author = a_landau_edmund,
+ title = {{Handbuch der Lehre von der Verteilung der Primzahlen}},
+ publisher = p_teubner_b_g,
+ address = pa_teubner_b_g,
+ date = {1909},
+ isbn = {0821826506}
+}
+
 @book{L2023TDDBTADMLMWT,
  author = a_landau_charles,
  title = {\tensorflow\ Deep Dive: Build, Train, and Deploy Machine Learning Models with \tensorflow},
@@ -1233,6 +1264,14 @@
  urldate = {2024-08-22},
 }
 
+@inbook{PSF2024D,
+ title = {Dictionaries},
+ chapter = {3.2.7.1},
+ crossref = {PSF2024P3D},
+ url = {https://docs.python.org/3/reference/datamodel.html#dictionaries},
+ urldate = {2024-08-27},
+}
+
 @inbook{PSF2024DM,
  title = {Data Model},
  chapter = {3},
@@ -1285,6 +1324,14 @@
  chapter = {3.2.5},
  url = {https://docs.python.org/3/reference/datamodel.html#sequences},
  urldate = {2024-08-24},
+}
+
+@inbook{PSF2024ST,
+ title = {Set Types},
+ chapter = {3.2.6},
+ crossref = {PSF2024P3D},
+ url = {https://docs.python.org/3/reference/datamodel.html#set-types},
+ urldate = {2024-08-27},
 }
 
 @inbook{PSF2024STSF,
