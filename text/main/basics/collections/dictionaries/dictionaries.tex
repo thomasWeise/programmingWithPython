@@ -7,7 +7,8 @@ An example for using dictionaries in \python.}%
 Dictionaries in \python\ are containers that store key-value pairs.
 The value associated with a given key is accessed via the \pythonilIdx{[...]}-based indexing.
 The keys are unique and can be of an arbitrary type, as long as they are immutable.
-The concept of dictionary is also known as hash table or hash map in other languages or domains.%
+The concept of dictionary is also known as hash table or hash map in other languages or domains.
+Sets and dictionaries in \python\ are implemented using similar datastructures~\cite{B2023T}, namely hash tables~\cite{K1998SAS,CLRS2009ITA,SKS2019DSC}, and thus exhibit similar performance.%
 %
 \begin{sloppypar}%
 \cref{lst:dicts:dicts_1} shows some examples of how we can use dictionaries.
@@ -33,7 +34,7 @@ Similarly, \pythonil{list(num_str.values())} gives us all the values in the dict
 Finally, \pythonil{num_str.items()} returns the key-value pairs a sequence of tuples and wrapping this into a list yields \pythonil{[(2, "two"), (1, "one"), (3, "three"), (4, "four")]}.
 You may notice that all of these sequences have the same order of elements that was used when we created the dictionary.
 They key-value pair \pythonil{2: "two"} comes before \pythonil{1: "one"}.
-This is because dictionaries, different from sets, are ordered data structures.
+This is because dictionaries, different from sets, are ordered datastructures.
 Their elements appear in all sequenced versions always in the same order in which they were originally inserted into the dictionary~\cite{PSF2024D}.%
 \end{sloppypar}%
 %
