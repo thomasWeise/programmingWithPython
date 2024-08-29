@@ -5,14 +5,14 @@
 An example for using dictionaries in \python.}%
 %
 Dictionaries in \python\ are containers that store key-value pairs.
-The value associated with a given key is accessed via the \pythonilIdx{[...]}-based indexing.
+The value associated with a given key is accessed via the \pythonil{[...]}\pythonIdx{[\idxdots]}-based indexing.
 The keys are unique and can be of an arbitrary type, as long as they are immutable.
 The concept of dictionary is also known as hash table or hash map in other languages or domains.
 Sets and dictionaries in \python\ are implemented using similar datastructures~\cite{B2023T}, namely hash tables~\cite{K1998SAS,CLRS2009ITA,SKS2019DSC}, and thus exhibit similar performance.%
 %
 \begin{sloppypar}%
 \cref{lst:dicts:dicts_1} shows some examples of how we can use dictionaries.
-A dictionary can be created again using the \pythonilIdx{\{...\}} syntax, however, this time, we place comma-separated \pythonil{key-value} pairs within the curly braces.
+A dictionary can be created again using the \pythonil{\{...\}}\pythonIdx{\textbraceleft\idxdots\textbraceright!dict} syntax, however, this time, we place comma-separated \pythonil{key-value} pairs within the curly braces.
 The type hints for dictionaries\pythonIdx{dict!type hint} is \pythonil{dict[keyType][valueType]}, where \pythonil{keyType} is the type for the keys and \pythonil{valueType} is the type for the values.
 The line \pythonil{num_str: dict[int, str] = \{2: "two", 1: "one", 3: "three", 4: "four"\}} therefore creates a new dictionary and stores it in the variable \pythonil{num_str}.
 The type-hint of the variable states that it can point only to dictionaries that have integers as keys and strings as values.
@@ -60,8 +60,8 @@ Afterwards, requesting \pythonil{num_str[5]} would lead to an \pythonIdx{KeyErro
 %
 \begin{sloppypar}%
 As stated before, the types for keys and values in a dictionary can be chosen arbitrary, with the limitation that keys must be immutable.
-We now create the empty dictionary \pythonil{str_num: dict[str, int] = \{\}}\pythonIdx{\{\}}\pythonIdx{dict!empty}.\footnote{%
-Using the \pythonil{dict()}\pythonIdx{dict!empty} without arguments has the same effect, but several \pglspl{linter} discourage this and encourage using \pythonilIdx{\{\}} instead.%
+We now create the empty dictionary \pythonil{str_num: dict[str, int] = \{\}}\pythonIdx{\textbraceleft\textbraceright}\pythonIdx{dict!empty}.\footnote{%
+Using the \pythonil{dict()}\pythonIdx{dict!empty} without arguments has the same effect, but several \pglspl{linter} discourage this and encourage using \pythonil{\{\}}\pythonIdx{\textbraceleft\textbraceright} instead.%
 }
 Notice that only due to the type hint \pythonil{dict[str, int]}, other programmers and static type-checking tools can know at this point that we intend to use strings as keys and integers as values in this new dictionary.
 The \pythonilIdx{update}\pythonIdx{dict!update} method allows us to append the values of an existing dictionary to a given dictionary.

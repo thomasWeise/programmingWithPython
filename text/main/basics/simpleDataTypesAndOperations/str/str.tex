@@ -18,15 +18,15 @@ Indeed, we have already used it before, even in our very first example program b
 \end{figure}%
 %
 As \cref{fig:strIndexing} shows, there are two basic ways to specify a text string literal\pythonIdx{str!literal}:
-Either enclosed by double quotes, e.g., \pythonil{"Hello World!"}\pythonIdx{\textquotedbl} or enclosed by single quotes, e.g., \pythonil{'Hello World!'}\pythonIdx{\textquotesingle}.
+Either enclosed by double quotes, e.g., \pythonil{"Hello World!"}\pythonIdx{\textquotedbl\idxdots\textquotedbl} or enclosed by single quotes, e.g., \pythonil{'Hello World!'}\pythonIdx{\textquotesingle\idxdots\textquotesingle}.
 The quotation marks are only used to delimit the strings, i.e., to tell \python\ where the string begins or ends.
 They are not themselves part of the string.
 
-\bestPractice{strDoubleQuote}{When defining a string literal, the double-quotation mark variant~(\pythonil{"..."}\pythonIdx{\textquotedbl}) may be preferred over the single-quotation mark variant~(\pythonil{'...'}\pythonIdx{\textquotesingle}); see also~\cref{bp:longstrDoubleQuote}.}
+\bestPractice{strDoubleQuote}{When defining a string literal, the double-quotation mark variant~(\pythonil{"..."}\pythonIdx{\textquotedbl\idxdots\textquotedbl}) may be preferred over the single-quotation mark variant~(\pythonil{'...'}\pythonIdx{\textquotesingle}); see also~\cref{bp:longstrDoubleQuote}.}
 
 One basic operation is string concatenation\pythonIdx{str!concatenation}\pythonIdx{str!+}\pythonIdx{+}:
-\pythonil{"Hello" + ' ' + "World"}\pythonIdx{\textquotedbl}\pythonIdx{\textquotesingle} concatenates the three strings \pythonil{"Hello"}, \pythonil{" "}, and \pythonil{"World"}.
-The result is \pythonil{"Hello World"}\pythonIdx{\textquotedbl}.
+\pythonil{"Hello" + ' ' + "World"}\pythonIdx{\textquotedbl\idxdots\textquotedbl}\pythonIdx{\textquotesingle\idxdots\textquotesingle} concatenates the three strings \pythonil{"Hello"}, \pythonil{" "}, and \pythonil{"World"}.
+The result is \pythonil{"Hello World"}\pythonIdx{\textquotedbl\idxdots\textquotedbl}.
 Notice how the singe space character string is needed, because \pythonil{"Hello" + "World"} would just yield \pythonil{"HelloWorld"}.
 
 Strings are different from the other datatypes we have seen so far.
@@ -41,16 +41,16 @@ For this purpose, we can invoke the \pythonilIdx{len}\pythonIdx{str!len}\pythonI
 By the way, the empty string~\pythonil{""}\pythonIdx{\textquotedbl\textquotedbl}\pythonIdx{str!empty} has length~\pythonil{0}, i.e., \pythonil{len("")} yields~\pythonil{0}.
 
 Knowing the length\pythonIdx{str!length} of a string, we can now safely access its single characters.
-These characters are obtained using the square brackets \pythonil{[]}\pythonIdx{str![]}\pythonIdx{[}\pythonIdx{]} with the character index inbetween.
+These characters are obtained using the square brackets \pythonil{[]}\pythonIdx{str![\idxdots]}\pythonIdx{[\idxdots]} with the character index inbetween.
 The character indexes start at~0.
-Therefore, \pythonil{"Hello"[0]}\pythonIdx{str![]}\pythonIdx{[}\pythonIdx{]} returns the first character of \pythonil{"Hello"} as a \pythonilIdx{str}, which is \pythonil{"H"}\pythonIdx{\textquotedbl}.
+Therefore, \pythonil{"Hello"[0]}\pythonIdx{str![]}\pythonIdx{[\idxdots]} returns the first character of \pythonil{"Hello"} as a \pythonilIdx{str}, which is \pythonil{"H"}\pythonIdx{\textquotedbl\idxdots\textquotedbl}.
 \pythonil{"Hello"[1]} returns the second character, which is \pythonil{"e"}.
 \pythonil{"Hello"[2]} returns the third character, which is \pythonil{"l"}.
-\pythonil{"Hello"[3]}\pythonIdx{str![]}\pythonIdx{[}\pythonIdx{]} gives us the second \pythonil{"l"}.
-Finally, \pythonil{"Hello"[4]} gives us the fifth and last character, namely \pythonil{"o"}\pythonIdx{\textquotedbl}.
+\pythonil{"Hello"[3]}\pythonIdx{str![]}\pythonIdx{[\idxdots]} gives us the second \pythonil{"l"}.
+Finally, \pythonil{"Hello"[4]} gives us the fifth and last character, namely \pythonil{"o"}\pythonIdx{\textquotedbl\idxdots\textquotedbl}.
 If we would try to access a character outside of the valid range of the string, say \pythonil{"Hello"[5]}, this results in an \pythonilIdx{IndexError}.
 We learn later what errors are and how to handle them -- for now, it is sufficient to know that they will stop your program.
-And rightly so, because \pythonil{"Hello"}\pythonIdx{\textquotedbl} has only five characters and accessing the sixth one is not possible and would have an undefined result.
+And rightly so, because \pythonil{"Hello"}\pythonIdx{\textquotedbl\idxdots\textquotedbl} has only five characters and accessing the sixth one is not possible and would have an undefined result.
 
 Negative indices, however, are permitted:
 The index \pythonil{-1} just means \inQuotes{last character}, so \pythonil{"Hello"[-1]} yields the string \pythonil{"o"}.
@@ -60,7 +60,7 @@ The third character from the end, accessed via index \pythonil{-3}, is again \py
 Of course, using a negative index that would bring us out of the string's valid range, such as \pythonil{-6}, again yields an \pythonilIdx{IndexError}.
 
 We can also obtain whole substrings by using index ranges, where the inclusive starting index and the \emph{exclusive} end index are separated by a~\pythonilIdx{:}.
-In other words, applying the index \pythonil{[a:b]} to a string results in all characters in the index range from \pythonil{a} to \pythonil{b - 1}.
+In other words, applying the index \pythonil{[a:b]}\pythonIdx{[i:j]}\pythonIdx{slicing} to a string results in all characters in the index range from \pythonil{a} to \pythonil{b - 1}.
 Doing this is called \emph{string slicing}\pythonIdx{str!slicing}\pythonIdx{slicing}.
 \pythonil{"Hello"[0:3]} yields a string composed of the characters at positions~0, 1, and~2 inside \pythonil{"Hello"}, i.e., \pythonil{"Hel"}.
 The end index is always excluded, so the character at index~3 is not part of the result.
@@ -175,8 +175,8 @@ However, converting data to strings like this is rather tedious.
 \end{figure}
 
 \pythonIdx{str!f}\pythonIdx{f-string}Let us therefore discuss a very powerful and much more convenient gadget in \python's string processing toolbox: format strings, or \pglspl{fstring}\pythonIdx{f-string}\pythonIdx{str!f} for short~\cite{PSF2024FSL,PEP498,M2017WAFSIPAHCIUT,B2023PFS}.
-An f-string is like a normal string, except that it starts with \pythonil{f"}\pythonIdx{f\textquotedbl} instead of \pythonil{"}.
-And, most importantly, it can contain other data and even complete expressions inside curly braces (\pythonil{\{...\}}\pythonIdx{\textbraceleft}\pythonIdx{\textbraceright}) which are then embedded into the string.%
+An f-string is like a normal string, except that it starts with \pythonil{f"}\pythonIdx{f\textquotedbl\idxdots\textquotedbl} instead of \pythonil{"}.
+And, most importantly, it can contain other data and even complete expressions inside curly braces~(\pythonil{\{...\}}\pythonIdx{\textbraceleft\idxdots\textbraceright!f-string}) which are then embedded into the string.%
 %
 \begin{sloppypar}%
 In \cref{fig:fstrings}, we first consider the f-string \pythonil{f"\{12345678901234\}\ is a really big integer."}\footnote{
@@ -326,7 +326,7 @@ You can skip this section and circle back to it when you need it.%
 %
 The last example of \pglspl{fstring} brought up an interesting topic:
 \inQuotes{What do we do if we want to use a character in a string which we cannot use?}
-For example, if our string is delimited with double quotation marks~\pythonil{"}\pythonIdx{\textquotedbl}, then we cannot put the character \inQuotes{\pythonil{"}} into it, because it would then be interpreted as the end of the string.
+For example, if our string is delimited with double quotation marks~\pythonil{"}\pythonIdx{\textquotedbl\idxdots\textquotedbl}, then we cannot put the character \inQuotes{\pythonil{"}} into it, because it would then be interpreted as the end of the string.
 On the other hand, if our string is delimited with single quotation marks~\pythonil{'}\pythonIdx{\textquotesingle}, then we cannot put the character \inQuotes{\pythonil{'}} into it, because it would then be interpreted as the end of the string.
 Well, you can say, if I need a double quotation mark, then I will delimit my string with single quotation marks and vice versa.
 This is all good as long as you do not need \emph{both} single and double quotation marks inside the string.
@@ -367,7 +367,7 @@ The linebreak will then be ignored entirely.
 Therefore, if you print~\pythonil{print("Hello\\}, hit \keys{\enter}, and then continue to write \pythonil{World!")}, this produces the output~\textil{HelloWorld!}.
 
 Escape sequences allow us to write arbitrary text in strings.
-We already leared the sequences \inQuotes{\textbraceleft\textbraceleft}\pythonIdx{\textbraceleft\textbraceleft} and \inQuotes{\textbraceright\textbraceright}\pythonIdx{\textbraceright\textbraceright} that were designed for \pglspl{fstring} only.
+We already learned the sequences \inQuotes{\textbraceleft\textbraceleft}\pythonIdx{\textbraceleft\textbraceleft} and \inQuotes{\textbraceright\textbraceright}\pythonIdx{\textbraceright\textbraceright} that were designed for \pglspl{fstring} only.
 The backslash-based escape sequence we discussed in this section work for both \pglspl{fstring} and normal strings.%
 \endhsection%
 %
@@ -380,22 +380,22 @@ The backslash-based escape sequence we discussed in this section work for both \
 \label{fig:strMultiline}%
 \end{figure}%
 %
-Before we discussed that strings in \python\ are delimited either by \pythonil{"}\pythonIdx{\textquotedbl} or \pythonil{'}\pythonIdx{\textquotesingle} on each side.
-However, we can actually delimit them also delimit them with \emph{three quotation marks} on each side, i.e., with either \pythonil{"""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl} or \pythonil{'''}\pythonIdx{\textquotesingle\textquotesingle\textquotesingle}.
+Before we discussed that strings in \python\ are delimited either by \pythonil{"}\pythonIdx{\textquotedbl\idxdots\textquotedbl} or \pythonil{'}\pythonIdx{\textquotesingle\idxdots\textquotesingle} on each side.
+However, we can actually delimit them also delimit them with \emph{three quotation marks} on each side, i.e., with either \pythonil{"""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl\idxdots\textquotedbl\textquotedbl\textquotedbl} or \pythonil{'''}\pythonIdx{\textquotesingle\textquotesingle\textquotesingle\idxdots\textquotesingle\textquotesingle\textquotesingle}.
 Such string delimiters are used for multi-line strings.
 In such strings, you can insert linebreaks by hitting \keys{\enter} completely normally.
 You can use the escape sequences from the previous section as well.
 The main use case are \pglspl{docstring}, which we will discuss later, see, e.g., \cref{bp:module:docstrings}.
 
-\bestPractice{longstrDoubleQuote}{When defining a multi-line string literal, the double-quotation mark variant~(\pythonil{"""..."""})\pythonIdx{\textquotedbl\textquotedbl\textquotedbl} is usually preferred over the single-quotation mark variant~(\pythonil{'''...'''}\pythonIdx{\textquotesingle\textquotesingle\textquotesingle})~\cite{PEP257,PEP8}.}
+\bestPractice{longstrDoubleQuote}{When defining a multi-line string literal, the double-quotation mark variant~(\pythonil{"""..."""})\pythonIdx{\textquotedbl\textquotedbl\textquotedbl\idxdots\textquotedbl\textquotedbl\textquotedbl} is usually preferred over the single-quotation mark variant~(\pythonil{'''...'''}\pythonIdx{\textquotesingle\textquotesingle\textquotesingle})~\cite{PEP257,PEP8}.}
 
 \cref{fig:strMultiline} shows what happens if we print such a multi-line string.
 We first create the string by writing the three lines \textil{This is a multi-line string.}, \textil{I can hit enter to begin a new line.}, and \textil{This linebreak is then part of the string.}.
-The first line begins with \pythonil{"""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl} and the last one ends with \pythonil{"""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl} as well.
+The first line begins with \pythonil{"""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl\idxdots\textquotedbl\textquotedbl\textquotedbl} and the last one ends with \pythonil{"""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl\idxdots\textquotedbl\textquotedbl\textquotedbl} as well.
 Passing this text to the \pythonilIdx{print} function, well, prints exactly this three-line string.
 
 We can also have multi-line \pglspl{fstring}\pythonIdx{str!f}\pythonIdx{f-string!multi-line}.
-These then simply start with \pythonil{f"""}\pythonIdx{f\textquotedbl\textquotedbl\textquotedbl}.
+These then simply start with \pythonil{f"""}\pythonIdx{f\textquotedbl\textquotedbl\textquotedbl\idxdots\textquotedbl\textquotedbl\textquotedbl}.
 The example in \cref{fig:strMultiline} presents such a multi-line \pgls{fstring} with two expressions for \pgls{strinterpolation} which spans over three lines.%
 \endhsection%
 %

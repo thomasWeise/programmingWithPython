@@ -10,13 +10,13 @@ They work very similar to the strings we already discussed in \cref{sec:str}, bu
 A first example for using lists in \python: creating, indexing, printing of and appending elements and other lists to lists.}%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{lists_2.py}{--args format}{lists:lists_2}{%
-A second example for using lists in \python: inserting and deleting elemensts, sorting and reversing lists.}%
+A second example for using lists in \python: inserting and deleting elements, sorting and reversing lists.}%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{lists_3.py}{--args format}{lists:lists_3}{%
 A third example for using lists in \python: slicing, adding, and multiplying lists.}%
 %
 In \cref{lst:lists:lists_1}, we provide some first examples for using lists.
-A list can be defined by simply writing its contents, separated by~\pythonilIdx{,} inside square brackets~\pythonilIdx{[...]}.
+A list can be defined by simply writing its contents, separated by~\pythonilIdx{,} inside square brackets~\pythonil{[...]}\pythonIdx{[\idxdots]}.
 \pythonil{["apple", "pear", "orange"]} creates a list with three elements, namely the strings \pythonil{"apple"}, \pythonil{"pear"}, and~\pythonil{"orange"}.
 If we want to store a list in a variable, then we can use the type hint~\pythonil{list[elementType]}\pythonIdx{list!type hint} where \pythonil{elementType} is to be replaced with the type of the list elements.
 \pythonil{fruits: list[str] = ["apple", "pear", "orange"]} therefore creates the list \pythonil{fruits} with the contents listed above.
@@ -104,7 +104,7 @@ Similarly, if you multiply a list by an integer~\pythonil{n}, you get a new list
 
 In \cref{sec:strBasicOperations}, we discussed string slicing.
 Lists can be sliced in pretty much the same way\pythonIdx{list!slicing}\pythonIdx{slicing}~\cite{PSF2024S}.
-When slicing a list~\pythonil{l} or a string, you can provide either two or three values in the square brackets\pythonIdx{[...]}, i.e., either do~\pythonil{l[i:j]} or \pythonil{l[i:j:k]}.
+When slicing a list~\pythonil{l} or a string, you can provide either two or three values in the square brackets\pythonIdx{[\idxdots]}\pythonIdx{[i:j:k]}, i.e., either do~\pythonil{l[i:j]}\pythonIdx{[i:j]}\pythonIdx{slicing} or \pythonil{l[i:j:k]}.
 If \pythonil{j < 0}, then it is replaced with~\pythonil{len(l) - j}.
 In both the two and three indices case, \pythonil{i} is the inclusive start index and \pythonil{j} is the exclusive end index, i.e., all elements with index~\pythonil{m} such that \pythonil{i <= m < j}.
 In other words, the slice will contain elements from~\pythonil{l} whose index is between~\pythonil{i} and~\pythonil{j}, including the element at index~\pythonil{i} but \emph{not} including the element at index~\pythonil{j}.
@@ -140,6 +140,7 @@ If we know the number of elements in the list in our program, then we can assign
 \endhsection%
 %
 \hsection{An Example for Errors and a new Tool}%
+\label{sec:listExampleForErrorsAndRuff}%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{lists_error.py}{--args format}{lists:lists_error}{%
 A program processing lists which exhibits some subtle errors and inefficiencies.}
@@ -190,7 +191,7 @@ The use of such \pglspl{docstring} makes it easier for other programmers to unde
 Each \python\ file should start with a string describing its purpose~\cite{PEP257}. %
 This can either be a single line, like a headline, or a longer text. %
 In the second case, the first line must be a headline, followed by an empty line, followed by the rest of the text. %
-Either way, it must be a string delimited by~\pythonil{"""..."""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl}~\cite{PEP257,PEP8}.%
+Either way, it must be a string delimited by~\pythonil{"""..."""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl\idxdots\textquotedbl\textquotedbl\textquotedbl}~\cite{PEP257,PEP8}.%
 \pythonIdx{str!doc}%
 }%
 %

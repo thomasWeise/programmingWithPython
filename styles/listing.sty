@@ -31,6 +31,8 @@ keywordstyle={[2]\color{listing-keyword-2}\bfseries},%
 keywordstyle={[3]\color{listing-keyword-3}\bfseries\itshape},%
 commentstyle=\itshape\color{listing-comment},%
 stringstyle=\color{listing-string},%
+showspaces=false,%
+showtabs=false,%
 showstringspaces=false,%
 postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},%
 %
@@ -192,16 +194,6 @@ language=bash,%
 \gitCode{#1}{#2}{}{#3}{#4}{,style=bash_style}%
 }%
 %
-%
-%%
-%% Load a local listing.
-%% #1 the local path
-%% #2 the label (lst: will be pre-pended)
-%% #3 the caption
-\protected\gdef\relCode#1#2#3{%
-\lstinputlisting[float,label={lst:#2},caption={#3}]{\currentDir/#1}}%
-%
-%%
 %% Use latexgit to place a listing with program output.
 %% #1 the git repository
 %% #2 the local path
@@ -232,7 +224,7 @@ language=bash,%
 %
 \begin{figure}[tb]%
 \centering%
-\lstinputlisting[label={lst:#5},caption={#6~(stored in file~\href{\csname @pwp@gitUrl:lst:#5\endcsname}{\textil{#3}}; output in~\cref{exec:#5})}]{\csname @pwp@gitFile:lst:#5\endcsname}%
+\lstinputlisting[label={lst:#5},style=python_style,caption={#6~(stored in file~\href{\csname @pwp@gitUrl:lst:#5\endcsname}{\textil{#3}}; output in~\cref{exec:#5})}]{\csname @pwp@gitFile:lst:#5\endcsname}%
 %
 $\downarrow$~~\expandafter\bashil{python3 #3}~~$\downarrow$%
 %
@@ -260,10 +252,23 @@ $\downarrow$~~\expandafter\bashil{python3 #3}~~$\downarrow$%
 %
 \begin{figure}[tb]%
 \centering%
-\lstinputlisting[label={lst:#5},caption={#6~(stored in file~\href{\csname @pwp@gitUrl:lst:#5\endcsname}{\textil{#3}}; output in~\cref{exec:#5})}]{\csname @pwp@gitFile:lst:#5\endcsname}%
+\lstinputlisting[label={lst:#5},style=python_style,caption={#6~(stored in file~\href{\csname @pwp@gitUrl:lst:#5\endcsname}{\textil{#3}}; output in~\cref{exec:#5})}]{\csname @pwp@gitFile:lst:#5\endcsname}%
 %
 $\downarrow$~~\expandafter\bashil{python3 #3}~~$\downarrow$%
 %
 \lstinputlisting[label={exec:#5},style=text_style,caption={The standard output and error as well as the exit code of the program~\href{\csname @pwp@gitUrl:lst:#5\endcsname}{\textil{#3}} given in~\cref{lst:#5}.}]{\csname @pwp@gitFile:exec:#5\endcsname}%
 \end{figure}%
 }%
+%
+%%
+%% The python syntax environment.
+\lstnewenvironment{pythonSyntax}[1][true]{%
+\let\@old@lst@visiblespace\lst@visiblespace%
+\def\lst@visiblespace{{\color{Gray}\@old@lst@visiblespace}}%
+\lstset{%
+style=python_style,%
+showspaces=#1%
+}}{%
+\let\lst@visiblespace\@old@lst@visiblespace%
+}%
+%

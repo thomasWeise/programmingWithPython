@@ -23,14 +23,14 @@ We learn more about tuples in \cref{sec:tuples}.
 The mathematical notion of sets is implemented in the \python\ datatype \pythonil{set}.
 A set can contain each element at most once.
 The methods for modifying sets and for checking whether elements are contained in them are particularly fast.
-Sets are created using curly braces, i.e., \pythonil{my_set = \{1.2, 2.3, 4.5, 2.3\}} would create the set \pythonil{my_set} with the three numbers \pythonil{1.2}, \pythonil{2.3}, and~\pythonil{4.5}.
+Sets are created using curly braces, i.e., \pythonil{my_set = \{1.2, 2.3, 4.5, 2.3\}}\pythonIdx{\textbraceleft\idxdots\textbraceright!set} would create the set \pythonil{my_set} with the three numbers \pythonil{1.2}, \pythonil{2.3}, and~\pythonil{4.5}.
 Notice that \pythonil{2.3} would appear only once in the set.
 Sets cannot be indexed, but like lists and tuples they support the \pythonil{in} operator and \pythonil{1.2 in my_set} returns \pythonil{True} while \pythonil{1.3 in my_set} is \pythonil{False}.
 We will discuss sets in \cref{sec:sets}.
 
 Finally, dictionaries are mappings between keys and values, similar to hash tables in other programming languages.
 They, too, are created using curly braces which, however, contain key-value pairs.
-In other words, \pythonil{my_dict = \{"pi": 3.1416, "e": 2.7183, "phi": 1.618\}} creates a dictionary which maps the strings \pythonil{"pi"}, \pythonil{"e"}, and \pythonil{"phi"} to the values \pythonil{3.1416}, \pythonil{2.7183}, and~\pythonil{1.618}, respectively.
+In other words, \pythonil{my_dict = \{"pi": 3.1416, "e": 2.7183, "phi": 1.618\}}\pythonIdx{\textbraceleft\idxdots\textbraceright!dict} creates a dictionary which maps the strings \pythonil{"pi"}, \pythonil{"e"}, and \pythonil{"phi"} to the values \pythonil{3.1416}, \pythonil{2.7183}, and~\pythonil{1.618}, respectively.
 The value of a key can be retrieved using the square-bracket indexing, i.e., \pythonil{my_dict["e"]} would return \pythonil{2.7183}.
 They are discussed in \cref{sec:dictionaries}.%
 %
