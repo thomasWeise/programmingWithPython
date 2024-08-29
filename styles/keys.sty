@@ -23,4 +23,6 @@
 %
 %% Include a pdf with chinese characters
 %% the pdf should have 0.2pt space around the characters of height 11pt, font should be KaiTi
-\protected\gdef\cnPdf#1{(\raisebox{-0.4ex}{\includegraphics[height=2.1ex,keepaspectratio]{\currentDir/#1}})}
+\protected\gdef\cnPdfRaw#1{\raisebox{-0.4ex}{\includegraphics[height=2.1ex,keepaspectratio]{\currentDir/#1}}}%
+\protected\gdef\cnPdf#1{(\cnPdfRaw{#1})}%
+%

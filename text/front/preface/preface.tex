@@ -1,15 +1,59 @@
 \chapter*{Preface}%
 \pdfbookmark{Preface}{preface}%
 %
-This is work in progress.
+This book is intended to be read on an electronic devise.
+Please do not print it.
+Help preserving the environment.
 
-The text of the book itself is actively written and available in the repository \url{\programmingWithPythonRepo}.
-There, you can also submit \href{\programmingWithPythonRepo/issues}{issues}, such as change requests, suggestions, errors, typos, or you can inform me that something is unclear, so that I can improve the book.
+This book is work in progress.
+It will take years to be completed and I plan to keep improving and extending it for quite some time.
 
-This book is released under the \emph{Attribution-NonCommercial-ShareAlike~4.0 International license} (\href{http://creativecommons.org/licenses/by-nc-sa/4.0/}{\mbox{CC~BY-NC-SA~4.0}}).
+This book is freely available.
+You can download its newest version from \url{https://thomasweise.github.io/programmingWithPython/}.
+This version may change since this book is, well, work in progress.
+The book is released under the \emph{Attribution-NonCommercial-ShareAlike~4.0 International license} (\href{http://creativecommons.org/licenses/by-nc-sa/4.0/}{\mbox{CC~BY-NC-SA~4.0}}).
 You can freely share it.
-Please do not print it, though, to preserve the environment.
-
-This book was built using the software versions given in \cref{exec:versions}.
-
-\gitOutput{}{}{scripts/dependencyVersions.sh}{versions}{The versions of the software packages used to build this book.}
+You can also copy text or figures, as long as you cite the book as the original source, e.g., by using the following Bib\TeX:%
+%
+\begin{lstlisting}[style=text_style]
+@book{programmingWithPython,
+ author = {Thomas Weise},
+ title = {Programming with Python},
+ year = {2024},
+ publisher = {Institute of Applied Optimization,
+              School of Artificial Intelligence and Big Data,
+              Hefei University},
+ address = {Hefei, Anhui, China},
+ url = {https://thomasweise.github.io/programmingWithPython}
+}
+\end{lstlisting}
+%
+This book contains a lot of examples.
+You can find all of them in the repository \url{\programmingWithPythonCodeRepo}.
+You can clone this repository and play with these example codes.%
+%
+\begin{sloppypar}%
+The text of the book itself is also available in the repository \url{\programmingWithPythonRepo}.
+There, you can also submit \href{\programmingWithPythonRepo/issues}{issues}, such as change requests, suggestions, errors, typos, or you can inform me that something is unclear, so that I can improve the book.
+Such feedback is most welcome.
+The book is written using \LaTeX\ and this repository contains all the scripts, styles, graphics, and source files of the book (except the source files of the example programs).%
+\end{sloppypar}%
+%
+\strut\vfill\strut%
+%
+%
+\begin{flushleft}%
+Copyright \textcopyright\ 2024\\%
+Prof.~Dr.~\href{http://iao.hfuu.edu.cn/5}{Thomas Weise}~\cnPdf{profWeise}\\%
+at the Institute of Applied Optimization~(\cnPdfRaw{iao}, \href{http://iao.hfuu.edu.cn}{IAO})\\%
+of the School of Artificial Intelligence and Big Data~(\href{http://www.hfuu.edu.cn/jsjx/}{\cnPdfRaw{school}})\\%
+of \href{http://www.hfuu.edu.cn/english}{Hefei University}~(\href{http://www.hfuu.edu.cn}{\cnPdfRaw{uni}}),\\%
+in Hefei, Anhui, China~\cnPdf{city}\\%
+via email to \href{mailto:tweise@hfuu.edu.cn}{tweise@hfuu.edu.cn} with CC to \href{mailto:tweise@ustc.edu.cn}{tweise@ustc.edu.cn}.
+\end{flushleft}
+%
+\clearpage%
+%
+\strut\vfill\strut%
+This book was built using the following software versions:%
+\gitOutputRaw{}{}{scripts/dependencyVersions.sh}{versions}{}%
