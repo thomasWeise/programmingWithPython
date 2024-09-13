@@ -13,6 +13,9 @@ Your feedback would help us to improve the book.
 ## 2. License
 This book is released under the Attribution-NonCommercial-ShareAlike 4.0 International license (CC&nbsp;BY&#8209;NC&#8209;SA&nbsp;4.0), see [http://creativecommons.org/licenses/by-nc-sa/4.0/](http://creativecommons.org/licenses/by-nc-sa/4.0/) for a summary.
 
+We statically include the [pdfsizeopt](https://github.com/pts/pdfsizeopt) tool to compress the book pdf file.
+This tool is excluded from the license mentioned above; it is under the GNU GENERAL PUBLIC LICENSE Version 2, June 1991 and the copyright belongs to its authors.
+
 ## 3. Contact
 If you have any questions or suggestions, please contact
 Prof. Dr. [Thomas Weise](http://iao.hfuu.edu.cn/5) (汤卫思教授)

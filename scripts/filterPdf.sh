@@ -1,6 +1,6 @@
 #!/bin/bash -
 
-# This script filters a PDF file and attempts to include as many fonts as possible.
+# This script filters a PDF file using ghostscript and attempts to include as many fonts as possible.
 
 # strict error handling
 set -o pipefail  # trace ERR through pipes

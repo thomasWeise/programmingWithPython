@@ -30,8 +30,14 @@ echo "$(date +'%0Y-%0m-%0d %0R:%0S'): First, we make sure that '$websiteDir' is 
 rm -rf "$websiteDir" || true
 mkdir -p "$websiteDir"
 
-echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Filtering the book into the website directory."
-"$scriptDir/filterPdf.sh" "$currentDir/book.pdf" "$websiteDir/programmingWithPython.pdf"
+# ghostscriptTemp="$(mktemp)"
+# echo "$(date +'%0Y-%0m-%0d %0R:%0S'): First filtering the book to a temp file '$ghostscriptTemp'."
+# "$scriptDir/filterPdf.sh" "$currentDir/book.pdf" "$ghostscriptTemp"
+# echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Now compressing the book to the website directory."
+# "$scriptDir/pdfsizeopt.sh" "$ghostscriptTemp" "$websiteDir/programmingWithPython.pdf"
+# rm "$ghostscriptTemp"
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Compressing the book from '$currentDir/book.pdf' to '$websiteDir/programmingWithPython.pdf' using pdfsizeopt."
+"$scriptDir/pdfsizeopt.sh" "$currentDir/book.pdf" "$websiteDir/programmingWithPython.pdf"
 
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Put the LICENSE.md file into the website directory."
 licenseFile="$currentDir/LICENSE.md"
