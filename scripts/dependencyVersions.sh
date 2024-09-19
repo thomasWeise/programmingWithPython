@@ -11,6 +11,11 @@ set -o errexit   # set -e : exit the script if any statement returns a non-true 
 # get the script directory
 scriptDir="$(dirname "$0")"
 
+if [[ $(declare -p PYTHON_INTERPRETER) != declare\ ?x* ]]; then
+  # We have to find it by ourselves.
+  export PYTHON_INTERPRETER="$(readlink -f "$(which python3)")"
+fi
+
 # see https://unix.stackexchange.com/questions/6345
 if [ -f /etc/os-release ]; then
     # freedesktop.org and systemd
@@ -63,13 +68,13 @@ fi
 echo ""
 
 # Print the python version.
-pythonVersion="$(python3 --version 2>&1 | sed -n 's/.*Python\s*\([.0-9]*\)/\1/p')" || true
+pythonVersion="$("$PYTHON_INTERPRETER" --version 2>&1 | sed -n 's/.*Python\s*\([.0-9]*\)/\1/p')" || true
 pythonVersion="$(sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' -e 's/[[:space:]][[:space:]][[:space:]]*/ /g' -e 's/\.*$//'<<<"${pythonVersion}")" || true
 if [ -n "$pythonVersion" ]; then
     echo "python: $pythonVersion"
 fi
 
-latexgitPyVersion="$(pip freeze 2>&1 | grep latexgit | sed -n 's/.*==*\([.0-9]*\)/\1/p')" || true
+latexgitPyVersion="$("$PYTHON_INTERPRETER" -m pip freeze 2>&1 | grep latexgit | sed -n 's/.*==*\([.0-9]*\)/\1/p')" || true
 latexgitPyVersion="$(sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' -e 's/[[:space:]][[:space:]][[:space:]]*/ /g' -e 's/\.*$//'<<<"${latexgitPyVersion}")" || true
 if [ -n "$latexgitPyVersion" ]; then
     echo "latexgit_py: $latexgitPyVersion"
@@ -81,7 +86,7 @@ if [ -n "$latexgitTexVersion" ]; then
     echo "latexgit_tex: $latexgitTexVersion"
 fi
 
-pycommonsVersion="$(pip freeze | grep pycommons | sed -n 's/.*==*\([.0-9]*\)/\1/p')" || true
+pycommonsVersion="$("$PYTHON_INTERPRETER" -m pip freeze | grep pycommons | sed -n 's/.*==*\([.0-9]*\)/\1/p')" || true
 pycommonsVersion="$(sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' -e 's/[[:space:]][[:space:]][[:space:]]*/ /g' -e 's/\.*$//'<<<"${pycommonsVersion}")" || true
 if [ -n "$pycommonsVersion" ]; then
     echo "pycommons: $pycommonsVersion"
