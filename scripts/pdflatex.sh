@@ -29,7 +29,7 @@ bibProgram="$(readlink -f "$(which biber)")"
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We will use '$bibProgram' to process bibliography files."
 "$bibProgram" --version
 
-if [[ $(declare -p PYTHON_INTERPRETER) == declare\ ?x* ]]; then
+if [[ $(declare -p PYTHON_INTERPRETER 2>/dev/null) == declare\ ?x* ]]; then
   echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Found python interpreter as: '$PYTHON_INTERPRETER'"
 else
   export PYTHON_INTERPRETER="$(readlink -f "$(which python3)")"
