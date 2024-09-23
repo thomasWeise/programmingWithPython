@@ -120,5 +120,50 @@ With \pythonilIdx{break} and \pythonilIdx{continue}, we now have two tools that 
 %
 \endhsection%
 %
+\hsection{Nesting Loops}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{04_loops}{for_loop_nested_primes.py}{--args format}{loops:for_loop_nested_primes}{%
+Computing a list of all primes from \intRange{2}{200} using nested \pythonilIdx{for} loops.}%
+%
+Like conditional statements, \pythonilIdx{for}~loops can be arbitrarily nested.
+Let us explore this by computing the list of all prime numbers less than~200 (in a very crude way) in \cref{lst:loops:for_loop_nested_primes}.
+
+In this program, we want to store all of these prime numbers in the list\pythonIdx{list} \pythonil{primes}.
+We know that \pythonil{2} is a prime number and the only even one, so we directly initialize \pythonil{primes = [2]}, i.e., we set \pythonil{primes} to initially be a list only containing the integer~\pythonil{2}.
+This will allow us to later on only consider the odd numbers in the range \intRange{3}{200}.
+Just out of interest, we will count the total number of divisions that we need to perform until we have the full list of primes in the variable~\pythonil{n_divisions}.%
+%
+\begin{sloppypar}%
+To find all primes in the integer set~\intRange{2}{200}, we let the loop variable \pythonil{candidate} iterate over~\pythonil{range(3, 200, 2)}\pythonIdx{range}.
+This is the sequence of integer numbers starting~\pythonil{3} increasing with step length~\pythonil{2} and stopping right before~\pythonil{200}.
+We know that even numbers (except~2) are not prime and we know that 200 is not a prime number either, so this should be OK.
+Therefore, \pythonil{candidate} will iteratively become~\pythonil{3}, \pythonil{5}, \pythonil{7}, \dots, and eventually~\pythonil{195}, \pythonil{197}, and \pythonil{199}.
+For each value of \pythonil{candidate}, we begin with the assumption that it is prime and then try to prove the opposite.
+We set \pythonil{is_prime = True} then will try to find a divisor, in which case we will set \pythonil{is_prime = False}.
+If we cannot find a divisor of \pythonil{candidate}, then \pythonil{is_prime} will remain \pythonil{True} and we can add \pythonil{candidate} to the list~\pythonil{primes}.
+At least, this is the plan.%
+\end{sloppypar}%
+%
+We will implement this idea with a nested inner loop.
+Since the loop variable \pythonil{candidate} will always be odd, only odd numbers can be potential divisors.
+Obviously, only integers greater than or equal to~\pythonil{3} and less than \pythonil{candidate} are potential divisors.
+We can therefore iterate a second, inner loop variable \pythonil{check} over \pythonil{range(3, candidate, 2)}\pythonIdx{range}.
+If \pythonil{candidate <= 3}, then this loop will never be executed because no number $3\leq\pythonil{check}<\pythonil{candidate}$ exists.
+Then, \pythonil{is_prime} will remain \pythonil{True} and we will add \pythonil{candidate} to \pythonil{primes} further down the outer loop body.
+If \pythonil{candidate > 3}, then \pythonil{check} will go from \pythonil{3}, \dots, \pythonil{candidate - 2}.
+In order to find out whether \pythonil{check} is an even divisor of \pythonil{candidate}, we just need to compute the remainder of the division~$\pythonil{canddiate}/\pythonil{check}$.
+Back in \cref{sec:int:integerArithmetics} we learned the \pgls{modulodiv} operator \expandafter\pythonilIdx{\%}, which does exactly that.
+If \pythonil{candidate \% check} is~\pythonil{0}, then we can divide \pythonil{candidate} by \pythonil{check} without remainder.
+Then, \pythonil{candidate} is divisible by \pythonil{check} and cannot be a prime number.
+We thus can set \pythonil{is_prime = False}.
+We can also immediately exit the inner loop using the \pythonilIdx{break} statement, because once we know that \pythonil{candidate} is not a prime number, we do not need to check further potential divisors.
+(Notice that we also count all the \pgls{modulodiv} operations we perform by doing \pythonil{n_divisions += 1} at the beginning of the inner loop.)
+
+After the inner loop, if \pythonil{is_prime} is still \pythonil{True}, we add \pythonil{candidate} to \pythonil{primes} by invoking the \pythonilIdx{append}\pythonIdx{list!append} method of the list.
+Once we have completed the outer loop as well, we print the number~\pythonil{n_divisions} of divisions we have performed, the number~\pythonil{len(primes)}\pythonIdx{len}\pythonIdx{list!len} of prime numbers we have discovered and, finally, the list~\pythonil{primes} itself.
+The output in \cref{exec:loops:for_loop_nested_primes} tells us that, after performing 2140 divisions, we could identify 46~prime numbers inside~\intRange{2}{200}.%
+%
+\endhsection%
+%
 \endhsection%
 %

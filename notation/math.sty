@@ -7,7 +7,17 @@
 \newSymbol{realNumbersP}{\ensuremath{\mathSpace{R}^+}}{R+}{the set of the positive real numbers, i.e., $\mathSpace{R}^+=\{x\in\realNumbers:x>0\}$}%
 \newSymbol{integerNumbers}{\ensuremath{\mathSpace{Z}}}{Z}{the set of the integers numbers including positive and negative numbers and~0, i.e., {\dots}, -3, -2, -1, 0, 1, 2, 3, {\dots}, and so on}%
 %
-\protected\gdef\intRange#1#2{\ensuremath{#1..#2}}%
+\protected\gdef\intRange#1#2{\ensuremath{#1\pgls{intSetDots}#2}}%
+\newglossaryentry{intSetDots}{%
+type={symbols},
+name={..},%
+sort={..},%
+description={\sloppy%
+The set \mbox{$i..j$} with $i\leq j$ containts all integer numbers in the inclusive range from~$i$ to~$j$. %
+For example, \mbox{$5..9$}~is equivalent to~\mbox{$\{5, 6, 7, 8, 9\}$}.}%
+}%
+%
+%
 \protected\gdef\decSep{\hspace*{0.175em}}%
 %
 \newFunc{bigO}{\ensuremath{\mathcal{O}}}{O(g(x))}{g(x)}{%
