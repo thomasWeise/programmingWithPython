@@ -252,9 +252,15 @@ In \cref{fig:floatMathInConsoleSciNot} we provide some examples for this notatio
 When we write \pythonil{0.001} or \pythonil{0.0001} in a \python\ console, the output is still this same number.
 However, \pythonil{0.00009} is presented as \pythonil{9e-05}, which stands for~$9*10^{-5}$.%
 %
-\begin{sloppypar}%
-Did you know that you are allowed to insert underscores (\pythonil{_}\pythonIdx{\_}) anywhere in a number as a visual aid?
+Did you know that you are allowed to insert underscores (\pythonil{_}\pythonIdx{\_}) anywhere in a number (\pythonilIdx{int} or \pythonilIdx{float})as a visual aid~\cite{PEP515}?
 If not, you know now.
+%
+\bestPractice{underscoresInNumbers}{%
+If you need to specify large integers or floats, using underscores~(\pythonil{_}\pythonIdx{\_}) to separate groups of digits can be very helpful~\cite{PEP515}. %
+For example, \pythonil{37_859_378} is much easier to read than~\pythonil{37859378}.%
+}
+%
+\begin{sloppypar}%
 We can write $10^{15}$ as \pythonilIdx{float} by typing \pythonil{1_000_000_000_000_000.0}.
 This equals the much less readable \pythonil{1000000000000000.0}.
 We can do the same for $9*10^{15}$ by writing \pythonil{9_000_000_000_000_000.0} and get \pythonil{9000000000000000.0}.
