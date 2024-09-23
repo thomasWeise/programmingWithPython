@@ -1,8 +1,10 @@
 \hsection{Conditional Statements}%
 %
+Conditional statements allow us to execute a piece of code if a certain Boolean expression evaluates to~\pythonilIdx{True}.
+This allows us to let the program make choices, to do one thing in one situation and another thing in a different situation.
+Conditionals are therefore the most fundamental control flow statement.%
+%
 \hsection{The \texttt{if} Statement}%
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{03_conditionals}{if_example.py}{--args format}{conditionals:if}{%
-An example for using the \pythonilIdx{if} statement.}%
 %
 A conditional statement is basically a piece of program code which will execute a set of instructions if a condition is met.
 The condition is provided as the kind of Boolean expressions that we already discussed back in \cref{sec:bool}.
@@ -18,6 +20,10 @@ normal statement 1
 normal statement 2
 # ...
 \end{pythonSyntax}
+%
+\FloatBarrier%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{03_conditionals}{if_example.py}{--args format}{conditionals:if}{%
+An example for using the \pythonilIdx{if} statement.}%
 %
 The first line begins with \pythonilIdx{if}~statement, followed by a Boolean expression, followed by a colon~(\pythonilIdx{:}).
 If -- and only if -- the Boolean expression evaluates to~\pythonilIdx{True}, then the \emph{indented} block of statements below the \pythonil{if} are executed.
@@ -142,12 +148,12 @@ An example for using the nested \pythonil{if ... elif}\pythonIdx{if{\idxdots}eli
 In some cases, we need to query a sequence of alternatives in such a way that \pythonilIdx{else}~blocks would be nested over \pythonilIdx{else}~blocks over \pythonilIdx{else}~blocks, and so on.
 Since everytime we nest a conditional statement into another one we have to add four spaces of indentation, this would quickly fill the horizontal of our screens and look rather ugly.
 Therefore, the \pythonilIdx{elif} statement has been developed, which can replace an \pythonil{else} containing just another \pythonil{if}.
-The syntax of a combined \pythonil{if ... elilf} looks like this:%
+The syntax of a combined \pythonil{if ... elif} looks like this:%
 %
 \begin{pythonSyntax}
 if booleanExpression 1:
     conditional 1 statement 1
-    conditional 2 statement 2
+    conditional 1 statement 2
     # ...
 elif booleanExpression 2:  # such block can be placed arbitrarily often
     conditional 2 statement 1

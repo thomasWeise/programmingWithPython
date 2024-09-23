@@ -1,0 +1,57 @@
+\hsection{Loops}%
+%
+When we are working with sequences of data, we do not just want to perform an action on one data element.
+We instead often want to apply the actions repetitively to all data elements.
+Loops allow us to do just that, to perform the same actions multiple times.%
+\pythonIdx{loop}%
+%
+\hsection{The \texttt{for} Loop Statement}%
+%
+\pythonIdx{loop!for}%
+The most basic such sequence in \python\ may be the \pythonilIdx{for}~loop, which has the following pattern:%
+%
+\begin{pythonSyntax}
+for loopVariable in sequence:
+    loop body statement 1
+    loop body statement 2
+    # ...
+
+normal statement 1
+normal statement 2
+# ...
+\end{pythonSyntax}
+%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{04_loops}{for_loop_range.py}{--args format}{loops:for_loop_range}{%
+An example for using the \pythonilIdx{for} loop over a \pythonilsIdx{range} of integer numbers.}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{04_loops}{for_loop_pi_liu_hui.py}{--args format}{loops:for_loop_pi_liu_hui}{%
+A variant of \cref{lst:variables:pi_liu_hui} which uses a \pythonilIdx{for} loop instead of five copies of the same instructions.}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{04_loops}{for_loop_continue_break.py}{--args format}{loops:for_loop_continue_break}{%
+An example for the \pythonilIdx{continue} and \pythonilIdx{break} statements in a \pythonilIdx{for} loop.}%
+%
+The keyword~\pythonilIdx{for} is followed by a loop variable.
+Then comes the keyword~\pythonilIdx{in}, the \pythonil{sequence} we want to iterate over, and finally a colon~(\pythonilIdx{:}).
+This variable will iteratively take on the values in the \pythonil{sequence}.
+The loop body statements in the following, indented block are executed for each of these values.
+After the loop, we leave a blank line followed by the code that will be executed after the loop completes.
+
+In its most simple form, the \pythonilIdx{for} loop is applied to a \pythonilIdx{range} of integer numbers.
+Ranges are sequences which work basically like slices\pythonIdx{slice} (see \cref{sec:lists:basicFunctions,sec:strBasicOperations}).
+\pythonil{range(5)} will give us a sequence of integers starting with~0 and reaching up to right \emph{before}~5, i.e., the integer range~\intRange{0}{4}.
+\pythonil{range(6, 9)} gives the sequence of integers starting with~6 and stopping right \emph{before}~9, i.e., the integer range~\intRange{6}{8}.
+Finally, \pythonil{range(20, 27, 2)} results in a sequence of integers that begins at~20, increments by~2 in each step, and ends right before~27.
+This is the sequence~$(20, 22, 24, 26)$.
+\pythonilsIdx{range}, like slices\pythonIdx{slice}, can also have negative increments:
+The \pythonil{range(40, 30, -3)} starts with~40 and stops before reaching~30 and decrements by~3 in each step.
+This is equivalent to the set~$(40, 37, 34, 31)$.
+
+In \cref{lst:loops:for_loop_range}, we loop over exactly these ranges.
+In this listing, we try to create a dictionary (see \cref{sec:dictionaries}) where some integer numbers are mapped to their squares.
+We use four \pythonilIdx{for} loops to fill this dictionary with data.%
+%
+\endhsection%
+%
+\endhsection%
+%

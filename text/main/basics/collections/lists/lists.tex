@@ -5,6 +5,7 @@ A \pythonilIdx{list} is a mutable sequence of objects which can be accessed via 
 They work very similar to the strings we already discussed in \cref{sec:str}, but instead of characters, they can contain any kind of objects and they can be modified.%
 %
 \hsection{Basic Functionality and Examples}%
+\label{sec:lists:basicFunctions}%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{lists_1.py}{--args format}{lists:lists_1}{%
 A first example for using lists in \python: creating, indexing, printing of and appending elements and other lists to lists.}%
@@ -103,7 +104,7 @@ Similarly, if you multiply a list by an integer~\pythonil{n}, you get a new list
 \pythonil{[5, 6, 7] * 3}\pythonIdx{*}\pythonIdx{list!*} therefore yields \pythonil{[5, 6, 7, 5, 6, 7, 5, 6, 7]}.
 
 In \cref{sec:strBasicOperations}, we discussed string slicing.
-Lists can be sliced in pretty much the same way\pythonIdx{list!slicing}\pythonIdx{slicing}~\cite{PSF2024S}.
+Lists can be sliced in pretty much the same way\pythonIdx{list!slicing}\pythonIdx{slicing}\pythonIdx{slice}~\cite{PSF2024S}.
 When slicing a list~\pythonil{l} or a string, you can provide either two or three values in the square brackets\pythonIdx{[\idxdots]}\pythonIdx{[i:j:k]}, i.e., either do~\pythonil{l[i:j]}\pythonIdx{[i:j]}\pythonIdx{slicing} or \pythonil{l[i:j:k]}.
 If \pythonil{j < 0}, then it is replaced with~\pythonil{len(l) - j}.
 In both the two and three indices case, \pythonil{i} is the inclusive start index and \pythonil{j} is the exclusive end index, i.e., all elements with index~\pythonil{m} such that \pythonil{i <= m < j}.
@@ -122,7 +123,7 @@ The step-length is~\pythonil{-2}, so it will move backwards and add every second
 It stops adding elements before reaching index~\pythonil{3}.
 Therefore, the result will be the new list~\pythonil{l7 = [7, 5, 6]}.
 
-Notice that the slices we create are independent copies of ranges of the original lists.
+Notice that the slices\pythonIdx{slice} we create are independent copies of ranges of the original lists.
 The list~\pythonil{l7} is a slice from the list~\pythonil{l4}.
 If we modify it, e.g., set \pythonil{l7[1] = 12}, then we set the second element of~\pythonil{l7} to~\pythonil{12}.
 \pythonil{l7}~becomes~\pythonil{[7, 12, 6]}.

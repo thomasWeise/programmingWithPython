@@ -272,7 +272,12 @@ $\downarrow$~~\expandafter\bashil{python3 #3}~~$\downarrow$%
 %
 %%
 %% The python syntax environment.
+%% Warning: If we do not use the minipage, this may or may not
+%% cause strange errors like:
+%% "! Argument of ? has an extra }."
 \lstnewenvironment{pythonSyntax}[1][true]{%
+\center%
+\minipage{\linewidth}%
 \let\@old@lst@visiblespace\lst@visiblespace%
 \def\lst@visiblespace{{\color{Gray}\@old@lst@visiblespace}}%
 \lstset{%
@@ -280,5 +285,7 @@ style=python_style,%
 showspaces=#1%
 }}{%
 \let\lst@visiblespace\@old@lst@visiblespace%
+\endminipage%
+\endcenter%
 }%
 %
