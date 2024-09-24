@@ -183,10 +183,10 @@ The output in \cref{exec:loops:for_loop_nested_primes} tells us that, after perf
 \FloatBarrier%
 \endhsection%
 %
-\hsection{Loops over Sequences and Collections}%
+\hsection{Loops over Sequences}%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{04_loops}{for_loop_sequence.py}{--args format}{loops:for_loop_sequence}{%
-An example iterating over the elements in different container datastructures using \pythonilIdx{for} loops\pythonIdx{loop!for}.}%
+An example iterating over the elements in different collection datastructures using \pythonilIdx{for} loops\pythonIdx{loop!for}.}%
 %
 When introducing the \pythonilIdx{for} loop\pythonIdx{for}\pythonIdx{loop!for}, we stated that it iterates over sequences of data.
 We learned that \pythonilsIdx{range} are the most basic such sequences.
@@ -266,7 +266,7 @@ Computing a list of all primes from \intRange{2}{200} using nested \pythonilIdx{
 Compared to \cref{lst:loops:for_loop_nested_primes}, this program is more efficient because it only tests primes as divisors.%
 }
 
-Let us now use this new ability to iterate over container datastructures to improve upon our prime number enumeration program \cref{lst:loops:for_loop_nested_primes}.
+Let us now use this new ability to iterate over collection datastructures to improve upon our prime number enumeration program \cref{lst:loops:for_loop_nested_primes}.
 Back when writing that program, we immediately stored \pythonil{2} as a prime into our list~\pythonil{primes}.
 We then only tried the odd numbers less than~200 as potential prime number \pythonils{candidate}.
 For each potential prime number \pythonil{candidate}, we tested all (odd) numbers~\pythonil{check} from the range \pythonil{range(3, isqrt(candidate) + 1, 2)}\pythonIdx{range} as possible divisors.
@@ -285,6 +285,66 @@ The \pythonilIdx{break} statement lets us exit the inner loop as soon as we hit 
 
 The lists of primes that our programs generate in \cref{exec:loops:for_loop_sequence_primes,exec:loops:for_loop_nested_primes} are exactly the same.
 However, our new program needs to perform only 224~divisions instead of~252.%
+%
+\FloatBarrier%
+\endhsection%
+%
+\hsection{Enumerating over Sequences}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{04_loops}{for_loop_no_enumerate.py}{--args format}{loops:for_loop_no_enumerate}{%
+Enumerating over the index-value pairs of a list (inefficiently).}%
+%
+Assume that we have a list \pythonil{data} of integer values~\pythonil{v}.
+If we want to iterate over all the values~\pythonil{v} in~\pythonil{data}, then \pythonil{for v in data} would do the trick.
+However, what if we also want to know the current index~\pythonil{i} for each data element during the iteration?
+Then this construct no longer works.
+
+We basically have two choices:
+As first option, we can iterate over \pythonil{data} by accessing the elements by their index~\pythonil{i} directly.
+In this case, we would use a \pythonilIdx{range} that goes from~\pythonil{0} to \pythonil{len(data) - 1}\pythonIdx{len}\pythonIdx{list!len}.
+The head of the loop now looks like this:~\pythonil{for i in range(len(data))}.
+The data values~\pythonil{v} are then accessed via~\pythonil{data[i]}.
+This is illustrated in \cref{lst:loops:for_loop_no_enumerate}.
+
+The drawback of this method is that it will \emph{only} work for \pythonilsIdx{list}, because among the collection datastructures discussed so far, only \pythonilsIdx{list} are directly indexable.
+Therefore, the second option to achieve our goal would be to use an additional integer variable~\pythonil{i} which we would initialize as \pythonil{i: int = 0} before the loop and then increment as~\pythonil{i += 1} at the bottom of the loop body.
+This would work with all collection classes.
+
+Both options are a bit iffy, as they introduce more and less readable additional code.
+There is a third option, though.
+And because I advocate using static code analysis tools, I let another such tool discover this option for us.%
+%
+\begin{figure}%
+\centering%
+\includegraphics[width=0.7\linewidth]{\currentDir/pipInstallPylint}%
+\caption{Installing \pylint\ in a \ubuntu\ \pgls{terminal} via \pip.}%
+\label{fig:pipInstallPylint}%
+\end{figure}%
+%
+\usefulTool{pylint}{%
+\pylint\ is a \python\ \pgls{linter} that analyzes code for style, potential errors, and possible improvements~\cite{M2022RAEFPLACFWIR}. %
+It can be installed via \bashil{pip install pylint} as shown in \cref{fig:pipInstallPylint} on \cpageref{fig:pipInstallPylint}. %
+You can then apply \pylint\ using the command \bashil{pylint fileToScan.py}. %
+We provide a script for using \pylint\ with a reasonable default configuration in \cref{lst:bash:pylint} on \cpageref{lst:bash:pylint}.%
+}%
+%
+\gitOutput{\programmingWithPythonCodeRepo}{.}{scripts/pylint.sh 04_loops for_loop_no_enumerate.py}{loops:for_loop_no_enumerate:pylint}{%
+The results of static code analysis using the \pylint\ \pgls{linter} for the program given in \cref{lst:loops:for_loop_no_enumerate}.}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{04_loops}{for_loop_enumerate.py}{--args format}{loops:for_loop_enumerate}{%
+Enumerating over the index-value pairs of a list using the \pythonilIdx{enumerate} function.}%
+%
+In \cref{exec:loops:for_loop_no_enumerate:pylint}, \pylint\ suggest that we should iterate over the list \pythonil{data} using the \pythonilIdx{enumerate} function.
+\pythonilIdx{enumerate} accepts a collection as parameter and creates a sequence of index-value tuples.
+Since we can unpack such tuples while iterating over this sequence (see \cref{lst:loops:for_loop_sequence})\pythonIdx{tuple!unpacking}\pythonIdx{unpacking}, the head of our loop now takes on the form \pythonil{for i, v in enumerate(data)}.
+Notice that the index~\pythonil{i} comes first and the value~\pythonil{v} comes second in this unpacked-tuple-based enumeration.
+This is implemented in \cref{lst:loops:for_loop_enumerate}.
+And it would work exactly the same, regardless whether \pythonil{data} was a list, set, tuple, or dictionary.
+
+Now, above we used the \pylint\ \pgls{linter} to discover that we could improve our code by using this concept.
+At the time of this writing, \ruff\ and \mypy\ did not find this potential improvement.
+Maybe their future versions will.
+Regardless, it becomes clear that using more static analysis tools is always a good idea, as stated back in \cref{bp:manyCodeAnalysisTools}.%
 %
 \endhsection%
 %

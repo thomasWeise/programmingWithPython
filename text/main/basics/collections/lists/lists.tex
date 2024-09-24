@@ -170,6 +170,7 @@ As promised in the title of this section, we will also use another tool to analy
 \label{fig:pipInstallRuff}%
 \end{figure}%
 %
+\FloatBarrier%
 %
 \usefulTool{ruff}{%
 \ruff\ is a very fast \python\ \pgls{linter} that checks the code for all kinds of problems, ranging from formatting and style issues over missing documentation to performance problems and potential errors~\cite{M2022RAEFPLACFWIR}. %
@@ -177,8 +178,6 @@ It can be installed via \bashil{pip install ruff} as shown in \cref{fig:pipInsta
 You can then apply \ruff\ using the command \bashil{ruff check fileToScan.py}. %
 We provide a script for using \ruff\ with a reasonable default configuration in \cref{lst:bash:ruff} on \cpageref{lst:bash:ruff}.%
 }%
-%
-\FloatBarrier%
 %
 \gitOutput{\programmingWithPythonCodeRepo}{.}{scripts/ruff.sh 02_collections lists_error.py}{lists:lists_error:ruff}{%
 The results of linting with \ruff\ of the program given in \cref{lst:lists:lists_error}. (We used the script given in \cref{lst:bash:ruff} on \cpageref{lst:bash:ruff} to apply \ruff.)}%
@@ -211,6 +210,13 @@ Finally, we add a proper \pgls{docstring} at the top of the file, in which we ev
 The output \cref{exec:lists:lists_fixed} of the new program remains the same.
 But now, both tools are satisfied, as shown in \cref{exec:lists:lists_fixed:mypy,exec:lists:lists_fixed:ruff}.
 And our program is much clearer and faster.%
+%
+\bestPractice{manyCodeAnalysisTools}{%
+Use many static code analysis tools and use them always. %
+They can discover a wide variety of issues, problems, or potential improvements. %
+They can help you to keep your code clean and to enforce a good programming style. %
+Do not just apply them, but also \emph{implement} their suggestions where possible.%
+}%
 %
 \FloatBarrier%
 %

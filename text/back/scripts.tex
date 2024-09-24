@@ -6,6 +6,9 @@ A \bash\ script for executing \mypy, which prints the command line and the exit 
 \gitBash{\programmingWithPythonCodeRepo}{scripts/ruff.sh}{bash:ruff}{%
 A \bash\ script for executing \ruff, which prints the command line and the exit code; see \cref{ut:ruff}.}%
 %
+\gitBash{\programmingWithPythonCodeRepo}{scripts/pylint.sh}{bash:pylint}{%
+A \bash\ script for executing \pylint, which prints the command line and the exit code; see \cref{ut:pylint}.}%
+%
 Here we provide some scripts that are used within this book.
 These scripts are written for the \bash\ shell, which is the default interpreter running in \ubuntu\ \linux\ \pglspl{terminal}.
 Therefore, they will not work under \windows\ or other operating systems.
@@ -32,7 +35,12 @@ In it's present form, it does not check for type errors, as far as I know, thoug
 Either way, it is harder to balance the strictness of the tool and there are even some rules which are sometimes mutually exclusive.
 Hence, we compose a more complex command.
 Apart from that, this script works pretty much the same as \cref{lst:bash:mypy}.
-\Cref{exec:lists:lists_error:ruff,exec:lists:lists_fixed:ruff} are examples for the output of this script.%
+\Cref{exec:lists:lists_error:ruff,exec:lists:lists_fixed:ruff} are examples for the output of this script.
+
+\Cref{lst:bash:pylint} offers exactly the same functionality for \pylint.
+It checks if this tool is installed and installs it if not.
+It then applies \pylint\ to a the selected set of files, using a reasonable default configuration.
+\Cref{exec:loops:for_loop_no_enumerate:pylint} is an example for the output of this \pgls{linter}.%
 %
 \endhsection%
 %
