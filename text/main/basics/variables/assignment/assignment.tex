@@ -158,13 +158,13 @@ Variable names should be lowercase, with words separated by underscores~\cite{PE
 \FloatBarrier%
 \endhsection%
 %
-\hsection{LIU Hui's Method and the Approximation of~$\pi$}%
+\hsection{LIU Hui's Method and the Approximation of~$\numberPi$}%
 \label{sec:approximatePiLiuHui}%
 %
 \begin{figure}%
 \centering%
 \includegraphics[width=0.99\linewidth]{\currentDir/liuHuiCircle}%
-\caption{Approximating the ratio of the circumference and the diameter of a circle, i.e., $\pi$, by inscribing regular~$3*2^n$-gons.}%
+\caption{Approximating the ratio of the circumference and the diameter of a circle, i.e., $\numberPi$, by inscribing regular~$3*2^n$-gons.}%
 \label{fig:liuHuiCircle}%
 \end{figure}%
 %
@@ -182,25 +182,25 @@ Variable names should be lowercase, with words separated by underscores~\cite{PE
 \def\liuhuistf{\ensuremath{{\color{liuhui-s24-color}s_{24}}}}%
 %
 Let us now come to a more serious example.
-I am not good at mathematics, but I really like mathematics anyway, so we will go with a mathematics example: approximating~$\pi$.
-The number~$\pi$ is the ratio of the circumference of a circle and its diameter.
+I am not good at mathematics, but I really like mathematics anyway, so we will go with a mathematics example: approximating~\numberPi.
+The number~\numberPi\ is the ratio of the circumference of a circle and its diameter.
 A we already mentioned before in \cref{sec:float}, it is transcendental, a never-ending and never-repeating sequence of digits.
 We can compute it to a certain precision, e.g., as the \pythonilIdx{float} constant \pythonilIdx{pi} with value \pythonil{3.141592653589793}.
 But we can never really write it down.
 
 Well, we I say \inQuotes{we can compute it}, then the question \inQuotes{How?} immediately arises.
 One particularly ingenious answer was given by the Chinese mathematician LIU Hui~\cnPdf{liuHui} somewhere in the third century~AD~\cite{CR2003LH} in his commentary to the famous Chinese mathematics book \emph{Jiu Zhang Suanshu}~\cnPdf{jiuZhangSuanShu}~\cite{CR2003LH,SCL1999TNCOTMACAC,S1998LHATFGAOCM,D2010AALHOCAS,C2002LFLHADWTDM}.
-In \cref{fig:liuHuiCircle}, we show how~$\pi$, i.e., the ratio of the circumference and the diameter of a circle can be approximated by inscribing regular~$e$\nobreakdash-gons into a circle.
+In \cref{fig:liuHuiCircle}, we show how~\numberPi, i.e., the ratio of the circumference and the diameter of a circle can be approximated by inscribing regular~$e$\nobreakdash-gons into a circle.
 The corners of the $e$\nobreakdash-gons lie on the circle.
 
 We start with a hexagon~($e=6$) where the radius~\liuhuir\ is equal to the radius of the circle.
 All the $e$~edges~\liuhuiss\ of this hexagon then have length~\liuhuir\ as well.
 It is easy to see that the circumference of the hexagon is~$U=e*\liuhuiss=6*\liuhuir$.
 The diameter of the circle is~$D=2\liuhuir$.
-Assuming that the circumference of the hexagon is an approximation of the circumference of the circle, we could approximate~$\pi$ as $\pi\approx\frac{U}{D}$.
+Assuming that the circumference of the hexagon is an approximation of the circumference of the circle, we could approximate~\numberPi\ as $\numberPi\approx\frac{U}{D}$.
 For $e=6$~edges, this gives us $\pi_6=\frac{6\liuhuir}{2\liuhuir}=3$.
 
-Now this is a very coarse approximation of~$\pi$.
+Now this is a very coarse approximation of~\numberPi.
 We can get closer to the actual ratio if we would use more edges, i.e., higher values of~$e$.
 The ingenious idea of LIU Hui is to use $e$\nobreakdash-gons with~$e=3*2^n$.
 For $n=1$, we get the hexagon with $e=6$.
@@ -232,7 +232,7 @@ s_{2e} &= \sqrt{2-\sqrt{4-s_e^2}}\label{eq:liuhui:sidelength}\\%
 \end{align}%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{01_variables}{pi_liu_hui.py}{--args format}{variables:pi_liu_hui}{%
-A \python\ program showing several steps of the approximation of $\pi$ using the method of LIU Hui.}%
+A \python\ program showing several steps of the approximation of~\numberPi\ using the method of LIU Hui.}%
 %
 \begin{figure}[tb]%
 \centering%
@@ -277,12 +277,12 @@ Instead, we can simply write them into a program, as illustrated in \cref{lst:va
 We begin by setting the number of edges \pythonil{e = 6} and the side length to \pythonil{s = 1}, still choosing~$\liuhuir=1$.
 In each iteration of the approximation, we simply set \pythonil{e *= 2}\pythonIdx{*=}, which is equivalent to \pythonil{e = e * 2}, to double the number of edges.
 We compute \pythonil{s = sqrt(2 - sqrt(4 - (s ** 2)))}\pythonIdx{sqrt} having imported\pythonIdx{import} the \pythonilIdx{sqrt} function from the \pythonilIdx{math} module.
-We print the approximated value of~$\pi$ as \pythonil{e * s / 2}.
+We print the approximated value of~\numberPi\ as \pythonil{e * s / 2}.
 Notice how elegantly we use the unicode characters~$\pi$ and~$\approx$ via the escapes~\pythonil{\\u03c0} and \pythonil{\\u2248}\pythonIdx{\textbackslash{u}}, respectively, from back in~\cref{sec:unicodeChars} (and how nicely it indeed prints the greek character~$\pi$ in the standard output in \cref{exec:variables:pi_liu_hui}).
-Either way, since \cref{eq:liuhui:sidelength,eq:liuhui:approx} are always the same, we can simply copy-paste the lines of code for updating~\pythonil{s}, \pythonil{e}, and printing the approximated value of~$\pi$ several times.
+Either way, since \cref{eq:liuhui:sidelength,eq:liuhui:approx} are always the same, we can simply copy-paste the lines of code for updating~\pythonil{s}, \pythonil{e}, and printing the approximated value of~\numberPi\ several times.
 
 \Cref{exec:variables:pi_liu_hui} shows the standard output produced by this program.
-Indeed, each new approximation comes closer to~$\pi$.
+Indeed, each new approximation comes closer to~\numberPi.
 For 192~edges, we get the approximation~\pythonil{3.1414524722853443}.
 Given that the constant~\pythonilIdx{pi} from the \pythonilIdx{math} module is \pythonil{3.141592653589793}, we find that the first four digits are correct and that the number is only off by only 0.0045\%!
 For your convenience, we also showed the results when executing the program in \pycharm\ or the \ubuntu\ \pgls{terminal} in \cref{fig:variables:liuHuiPi}.

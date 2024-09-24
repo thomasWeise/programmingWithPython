@@ -84,6 +84,7 @@
 @string { a_duchesnay_edouard = "Edouard Duchesnay" }
 @string { a_editors_of_encyclopaedia_britannica = "The Editors of Encyclopaedia Britannica" }
 @string { a_eglen_stephen_j = "Stephen J.\ Eglen" }
+@string { a_euler_leonhard = "Leonhard Euler" }
 @string { a_fang_lu = "Lu Fang" }
 @string { a_feng_yu = "Yu Feng" }
 @string { a_fernandez_del_rio_jaime = "Jaime {Fern{\'a}ndez del R{\'i}o}" }
@@ -282,6 +283,8 @@
 @string { a_wieser_eric = "Eric Wieser" }
 @string { a_wilson_joshua = "Joshua Wilson" }
 @string { a_wu_zhize = "Zhize Wu" }
+@string { a_wyman_bostwick_f = "Bostwick F.\ Wyman" }
+@string { a_wyman_myra_f = "Myra F.\ Wyman" }
 @string { a_xiong_peng = "Peng Xiong" }
 @string { a_yanev_martin = "Martin Yanev" }
 @string { a_yang_edward_z = "Edward Z.\ Yang" }
@@ -306,6 +309,7 @@
 @string { l_iceland_reykjavik = "{{Reykjav{\'i}k}, {Iceland}}" }
 @string { l_india_noida = "{{Noida}, {Uttar Pradesh}, {India}}" }
 @string { l_portugal_lisbon = "{{Lisbon}, {Portugal}}" }
+@string { l_russia_petropolis = "{{Petropolis} {(St.~Petersburg)}, {Russia}}" }
 @string { l_spain_leioa = "{{Leioa}, {Bizkaia}, {Spain}}" }
 @string { l_switzerland_cham = "{{Cham}, {Switzerland}}" }
 @string { l_switzerland_geneva = "{{Geneva}, {Switzerland}}" }
@@ -389,6 +393,7 @@
 @string { p_springer_science_and_business = "{Springer Science+Business Media}" }
 @string { p_taylor_and_francis = "{Taylor and Francis Ltd.}" }
 @string { p_teubner_b_g = "{B.\ G.\ Teubner}" }
+@string { p_typis_academiae = "{Typis Academiae}" }
 @string { p_unicode_consortium = "{The Unicode Consortium}" }
 @string { p_universidad_del_pais_vasco = "{{Universidad del Pa{\'i}s Vasco} / {Euskal Herriko Unibertsitatea}}" }
 @string { p_university_of_south_carolina = "{University of South Carolina}" }
@@ -444,6 +449,7 @@
 @string { pa_springer_science_and_business = l_usa_new_york }
 @string { pa_taylor_and_francis = l_uk_london }
 @string { pa_teubner_b_g = l_germany_leipzig }
+@string { pa_typis_academiae = l_russia_petropolis }
 @string { pa_unicode_consortium = l_usa_south_san_francisco }
 @string { pa_universidad_del_pais_vasco = l_spain_leioa }
 @string { pa_university_of_south_carolina = l_usa_columbia }
@@ -481,6 +487,12 @@
  publisher = p_acm,
  address = pa_acm,
  issn = {0001-0782},
+}
+
+@xdata{j_casp,
+ journal = {Commentarii Academiae Scientiarum Petropolitanae},
+ publisher = p_typis_academiae,
+ address = pa_typis_academiae
 }
 
 @xdata{j_csae,
@@ -523,6 +535,13 @@
  publisher = p_taylor_and_francis,
  address = pa_taylor_and_francis,
  issn = {0025-570X},
+}
+
+@xdata{j_mst,
+ journal = {Mathematical Systems Theory},
+ issn = {1432-4350},
+ publisher = p_springer_science_and_business,
+ address = pa_springer_science_and_business,
 }
 
 @xdata{j_n,
@@ -687,7 +706,7 @@
 }
 
 @inbook{APM1991TOEAP,
- title = {Transcendence of~$e$ and~$\pi$},
+ title = {Transcendence of~\numberE\ and~\numberPi},
  crossref = {APM1991AAAFI},
  chapter = {9},
  pages = {115--161},
@@ -796,7 +815,7 @@
  url = {https://arxiv.org/abs/1907.11073},
  urldate = {2024-08-17},
  doi = {10.48550/arXiv.1907.11073},
- note = {\mbox{arXiv:1907.11073v2} \mbox{[cs.SE]} \mbox{26~Jul~2019}}
+ addendum = {\mbox{arXiv:1907.11073v2} \mbox{[cs.SE]} \mbox{26~Jul~2019}}
 }
 
 @book{BHK2006CNFCMEARFCS,
@@ -929,6 +948,33 @@
  isbn = {9781836208631},
 }
 
+@article{E1737DFCD,
+ author = a_euler_leonhard,
+ title = {De Fractionibus Continuis Dissertation},
+ date = {1737/1744},
+ xdata = {j_casp},
+ volume = {9},
+ pages = {98--137},
+ url = {https://scholarlycommons.pacific.edu/cgi/viewcontent.cgi?article=1070},
+ urldate = {2024-09-24},
+ addendum = {See \cite{E1985AEOCF} for a translation.}
+}
+
+@article{E1985AEOCF,
+ author = a_euler_leonhard,
+ translator = a_wyman_myra_f # and # a_wyman_bostwick_f,
+ title = {An Essay on Continued Fractions},
+ xdata = {j_mst},
+ volume = {18},
+ pages = {295--328},
+ number = {1},
+ date = {1985-12},
+ doi = {10.1007/BF01699475},
+ url = {https://www.researchgate.net/publication/301720080},
+ urldate = {2024-09-24},
+ addendum = {Translation of of \cite{E1737DFCD}.},
+}
+
 @incollection{EOEBSRGML2024LY,
  author = a_editors_of_encyclopaedia_britannica # and # a_setia_veenu # and # a_rodriguez_emily # and # a_gaur_aakanksha # and # a_matthias_meg # and # a_lotha_gloria,
  title = {Leap Year},
@@ -941,7 +987,7 @@
 @inbook{F2011TTOEAP,
  author = a_filaseta_michael,
  booktitle = {Math~785: Transcendental Number Theory},
- title = {The Transcendence of~$e$ and~$\pi$},
+ title = {The Transcendence of~\numberE\ and~\numberPi},
  chapter = {6},
  date = {2011-21},
  publisher = p_university_of_south_carolina,
@@ -1200,7 +1246,7 @@
 
 @article{N1939TTOP,
  author = a_niven_ivan,
- title = {The Transcendence of~$\pi$},
+ title = {The Transcendence of~\numberPi},
  xdata = {j_tamm},
  volume = {46},
  number = {8},
@@ -1515,7 +1561,7 @@
  title = {Numerical Recipes: The Art of Scientific Computing},
  edition = {3},
  date = {2007/2011},
- note = {Version~3.04},
+ addendum = {Version~3.04},
  publisher = p_cambridge_uni_press_ass,
  address = pa_cambridge_uni_press_ass,
  isbn = {978-0-521-88068-8},
@@ -1538,7 +1584,7 @@
  title = {Prime Numbers and Computer Methods for Factorization},
  xdata = {ser_pm},
  doi = {10.1007/978-1-4612-0251-6},
- imprint = pa_birkhauser_boston # {:~} # p_birkhauser_boston,
+ addendum = pa_birkhauser_boston # {:~} # p_birkhauser_boston,
  isbn = {978-0-8176-3743-9},
  date = {1994-10-01/2012-09-30},
  edition = {2}
@@ -1713,7 +1759,7 @@
  doi = {10.1038/s41592-019-0686-2},
  url = {http://arxiv.org/abs/1907.10121},
  urldate = {2024-06-26},
- note = {See also \mbox{arXiv:1907.10121v1} \mbox{[cs.MS]} \mbox{23 Jul 2019}.}
+ addendum = {See also \mbox{arXiv:1907.10121v1} \mbox{[cs.MS]} \mbox{23 Jul 2019}.}
 }
 
 @book{VHN2023HOADWP,
@@ -1796,5 +1842,5 @@
  url = {https://arxiv.org/abs/2405.01562},
  urldate = {2024-06-27},
  doi = {10.48550/ARXIV.2405.01562},
- note = {\mbox{arXiv:2405.01562v1} \mbox{[cs.MS]} \mbox{3 Apr 2024}}
+ addendum = {\mbox{arXiv:2405.01562v1} \mbox{[cs.MS]} \mbox{3 Apr 2024}}
 }

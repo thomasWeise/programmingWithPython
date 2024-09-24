@@ -77,7 +77,7 @@ We thus simply call it \pythonil{_}\pythonIdx{\_}.
 If we would not call it that, then another programmer seeing our code (or a static code analysis tool for that matter) could be confused as to why we do not use the loop variable.
 Always remember that \inQuotes{real} code could be much more complicated, and any semantic hint we can include to convey our intentions will be helpful.
 
-With these new tools at hand, we can revisit our old program \cref{lst:variables:pi_liu_hui} to approximate~$\pi$ from back in \cref{sec:approximatePiLiuHui}
+With these new tools at hand, we can revisit our old program \cref{lst:variables:pi_liu_hui} to approximate~\numberPi\ from back in \cref{sec:approximatePiLiuHui}
 In this program, we executed the same code five times.
 Instead of doing this, we can put this into a loop, which reduces the lines of code from over~25 to about~10 in \cref{lst:loops:for_loop_pi_liu_hui}.
 The outputs in \cref{exec:variables:pi_liu_hui,exec:loops:for_loop_pi_liu_hui} are exactly the same.%
@@ -181,6 +181,11 @@ Once we have completed the outer loop as well, we print the number~\pythonil{n_d
 The output in \cref{exec:loops:for_loop_nested_primes} tells us that, after performing 252~divisions, we could identify 46~prime numbers inside~\intRange{2}{200}.%
 %
 \FloatBarrier%
+\endhsection%
+%
+\hsection{Loops over Sequences and Collections}%
+When introducing the \pythonilIdx{for} loop, %
+%
 \endhsection%
 %
 \endhsection%

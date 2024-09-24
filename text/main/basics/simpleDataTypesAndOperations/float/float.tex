@@ -8,7 +8,7 @@ There is only the single type \pythonilIdx{int} and it can store any integer val
 \begin{sloppypar}%
 In an ideal world, we would have a similar feature also for real numbers.
 However, such a thing cannot be practically implemented.
-You will certainly remember the numbers $\pi\approx3.141\decSep592\decSep653\decSep590\dots$ and $e\approx2.718\decSep281\decSep828\decSep459\dots$ from highschool maths.
+You will certainly remember the numbers $\numberPi\approx3.141\decSep592\decSep653\decSep590\dots$ and $e\approx2.718\decSep281\decSep828\decSep459\dots$ from highschool maths.
 They are transcendental~\cite{N1939TTOP,APM1991TOEAP,F2011TTOEAP}, i.e., their fractional digits never end and nobody has yet detected an orderly pattern in them.
 Since these numbers are \inQuotes{infinitely long,} we would require infinitely much memory to store them \emph{if} we wanted to represent them \emph{exactly}.
 So we don't and neither does \python.
@@ -112,7 +112,7 @@ This is again not an exact value but a rounded value.
 We always need to keep this in mind.%
 \end{sloppypar}%
 %
-Let us recall our initial example of the transcendental irrational numbers~$\pi$ and~$e$.
+Let us recall our initial example of the transcendental irrational numbers~\numberPi\ and~\numberE.
 Certainly, these are very important constants that would be used in many computations.
 We can make them accessible in our code by importing them from the \pythonilIdx{math} module.\footnote{%
 We will learn about these mechanism in detail later on.}
@@ -120,16 +120,16 @@ This can be done by typing \pythonil{from math import pi, e}\pythonIdx{import}\p
 When we then type \pythonilIdx{pi} and \pythonilIdx{e}, we can get to see their value in floating point representations: \pythonil{3.141592653589793} and \pythonil{2.718281828459045}, respectively.
 Again, these are not the exact values, but they are as close as we can get in this format.
 
-Of course, $\pi$ and~$e$ alone are not that much useful.
+Of course, \numberPi\ and~\numberE\ alone are not that much useful.
 If you reach back into your highschool days again, you will remember many interesting functions that are related to them.
 Let us import a few of them, again from the \pythonilIdx{math} module, via \pythonil{from math import sin, cos, tan, log}\pythonIdx{sin}\pythonIdx{cos}\pythonIdx{tan}\pythonIdx{log}.
 I think you can guess what these functions do.
 
-From highschool, you may remember that~$\sin{\frac{\pi}{4}}=\frac{\sqrt{2}}{2}$ and thus~$\sin^2{\frac{\pi}{4}}=0.5$.
+From highschool, you may remember that~$\sin{\frac{\numberPi}{4}}=\frac{\sqrt{2}}{2}$ and thus~$\sin^2{\frac{\numberPi}{4}}=0.5$.
 Let us compute this in \python\ by doing \pythonil{sin(0.25 * pi) ** 2}\pythonIdx{sin}.
 Surprisingly, we get \pythonil{0.4999999999999999} instead of \pythonil{0.5}.
 The reason is again the limited precision of \pythonilIdx{float}, which cannot represent~$\frac{\sqrt{2}}{2}$ exactly.
-Similarly, $\cos{\frac{\pi}{3}}=\frac{1}{2}$ but \pythonil{cos(pi / 3)}\pythonIdx{cos} yields \pythonil{0.5000000000000001} and $\tan{\frac{\pi}{4}}$ expressed as \pythonil{tan(pi / 4)}\pythonIdx{tan} returns \pythonil{0.9999999999999999} instead of~$1$.
+Similarly, $\cos{\frac{\numberPi}{3}}=\frac{1}{2}$ but \pythonil{cos(pi / 3)}\pythonIdx{cos} yields \pythonil{0.5000000000000001} and $\tan{\frac{\numberPi}{4}}$ expressed as \pythonil{tan(pi / 4)}\pythonIdx{tan} returns \pythonil{0.9999999999999999} instead of~$1$.
 Then again, these values are incredibly close to the exact results.
 They are off by \emph{less than~$10^{-15}$} so for all practical concerns, they are close enough.
 Sometimes, we even get the accurate result, e.g., when computing $\ln(e^{10})$ by evaluating \pythonil{log(e ** 10)}\pythonIdx{log}, which results in~\pythonil{10.0}.
@@ -371,8 +371,8 @@ The important thing to realize is that an overflow of a \pythonilIdx{float} may 
 As another example, let us again import the natural logarithm function \pythonilIdx{log} and the Euler's constant~\pythonilIdx{e} from the \pythonilIdx{math} module by doing \pythonil{from math import e, log}\pythonIdx{from}\pythonIdx{math}\pythonIdx{import}.
 We now can compute the natural logrithm from the largest possible \pythonilIdx{float} via \pythonil{log(1.7976931348623157e+308)}.
 We get \pythonil{709.782712893384}.
-Raising~$e$ to this power by doing \pythonil{e ** 709.782712893384} leads to the slightly smaller number~\pythonil{1.7976931348622053e+308} due to the limited precision of the \pythonilIdx{float} type.
-However, if we try to raise~$e$ to a slightly larger power, and, for example, try to do \pythonil{e ** 709.782712893385}, we again face an \pythonilIdx{OverflowError}.
+Raising~\numberE\ to this power by doing \pythonil{e ** 709.782712893384} leads to the slightly smaller number~\pythonil{1.7976931348622053e+308} due to the limited precision of the \pythonilIdx{float} type.
+However, if we try to raise~\numberE\ to a slightly larger power, and, for example, try to do \pythonil{e ** 709.782712893385}, we again face an \pythonilIdx{OverflowError}.
 
 We can also try to divide~1 by the largest \pythonilIdx{float} and do \pythonil{1 / 1.7976931348623157e+308}\pythonIdx{/}.
 The result is the very small number \pythonil{5.562684646268003e-309}.
@@ -443,7 +443,7 @@ We can store very large numbers and are only limited by the memory available on 
 Very large integer numbers are, however, something of a corner case {\dots} they do not happen often.
 
 Real numbers in~\realNumbers\ are a whole different beast.
-They include irrational numbers like~$\sqrt{2}$ and transcendental numbers like~$\pi$.
+They include irrational numbers like~$\sqrt{2}$ and transcendental numbers like~\numberPi.
 These numbers are needed \emph{often} and they have infinitely many fractional digits.
 Thus, there is no way to exactly represent them in computer memory exactly.
 Another problem is that we may need both very large numbers like~$10^{300}$ and very small numbery like~$10^{-300}$.
