@@ -77,7 +77,7 @@ We thus simply call it \pythonil{_}\pythonIdx{\_}.
 If we would not call it that, then another programmer seeing our code (or a static code analysis tool for that matter) could be confused as to why we do not use the loop variable.
 Always remember that \inQuotes{real} code could be much more complicated, and any semantic hint we can include to convey our intentions will be helpful.
 
-With these new tools at hand, we can revisit our old program \cref{lst:variables:pi_liu_hui} to approximate~\numberPi\ from back in \cref{sec:approximatePiLiuHui}
+With these new tools at hand, we can revisit our program \cref{lst:variables:pi_liu_hui} for approximating~\numberPi\ from back in \cref{sec:approximatePiLiuHui}.
 In this program, we executed the same code five times.
 Instead of doing this, we can put this into a loop, which reduces the lines of code from over~25 to about~10 in \cref{lst:loops:for_loop_pi_liu_hui}.
 The outputs in \cref{exec:variables:pi_liu_hui,exec:loops:for_loop_pi_liu_hui} are exactly the same.%
@@ -152,13 +152,8 @@ At least, this is the plan.%
 %
 We will implement this idea with a nested inner loop.
 Since the loop variable \pythonil{candidate} will always be odd, only odd numbers can be potential divisors.
-Obviously, only integers greater than or equal to~\pythonil{3} and less than \pythonil{candidate} are potential divisors.
-We can therefore iterate a second, inner loop variable \pythonil{check} over \pythonil{range(3, isqrt(candidate) + 1, 2)}\pythonIdx{range}\pythonIdx{isqrt}.
-If \pythonil{candidate <= 3}, then this loop will never be executed because no number \pythonil{check} with $3\leq\pythonil{check}<\pythonil{candidate}$ exists.
-Then, \pythonil{is_prime} will remain \pythonil{True} and we will add \pythonil{candidate} to \pythonil{primes} further down the outer loop body.
-If \pythonil{candidate > 3}, then \pythonil{check} will go from $\pythonil{3}, \dots, \left\lfloor\sqrt{\pythonil{candidate}}\right\rfloor$.
-
-We only need to explore whether \pythonil{check} is a divisor of \pythonil{candidate} if it is not bigger than $\sqrt{\pythonil{candidate}}$.
+Obviously, only integers greater than or equal to~\pythonil{3} are potential divisors.
+We also only need to explore whether \pythonil{check} is a divisor of \pythonil{candidate} if it is not bigger than $\sqrt{\pythonil{candidate}}$.
 If we had three integer numbers~$a$, $b$, and~$c$ such that $a=b*c$ and $b>\sqrt{a}$, then it must be that $c<\sqrt{a}$.
 Since $a=\sqrt{a}*\sqrt{a}$ holds by definition, it would be impossible that $a=b*c$ if both $b>\sqrt{a}$ and $c\geq\sqrt{a}$.
 Thus, if $b>\sqrt{a}$ was a divisor of $a$, then $c$ would also be a divisor of~$a$ that we would have found before reaching~$b$ in the loop since~$c<\sqrt{a}<b$.
@@ -167,8 +162,13 @@ Now, most integer numbers do not have integer square roots.
 Since integer divisors cannot have fractions anyway, it is sufficient for us to use $\left\lfloor\sqrt{\pythonil{candidate}}\right\rfloor$.
 In \python, such a \inQuotes{truncated} integer square root of an integer number~$\left\lfloor\sqrt{a}\right\rfloor$ can be computed using the \pythonilIdx{isqrt} function from the \pythonilIdx{math} module, which we \pythonilIdx{import} at the top of our program.
 
-Anyway, back to our inner loop.
-In order to find out whether \pythonil{check} is an integer divisor of \pythonil{candidate}, we just need to compute the remainder of the division~$\pythonil{canddiate}/\pythonil{check}$.
+We can therefore iterate a second, inner loop variable \pythonil{check} over \pythonil{range(3, isqrt(candidate) + 1, 2)}\pythonIdx{range}\pythonIdx{isqrt}.
+If \pythonil{candidate <= 3}, then this loop will never be executed because no number \pythonil{check} with $3\leq\pythonil{check}<\pythonil{candidate}$ exists.
+Then, \pythonil{is_prime} will remain \pythonil{True} and we will add \pythonil{candidate} to \pythonil{primes} further down the outer loop body.
+If \pythonil{candidate > 3}, then \pythonil{check} will go from $\pythonil{3}, \dots, \left\lfloor\sqrt{\pythonil{candidate}}\right\rfloor$.
+
+In the body of our inner loop, we try to find out whether \pythonil{check} is an integer divisor of \pythonil{candidate}.
+We can do this by computing the remainder of the division~$\pythonil{canddiate}/\pythonil{check}$.
 Back in \cref{sec:int:integerArithmetics} we learned the \pgls{modulodiv} operator \expandafter\pythonilIdx{\%}, which does exactly that.
 If \pythonil{candidate \% check} is~\pythonil{0}, then we can divide \pythonil{candidate} by \pythonil{check} without remainder.
 Then, \pythonil{candidate} is divisible by \pythonil{check} and cannot be a prime number.
@@ -184,7 +184,107 @@ The output in \cref{exec:loops:for_loop_nested_primes} tells us that, after perf
 \endhsection%
 %
 \hsection{Loops over Sequences and Collections}%
-When introducing the \pythonilIdx{for} loop, %
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{04_loops}{for_loop_sequence.py}{--args format}{loops:for_loop_sequence}{%
+An example iterating over the elements in different container datastructures using \pythonilIdx{for} loops\pythonIdx{loop!for}.}%
+%
+When introducing the \pythonilIdx{for} loop\pythonIdx{for}\pythonIdx{loop!for}, we stated that it iterates over sequences of data.
+We learned that \pythonilsIdx{range} are the most basic such sequences.
+However, in \cref{sec:collections} we learned about collection datatypes, namely \pythonilsIdx{list}, \pythonilsIdx{tuple}, \pythonilsIdx{set}, and \pythonilsIdx{dict}.
+The elements of all of these datatypes can be accessed sequentially, too.
+This means that a \pythonilIdx{for} loop can iterate over them as well!
+
+In \cref{lst:loops:for_loop_sequence} we illustrate how this is done:
+It works exactly as if we were using \pythonilsIdx{range}.
+In the program, we will build a list~\pythonil{txt} with strings that we will later write to the output.
+
+First, we want to iterate over a list\pythonIdx{list}~\pythonil{lst} containing the four integers~\pythonil{[1, 2, 3, 50]}.\pythonIdx{list!iterate over}
+This is done by simply writing \pythonil{for i in lst}.
+Here, \pythonil{i} is the loop variable and it will step-by-step take on all the values in~\pythonil{lst}, one by one.
+In the body of this loop, we invoke \pythonil{txt.append(f"i=\{i\}")}.
+The \pgls{fstring} will evaluate to \pythonil{"i=1"} in the first iteration, to \pythonil{"i=2"} in the second, to \pythonil{"i=3"} in the third, and to \pythonil{"i=50"} in the fourth and last iteration of this loop.
+These strings are appended to the list \pythonil{txt} via the \pythonilIdx{append}\pythonIdx{list!append} method.
+
+Then we move on and want to iterate over a tuple\pythonIdx{tuple}~\pythonil{tp}, which contains three floating point numbers, namely~\pythonil{(7.6, 9.4, 8.1)}.\pythonIdx{tuple!iterate over}
+This works exactly in the same way:
+\pythonil{for f in tp} will let the loop variable~\pythonil{f} take on the values \pythonil{7.6}, \pythonil{9.4}, and finally~\pythonil{8.1}.
+We again append\pythonIdx{list!append}\pythonIdx{append} their textual representation to the list \pythonil{txt}, this time using the \pgls{fstring} \pythonil{f"f=\{f\}"}.
+
+As third example, we create the set\pythonIdx{set}~\pythonil{st} containing the three strings~\pythonil{\{"u", "v", "w"\}}.\pythonIdx{set!iterate over}
+We can do this again by simply writing \pythonil{for s in st}, which lets the loop variable~\pythonil{s} take on the values \pythonil{"w"}, \pythonil{"u"}, and \pythonil{"v"}, \emph{in an arbitrary order}.
+Remember that sets in \python\ are unordered (see \cref{bp:setsUnordered}), which means that if we run the program twice, we may get different results.
+Either way, we can iterate over all the values in the set~\pythonil{st}.
+We again want to store these values as nicely formatted strings in~\pythonil{txt}.
+This time we use the \pgls{fstring} \pythonil{f"s=\{s!r\}"}.
+Notice the \pythonil{!r} format specifier\pythonIdx{!r}:
+It will print the \emph{representation} of the string~\pythonil{s}, which basically means to put quotation marks (and to potentially escape\pythonIdx{str!escaping}\pythonIdx{escaping} otherwise unprintable characters, see \cref{sec:str:escaping}).
+Thus, we will add \pythonil{"s='v'"}, \pythonil{"s='u'"}, and~\pythonil{"s='w'"} to \pythonil{txt} (in an arbitrary order).
+
+As fourth and final example, we create a dictionary~\pythonil{dc}\pythonIdx{dict} that maps floating point numbers to Boolean values, containing the two entries, namely~\pythonil{\{1.1: True, 2.5: False\}}.\pythonIdx{dict!iterate over}
+Now a dictionary is a bit special:
+It maps keys to values.
+When working with the whole dictionary datastructure~\pythonil{dc} as a collection, then we can access it in three ways:
+%
+\begin{enumerate}%
+%
+\item Iterating over \pythonil{dc} directly lets us view all the keys in the dictionary~\pythonil{dc}. %
+This is equivalent to iterating over \pythonil{dc.keys()}\pythonIdx{dict!keys}.%
+%
+\item Iterating over \pythonil{dc.values()}\pythonIdx{dict!values} lets us access all the values in the dictionary~\pythonil{dc}.%
+%
+\item Iterating over \pythonil{dc.items()}\pythonIdx{dict!items} lets us access all key-value pairs in the dictionary~\pythonil{dc} as tuples.%
+\end{enumerate}%
+%
+In our example program, we apply all of these methods.
+We iterate over the keys in~\pythonil{dc} via \pythonil{for k in dc}, which lets \pythonil{k} take on the values \pythonil{1.1} and \pythonil{2.5}, one after the other.
+We iterate over the values in~\pythonil{dc} via \pythonil{for v in dc.values()}, which lets \pythonil{v} take on the values \pythonil{True} and \pythonil{False}, one after the other.%
+%
+\begin{sloppypar}%
+Finally, we iterate over all key-value pairs.
+Look closely at this one:
+We \emph{could} write \pythonil{for t in dc.items()}, which would let a loop variable~\pythonil{t} take on the tuple values \pythonil{(1.1, True)} and then \pythonil{2.5: False}.
+However, back in \cref{sec:tuples}, we learned about tuple unpacking\pythonIdx{tuple!unpacking}\pythonIdx{unpacking}.
+So instead, we write \pythonil{for k, v in dc.items()}.
+This is a shortcut for writing \pythonil{for t in dc.items()} followed by \pythonil{k, v = t}.
+It directly unpacks the tuples in the sequence \pythonil{dc.items}, meaning that we get pairs of \pythonil{k=1.1}, \pythonil{v=True} and \pythonil{k=2.5}, \pythonil{v=False}.
+All of them are again appended to our text list~\pythonil{txt}.%
+\end{sloppypar}%
+%
+After all of these loops, we have ended up with a list~\pythonil{txt} containing~16 strings.
+We want to combine all of them to a single string, using \pythonil{", "} as a separator.
+We could do this in another loop.
+However, \python\ offers us a much more efficient shorthand for this:
+The method \pythonilIdx{join}\pythonIdx{str!join} of the class~\pythonilIdx{str}.
+
+For any string~\pythonil{z}, \pythonil{z.join(seq)} accepts a sequence \pythonil{v} of strings.
+It then concatenates all the strings in \pythonil{seq}, placing \pythonil{z} as separator between any two strings.
+Thus, invoking \pythonil{", ".join(txt)} produces \textil{i=1, i=2, i=3, i=50, f=7.6, f=9.4, ...}.
+This text is finally is written to the output via the \pythonilIdx{print} function, giving us the results shown in  \cref{exec:loops:for_loop_sequence}.
+
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{04_loops}{for_loop_sequence_primes.py}{--args format}{loops:for_loop_sequence_primes}{%
+Computing a list of all primes from \intRange{2}{200} using nested \pythonilIdx{for} loops. %
+Compared to \cref{lst:loops:for_loop_nested_primes}, this program is more efficient because it only tests primes as divisors.%
+}
+
+Let us now use this new ability to iterate over container datastructures to improve upon our prime number enumeration program \cref{lst:loops:for_loop_nested_primes}.
+Back when writing that program, we immediately stored \pythonil{2} as a prime into our list~\pythonil{primes}.
+We then only tried the odd numbers less than~200 as potential prime number \pythonils{candidate}.
+For each potential prime number \pythonil{candidate}, we tested all (odd) numbers~\pythonil{check} from the range \pythonil{range(3, isqrt(candidate) + 1, 2)}\pythonIdx{range} as possible divisors.
+
+When thinking about this, we realize that actually, only the prime numbers in this range are interesting.
+For example, we do never need to check whether \pythonil{candidate} is divisible by~9, because we will have already checked whether it can be divided by~3.
+We also never need to check whether we can divide it by~55, because we will have already checked~5.
+
+Therefore, in our new and more efficient program \cref{lst:loops:for_loop_sequence_primes}, we replace the head of the inner loop with~\pythonil{for check in primes[1:]:}.
+\pythonil{primes[1:]} is a slice\pythonIdx{list!slicing}\pythonIdx{slicing}\pythonIdx{slice} of the list~\pythonil{primes} containing all but the first element (see \cref{sec:lists}).
+This first element is~\pythonil{2}, and since all \pythonils{candidate} are odd, we do not need to try whether they can be divided by~\pythonil{2}.
+The outer loop will step-by-step add prime numbers to \pythonil{primes}.
+Actually, for each value of the loop variable \pythonil{candidate}, \pythonil{primes} will contain all prime numbers which are smaller than \pythonil{candidate}.
+We only need to check those which are less than or equal to \pythonil{isqrt(candidate)}\pythonIdx{isqrt}, so we store this value in a new variable \pythonil{limit} to avoid re-computing it in the inner loop.
+The \pythonilIdx{break} statement lets us exit the inner loop as soon as we hit this limit.
+
+The lists of primes that our programs generate in \cref{exec:loops:for_loop_sequence_primes,exec:loops:for_loop_nested_primes} are exactly the same.
+However, our new program needs to perform only 224~divisions instead of~252.%
 %
 \endhsection%
 %
