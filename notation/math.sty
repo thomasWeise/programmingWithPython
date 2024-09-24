@@ -3,9 +3,22 @@
 %%%
 \protected\gdef\mathSpace#1{\ensuremath{\mathbb{#1}}}%
 %
+\newSymbol{naturalNumbersZ}{\ensuremath{\mathSpace{N}_0}}{N0}{%
+the set of the natural numbers \emph{including}~0, i.e., 0, 1, 2, 3, and so on. %
+It holds that~$\naturalNumbersZ\subset\integerNumbers$%
+}%
+\newSymbol{naturalNumbersO}{\ensuremath{\mathSpace{N}_1}}{N1}{%
+the set of the natural numbers \emph{excluding}~0, i.e., 1, 2, 3, 4, and so on. %
+It holds that~$\naturalNumbersO\subset\integerNumbers$}%
+%
+\newSymbol{integerNumbers}{\ensuremath{\mathSpace{Z}}}{Z}{%
+the set of the integers numbers including positive and negative numbers and~0, i.e., {\dots}, -3, -2, -1, 0, 1, 2, 3, {\dots}, and so on. %
+It holds that~$\integerNumbers\subset\realNumbers$.}%
+%
 \newSymbol{realNumbers}{\mathSpace{R}}{R}{the set of the real numbers}%
-\newSymbol{realNumbersP}{\ensuremath{\mathSpace{R}^+}}{R+}{the set of the positive real numbers, i.e., $\mathSpace{R}^+=\{x\in\realNumbers:x>0\}$}%
-\newSymbol{integerNumbers}{\ensuremath{\mathSpace{Z}}}{Z}{the set of the integers numbers including positive and negative numbers and~0, i.e., {\dots}, -3, -2, -1, 0, 1, 2, 3, {\dots}, and so on}%
+%
+\newSymbol{realNumbersP}{\ensuremath{\mathSpace{R}^+}}{R+}{%
+the set of the positive real numbers, i.e., $\mathSpace{R}^+=\{x\in\realNumbers:x>0\}$}%
 %
 \protected\gdef\intRange#1#2{\ensuremath{#1\pgls{intSetDots}#2}}%
 \newglossaryentry{intSetDots}{%

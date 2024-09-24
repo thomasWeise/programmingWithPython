@@ -82,6 +82,7 @@ In this program, we executed the same code five times.
 Instead of doing this, we can put this into a loop, which reduces the lines of code from over~25 to about~10 in \cref{lst:loops:for_loop_pi_liu_hui}.
 The outputs in \cref{exec:variables:pi_liu_hui,exec:loops:for_loop_pi_liu_hui} are exactly the same.%
 %
+\FloatBarrier%
 \endhsection%
 %
 \hsection{The \texttt{continue} and \texttt{break} Statements}%
@@ -118,6 +119,7 @@ As a result the program will print the string~\pythonil{s} only for~$\pythonil{i
 This can be observed in the program output collected in \cref{exec:loops:for_loop_continue_break}.
 With \pythonilIdx{break} and \pythonilIdx{continue}, we now have two tools that can help us to either abort any loop prematurely or to abort the current iteration of the loop prematurely (and continue with the next one, if any), respectively.%
 %
+\FloatBarrier%
 \endhsection%
 %
 \hsection{Nesting Loops}%
@@ -126,9 +128,13 @@ With \pythonilIdx{break} and \pythonilIdx{continue}, we now have two tools that 
 Computing a list of all primes from \intRange{2}{200} using nested \pythonilIdx{for} loops.}%
 %
 Like conditional statements, \pythonilIdx{for}~loops can be arbitrarily nested.
-Let us explore this by computing the list of all prime numbers less than~200 (in a very crude way) in \cref{lst:loops:for_loop_nested_primes}.
-
-In this program, we want to store all of these prime numbers in the list\pythonIdx{list} \pythonil{primes}.
+Let us explore this by computing the list of all prime numbers less than~200 in \cref{lst:loops:for_loop_nested_primes}.%
+%
+\begin{definition}[Prime Number]%
+A prime number~$p\in\naturalNumbersO$ is a positive integer~$p>1$ that has no positive integer divisors other than~$1$ and~$p$ itself~\cite{W2024PN,CP2005PNACP,R1994PNACMFF}.%
+\end{definition}%
+%
+In our example program, we want to store all of these prime numbers in the list\pythonIdx{list} \pythonil{primes}.
 We know that \pythonil{2} is a prime number and the only even one, so we directly initialize \pythonil{primes = [2]}, i.e., we set \pythonil{primes} to initially be a list only containing the integer~\pythonil{2}.
 This will allow us to later on only consider the odd numbers in the range \intRange{3}{200}.
 Just out of interest, we will count the total number of divisions that we need to perform until we have the full list of primes in the variable~\pythonil{n_divisions}.%
@@ -147,11 +153,22 @@ At least, this is the plan.%
 We will implement this idea with a nested inner loop.
 Since the loop variable \pythonil{candidate} will always be odd, only odd numbers can be potential divisors.
 Obviously, only integers greater than or equal to~\pythonil{3} and less than \pythonil{candidate} are potential divisors.
-We can therefore iterate a second, inner loop variable \pythonil{check} over \pythonil{range(3, candidate, 2)}\pythonIdx{range}.
-If \pythonil{candidate <= 3}, then this loop will never be executed because no number $3\leq\pythonil{check}<\pythonil{candidate}$ exists.
+We can therefore iterate a second, inner loop variable \pythonil{check} over \pythonil{range(3, isqrt(candidate) + 1, 2)}\pythonIdx{range}\pythonIdx{isqrt}.
+If \pythonil{candidate <= 3}, then this loop will never be executed because no number \pythonil{check} with $3\leq\pythonil{check}<\pythonil{candidate}$ exists.
 Then, \pythonil{is_prime} will remain \pythonil{True} and we will add \pythonil{candidate} to \pythonil{primes} further down the outer loop body.
-If \pythonil{candidate > 3}, then \pythonil{check} will go from \pythonil{3}, \dots, \pythonil{candidate - 2}.
-In order to find out whether \pythonil{check} is an even divisor of \pythonil{candidate}, we just need to compute the remainder of the division~$\pythonil{canddiate}/\pythonil{check}$.
+If \pythonil{candidate > 3}, then \pythonil{check} will go from $\pythonil{3}, \dots, \left\lfloor\sqrt{\pythonil{candidate}}\right\rfloor$.
+
+We only need to explore whether \pythonil{check} is a divisor of \pythonil{candidate} if it is not bigger than $\sqrt{\pythonil{candidate}}$.
+If we had three integer numbers~$a$, $b$, and~$c$ such that $a=b*c$ and $b>\sqrt{a}$, then it must be that $c<\sqrt{a}$.
+Since $a=\sqrt{a}*\sqrt{a}$ holds by definition, it would be impossible that $a=b*c$ if both $b>\sqrt{a}$ and $c\geq\sqrt{a}$.
+Thus, if $b>\sqrt{a}$ was a divisor of $a$, then $c$ would also be a divisor of~$a$ that we would have found before reaching~$b$ in the loop since~$c<\sqrt{a}<b$.
+
+Now, most integer numbers do not have integer square roots.
+Since integer divisors cannot have fractions anyway, it is sufficient for us to use $\left\lfloor\sqrt{\pythonil{candidate}}\right\rfloor$.
+In \python, such a \inQuotes{truncated} integer square root of an integer number~$\left\lfloor\sqrt{a}\right\rfloor$ can be computed using the \pythonilIdx{isqrt} function from the \pythonilIdx{math} module, which we \pythonilIdx{import} at the top of our program.
+
+Anyway, back to our inner loop.
+In order to find out whether \pythonil{check} is an integer divisor of \pythonil{candidate}, we just need to compute the remainder of the division~$\pythonil{canddiate}/\pythonil{check}$.
 Back in \cref{sec:int:integerArithmetics} we learned the \pgls{modulodiv} operator \expandafter\pythonilIdx{\%}, which does exactly that.
 If \pythonil{candidate \% check} is~\pythonil{0}, then we can divide \pythonil{candidate} by \pythonil{check} without remainder.
 Then, \pythonil{candidate} is divisible by \pythonil{check} and cannot be a prime number.
@@ -161,8 +178,9 @@ We can also immediately exit the inner loop using the \pythonilIdx{break} statem
 
 After the inner loop, if \pythonil{is_prime} is still \pythonil{True}, we add \pythonil{candidate} to \pythonil{primes} by invoking the \pythonilIdx{append}\pythonIdx{list!append} method of the list.
 Once we have completed the outer loop as well, we print the number~\pythonil{n_divisions} of divisions we have performed, the number~\pythonil{len(primes)}\pythonIdx{len}\pythonIdx{list!len} of prime numbers we have discovered and, finally, the list~\pythonil{primes} itself.
-The output in \cref{exec:loops:for_loop_nested_primes} tells us that, after performing 2140 divisions, we could identify 46~prime numbers inside~\intRange{2}{200}.%
+The output in \cref{exec:loops:for_loop_nested_primes} tells us that, after performing 252~divisions, we could identify 46~prime numbers inside~\intRange{2}{200}.%
 %
+\FloatBarrier%
 \endhsection%
 %
 \endhsection%

@@ -67,6 +67,7 @@
 @string { a_coghlan_alyssa = "Alyssa Coghlan" }
 @string { a_cormen_thomas_h = "Thomas H.\ Cormen" }
 @string { a_cornapeau_david = "David Cournapeau" }
+@string { a_crandall_richard = "Richard Crandall" }
 @string { a_crossley_john_newsome = "John Newsome Crossley" }
 @string { a_cullen_christopher = "Christopher Cullen" }
 @string { a_d_alche_buc_florence = "Florence d'Alch{\'e}{-}Buc" }
@@ -202,6 +203,7 @@
 @string { a_picus_matti = "Matti Picus" }
 @string { a_polat_ilhan = "Ilhan Polat" }
 @string { a_pollard_tom_j = "Tom J.\ Pollard" }
+@string { a_pomerance_carl = "Carl Pomerance" }
 @string { a_press_william_h = "William H.\ Press" }
 @string { a_prettenhofer_peter = "Peter Prettenhofer" }
 @string { a_quinter_ea = "E.\ A.\ Quintero" }
@@ -209,6 +211,7 @@
 @string { a_raschka_sebastian = "Sebastian Raschka" }
 @string { a_reddy_tyler = "Tyler Reddy" }
 @string { a_ribeiro_antonio_h = "Ant{\^o}nio H.\ Ribeiro" }
+@string { a_riesel_hans = "Hans Riesel" }
 @string { a_rivest_ronald_linn = "Ronald Linn Rivest" }
 @string { a_robertson_edmund_f = "Edmund F.\ Robertson" }
 @string { a_rodriguez_emily = "Emily Rodriguez" }
@@ -273,6 +276,7 @@
 @string { a_weckesser_warren = "Warren Weckesser" }
 @string { a_weise_thomas = "Thomas Weise" }
 @string { a_weiss_ron = "Ron Weiss" }
+@string { a_weisstein_eric_w = "Eric Wolfgang Weisstein" }
 @string { a_wicke_martin = "Martin Wicke" }
 @string { a_wiebe_mark = "Mark Wiebe" }
 @string { a_wieser_eric = "Eric Wieser" }
@@ -314,10 +318,12 @@
 @string { l_uk_st_andrews = "{{St~Andrews}, {Scotland}, {UK}}" }
 @string { l_usa_beaverton = "{{Beaverton}, {OR}, {USA}}" }
 @string { l_usa_berkeley = "{{Berkeley}, {CA}, {USA}}" }
+@string { l_use_boston = "{{Boston}, {MA}, {USA}}" }
 @string { l_usa_boca_raton = "{{Boca Raton}, {FL}, {USA}}" }
 @string { l_usa_catonsville = "{{Catonsville}, {MD}, {USA}}" }
 @string { l_usa_cambridge = "{{Cambridge}, {MA}, {USA}}" }
 @string { l_usa_centennial = "{{Centennial}, {CO}, {USA}}" }
+@string { l_usa_champaign = "{{Champaign}, {IL}, {USA}}" }
 @string { l_usa_columbia = "{{Columbia}, {SC}, {USA}}" }
 @string { l_usa_hoboken = "{{Hoboken}, {NJ}, {USA}}" }
 @string { l_usa_ithaca = "{{Ithaca}, {NY}, {USA}}" }
@@ -350,6 +356,7 @@
 @string { p_asa = "{American Standards Association Incorporated}" }
 @string { p_astral = "Astral Software Inc." }
 @string { p_bell_labs = "{Bell Telephone Laboratories, Incorporated}" }
+@string { p_birkhauser_boston = "{Birkh{\"a}user}" }
 @string { p_bruhin_software = "{Bruhin Software}" }
 @string { p_cambridge_uni_press_ass = "{Cambridge University Press \& Assessment}" }
 @string { p_cnri = "{Corporation for National Research Initiatives~({CNRI})}" }
@@ -379,6 +386,7 @@
 @string { p_springer = "{Springer}" }
 @string { p_springer_nature_limited = "{Springer Nature Limited}" }
 @string { p_springer_new_york = "{Springer New York}" }
+@string { p_springer_science_and_business = "{Springer Science+Business Media}" }
 @string { p_taylor_and_francis = "{Taylor and Francis Ltd.}" }
 @string { p_teubner_b_g = "{B.\ G.\ Teubner}" }
 @string { p_unicode_consortium = "{The Unicode Consortium}" }
@@ -390,6 +398,7 @@
 @string { p_usas = "{United States of America Standards Institute~{(USAS)}}" }
 @string { p_usenix = "{{USENIX} Association}" }
 @string { p_wiley_and_sons_ltd = "{John Wiley and Sons Ltd.}" }
+@string { p_wolfram_research = "{Wolfram Research, Inc.}" }
 
 
 %% publisher addresses
@@ -402,6 +411,7 @@
 @string { pa_asa = l_usa_new_york }
 @string { pa_astral = l_usa_new_york }
 @string { pa_bell_labs = l_usa_new_york }
+@string { pa_birkhauser_boston = l_use_boston }
 @string { pa_bruhin_software = l_switzerland_winterthur }
 @string { pa_cambridge_uni_press_ass = l_uk_cambridge }
 @string { pa_cnri = l_usa_reston }
@@ -431,6 +441,7 @@
 @string { pa_springer_cham = l_switzerland_cham }
 @string { pa_springer_nature_limited = l_uk_london }
 @string { pa_springer_new_york = l_usa_new_york }
+@string { pa_springer_science_and_business = l_usa_new_york }
 @string { pa_taylor_and_francis = l_uk_london }
 @string { pa_teubner_b_g = l_germany_leipzig }
 @string { pa_unicode_consortium = l_usa_south_san_francisco }
@@ -442,6 +453,7 @@
 @string { pa_usas = l_usa_new_york }
 @string { pa_usenix = l_usa_berkeley }
 @string { pa_wiley_and_sons_ltd = l_uk_chichester }
+@string { pa_wolfram_research = l_usa_champaign }
 
 
 %% conferences
@@ -618,6 +630,13 @@
  issn = {1868-8969},
  publisher = p_leibniz_zentrum_fur_informatik,
  address = pa_leibniz_zentrum_fur_informatik
+}
+
+@xdata{ser_pm,
+ series = {Progress in Mathematics~{(PM)}},
+ issn = {0743-1643},
+ publisher = p_springer_science_and_business,
+ address = pa_springer_science_and_business
 }
 
 @xdata{ser_taocp,
@@ -857,6 +876,17 @@
  date = {2020-11-10},
  isbn = {978-1119722335},
  xdata = {ser_bs},
+}
+
+@book{CP2005PNACP,
+ author = a_crandall_richard # and # a_pomerance_carl,
+ title = {Prime Numbers: A Computational Perspective},
+ edition = {2},
+ publisher = p_springer_new_york,
+ address = pa_springer_new_york,
+ date = {2005-08-04},
+ isbn = {978-0-387-25282-7},
+ doi = {10.1007/0-387-28979-8},
 }
 
 @book{CR2003LH,
@@ -1503,6 +1533,17 @@
  doi = {10.5555/1953048.2078195},
 }
 
+@book{R1994PNACMFF,
+ author = a_riesel_hans,
+ title = {Prime Numbers and Computer Methods for Factorization},
+ xdata = {ser_pm},
+ doi = {10.1007/978-1-4612-0251-6},
+ imprint = pa_birkhauser_boston # {:~} # p_birkhauser_boston,
+ isbn = {978-0-8176-3743-9},
+ date = {1994-10-01/2012-09-30},
+ edition = {2}
+}
+
 @inproceedings{R2023PTHATCPBNI,
  author = a_roth_ori,
  title = {\python\ Type Hints Are Turing Complete (Pearl/Brave New Idea)},
@@ -1701,6 +1742,23 @@
  pages = {644--655},
  doi = {10.1145/3236024.3236062},
  crossref = {PROC2018ESECFSE},
+}
+
+@book{W2024MAWWR,
+ title = {{MathWorld} -- A {Wolfram} Web Resource},
+ author = a_weisstein_eric_w,
+ date = {2024-08-22},
+ publisher = p_wolfram_research,
+ address = pa_wolfram_research,
+ url = {https://mathworld.wolfram.com/},
+ urldate = {2024-09-24},
+}
+
+@inbook{W2024PN,
+ title = {Prime Number},
+ crossref = {W2024MAWWR},
+ url = {https://mathworld.wolfram.com/PrimeNumber.html},
+ urldate = {2024-09-24},
 }
 
 @inproceedings{WW2023RSDEWASSAA,
