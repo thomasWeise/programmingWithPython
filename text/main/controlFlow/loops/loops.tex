@@ -346,6 +346,71 @@ At the time of this writing, \ruff\ and \mypy\ did not find this potential impro
 Maybe their future versions will.
 Regardless, it becomes clear that using more static analysis tools is always a good idea, as stated back in \cref{bp:manyCodeAnalysisTools}.%
 %
+\FloatBarrier%
+\endhsection%
+%
+\hsection{The \texttt{while} Loop}%
+%
+Old clay tablets show that the Babylonians were able to approximate~$\sqrt{2}$ maybe as far back as 4000~years ago~\cite{FR1998SRAIOBMY7IC,S2011NA2}.
+The mathematician Hero(n) of Alexandria, who lived in the first century~CE, specified an abstract algorithm for computing the square root of numbers which, today, is known as Heron's Method~\cite{S2011NA2,K2009BMOCTSRJBOFTAOCC}.
+
+Given a number~$a$ and aiming to find the square root~$\sqrt{a}$ of~$a$, this algorithm starts with a guess~$x_0$, let's say~$x_0=1$.
+In each iteration~$i$, it will compute a new guess as follows~\cite{S2011NA2,K2009BMOCTSRJBOFTAOCC}:%
+%
+\begin{equation}%
+x_{i+1}=\frac{1}{2}\left(x_i+\frac{a}{x_i}\right)%
+\label{eq:heronGuessUpdate}%
+\end{equation}%
+%
+We can roughly imagine that the algorithm works as follows:
+If $x_i$ was too big~($x_i>\sqrt{a}$), then~$\frac{a}{x_i}<\sqrt{a}<x_i$.
+If $x_i$ was too small~($x_i<\sqrt{a}$), then $\frac{a}{x_i}>\sqrt{a}>x_i$.
+By computing the average of~$x_i$ and~$\frac{a}{x_i}$ as the next guess, we will approach~$\sqrt{a}$.
+If $x_i=\sqrt{a}$, then $\frac{a}{x_i}=\sqrt{a}$ by definition and~$x_{i+1}=x_i$.
+
+If we want to implement this algorithm, we will naturally need a loop of some sort.
+Clearly, we perform the same computation again and again.
+However, a \pythonil{for}~loop will not do:
+We do not know the number of steps we need in advance.
+Of course, we could try to pick a very very huge number and then \pythonil{break} the loop when the guesses converg {\dots} but that is just ugly.
+The \pythonilIdx{while} comes to rescue:%
+%
+\begin{pythonSyntax}
+while booleanExpression:
+    loop body statement 1
+    loop body statement 2
+    # ...
+
+normal statement 1
+normal statement 2
+# ...
+\end{pythonSyntax}
+\FloatBarrier%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{04_loops}{while_loop_sqrt.py}{--args format}{loops:while_loop_sqrt}{%
+We compute the square root of a number using Heron's Method~\cite{S2011NA2,K2009BMOCTSRJBOFTAOCC} implemented as py \pythonilIdx{while} loop.}%
+%
+In the \pythonilIdx{while} loop, the body is executed as long as a Boolean expression in the head of the loop evaluates to~\pythonilIdx{True}.
+We now use this new construct to implement Heron's Method in \cref{lst:loops:while_loop_sqrt} and use it to compute the square roots of~0.5, 2, and~3.
+
+We begin the program with an outer \pythonil{for} loop that iterates a variable~\pythonil{number} over the \pythonil{float} values \pythonil{0.5}, \pythonil{2.0}, and~\pythonil{3.0}.
+We want to apply the algorithm to each of these values.
+We use two variables~\pythonil{guess} be the current guess of what $\sqrt{\pythonil{number}}$ could be and \pythonil{old_guess} be the previous guess.%
+%
+\begin{sloppypar}%
+We initialize \pythonil{guess} with \pythonil{1.0}.
+Our \pythonilIdx{while} loop should keep iterating as long as \pythonil{guess != old_guess}.
+This only works because the \pythonil{float} datatype has limited precision which we will eventually exhaust, see \cref{sec:howFloatingPointNumbersWork}.
+Anyway, the loop condition necessitates us to store some value different from~\pythonil{1.0} in \pythonil{old_guess} initially (and we pick~\pythonil{0.0}).
+In the loop, first the current guess becomes the old guess via \pythonil{old_guess = guess}.
+Then we update the guess as in \cref{eq:heronGuessUpdate}, by setting \pythonil{guess = 0.5 * (guess + number / guess)}.%
+\end{sloppypar}%
+%
+Finally, we print the result of the computation, and for the sake of comparison, we also print the output of the \pythonilIdx{sqrt} function of the \pythonilIdx{math} module.
+As you can see, our algorithm delivers exactly the same result.
+Also, notice how we used the Unicode escape method from \cref{sec:unicodeChars} to represent the characters~$\sqrt{\cdot}$ and~$\approx$ as \textil{\\u221A} and \textil{\\u2248} to get them printed on the console.%
+%
+\FloatBarrier%
 \endhsection%
 %
 \endhsection%

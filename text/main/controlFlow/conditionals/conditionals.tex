@@ -262,7 +262,18 @@ We apply this syntax to refine \cref{lst:conditionals:if_else_could_be_inline} a
 Both programs are equivalent, but the second one only has~13 instead of 22~lines of code.
 Notice again how a \pgls{linter} can help us to refine and compactify our code.%
 %
-\FloatBarrier%
 \endhsection%
+%
+\hsection{Summary}%
+With the statements we discussed in this section, you are now able to create a program that makes decisions based on data.
+Before this, we could only perform straightforward computations and calculate the results of simple functions.
+Now our variables can receive the result of a function~$A$ if the input meets a condition~$B$ and otherwise the result of a function~$C$.
+This is already quite nice.
+For example, we can now implement and hard-code decision trees~\cite{RN2022AIAMA,SSBD2014UMLFTTA} and \cref{lst:conditionals:if_elif} is basically an example for that.
+Still, the instructions in our programs are still executed in the sequence in which we wrote them down.
+While our control flow can now branch, it cannot perform anything more fancy and advanced {\dots} like looping back upon itself\dots%
+\endhsection%
+%
+\FloatBarrier%
 \endhsection%
 %
