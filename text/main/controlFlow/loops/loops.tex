@@ -363,15 +363,16 @@ x_{i+1}=\frac{1}{2}\left(x_i+\frac{a}{x_i}\right)%
 \end{equation}%
 %
 We can roughly imagine that the algorithm works as follows:
-If $x_i$ was too big~($x_i>\sqrt{a}$), then~$\frac{a}{x_i}<\sqrt{a}<x_i$.
-If $x_i$ was too small~($x_i<\sqrt{a}$), then $\frac{a}{x_i}>\sqrt{a}>x_i$.
-By computing the average of~$x_i$ and~$\frac{a}{x_i}$ as the next guess, we will approach~$\sqrt{a}$.
+If $x_i$ was too big, i.e., $x_i>\sqrt{a}$, then~$\frac{a}{x_i}<\sqrt{a}<x_i$.
+If $x_i$ was too small, i.e., $x_i<\sqrt{a}$, then $\frac{a}{x_i}>\sqrt{a}>x_i$.
+By computing the average of~$x_i$ and~$\frac{a}{x_i}$ as the next guess, we hope to approach~$\sqrt{a}$.
 If $x_i=\sqrt{a}$, then $\frac{a}{x_i}=\sqrt{a}$ by definition and~$x_{i+1}=x_i$.
+Showing that this actually works and that the error gets smaller over time is more complicated~\cite{S2011NA2}.
 
 If we want to implement this algorithm, we will naturally need a loop of some sort.
 Clearly, we perform the same computation again and again.
 However, a \pythonil{for}~loop will not do:
-We do not know the number of steps we need in advance.
+We do not know the number of steps that we will need in advance.
 Of course, we could try to pick a very very huge number and then \pythonil{break} the loop when the guesses converg {\dots} but that is just ugly.
 The \pythonilIdx{while} comes to rescue:%
 %
@@ -395,19 +396,27 @@ We now use this new construct to implement Heron's Method in \cref{lst:loops:whi
 
 We begin the program with an outer \pythonil{for} loop that iterates a variable~\pythonil{number} over the \pythonil{float} values \pythonil{0.5}, \pythonil{2.0}, and~\pythonil{3.0}.
 We want to apply the algorithm to each of these values.
-We use two variables~\pythonil{guess} be the current guess of what $\sqrt{\pythonil{number}}$ could be and \pythonil{old_guess} be the previous guess.%
+We use two variables~\pythonil{guess} be the current guess of what $\sqrt{\pythonil{number}}$ could be and \pythonil{old_guess} be the previous guess.
+
+We initialize \pythonil{guess} with \pythonil{1.0} and \pythonil{old_guess} with a different value, say~\pythonil{0.0}.
+Our \pythonilIdx{while} loop should keep iterating as long as~\pythonil{guess != old_guess}.
+Of course, if we could represent real numbers at infinite precision, we would never reach \pythonil{guess == old_guess} for any \pythonil{number} with an irrational square root.
+However, the \pythonil{float} datatype has limited precision (see \cref{sec:howFloatingPointNumbersWork}).
+Therefore, at least in our examples, \pythonil{guess != old_guess} indeed eventually becomes~\pythonilIdx{False}.%
 %
-\begin{sloppypar}%
-We initialize \pythonil{guess} with \pythonil{1.0}.
-Our \pythonilIdx{while} loop should keep iterating as long as \pythonil{guess != old_guess}.
-This only works because the \pythonil{float} datatype has limited precision which we will eventually exhaust, see \cref{sec:howFloatingPointNumbersWork}.
-Anyway, the loop condition necessitates us to store some value different from~\pythonil{1.0} in \pythonil{old_guess} initially (and we pick~\pythonil{0.0}).
+\bestPractice{noFloatEqualAsCondition}{%
+Do not use (un)equality comparisons of \pythonils{float} as loop termination criteria, as they may lead to endless loops. %
+There can always be inputs that cause endless oscillations between values or the appearance of \pythonilIdx{nan} values (see \cref{sec:float:special}).%
+}%
+%
+The only reason why we did it here is that it looks nice and is easy to read as a functional and yet brief example for a \pythonilIdx{while} loop.
+Anyway, the loop condition necessitates us to store some value different from~\pythonil{1.0} in \pythonil{old_guess} initially (and we picked~\pythonil{0.0}).
 In the loop, first the current guess becomes the old guess via \pythonil{old_guess = guess}.
-Then we update the guess as in \cref{eq:heronGuessUpdate}, by setting \pythonil{guess = 0.5 * (guess + number / guess)}.%
-\end{sloppypar}%
-%
+Then we update the guess as specified in \cref{eq:heronGuessUpdate}, by setting \pythonil{guess = 0.5 * (guess + number / guess)}.
+
 Finally, we print the result of the computation, and for the sake of comparison, we also print the output of the \pythonilIdx{sqrt} function of the \pythonilIdx{math} module.
-As you can see, our algorithm delivers exactly the same result.
+As you can see, our algorithm delivers almost the same result.
+It works quite well, at very high precision.
 Also, notice how we used the Unicode escape method from \cref{sec:unicodeChars} to represent the characters~$\sqrt{\cdot}$ and~$\approx$ as \textil{\\u221A} and \textil{\\u2248} to get them printed on the console.%
 %
 \FloatBarrier%
