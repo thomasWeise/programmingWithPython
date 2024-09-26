@@ -215,8 +215,8 @@ We can do this again by simply writing \pythonil{for s in st}, which lets the lo
 Remember that sets in \python\ are unordered (see \cref{bp:setsUnordered}), which means that if we run the program twice, we may get different results.
 Either way, we can iterate over all the values in the set~\pythonil{st}.
 We again want to store these values as nicely formatted strings in~\pythonil{txt}.
-This time we use the \pgls{fstring} \pythonil{f"s=\{s!r\}"}.
-Notice the \pythonil{!r} format specifier\pythonIdx{!r}:
+This time we use the \pgls{fstring} \pythonil{f"s=\{s!r\}"}\pythonIdx{"!r}.
+Notice the \pythonil{!r} format specifier\pythonIdx{"!r}:
 It will print the \emph{representation} of the string~\pythonil{s}, which basically means to put quotation marks (and to potentially escape\pythonIdx{str!escaping}\pythonIdx{escaping} otherwise unprintable characters, see \cref{sec:str:escaping}).
 Thus, we will add \pythonil{"s='v'"}, \pythonil{"s='u'"}, and~\pythonil{"s='w'"} to \pythonil{txt} (in an arbitrary order).
 
@@ -509,7 +509,7 @@ We thus would set the \emph{exclusive} index \pythonil{upper} to \pythonil{mid},
 Now if neither \pythonil{mid_str < search} nor \pythonil{mid_str > search} were \pythonil{True}, it must be that \pythonil{mid_str == search}.
 This means that we found the location of \pythonil{search} -- it is at the index~\pythonil{mid}.
 Therefore, we print this result to the output.
-(Notice that the \pythonilIdx{!r} format specifiers in the \pgls{fstring} we use add the nice single quotes around \pythonil{search} and \pythonil{data}.)
+(Notice that the \pythonil{!r}\pythonIdx{"!r} format specifiers in the \pgls{fstring} we use add the nice single quotes around \pythonil{search} and \pythonil{data}.)
 After printing the information, we exit the \pythonilIdx{while} loop using the \pythonilIdx{break} statement.%
 \end{sloppypar}%
 %
