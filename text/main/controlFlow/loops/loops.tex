@@ -409,7 +409,10 @@ Do not use (un)equality comparisons of \pythonils{float} as loop termination cri
 There can always be inputs that cause endless oscillations between values or the appearance of \pythonilIdx{nan} values (see \cref{sec:float:special}).%
 }%
 %
-The only reason why we did it here is that it looks nice and is easy to read as a functional and yet brief example for a \pythonilIdx{while} loop.
+The only reason why we did it here is that it looks nice and is easy to read as a functional and yet brief example for a \pythonilIdx{while} loop.\footnote{%
+To enforce that no oscillation between two neighboring \pythonil{float} values could occur, one could use the condition \pythonil{abs(old_guess - guess) / max(old_guess, guess) >= 1e-15} instead. %
+This makes the loop stop when the relative difference between \pythonil{guess} and \pythonil{old_guess} becomes less than~$10^-{15}$.%
+}%
 Anyway, the loop condition necessitates us to store some value different from~\pythonil{1.0} in \pythonil{old_guess} initially (and we picked~\pythonil{0.0}).
 In the loop, first the current guess becomes the old guess via \pythonil{old_guess = guess}.
 Then we update the guess as specified in \cref{eq:heronGuessUpdate}, by setting \pythonil{guess = 0.5 * (guess + number / guess)}.
@@ -422,5 +425,121 @@ Also, notice how we used the Unicode escape method from \cref{sec:unicodeChars} 
 \FloatBarrier%
 \endhsection%
 %
+%
+\hsection{The \texttt{else} Statement at the Bottom of Loops}%
+%
+Now, you have learned before that we can leave a loop body immediately by calling the~\pythonilIdx{break} statement.
+Let's say that we want to perform a certain action \emph{after} the loop if the loop has completed normally, i.e., if \pythonilIdx{break} was not invoked.
+We can do this by declaring a Boolean variable denoting whether the loop has completed normally before the loop and initializing it with \pythonil{True}.
+If we invoke \pythonilIdx{break}, then we would first set this variable to \pythonil{False}.
+After the loop, we could place an \pythonil{if} to check if the variable is still \pythonil{True} and then execute the action.
+This is totally fine, but \python\ offers us a much less verbose method:
+Using the \pythonilIdx{else} statement at the bottom of the loop, which works for both \pythonilIdx{for} and \pythonilIdx{while} loops:%
+%
+\begin{pythonSyntax}
+for loopVariable in sequence:
+    loop body statement 1
+    loop body statement 2
+    # ...
+else:
+    code executed if break not invoked 1
+    # ...
+normal statement 1
+normal statement 2
+# ...
+\end{pythonSyntax}
+%
+\begin{pythonSyntax}
+while booleanExpression:
+    loop body statement 1
+    loop body statement 2
+    # ...
+else:
+    code executed if break not invoked 1
+    # ...
+normal statement 1
+normal statement 2
+# ...
+\end{pythonSyntax}
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{04_loops}{while_loop_search.py}{--args format}{loops:while_loop_search}{%
+We implement binary search~\cite{K1998SAS,H2024POICBS,B1999PP} using a \pythonilIdx{while} loop with a \pythonilIdx{break} statement.}%
+%
+We now use this construct to implement a binary search~\cite{K1998SAS,H2024POICBS,B1999PP}.
+Binary search works is an algorithm that finds the index of an element in a \emph{sorted} sequence \pythonil{data} of values.
+The core concept of binary search is that we consider a segment~$S$ of the list in which the element~$E$ we search may be contained.
+In each step of the algorithm, we want to reduce the size of this segment by ruling out the \emph{half} in which~$E$ cannot be.
+We do this looking at the element~$M$ right in the middle.
+Now, the whole sequence~\pythonil{data} and, hence, also the segment~$S$, are sorted.
+If~$M$ is bigger than~$E$, then $E$ must be in the lower half, i.e., in the sub-segment from the start of~$S$ to right before~$M$.
+If~$M$ is smaller than~$E$, then $E$ must be in the upper half, i.e., in the sub-segment starting right after~$M$ and reaching until the end of~$S$.
+Otherwise, we must have found the element.
+This means in one step we have effectively halved the size of~$S$.
+If~$n=\pythonil{len(data)}$, then we can do this at most $\log_2 n$~times and the time complexity of binary search is in~\bigOb{\log n}~\cite{K1998SAS,H2024POICBS,B1999PP}.%
+%
+\begin{sloppypar}%
+In~\cref{lst:loops:while_loop_search}, we want to find the indices of some characters in the alphabetically sorted string~\pythonil{data = "abdfjlmoqsuvwyz"}.
+Of course, there is the \pythonilIdx{find}\pythonIdx{str!find} method that can do this, but we want to take advantage of the fact that the characters in \pythonil{data} are sorted.
+We search for the six characters~\pythonil{"a"}, \pythonil{"c"}, \pythonil{"o"}, \pythonil{"p"}, \pythonil{"w"}, and~\pythonil{"z"}.
+Four of them are in \pythonil{data}, but \pythonil{"c"} and \pythonil{"p"} are not.
+To search them anyway, we let a variable \pythonil{search} iterate over the list \pythonil{["a", "c", "o", "p", "w", "z"]}.%
+\end{sloppypar}%
+%
+Now in the inner loop, we implement the binary search.
+This search will maintain and update two indices \pythonil{lower} and \pythonil{upper}.
+\pythonil{lower} is the inclusive lower end of the segment in which \pythonil{search} could be contained.
+It is therefore initialized with~\pythonil{0}.
+\pythonil{upper} is the exclusive upper end of the segment in which \pythonil{search} could be contained.
+We initialize it with \pythonil{len(data)}; as it is \emph{exclusive}, it will be 1 bigger than the largest valid index \pythonil{len(data) - 1}.
+Our segment is not empty, i.e., contains at least one element, as long as \pythonil{lower < upper}.
+This is therefore the loop condition of the inner loop.
+
+Inside the binary search loop, we first compute the mid index as \pythonil{mid = (lower + upper) // 2}\footnote{%
+Interestingly, this works only because \python~3 has integers of infinite range (see \cref{sec:int}). %
+In programming languages like \pgls{C} or \pgls{Java} where integer types have limited ranges, we need to do \pythonil{mid = lower + (upper - lower) // 2}~\cite{H2024POICBS}.%
+}.
+We obtain the value \pythonil{mid_str} as the single character at that index via \pythonil{mid_str = data[mid]}.
+
+We know that if \pythonil{mid_str < search}, then our character \pythonil{search} cannot be located at any index in the range~\intRange{0}{\pythonil{mid}}.
+So in this case, we can update the \emph{inclusive} index \pythonil{lower} to become \pythonil{mid + 1}.
+Otherwise, if \pythonil{mid_str > search}, then we know that \pythonil{search} could not possibly located anywhere in the range~\intRange{\pythonil{mid}}{\pythonil{len(data) - 1}}.
+We thus would set the \emph{exclusive} index \pythonil{upper} to \pythonil{mid}, which excludes all items starting at index \pythonil{mid} from further consideration.%
+%
+\begin{sloppypar}%
+Now if neither \pythonil{mid_str < search} nor \pythonil{mid_str > search} were \pythonil{True}, it must be that \pythonil{mid_str == search}.
+This means that we found the location of \pythonil{search} -- it is at the index~\pythonil{mid}.
+Therefore, we print this result to the output.
+(Notice that the \pythonilIdx{!r} format specifiers in the \pgls{fstring} we use add the nice single quotes around \pythonil{search} and \pythonil{data}.)
+After printing the information, we exit the \pythonilIdx{while} loop using the \pythonilIdx{break} statement.%
+\end{sloppypar}%
+%
+Now, there is the possibility that we cannot find \pythonil{search} in \pythonil{data} because it is simple in there.
+In this case, we will never print the output and also not leave the loop with \pythonilIdx{break}.
+In each iteration that does not end with \pythonilIdx{break}, we will either increase \pythonil{lower} or decrease \pythonil{upper}.
+Thus, eventually \pythonil{lower < upper} will become \pythonil{False}.
+This is when the \pythonilIdx{else} statement at the bottom of the loop is executed.
+Then and only then we print that we did not find the string.%
+\endhsection%
+%
+\hsection{Summary}%
+With this, we depart from the subject of loops.
+We have learned two ways to execute code iteratively:
+The \pythonilIdx{for} loop iterates of sequences of objects, which can either be \pythonilsIdx{range} of numbers or arbitrary collections.
+The \pythonilIdx{while} loop permits us to specify an arbitrary Boolean expression as loop condition.
+In the bodies of both loops, we can jump to the next iteration at any time using the \pythonilIdx{continue} statement or we can exit the loops entirely using the \pythonil{break} statement.
+Finally, placing an \pythonilIdx{else} statement at the bottom of the loop allows us to execute some code when the loop completes regularly, i.e., not via~\pythonilIdx{break}.
+
+We now have some nice tools in our hands.
+We can create code that branches and conditionally performs actions via \pythonil{if}-\pythonil{else}.
+And we can repeatedly perform actions via \pythonil{for} and \pythonil{while}.
+Our examples also have become more elaborate and interesting.
+We can now approximate~\numberPi\ with arbitrarily many steps of the LIU Hui's approach.
+We can implement Heron's Method to compute the square root of a number and we perform binary search over arbitarily large (sorted) data.
+We can do quite a lot!
+
+What we cannot yet do is to have a block of code that we want to re-use in \emph{different} places.%
+\endhsection%
+%
+\FloatBarrier%
 \endhsection%
 %
