@@ -1,6 +1,8 @@
-%%%
+\RequirePackage{cleveref}%%%
 %%% Mathematical Notation
 %%%
+\protected\gdef\decSep{\hspace*{0.175em}}%
+%
 \protected\gdef\mathSpace#1{\ensuremath{\mathbb{#1}}}%
 %
 \newSymbol{naturalNumbersZ}{\ensuremath{\mathSpace{N}_0}}{N0}{%
@@ -31,8 +33,6 @@ For example, \mbox{$5..9$}~is equivalent to~\mbox{$\{5, 6, 7, 8, 9\}$}}%
 }%
 %
 %
-\protected\gdef\decSep{\hspace*{0.175em}}%
-%
 \newFunc{bigO}{\ensuremath{\mathcal{O}}}{O(g(x))}{g(x)}{%
 \mbox{If $f(x)={\mathcal{O}}(g(x))$,} then there exist positive numbers~$x_0\in\realNumbersP$ and~$c\in\realNumbersP$ such that~\mbox{$f(x)\leq c*g(x)\forall x\geq x_0$}~\cite{B1894DAZDVPB,L1909HDLVDVDP}. %
 In other words, ${\mathcal{O}}(g(x))$~describes an upper bound for function growth}%
@@ -43,6 +43,18 @@ $\pi\in\realNumbers$ is an irrational and transcendental number~\cite{N1939TTOP,
 In \python, it is provided by the \pythonilIdx{math} module as constant \pythonilIdx{pi} with value~\pythonilIdx{3.141592653589793}}%
 %
 \newSymbol{numberE}{\ensuremath{e}}{e}{%
-is Euler's number~\cite{E1737DFCD,E1985AEOCF}, the base of the natural logarithm. %
+is Euler's number~\cite{E1737DFCD}, the base of the natural logarithm. %
 $e\in\realNumbers$ is an irrational and transcendental number~\cite{APM1991TOEAP,F2011TTOEAP}, which is approximately~$e\approx2.718\decSep281\decSep828\decSep459\decSep045\decSep235\decSep360$. %
 In \python, it is provided by the \pythonilIdx{math} module as constant \pythonilIdx{e} with value~\pythonilIdx{2.718281828459045}}%
+%
+\protected\gdef\factorial#1{\ensuremath{#1\gls{factorialMark}}}%
+\newglossaryentry{factorialMark}{%
+type={symbols},
+name={$i!$},%
+text={!},%
+sort={!},%
+description={\sloppy%
+The factorial~$a!$ of a natural number~$a\in\naturalNumbersO$ is the product of all positive natural numbers less than or equal to~$a$, i.e., $a!=1*2*3*4*\dots*(a-1)*a$~\cite{D1991TEHOTFF,CB2022FBDOTFF,L2015ANKOFF}. %
+See also \cref{eq:factorial} and \cref{lst:functions:def_factorial}%
+}}%
+%

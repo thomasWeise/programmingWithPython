@@ -131,7 +131,7 @@ Like conditional statements, \pythonilIdx{for}~loops can be arbitrarily nested.
 Let us explore this by computing the list of all prime numbers less than~200 in \cref{lst:loops:for_loop_nested_primes}.%
 %
 \begin{definition}[Prime Number]%
-A prime number~$p\in\naturalNumbersO$ is a positive integer~$p>1$ that has no positive integer divisors other than~$1$ and~$p$ itself~\cite{W2024PN,CP2005PNACP,R1994PNACMFF}.%
+A prime number~$p\in\naturalNumbersO$ is a positive integer~$p>1$ (greater than one) that has no positive integer divisors other than~$1$ and~$p$ itself~\cite{W2024PN,CP2005PNACP,R1994PNACMFF}.%
 \end{definition}%
 %
 In our example program, we want to store all of these prime numbers in the list\pythonIdx{list} \pythonil{primes}.
@@ -307,7 +307,8 @@ The data values~\pythonil{v} are then accessed via~\pythonil{data[i]}.
 This is illustrated in \cref{lst:loops:for_loop_no_enumerate}.
 
 The drawback of this method is that it will \emph{only} work for \pythonilsIdx{list}, because among the collection datastructures discussed so far, only \pythonilsIdx{list} are directly indexable.
-Therefore, the second option to achieve our goal would be to use an additional integer variable~\pythonil{i} which we would initialize as \pythonil{i: int = 0} before the loop and then increment as~\pythonil{i += 1} at the bottom of the loop body.
+Therefore, the second option to achieve our goal would be to use an additional integer variable~\pythonil{i} which we would initialize as \pythonil{i: int = 0} before the loop.
+ We would then increment it as~\pythonil{i += 1} at the bottom of the loop body, where \pythonil{i += 1} is equivalent to \pythonil{i = i + 1}\pythonIdx{+=}\pythonIdx{+}.
 This would work with all collection classes.
 
 Both options are a bit iffy, as they introduce more and less readable additional code.

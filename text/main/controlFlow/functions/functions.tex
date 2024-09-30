@@ -1,0 +1,196 @@
+\hsection{Functions}%
+%
+Functions are blocks of code that can be invoked from anywhere else in a program.
+You already learned many functions, from the basic \pythonilIdx{print} routine that just prints the value of its parameter to the output to the \pythonilIdx{sqrt} function from the \pythonilIdx{math} module which computes the square root.
+Now you will learn how to make your own functions.%
+%
+\hsection{Defining and Calling Functions}%
+%
+\pythonIdx{def}%
+The syntax for defining our own functions in \python\ is as follows:%
+%
+\begin{pythonSyntax}
+def my_function(param_1: type, param_2: type, ...) -> result_type:
+    """
+    Short sentence describing the function.
+
+    The title of the so-called docstring is a short sentence stating
+    what the function does. It can be followed by several paragraphs of
+    text describing it in more detail. Then follows the list of
+    parameters, return values, and raised exceptions (if any).
+
+    :param param_1: the description of the first parameter (if any)
+    :param param_2: the description of the second parameter (if any)
+    :returns: the description of the return value (unless `-> None`).
+    """
+    body of function 1
+    body of function 2
+    return result  # if result_type is not None we return something
+
+
+normal statement 1
+normal statement 2
+my_function(argument_1, argument_2)  # we can call the function like this
+\end{pythonSyntax}
+%
+\pythonIdx{function!def}A function in \python\ is created by using the \pythonilIdx{def} keyword, followed by the name of the function.%
+%
+\bestPractice{functionNames}{Function names should be lower case, with underscores separating multiple words if need be~\cite{PEP8}.}%
+%
+\pythonil{function!parameters}Then follows an opening and a closing parenthesis, i.e., \pythonil{(...)}\pythonIdx{(\idxdots)}.
+A function can have parameters through which we can pass values to it.
+Inside the function, these parameters act like variables.
+The values of these variables can be passed in when we call (invoke, execute) the function.
+Notice that, just like variables, all such parameters should be annotated with type hints~(see \cref{sec:variableTypesAndTypeHints}).
+Functions can return results~(like the \pythonilIdx{sqrt} function of the \pythonilIdx{math} module does) or return nothing~(like \pythonilIdx{print}).
+\pythonIdx{function!return value}If they return a result, the type of this result is specified via the type hint \pythonil{ -> result_type}\pythonIdx{->}.
+The function header ends with a colon~(\pythonilIdx{:}).%
+%
+\bestPractice{functionTypeHints}{%
+All parameters and the return value of a function should be annotated with type hints. %
+From my perspective: \emph{A function without type hints is wrong.}%
+}%
+%
+Then, indented by four spaces, follows the function body.%
+%
+\bestPractice{functionBodyIndentation}{The body of a function is indented with four spaces.}%
+%
+\pythonIdx{function!body}This can be an arbitrary block of code, which may contain all the things we already learned.
+\pythonIdx{function!return}The function can, at any point, be left using the \pythonilIdx{return} statement.
+If the function is supposed to return a value \pythonil{result}, then this is done via \pythonil{return result}.
+Notice that, like the \pythonilIdx{break} statement in loops, we can place \pythonilIdx{return} at any location we want.
+We can also have multiple \pythonilIdx{return} values at different places in the function.%
+%
+\begin{sloppypar}%
+\pythonIdx{function!call}The function \pythonil{my_function} then can be called from anywhere in the code by writing \pythonil{my_function(value_1, value_2, ...)}, where \pythonil{value_1} is passed in as value of \pythonil{param_1}, \pythonil{value_2} is passed in as value of \pythonil{param_2}, and so on.
+This follows the same pattern of function calls that we already used in many of our examples.%
+\end{sloppypar}%
+%
+\pythonIdx{function!docstring}\pythonIdx{str!doc!function}%
+Between the header of a function and its body, we always need to place a so-called \pgls{docstring}, which is a multi-line string~(see \cref{sec:multiLineStrings}).
+This string consists of a title line shortly describing what the function does.
+After an empty line, we can (but not necessarily need to) place a paragraph of text providing a more detailled discussion.
+Then follows the list of parameters, each in the syntax \pythonil{:param parameter_name: description}\pythonIdx{:param:}.
+Then follows the return value description (if the function returns something) in the form \pythonIdx{:returns: description}\pythonIdx{:returns:}.%
+%
+\bestPractice{funcDocstrings}{%
+Each function should be documented with a \pgls{docstring}. %
+If you work in a team or intend to place your code in public repositories like on \pgls{github}, then this very very much increases the chance that your code will be used correctly. %
+From my perspective: \emph{A function without \pgls{docstring} is wrong.}%
+}%
+%
+\bestPractice{functionSpace}{%
+After the function and its body are defined, leave \emph{two} blank lines before writing the next code~\cite{PEP8}.%
+}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{05_functions}{def_factorial.py}{--args format}{functions:def_factorial}{%
+Implementing a function computing the factorial of a positive integer number.}%
+%
+After all of this long introduction, let us finally come to some example.
+Let's implement the factorial function as, well, function.
+The factorial is defined as follows~\cite{D1991TEHOTFF,CB2022FBDOTFF}%
+%
+\begin{equation}%
+\factorial{a}=\left\{\begin{array}{rl}%
+1&\textnormal{~if~}a = 0\\%
+\prod_{i=1}^a i&\textnormal{~otherwise, i.e., if~}a>0%
+\end{array}\right.%
+\label{eq:factorial}%
+\end{equation}%
+%
+where $\prod_{i=1}^a i$ stands for the product~$1*2*3*\dots*(a-1)*a$.
+We will implement this function in \python\ call it \pythonil{factorial} in \cref{lst:functions:def_factorial}.
+It should take a single parameter~\pythonil{a} as parameter.
+\pythonil{a} will be type-hinted as integer and the result of our function will be an integer as well.
+
+The body of this function is straightforward.
+We begin by initializing a variable \pythonil{product} with the value~\pythonil{1}.
+Then, we need a loop that iterates a variable~$i$ over all integers less than or equal to~\pythonil{a}.
+We want to multiply these values to~\pythonil{product}.
+Well, we can skip over~$\pythonil{i}=1$, because that would be useless.
+So we will use a \pythonilIdx{for} loop iterating~\pythonil{i} over the \pythonil{range(2, a + 1)}\pythonIdx{range}.
+This effectively starts~\pythonil{i} at~\pythonil{2}.
+Since the upper limit~\pythonil{a + 1} of the \pythonilIdx{range} is always \emph{exclusive}, the last value for~\pythonil{i} will be~\pythonil{a}.
+Notice that we really use \pythonil{a} like a normal variable that was assigned a value.%
+%
+\begin{sloppypar}%
+Anyway, inside the loop body, we compute \pythonil{product *= i}\pythonIdx{*=}, which is equivalent to \pythonil{product = product * i}.
+After the loop, \pythonil{product} holds $\factorial{\pythonil{a}}$.
+So we can return it as the result of the function, by writing \pythonil{return product}\pythonIdx{return}.%
+\end{sloppypar}%
+%
+We can now compute the factorial of any number~\pythonil{x} by calling~\pythonil{factorial(x)}.
+After the function body, we leave two empty lines.
+And then we compute the factorials of the numbers from~$1$ to~$9$ in a \pythonilIdx{for}-loop and print them by using \pglspl{fstring}.
+Inside this loop and in the \pgls{fstring}, we can use the function \pythonil{factorial} exactly like any other function we used before, like \pythonil{sqrt} or \pythonil{print}.
+It may be an interesting side information at the end of this example that the factorial can actually be computed \emph{faster} than using this product form, see, e.g.~\cite{L2015ANKOFF}.
+
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{05_functions}{def_gcd.py}{--args format}{functions:def_gcd}{%
+Implementing the Euclidean Algorithm as a function and calling it from another function.}%
+
+Functions can have a more than one parameter or no parameter at all.
+They can return one value or return nothing at all.
+Functions can also be called from other functions.
+Let us investigate these options by investigating another interesting mathematical operation:
+The computation of the greatest common divisor, also known as~\pythonil{gcd}.
+
+This can be done using the Euclidean algorithm~\cite{EHF2008ENT,B1999FAOTBEA,TKY2016BEOEAOTCEG}, going back to \citeauthor{EHF2008ENT} who flourished about 300~BCE.
+The greatest commond divisor of two numbers positive~$a\in\naturalNumbersO$ and~$b\in\naturalNumbersO$ is the greatest number~$g\in\naturalNumbersO=\pythonil{gcd}(a,b)$ such that~$a\bmod g=0$ and~$b \bmod g=0$, where~$\bmod$ is the \pgls{modulodiv} operator equivalent to \python's~\pythonilIdx{\%}.
+This means that $g$~divides both $a$ and $b$ without remainder.
+If $a=b$, then obviously $\pythonil{gcd}(a,b)=a=b$ as well.
+Otherwise, we know that $a=ig$ for some~$i\in\naturalNumbersO$ and $b=jg$ for some~$j\in\naturalNumbersO$.
+If we assume, without loss of generality, that~$a>b$.
+Then, $c=a-b=(i-j)g$ and it will be clear that $c\bmod g=(a-b)\bmod g=(i-j)g\bmod g = 0$ as well, i.e., that $\pythonil{gcd}(a,b)=\pythonil{gcd}(a-b, b)=g$.
+Similarly, $d=a\bmod b=ig\bmod (jg)=ig-\lfloor i/j\rfloor*jg=g(i-j\lfloor i/j\rfloor)$ is still divisible by~$g$ without remainder as~$d\bmod g=0$.
+This means that~$\pythonil{gcd}(a\mbod b, b)=\pythonil{gcd}(a, b)=g$, too.
+
+Since both~$d$ and~$c$ are less than~$a$, we could replace~$a$ with either of them.
+In particular, $d$~will be less than both~$a$ and~$b$, so we could store~$b$ in~$a$ and replace~$b$ with~$d$.
+We would repeat the computation until reaching~$b=0$, at which point~$a$ will be~$g$.
+Matter of fact, by choosing the module-based update, we do not even need to assume that~$a>b$.
+Because if~$b>a$, then~$a \bmod b=a$ and we would just switch~$a$ and~$b$ in this step.
+If~$a=b$, then~$a \bmod b=0$ and we would immediately terminate after the first step and return~$a$ as the greatest common divisor.
+
+This algorithm is implemented in \cref{lst:functions:def_gcd} as function~\pythonil{gcd}.
+\pythonil{gcd} has two integer parameters, \pythonil{a} and~\pythonil{b}, and returns another~\pythonil{int}.
+Its body is surprising short:
+We use a \pythonilIdx{while} loop that iterates as long as \pythonil{b > 0}.
+After the loop, we \pythonil{return a}\pythonIdx{return} as the result.
+If \pythonil{b == 0} holds at the beginning, the loop will never be executed and~\pythonil{a} is returned as-is, which is correct:
+$\pythonil{gcd}(a, 0)=a$ for all~$a\in\naturalNumbersO$.
+
+However, if \pythonil{b > 0}, we enter the loop's body, which is a single line of code:
+the tuple-unpacking command~\pythonil{a, b = b, a \% b}~(see \cref{sec:lists}).\pythonIdx{tuple!unpacking}\pythonIdx{unpacking}
+This line first completely evaluates the right-hand side.
+This creates a tuple\pythonIdx{tuple} where the first value is~\pythonil{b}.
+The second value is~\pythonil{a \% b}.
+The tuple is then unpacked and stored in the variables~\pythonil{a} and~\pythonil{b}.
+\pythonil{a} will thus receive the value that \pythonil{b}~had during the evaluation of the right-hand side.
+\pythonil{b} will receive the previously computed value of~\pythonil{a \% b}.
+In other words, \pythonil{b} is stored in~\pythonil{a} and the remainder of the division of \pythonil{a} by \pythonil{b} is stored in~\pythonil{b}.
+Clearly, \pythonil{b} will become smaller in each iteration and since it can never become negative, it will eventually reach~\pythonil{0} and the loop will terminate.
+Similarly, the \pythonil{gcd} is never \inQuotes{lost} during the loop and will thus be the value in~\pythonil{a} at the end.
+And this value is returned.
+
+So this was a function with two parameters and one return value.
+Let us now implement a second function, this time with no return value.
+\pythonil{print_gcd} accepts again two parameters~\pythonil{a} and~\pythonil{b} and returns nothing.
+Instead, it will print the \pythonil{gcd} nicely using \pythonilIdx{print} and an \pgls{fstring}.
+Since the \pythonilIdx{math} module also provides a function names \pythonilIdx{gcd} for computing, well, the greatest common divisor, we want to compare the result of our function with this one.%
+%
+\begin{sloppypar}%
+Of course, we cannot have two functions named \pythonil{gcd} in the same context.
+So we import the function from the \pythonilIdx{math} module \emph{under a different name}:
+\pythonil{from math import gcd as math_gcd}\pythonIdx{as}\pythonIdx{import}\pythonIdx{from} makes the \pythonilIdx{gcd} function from the module \pythonilIdx{math} available under the name~\pythonil{math_gcd}.
+And we use it in the \pgls{fstring} in \pythonil{print_gcd} under that name.%
+\end{sloppypar}%
+%
+Finally, we confirm that \pythonil{gcd} and \pythonil{math_gcd} compute the same result for four test cases at the bottom of our program.
+Now that all is said and done, it should be mentioned that the Euclidean Algorithm has a particularly efficient binary variant which is faster than our implementation in \cref{lst:functions:def_gcd}.
+This binary variant may have been developed in China in the first century~CE~\cite{B1999FAOTBEA}.%
+%
+\FloatBarrier%
+\endhsection%
+%
+\endhsection%
+%

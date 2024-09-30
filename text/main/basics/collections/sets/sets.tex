@@ -90,10 +90,10 @@ Notice that the natural order of letters is alphabetically, but uppercase letter
 Either way, we obtain \pythonil{letters_list}, which contains all the strings in \pythonil{letters} in this default sorting order.%
 %
 \bestPractice{strSort}{%
-Careful when sorting strings. %
-The default order is uppercase characters before lowercase characters. %
-If you want that upper- and lowercase characters are treated the same, as is the case in dictionary ordering, i.e., if you want to sort a collection \pythonil{my_text} of strings in a case-insensitive manner, use %
-\pythonil{sorted(my_text, key=str.casefold)}.%
+Careful when sorting or comparing strings: %
+The default order is \emph{uppercase characters before lowercase characters}, i.e., \pythonil{"A" < "a"}. %
+If you want that upper- and lowercase characters are treated the same~(e.g., that~\pythonil{"A"} is considered as equal to~\pythonil{"a"}), as is the case in dictionary ordering, i.e., if you want to sort a collection \pythonil{my_text} of strings in a case-insensitive manner, use %
+\pythonil{sorted(my_text, key=str.casefold)}\pythonIdx{str!casefold}\pythonIdx{casefold}\pythonIdx{sorted}.%
 }%
 %
 In \cref{lst:sets:sets_2} we illustrate several basic operations with sets, some of which are visualized in \cref{fig:setOperations}.
