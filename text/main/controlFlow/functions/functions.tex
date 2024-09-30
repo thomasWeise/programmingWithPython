@@ -142,7 +142,7 @@ Otherwise, we know that $a=ig$ for some~$i\in\naturalNumbersO$ and $b=jg$ for so
 If we assume, without loss of generality, that~$a>b$.
 Then, $c=a-b=(i-j)g$ and it will be clear that $c\bmod g=(a-b)\bmod g=(i-j)g\bmod g = 0$ as well, i.e., that $\pythonil{gcd}(a,b)=\pythonil{gcd}(a-b, b)=g$.
 Similarly, $d=a\bmod b=ig\bmod (jg)=ig-\lfloor i/j\rfloor*jg=g(i-j\lfloor i/j\rfloor)$ is still divisible by~$g$ without remainder as~$d\bmod g=0$.
-This means that~$\pythonil{gcd}(a\mbod b, b)=\pythonil{gcd}(a, b)=g$, too.
+This means that~$\pythonil{gcd}(a\bmod b, b)=\pythonil{gcd}(a, b)=g$, too.
 
 Since both~$d$ and~$c$ are less than~$a$, we could replace~$a$ with either of them.
 In particular, $d$~will be less than both~$a$ and~$b$, so we could store~$b$ in~$a$ and replace~$b$ with~$d$.
