@@ -260,5 +260,209 @@ Interestingly, the sixth and last approximation step in \cref{exec:functions:use
 \FloatBarrier%
 \endhsection%
 %
+\hsection{Unit Testing}%
+\label{sec:unitTesting}%
+%
+Structuring our code into functions and modules has several advantages.
+We can reuse code and we can divide big application into smaller pieces, both of which make it easier to understand what our program is doing.
+Or is \emph{supposed} to be doing.
+Because errors happen in programming.
+They happen often and they happen naturally.
+
+But dividing code into functions and placing it into modules has yet another advantage:
+We can test these separate functions separately.
+Imagine that you have a big application using lots of components, code for reading and writing files, code for making mathematical computations, and so on.
+It is not eay to figure out how to check that the big application behaves exactly as it is supposed to.
+There will be many combinations of inputs and environments and conditions that we would need to test.
+Even if we would find that the application behaves, maybe only in some cases, a bit strange, it would be hard to figure out which of its many components has an error.
+
+However, we can also do something else:
+We can test each component separately, too.
+It is much easier to check whether our \pythonil{factorial} and \pythonil{sqrt} functions behave as we expect them than to do this for a whole complex program.%
+%
+\begin{definition}[Unit Testing]
+\emph{Unit Testing} is a software testing technique where separate components or functions of an application are tested in isolation.
+\end{definition}%
+%
+The goal of unit testing is to ensure that each unit of the software performs as expected.
+Since tests can be developed along (or even before!) the single functions are implemented, potential errors can be found early in the development process.
+As the unit tests focus on smaller, well, units, they can be less complex and easier to understand.
+The consequent usage of unit tests supports a modular and cleaner programming style, as it forces the developer to divide bigger programs into smaller pieces that can be invoked and tested in separation.
+Finally, unit testing is especially useful if an application is developed, improved, and maintained over a long time:
+If test cases are preserved and re-tested every time the software changes, then we can discover if a change that we applied to an older piece of code breaks a unit test, i.e., may lead to an unwanted change of behavior our program that we did not anticipate.
+Especially with its increased automation, unit testing in software development has steadily gained importance during the past decades~\cite{W2000WISTAWIISH,TLG2006UTCU,R2006ASOUTP} and is an important cornerstone of \python\ software development~\cite{P2021PUTAAOAEUTIP,O2022PTWP,DG2020TIP}.%
+%
+%
+\begin{figure}%
+\centering%
+\includegraphics[width=0.7\linewidth]{\currentDir/pipInstallPytest}%
+\caption{Installing \pytest\ in a \ubuntu\ \pgls{terminal} via \pip.}%
+\label{fig:pipInstallPytest}%
+\end{figure}%
+%
+\usefulTool{pytest}{%
+\pytest\ is a \python\ is a \python\ framework for writing and executing software tests.
+It can be installed via \bashil{pip install pytest pytest-timeout} as shown in \cref{fig:pipInstallPytest} on \cpageref{fig:pipInstallPytest}. %
+You can then apply \pytest\ using the command \bashil{pytest --timeout=toInS file(s)}, where \textil{toInS} should be replaced with a reasonable timeout in seconds and \textil{file(s)} is one or multiple files with test cases. %
+We provide a script for using \pytest\ with a reasonable default configuration in \cref{lst:bash:pytest} on \cpageref{lst:bash:pytest}.%
+}%
+%
+Now, you will ask yourself how testing and especially the reuse of test cases works.
+It is, actually, fairly simple:
+We have our actual program code in one or multiple \python\ files.
+We have our test code in some other \python\ files.
+For the same of clarity, if the actual code is in a file~\textil{my_code.py}, then we could the code for the tests into a file called~\textil{test_my_code.py}.
+
+\gitPython{\programmingWithPythonCodeRepo}{05_functions/test_my_math.py}{--args format}{functions:test_my_math}{%
+A small unit test suite for \cref{lst:functions:my_math}.}%
+%
+\gitOutput{\programmingWithPythonCodeRepo}{.}{scripts/pytest.sh 05_functions test_my_math.py}{functions:test_my_math:pytest}{%
+The output of the unit tests in \cref{lst:functions:test_my_math}: While the test of \pythonil{factorial} succeeds, our \pythonil{sqrt} function fails for input~\pythonil{0.0}.}%
+
+In \cref{lst:functions:test_my_math} we do just that.
+We create a file \textil{test_my_math.py} and into this file, we want to put the code for testing our module~\textil{my_math}.
+This testing code is defined in form of functions.
+The names of these functions must start with \textil{test_}.
+
+Now our module \textil{my_math} provides two functions, \pythonil{factorial} and \pythonil{sqrt}.
+At the top of our new tests module \textil{test_my_math}, we \pythonilIdx{import} both of these functions.
+Naturally, we would create corresponding test functions and call them \pythonil{test_factorial} and \pythonil{test_sqrt}.
+These functions have no parameters and no return values.
+
+Tests are often defined in the form of several assertions assertions:\pythonIdx{assert}%
+%
+\begin{pythonSyntax}
+assert booleanExpr  # raises AssertionError if not booleanExpr
+\end{pythonSyntax}
+%
+An assertion is defined by the keyword \pythonilIdx{assert} followed by an arbitrary Boolean expression.
+If the Boolean expression evaluates to \pythonil{True}, then nothing happens.
+If it evaluates to \pythonil{False}, then an \pythonilIdx{AssertionError} is raised.
+This error will cause the test function to fail immediately.
+If the complete test function runs through without raising any \pythonilIdx{Exception}, then the test has succeeded.
+If it fails or raises an \pythonilIdx{Exception} at any point during its execution, the test has failed.
+
+Now we create the function \pythonil{test_factorial} to test the \pythonil{factorial} function.
+For example, we know that $\factorial{0}=1$.
+So it makes sense to define \pythonil{assert factorial(0) == 1}.
+The Boolean expression here is \pythonil{factorial(0) == 1}, which is obviously only \pythonil{True} if \pythonil{factorial(0)} evaluates to~\pythonil{1}.
+We define similar cases for~\factorial{1}, \factorial{2}, and~\factorial{3}.
+Obviously, we cannot write down a complete list of all possible inputs.
+But these are the four smallest ones for which the factorial is defined.
+By testing also \factorial{12}, we have checked \pythonil{factorial} for a mid-sized argument.
+We then also create a test case for a fairly large number, say~\factorial{30}.
+We have computed this value using an online tool that offers arbitrary precision.
+The result of this function is more than~$265*10^{30}$, which is fairly beyond the range of 64~bit integers (and thus showcases that integers in \python~3 have an unlimited range, as stated back in \cref{sec:int}).
+This test case validates whether our \pythonil{factorial} function works well for large numbers, too.
+If our \pythonil{factorial} function passes all of these tests, we can be fairly certain that it is implemented correctly.
+There could still be errors, though.
+For example, we did not test~\factorial{4}.
+But at least it looks unlikely that~\factorial{3} and~\factorial{12} \inQuotes{work,} but not~\factorial{4}.
+
+For the \pythonil{sqrt} function, we create similar test function and call it \pythonil{test_sqrt}.
+Reasonable test cases are \pythonil{assert sqrt(0.0) == 0.0}, \pythonil{assert sqrt(1.0) == 1.0}, and \pythonil{assert sqrt(4.0) == 2.0}.
+We would also expect that \pythonil{sqrt(x) * sqrt(x) == x} for different~\pythonil{x}.
+However, we have to account for the limited precision of the datatype \pythonilIdx{float} discussed in \cref{sec:howFloatingPointNumbersWork}.
+Even if we would get as close to \pythonil{sqrt(x)} for some~\pythonil{x} as possible, we can only represent 15 to 16 digits.
+Therefore, we have to give a little bit of wiggle room when we compute \pythonil{s3 = sqrt(3.0)} and expect that \pythonil{s3 * s3 == 3.0}.
+We do this by writing \pythonil{assert abs(s3 * s3 - 3.0) <= 5e-16}, i.e., by assuming that the difference between \pythonil{3.0} and \pythonil{s3 * s3} is not bigger than the very small number~$5*10^{-16}$.
+On the other hand, the square root of \pythonil{1e10 * 1e10} should be representable exactly, namely as~\pythonil{1e10}.
+
+The datatype \pythonilIdx{float} also offers us two special values, which both can be imported from the \pythonilIdx{math} module and which were discussed in \cref{sec:float:special}:
+\pythonilIdx{inf} stands for positive infinity~$+\infty$ and \pythonilIdx{nan} stands basically for \inQuotes{undefined}, a value that you may get if you try to compute something like~\pythonil{inf - inf}.
+Our \pythonil{sqrt} function has to understand and correctly handle these values as well.
+\pythonil{sqrt(inf)} should again return~\pythonilIdx{inf}.
+\pythonil{sqrt(nan)} should return~\pythonil{nan}.
+However, we cannot do \pythonil{assert sqrt(nan) == nan}, since \pythonilIdx{==} will yield \pythonil{False} for any value if at least one \pythonilIdx{nan} is involved (see again \cref{sec:float:special}).
+For testing whether \pythonil{sqrt(nan)} yield~\pythonilIdx{nan}, we use the function~\pythonilIdx{isnan} from the \pythonilIdx{math} module.
+This function returns \pythonil{True} for \pythonil{isnan(nan)} and \pythonil{False} otherwise.
+
+With this, we have covered most reasonable inputs that either \pythonil{factorial} or \pythonil{sqrt} could receive.
+We have defined what we would expect as output for these inputs.
+These expectations are implemented as test cases.
+Regardless of how \pythonil{factorial} or \pythonil{sqrt} are implemented, they should pass these test cases.
+Otherwise, they are wrong.
+
+Running our test cases with \pytest\ yields the output in \cref{exec:functions:test_my_math:pytest}.
+This output tells us that \pythonil{test_factorial} ran through without any issue.
+\pythonil{test_sqrt} however failed with a \pythonilIdx{ZeroDivisionError} that was raised inside our \pythonil{sqrt} function.
+This happened when we tried to compute~\pythonil{sqrt(0.0)}.
+
+When we look back at our \pythonil{my_math} module in \cref{lst:functions:use_my_math}, we find that our initial guess for the square root is~\pythonil{1}.
+In each step, we then compute \pythonil{guess = 0.5 * (guess + number / guess)}.
+If \pythonil{number} is \pythonil{0.0}, then this effectively means \pythonil{guess = 0.5 * guess}.
+We have learned that the precision of \pythonilsIdx{float} is finite and that positive values smaller than \pythonilIdx{5e-324}\pythonIdx{float!smallest} will just become~\pythonil{0.0}.
+This will happen here too, and \pythonil{guess} will thus eventually become~\pythonil{0.0}.
+In the next iteration, this leads to us trying to divide~\pythonil{0.0 / 0.0}, causing the \pythonilIdx{ZeroDivisionError}.
+%
+\FloatBarrier%
+\gitPython{\programmingWithPythonCodeRepo}{05_functions/my_math_2.py}{--args format}{functions:my_math_2}{%
+An improved variant of \cref{lst:functions:my_math} dealing with the failing test case~\pythonil{0.0} discovered in \cref{exec:functions:test_my_math:pytest}.}%
+%
+\gitPython{\programmingWithPythonCodeRepo}{05_functions/test_my_math_2.py}{--args format}{functions:test_my_math_2}{%
+We use the same small unit test suite given in \cref{lst:functions:test_my_math} for \pythonil{sqrt} in \cref{lst:functions:my_math_2}.}%
+%
+\gitOutput{\programmingWithPythonCodeRepo}{.}{scripts/pytest.sh 05_functions test_my_math_2.py}{functions:test_my_math_2:pytest}{%
+The output of the unit tests in \cref{lst:functions:test_my_math_2}: This time, we hit the timeout because of an endless loop!}
+
+In order to fix this problem, we introduce the check \pythonil{if number <= 0.0} into our \pythonil{sqrt} function in \cref{lst:functions:test_my_math_2}.
+If this new conditional evaluates to \pythonil{True}, we return~\pythonil{0.0} directly.
+Now we do not consider the case that a negative number is passed into \pythonil{sqrt} at this point.
+Here, we would ideally \pythonilIdx{raise} an error by ourselves, but we will learn only later how to do that.
+
+We apply the same tests to the new version of the \pythonil{sqrt} function in \cref{lst:functions:test_my_math_2}.
+The output of the test case, provided in \cref{exec:functions:test_my_math_2:pytest}, now indicates another error:
+We a timeout!
+
+You see, when invoking \pytest\ with the option \bashil{--timeout=10} -- which only works if the package \textil{pytest-timeout} is installed -- we limit the maximum runtime of our test suite to ten seconds.
+Ten seconds is a reasonable time for \emph{this book} as we actually run all the scripts automatically during the book building process.
+In practical situations, you will usually choose a larger time limit.%
+%
+\bestPractice{testTimeout}{%
+Always attach a timeout to your unit tests. %
+This timeout can be generous, maybe one hour, but it will serve as sentinel against either endless loops, deadlocks, or other congestion situations which all would be practical test failures. %
+Timeouts protect automated builds or continuous integration systems from clogging.}%
+%
+\begin{sloppypar}%
+The time limit protected us here.
+Our \pythonil{sqrt} function goes into an endless loop if \pythonil{number = inf}.
+Initially, we set \pythonil{guess = 1.0}.
+In the first iteration of the loop in \pythonil{sqrt}, \pythonil{guess = 0.5 * (guess + number / guess)} makes \pythonil{guess} become \pythonil{inf}.
+However, in the second iteration, we have \pythonil{number / guess} becoming \pythonil{inf / inf} which yields~\pythonil{nan}.
+From now on, all calculations yields \pythonil{nan}.
+Since \pythonil{nan != nan} is \pythonil{True}, the loop never ends.%
+\end{sloppypar}%
+%
+\gitPython{\programmingWithPythonCodeRepo}{05_functions/my_math_3.py}{--args format}{functions:my_math_3}{%
+An improved variant of \cref{lst:functions:my_math_2} dealing with the failing test case~\pythonilIdx{inf} discovered in \cref{exec:functions:test_my_math_2:pytest}.}%
+%
+\gitPython{\programmingWithPythonCodeRepo}{05_functions/test_my_math_3.py}{--args format}{functions:test_my_math_3}{%
+We use the same small unit test suite given in \cref{lst:functions:test_my_math} for \pythonil{sqrt} in \cref{lst:functions:my_math_3}.}%
+%
+\gitOutput{\programmingWithPythonCodeRepo}{.}{scripts/pytest.sh 05_functions test_my_math_3.py}{functions:test_my_math_3:pytest}{%
+The output of the successful unit tests in \cref{lst:functions:test_my_math_3}.}%
+%
+\begin{sloppypar}%
+We finally solve this problem in \cref{lst:functions:my_math_3}.
+Here, we add a new condition: \pythonil{if not isfinite(number)}, we return \pythonil{number} as-is.
+\pythonilIdx{isfinite} is another function from the \pythonilIdx{math} module.
+It takes one parameter and it returns \pythonil{True} if it is a finite number and \pythonil{False} if it is \pythonilIdx{inf}, \pythonilIdx{-inf}, or~\pythonilIdx{nan}.
+This means that condition can only become \pythonil{True} for \pythonilIdx{inf} or \pythonilIdx{nan}, as we already return~\pythonil{0.0} if \pythonil{number <= 0.0}.
+Thus, we return \pythonil{inf}~if the input of our function is~\pythonilIdx{inf} and \pythonilIdx{nan}~if the input is~\pythonilIdx{nan}.
+These are also the results that we would expect.%
+\end{sloppypar}%
+%
+In \cref{lst:functions:test_my_math_3}, we apply our unit tests to this new version of our \pythonil{sqrt} function.
+As you can see in the output provided in \cref{exec:functions:test_my_math_3:pytest}, the tests now complete successfully.
+This was a good example of how tests can help us to spot errors in our code.
+When looking at \cref{lst:functions:use_my_math}, we certain assumed that all of our functions were implemented correctly.
+However, \pytest\ has helped us to spot two erros.
+We then fixed these errors.%
+%
+\bestPractice{functionUnitTest}{%
+A function which is not unit tested is \emph{wrong}.%
+}%
+\endhsection%
+%
 \endhsection%
 %

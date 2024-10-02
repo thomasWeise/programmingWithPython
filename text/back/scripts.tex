@@ -9,15 +9,36 @@ A \bash\ script for executing \ruff, which prints the command line and the exit 
 \gitBash{\programmingWithPythonCodeRepo}{scripts/pylint.sh}{bash:pylint}{%
 A \bash\ script for executing \pylint, which prints the command line and the exit code; see \cref{ut:pylint}.}%
 %
+\gitBash{\programmingWithPythonCodeRepo}{scripts/pytest.sh}{bash:pytest}{%
+A \bash\ script for executing test cases with \pytest, which prints the command line and the exit code; see \cref{ut:pytest}.}%
+%
 Here we provide some scripts that are used within this book.
 These scripts are written for the \bash\ shell, which is the default interpreter running in \ubuntu\ \linux\ \pglspl{terminal}.
 Therefore, they will not work under \windows\ or other operating systems.
 Now, our book focuses on \python\ programming, so \bash\ shell scripts are not in the center of our attention.
 We here cannot explain how \bash\ scripts work or what their syntax is.
 There exist plenty of books and resources on this interesting topic, such as~\cite{NR2005LTBSUSPCB3,Z2017MB,BN2018BC} or \url{https://www.gnu.org/software/bash/}.
+
 If we would include the scripts in the places where we use them in this book, then this would lead to confusion or tangents in the text which would mess up the flow of the chapters.
 Nevertheless, the book would be incomplete if these scripts were not provided at all.
-So we put them here, at the end of the book, where they do not hurt anyone and where the interested reader may check them out.%
+So we put them here, at the end of the book, where they do not hurt anyone and where the interested reader may check them out.
+
+In the scripts, we install tools if they are not yet installed.
+We then apply the tools to whatever the parameters of the scripts state.
+Now, in a real environment, a tool can either succeed or fail.
+A unit test executed with \pytest\ will fail and exit with a non-zero exit code if the test, well, fails.
+A static code analysis tool like \ruff\ will fail with a non-zero exit code if it discovers any issue with the code.
+However, our scripts invoking these tools will \emph{not} fail in such cases.
+They will collect the exit code of the tool they are invoking and print it.
+Then they will exit with exit code~0.
+This is necessary for our book building process, which invokes these scripts to construct the outputs of the examples.
+If any of them would fail with non-zero exit code, the book building would fail as well.
+However, to illustrate that the tools are useful, we must apply them to cases where they would fail.
+So for our book, it is necessary that the scripts just print the exit codes while still returning successfully.
+For a real productive environment, this is usually not what we want:
+We apply the tools to source code precisely to get them to fail on error, because if nothing fails, we know that everything seems to be OK.
+In such a practical environment, you would thus not want to use \emph{our} scripts, but you could use the same comments that we use.
+Anyway, here is the list of tool scripts.
 
 \Cref{lst:bash:mypy} is a \bash\ script which first checks whether \mypy\ is installed.
 If \mypy\ is not installed, it silently installs it.
@@ -40,7 +61,18 @@ Apart from that, this script works pretty much the same as \cref{lst:bash:mypy}.
 \Cref{lst:bash:pylint} offers exactly the same functionality for \pylint.
 It checks if this tool is installed and installs it if not.
 It then applies \pylint\ to a the selected set of files, using a reasonable default configuration.
-\Cref{exec:loops:for_loop_no_enumerate:pylint} is an example for the output of this \pgls{linter}.%
+\Cref{exec:loops:for_loop_no_enumerate:pylint} is an example for the output of this \pgls{linter}.
+
+\Cref{lst:bash:pytest} is similarly structured, but instead of performing \emph{static} code analysis, it executes unit test cases.
+The directory and list of \python\ files with the test cases are provided as command line arguments.
+This script checks if \pytest\ and its plugin \textil{pytest-timeout} are installed and, if not, installs them.
+It then executes the tests with a fixed ten second timeout that we use in this book.
+Of course, in practical scenarios, you would use a larger timeout, but within the context of this book, ten seconds are enough.
+Either way, the script executes the test cases, prints the results as well as potential errors.
+Notice that we select some options to make the output less verbose, because for this book, we do want listings that are not too long.
+In practical scenarios, you may use different options.
+Either way, the script also prints the command that was executed at the beginning and the \pytest\ version used and the program's exit code at the end of the output.
+\Cref{exec:functions:test_my_math:pytest,exec:functions:test_my_math_2:pytest,exec:functions:test_my_math_3:pytest} are examples for the output of \pytest.%
 %
 \endhsection%
 %
