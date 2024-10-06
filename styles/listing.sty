@@ -123,6 +123,14 @@ language=bash,%
 }%
 %
 %
+\lstdefinestyle{tool_style}{%
+style=text_style,%
+morecomment=[f][\color{listing-tool-command}][0]{\$ },
+morecomment=[f][\color{listing-tool-result}][0]{\# },
+breaklines=true%
+}%
+%
+%
 %% the box around the inline listings
 \protected\gdef\inlinelistingbox#1{\bgroup%
 \fboxsep=0.5pt%
@@ -199,20 +207,21 @@ language=bash,%
 %% #3 the command
 %% #4 the label (exec: will be pre-pended)
 %% #5 the additional parameters, if any
-\protected\gdef\gitOutputRaw#1#2#3#4#5{%
+%% #6 the style to use
+\protected\gdef\gitOutputWithStyle#1#2#3#4#5#6{%
 \gitExec{#1}{#2}{#3}%
 \expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:exec:#4\endcsname{\gitFile}%
-\lstinputlisting[style=text_style#5]{\csname @pwp@gitFile:exec:#4\endcsname}%
+\lstinputlisting[style=#6#5]{\csname @pwp@gitFile:exec:#4\endcsname}%
 }%
 %
-%% Use latexgit to place a listing with program output.
+%% Use latexgit to place a listing with tool output.
 %% #1 the git repository
 %% #2 the local path
 %% #3 the command
 %% #4 the label (exec: will be pre-pended)
 %% #5 the caption
-\protected\gdef\gitOutput#1#2#3#4#5{%
-\gitOutputRaw{#1}{#2}{#3}{#4}{,label={exec:#4},caption={#5},float}%
+\protected\gdef\gitOutputTool#1#2#3#4#5{%
+\gitOutputWithStyle{#1}{#2}{#3}{#4}{,label={exec:#4},caption={#5},float}{tool_style}%
 }%
 %
 %% Use latexgit to place a listing with code and the program output.

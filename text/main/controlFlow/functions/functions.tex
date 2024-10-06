@@ -316,7 +316,7 @@ For the same of clarity, if the actual code is in a file~\textil{my_code.py}, th
 \gitPython{\programmingWithPythonCodeRepo}{05_functions/test_my_math.py}{--args format}{functions:test_my_math}{%
 A small unit test suite for \cref{lst:functions:my_math}.}%
 %
-\gitOutput{\programmingWithPythonCodeRepo}{.}{scripts/pytest.sh 05_functions test_my_math.py}{functions:test_my_math:pytest}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest.sh 05_functions test_my_math.py}{functions:test_my_math:pytest}{%
 The output of the unit tests in \cref{lst:functions:test_my_math}: While the test of \pythonil{factorial} succeeds, our \pythonil{sqrt} function fails for input~\pythonil{0.0}.}%
 
 In \cref{lst:functions:test_my_math} we do just that.
@@ -402,7 +402,7 @@ An improved variant of \cref{lst:functions:my_math} dealing with the failing tes
 \gitPython{\programmingWithPythonCodeRepo}{05_functions/test_my_math_2.py}{--args format}{functions:test_my_math_2}{%
 We use the same small unit test suite given in \cref{lst:functions:test_my_math} for \pythonil{sqrt} in \cref{lst:functions:my_math_2}.}%
 %
-\gitOutput{\programmingWithPythonCodeRepo}{.}{scripts/pytest.sh 05_functions test_my_math_2.py}{functions:test_my_math_2:pytest}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest.sh 05_functions test_my_math_2.py}{functions:test_my_math_2:pytest}{%
 The output of the unit tests in \cref{lst:functions:test_my_math_2}: This time, we hit the timeout because of an endless loop!}
 
 In order to fix this problem, we introduce the check \pythonil{if number <= 0.0} into our \pythonil{sqrt} function in \cref{lst:functions:test_my_math_2}.
@@ -439,7 +439,7 @@ An improved variant of \cref{lst:functions:my_math_2} dealing with the failing t
 \gitPython{\programmingWithPythonCodeRepo}{05_functions/test_my_math_3.py}{--args format}{functions:test_my_math_3}{%
 We use the same small unit test suite given in \cref{lst:functions:test_my_math} for \pythonil{sqrt} in \cref{lst:functions:my_math_3}.}%
 %
-\gitOutput{\programmingWithPythonCodeRepo}{.}{scripts/pytest.sh 05_functions test_my_math_3.py}{functions:test_my_math_3:pytest}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest.sh 05_functions test_my_math_3.py}{functions:test_my_math_3:pytest}{%
 The output of the successful unit tests in \cref{lst:functions:test_my_math_3}.}%
 %
 \begin{sloppypar}%

@@ -153,7 +153,7 @@ The program consists of only two lines, \pythonil{my_list: list[str] = list([1, 
 It does not have any \emph{error} in the strict sense.
 We can execute it just fine and it will produce the output \textil{[1, 2, 3]} as shown in \cref{exec:lists:lists_error}.
 
-\gitOutput{\programmingWithPythonCodeRepo}{.}{scripts/mypy.sh 02_collections lists_error.py}{lists:lists_error:mypy}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/mypy.sh 02_collections lists_error.py}{lists:lists_error:mypy}{%
 The results of static type checking with \mypy\ of the program given in \cref{lst:lists:lists_error}.}
 
 However, upon closer inspection, we discover some issues.
@@ -179,7 +179,7 @@ You can then apply \ruff\ using the command \bashil{ruff check fileToScan.py}. %
 We provide a script for using \ruff\ with a reasonable default configuration in \cref{lst:bash:ruff} on \cpageref{lst:bash:ruff}.%
 }%
 %
-\gitOutput{\programmingWithPythonCodeRepo}{.}{scripts/ruff.sh 02_collections lists_error.py}{lists:lists_error:ruff}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/ruff.sh 02_collections lists_error.py}{lists:lists_error:ruff}{%
 The results of linting with \ruff\ of the program given in \cref{lst:lists:lists_error}. (We used the script given in \cref{lst:bash:ruff} on \cpageref{lst:bash:ruff} to apply \ruff.)}%
 %
 Let us apply \ruff\ to the program \textil{lists_error.py} given in \cref{lst:lists:lists_error}, which produces the output \cref{exec:lists:lists_error:ruff}.
@@ -220,10 +220,10 @@ Do not just apply them, but also \emph{implement} their suggestions where possib
 %
 \FloatBarrier%
 %
-\gitOutput{\programmingWithPythonCodeRepo}{.}{scripts/mypy.sh 02_collections lists_fixed.py}{lists:lists_fixed:mypy}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/mypy.sh 02_collections lists_fixed.py}{lists:lists_fixed:mypy}{%
 The results of static type checking with \mypy\ of the program given in \cref{lst:lists:lists_fixed}.}%
 %
-\gitOutput{\programmingWithPythonCodeRepo}{.}{scripts/ruff.sh 02_collections lists_fixed.py}{lists:lists_fixed:ruff}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/ruff.sh 02_collections lists_fixed.py}{lists:lists_fixed:ruff}{%
 The results of static type checking with \ruff\ of the program given in \cref{lst:lists:lists_fixed}.}
 
 Well, this was only a two-line program.
