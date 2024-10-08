@@ -6,7 +6,7 @@ Now you will learn how to make your own functions.%
 %
 \hsection{Defining and Calling Functions}%
 %
-\pythonIdx{def}%
+\pythonIdx{def}\pythonIdx{function!def}%
 The syntax for defining our own functions in \python\ is as follows:%
 %
 \begin{pythonSyntax}
@@ -33,20 +33,25 @@ normal statement 2
 my_function(argument_1, argument_2)  # we can call the function like this
 \end{pythonSyntax}
 %
-\pythonIdx{function!def}A function in \python\ is created by using the \pythonilIdx{def} keyword, followed by the name of the function.%
+\pythonIdx{function!def}A function in \python\ is created by using the \pythonilIdx{def}\pythonIdx{function!def} keyword, followed by the name of the function.%
 %
 \bestPractice{functionNames}{Function names should be lower case, with underscores separating multiple words if need be~\cite{PEP8}.}%
 %
-\pythonil{function!parameters}Then follows an opening and a closing parenthesis, i.e., \pythonil{(...)}\pythonIdx{(\idxdots)}.
+\pythonil{function!parameters}\pythonIdx{function!parameter}Then follows an opening and a closing parenthesis, i.e., \pythonil{(...)}\pythonIdx{(\idxdots)}.
 A function can have parameters through which we can pass values to it.
 Inside the function, these parameters act like variables.
-The values of these variables can be passed in when we call (invoke, execute) the function.
+The values of these variables can be passed in when we call (invoke, execute) the function.%
+%
+\begin{definition}[Parameter]\pythonIdx{function!parameter}%
+A function \emph{parameter} is a variable defined inside the function that receives its value when the function is called.%
+\end{definition}%
+%
 Notice that, just like variables, all such parameters should be annotated with type hints~(see \cref{sec:variableTypesAndTypeHints}).
 Functions can return results~(like the \pythonilIdx{sqrt} function of the \pythonilIdx{math} module does) or return nothing~(like \pythonilIdx{print}).
 \pythonIdx{function!return value}If they return a result, the type of this result is specified via the type hint \pythonil{ -> result_type}\pythonIdx{->}.
 The function header ends with a colon~(\pythonilIdx{:}).%
 %
-\bestPractice{functionTypeHints}{%
+\bestPractice{functionTypeHints}{\pythonIdx{function!type hint}%
 All parameters and the return value of a function should be annotated with type hints. %
 From my perspective: \emph{A function without type hints is wrong.}%
 }%
@@ -65,6 +70,10 @@ We can also have multiple \pythonilIdx{return} values at different places in the
 \pythonIdx{function!call}The function \pythonil{my_function} then can be called from anywhere in the code by writing \pythonil{my_function(value_1, value_2, ...)}, where \pythonil{value_1} is passed in as value of \pythonil{param_1}, \pythonil{value_2} is passed in as value of \pythonil{param_2}, and so on.
 This follows the same pattern of function calls that we already used in many of our examples.%
 \end{sloppypar}%
+%
+\begin{definition}[Argument]\pythonIdx{function!argument}%
+An \emph{argument} is the actual value given for a function parameter when the function is called.%
+\end{definition}%
 %
 \pythonIdx{function!docstring}\pythonIdx{str!doc!function}%
 Between the header of a function and its body, we always need to place a so-called \pgls{docstring}, which is a multi-line string~(see \cref{sec:multiLineStrings}).
@@ -178,7 +187,7 @@ Let us now implement a second function, this time with no return value.
 Instead, it will print the \pythonil{gcd} nicely using \pythonilIdx{print} and an \pgls{fstring}.
 Since the \pythonilIdx{math} module also provides a function names \pythonilIdx{gcd} for computing, well, the greatest common divisor, we want to compare the result of our function with this one.%
 %
-\begin{sloppypar}%
+\begin{sloppypar}\pythonIdx{function!import}%
 Of course, we cannot have two functions named \pythonil{gcd} in the same context.
 So we import the function from the \pythonilIdx{math} module \emph{under a different name}:
 \pythonil{from math import gcd as math_gcd}\pythonIdx{as}\pythonIdx{import}\pythonIdx{from} makes the \pythonilIdx{gcd} function from the module \pythonilIdx{math} available under the name~\pythonil{math_gcd}.
@@ -193,6 +202,7 @@ This binary variant may have been developed in China in the first century~CE~\ci
 \endhsection%
 %
 \hsection{Functions in Modules}%
+\pythonIdx{module!import}\pythonIdx{function!import}\pythonIdx{function!module}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{05_functions/my_math.py}{--args format}{functions:my_math}{%
 The module \pythonil{my_math}, which provides two mathematics functions, namely \pythonil{sqrt}, implementing the algorithm of Heron to compute the square root from \cref{lst:loops:while_loop_sqrt}, and \pythonil{factorial}, copied from \cref{lst:functions:def_factorial}.}%
@@ -262,6 +272,8 @@ Interestingly, the sixth and last approximation step in \cref{exec:functions:use
 %
 \hsection{Unit Testing}%
 \label{sec:unitTesting}%
+\pythonIdx{function!unit test}%
+\pythonIdx{function!testing}%
 %
 Structuring our code into functions and modules has several advantages.
 We can reuse code and we can divide big application into smaller pieces, both of which make it easier to understand what our program is doing.
@@ -462,6 +474,130 @@ We then fixed these errors.%
 \bestPractice{functionUnitTest}{%
 A function which is not unit tested is \emph{wrong}.%
 }%
+\endhsection%
+%
+\hsection{Function Arguments: Default Values, Passing them by Name, and Constructing them}%
+%
+\gitPython{\programmingWithPythonCodeRepo}{05_functions/normal_pdf.py}{--args format}{functions:normal_pdf}{%
+Implementing the probability density function~(PDF) of the normal distribution as function with default argument values.\pythonIdx{pi}\pythonIdx{exp}\pythonIdx{sqrt}}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{05_functions}{use_normal_pdf.py}{--args format}{functions:use_normal_pdf}{%
+Using the PDF of the normal distribution implemented in \cref{lst:functions:normal_pdf}.}%
+%
+After the brief introduction into unit testing, let us now come to a lighter topic: passing arguments to functions.%
+We have already seen examples for this.
+Our \pythonil{gcd} function from back in \cref{lst:functions:def_gcd} has two parameters \pythonil{a} and \pythonil{b} and we can invoke it by writing the values of these parameters in parentheses.
+\pythonil{gcd(12, 4)} will invoke \pythonil{gcd} and assign \pythonil{12} to \pythonil{a} and \pythonil{4} to \pythonil{b}.
+
+We can also let parameters have so-called \emph{default values}.\pythonIdx{function!parameter!default value}\pythonIdx{function!argument!default}
+If a parameter has a default value, then we can either specify the value of the parameter when calling the function \emph{or} we can simply omit it, i.e., not assign a value to it.
+In the latter case, the parameter will then have the default value.
+From inside the function, this looks the same as if we passed in the default value.
+
+As a simple example, let us implement the probability density function~(PDF) of the normal distribution.
+You may remember from high school math that this function, let's call it~$f$, defined as%
+%
+\begin{equation}%
+f(x, \mu, \sigma) = \frac{1}{\sqrt{2\numberPi\sigma^2}} e^{\frac{-(x-\mu)^2}{2\sigma^2}}%
+\label{eq:normalDistributionPdf}%
+\end{equation}%
+%
+\begin{figure}%
+\centering%
+\includegraphics[width=0.65\linewidth]{\currentDir/normalDistPdf}%
+\caption{A sketch of the probability density function of the normal distribution given in \cref{eq:normalDistributionPdf}.}%
+\label{fig:normalDistPdf}
+\end{figure}%
+%
+Here, $\mu$~is the arithmetic mean, i.e., the expected value, of the distribution and $\sigma$~is its standard deviation~(making $\sigma^2$~its variance).
+$x$~is the variable of this function.
+This function describes typical bell-shaped curve of the normal distribution as sketched in \cref{fig:normalDistPdf}.
+Implementing this function as a, well, function in \python\ is straightforward.
+\Cref{lst:functions:normal_pdf}\pythonIdx{pi}\pythonIdx{exp}\pythonIdx{sqrt} offers the function \pythonil{pdf} with three parameters: \pythonil{x}, \pythonil{mu}, and~\pythonil{sigma}, which represent~$x$, $\mu$, and~$\sigma$.%
+%
+\begin{sloppypar}\pythonIdx{function!call}%%
+Now, the two parameters~$\mu$ and~$\sigma$ of~$f$ (respectively~\pythonil{mu} and~\pythonil{sigma} of~\pythonil{pdf}) represent the general normal distribution.
+The \emph{standard} normal distribution has $\mu=0$ and $\sigma=1$, i.e., is centered around the mean~$0$ and has a standard deviation (and variance) of~$1$.
+We therefore define the \emph{default} values for \pythonil{mu} to be~\pythonil{0.0} and for \pythonil{sigma} to be~\pythonil{1.0}.
+This is done directly in the header of the function.
+Instead of writing \pythonil{x: float, mu: float, sigma: float}, we write \pythonil{x: float, mu: float = 0.0, sigma: float = 1.0}.%
+\end{sloppypar}%
+%
+In \cref{lst:functions:use_normal_pdf}, we import our new \pythonil{pdf} function and use it inside a program.
+When calling \pythonil{pdf}, we can omit the values of the parameters with default values, in which case they will take on their default values.
+For example, invoking \pythonil{pdf(0.0)} if equivalent to calling~\pythonil{pdf(0.0, 0.0, 1.0)}.
+We also can specify some of the parameters with default values while omitting others.
+For instance, the function call \pythonil{pdf(2.0, 3.0)} is the same as \pythonil{pdf(2.0, 3.0, 1.0)}.
+Obviously, we must always specify the first parameter~(\pythonil{x}), because it has no default value.%
+%
+\bestPractice{defaultValues}{%
+\pythonIdx{function!parameter!default value}\pythonIdx{function!argument!default}%
+Default parameter values must always be immutable.}%
+%
+The default value of a function must always be immutable.
+If you would pass in, e.g., a \pythonil{list}, then the function could modify the list and the next call to this function would then receive this modified list.
+Even worse, if the function was to return the list, it could be modified outside of the function.
+The behavior of such code could become arbitrarily hard to debug.
+
+Back to business.\pythonIdx{function!parameter!by name}\pythonIdx{function!argument!by name}
+What would we do if we want to specify the value of the parameter \pythonil{sigma} of our function, but leave \pythonil{mu} at its default value?
+We can do this by passing in values by parameter name:
+\pythonil{pdf(-2.0, sigma=3.0)}~passes in \pythonil{-2.0} for~\pythonil{x} and \pythonil{3.0} for~\pythonil{sigma}.
+It does not specify any value for~\pythonil{mu}, leaving it at its default value, which renders the call equivalent to~\pythonil{pdf(-2.0, 0.0, 3.0)}.
+This passing in of arguments by specifying \pythonil{parameterName=value} also allows us to specify the arguments in arbitrary order.
+\pythonil{pdf(mu=8.0, x=0.0, sigma=1.5)} is an example of this.
+Don't do such things, though.%
+%
+\begin{sloppypar}%
+\Cref{lst:functions:use_normal_pdf} provides also another interesting way to call a function in \python.
+As we have established by now, the parameters of a function have names.
+If we write something like \pythonil{mu=8.0, x=0.0, sigma=1.5} to assign arguments, this looks very similar to the way we created dictionary constants back in \cref{sec:dictionaries} and \cref{lst:dicts:dicts_1}.
+Calling \pythonil{pdf(-2.0, sigma=3.0)} is equivalent to writing~\pythonil{pdf(x=-2.0, sigma=3.0)}.%
+\end{sloppypar}%
+%
+We can create a dictionary with the values \pythonil{\{"x": -2.0, "sigma": 3.0\}}.
+Let's call this dictionary~\pythonil{args_dict}.
+Can we now somehow pass in these values to~\pythonil{pdf}?
+We indeed can:
+We just have to write~\pythonil{pdf(**args_dict)}.\pythonIdx{**!function parameter}\pythonIdx{function!parameter!**}\pythonIdx{function!argument!**}\pythonIdx{function!argument!keyword}\pythonIdx{dict}
+Doing this will unpack the dictionary \pythonil{args_dict} and pass all the values under their assigned names in as arguments to their corresponding parameters.
+\pythonil{pdf(**args_dict)} is thus equivalent to~\pythonil{pdf(x=-2.0, sigma=3.0)}.
+Two things are to notice here:
+First, the double~\pythonil{*}\pythonIdx{*!function parameter}\pythonIdx{function!argument!*}\pythonIdx{function!parameter!*} (called %
+wildcard\pythonIdx{wildcard}\pythonIdx{function!argument!wildcard}\pythonIdx{function!parameter!wildcard}, %
+star\pythonIdx{star}\pythonIdx{function!argument!star}\pythonIdx{function!parameter!star}, or %
+asterisk\pythonIdx{asterisk}\pythonIdx{function!argument!asterisk}\pythonIdx{function!parameter!asterisk}) %
+\emph{before} the dictionary, i.e., the~\pythonil{**}\pythonIdx{**!function parameter} is telling \python\ to unpack the dictionary this way.
+Second, default argument values still apply here, i.e., \pythonil{mu} will have value~\pythonil{0.0} in this function call.
+
+Similarly, maybe we do not care about the parameter names but want pass them in by position, as we have always done in the past.
+Then, we can construct a sequence, e.g., a \pythonilIdx{list} or \pythonilIdx{tuple} with the parameter values.
+Of course, \pythonilsIdx{list} and \pythonilsIdx{tuple} do not store key-value relationships, only values at positions.
+We could create a tuple~\pythonil{args_tuple} with the value~\pythonil{(-2.0, 7.0, 3.0)}.
+Then, invoking \pythonil{pdf(*args_tuple)} will basically fill in the three values in their into the parameters, i.e., will be equivalent to~\pythonil{pdf(-2.0, 7.0, 3.0)}.
+This time, only a single wildcard~\pythonil{*}\pythonIdx{*!function parameter}\pythonIdx{function!argument!*}\pythonIdx{function!parameter!*} is placed before~\pythonil{args_tuple}.
+We can also pass the parameters in by \inQuotes{unpacking} a list.
+In our example \cref{lst:functions:use_normal_pdf}, we create the list \pythonil{args_list = [2.0, 3.0]}.
+Calling~\pythonil{pdf(*args_list)} then is the same as writing~\pythonil{pdf(2.0, 3.0)}, which, in turn, is identical to~\pythonil{pdf(2.0, 3.0, 1.0)}.
+Again, parameters with default values do not need to be supplied.
+
+At first glance, the use of all of the above is not entirely clear.
+What do we need default parameter values for?
+Well, in some cases, you may want to enable a user to \inQuotes{customize} your functions.
+A typical example is the \href{https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html}{\pythonilIdx{plot} method} of the \pythonilIdx{Axes} object provided by popular \matplotlib\ library.
+You will normally provide a sequence of x-\ and y\nobreakdash-coordinates to this function it will draw a line which goes through all the points specified this way.
+However, you can also optionally specify a color for the line, markers to be painted at the points, line dash style, a label, colors and sizes for the markers, a z\nobreakdash-order to be used if multiple lines are drawn, and so on, and so on.
+The use of default arguments allows the function call to be relatively simple in most cases, while still allowing the user to do more complex formatting if need be.
+
+From this example, we can also directly extrapolate a use case for building the arguments of a function in a dictionary.
+Imagine that you write an own function that uses one of the plotting methods of \matplotlib.
+Let's say that your function does a plot call where it provides ten parameter values.
+However, you have one special case where you need to provide one more parameter, maybe a line dash style that you otherwise do not need to provide.
+Then, you could have some \pythonil{if} in your code that branches to do the ten-parameter-call in one case and the eleven-parameter-call in the other.
+This means that a rather complex function call appears twice in a very similar manner.
+If you instead construct the parameters in a dictionary and in the \pythonil{if} branch just add the eleventh parameter if need be, your code will become much simpler.%
+%
+\FloatBarrier%
 \endhsection%
 %
 \endhsection%

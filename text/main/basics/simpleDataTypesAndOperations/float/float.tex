@@ -87,7 +87,7 @@ Therefore \pythonil{6 / 3} yields \pythonil{2.0} instead of \pythonil{2}.
 
 The normal arithmetic operations like addition, subtraction, multiplication, division, and powers all work with \pythonils{float}\pythonIdx{float} as expected.
 Remember, however, that if \pythonilIdx{float} and \pythonilIdx{int} numbers are mixed, the results are always \pythonils{float}\pythonIdx{float}.
-Thus, \pythonil{1.0 + 7}\pythonIdx{+} gives us \pythonil{8} and \pythonil{2 * 3.0}\pythonIdx{*} yields \pythonil{6.0}.
+Thus, \pythonil{1.0 + 7}\pythonIdx{+} gives us \pythonil{8} and \pythonil{2 * 3.0}\pythonIdx{*!multiplication} yields \pythonil{6.0}.
 In other words, if one \pythonilIdx{float} occurs somewhere in an expression, it will \inQuotes{infect} everything that it touches to become a \pythonilIdx{float} too, even if the result could be represented as \pythonilIdx{int}.
 Some results cannot be integers anyway, for example \pythonil{5 - 3.6}\pythonIdx{-} evaluates to~\pythonil{1.4}.
 The remainder (the \glsdisp{modulodiv}{modulo}) of a division can also be computed for floating point numbers.
@@ -95,7 +95,7 @@ The remainder of the division of 6.5 by 2, i.e., \expandafter\pythonil{6.5 \% 2}
 %
 \begin{sloppypar}%
 The square root of 3.3 can be computed as $3.3^{0.5}$.
-We can write this as \pythonil{3.3 ** 0.5}\pythonIdx{**}, which yields \pythonil{1.816590212458495}.
+We can write this as \pythonil{3.3 ** 0.5}\pythonIdx{**!power}, which yields \pythonil{1.816590212458495}.
 This brings us back to the previous section:
 $\sqrt{3.3}$~is not actually 1.816\decSep590\decSep212\decSep458\decSep495.
 It is an irrational number~\cite{S1988WPCHD,B1991IWNT} and irrational numbers cannot be expressed as fractions of integer numbers (by definition, otherwise they would be rational numbers).
