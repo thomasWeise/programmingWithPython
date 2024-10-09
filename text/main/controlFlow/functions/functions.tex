@@ -46,14 +46,14 @@ The values of these variables can be passed in when we call (invoke, execute) th
 A function \emph{parameter} is a variable defined inside the function that receives its value when the function is called.%
 \end{definition}%
 %
-Notice that, just like variables, all such parameters should be annotated with type hints~(see \cref{sec:variableTypesAndTypeHints}).
+Notice that, just like variables, all such parameters should be annotated with \pglspl{typeHint}~(see \cref{sec:variableTypesAndTypeHints}).
 Functions can return results~(like the \pythonilIdx{sqrt} function of the \pythonilIdx{math} module does) or return nothing~(like \pythonilIdx{print}).
-\pythonIdx{function!return value}If they return a result, the type of this result is specified via the type hint \pythonil{ -> result_type}\pythonIdx{->}.
+\pythonIdx{function!return value}If they return a result, the type of this result is specified via the \pgls{typeHint} \pythonil{ -> result_type}\pythonIdx{->}.
 The function header ends with a colon~(\pythonilIdx{:}).%
 %
 \bestPractice{functionTypeHints}{\pythonIdx{function!type hint}%
-All parameters and the return value of a function should be annotated with type hints. %
-From my perspective: \emph{A function without type hints is wrong.}%
+All parameters and the return value of a function should be annotated with \pglspl{typeHint}. %
+From my perspective: \emph{A function without \pglspl{typeHint} is wrong.}%
 }%
 %
 Then, indented by four spaces, follows the function body.%
@@ -506,7 +506,7 @@ f(x, \mu, \sigma) = \frac{1}{\sqrt{2\numberPi\sigma^2}} e^{\frac{-(x-\mu)^2}{2\s
 \centering%
 \includegraphics[width=0.65\linewidth]{\currentDir/normalDistPdf}%
 \caption{A sketch of the probability density function of the normal distribution given in \cref{eq:normalDistributionPdf}.}%
-\label{fig:normalDistPdf}
+\label{fig:normalDistPdf}%
 \end{figure}%
 %
 Here, $\mu$~is the arithmetic mean, i.e., the expected value, of the distribution and $\sigma$~is its standard deviation~(making $\sigma^2$~its variance).
@@ -585,8 +585,8 @@ At first glance, the use of all of the above is not entirely clear.
 What do we need default parameter values for?
 Well, in some cases, you may want to enable a user to \inQuotes{customize} your functions.
 A typical example is the \href{https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html}{\pythonilIdx{plot} method} of the \pythonilIdx{Axes} object provided by popular \matplotlib\ library.
-You will normally provide a sequence of x-\ and y\nobreakdash-coordinates to this function it will draw a line which goes through all the points specified this way.
-However, you can also optionally specify a color for the line, markers to be painted at the points, line dash style, a label, colors and sizes for the markers, a z\nobreakdash-order to be used if multiple lines are drawn, and so on, and so on.
+You will normally provide a sequence of x-\ and y\nobreakdashes-coordinates to this function it will draw a line which goes through all the points specified this way.
+However, you can also optionally specify a color for the line, markers to be painted at the points, line dash style, a label, colors and sizes for the markers, a z\nobreakdashes-order to be used if multiple lines are drawn, and so on, and so on.
 The use of default arguments allows the function call to be relatively simple in most cases, while still allowing the user to do more complex formatting if need be.
 
 From this example, we can also directly extrapolate a use case for building the arguments of a function in a dictionary.
@@ -598,6 +598,210 @@ This means that a rather complex function call appears twice in a very similar m
 If you instead construct the parameters in a dictionary and in the \pythonil{if} branch just add the eleventh parameter if need be, your code will become much simpler.%
 %
 \FloatBarrier%
+\endhsection%
+%
+\hsection{Functions as Parameters or Variables, \texttt{Callable} and \texttt{lambda}s}%
+%
+We have just learned that we can basically construct a function call by placing the parameter values into collection objects and then invoke the function by \inQuotes{unpacking} the collection using either \pythonil{*} (for position-based parameters) or \pythonil{**} (for dictionaries).
+But there is one more interesting thing that we can do with functions.
+You see, in \python, all things are objects.
+References to objects can be stored by variables or passed in as function arguments.
+Functions are objects too.
+This means that we can also store functions in variables or pass them as argument to other functions!
+
+At first glance, this sounds awfully odd.
+Why would someone like to pass a function as parameter to another function?
+At second glance, there are a wide variety of situations where we would actually want to do that.
+Having done so many mathematics-based examples in this book, let's pick one such situation arising in maths.
+
+In high school, you have learned about integration and differentiation.
+A \emph{definite integral} is the formal calculation of the area under a function, using infinitesimal stripes of the region.
+The second fundamental theorem of calculus states:
+Given a function~$f(x)$ which is continuous over the real interval~$[a,b]$ and its antiderivative~$F(x)$, the definite integral $\int_a^b f(x)\,dx = F(b)-F(a)$ (where antiderivative means that~$F'=f$).
+In other words, if we want to get the area beneath~$f(x)$ over the interval~$[a,b]$, we would first obtain the antiderivative and then simply calculate~$F(b)-F(a)$.
+Obtaining the antiderivative involves pen and paper symbolic maths.
+We cannot really program such maths at this stage in this book as an example.
+But we can go back to the original definition of the definite integral, namely that it equals the area beneath the function obtained by using infinitesimal (read:~immeasurably small) strips of the region.
+
+While we cannot really use \inQuotes{immeasurably small} strips, we could use \inQuotes{fairly small} ones to approximate the right result.
+If we have a function~$f(x)$, which would obviously be a parameter of our program, as well as the interval limits~$a$ and~$b$, we could divide the range~$[a,b]$ into~$n$ strips.
+For each strip, we could approximate the area beneath~$f(x)$, add up the~$n$ areas, and have a rough approximation of the total area.
+$n$~could be another parameter for our integration approach:
+The larger~$n$, the smaller will the strips get, the more accurate should our estimate become (and the longer it will take to get it).%
+%
+\begin{figure}%
+\centering%
+\includegraphics[width=0.65\linewidth]{\currentDir/normalDistPdfInteg}%
+\caption{A sketch of the trapezoid method for approximating definite integrals.}%
+\label{fig:normalDistPdfInteg}%
+\end{figure}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{05_functions}{integral.py}{--args format}{functions:integral}{%
+Using the trapezoid method to numerically approximate definite integrals, as sketched in \cref{fig:normalDistPdfInteg}.}%
+
+The trapezoid method is one very simple implementation of this idea~\cite{E2013AITNMAA}.
+As illustrated in \cref{fig:normalDistPdfInteg}, it treats the strips as right trapezoids.
+The baseline of the trapezoid is a piece of the \pgls{xAxis} with length~$h=(b-a)/n$.
+Clearly, $n*h=b-a$ and thus, $n$~trapezoids of equal base length form the range of the \pgls{xAxis} under~$f(x)$.
+The baseline first trapezoid starts right at~$x=a$ and extends to~$x=a+h$.
+The second trapezoid starts at~$x=a+h$ and extends to~$x=a+2h$.
+The last trapezoid starts at~$x=a+(n-1)h$ and extends to~$x=a+nh=b$.
+Each trapezoid has two sides meeting with its baseline in right angles.
+The length of these sides are the values of~$f(x)$ at the corresponding x\nobreakdashes-coordinate.
+The area of the $i$\nobreakdashes-th trapezoid is thus~$h[f(a+(i-1)h)+f(a+ih)]/2$.
+Summing up the $n$~areas yields an approximation of the definite integral, as sketched in \cref{fig:normalDistPdfInteg}.
+
+Each value~$f(a+ih)$ except for $i=0$ and $i=n$ appears twice in the sum and each time is halved.
+Instead of computing these values twice, dividing them by two, and then adding them, we can simply compute them only once.
+Our implementation \pythonil{integrate} of this approach, given in \cref{lst:functions:integral}, does exactly that.
+
+The interesting part of our \pythonil{integrate} method, however, is not the approximation of the integral.
+It is the header.
+More precisely, it is the first parameter:~\pythonil{f: Callable[[float], float | int]}\pythonIdx{Callable}\pythonIdx{typing}.
+\pythonilIdx{Callable} is the \pgls{typeHint} for anything that can be called, i.e., functions~\cite{PSF2024ACO}.
+Like the \pgls{typeHint} for lists and tuples, it can be parameterized following the scheme~\cite{PEP612}:%
+%
+\begin{pythonSyntax}
+Callable[[parameterType1, parameterType2, ...], resultType]
+\end{pythonSyntax}
+%
+In other words, inside the \pythonil{Callable[...]}, we first provide the list of parameter types, then a comma~\pythonil{,} followed by the return type.
+\pythonil{f: Callable[[float], float | int]} thus states that our function expects, as first parameter, \emph{another function}~\pythonil{f}.
+\pythonil{f}~must accept one parameter of type~\pythonil{float}.
+Its return type is \pythonil{float | int}, i.e., it should return either a~\pythonil{float} or~\pythonil{int}\pythonIdx{\textbar!type hints}~\cite{PEP604}.
+Notice that the type \pythonilIdx{Callable} is provided by the module~\pythonilIdx{typing}\footnote{%
+\cite{PSF2024ACO}~states that this import is now deprecated and we should use \pythonil{collections.abc.Callable}\pythonIdx{collections.abc} instead. %
+In the past, this created some errors for me, so for now we stick with using~\pythonilIdx{typing}.}, %
+so we need to import it first if we want to use it.%
+%
+\begin{sloppypar}%
+Additionally, our \pythonil{integrate} function accepts two parameters~\pythonil{a} and~\pythonil{b} which must be of type~\pythonil{float | int}, i.e., can either be an \pythonil{float} or \pythonil{int}.
+Their default values are~\pythonil{0.0} and~\pythonil{1.0}, meaning that we will integrate over~$[0,1]$ if they are not specified.
+As final parameter, we expect an integer~\pythonil{n}, by default~\pythonil{100}, which corresponds to the number of trapezoids that we shall use for the approximation.%
+\end{sloppypar}%
+%
+Let's now test how well our trapezoid-based integration works.
+First, let's compute the definite integral~$\int_0^1 1\,dx$.
+For this purpose, we need to pass the function~$f(x)=1$ as the~\pythonil{f} parameter of~\pythonil{integrate}.
+We could do this by writing:%
+%
+\begin{pythonSyntax}
+def const_1(x: float) -> float:
+    return 1.0
+\end{pythonSyntax}
+%
+or%
+%
+\begin{pythonSyntax}
+def const_1(_: float) -> float:
+    return 1.0
+\end{pythonSyntax}
+%
+where the \pythonil{_}\pythonIdx{\_} indicates that we are actually going to ignore this parameter~(see~\cref{bp:underscore}).
+We could then invoke~\pythonil{integrate(const_1)}.
+
+However, there also is a more compact way to specify functions that we are only going to use once:
+The so-called \pythonilsIdx{lambda}~\cite{PSF2024L}, which have the structure%
+%
+\begin{pythonSyntax}
+lambda param1, param2, ...: return value
+\end{pythonSyntax}
+%
+Due to the \pythonilIdx{:} in the notation, we cannot annotate \pythonilsIdx{lambda} with \pglspl{typeHint}.
+As a \pythonil{lambda} expression is very small and only used once, this does not pose a serious problem.
+Either way, since we need one parameter for our 1-returning-function and since we do not care about the value of this parameter, we can simply write:%
+%
+\begin{pythonSyntax}
+integrate(lambda _: 1.0)
+\end{pythonSyntax}
+%
+\pythonilsIdx{lambda} are functions that we only want use in a single place.
+This is clearly the case for a function that ignores its parameter and always returns~\pythonil{1.0}.
+So we pass this expression into our \pythonil{integrate} function as value of the parameter~\pythonil{f}.
+
+Obviously, the area under the constant function~$1$ over the range~$[0,1]$ is also~$1$.
+Using \pythonil{n=7} trapezoids, we get exactly this result.
+In the output of our program, we write~\inlinelistingbox{$\int$\lstinline[style=text_style]$1dx|0,1$} where the~\textil{|0,1} denotes the limits~$[0,1]$ of the interval over which we integrate (and we use the unicode escape \pythonil{"\\u222b"} to represent the~$\int$~character in the \pglspl{fstring}).
+
+Having passed this simple sanity test, let's try to compute the beneath under the function~$g(x)=x^2-2$ over the interval~$[-1,1]$, i.e.,~$\int_{-1}^1 x^2-2\,dx$.
+The antiderivative of~$g(x)$ is~$G(x)=\frac{1}{3}x^3-2x+c$ and $G(1)-G(-1)=[\frac{1}{3}-2]-[-\frac{1}{3}+2]=\frac{2}{3}-4=-3\frac{1}{3}=-3.\overline{3}$.
+We pass the function~$g(x)$ as \pythonil{lambda} expression into our \pythonil{integrate} function by writing~\pythonil{lambda x: x*x - 2}.
+We also need to specify a value for the parameter~\pythonil{a}, namely~\pythonil{-1}.
+Using the default value of \pythonil{n=100} steps, our method returns~\pythonil{-3.3332}, which is fairly close to~$-3.\overline{3}$.
+
+Let us now integrate the sinus function over the interval~$[0,\numberPi]$.
+We can import~\pythonilIdx{sin} from the \pythonilIdx{math}~module and pass it into our function for~\pythonil{f}.
+We also need to specify \pythonil{b = pi}\pythonIdx{pi}, which we, too, have imported from~\pythonilIdx{math}.
+This time, we use \pythonil{n = 200} trapezoids to approximate the definite integral.
+The antiderivative of~$\sin x$ is~$-\cos x+c$, so the expected output would be~$[-\cos\pi]-[-\cos 0]=[-(-1)]-[-1]=2$.
+Indeed, our function delivers about~$1.99996$, which is, again, fairly close.
+
+Let us, as final example, also integrate the probability density function~(PDF) of the normal distribution.
+We implemented this function and called it \pythonil{pdf} back in \cref{lst:functions:normal_pdf}, so we just need to \pythonilIdx{import} it from there.
+Notice that this function actually had three parameters, \pythonil{x}, \pythonil{mu}, and~\pythonil{sigma}.
+The latter two had the default values~\pythonil{mu = 0.0} and~\pythonil{sigma = 1.0}.
+If these values are used, the function computes the PDF of the \emph{standard} normal distribution.
+
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/mypy.sh 05_functions integral.py}{functions:integral:mypy}{%
+The results of static type checking with \mypy\ of the program given in \cref{lst:functions:integral}.}
+
+Interestingly, although we demand that the function supplied to \pythonil{integrate} should only have one parameter, we can still pass in~\pythonil{pdf} due to its second and third parameter being optional.
+Even \mypy\ accepts this function as valid parameter, as its output (or better, the lack of it) in \cref{exec:functions:integral:mypy} suggests.
+
+The standard normal distribution has standard deviation~$\sigma=1$ and mean~$\mu=0$.
+If we integrate it over the interval~$[-1,1]$, we basically compute the probability that a standard normally distributed random variable~$X$ is drawn from the interval~$[\mu-\sigma,\mu+\sigma]$, i.e., from within one standard deviation from the mean.
+As you may still know from high school math, this probability is roughly~68.26\%.
+Similarly, the probability that such a random variable is sampled from within~$[-2,2]$, i.e., not more than two standard deviations away from the mean, is about~95.44\%.
+The output of our little integrator function in \cref{exec:functions:integral} fits perfectly to this.
+
+As a final clarification, let us mention that trapezoid-based approximation of definite integrals is by no means the best approach.
+Others, like Simpson's rule, are much better~\cite{E2013AITNMAA}.
+Still, as an example for functions that work on other functions, it was suitable.%
+\FloatBarrier%
+\endhsection%
+%
+\hsection{Summary}%
+Functions are the central building block needed to create modular code.
+They allow us to put code into units with clearly defined interfaces.
+The input of a function are its parameters~(if any).
+The output is its return value~(if any).
+Both parameters and return value can be annotated with \pglspl{typeHint}.
+The description of what the function does as well as what the parameters and the return value mean, goes into the \pgls{docstring}.
+
+This clear definition and separation from the rest of the code has several advantages.
+First, multiple programmers can work together on a project.
+They can work on different functions, which we can place into different modules~(\python\ files).
+If we did not have functions available, this would be impossible.
+
+Second, by using proper \pglspl{typeHint} for the function parameters and return value as well as proper \pglspl{docstring}, the behavior of functions is easier to understand by fellow programmers.
+Type checkers like \mypy\ can also verify whether functions are called with correct parameters more easily.
+The code does not just become more modular, but easier to maintain.
+It can be checked by static code analysis tools as well.
+
+Third, functions allow us to reuse pieces of code in different locations.
+If we want to compute the definite integral of two different functions, we do not have to implement two routines for integration.
+We can make one and use it in two different locations.
+
+Fourth, if we have a code with clearly defined input and output that exists in isolation from other code, then we can \emph{test} this code in isolation as well.
+It may be extremely difficult to test a complete program.
+However, it may be rather straightforward to test a small function.
+Unit tests, for example using the \pytest\ framework, allow us to do just that.
+It is also not hard to imagine that unit tests can compound our trust into our code:
+In the previous sections, we developed a function~\pythonil{pdf} for computing the probability density function of the normal distribution and a function~\pythonil{integrate} for approximating definite integrals.
+Assume that we properly unit tested these two functions and shown for both of them that they produce the expected results for a wide range of different inputs.
+It would be easy to see that this then would also give us a certain confidence that using \pythonil{integrate} to compute a definite integral over a certain input range of~\pythonil{pdf} should be correct, too.
+This could be verified with some additional unit tests.
+Working our way up from testing small components to larger and larger building blocks of an application gives us a good chance to have only few bugs in the final product.
+
+These are a lot of advantages of using functions.
+But functions in \python\ also come with lots of nice features as well.
+
+For example, we can specify default values for function parameters.
+This allows us to create functions that can be invoked using only few arguments in the normal case and that can be customized with more parameters in special cases.
+Since functions themselves are objects, they can be stored in variables and parameters as well.
+The proper \pgls{typeHint} for such variables or parameters is defined using the~\pythonilIdx{Callable} type.
+Functions that accept \pythonilsIdx{Callable} as parameter can also accept \pythonilsIdx{lambda}.
+\pythonilsIdx{lambda} are an abbreviated way to define functions, usually in a single line and only for a single use.%
 \endhsection%
 %
 \endhsection%

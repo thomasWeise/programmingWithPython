@@ -68,7 +68,7 @@ Luckily, there are two things that we can do to prevent such situations from pas
 %
 \item Use static type checking tools to find such potential errors in our code.%
 %
-\item Use type hints to annotate variables with their types to \emph{a)}~make our intention clearer and \emph{b)}~support type checking tools.%
+\item Use \pglspl{typeHint} to annotate variables with their types to \emph{a)}~make our intention clearer and \emph{b)}~support type checking tools.%
 %
 \end{enumerate}%
 %
@@ -139,6 +139,7 @@ Repeat this until no errors are found anymore.%
 \endhsection%
 %
 \hsection{Type Hints}%
+\label{sec:varTypeHints}%
 %
 When we discussed \cref{lst:variables:types_wrong} in \cref{sec:typesAndConfusion}, we stated that there could be two reasons for the error in the code:
 Either, the author accidentally mixed-up two datatypes or operators~(\pythonilIdx{/}~vs.~\pythonilIdx{//}) or they chose a misleading name for their variable~\pythonil{int_var}.
@@ -156,7 +157,7 @@ It is very convenient for small projects, but as soon as the projects get bigger
 Remember that \inQuotes{real programs} are much more complex than \cref{lst:variables:types_wrong}.
 Imagine wading through thousands of lines of code to figure out what type a variable has, and, while doing so, remember that \python\ permits overwriting the contents of a variable with objects of an entirely different type whenever it pleases us.
 
-Realizing that dynamic typing can be a blessing but also a problem, \emph{optional} type hints were introduced into the \python\ language~\cite{PEP484,R2023PTHATCPBNI}.
+Realizing that dynamic typing can be a blessing but also a problem, \emph{optional} \pglspl{typeHint} were introduced into the \python\ language~\cite{PEP484,R2023PTHATCPBNI}.
 We can now declare the type of a variable if we want.
 This solves the above problem basically entirely and allows us to tell type checking tools our intention.
 
@@ -177,17 +178,17 @@ The results of static type checking with \mypy\ of the program given in \cref{ls
 \gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/mypy.sh 01_variables variable_types_wrong_hints_2.py}{variables:variable_types_wrong_hints_2:mypy}{%
 The results of static type checking with \mypy\ of the program given in \cref{lst:variables:types_wrong_hints_2}.}%%
 
-If the author of \cref{lst:variables:types_wrong} had used type hints, they could have written their program differently, as illustrated in \cref{lst:variables:types_wrong_hints_1,lst:variables:types_wrong_hints_2}.
-Both programs as well as the original one produce exactly the same output if we execute them with the \python\ interpreter, since type hints are ignored by the interpreter.
+If the author of \cref{lst:variables:types_wrong} had used \pglspl{typeHint}, they could have written their program differently, as illustrated in \cref{lst:variables:types_wrong_hints_1,lst:variables:types_wrong_hints_2}.
+Both programs as well as the original one produce exactly the same output if we execute them with the \python\ interpreter, since \pglspl{typeHint} are ignored by the interpreter.
 However, if we type-check them with \mypy, we get two different results, namely \cref{exec:variables:variable_types_wrong_hints_1:mypy,exec:variables:variable_types_wrong_hints_2:mypy}, respectively.
 
 In \cref{lst:variables:types_wrong_hints_1}, we annotate \pythonil{int_var} as an integer variable by writing \pythonil{int_var: int}.
 While the name of the variable already indicates that we want it to hold integers, we now have formally specified this intention.
 The \mypy\ type checker tells is in \cref{exec:variables:variable_types_wrong_hints_1:mypy} basically the same as it stated In \cref{exec:variables:variable_types_wrong:mypy}, namely that assigning a \pythonil{float} to this variable is wrong.
 
-However, if the intention of the author wanted that the variable could hold either an \pythonil{int} or a \pythonil{float}, they could have annotated with the type hint \pythonil{int | float}.
-The \pythonil{|}\pythonIdx{\textbar!type hints} here is not the \inQuotes{bit-wise or} we learned back in \cref{sec:int:bitstrings}, but instead indicates that both \pythonils{int} and \pythonils{float} are acceptable values for a variable.\footnote{%
-Technically speaking, the type hint specification in PEP484~\cite{PEP484} allows all variables annotated with \pythonil{float} to also accept \pythonil{int} values in section \href{https://peps.python.org/pep-0484/\#the-numeric-tower}{The Numeric Tower}. %
+However, if the intention of the author wanted that the variable could hold either an \pythonil{int} or a \pythonil{float}, they could have annotated it with the \pgls{typeHint} \pythonil{int | float}.
+The \pythonil{|}\pythonIdx{\textbar!type hints} here is not the \inQuotes{bit-wise or} we learned back in \cref{sec:int:bitstrings}, but instead indicates that both \pythonils{int} and \pythonils{float} are acceptable values for a variable~\cite{PEP604}.\footnote{%
+Technically speaking, the \pgls{typeHint} specification in PEP484~\cite{PEP484} allows all variables annotated with \pythonil{float} to also accept \pythonil{int} values in section \href{https://peps.python.org/pep-0484/\#the-numeric-tower}{The Numeric Tower}. %
 Thus annotating the variable only with \pythonil{: float} would have been sufficient. %
 However, since \pythonil{int} is actually not a subclass of \pythonil{float} in \python, this can be confusing in some cases. %
 Writing \pythonil{int | float} gives me the opportunity to introduce the \pythonil{|}~operator {\dots} so this is how we do it.%
@@ -197,12 +198,12 @@ A side-effect of using this type is that, when writing this code, its author wou
 They would probably have used something like \pythonil{my_var} instead.
 Applying \mypy\ to this program yields the output \cref{exec:variables:variable_types_wrong_hints_2:mypy}, which indicates that everything is OK.
 
-Using type hints together with type checking would have prevented the problems in \cref{lst:variables:types_wrong} from the start.
+Using \pglspl{typeHint} together with type checking would have prevented the problems in \cref{lst:variables:types_wrong} from the start.
 Either, its author would have discovered the mistake of computing a \pythonil{float} value instead of an \pythonil{int}.
 Or they would have more clearly communicated their intention by marking the variable to either hold an \pythonil{int} or a \pythonil{float}.
-And this comes at no cost at all when executing the program, because type hints are only checked by programmers and tools, but not by the interpreter.
+And this comes at no cost at all when executing the program, because \pglspl{typeHint} are only checked by programmers and tools, but not by the interpreter.
 %
-\bestPractice{typeHints}{Always use type hints.}%
+\bestPractice{typeHints}{Always use \pglspl{typeHint}.}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{01_variables/variable_types_hints.py}{--args format}{variables:types_hints}{%
 A variant of \cref{lst:variables:types} which has been improved by adding type annotations.}%
@@ -210,7 +211,7 @@ A variant of \cref{lst:variables:types} which has been improved by adding type a
 \gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/mypy.sh 01_variables variable_types_hints.py}{variables:variable_types_hints:mypy}{%
 The results of static type checking with \mypy\ of the program given in \cref{lst:variables:types_hints}.}
 
-For the sake of completeness, let us also annotate \cref{lst:variables:types} with type hints as a small exercise.
+For the sake of completeness, let us also annotate \cref{lst:variables:types} with \pglspl{typeHint} as a small exercise.
 The variable \pythonil{int_var}, in which we want to store the integer value~\pythonil{8}, will be annotated with \pythonil{: int}.
 The variable \pythonil{float_var}, in which we want to store the floating point number~\pythonil{3.0}, will be annotated with \pythonil{: float}.
 The variable \pythonil{str_var}, in which we want to store the string~\pythonil{"float_var=3.0"}, will be annotated with \pythonil{: str}.
@@ -220,10 +221,10 @@ This produces \cref{lst:variables:types_hints}, which we can check with \mypy\ a
 
 It is very obvious at this point that including the type of the variable in the variable name is no needed.
 It is not helpful for any tool.
-If we want to convey our intention about the type to another programmer who may be reading our code, then type hints are a much better choice.
+If we want to convey our intention about the type to another programmer who may be reading our code, then \pglspl{typeHint} are a much better choice.
 Different from variable names, they also can be interpreted by type checkers.
 
-With type hints, we have brought the advantages of a statically typed programming language to \python.
+With \pglspl{typeHint}, we have brought the advantages of a statically typed programming language to \python.
 Since they are optional, a programmer can choose whether and where to use them.
 However, if you are a student attending one of my courses, consider them as mandatory.
 Their advantage is that they allow us to find many (though by far not all) logical errors.

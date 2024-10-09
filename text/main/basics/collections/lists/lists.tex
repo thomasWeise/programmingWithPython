@@ -19,7 +19,7 @@ A third example for using lists in \python: slicing, adding, and multiplying lis
 In \cref{lst:lists:lists_1}, we provide some first examples for using lists.
 A list can be defined by simply writing its contents, separated by~\pythonilIdx{,} inside square brackets~\pythonil{[...]}\pythonIdx{[\idxdots]}.
 \pythonil{["apple", "pear", "orange"]} creates a list with three elements, namely the strings \pythonil{"apple"}, \pythonil{"pear"}, and~\pythonil{"orange"}.
-If we want to store a list in a variable, then we can use the type hint~\pythonil{list[elementType]}\pythonIdx{list!type hint} where \pythonil{elementType} is to be replaced with the type of the list elements.
+If we want to store a list in a variable, then we can use the \pgls{typeHint}~\pythonil{list[elementType]}\pythonIdx{list!type hint} where \pythonil{elementType} is to be replaced with the type of the list elements~\cite{PEP585}.
 \pythonil{fruits: list[str] = ["apple", "pear", "orange"]} therefore creates the list \pythonil{fruits} with the contents listed above.
 It also tells any automated type checking tool and other programmers that we intent that only \pythonil{str} values should be stored inside the list.
 
@@ -159,7 +159,7 @@ The results of static type checking with \mypy\ of the program given in \cref{ls
 However, upon closer inspection, we discover some issues.
 In a first step, we would apply \mypy~(as~\cref{ut:mypy}) to check for problems with the types of variables.
 And indeed, \cref{exec:lists:lists_error:mypy} shows us \emph{three} errors!
-We defined \pythonil{my_list} as a list of strings by using the type hint \pythonil{list[str]}.
+We defined \pythonil{my_list} as a list of strings by using the \pgls{typeHint} \pythonil{list[str]}.
 However, we then set its value to be a list of three integer numbers (hence, three errors).
 As promised in the title of this section, we will also use another tool to analyze this program:~\ruff.
 
@@ -204,7 +204,7 @@ The corrected version of~\cref{lst:lists:lists_error}, taking into account the i
 %
 %
 In \cref{lst:lists:lists_fixed} we implement the three recommendations from the two tools.
-We change the type hint of the list to \pythonil{list[int]}, which solves the type confusion that \mypy\ discovered.
+We change the \pgls{typeHint} of the list to \pythonil{list[int]}, which solves the type confusion that \mypy\ discovered.
 We remove the useless copying of the list as \ruff\ recommended.
 Finally, we add a proper \pgls{docstring} at the top of the file, in which we even document the changes we applied.
 The output \cref{exec:lists:lists_fixed} of the new program remains the same.
@@ -228,7 +228,7 @@ The results of static type checking with \ruff\ of the program given in \cref{ls
 
 Well, this was only a two-line program.
 But ask yourself:
-Did you spot the incorrect type hint when you read the program?
+Did you spot the incorrect \pgls{typeHint} when you read the program?
 Did you see that we actually created a list and then copied it instead of using it directly?
 (The \pgls{docstring} I give you, no chance of seeing that as we did not mention it before.)
 Imagine that your job would be to work on a program with thousands of lines that was developed by a colleague.

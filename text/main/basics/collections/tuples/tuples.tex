@@ -18,7 +18,7 @@ Tuples are very similar to lists, with three differences:
 First, they are immutable.
 You cannot add, delete, or change the elements of a tuple.
 Second, on a semantic level, lists are intended to hold objects of the same type.
-The type hint~\pythonil{list[int]} indicates that we want something to be list of integer numbers.
+The \pgls{typeHint}~\pythonil{list[int]} indicates that we want something to be list of integer numbers.
 While the \python\ interpreter permits us to ignore this and still store arbitrary objects in that list, this would violate the idea behind lists.
 Tuples, on the other hand, are designed to contain elements of different types.
 Since they cannot be changed, it will always be clear which element of which type is at which location.
@@ -31,14 +31,14 @@ If you do not intent to change the sequence, use a tuple.}%
 \begin{sloppypar}%
 \Cref{lst:tuples:tuples_1} shows us some of the things we can do with tuples.
 We create a tuple \pythonil{fruits} to hold three strings.
-The proper type hint for this is \pythonil{tuple[str, str, str]}\pythonIdx{tuple!type hint}.
+The proper \pgls{typeHint} for this is \pythonil{tuple[str, str, str]}\pythonIdx{tuple!type hint}~\cite{PEP585}.
 The line \pythonil{fruits: tuple[str, str, str] = ("apple", "pear", "orange")} thus creates a tuple~\pythonil{fruits} which contains three strings, namely \pythonil{"apple"}, \pythonil{"pear"}, and~\pythonil{"orange"}
-We also annotated the variable with a type hint informing any static code analysis tool that we indeed intend to store three strings in the tuple.
+We also annotated the variable with a \pgls{typeHint} informing any static code analysis tool that we indeed intend to store three strings in the tuple.
 Notice that the tuple is defined using parentheses, whereas a list with the same content would have been defined using square brackets, e.g., as \pythonil{fruits: list[str] = ["apple", "pear", "orange"]}.%
 \end{sloppypar}%
 %
 \begin{sloppypar}%
-If we are not sure about the actual number of elements that we will put in a tuple but know that they are all of the same type, we can use the ellipsis~\pythonilIdx{...} in the type hint.
+If we are not sure about the actual number of elements that we will put in a tuple but know that they are all of the same type, we can use the ellipsis~\pythonilIdx{...} in the \pgls{typeHint}.
 \pythonil{tuple[str, ...]} denotes a tuple that can receive an arbitrary amount of strings.\pythonIdx{tuple!type hint!...}
 The line \pythonil{veggies: tuple[str, ...] = ("onion", "potato", "leek", "garlic")} is therefore correct and defined a tuple~\pythonil{veggies} consisting of four strings.%
 \end{sloppypar}%
@@ -57,7 +57,7 @@ The \pythonilIdx{index}\pythonIdx{tuple!index}, too, is available and \pythonil{
 %
 \begin{sloppypar}%
 In \cref{lst:tuples:tuples_2} we explore tuples containing elements of multiple types.
-The type hint \pythonil{tuple[str, int, float]} states that we want to define a tuple where the first element is a string, the second element is an integer number, and the third element is a floating point number.
+The \pgls{typeHint} \pythonil{tuple[str, int, float]} states that we want to define a tuple where the first element is a string, the second element is an integer number, and the third element is a floating point number.
 The line \pythonil{mixed: tuple[str, int, float] = ("apple", 12, 1e25)} stores such a tuple in the variable~\pythonil{mixed}.
 The first element of the tuple is the string~\pythonil{"apple"}.
 The second element is the integer~\pythonil{12} and the third element is the floating point number~\pythonil{1e25}, i.e.,~$10^{25}$.
@@ -66,11 +66,11 @@ With the line \pythonil{other: tuple[str, int, float] = ("pear", 1, 1.2)} we cre
 %
 \begin{sloppypar}%
 We now want to create a list of such tuples.
-This list should, of course, also be annotated with the proper type hint.
+This list should, of course, also be annotated with the proper \pgls{typeHint}.
 This is easy:
-The type hint for our kind of tuples is \pythonil{tuple[str, int, float]}.
-The type hint for a list is \pythonil{list[elementType]}, where \pythonil{elementType} is the type of the elements.
-If we want to create a list containing tuples of our kind, then the proper type hint would be \pythonil{list[tuple[str, int, float]]}.
+The \pgls{typeHint} for our kind of tuples is \pythonil{tuple[str, int, float]}.
+The \pgls{typeHint} for a list is \pythonil{list[elementType]}, where \pythonil{elementType} is the type of the elements.
+If we want to create a list containing tuples of our kind, then the proper \pgls{typeHint} would be \pythonil{list[tuple[str, int, float]]}.
 Having realized this, we can now create the list~\pythonil{tuples}.
 We use the square bracket syntax for this.
 As first element, we put the tuple stored in the variable~\pythonil{mixed}.

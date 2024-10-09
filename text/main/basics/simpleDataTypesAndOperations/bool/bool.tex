@@ -23,7 +23,7 @@ If we compare two numbers, the result is either \pythonilIdx{True}, if the compa
 \begin{itemize}%
 %
 \item equal: $a = b$ corresponds to \pythonil{a == b}\pythonIdx{==},%
-\item unequal: $a \neq b$ corresponds to \pythonil{a != b}\pythonIdx{!=},%
+\item unequal: $a \neq b$ corresponds to \pythonil{a != b}\pythonIdx{"!=},%
 \item less-than: $a < b$ corresponds to \pythonil{a < b}\pythonIdx{<},%
 \item less-than or equal: $a \leq b$ corresponds to \pythonil{a <= b}\pythonIdx{<=},%
 \item greater-than: $a > b$ corresponds to \pythonil{a > b}\pythonIdx{>}, and%
@@ -32,7 +32,7 @@ If we compare two numbers, the result is either \pythonilIdx{True}, if the compa
 \end{itemize}%
 %
 How to use these operators is illustrated in \cref{fig:boolComparisons}.
-It shows that \pythonil{6 == 6}\pythonIdx{==} yields \pythonilIdx{True}, while \pythonil{6 != 6}\pythonIdx{!=} yields \pythonilIdx{False}.
+It shows that \pythonil{6 == 6}\pythonIdx{==} yields \pythonilIdx{True}, while \pythonil{6 != 6}\pythonIdx{"!=} yields \pythonilIdx{False}.
 The expression \pythonil{6 > 6}\pythonIdx{>} gives us \pythonilIdx{False}, but \pythonil{6 >= 6}\pythonIdx{>=} is \pythonilIdx{True}.
 \pythonil{6 < 6}\pythonIdx{<} is also \pythonilIdx{False} while \pythonil{6 <= 6} is, of course, \pythonilIdx{True}.
 While \pythonil{5 > 6}\pythonIdx{>} is not \pythonilIdx{True}, \pythonil{6 > 5}\pythonIdx{>} is.
@@ -48,7 +48,7 @@ The result of the expression \pythonil{5 == 5} is a \pythonilIdx{bool} as well.
 
 When talking about comparisons, there is one important, counter-intuitive exception to recall:
 The \pythonilIdx{nan}\pythonIdx{Not a Number} floating point value\pythonIdx{float} from \cref{sec:float:special}.
-In \cref{fig:floatMathInConsoleNaN}, we learned that \pythonil{nan == nan}\pythonIdx{==} is \pythonilIdx{False} and \pythonil{nan != nan}\pythonIdx{!=} is \pythonilIdx{True}.
+In \cref{fig:floatMathInConsoleNaN}, we learned that \pythonil{nan == nan}\pythonIdx{==} is \pythonilIdx{False} and \pythonil{nan != nan}\pythonIdx{"!=} is \pythonilIdx{True}.
 This is the only primitive value (to my knowledge) which is not equal to itself.%
 \endhsection%
 %

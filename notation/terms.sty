@@ -45,12 +45,12 @@ See \cref{sec:howFloatingPointNumbersWork}.%
 %
 %
 \newglossaryentry{fstring}{%
-name={f-string},%
-plural={f-strings},%
+name={f\nobreakdashes-string},%
+plural={f\nobreakdashes-strings},%
 sort={f-string},
 description={%
 is a special string in \python, which delimited by \pythonil{f"..."}\pythonIdx{f\textquotedbl\idxdots\textquotedbl} which can contain expressions in curly braces like \pythonil{f"a\{6-1\}b"} that are then turned to text via \pgls{strinterpolation}, which turns the string to~\pythonil{"a5b"}. %
-f\nobreakdash-strings are discussed in \cref{sec:fstrings}.%
+f\nobreakdashes-strings are discussed in \cref{sec:fstrings}.%
 }%
 }%
 %
@@ -178,6 +178,22 @@ Under \ubuntu\ \linux, \ubuntuTerminal\ opens a terminal, which then runs a \bas
 }%
 %
 %
+\newglossaryentry{typeHint}{%
+name={type hint},%
+plural={type hints},%
+description={%
+are annotations that help programmers and static code analysis tools such as \mypy\ to better understand what type a variable or function parameter is supposed to be~\cite{PEP484,PEP482}. %
+\python\ is a dynamically typed programming language where you do not need to specify the type of, e.g., a variable. %
+This creates problems for code analysis, both automated as well as manual: %
+For example, it may not always be clear whether a variable or function parameter should be an integer or floating point number. %
+The annotations allow us to explicitly state which type is expected. %
+They are \emph{ignored} during the program execution. %
+They are a basically a piece of documentation. %
+See \cref{bp:typeHints,sec:varTypeHints}.%
+}%
+}%
+%
+%
 \newglossaryentry{unicode}{%
 name={Unicode},%
 description={%
@@ -195,6 +211,16 @@ description={%
 A \acrfull{VCS} is a software which allows you to manage and preserve the historical development of your program code~\cite{T2024BGAGVCPMATFTND}. %
 A distributed \gls{VCS} allows multiple users to work on the same code and upload their changes to the server, which then preserves the change history.
 The most popular distributed \gls{VCS} is \gls{git}.%
+}%
+}%
+%
+%
+\newglossaryentry{xAxis}{%
+name={\ensuremath{x}\nobreakdashes-axis},%
+plural={\ensuremath{x}\nobreakdashes-axes},%
+sort={x-axis},
+description={%
+The \ensuremath{x}\nobreakdashes-axis is the horizontal axis of a two-dimensional coordinate system, often referred to abscissa.%
 }%
 }%
 %

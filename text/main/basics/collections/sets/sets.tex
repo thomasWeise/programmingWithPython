@@ -52,9 +52,9 @@ If we have more than just very few elements and/or need to perform set operation
 \begin{sloppypar}%
 In \cref{lst:sets:sets_1}, we provide a first example for creating and working with sets.
 Sets can be created by using curly braces, i.e, \pythonil{\{...\}}\pythonIdx{\textbraceleft\idxdots\textbraceright!set}.
-They can be type-hinted using the notation \pythonil{set[elementType]}\pythonIdx{set!type hint} where \pythonil{elementType} is the type of elements to be stored in the set.
+They can be type-hinted using the notation \pythonil{set[elementType]}\pythonIdx{set!type hint} where \pythonil{elementType} is the type of elements to be stored in the set~\cite{PEP585}.
 The line \pythonil{upper: set[str] = \{"A", "G", "B", "T", "V"\}} creates the variable \pythonil{upper}, which points to a set of the five uppercase latin characters~\pythonil{"A"}, \pythonil{"G"}, \pythonil{"B"}, \pythonil{"T"}, and~\pythonil{"V"}.
-The type hint~\pythonil{set[str]} states that this is a set that shall contain only strings.%
+The \pgls{typeHint}~\pythonil{set[str]} states that this is a set that shall contain only strings.%
 \end{sloppypar}%
 %
 With the method~\pythonilIdx{add}\pythonIdx{set!add}, we can add new elements to a set.
@@ -71,7 +71,7 @@ However, \pythonil{"W"} appears twice and hence, is only added once.
 %
 We can also create a set by passing a sequence into the constructor~\pythonilIdx{set}.
 To demonstrate this, we first create the tuple~\pythonil{lower_tuple} to hold the lowercase characters \pythonil{("b", "i", "j", "c", "t", "i")}.
-The command \pythonil{lower: set[str] = set(lower_tuple)} creates the set \pythonil{lower}, type hints it as set of strings, and lets it contain all the elements of~\pythonil{lower_tuple}.
+The command \pythonil{lower: set[str] = set(lower_tuple)} creates the set \pythonil{lower}, \pglspl{typeHint} it as set of strings, and lets it contain all the elements of~\pythonil{lower_tuple}.
 \pythonil{lower_tuple} contains the letter \pythonil{"i"} twice, but it will appear only once in the set that we have created.
 Notice: Just calling \pythonil{set()} without argument (or with an empty collection inside) creates an empty set\pythonIdx{set!empty}.
 We can delete an element of a set using the \pythonilIdx{remove}\pythonIdx{set!remove} function:

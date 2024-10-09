@@ -180,7 +180,7 @@ We use this syntax to classify a person's current phase of life by their age in 
 First, we define the \pythonil{age} as an integer variable and pick a value, say~42.
 We want to fill a string in the variable \pythonil{phase} that describes the current phase of life of that person.
 Initially, nothing is filled in, so we set \pythonil{phase = None}.
-(We used the type hint \pythonil{str | None} to specify that the variable can either be a string or \pythonil{None}.)
+(We used the \pgls{typeHint} \pythonil{str | None} to specify that the variable can either be a string or \pythonil{None}~\cite{PEP604}.)
 Anyway, we start with the first conditional and write \pythonil{if age <= 3}.
 If this evaluates to \pythonilIdx{True}, we want to set \pythonil{phase = "infancy"}, meaning that the person is a child in the earliest phase of life.
 If this is \pythonilIdx{True}, the complete nested \pythonil{if...elif...else} block ends and no other conditions are checked.

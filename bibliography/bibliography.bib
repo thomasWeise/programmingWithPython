@@ -91,6 +91,7 @@
 @string { a_dutka_jacques = "Jacques Dutka" }
 @string { a_editors_of_encyclopaedia_britannica = "The Editors of Encyclopaedia Britannica" }
 @string { a_eglen_stephen_j = "Stephen J.\ Eglen" }
+@string { a_epperson_james_f = "James F.\ Epperson" }
 @string { a_euclid = "{{Euclid of Alexandria}~{(\ensuremath{E{\acute\upsilon}\kappa\lambda\varepsilon{\acute\iota}\delta\eta\varsigma})}}" }
 @string { a_euler_leonhard = "Leonhard Euler" }
 @string { a_fang_lu = "Lu Fang" }
@@ -190,6 +191,7 @@
 @string { a_maxwell_aaron = "Aaron Maxwell" }
 @string { a_mayorov_nikolay = "Nikolay Mayorov" }
 @string { a_mcintosh_shane = "Shane McIntosh" }
+@string { a_mendoza_mark = "Mark Mendoza" }
 @string { a_michel_vincent = "Vincent Michel" }
 @string { a_millman_jarrod_k = "K.\ Jarrod Millman" }
 @string { a_mirjalili_vahid = "Vahid Mirjalili" }
@@ -197,6 +199,7 @@
 @string { a_moore_eric_w = "Eric W.\ Moore" }
 @string { a_moore_sherry = "Sherry Moore" }
 @string { a_morris_sidney_a = "Sidney A.\ Morris" }
+@string { a_moss_maggie = "Maggie Moss" }
 @string { a_murray_derek_gordon = "Derek Gordon Murray" }
 @string { a_naik_ganesh = "Ganesh Naik" }
 @string { a_nakano_koji = "Koji Nakano" }
@@ -226,6 +229,7 @@
 @string { a_polat_ilhan = "Ilhan Polat" }
 @string { a_pollard_tom_j = "Tom J.\ Pollard" }
 @string { a_pomerance_carl = "Carl Pomerance" }
+@string { a_prados_philippe = "Philippe PRADOS" }
 @string { a_press_william_h = "William H.\ Press" }
 @string { a_prettenhofer_peter = "Peter Prettenhofer" }
 @string { a_pylint_contributors = "{{Pylint Contributors}}" }
@@ -451,6 +455,7 @@
 @string { p_university_of_washington = "{University of Washington}" }
 @string { p_usas = "{United States of America Standards Institute~{(USAS)}}" }
 @string { p_usenix = "{{USENIX} Association}" }
+@string { p_wiley = "{Wiley}" }
 @string { p_wiley_and_sons_ltd = "{John Wiley and Sons Ltd.}" }
 @string { p_wolfram_research = "{Wolfram Research, Inc.}" }
 
@@ -518,6 +523,7 @@
 @string { pa_university_of_washington = l_usa_seattle }
 @string { pa_usas = l_usa_new_york }
 @string { pa_usenix = l_usa_berkeley }
+@string { pa_wiley = l_usa_hoboken }
 @string { pa_wiley_and_sons_ltd = l_uk_chichester }
 @string { pa_wolfram_research = l_usa_champaign }
 
@@ -1105,6 +1111,15 @@
  addendum = {Translation of~\cite{E1737DFCD}.},
 }
 
+@book{E2013AITNMAA,
+ author = a_epperson_james_f,
+ title = {An Introduction to Numerical Methods and Analysis},
+ edition = {2},
+ date = {2013-10},
+ publisher = p_wiley_and_sons_ltd,
+ isbn = {9781118367599},
+}
+
 @book{EHF2008EEOGTGOJLH11FEEEELIEILHIATBG11EAPWMETBFR,
  title = {Euclid's Elements of Geometry~(\ensuremath{\Sigma\tau{o}\iota\chi\varepsilon{\tilde{\iota}}\alpha}). The Greek Text of J.L.~Heiberg~(1883-1885) from Euclidis Elementa, Edidit et Latine Interpretatus est I.L.~Heiberg in Aedibus } #  p_teubner_b_g # {i, 1883-1885. Edited, and provided with a modern English translation, by } # a_fitzpatrick_richard,
  author = a_euclid,
@@ -1560,6 +1575,17 @@
  urldate = {2024-07-27},
 }
 
+@techreport{PEP482,
+ author = a_langa_lukasz,
+ title = {Literature Overview for Type Hints},
+ number = {482},
+ xdata = {rep_pep},
+ date = {2015-01-08},
+ url = {https://peps.python.org/pep-0482},
+ urldate = {2024-10-09},
+}
+
+
 @techreport{PEP484,
  title = {Type Hints},
  author = a_van_rossum_guido # and # a_langa_lukasz,
@@ -1588,6 +1614,36 @@
  date = {2016-02-10},
  url = {https://peps.python.org/pep-0515},
  urldate = {2024-09-23},
+}
+
+@techreport{PEP585,
+ author = a_langa_lukasz,
+ title = {Type Hinting Generics In Standard Collections},
+ xdata = {rep_pep},
+ number = {585},
+ date = {2019-03-03},
+ url = {https://peps.python.org/pep-0585},
+ urldate = {2024-10-09},
+}
+
+@techreport{PEP604,
+ author = a_prados_philippe # and # a_moss_maggie,
+ title = {Allow Writing Union Types as \pythonil{X | Y}},
+ xdata = {rep_pep},
+ number = {604},
+ date = {2019-08-28},
+ url = {https://peps.python.org/pep-0604},
+ urldate = {2024-10-09},
+}
+
+@techreport{PEP612,
+ author = a_mendoza_mark,
+ title = {Parameter Specification Variables},
+ xdata = {rep_pep},
+ number = {612},
+ date = {2019-12-18/2020-07-13},
+ url = {https://peps.python.org/pep-0612},
+ urldate = {2024-10-09},
 }
 
 @techreport{PEP635,
@@ -1700,6 +1756,13 @@
  date = {2023},
 }
 
+@inbook{PSF2024ACO,
+ title = {Annotating Callable Objects},
+ xdata = {PSF2024TPSL},
+ url = {https://docs.python.org/3/library/typing.html#annotating-callables},
+ urldate = {2024-10-09},
+}
+
 @inbook{PSF2024BIT,
  title = {Built-in Types},
  xdata = {PSF2024TPSL},
@@ -1743,6 +1806,14 @@
  crossref = {PSF2024P3D},
  url = {https://docs.python.org/3/installing},
  urldate = {2024-08-17},
+}
+
+@inbook{PSF2024L,
+ title = {Lambda},
+ chapter = {6.14.},
+ xdata = {PSF2024TPLR},
+ url = {https://docs.python.org/3/reference/expressions.html#lambda},
+ urldate = {2024-10-09},
 }
 
 @inbook{PSF2024NTIFC,

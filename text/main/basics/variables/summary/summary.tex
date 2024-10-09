@@ -22,10 +22,10 @@ These programs are applied to the program files, read them, and look for errors.
 
 These type checkers cannot guess whether the previous usage was wrong or our attempt to overwrite the value with one of a different type.
 Or maybe all is good and we intended from the beginning to allow the variable to store different kinds of objects.
-To allow us to create some clarity, type hints were introduced.
-We can annotate variables with type hints that, basically, specify the type of objects we want to be stored in the variables.
+To allow us to create some clarity, \pglspl{typeHint} were introduced.
+We can annotate variables with \pglspl{typeHint} that, basically, specify the type of objects we want to be stored in the variables.
 This gives the dynamically typed \python\ language the same expressiveness of statically typed languages like \pgls{Java}.
-The \python\ interpreter does not care about this and, again, happily ignores all such type hints and obeys all of our commands.
+The \python\ interpreter does not care about this and, again, happily ignores all such \pglspl{typeHint} and obeys all of our commands.
 Static type checking tools, like \mypy, however, now can see our intend and provide better error messages when they detect an issue.
 
 As final topic in this section, we tackled the issue of equality versus identity.
