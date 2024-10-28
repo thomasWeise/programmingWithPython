@@ -1,0 +1,13 @@
+\hsection{Exceptions}%
+%
+So far, we have mainly focused on writing correct code.
+Code that is free of errors.
+At some points, however, we have come into contact with errors that may arise regardless of whether our code is correct or not.
+Back in \cref{sec:float:special}, we saw that trying to compute something like \pythonil{(10 ** 400) * 1.0} will yield an \pythonilIdx{OverflowError}, as the integer~$10^{400}$ is too large to convert it to a \pythonil{float} during the multiplication with~\pythonil{1.0}.
+Trying to access a character of a string at an index greater than or equal to the length of the string will lead to an~\pythonilIdx{IndexError}, as we saw in \cref{sec:strBasicOperations}.
+The attempt to modify an element of a \pythonil{tuple} is rewarded with a \pythonilIdx{TypeError} in \cref{sec:tuples}.
+Clearly, some of these errors may result from programming mistakes.
+But they could just as well result from invalid data being entered in the input of the program.
+%
+\endhsection%
+%
