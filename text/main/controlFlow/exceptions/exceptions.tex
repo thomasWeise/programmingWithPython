@@ -263,11 +263,11 @@ In this block, we simply print the error.
 After the block, we print \pythonil{"The program is now finished."}.
 This code is executed only if no uncaught \pythonilIdx{Exception} has left the \pythonil{try}-\pythonil{except} block.
 The output of the program given in \cref{exec:exceptions:try_except_str_index} shows that this is indeed the case:
-We first get the results of the successfull search for \pythonil{"Hello"}, followed by the output for the failed search.
+We first get the results of the successful search for \pythonil{"Hello"}, followed by the output for the failed search.
 The last line then is \textil{The program is now finished.}
 
 \gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{06_exceptions}{try_multi_except.py}{--args format}{exceptions:try_multi_except}{%
-The handling of multiple errors, namely \pythonilIdx{DivisionByZero} and \pythonilIdx{ArithmeticError}, as well as what happens if a variable remains unassigned due to an error (a \pythonilIdx{NameError} is raised).}%
+The handling of multiple errors, namely \pythonilIdx{ZeroDivisionError} and \pythonilIdx{ArithmeticError}, as well as what happens if a variable remains unassigned due to an error (a \pythonilIdx{NameError} is raised).}%
 %
 In \cref{lst:exceptions:try_multi_except}, we revisit our new \pythonil{sqrt} function.
 This function will \pythonilIdx{raise} an \pythonilIdx{ArithmeticError} if its argument is non-finite or negative.
@@ -275,15 +275,15 @@ This time, we want to compute~$\sqrt{\frac{1}{0}}$ and thus aim to store the res
 We first declare the variable as a \pythonil{float}.
 Then, in a \pythonilIdx{try}-\pythonilIdx{except} block, we perform the actual computation: \pythonil{sqrt_of_1_div_0 = sqrt(1 / 0)}.
 Knowing that \pythonil{sqrt} might raise an \pythonilIdx{ArithmeticError}, we provide a corresponding \pythonilIdx{except} block.
-However, we also know that \pythonil{1 / 0} looks a bit dodgy, as we also try to intercept a potential \pythonilIdx{DivisionByZero} error.
+However, we also know that \pythonil{1 / 0} looks a bit dodgy, as we also try to intercept a potential \pythonilIdx{ZeroDivisionError} error.
 As you can see, we can have two independent \pythonilIdx{except} clauses.
 
 So, which one will be executed?
 Certainly, $\frac{1}{0}$ is not finite, so \pythonil{sqrt} will raise an \pythonilIdx{Exception}.
-Then again, $\frac{1}{0}$ cannot be computed at all, so maybe we get a \pythonilIdx{DivisionByZero} error instead?
-We find that the \pythonilIdx{except} block for \pythonilIdx{DivisionByZero} is executed.
+Then again, $\frac{1}{0}$ cannot be computed at all, so maybe we get a \pythonilIdx{ZeroDivisionError} error instead?
+We find that the \pythonilIdx{except} block for \pythonilIdx{ZeroDivisionError} is executed.
 The reason is that in order to invoke \pythonil{sqrt(1 / 0)}, the \python\ interpreter must first compute the result of~\pythonil{1 / 0}.
-This computation raises \pythonilIdx{DivisionByZero} and \pythonil{sqrt} is never called.
+This computation raises \pythonilIdx{ZeroDivisionError} and \pythonil{sqrt} is never called.
 
 This leads us to the question:
 If \pythonil{sqrt} is never called, then what will be assigned to \pythonil{sqrt_of_1_div_0}?
