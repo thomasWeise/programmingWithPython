@@ -153,6 +153,35 @@ See \cref{sec:howFloatingPointNumbersWork}.%
 }%
 }%
 %
+\newglossaryentry{stderrs}{%
+name={standard error stream},%
+description={%
+The \acrfull{stderr} is one of the three pre-defined streams of a console process (together with the \gls{stdins} and the \gls{stdouts})~\cite{J2024PTOGBSI8IS12ESSSSIS}. %
+It is the text stream to which the process writes information about errors and exceptions. %
+If an uncaught \pythonilIdx{Exception} is raised in \python\ and the program terminates, then this information is written to \pgls{stderr}. %
+If you run a program in a \pgls{terminal}, then the text that a process writes to its \pgls{stderr} appears in the console.%
+}%
+}%
+%
+\newglossaryentry{stdins}{%
+name={standard input stream},%
+description={%
+The \acrfull{stdin} is one of the three pre-defined streams of a console process (together with the \pgls{stdouts} and the \pgls{stderrs})~\cite{J2024PTOGBSI8IS12ESSSSIS}. %
+It is the text stream from which the process reads its input text, if any. %
+The \python\ instruction \pythonilIdx{input} reads from this stream. %
+If you run a program in a \pgls{terminal}, then the text that you type into the terminal while the process is running appears in this stream.%
+}%
+}%
+%
+\newglossaryentry{stdouts}{%
+name={standard output stream},%
+description={%
+The \acrfull{stdout} is one of the three pre-defined streams of a console process (together with the \pgls{stdins} and the \pgls{stderrs})~\cite{J2024PTOGBSI8IS12ESSSSIS}. %
+It is the text stream to which the process writes its normal output. %
+The \pythonilIdx{print} instruction of \python\ writes text to this stream. %
+If you run a program in a \pgls{terminal}, then the text that a process writes to its \pgls{stdout} appears in the console.%
+}%
+}%
 %
 \newglossaryentry{sudo}{%
 text={\texttt{sudo}},%
@@ -160,7 +189,7 @@ name={sudo},%
 sort={sudo},%
 description={%
 In order to perform administrative tasks such as installing new software under \linux, root (or ``super'') user privileges as needed~\cite{CN2020ULB}. %
-A normal user can execute a program in the \gls{terminal} as super user by pre-pending \bashil{sudo}, often referred to as ``super user do.'' %
+A normal user can execute a program in the \pgls{terminal} as super user by pre-pending \bashil{sudo}, often referred to as ``super user do.'' %
 This requires the root password.%
 }%
 }%
@@ -209,8 +238,8 @@ name={Version Control System},%
 plural={Version Control Systems},%
 description={%
 A \acrfull{VCS} is a software which allows you to manage and preserve the historical development of your program code~\cite{T2024BGAGVCPMATFTND}. %
-A distributed \gls{VCS} allows multiple users to work on the same code and upload their changes to the server, which then preserves the change history.
-The most popular distributed \gls{VCS} is \gls{git}.%
+A distributed \pgls{VCS} allows multiple users to work on the same code and upload their changes to the server, which then preserves the change history.
+The most popular distributed \pgls{VCS} is \pgls{git}.%
 }%
 }%
 %

@@ -420,7 +420,8 @@ The output of the unit tests in \cref{lst:functions:test_my_math_2}: This time, 
 In order to fix this problem, we introduce the check \pythonil{if number <= 0.0} into our \pythonil{sqrt} function in \cref{lst:functions:test_my_math_2}.
 If this new conditional evaluates to \pythonil{True}, we return~\pythonil{0.0} directly.
 Now we do not consider the case that a negative number is passed into \pythonil{sqrt} at this point.
-Here, we would ideally \pythonilIdx{raise} an error by ourselves, but we will learn only later how to do that.
+Here, we would ideally \pythonilIdx{raise} an error by ourselves, but we will learn only later how to do that.\footnote{%
+We learn it in \cref{sec:exceptions} and there we will revisit our \pythonil{sqrt} function in \cref{lst:exceptions:sqrt_raise}, too.}
 
 We apply the same tests to the new version of the \pythonil{sqrt} function in \cref{lst:functions:test_my_math_2}.
 The output of the test case, provided in \cref{exec:functions:test_my_math_2:pytest}, now indicates another error:

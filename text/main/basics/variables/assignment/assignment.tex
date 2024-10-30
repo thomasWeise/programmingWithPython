@@ -116,7 +116,7 @@ As \cref{fig:variable:assignment1} illustrates, the value~\pythonil{1} will now 
 \begin{sloppypar}%
 We can use \pythonil{int_var} just like any other value.
 For example, we can compute \pythonil{2 + int_var} and pass the result to the \pythonilIdx{print} function.
-This will then print \pythonil{3} to the standard output of our program.
+This will then print \pythonil{3} to the \pgls{stdout} of our program.
 We can also use \pythonil{int_var} in \pglspl{fstring}\pythonIdx{f-string}\pythonIdx{str!f} about which we leared back in \cref{sec:fstrings}.
 \pythonil{f"int_var has value \{int_var\}."} will render to \pythonil{"int_var has value 1."}.%
 \end{sloppypar}%
@@ -128,7 +128,7 @@ As sketched in \cref{fig:variable:assignment2}, this will update \pythonil{int_v
 In this computation, the current (old) value of \pythonil{int_var} is used.
 It therefore corresponds to computing \pythonil{(3 * 1) + 1}, which equals~\pythonil{4}.
 This value is stored somewhere in memory and \pythonil{int_var} points to it.
-Doing \pythonil{print(f"int_var is now \{int_var\}.")} will print \textil{int_var is now 4.} to the standard output.
+Doing \pythonil{print(f"int_var is now \{int_var\}.")} will print \textil{int_var is now 4.} to the \pgls{stdout}.
 The value \pythonil{1} is now no longer referenced.
 Eventually, the \python\ interpreter could free the corresponding memory to use it for something else.
 
@@ -145,7 +145,7 @@ The result is \pythonil{3.5 * 4}, i.e., \pythonil{14.0}, \pythonilIdx{float} val
 Finally, \pythonil{print(f"new_var = \{new_var\}." )} then prints \textil{new_var = 14.0.}.%
 \end{sloppypar}%
 %
-The standard output of the complete program is given in \cref{exec:variables:assignment}.
+The \acrfull{stdout} of the complete program is given in \cref{exec:variables:assignment}.
 For your convenience, we also showed the results when executing the program in \pycharm\ or the \ubuntu\ \pgls{terminal} in \cref{fig:variables:assignment}.
 They are obviously identical.
 
@@ -279,10 +279,10 @@ We begin by setting the number of edges \pythonil{e = 6} and the side length to 
 In each iteration of the approximation, we simply set \pythonil{e *= 2}\pythonIdx{*=}, which is equivalent to \pythonil{e = e * 2}, to double the number of edges.
 We compute \pythonil{s = sqrt(2 - sqrt(4 - (s ** 2)))}\pythonIdx{sqrt} having imported\pythonIdx{import} the \pythonilIdx{sqrt} function from the \pythonilIdx{math} module.
 We print the approximated value of~\numberPi\ as \pythonil{e * s / 2}.
-Notice how elegantly we use the unicode characters~$\pi$ and~$\approx$ via the escapes~\pythonil{\\u03c0} and \pythonil{\\u2248}\pythonIdx{\textbackslash{u}}, respectively, from back in~\cref{sec:unicodeChars} (and how nicely it indeed prints the greek character~$\pi$ in the standard output in \cref{exec:variables:pi_liu_hui}).
+Notice how elegantly we use the unicode characters~$\pi$ and~$\approx$ via the escapes~\pythonil{\\u03c0} and \pythonil{\\u2248}\pythonIdx{\textbackslash{u}}, respectively, from back in~\cref{sec:unicodeChars} (and how nicely it indeed prints the greek character~$\pi$ in the \pgls{stdout} in \cref{exec:variables:pi_liu_hui}).
 Either way, since \cref{eq:liuhui:sidelength,eq:liuhui:approx} are always the same, we can simply copy-paste the lines of code for updating~\pythonil{s}, \pythonil{e}, and printing the approximated value of~\numberPi\ several times.
 
-\Cref{exec:variables:pi_liu_hui} shows the standard output produced by this program.
+\Cref{exec:variables:pi_liu_hui} shows the \acrfull{stdout} produced by this program.
 Indeed, each new approximation comes closer to~\numberPi.
 For 192~edges, we get the approximation~\pythonil{3.1414524722853443}.
 Given that the constant~\pythonilIdx{pi} from the \pythonilIdx{math} module is \pythonil{3.141592653589793}, we find that the first four digits are correct and that the number is only off by only 0.0045\%!
