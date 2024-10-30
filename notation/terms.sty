@@ -166,6 +166,18 @@ See \cref{sec:howFloatingPointNumbersWork}.%
 }%
 }%
 %
+%
+\newglossaryentry{stackTrace}{%
+name={stack trace},%
+description={%
+A stack trace gives information the way in which one function invoked another. %
+The term comes from the fact that the data needed to implement function calls is stored in a stack data structure~\cite{K1997FA}. %
+The data for the most recently invoked function is on top, the data of the function that called is right below, the data of the function that called that one comes next, and so on. %
+Printing a stack trace can be very helpful when trying to find out where an \pythonilIdx{Exception} occurred, see, for instance, \cref{sec:exceptions,lst:exceptions:use_sqrt_raise}.%
+}%
+}%
+%
+%
 \newglossaryentry{stderrs}{%
 name={standard error stream},%
 description={%

@@ -168,7 +168,7 @@ However, the latter three numbers, \pythonilIdx{inf}, \pythonilIdx{nan}, and \py
 
 We collect the output of the program in \cref{exec:exceptions:use_sqrt_raise}.
 As can be seen, for \pythonil{0.0}, \pythonil{1.0}, \pythonil{2.0}, \pythonil{4.0}, and \pythonil{10.0}, the results are printed as anticipated.
-However, when the \pythonilIdx{for}~loop reaches \pythonilIdx{inf}, the program is terminated an the so-called \emph{stack trace} is written to the output.
+However, when the \pythonilIdx{for}~loop reaches \pythonilIdx{inf}, the program is terminated an the so-called \pgls{stackTrace} is written to the output.
 
 It begins with the line \textil{Traceback (most recent call last):}.
 In the first line following this text, the source code file and the index of the line in that file where the \pythonilIdx{Exception} was originally raised are printed.
@@ -177,22 +177,22 @@ Indeed, the following line of text identifies that instruction in \cref{lst:exce
 Below that, we get to see the context of our \pythonil{sqrt} function:
 First, the path to its module is given (ending in \textil{06_exceptions/sqrt_raise.py}) and it is pointed out that the \pythonilIdx{Exception} was raised in line~15.
 This line of code is then also given, and it indeed is the one starting with \pythonil{raise ArithmeticError}.
-The \emph{stack trace} therefore shows us exactly where the error happened and from where the code causing the error was called.%
+The \pgls{stackTrace} therefore shows us exactly where the error happened and from where the code causing the error was called.%
 %
 \begin{sloppypar}%
-After the stack trace, we can see information about the error printed that we passed in:
+After the \pgls{stackTrace}, we can see information about the error printed that we passed in:
 \textil{ArithmeticError: sqrt(inf) is not permitted.}
 We made this message by ourselves using an \pgls{fstring} when raising the \pythonilIdx{Exception}.
 We did this so that it tells the user that \pythonil{sqrt} was called with the argument \pythonil{inf} that we did not permit.%
 \end{sloppypar}%
 %
 The above information allows us to pretty much identify the source of the problem.
-It shall be stated here that new programmers often ignore the stack trace.
+It shall be stated here that new programmers often ignore the \pgls{stackTrace}.
 They see that a program produces and error and then try to figure out why by looking at their code.
-They often do not read the stack trace or the error information below it.%
+They often do not read the \pgls{stackTrace} or the error information below it.%
 %
 \bestPractice{exceptionStackTrace}{%
-The stack trace and error information printed on the \python\ console in case of an uncaught \pythonilIdx{Exception} are essential information to identify the problem. %
+The \pgls{stackTrace} and error information printed on the \python\ console in case of an uncaught \pythonilIdx{Exception} are essential information to identify the problem. %
 They should \emph{always} be read and understood before trying to improve the code.%
 }%
 %
@@ -204,7 +204,7 @@ Indeed, the control flow has left the \pythonil{for}~loop and the process has be
 Terminating the process may seem rash, but it is not.
 If a programmer used our \pythonil{sqrt} function incorrectly, then this will force them to fix their error.
 If the input \pythonil{inf} was the result of corrupted data, another erroneous computation, or an input mistake by the user, then terminating the program prevented this error from propagating.
-For both scenarios, the stack trace and error output gives clear information about what went wrong and where.%
+For both scenarios, the \pgls{stackTrace} and error output gives clear information about what went wrong and where.%
 %
 \endhsection%
 %
@@ -296,7 +296,7 @@ The variable \pythonil{sqrt_of_1_div_0} never really received any value at all.
 Trying to access it will \pythonilIdx{raise} a \pythonilIdx{NameError}.
 While we did declare it, the \python\ interpreter does not know this variable yet, as it does not have a value.
 Our program will terminate, because the \pythonilIdx{NameError} is never caught anywhere.
-Instead, the stack trace and error information will be printed in \cref{exec:exceptions:try_multi_except}.%
+Instead, the \pgls{stackTrace} and error information will be printed in \cref{exec:exceptions:try_multi_except}.%
 %
 \bestPractice{noAssignAfterRaise}{%
 If an \pythonilIdx{Exception} is raised, be aware that the control flow will immediately leave the current block. %
