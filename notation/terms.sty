@@ -33,6 +33,19 @@ is another programming language, which is very successful in system programming 
 }%
 %
 %
+\newglossaryentry{exitCode}{%
+name={exit code},%
+description={%
+When a process terminates, it can return a single integer value (the exit status code) to indicate success or failure~\cite{J2024PTOGBSI8IS12EETAP}. %
+Per convention, an exit code of~0 means success. %
+Any non-zero exit code indicates an error. %
+Under \python, you can terminate the current process at any time by calling \pythonilIdx{exit} and optionally passing in the exit code that should be returned. %
+If \pythonilIdx{exit} is not explicitly called, then the interpreter will return an exit code of~0 once the process normally terminates.%
+If the process was terminated by an uncaught \pythonilIdx{Exception}, a non-zero exit code, usually~1, is returned.%
+}%
+}%
+%
+%
 \newglossaryentry{exponent}{%
 name={exponent},%
 description={%

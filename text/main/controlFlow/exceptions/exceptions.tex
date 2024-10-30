@@ -68,7 +68,7 @@ Raising an \pythonilIdx{Exception} means two things:%
 %
 \item The control flow immediately leaves the currently executed block of instructions as well as all calling blocks or functions.
 It jumps up in the call hierarchy until reaching code that handles the raised \pythonilIdx{Exception} is reached.
-If no such code exists, the current process is terminated with an exit code different from~\textil{0}.%
+If no such code exists, the current process is terminated with an \pgls{exitCode} different from~\textil{0}.%
 %
 \end{enumerate}%
 %
@@ -199,7 +199,7 @@ They should \emph{always} be read and understood before trying to improve the co
 In our original \pythonil{tuple} of inputs that we iteratively passed to \pythonil{sqrt}, the last three elements are \pythonilIdx{inf}, \pythonilIdx{nan}, and \pythonil{-1.0}.
 The call to \pythonil{sqrt} with \pythonil{inf} as argument was performed and failed.
 After that, no further output has been generated.
-Indeed, the control flow has left the \pythonil{for}~loop and the process has been terminated with exit code~1, as the output in \cref{exec:exceptions:use_sqrt_raise} shows.
+Indeed, the control flow has left the \pythonil{for}~loop and the process has been terminated with \pgls{exitCode}~1, as the output in \cref{exec:exceptions:use_sqrt_raise} shows.
 
 Terminating the process may seem rash, but it is not.
 If a programmer used our \pythonil{sqrt} function incorrectly, then this will force them to fix their error.

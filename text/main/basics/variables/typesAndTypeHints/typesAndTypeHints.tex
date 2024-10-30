@@ -108,8 +108,8 @@ We can now apply the tool to the program from \cref{lst:variables:types_wrong}.
 All we have to do is invoke it in the terminal, giving the program to be checked as argument as well as some additional parameters.
 In \cref{exec:variables:variable_types_wrong:mypy}, we invoke \bashil{mypy variable_types_wrong.py --no-strict-optional --check-untyped-defs}, where \textil{variable_types_wrong.py} is the (very fitting) name of the program to check.
 Indeed, \mypy\ tells us that something dodgy is going on in the fourth line of that program, i.e., \pythonil{int_var = int_var / 3}.
-It will fail with an exit code of~\bashil{1}.
-Programs usually return~\bashil{0} as exit code if everything went well and some non-zero value if something went wrong.
+It will fail with an \pgls{exitCode} of~\bashil{1}.
+Programs usually return~\bashil{0} as \pgls{exitCode} if everything went well and some non-zero value if something went wrong.
 And something went wrong, because \mypy\ found the error.%
 %
 \usefulTool{mypy}{%

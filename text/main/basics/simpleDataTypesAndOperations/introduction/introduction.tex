@@ -15,11 +15,11 @@ This parameter cannot just be anything.
 It must be a text.
 
 The command \pythonil{exit}, on the other hand, can either have no parameter or one parameter.
-If it receives one parameter, this parameter will be the exit code of the program.
+If it receives one parameter, this parameter will be the \pgls{exitCode} of the program.
 Here, \pythonil{0} indicates success.
 If no parameter is provided, this will be used as default value.
 We need to invoke \pythonil{exit} if we use the \python\ console in the \pgls{terminal} explicitly.
-If we just run a program, then after the last instruction of the program was executed, then the interpreter will also terminate with exit code~0.
+If we just run a program, then after the last instruction of the program was executed, then the interpreter will also terminate with \pgls{exitCode}~0.
 Indeed, when we executed our first program in \cref{sec:ourFirstProgram}, we saw exactly that happen in \cref{fig:firstProgram09programResult}.
 Different from the parameter of \pythonil{print}, which must be some text, the parameter of \pythonil{exit} needs to be a number.
 

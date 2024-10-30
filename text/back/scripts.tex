@@ -29,12 +29,12 @@ Now, in a real environment, a tool can either succeed or fail.
 A unit test executed with \pytest\ will fail and exit with a non-zero exit code if the test, well, fails.
 A static code analysis tool like \ruff\ will fail with a non-zero exit code if it discovers any issue with the code.
 However, our scripts invoking these tools will \emph{not} fail in such cases.
-They will collect the exit code of the tool they are invoking and print it.
+They will collect the \pgls{exitCode} of the tool they are invoking and print it.
 Then they will exit with exit code~0.
 This is necessary for our book building process, which invokes these scripts to construct the outputs of the examples.
-If any of them would fail with non-zero exit code, the book building would fail as well.
+If any of them would fail with non-zero \pgls{exitCode}, the book building would fail as well.
 However, to illustrate that the tools are useful, we must apply them to cases where they would fail.
-So for our book, it is necessary that the scripts just print the exit codes while still returning successfully.
+So for our book, it is necessary that the scripts just print the \pglspl{exitCode} while still returning successfully.
 For a real productive environment, this is usually not what we want:
 We apply the tools to source code precisely to get them to fail on error, because if nothing fails, we know that everything seems to be OK.
 In such a practical environment, you would thus not want to use \emph{our} scripts, but you could use the same comments that we use.
@@ -46,7 +46,7 @@ The script then composes the command for applying \mypy\ to the target file(s) i
 It then prints the command with a prepended~\expandafter\textil{\$}.
 Then, it executes it.
 \mypy\ will print its comments and messages to the standard output.
-Finally, the script shows the \mypy\ version and exit code in a brief success or failure message (with a prepended~\expandafter\textil{\#}).
+Finally, the script shows the \mypy\ version and \pgls{exitCode} in a brief success or failure message (with a prepended~\expandafter\textil{\#}).
 \Cref{exec:variables:variable_types_wrong_hints_1:mypy,exec:variables:variable_types_wrong_hints_2:mypy} are example outputs of this script.
 
 \Cref{lst:bash:ruff} works basically the same way, just for \ruff.
@@ -71,7 +71,7 @@ Of course, in practical scenarios, you would use a larger timeout, but within th
 Either way, the script executes the test cases, prints the results as well as potential errors.
 Notice that we select some options to make the output less verbose, because for this book, we do want listings that are not too long.
 In practical scenarios, you may use different options.
-Either way, the script also prints the command that was executed at the beginning and the \pytest\ version used and the program's exit code at the end of the output.
+Either way, the script also prints the command that was executed at the beginning and the \pytest\ version used and the \pgls{exitCode} of the process at the end of the output.
 \Cref{exec:functions:test_my_math:pytest,exec:functions:test_my_math_2:pytest,exec:functions:test_my_math_3:pytest} are examples for the output of \pytest.%
 %
 \endhsection%
