@@ -172,7 +172,9 @@ However, when the \pythonilIdx{for}~loop reaches \pythonilIdx{inf}, the program 
 
 It begins with the line \textil{Traceback (most recent call last):}.
 In the first line following this text, the source code file and the index of the line in that file where the \pythonilIdx{Exception} was originally raised are printed.
-The full path of the file may look a bit strange, since this book is compiled by a \github\ Action~\cite{C2024GA}, but at least the last part of the path, \textil{06_exceptions/use_sqrt_raise.py} clearly points out the calling program as the culprit \cref{lst:exceptions:use_sqrt_raise}.
+Notice that the actual path to the files will be different depending on where the source code of the examples is located.
+We replaced the variable part of the path with~\inQuotes{\{\dots\}}.
+The remaining part of the path, \textil{06_exceptions/use_sqrt_raise.py}, clearly points out the calling program as the culprit \cref{lst:exceptions:use_sqrt_raise}.
 Indeed, the following line of text identifies that instruction in \cref{lst:exceptions:use_sqrt_raise} that caused the error and even marks the offending function invocation by underlining it with \textil{{^}{^}{^}{^}{^}{^}{^}{^}{^}{^}{^}{^}}.
 Below that, we get to see the context of our \pythonil{sqrt} function:
 First, the path to its module is given (ending in \textil{06_exceptions/sqrt_raise.py}) and it is pointed out that the \pythonilIdx{Exception} was raised in line~15.

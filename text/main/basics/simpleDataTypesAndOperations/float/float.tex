@@ -365,7 +365,7 @@ But we can no longer convert it to a \pythonilIdx{float} by multiplying with~\py
 Trying to do that with a ten times larger number, i.e., computing \pythonil{17_976_931_348_623_157 * 10 ** 293 * 1.0} leads to an exception:
 The output is \pythonil{OverflowError: int too large to convert to float}\pythonIdx{OverflowError}.
 An exception terminates the current flow of execution and signals an error.
-We will learn later what exceptions actually are and how to handle them properly.
+Later in \cref{sec:exceptions}, we will learn what \pythonilsIdx{Exception} actually are and how to handle them properly.
 
 The important thing to realize is that an overflow of a \pythonilIdx{float} may either lead to the \pythonilIdx{inf} value or to an error that stops your computation from continuing.
 As another example, let us again import the natural logarithm function \pythonilIdx{log} and the Euler's constant~\pythonilIdx{e} from the \pythonilIdx{math} module by doing \pythonil{from math import e, log}\pythonIdx{from}\pythonIdx{math}\pythonIdx{import}.
