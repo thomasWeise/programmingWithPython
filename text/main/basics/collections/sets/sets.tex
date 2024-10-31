@@ -2,11 +2,11 @@
 \label{sec:sets}%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{sets_1.py}{--args format}{sets:sets_1}{%
-A first example for using sets in \python: creating, modifying, and converting sets. %
+A first example of using sets in \python: creating, modifying, and converting sets. %
 Since sets are unordered, printing them can yield a different result each time a program is executed (see \cref{bp:setsUnordered}).}%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{sets_2.py}{--args format}{sets:sets_2}{%
-A second example for using sets in \python: creating sets and set operations (as illustrated in \cref{fig:setOperations}). %
+A second example of using sets in \python: creating sets and set operations (as illustrated in \cref{fig:setOperations}). %
 Since sets are unordered, printing them can yield a different result each time a program is executed (see \cref{bp:setsUnordered}).}%
 %
 \begin{figure}%
@@ -50,7 +50,7 @@ Lists thus can be preferred if we either only have very few elements to check or
 If we have more than just very few elements and/or need to perform set operations such as those discussed in the following text, sets are the way to go.%
 %
 \begin{sloppypar}%
-In \cref{lst:sets:sets_1}, we provide a first example for creating and working with sets.
+In \cref{lst:sets:sets_1}, we provide a first example of creating and working with sets.
 Sets can be created by using curly braces, i.e, \pythonil{\{...\}}\pythonIdx{\textbraceleft\idxdots\textbraceright!set}.
 They can be type-hinted using the notation \pythonil{set[elementType]}\pythonIdx{set!type hint} where \pythonil{elementType} is the type of elements to be stored in the set~\cite{PEP585}.
 The line \pythonil{upper: set[str] = \{"A", "G", "B", "T", "V"\}} creates the variable \pythonil{upper}, which points to a set of the five uppercase latin characters~\pythonil{"A"}, \pythonil{"G"}, \pythonil{"B"}, \pythonil{"T"}, and~\pythonil{"V"}.

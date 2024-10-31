@@ -134,7 +134,7 @@ Then again, these values are incredibly close to the exact results.
 They are off by \emph{less than~$10^{-15}$} so for all practical concerns, they are close enough.
 Sometimes, we even get the accurate result, e.g., when computing $\ln(e^{10})$ by evaluating \pythonil{log(e ** 10)}\pythonIdx{log}, which results in~\pythonil{10.0}.
 
-As final example for floating point arithmetics, let us import the inverse trigonometric functions by doing \pythonil{from math import asin, acos, atan}\pythonIdx{math}\pythonIdx{asin}\pythonIdx{acos}\pythonIdx{atan}.
+As final example of floating point arithmetics, let us import the inverse trigonometric functions by doing \pythonil{from math import asin, acos, atan}\pythonIdx{math}\pythonIdx{asin}\pythonIdx{acos}\pythonIdx{atan}.
 Obviously, $\arcsin{\sin{0.925}}$ should be~$0.925$.
 Calculating \pythonil{asin(sin(0.925))}\pythonIdx{asin}\pythonIdx{sin} indeed yields~\pythonil{0.9250000000000002}.
 Due to the periodicity of the trigonometric functions, $\arccos{\cos{-0.3}}$ is~$0.3$ and \pythonil{acos(cos(-0.3))}\pythonIdx{acos}\pythonIdx{cos} results in~\pythonil{0.30000000000000016}.

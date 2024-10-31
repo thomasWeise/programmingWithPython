@@ -23,7 +23,7 @@ normal statement 2
 %
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{04_loops}{for_loop_range.py}{--args format}{loops:for_loop_range}{%
-An example for using the \pythonilIdx{for} loop over a \pythonilsIdx{range} of integer numbers.}%
+An example of using the \pythonilIdx{for} loop over a \pythonilsIdx{range} of integer numbers.}%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{04_loops}{for_loop_pi_liu_hui.py}{--args format}{loops:for_loop_pi_liu_hui}{%
 A variant of \cref{lst:variables:pi_liu_hui} which uses a \pythonilIdx{for} loop instead of five copies of the same instructions.}%
@@ -88,14 +88,14 @@ The outputs in \cref{exec:variables:pi_liu_hui,exec:loops:for_loop_pi_liu_hui} a
 \hsection{The \texttt{continue} and \texttt{break} Statements}%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{04_loops}{for_loop_continue_break.py}{--args format}{loops:for_loop_continue_break}{%
-An example for the \pythonilIdx{continue} and \pythonilIdx{break} statements in a \pythonilIdx{for} loop.}%
+An example of the \pythonilIdx{continue} and \pythonilIdx{break} statements in a \pythonilIdx{for} loop.}%
 %
 Loops often have complex bodies, maybe containing conditional statements or other loops.
 It is not an uncommon situation that, after performing some computations in the body of the loop, we already know that we can continue directly with the next iteration instead of executing the remainder of the loop body.
 Sometimes we also find that we can entirely stop with the loop and continue with whatever instructions come after it, even if we did not yet exhaust the sequence over which we are iterating.
 The former can be achieved using the \pythonilIdx{continue} and the latter with the \pythonilIdx{break} statement.
 
-An example for both statements is given in \cref{lst:loops:for_loop_continue_break}.
+An example of both statements is given in \cref{lst:loops:for_loop_continue_break}.
 Here, we iterate the variable~\pythonil{i} over the 15~values from~\pythonil{0} to~\pythonil{14}.
 In the loop body, we first create a string~\pythonil{s} with the current value of~\pythonil{i} via the \pgls{fstring} \pythonil{f"i is now \{i\}."}
 The very last instruction of the loop body, \pythonil{print(s)}\pythonIdx{print}, prints this string.
@@ -411,7 +411,7 @@ Do not use (un)equality comparisons of \pythonils{float} as loop termination cri
 There can always be inputs that cause endless oscillations between values or the appearance of \pythonilIdx{nan} values (see \cref{sec:float:special}).%
 }%
 %
-The only reason why we did it here is that it looks nice and is easy to read as a functional and yet brief example for a \pythonilIdx{while} loop.\footnote{%
+The only reason why we did it here is that it looks nice and is easy to read as a functional and yet brief example of a \pythonilIdx{while} loop.\footnote{%
 To enforce that no oscillation between two neighboring \pythonil{float} values could occur, one could use the condition \pythonil{abs(old_guess - guess) / max(old_guess, guess) >= 1e-15} instead. %
 This makes the loop stop when the relative difference between \pythonil{guess} and \pythonil{old_guess} becomes less than~$10^-{15}$.%
 }%

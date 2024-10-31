@@ -121,8 +121,9 @@ echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We will now perform runs of the tool chain
 watchFileContents=""
 oldWatchFileContents="old"
 cycle=0
+additional=1
 
-while [ "$watchFileContents" != "$oldWatchFileContents" ] ; do
+while (("$additional" >= 0))  ; do
   cycle=$((cycle+1))
   echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Now beginning build cycle $cycle."
 
@@ -238,9 +239,17 @@ while [ "$watchFileContents" != "$oldWatchFileContents" ] ; do
     echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Something odd is happening: We have performed $cycle cycles. That's too many. Let's quit."
     break
   fi
+
+  if [ "$watchFileContents" != "$oldWatchFileContents" ] ; then
+    echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Auxiliary file contents changed. We need more cycles."
+    additional=1
+  else
+    echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Auxiliary file contents did not change. We do $additional more cycle(s)."
+    additional=$(($additional-1))
+  fi
 done
 
-echo "$(date +'%0Y-%0m-%0d %0R:%0S'): The tool chain has been applied until nothing changed anymore. We now check for errors."
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): The tool chain has been applied until nothing changed anymore (after $cycle cycles). We now check for errors."
 
 latexWarningsCount=0
 latexWarningString=""

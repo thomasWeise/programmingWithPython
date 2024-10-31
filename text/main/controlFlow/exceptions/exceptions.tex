@@ -206,17 +206,20 @@ If a programmer used our \pythonil{sqrt} function incorrectly, then this will fo
 If the input \pythonil{inf} was the result of corrupted data, another erroneous computation, or an input mistake by the user, then terminating the program prevented this error from propagating.
 For both scenarios, the \pgls{stackTrace} and error output gives clear information about what went wrong and where.%
 %
+\FloatBarrier%
 \endhsection%
 %
 \hsection{Handling Exceptions}%
 %
 Of course, we do not want that all possible unexpected error conditions will immediately terminate our process.
 For example, maybe we programmed a program for painting a picture, the user painted a picture and wants to store it, but enters a wrong destination.
-It would be annoying if the program would immediately crash.%
+It would be annoying if the program would immediately crash.
+In this section, we discuss how errors can be handled.
+We use examples that are specifically constructed to cause certain errors to illustrate how we can deal with them.%
 %
 \hsection{The \texttt{try}\idxdots\texttt{except} Block}%
 %
-Therefore, the \pythonilIdx{try}\nobreakdashes-\pythonilIdx{except} clause exists.
+The \pythonilIdx{try}\nobreakdashes-\pythonilIdx{except} clause exists as primary approach to recover from errors.
 We place the code that may raise an \pythonilIdx{Exception} into an indented block that is prefixed by \pythonil{try:}.
 After this block, we write the handlers for specific exception types.
 For example, if we assume that a block could raise an \pythonilIdx{ArithmeticError}, we could write \pythonil{except ArithmeticError as ae:}\pythonIdx{as}.
@@ -250,7 +253,7 @@ This is quite useful in cases where we know that \pythonil{s} must be contained 
 
 In \cref{lst:exceptions:try_except_str_index}, we explore this behavior.
 Our string~\pythonil{r} is \pythonil{"Hello World!"}.
-In the \pythonilIdx{try}-block, we place a \pythonil{for} loop which lets a variable~\pythonil{s} iteratively take on two values.
+In the \pythonilIdx{try}-block, we place a \pythonil{for} loop which lets a variable~\pythonil{s} iteratively take on three values.
 In its first iteration, \pythonil{s = "Hello"} and \pythonil{r.index(s)} will yield~\pythonil{0}.
 This is printed to the output.
 In the second iteration, \pythonil{s = "world"}, which cannot be found since searching in strings is case-sensitive.
@@ -266,6 +269,27 @@ The output of the program given in \cref{exec:exceptions:try_except_str_index} s
 We first get the results of the successful search for \pythonil{"Hello"}, followed by the output for the failed search.
 The last line then is \textil{The program is now finished.}
 
+Notice that the third value in the loop, \pythonil{"!"}, never gets assigned to the variable \pythonil{s}.
+The \pythonilIdx{try} block is immediately terminated as soon as any \pythonilIdx{Exception} occurs.
+If the \pythonilIdx{Exception} can be handled by a corresponding \pythonilIdx{except} block, then this block is executed.
+Otherwise, the whole process will be terminated.
+Either way, even if a fitting \pythonilIdx{except} block exists, the code after the failing instruction in the \pythonilIdx{try} block will not be executed.
+
+While we can catch and handle \pythonilsIdx{Exceptions}, it is important to only handle reasonable errors.
+For example, suppose your program should be writing text to a file.
+It is totally acceptable that this may fail for a variety of file system related reasons, like insufficient space on the device, an access rights violation, or an incorrect file name.
+Such errors may be handled with a corresponding \pythonilIdx{except} block and reasonable actions may be taken.
+If, on the other hand, a \pythonilIdx{ZeroDivisionError} would occur during our attempt to write the file, then this indicates that something else went really wrong.
+Such an error is not OK in this context.
+So we should only try to catch errors that are meaningful and that we anticipate in a given context.
+Any other error should indeed cause our program to crash, to prevent more problems later.
+A crashed program is the clearest indicator to the user that something is wrong and that actions on their side are required, after all.%
+%
+\bestPractice{onlyCatchMeaningfulExceptions}{%
+Only \pythonilsIdx{Exception} should be caught by \pythonilIdx{except} blocks that we can meaningfully handle. %
+The \pythonilIdx{except} block is not to be used to just catch any \pythonilIdx{Exception}, to implement \gls{GIGO}, or to try to sanitize erroneous input.%
+}%
+%
 \gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{06_exceptions}{try_multi_except.py}{--args format}{exceptions:try_multi_except}{%
 The handling of multiple errors, namely \pythonilIdx{ZeroDivisionError} and \pythonilIdx{ArithmeticError}, as well as what happens if a variable remains unassigned due to an error (a \pythonilIdx{NameError} is raised).}%
 %
@@ -304,9 +328,75 @@ The statement in which the \pythonilIdx{Exception} was raised will not be comple
 Therefore, no variable assignments or other side-effects can take place anymore and it is possible that variables remain undefined.%
 }%
 %
+\FloatBarrier%
+\endhsection%
+%
+\hsection{Exceptions in Exception Handlers}%
+%
+\gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{06_exceptions}{try_except_nested_1.py}{--args format}{exceptions:try_except_nested_1}{%
+An example of \pythonils{Exception} being raised inside an \pythonilIdx{except} block.}%
+%
+What happens if an \pythonilIdx{Exception} is raised \emph{inside} an \pythonilIdx{except} block?
+In \cref{lst:exceptions:try_except_nested_1}, we try to compute \pythonil{sqrt_of_1_div_0 = sqrt(1 / 0)} twice.
+First in the \pythonilIdx{try} block, exactly as in \cref{lst:exceptions:try_multi_except} and then again in the \pythonilIdx{except} block that handles the \pythonilIdx{ZeroDivisionError} that this will cause.
+So inside an \pythonilIdx{except} block for handling \pythonilsIdx{ZeroDivisionError}, another \pythonilIdx{ZeroDivisionError} will be raised.
+
+The result is shown in \cref{exec:exceptions:try_except_nested_1}:
+The \pythonilIdx{except} block is terminated immediately and text is written to the \gls{stderr} indicating why.
+While we handled the original \pythonilIdx{ZeroDivisionError}, another error occurred.
+The output first presents the \pgls{stackTrace} of the \pythonilIdx{Exception} that we were handling.
+It then informs us that \textil{During handling of the above exception, another exception occurred:}.
+Then it prints the \pgls{stackTrace} of the new \pythonilIdx{Exception} that occurred inside the \pythonilIdx{except} block.
+Since there is no code for handling this error, our process terminates with \pgls{exitCode}~1.
+
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{06_exceptions}{try_except_nested_2.py}{--args format}{exceptions:try_except_nested_2}{%
+An example of nested \pythonilIdx{try}-\pythonilIdx{except} blocks, as an improvement over \cref{lst:exceptions:try_except_nested_1}.}%
+%
+It is of course possible that an error that we normally can handle may cause another error.
+Therefore, like any other \python\ code blocks, we can also nest \pythonilIdx{try}-\pythonilIdx{except} blocks.
+\Cref{lst:exceptions:try_except_nested_2} shows exactly this.
+By placing the second \pythonil{sqrt} invocation located in the \pythonilIdx{except} block into yet another \pythonilIdx{try}-\pythonilIdx{except} block, we can catch the \pythonilIdx{ZeroDivisionError} error.%
+%
+\FloatBarrier%
 \endhsection%
 %
 \hsection{The \texttt{try}\idxdots\texttt{except}\idxdots\texttt{else} Block}%
+%
+What can we do if we need the result of a computation inside a \pythonilIdx{try} block but only can use it if the \pythonilIdx{try} block completely succeeds?
+One possible solution in such a situation is the \pythonilIdx{try}-\pythonilIdx{except}-\pythonilIdx{else} block.
+The difference to the \pythonilIdx{try}-\pythonilIdx{except} block is only that an \pythonilIdx{else} block follows, which is executed if and only if no \pythonilIdx{Exception} occurred.%
+%
+\begin{pythonSyntax}
+try:  # Begin the try-except block.
+    # Code that may raise an exception or that
+    # calls a function that may rise one.
+except ExceptionType1 as ex1:  # One exception type that can be caught.
+    # Code the handles exceptions of type ExceptionType1.
+# ... maybe more `except` blocks
+else:
+    # Code executed if and only if no Exception occurred.
+
+next statement  # The code executed after the try-except-else block.
+\end{pythonSyntax}
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{06_exceptions}{try_except_else.py}{--args format}{exceptions:try_except_else}{%
+An example of the \pythonilIdx{try}-\pythonilIdx{except}-\pythonilIdx{else} block which is structured a bit similar to \cref{lst:exceptions:try_multi_except} but avoids the \pythonilIdx{NameError} by placing the access to the variables into the \pythonilIdx{else} blocks.}%
+%
+In \cref{lst:exceptions:try_except_else}, we present an example of the \pythonilIdx{try}-\pythonilIdx{except}-\pythonilIdx{else} block.
+The example is structured a bit similar to \cref{lst:exceptions:try_multi_except}.
+We again use our own \pythonil{sqrt} function, this time attempting to compute~$\sqrt{\frac{1}{0}}$ and then~$\sqrt{3}$, each within its own block.
+Back in \cref{lst:exceptions:try_multi_except}, we got a \pythonilIdx{NameError} because we wanted to access the value of a variable that we assigned in the \pythonilIdx{try} block.
+The \pythonilIdx{try} block failed.
+While we did catch and process the \pythonilIdx{ZeroDivisionError} in an \pythonilIdx{except} block, the variable was never assigned.
+So accessing the variable later cause the error.
+
+This time, we place the code for accessing the variables into \pythonilIdx{else} blocks.
+These blocks are \emph{only} executed if the \pythonilIdx{try} block succeeds.
+Hence, the variables are guaranteed to be exist and have values properly assigned to them if the \pythonilIdx{else} blocks are reached.
+In case of~$\sqrt{\frac{1}{0}}$, the \pythonilIdx{else} block is not reached.
+In case of~$\sqrt{3}$, it is and its corresponding \pythonil{print} instruction is executed.
+\Cref{lst:exceptions:try_except_else} shows that this program can properly finish.%
+%
 \endhsection%
 %
 \hsection{The \texttt{try}\idxdots\texttt{finally} Block}%
@@ -315,6 +405,7 @@ Therefore, no variable assignments or other side-effects can take place anymore 
 %
 %
 \hsection{Testing Exceptions}%
+%
 \cite{LRBP2021AEHTPIOSL}
 \endhsection%
 %
