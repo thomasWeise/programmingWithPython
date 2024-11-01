@@ -219,7 +219,7 @@ It would be annoying if the program would immediately crash.
 In this section, we discuss how errors can be handled.
 We use examples that are specifically constructed to cause certain errors to illustrate how we can deal with them.%
 %
-\hsection{The \texttt{try}\idxdots\texttt{except} Block}%
+\hsection{The \texttt{try}\dots\texttt{except} Block}%
 %
 The \pythonilIdx{try}\nobreakdashes-\pythonilIdx{except} clause exists as primary approach to recover from errors.
 We place the code that may raise an \pythonilIdx{Exception} into an indented block that is prefixed by \pythonil{try:}.
@@ -236,12 +236,13 @@ try:  # Begin the try-except block.
     # calls a function that may rise one.
 except ExceptionType1 as ex1:  # One exception type that can be caught.
     # Code the handles exceptions of type ExceptionType1.
-except ExceptionType2 as ex2:  # Another exception type.
+except ExceptionType2 as ex2:  # Another exception type (optional).
     # Code the handles exceptions of type ExceptionType2 that are not
     # instances of ExceptionType1.
 
-next statement  # The code executed after the try-except block.
+next statement  # Executed only if there are no uncaught Exceptions.
 \end{pythonSyntax}
+\FloatBarrier%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{06_exceptions}{try_except_str_index.py}{--args format}{exceptions:try_except_str_index}{%
 The \pythonil{index}\pythonIdx{str!index} function of a string raises a \pythonilIdx{ValueError} if it cannot find the given substring. %
@@ -362,7 +363,7 @@ By placing the second \pythonil{sqrt} invocation located in the \pythonilIdx{exc
 \FloatBarrier%
 \endhsection%
 %
-\hsection{The \texttt{try}\idxdots\texttt{except}\idxdots\texttt{else} Block}%
+\hsection{The \texttt{try}\dots\texttt{except}\dots\texttt{else} Block}%
 %
 What can we do if we need the result of a computation inside a \pythonilIdx{try} block but only can use it if the \pythonilIdx{try} block completely succeeds?
 One possible solution in such a situation is the \pythonilIdx{try}-\pythonilIdx{except}-\pythonilIdx{else} block.
@@ -378,7 +379,7 @@ except ExceptionType1 as ex1:  # One exception type that can be caught.
 else:
     # Code executed if and only if no Exception occurred.
 
-next statement  # The code executed after the try-except-else block.
+next statement  # Executed only if there are no uncaught Exceptions.
 \end{pythonSyntax}
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{06_exceptions}{try_except_else.py}{--args format}{exceptions:try_except_else}{%
@@ -401,7 +402,104 @@ In case of~$\sqrt{3}$, it is and its corresponding \pythonil{print} instruction 
 %
 \endhsection%
 %
-\hsection{The \texttt{try}\idxdots\texttt{finally} Block}%
+\hsection{The \texttt{try}\dots\texttt{finally} Block}%
+\label{sec:tryFinally}%
+%
+We do know that errors may occur in a piece of code.
+These may be errors that we can reasonably expect to potentially happen.
+Such errors we will process with corresponding \pythonilIdx{except} blocks.
+Then, there might be unanticipated errors for which we cannot define a reasonable \pythonilIdx{except} block.
+In the latter case, the program should terminate and the \pgls{stackTrace} should be printed.
+
+However, there may be situations where we do not just want to immediately quit be perform some necessary actions beforehand.
+A typical example of this is if we are currently writing contents to a file.
+Let's say we are writing a table of data row by row into a text file, and suddenly some unexpected error occurs.
+If we terminate immediately without closing the file, then the contents of the complete file could be lost.
+If we close the file before terminating, then at least the data that was successfully written so far will be preserved.
+By terminating the program, we would still indicate to the user that there is some serious problem that needs attention.
+But at least we would not destroy the data that was correctly produced.
+
+For this purpose, the \pythonilIdx{try}-\pythonilIdx{finally} block exists.
+Basically, we can add a \pythonilIdx{finally} block that contains the code that should always be executed.
+While we definitely need a \pythonilIdx{try} block that contains that code that may cause an error, we can optionally add \pythonilIdx{except} blocks to handle certain \pythonilsIdx{Exception} and an \pythonilIdx{else} block to be executed if no error occurs.%
+%
+\begin{pythonSyntax}
+try:  # Begin the try-except block.
+    # Code that may raise an exception or that
+    # calls a function that may rise one.
+except ExceptionType1 as ex1:  # The **optional** except blocks.
+    # Code the handles exceptions of type ExceptionType1.
+# ... maybe more `except` blocks
+else:  # The **optional** else block.
+    # Code executed if and only if no Exception occurred.
+finally:  # The **optional** finally block.
+    # Code will always be executed, even if exceptions are uncaught.
+
+next statement  # Executed only if there are no uncaught Exceptions.
+\end{pythonSyntax}
+%
+\gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{06_exceptions}{try_except_else_finally.py}{--args format}{exceptions:try_except_else_finally}{%
+An example for the \pythonilIdx{try}-\pythonilIdx{except}-\pythonilIdx{else}-\pythonilIdx{finally} block.}%
+%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/mypy.sh 06_exceptions try_except_else_finally.py}{exceptions:try_except_else_finally:mypy}{%
+The results of static type checking with \mypy\ of the program given in \cref{lst:exceptions:try_except_else_finally}.}
+%
+\begin{sloppypar}%
+Let us explore this in another artificial example in \cref{lst:exceptions:try_except_else_finally}.
+Here, we create the function \pythonil{divide_and_print} that accepts two parameters~\pythonil{a} and~\pythonil{b} which can either be integers or floating point numbers.
+In a \pythonilIdx{try} block, the function attempts to divide~\pythonil{a} by~\pythonil{b} and \pythonil{print} the result using an \pgls{fstring}.
+Since we do not know exactly what values \pythonil{b} can take on beforehand, we anticipate that a \pythonilIdx{ZeroDivisionError} may occur.
+In the corresponding \pythonilIdx{except} block, we would then print a message that explains the situation.
+In this case, the division result would not be printed because the \pythonilIdx{try} block would terminate when the \pgls{fstring} is interpolated.%
+\end{sloppypar}%
+%
+We also attempt to catch a possible \pythonilIdx{TypeError}.
+Such an error would occur if the function is invoked by an argument that is neither an \pythonil{int} nor a \pythonil{float} and that does not support divison.
+This is a typical example for an error that we should \emph{not} attempt to catch.
+This error could only appear if another programmer was using our function incorrectly.
+We only process this error here for the sake of the example and print an appropriate message in the \pythonilIdx{except} block.
+
+In the example, we also have an \pythonilIdx{else} block which notifies us that no error occurred.
+The code in this block is only executed if no \pythonilIdx{ZeroDivisionError} and no \pythonilIdx{TypeError} and also no other \pythonilIdx{Exception} was raised.
+
+We finish the division and error handling part of the function with a \pythonilIdx{finally} block.
+This block will be executed if no \pythonilIdx{Exception} was raised anywhere, but also if a \pythonilIdx{ZeroDivisionError}, \pythonilIdx{TypeError}, or other \pythonilIdx{Exception} were raised.
+Even if an error was raised \emph{inside} one of the \pythonilIdx{except} blocks, this code would be executed.
+It will print that the division code was completed.
+
+Then, in the last line of the function after the whole \pythonilIdx{try}-\pythonilIdx{except}-\pythonilIdx{else}-\pythonilIdx{finally} blocks, we print yet another message.
+This code outside the blocks is reached only if either no error occurred at all or if the error was handled by one of the two \pythonilIdx{except} blocks (without yet another error).
+
+In \cref{exec:exceptions:try_except_else_finally}, we show the \pgls{stdout} and \pgls{stderr} for invoking this function with several different arguments.
+For \pythonil{divide_and_print(10, 5)}, both the division result in the \pythonilIdx{try} block as well as the messages from the \pythonilIdx{else} block, the \pythonIdx{finally} block, and from the very end of our function are printed.
+\pythonil{divide_and_print(3, 0)} will cause a \pythonilIdx{ZeroDivisionError}.
+Therefore, the \pythonil{print} instruction in the \pythonilIdx{try} block is not completed as interpolating the \pgls{fstring} already fails.
+The first \pythonilIdx{except} block, which handles the \pythonilIdx{ZeroDivisionError}, is executed and prints its message.
+The \pythonilIdx{else} block is not reached but the \pythonilIdx{finally} block prints its message.
+Since the error was properly handled, the message in the \pythonil{print} instruction at the end of the function is written to the output as well.
+
+Invoking \pythonil{divide_and_print("3", 0)} means that we intentionally ignore the \pglspl{typeHint} in the function definition.
+The \python\ interpreter allows us to do this without complaint, as \pglspl{typeHint} are only hints and strict requirements (as in other programming languages like~\pgls{Java} or~\pgls{C}).
+However, the division \pythonil{a / b} will fail since the string \pythonil{"3"} does not support a division operation.
+It raises\pythonIdx{raise} a \pythonilIdx{TypeError}, which is subsequently caught by our second \pythonilIdx{except} block.
+This means that the \pythonilIdx{else} block is again not reached.
+The \pythonilIdx{finally} block is executed still and so is the \pythonilIdx{print} at the bottom of our function, since the \pythonilIdx{TypeError} was properly handled.
+By the way, had we applied the static type checker \mypy\ to \cref{lst:exceptions:try_except_else_finally}, it would have informed us that we here try to call \pythonil{divide_and_print} with an invalid argument, as shown in \cref{exec:exceptions:try_except_else_finally:mypy}.
+
+Finally, we attempt to compute \pythonil{divide_and_print(10 ** 313, 1.0)}, i.e., to calculate~$\frac{10^{313}}{1}$.
+At first glance, this looks totally fine.
+However, back in \cref{sec:float:special}, we learned about the limits of the datatype \pythonilIdx{float}.
+Indeed, the \pythonilIdx{int} $10^{313}$ is outside the range of numbers that a \pythonilIdx{float} can represent.
+By trying to divide it by \pythonil{1.0}, we force it to be converted to \pythonilIdx{float} first.
+This will raise an \pythonilIdx{OverflowError}.
+We do not have an \pythonilIdx{except} block for handling \pythonilsIdx{OverflowError}.
+This means that, of course, no message is printed by the \pythonilIdx{try} block, none of our \pythonilIdx{except} blocks are reached, and the \pythonilIdx{else} block is not executed either.
+The \pythonilIdx{finally} block, however, \emph{is} executed and prints its message to the output.
+Since we did not catch the \pythonilIdx{OverflowError}, the code after our blocks at the bottom of our function is not executed.
+Instead, our function is terminated immediately after the \pythonilIdx{finally} block completes.
+Since there is no \pythonilIdx{try}-\pythonilIdx{except} block able to catch \pythonilsIdx{OverflowError} wrapped around the function call, the whole \python\ interpreter terminates as well.
+It again prints the \pgls{stackTrace}, which informs us which error occured and where it happened.%
+%
 \endhsection%
 \endhsection%
 %
