@@ -569,13 +569,15 @@ In \cref{lst:exceptions:test_sqrt}, we write a similar test.
 This time, we use basically the original version of our \pythonil{sqrt} function which does not by itself raise any \pythonilIdx{Exception}.
 This function is directly implemented in the listing, in the same way as we did in \cref{lst:functions:my_math_2}, and again called \pythonil{sqrt}.
 We also write two unit tests into the new file \textil{test_sqrt.py}.
-Both are intentionally designed to show what happens if either an expected \pythonilIdx{Exception} is not raised~(\pythonil{test_sqrt_1}) or if its error message does not match the \pythonil{match} argument~(\pythonil{test_sqrt_2}).
-
+Both are intentionally designed to show what happens if either an expected \pythonilIdx{Exception} is not raised~(\pythonil{test_sqrt_1}) or if its error message does not match the \pythonil{match} argument~(\pythonil{test_sqrt_2}).%
+%
+\begin{sloppypar}%
 \pythonil{test_sqrt_1} simply feeds the value \pythonil{-1.0} to \pythonil{sqrt}.
 It expects that an \pythonilIdx{ArithmeticError} should be raised.
 It does not provide a specific \pythonil{match} \pgls{regex} against which the error message should be compared.
 The output in \cref{exec:exceptions:test_sqrt:pytest} shows us that this test fails.
 If the code inside the \pythonil{with raises(ArithmeticError):} does not actually raise\pythonIdx{raise} an \pythonil{ArithmeticError}, the test fails.%
+\end{sloppypar}%
 %
 \begin{sloppypar}%
 The second test case, \pythonil{test_sqrt_2}, is a bit more interesting.
