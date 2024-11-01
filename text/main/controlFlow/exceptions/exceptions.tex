@@ -37,7 +37,7 @@ Converting the integer \pythonil{10 ** 400} to a \pythonil{float} could just yie
 \item We try to sanitize the input.
 For example, our \pythonil{factorial} function in \cref{lst:functions:def_factorial} expects an integer as input.
 If someone were to pass in the floating point value~\pythonil{2.4} instead, we could round it to~\pythonil{2} and return the result.
-Matter of fact, our \pythonil{sqrt} function implemented in \cref{lst:functions:my_math_3} returns \pythonil{0.0} if we pass in a negative number.%
+Matter of fact, our \pythonil{sqrt} function implemented in \cref{lst:functions:my_math_2} returns \pythonil{0.0} if we pass in a negative number.%
 %
 \item We can guard the function by raising an \pythonilIdx{Exception}~\cite{MAGTOC2024EHFAP,SF2013ASROSR,GRRX2001ACSOEHMFBDOOS}.%
 %
@@ -110,13 +110,13 @@ Instead, the input of our functions should be checked for validity (where reason
 \hsection{Raising Exceptions}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{06_exceptions/sqrt_raise.py}{--args format}{exceptions:sqrt_raise}{%
-A new variant of the \pythonil{sqrt} function from back in \cref{lst:functions:my_math_3} that raises an \pythonilIdx{ArithmeticError} if its input is non-finite or negative.}%
+A new variant of the \pythonil{sqrt} function from back in \cref{lst:functions:my_math_2} that raises an \pythonilIdx{ArithmeticError} if its input is non-finite or negative.}%
 %
 \gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{06_exceptions}{use_sqrt_raise.py}{--args format}{exceptions:use_sqrt_raise}{%
 Using the new variant of the \pythonil{sqrt} function from \cref{lst:exceptions:sqrt_raise} that raises an \pythonilIdx{ArithmeticError} if its input is non-finite or negative.}%
 %
 Let us now first look at an example of how we can signal an error condition in our code.
-For this purpose, we re-visit the square root function that \pythonil{sqrt} we implemented back in \cref{lst:functions:my_math_3} in \cref{sec:unitTesting}.
+For this purpose, we re-visit the square root function that \pythonil{sqrt} we implemented back in \cref{lst:functions:my_math_2} in \cref{sec:unitTesting}.
 In that implementation, we realized that certain input values such as \pythonil{inf}, \pythonil{-inf}, \pythonil{nan}, and \pythonil{0.0} deserve special treatment.
 We also found that nothing could stop a user to pass a negative number as input to our \pythonil{sqrt} implementation.
 We did not yet have any means to deal with nonsense in a reasonable way, so we decided to just return~\pythonil{0.0} in that case.
@@ -500,13 +500,125 @@ Instead, our function is terminated immediately after the \pythonilIdx{finally} 
 Since there is no \pythonilIdx{try}-\pythonilIdx{except} block able to catch \pythonilsIdx{OverflowError} wrapped around the function call, the whole \python\ interpreter terminates as well.
 It again prints the \pgls{stackTrace}, which informs us which error occured and where it happened.%
 %
+\FloatBarrier%
 \endhsection%
 \endhsection%
 %
 %
 \hsection{Testing Exceptions}%
 %
-\cite{LRBP2021AEHTPIOSL}
+\gitPython{\programmingWithPythonCodeRepo}{06_exceptions/test_sqrt_raise.py}{--args format}{exceptions:test_sqrt_raise}{%
+A unit test checking that our new variant of the \pythonil{sqrt} function given in \cref{lst:exceptions:sqrt_raise} properly raises an \pythonilIdx{ArithmeticError} if its input is non-finite or negative.}%
+%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest.sh 06_exceptions test_sqrt_raise.py}{exceptions:test_sqrt_raise:pytest}{%
+The output of the unit tests in \cref{lst:exceptions:test_sqrt_raise}: %
+The \pythonilsIdx{ArithmeticError} are correctly raised.}%
+%
+
+Back in \cref{sec:unitTesting}, we introduced the concept of unit tests and show how the tool \pytest\ can be used to test our functions.
+We stated in \cref{bp:unitTestCoverage} that we should cover all the branches of the control flow inside a function with unit tests.
+One kind of branch that is often overlooked are \pythonilsIdx{Exception} and extension handling~\cite{LRBP2021AEHTPIOSL}.
+
+If our function raises\pythonIdx{raise} a certain \pythonilIdx{Exception} in some case, then we should have a unit test that checks if this \pythonilsIdx{Exception} is actually raised as it should.
+Now, any \pythonilIdx{Exception} raised by a unit test will cause the test to fail.
+This seems to contradict our goal to intentionally raise the exceptions.
+Luckily, \pytest\ offers us a device for this.%
+%
+\begin{sloppypar}%
+Let us expand our \cref{lst:functions:test_my_math_2} for testing the \pythonil{sqrt} function to now also test for \pythonilsIdx{ArithmeticError}.
+If we want to check whether a function indeed raises a certain \pythonilIdx{Exception} of type \pythonil{ExpectedExceptionType} for a given input, then we can wrap the corresponding function call into a \pythonil{with raises(ExpectedExceptionType):}.
+We will learn the exact structure and functioning of \pythonilIdx{with} blocks later.
+They are closely related to \pythonilIdx{Exception} handling, but require knowledge of some other topics that we did not yet cover.
+For now, let us just ignore how the \pythonilIdx{with} statement works and just focus on how it is used for testing.%
+\end{sloppypar}%
+%
+The \pythonilIdx{pytest} module offers a so-called context manager~\cite{PSF2024CUFWSC} named \pythonilIdx{raises}.
+This is basically a function that can be invoked in the \pythonilIdx{with} statement and that tells the \pytest\ system that, in the following, indented, block, we expect that a certain \pythonilIdx{Exception} must be raised.
+If such an \pythonilIdx{Exception} is not raised, the test fails.
+If it is raised, the text succeeds.
+
+\gitPython{\programmingWithPythonCodeRepo}{06_exceptions/test_sqrt.py}{--args format}{exceptions:test_sqrt}{%
+Two unit tests checking the original variant of the \pythonil{sqrt} function from back in \cref{lst:functions:test_my_math_2} that does not raise errors.}%
+%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest.sh 06_exceptions test_sqrt.py}{exceptions:test_sqrt:pytest}{%
+The output of the unit tests in \cref{lst:exceptions:test_sqrt}: %
+No error was raised in it, so the first fails and the error message in the second test does not fit, so it fails as well.}%
+%
+In particular, we can provide the \pythonilIdx{Exception} class as well as a \pgls{regex} via the parameter~\pythonil{match} to \pythonilIdx{raises}.
+If the block does not raise an \pythonilIdx{Exception} of the expected type, the test fails.
+If it does raise a corresponding \pythonilIdx{Exception}, then it will be converted to a string.
+The string is then matched against the \pgls{regex} and if it indeed matches, the test succeeds.
+If it does not match, then the test fails.%
+%
+\begin{sloppypar}%
+But what is a \pgls{regex}?
+We will learn this later as well, in a part of the book that is not yet written.
+For now, let's say that a \pgls{regex} is a string pattern that can be compared with another string.
+For example, the \pythonil{"sqrt.* is not permitted."} that we use in \cref{lst:exceptions:test_sqrt_raise} is such a \pgls{regex}.
+All the \inQuotes{normal} characters in this string must match exactly gainst characters in the text it is compared against.
+The only thing that makes it different from a normal string is the \textil{.*} that it contains.
+The dot~(\textil{.}) can be replaced with any other character and the star~(\textil{*}) says that arbitrarily many such arbitrary characters are allowed.
+\pythonil{"sqrt.* is not permitted."} would thus match against \pythonil{"sqrt is not permitted."}, \pythonil{"sqrt(1) is not permitted."}, \pythonil{"sqrt(inf) is not permitted."}, but not \pythonil{"sqrt is wrong."}.
+Therefore, our produced error message must follow this pattern for the test to work.
+And, as you can find in the \pytest\ output in \cref{exec:exceptions:test_sqrt_raise:pytest}, for the values \pythonil{v in [-1.0, inf, -inf, nan]}, no error is reported.
+For these values, our \pythonil{sqrt} function does indeed raise\pythonIdx{raise} the expected \pythonilsIdx{Exception}, with the expected error messages.
+The unit test succeeds.%
+\end{sloppypar}%
+%
+In \cref{lst:exceptions:test_sqrt}, we write a similar test.
+This time, we use basically the original version of our \pythonil{sqrt} function which does not by itself raise any \pythonilIdx{Exception}.
+This function is directly implemented in the listing, in the same way as we did in \cref{lst:functions:my_math_2}, and again called \pythonil{sqrt}.
+We also write two unit tests into the new file \textil{test_sqrt.py}.
+Both are intentionally designed to show what happens if either an expected \pythonilIdx{Exception} is not raised~(\pythonil{test_sqrt_1}) or if its error message does not match the \pythonil{match} argument~(\pythonil{test_sqrt_2}).
+
+\pythonil{test_sqrt_1} simply feeds the value \pythonil{-1.0} to \pythonil{sqrt}.
+It expects that an \pythonilIdx{ArithmeticError} should be raised.
+It does not provide a specific \pythonil{match} \pgls{regex} against which the error message should be compared.
+The output in \cref{exec:exceptions:test_sqrt:pytest} shows us that this test fails.
+If the code inside the \pythonil{with raises(ArithmeticError):} does not actually raise\pythonIdx{raise} an \pythonil{ArithmeticError}, the test fails.%
+%
+\begin{sloppypar}%
+The second test case, \pythonil{test_sqrt_2}, is a bit more interesting.
+It specifies \pythonil{with raises(ArithmeticError, match="sqrt.* is not permitted.")}, just like the tests in \cref{lst:exceptions:test_sqrt_raise} for the \pythonil{sqrt} function that does raise \pythonilsIdx{ArithmeticError}.
+No we do know that our original \pythonil{sqrt} from \cref{lst:functions:my_math_2} does not raise such errors \dots\ by itself.
+However, we try to compute \pythonil{sqrt(10 ** 320)}.
+This very large integer values will eventually be converted to a \pythonil{float} inside our function.
+This will fail, because it is too large, as we just discussed back in \cref{sec:tryFinally}.
+This failure results in an \pythonilIdx{OverflowError}.
+\pythonilsIdx{OverflowError} are a special case of \pythonilIdx{ArithmeticError}.
+So indeed, this does fulfill our testing requirement:
+If an \pythonilsIdx{OverflowError} is also a \pythonilIdx{ArithmeticError}, so the right type of \pythonilIdx{Exception} was raised.
+However, its error message will not fit to our \pythonil{match} argument.
+Therefore, the unit test still fails.
+The output of \cref{exec:exceptions:test_sqrt:pytest} explains this clearly.%
+\end{sloppypar}%
+%
+With \pytest, we can now therefore\pythonIdx{pytest}:%
+%
+\begin{enumerate}%
+%
+\item Test whether a function computes the expected output for selected (correct) inputs. %
+If it does not, the test fails.%
+%
+\item Test whether a function does not raise\pythonIdx{raise} an unexpected \pythonilIdx{Exception} for the selected (correct) inputs. %
+If it does raise one, the test fails.%
+%
+\item Raises the expected \pythonilsIdx{Exception} for selected (wrong) inputs with the correct error messages. %
+If it does not, the test fails. %
+We do this by using the \pythonil{with raises(...)}\pythonIdx{raises} statement.%
+%
+\end{enumerate}%
+%
+This allows us to cover both the expected and correct use of our function with tests as well as unexpected incorrect uses.
+We can then be confident that our code is unlikely to cause harm, neither due to bugs created by ourselves nor due to accidental misuse by other programmers due to misunderstandings (which would immediately signaled to them by \pythonilsIdx{Exception}).
+Notice that good unit testing goes hand in hand with good documentation in \pglspl{docstring}, because good \pglspl{docstring} reduce the chance of such misunderstandings.%
+%
+\bestPractice{testAll}{%
+It is important to cover both the reasonable expected use of our functions as well as unexpected use with incorrect arguments with test cases. %
+The latter case should raise\pythonIdx{raise} \pythonilsIdx{Exception}, which we should verify with unit tests.%
+}%
+%
+\FloatBarrier%
 \endhsection%
 %
 \hsection{Built-in Exceptions}%

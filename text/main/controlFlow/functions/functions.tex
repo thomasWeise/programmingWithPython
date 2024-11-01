@@ -319,7 +319,7 @@ You can then apply \pytest\ using the command \bashil{pytest --timeout=toInS fil
 We provide a script for using \pytest\ with a reasonable default configuration in \cref{lst:bash:pytest} on \cpageref{lst:bash:pytest}.%
 }%
 %
-Now, you will ask yourself how testing and especially the reuse of test cases works.
+You will ask yourself how testing and especially the reuse of test cases works.
 It is, actually, fairly simple:
 We have our actual program code in one or multiple \python\ files.
 We have our test code in some other \python\ files.
@@ -474,6 +474,14 @@ We then fixed these errors.%
 %
 \bestPractice{functionUnitTest}{%
 A function which is not unit tested is \emph{wrong}.%
+}%
+\bestPractice{goodUnitTestsParam}{%
+A good unit test for a given function should cover both expected as well as extreme cases. %
+For a parameter, we should test both the smallest and largest possible argument values, as well as values from its normally expected range.%
+}%
+\bestPractice{unitTestCoverage}{%
+A good unit test for a function should cover all branches of the control flow inside the function. %
+If a function does one thing in one situation and another thing in another situation, then both of these scenarios should have associated unit tests.%
 }%
 \endhsection%
 %
