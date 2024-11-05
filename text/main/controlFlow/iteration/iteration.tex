@@ -33,6 +33,7 @@ As sketched in \cref{fig:iteration}, there are many different manifestations of 
 In this chapter, we will investigate those that we did not yet already discuss in \cref{sec:enumOverSequences,sec:collections}.
 %
 \hsection{\texttt{Iterable}s and \texttt{Iterator}s}%
+\label{sec:iterable}%
 %
 \begin{figure}%
 \centering%
@@ -60,12 +61,33 @@ The actual iteration over the contents is then done by an \pythonilIdx{typing.It
 This distinction is necessary because we want to allow some objects to be iterated over multiple times.%
 \end{sloppypar}%
 %
-Let's say you have the \pythonilIdx{list} \pythonil{x = [1, 2, 3]}.
+Let's say you have the list \pythonil{x = ["a", "b", "c"]}, as in \cref{fig:iterateOverListAndRange:list}.
 We can use this list~\pythonil{x} in a \pythonil{for xi in x}-kind of loop arbitrarily often.
-The list is an \pythonilIdx{Iterable} object.
-Every time we do so, an \pythonilIdx{Iterator} instance is created internally by (doing something like) invoking~\pythonil{y = iter(x)}\pythonIdx{iter}.
+\pythonil{x} is an instance of \pythonilIdx{list} and every list is also an~\pythonilIdx{Iterable}\pythonIdx{typing.Iterable}.
+Every time we do loop over \pythonil{x}, an \pythonilIdx{Iterator} instance is created internally by (doing something like) invoking~\pythonil{y = iter(x)}\pythonIdx{iter}.
 In principle, this \pythonilIdx{Iterator} object only has to remember its current position in the list, allowing us to query the next item by invoking~\pythonil{next(y)}\pythonIdx{next}.
-The \pythonilIdx{for}-loop basically does this internally.%
+The \pythonilIdx{for}-loop basically does this internally.
+However, we can also do it \inQuotes{by hand.}
+In \cref{fig:iterateOverListAndRange:list}, we perform \pythonil{u = iter(x)} and \pythonil{v = iter(x)}.
+This creates two independent \pythonilsIdx{Iterator}, which we can use to step over the list separately.
+Invoking \pythonil{next(u)}\pythonIdx{next} will yield the first element of the list~\pythonil{x}, namely~\pythonil{"a"}.
+Calling \pythonil{next(u)}\pythonIdx{next} again gives us the second element, that is~\pythonil{"b"}.
+If we now call \pythonil{next(v)}\pythonIdx{next}, i.e., apply~\pythonilIdx{next} to the second, independent \pythonilIdx{Iterator}, we again obtain the first element~(\pythonil{"a"}).
+
+This shows us why there is a distinction between \pythonilIdx{Iterable} and \pythonilIdx{Iterator}.
+The former is the object that holds or can generate the data sequence.
+The latter marks one independent iteration over that sequence.
+
+The third invocation of \pythonil{next(u)}\pythonIdx{next} gives us~\pythonil{"c"}, the third and last element of~\pythonil{x}.
+If we now call \pythonil{next(u)}\pythonIdx{next} a fourth time, something interesting happens:
+A \pythonilIdx{StopIteration} is raised\pythonIdx{raise}.
+This is not an error in the strict sense.
+This instead is how the end of an iteration sequence is signaled.
+A \pythonilIdx{for}~loop will, for instance, stop when it encounters this exception.
+
+\Cref{fig:iterateOverListAndRange:range} shows us that \pythonilsIdx{range} have the exactly same behavior as \pythonilsIdx{list} with respect to iteration.
+And they should, of course, like every other object implementing the~\pythonilIdx{Iterable} functionality.
+As a result, the \pythonil{for y in x}-type of loops can be applied to any \pythonilIdx{Iterable} or \pythonilIdx{Iterator} instance~\pythonil{x}.%
 %
 \endhsection%
 %
