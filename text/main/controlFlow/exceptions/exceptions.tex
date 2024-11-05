@@ -587,7 +587,7 @@ However, we try to compute \pythonil{sqrt(10 ** 320)}.
 This very large integer values will eventually be converted to a \pythonil{float} inside our function.
 This will fail, because it is too large, as we just discussed back in \cref{sec:tryFinally}.
 This failure results in an \pythonilIdx{OverflowError}.
-\pythonilsIdx{OverflowError} are a special case of \pythonilIdx{ArithmeticError}.
+\pythonilsIdx{OverflowError} are a special case of \pythonilIdx{ArithmeticError} (see later in \cref{fig:pythonExceptions}).
 So indeed, this does fulfill our testing requirement:
 If an \pythonilsIdx{OverflowError} is also a \pythonilIdx{ArithmeticError}, so the right type of \pythonilIdx{Exception} was raised.
 However, its error message will not fit to our \pythonil{match} argument.
@@ -624,8 +624,135 @@ The latter case should raise\pythonIdx{raise} \pythonilsIdx{Exception}, which we
 \endhsection%
 %
 \hsection{Built-in Exceptions}%
-\cite{PSF2024BIE}
+%
+\begin{figure}%
+\centering%
+\renewcommand*\DTstylecomment{\relax}%
+\renewcommand*\DTstyle{\small}%
+%
+\dirtree{%
+.1 \pythonilIdx{BaseException}\DTcomment{the base \pythonilIdx{class} for all exceptions}.
+.2 \pythonilIdx{Exception}\DTcomment{situations where reasonable error handling should be possible}.
+.3 \pythonilIdx{ArithmeticError}\DTcomment{an arithmetic operation failed}.
+.4 \pythonilIdx{FloatingPointError}\DTcomment{not used by \python, but, e.g., \pgls{numpy} on invalid floating point operations}.
+.4 \pythonilIdx{OverflowError}\DTcomment{the result of an arithmetic operations is too large, see, e.g., \cref{sec:float:special}}.
+.4 \pythonilIdx{ZeroDivisionError}\DTcomment{a division by zero occurred, see, e.g., \cref{sec:unitTesting}}.
+.3 \pythonilIdx{AssertionError}\DTcomment{if an \pythonilIdx{assert} failed}.
+.3 \pythonilIdx{BufferError}\DTcomment{a buffer-related operation could not be performed}.
+.3 \pythonilIdx{EOFError}\DTcomment{the end of \pgls{stdin} was reached by \pythonilIdx{input} without reading data}.
+.3 \pythonilIdx{AttributeError}\DTcomment{when an attribute reference or assignment failed}.
+.3 \pythonilIdx{ImportError}\DTcomment{when an \pythonilIdx{import} statement fails}.
+.4 \pythonilIdx{ModuleNotFoundError}\DTcomment{a module cannot be loaded}.
+.3 \pythonilIdx{LookupError}\DTcomment{a key or index used on a dictionary or sequence was invalid}.
+.4 \pythonilIdx{IndexError}\DTcomment{a sequence index is out of range, see, e.g., \cref{sec:strBasicOperations}}.
+.4 \pythonilIdx{KeyError}\DTcomment{a dictionary key is not found, see, e.g., \cref{sec:dictionaries}}.
+.3 \pythonilIdx{MemoryError}\DTcomment{when we are out of memory}.
+.3 \pythonilIdx{NameError}\DTcomment{e.g., when reading an unassigned variable, see, e.g., \cref{lst:exceptions:try_multi_except}}.
+.4 \pythonilIdx{UnboundLocalError}\DTcomment{reference to a local method or function to which no value is bound}.
+.3 \pythonilIdx{OSError}\DTcomment{an operating system function failed}.
+.4 \pythonilIdx{BlockingIOError}\DTcomment{a blocking operation is applied to an object set for non-blocking operations}.
+.4 \pythonilIdx{ChildProcessError}\DTcomment{an operation on a child process failed}.
+.4 \pythonilIdx{ConnectionError}\DTcomment{a connection- or pipe-related error}.
+.5 \pythonilIdx{BrokenPipeError}\DTcomment{when trying to write into a pipe whose other end has been closed}.
+.5 \pythonilIdx{ConnectionAbortedError}\DTcomment{connection attempt aborted by peer}.
+.5 \pythonilIdx{ConnectionRefusedError}\DTcomment{connection refused by peer}.
+.5 \pythonilIdx{ConnectionResetError}\DTcomment{connection reset by peer}.
+.4 \pythonilIdx{FileExistsError}\DTcomment{trying to create a file that already exists}.
+.4 \pythonilIdx{FileNotFoundError}\DTcomment{trying to access a file or directory that does not exist}.
+.4 \pythonilIdx{IsADirectoryError}\DTcomment{trying to do a file operation with a directory}.
+.4 \pythonilIdx{NotADirectoryError}\DTcomment{trying to apply a directory operation to a file}.
+.4 \pythonilIdx{PermissionError}\DTcomment{trying to perform an operation without the necessary access rights}.
+.4 \pythonilIdx{ProcessLookupError}\DTcomment{trying to access a process that does not exist}.
+.4 \pythonilIdx{TimeoutError}\DTcomment{an operation timed out}.
+.3 \pythonilIdx{ReferenceError}\DTcomment{a weakly-referenced object is accessed after being garbage collected}.
+.3 \pythonilIdx{RuntimeError}\DTcomment{an error that does not fall into the other categories}.
+.4 \pythonilIdx{NotImplementedError}\DTcomment{a method has not yet been implement, but will be later}.
+.4 \pythonilIdx{PythonFinalizationError}\DTcomment{an operation is blocked during interpreter shutdown}.
+.4 \pythonilIdx{RecursionError}\DTcomment{the maximum recursion depth of functions is reached}.
+.3 \pythonilIdx{StopAsyncIteration}\DTcomment{signals the end of an asynchronous iteration; not an error}.
+.3 \pythonilIdx{StopIteration}\DTcomment{signals the end of an iteration; not an error}.
+.3 \pythonilIdx{SyntaxError}\DTcomment{an malformed \python\ file}.
+.4 \pythonilIdx{IndentationError}\DTcomment{incorrectly indented code}.
+.5 \pythonilIdx{TabError}\DTcomment{inconsistent use of tabs and spaces}.
+.3 \pythonilIdx{SystemError}\DTcomment{an internal error of the interpreter}.
+.3 \pythonilIdx{TypeError}\DTcomment{some parameter was of a wrong type or \pythonilIdx{None}, see, e.g., \cref{sec:tuples}}.
+.3 \pythonilIdx{ValueError}\DTcomment{a parameter has the right type but an inappropriate value, see, e.g., \cref{lst:exceptions:try_except_str_index}}.
+.4 \pythonilIdx{UnicodeError}\DTcomment{an error when dealing with \pgls{unicode} text}.
+.5 \pythonilIdx{UnicodeDecodeError}\DTcomment{an error occurred when decoding \pgls{unicode} text}.
+.5 \pythonilIdx{UnicodeEncodeError}\DTcomment{an error occurred when encoding \pgls{unicode} text}.
+.5 \pythonilIdx{UnicodeTranslateError}\DTcomment{an error occurred when translating \pgls{unicode} text}.
+.2 \pythonilIdx{GeneratorExit}\DTcomment{when a \pythonilIdx{Generate} or coroutine terminate; not an error}.
+.2 \pythonilIdx{KeyboardInterrupt}\DTcomment{when the user hits \keys{\ctrl+C}}.
+.2 \pythonilIdx{SystemExit}\DTcomment{raised by \pythonilIdx{exit}; not an error}.
+}%
+%
+\caption{An overview of the hierarchy of \pythonilsIdx{Exception} in \python~\cite{PSF2024BIE}.}%
+\label{fig:pythonExceptions}%
+\end{figure}%
+%
+A wide variety of things may go wrong during the execution of a computer program.
+We have already explored a lot of different potential errors, ranging from using an invalid index when accessing a list to dividing a number by zero.
+In \python, \pythonilsIdx{Exception} are raised\pythonIdx{raise} in such a situation.
+An \pythonilIdx{Exception} disrupts the normal control flow and propagates upwards until a corresponding \pythonilIdx{except} clause is reached.
+Obviously, we cannot just treat every possible error condition in the same way.
+
+Running out of memory is a completely different situation than trying to read from a non-existing file.
+Therefore, different types of \pythonilsIdx{Exception} are raised:
+The former problem causes a \pythonilIdx{MemoryError} while the later raises an \pythonilIdx{FileNotFoundError}.
+The hierarchy of the different problem types is illustrated in \cref{fig:pythonExceptions}~\cite{PSF2024BIE}.
+There, you can also see why an \pythonilIdx{except} block catching \pythonilsIdx{ArithmeticError} would also catch an \pythonilsIdx{OverflowError}, because the latter is a special case of the former.
+
+Depending on the operations that your code tries to perform, you would wrap it into \pythonilIdx{except} blocks for the errors from this list that you could reasonably expect to be able to recover from.
+Of course, the documentation of the \python\ functions that you use will tell you which \pythonilsIdx{Exception} it could raise.
+And so should the \pglspl{docstring} of your own code as well as library functions you rely on.%
 \endhsection%
 %
+\hsection{Summary}%
+In this chapter, we have dealt with a very important subject in programming:
+How we handle errors.
+Errors can arise from a wide variety of reasons.
+
+They can be caused by invalid or corrupted data being passed to our program.
+In this case, our program should fail and print an error message to the user.
+
+They can be caused by a programming mistake:
+Maybe another programmer uses a function that we have written, but passes a parameter of a wrong type to it.
+For example, maybe they pass in a string where we expect a number.
+Or maybe they pass a negative number when we expect a positive one.
+In this case, our program should fail and print an error message to the user.
+
+Failing by raising an \pythonilIdx{Exception} is a good thing.
+It clearly indicates that something is wrong.
+It gives the user or our fellow programmers a chance to become aware of an error and to take action to fix it.
+Other approaches, like \pgls{GIGO} or overly sanitizing corrupted input instead allow errors to propagate unnoticed.
+
+Maybe some of the readers of this book are graduate or undergraduate students who use \python\ to implement code for experiments.
+Imagine how annoying it is to run an experiment and to find out one week later that all the data produced is garbage.
+You then not only feel sad about the waste of time, but now need to waste even more time:
+Where was the error?
+Maybe it would take another week to painstakingly debug your code step-by-step to find out that some function was used incorrectly due to a typo.
+How much better would it have been if the experiment had crashed right at its start, printing an \pythonilIdx{Exception} and \pgls{stackTrace} to the \pgls{stdout} showing exactly where things went wrong?
+It would have saved you two weeks and lots of grief.
+
+Of course, there are also situations where it is possible to gracefully recover from an error.
+For example, maybe our program is trying to delete a file that already has been deleted.
+The operation would fail, but that does not do any harm.
+For these scenarios, the \pythonilIdx{except} blocks exist.
+They allow us to catch errors which we can reasonably expect and that are no show stoppers.
+
+Finally, there is the \pythonilIdx{finally} block.
+This block allows us to properly complete an operation regardless whether an error happened or not.
+If we send data over an internet connection, we want to close this connection properly after we are done.
+We also want to close it if something goes wrong.
+If we write data to a file, then we want to close the file once we are done.
+We still want to close it properly if an error occurs, because then we can at least preserve the data that was already successfully written.
+
+Error handling in \python\ therefore allows us to develop software that is both robust and that clearly indicates if something goes wrong.
+Of course, for software to be called \emph{robust}, it has to be tested.
+Luckily, \pytest\ offers us also unit testing capabilities that check whether \pythonilsIdx{Exceptions} are raised where expected.
+This completes our discussion of the error-related control flow.%
+\endhsection%
+%
+\FloatBarrier%
 \endhsection%
 %
