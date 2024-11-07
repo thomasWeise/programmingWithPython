@@ -118,7 +118,8 @@ Luckily, \python\ offers the much more convenient syntax of list comprehension:%
 Some simple examples for list comprehension.}%
 %
 \gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/ruff.sh 07_iteration simple_list_comprehension.py}{iteration:simple_list_comprehension:ruff}{%
-The output of \ruff\ for the examples for list comprehension in \cref{lst:iteration:simple_list_comprehension}: The \pythonilIdx{for} loop constructing the list \textil{squares_1} can indeed by replaced by a list comprehension.}%
+The output of \ruff\ for the examples for list comprehension in \cref{lst:iteration:simple_list_comprehension}: %
+The \pythonilIdx{for} loop constructing the list \textil{squares_1} can indeed by replaced by a list comprehension.}%
 %
 \begin{sloppypar}%
 This syntax creates a new list whose contents are the results of applying a given \pythonil{expression} to the items~\pythonil{item} from another \pythonil{sequence}.
@@ -168,7 +169,7 @@ The list comprehension~\pythonil{[(o, p) for o in "abc" for p in "xy"]} does thi
 It produces~\pythonil{[('a', 'x'), ('a', 'y'), ('b', 'x'), ('b', 'y'), ('c', 'x'), ('c', 'y')]}.
 \end{sloppypar}%
 %
-In \cref{exec:iteration:simple_list_comprehension:ruff}, we present the output that our \cref{ut:ruff} produces when we apply it to \cref{lst:iteration:simple_list_comprehension}.
+In \cref{exec:iteration:simple_list_comprehension:ruff}, we present the output that \ruff, our \cref{ut:ruff}, produces when we apply it to \cref{lst:iteration:simple_list_comprehension}.
 Interestingly, \ruff\ considers the construction of a list via the \pythonilIdx{append}\pythonIdx{list!append} function as a \emph{performance issue}, signified by the error prefix~\textil{PERF}.
 This is, of course, only the case if the list could as well be created via list comprehension, which is not always possible.
 But when it can be done, as is the case in our example, we noticed that list comprehension is more compact.
@@ -210,7 +211,7 @@ All of the measured runtimes are then return as a \pythonil{list[float]}.
 The documentation of \pythonilIdx{timeit}~\cite{PSF2024TMETOSCS} says:%
 %
 \begin{quote}%
-Note: it's tempting to calculate mean and standard deviation from the result vector and report these.
+\emph{Note:}~it's tempting to calculate mean and standard deviation from the result vector and report these.
 However, this is not very useful.
 In a typical case, the lowest value gives a lower bound for how fast your machine can run the given code snippet;
 higher values in the result vector are typically not caused by variability in \python's speed, but by other processes interfering with your timing accuracy.
@@ -237,7 +238,7 @@ Everytime I update the book, this process is repeated.
 This means that, when writing this text, I do not know what value you will see in \cref{exec:iteration:list_of_numbers_append}.
 On my local machine, I get \textil{runtime/call: 30.1 ms.}
 
-Anyway, in order to test whether list comprehension is really faster than iterative list construction via \pythonilIdx{append}\pythonilIdx{list!append}, we now write the second program \cref{lst:iteration:list_of_numbers_comprehension}.
+Anyway, in order to test whether list comprehension is really faster than iterative list construction via \pythonilIdx{append}\pythonIdx{list!append}, we now write the second program \cref{lst:iteration:list_of_numbers_comprehension}.
 This program is very similar to \cref{lst:iteration:list_of_numbers_append}.
 It defines a function \pythonil{create_by_comprehension} which creates the very same list as \pythonil{create_by_append} does in \cref{lst:iteration:list_of_numbers_append}.
 However, it uses list comprehension.
@@ -251,6 +252,83 @@ The difference may have been bigger on older \python\ versions, but it is there.
 Five percent of runtime saved are nice.
 And even if list comprehension was not faster than iteratively constructing a list, it would still be better code, because it is shorter and more readable.%
 %
+\FloatBarrier%
+\endhsection%
+%
+\hsection{Brief Interlude: doctests}%
+\gitPython{\programmingWithPythonCodeRepo}{07_iteration/list_flatten_iterables.py}{--args format}{iteration:list_flatten_iterables}{%
+A function that flattens \pythonilsIdx{list} and other \pythonilsIdx{Iterable} using list comprehension.}%
+%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest_doctest.sh 07_iteration list_flatten_iterables.py}{iteration:list_flatten_iterables:doctest}{%
+The output of \pytest\ executing the \pglspl{doctest} for the examples for list comprehension in \cref{lst:iteration:list_flatten_iterables}: %
+The test succeeded. %
+We used the test execution script given in \cref{lst:bash:pytest_doctest}.}%
+%
+As last example for list comprehension, let us consider the following scenario:
+Let's say that you have several different lists.
+You want to create a new list that contains all the elements of each of these existing lists.
+In \cref{lst:iteration:list_flatten_iterables}, we implement a function~\pythonil{flatten} that achieves an even more general variant of this task:
+You can pass in an \pythonilIdx{Iterable} of other \pythonilsIdx{Iterable}.
+Since \pythonilsIdx{lists} are \pythonilsIdx{Iterable}, this allows you to pass in a \pythonilIdx{list} of \pythonilsIdx{lists}.
+But you could also pass a \pythonilIdx{tuple} of \pythonilsIdx{set} if you want.
+The return value of \pythonil{flatten} is a \pythonilIdx{list} containing the elements of all of the \inQuotes{inner} \pythonilsIdx{Iterable}.%
+%
+\begin{sloppypar}%
+\pythonil{flatten} creates this list from its parameter~\pythonil{iterables} by simply returning \pythonil{[value for subiterable in iterables for value in subiterable]}.
+The variable \pythonil{subiterable} iterates over \pythonil{iterables}, i.e., becomes one of the, e.g., sub-list, at a time.
+Then, \pythonil{value} iterates over the elements of \pythonil{subiterable}.
+Thus, it iteratively takes on each of the values in each of the sub-list.
+Since we return a \pythonilIdx{list} with all of these values, we effectively flatten the list.
+It may be a bit confusing that the inner \pythonilIdx{for}-loop here is actually the outer \pythonilIdx{for}-loop and vice-versa, but we experienced this already when we computed \pythonil{[f"\{m\}\{n\}" for m in "abc" for n in "xy"]}. in an earlier example.%
+\end{sloppypar}%
+%
+Normally, we would also provide some code that actually executes \pythonil{flatten} and present its output.
+This time, we do something else:
+We present \pglspl{doctest} for \pythonil{flatten}.
+
+\usefulTool{doctest}{%
+A \pgls{doctest} is a unit test written directly into the \pgls{docstring} of a function or module. %
+We therefore insert small snippets of \python\ code and their expected output. %
+The first line of such codes is prefixed py~\pythonil{>>>}\pythonIdx{>\strut>\strut>}. %
+If the snipped has multiple lines, any following line is prefixed by~\pythonil{...}\pythonIdx{\idxdots}. %
+After the snippet, the expected output is written. %
+The \pglspl{doctest} can be by modules like \pythonilIdx{doctest}~\cite{PSF2024DTIPE} or tools such as \pytest~\cite{KPDT2024HTRD}~(\cref{ut:pytest}). %
+They collect the code, run it, and compare its output to the expected output in the \pgls{docstring}. %
+If they do not match, the tests fail. %
+We use \pytest\ in this book, with the default configuration given in \cref{lst:bash:pytest_doctest}.%
+}
+%
+Using \pglspl{doctest} has a very unique advantage:
+It allows us to include examples of how our code should be used directly into the \pglspl{docstring}.
+And these examples can directly serve as unit tests!
+Let's read the \pglspl{docstring} of our \pythonil{flatten} function in \cref{lst:iteration:list_flatten_iterables}.
+
+The first \pgls{doctest} tells us that if we invoke \pythonil{flatten([[1, 2, 3], [4, 5, 6]])}, we can expect the output \pythonil{[1, 2, 3, 4, 5, 6]}.
+In other words, our function will flatten the list of two lists into a single list.
+Then, we see that \pythonil{flatten([[1, 2, 3], [], [4, 5, 6]])} should produce \pythonil{[1, 2, 3, 4, 5, 6]} as well.
+The single empty list in the list-of-lists disappears, because it has no elements.
+
+\pythonil{flatten} can only reduce two list levels to one.
+Passing a list-of-lists-of-lists to \pythonil{flatten} as in the third test~(\pythonil{flatten([[[1], [2], [3]], [], [[4], [5], [6]]])}) will only remove one list level.
+It results in a list-of-lists~(\pythonil{[[1], [2], [3], [4], [5], [6]]}).%
+%
+\begin{sloppypar}%
+Since \pythonil{flatten} works with \pythonilsIdx{Iterable}, it also accepts mixed input.
+The final \pgls{doctst} symbolizes this as follows:
+For \pythonil{flatten(([1, 2, 3], (4, 5, 6), {"a": 7, "b": 8}))}, we get \pythonil{[1, 2, 3, 4, 5, 6, 'a', 'b']} as the result.
+\end{sloppypar}%
+%
+As you can see, the documentation in form of examples also explains what output we should expect.
+We now execute \pytest\ with the additional option \textil{--doctest-modules}.
+The output in \cref{exec:iteration:list_flatten_iterables:doctest} shows that our function indeed fulfills the requirements imposed by its \pglspl{doctest}.%
+%
+\bestPractice{doctest}{%
+Where ever possible the \pglspl{docstring} of functions and modules should contain \pglspl{doctest}. %
+This provides unit tests as well as examples as how the code should be used. %
+Since \pglspl{doctest} are usually brief, they are a quick and elegant way to complement more comprehensive unit tests in separate files (see \cref{bp:functionUnitTest}).%
+}%
+%
+\FloatBarrier%
 \endhsection%
 %
 \endhsection%

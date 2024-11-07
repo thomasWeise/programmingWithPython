@@ -171,6 +171,7 @@
 @string { a_konovalov_alexander = "Alexander Konovalov" }
 @string { a_korth_henry_f = "Henry F.\ Korth" }
 @string { a_kosheleva_olga = "Olga Kosheleva" }
+@string { a_krekel_holger = "Holger Krekel" }
 @string { a_krueger_richard = "Richard Krueger" }
 @string { a_kuchling_andrew_m = "Andrew M.\ Kuchling" }
 @string { a_kudlur_manjunath = "Manjunath Kudlur" }
@@ -253,6 +254,7 @@
 @string { a_press_william_h = "William H.\ Press" }
 @string { a_prettenhofer_peter = "Peter Prettenhofer" }
 @string { a_pylint_contributors = "{{Pylint Contributors}}" }
+@string { a_pytest_dev_team = "{\pgls{pytest}-Dev Team}" }
 @string { a_quinter_ea = "E.\ A.\ Quintero" }
 @string { a_raison_martin = "Martin Raison" }
 @string { a_raschka_sebastian = "Sebastian Raschka" }
@@ -364,6 +366,7 @@
 @string { l_canada_vancouver = "{{Vancouver}, {BC}, {Canada}}" }
 @string { l_china_beijing = "{{China}, {Beijing}}" }
 @string { l_france_toulouse = "{{Toulouse}, {France}}" }
+@string { l_germany_freiburg = "{{Freiburg}, {Baden-W{\"u}rttemberg}, {Germany}}" }
 @string { l_germany_heidelberg = "{{Heidelberg}, {Baden-W{\"u}rttemberg}, {Germany}}" }
 @string { l_germany_leipzig = "{{Leipzig}, {Sachsen}, {Germany}}" }
 @string { l_germany_wadern = "{{Wadern}, {Saarland}, {Germany}}" }
@@ -462,6 +465,7 @@
 @string { p_oxford_university_press = "{Oxford University Press}" }
 @string { p_packt = "{Packt Publishing Ltd}" }
 @string { p_pearson_education = "Pearson Education, Inc." }
+@string { p_merlinux = "{merlinux GmbH}" }
 @string { p_microsoft_press = "{Microsoft Press}, " # p_pearson_education }
 @string { p_plos = "Public Library of Science~{(PLOS)}" }
 @string { p_pragmatic_ai_labs = "{Pragmatic {AI} Labs}" }
@@ -522,6 +526,7 @@
 @string { pa_logilab = l_france_toulouse }
 @string { pa_manning_publications = l_usa_shelter_island }
 @string { pa_mcgraw_hill = l_usa_new_york }
+@string { pa_merlinux = l_germany_freiburg }
 @string { pa_mit_press = l_usa_cambridge }
 @string { pa_neurips = l_usa_san_diego }
 @string { pa_oeis_foundation = l_usa_highland_park }
@@ -1489,6 +1494,25 @@
  urldate = {2024-08-16}
 }
 
+@inbook{KPDT2024HTRD,
+ title = {How to Run \pglspl{doctest}},
+ chapter = {2.8},
+ crossref = {KPDT2024PD},
+ pages = {65--69},
+ url = {https://docs.pytest.org/en/stable/how-to/doctest.html},
+ urldate = {2024-11-07},
+}
+
+@book{KPDT2024PD,
+ author = a_krekel_holger # and # a_pytest_dev_team,
+ title = {\pgls{pytest} Documentation},
+ edition = {Release~8.4},
+ publisher = p_merlinux,
+ address = pa_merlinux,
+ url = {https://readthedocs.org/projects/pytest/downloads/pdf/latest},
+ urldate = {2024-11-07},
+}
+
 @book{L1909HDLVDVDP,
  author = a_landau_edmund,
  title = {{Handbuch der Lehre von der Verteilung der Primzahlen}},
@@ -2011,6 +2035,13 @@
  xdata = {PSF2024TPT},
  url = {https://docs.python.org/3/tutorial/inputoutput.html#formatted-string-literals},
  urldate = {2024-07-25},
+}
+
+@inbook{PSF2024DTIPE,
+ title = {\pgls{doctest} -- Test Interactive \python\ Examples},
+ url = {https://docs.python.org/3/library/doctest.html},
+ xdata = {PSF2024TPSL},
+ urldate = {2024-11-07},
 }
 
 @inbook{PSF2024IPM,

@@ -313,10 +313,11 @@ Especially with its increased automation, unit testing in software development h
 \end{figure}%
 %
 \usefulTool{pytest}{%
-\pytest\ is a \python\ is a \python\ framework for writing and executing software tests.
+\pytest\ is a \python\ is a \python\ framework for writing and executing software tests~\cite{KPDT2024PD}.
 It can be installed via \bashil{pip install pytest pytest-timeout} as shown in \cref{fig:pipInstallPytest} on \cpageref{fig:pipInstallPytest}. %
 You can then apply \pytest\ using the command \bashil{pytest --timeout=toInS file(s)}, where \textil{toInS} should be replaced with a reasonable timeout in seconds and \textil{file(s)} is one or multiple files with test cases. %
-We provide a script for using \pytest\ with a reasonable default configuration in \cref{lst:bash:pytest} on \cpageref{lst:bash:pytest}.%
+We provide a script for using \pytest\ with a reasonable default configuration in \cref{lst:bash:pytest} on \cpageref{lst:bash:pytest}. %
+See also \cref{ut:doctest} later on.%
 }%
 %
 You will ask yourself how testing and especially the reuse of test cases works.

@@ -12,6 +12,9 @@ A \bash\ script for executing \pylint, which prints the command line and the exi
 \gitBash{\programmingWithPythonCodeRepo}{scripts/pytest.sh}{bash:pytest}{%
 A \bash\ script for executing test cases with \pytest, which prints the command line and the exit code; see \cref{ut:pytest}.}%
 %
+\gitBash{\programmingWithPythonCodeRepo}{scripts/pytest_doctest.sh}{bash:pytest_doctest}{%
+A \bash\ script for executing \pglspl{doctest} with \pytest, which prints the command line and the exit code; see \cref{ut:doctest}.}%
+%
 Here we provide some scripts that are used within this book.
 These scripts are written for the \bash\ shell, which is the default interpreter running in \ubuntu\ \linux\ \pglspl{terminal}.
 Therefore, they will not work under \windows\ or other operating systems.
@@ -72,7 +75,9 @@ Either way, the script executes the test cases, prints the results as well as po
 Notice that we select some options to make the output less verbose, because for this book, we do want listings that are not too long.
 In practical scenarios, you may use different options.
 Either way, the script also prints the command that was executed at the beginning and the \pytest\ version used and the \pgls{exitCode} of the process at the end of the output.
-\Cref{exec:functions:test_my_math:pytest,exec:functions:test_my_math_2:pytest,exec:functions:test_my_math_3:pytest} are examples for the output of \pytest.%
+\Cref{exec:functions:test_my_math:pytest,exec:functions:test_my_math_2:pytest,exec:functions:test_my_math_3:pytest} are examples for the output of \pytest.
+\Cref{lst:bash:pytest_doctest} uses \pytest\ as well, but this time executes \pglspl{doctest}.
+An example can be found in \cref{exec:iteration:list_flatten_iterables:doctest}.%
 %
 \endhsection%
 %
