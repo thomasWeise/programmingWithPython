@@ -29,9 +29,9 @@ Therefore \pythonil{num_str[2]} will return the string~\pythonil{"two"} associat
 \begin{sloppypar}%
 We can access the keys, values, and key-value pairs of a dictionary as collections using the \pythonilIdx{keys}\pythonIdx{dict!keys}, \pythonilIdx{values}\pythonIdx{dict!values}, and \pythonilIdx{items}\pythonIdx{dict!items} functions, respectively.
 In the example \cref{lst:dicts:dicts_1}, we convert them to lists:
-\pythonil{list(num_str.keys())} gives us all the keys in the dictionary \pythonil{num_str} as a \pythonilIdx{list}, which thus equals \pythonil{[2, 1, 3, 4]}.
-Similarly, \pythonil{list(num_str.values())} gives us all the values in the dictionary \pythonil{num_str} as a \pythonilIdx{list}, which thus equals \pythonil{["two", "one", "three", "four"]}.
-Finally, \pythonil{num_str.items()} returns the key-value pairs a sequence of tuples and wrapping this into a list yields \pythonil{[(2, "two"), (1, "one"), (3, "three"), (4, "four")]}.
+\pythonil{list(num_str.keys())}\pythonIdx{keys}\pythonIdx{dict.keys} gives us all the keys in the dictionary \pythonil{num_str} as a \pythonilIdx{list}, which thus equals \pythonil{[2, 1, 3, 4]}.
+Similarly, \pythonil{list(num_str.values())}\pythonIdx{values}\pythonIdx{dict.values} gives us all the values in the dictionary \pythonil{num_str} as a \pythonilIdx{list}, which thus equals \pythonil{["two", "one", "three", "four"]}.
+Finally, \pythonil{num_str.items()}\pythonIdx{items}\pythonIdx{dict.items} returns the key-value pairs a sequence of tuples and wrapping this into a list yields \pythonil{[(2, "two"), (1, "one"), (3, "three"), (4, "four")]}.
 You may notice that all of these sequences have the same order of elements that was used when we created the dictionary.
 They key-value pair \pythonil{2: "two"} comes before \pythonil{1: "one"}.
 This is because dictionaries, different from sets, are ordered datastructures.

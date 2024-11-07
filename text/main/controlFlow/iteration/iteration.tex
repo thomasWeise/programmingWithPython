@@ -85,9 +85,171 @@ This is not an error in the strict sense.
 This instead is how the end of an iteration sequence is signaled.
 A \pythonilIdx{for}~loop will, for instance, stop when it encounters this exception.
 
-\Cref{fig:iterateOverListAndRange:range} shows us that \pythonilsIdx{range} have the exactly same behavior as \pythonilsIdx{list} with respect to iteration.
+This approach to iterate over collections by first creating an iterator using the \pythonilIdx{iter} function and then applying \pythonilIdx{next} to that iterator works for \pythonilsIdx{list} and \pythonilsIdx{tuple} alike.
+It also works for \pythonilsIdx{set}, but be aware that the order in which the elements of a \pythonilIdx{set} are presented is not defined.
+Back in \cref{bp:setsUnordered} we already clarified that \pythonilsIdx{set} are unordered data structures.
+Interestingly, we can also iterate over \pythonilsIdx{dict} like this.
+This iteration \emph{only} returns the dictionary keys however.
+If we need the values or the key-value pairs of a dictionary~\pythonil{d}, then we have to iterate over \pythonil{d.values()}\pythonIdx{values}\pythonIdx{dict.values} or \pythonil{d.items()}\pythonIdx{items}\pythonIdx{dict.items}, respectively.
+
+\Cref{fig:iterateOverListAndRange:range} shows us that even \pythonilsIdx{range} have the exactly same behavior as \pythonilsIdx{list} with respect to iteration.
 And they should, of course, like every other object implementing the~\pythonilIdx{Iterable} functionality.
-As a result, the \pythonil{for y in x}-type of loops can be applied to any \pythonilIdx{Iterable} or \pythonilIdx{Iterator} instance~\pythonil{x}.%
+Because of this, the \pythonil{for y in x}-type of loops can be applied to any \pythonilIdx{Iterable} or \pythonilIdx{Iterator} instance~\pythonil{x}.%
+%
+\endhsection%
+%
+\hsection{List Comprehension}%
+%
+We can create a list by writing it down as a literal, e.g., \pythonil{[1, 2, 3, 4, 5]} creates a list\pythonIdx{list} containing the first five natural numbers.
+This is very handy, but can also become cumbersome if we either have many elements or want to transform them.
+Needing to write a literal in the same way that creates a list with the first one hundred natural numbers may be somewhat annoying.
+If we want to create a list with the logarithms of first five natural numbers, writing \pythonil{[log(1), log(2), log(3), log(4), log(5)]}\pythonIdx{log} looks clunky as well.
+Luckily, \python\ offers the much more convenient syntax of list comprehension:%
+%
+\begin{pythonSyntax}
+[item for item in sequence]  # which is equivalen to `list(sequence)`
+# or
+[expression(item) for item in sequence]
+# or
+[expression(item) for item in sequence if booleanExpression(i)]
+\end{pythonSyntax}
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{07_iteration}{simple_list_comprehension.py}{--args format}{iteration:simple_list_comprehension}{%
+Some simple examples for list comprehension.}%
+%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/ruff.sh 07_iteration simple_list_comprehension.py}{iteration:simple_list_comprehension:ruff}{%
+The output of \ruff\ for the examples for list comprehension in \cref{lst:iteration:simple_list_comprehension}: The \pythonilIdx{for} loop constructing the list \textil{squares_1} can indeed by replaced by a list comprehension.}%
+%
+\begin{sloppypar}%
+This syntax creates a new list whose contents are the results of applying a given \pythonil{expression} to the items~\pythonil{item} from another \pythonil{sequence}.
+For example, \pythonil{[i for i in range(10)]} creates a list with the integer numbers~\pythonil{0} to~\pythonil{9}.
+The comprehension \pythonil{[i ** 2 for i in range(10)]} instead creates a list with their squares (where \inQuotes{squaring} is the before-mentioned expression).
+Additionally, we can select the elements that we want to have in the list by adding an \pythonilIdx{if}~clause:
+\pythonil{[i for i in range(10) if i != 3]}, for instance, excludes the number~\pythonil{3} from our list.
+Interestingly, the sequence over which the list creation iterates can itself also be such a comprehension expression.
+It is totally fine to write \pythonil{[i * j for i in range(2) for j in range(2)]}, which yields \pythonil{[0, 0, 0, 1]} because both~\pythonil{i} and~\pythonil{j} will take on the values~\pythonil{0} and~\pythonil{1}.%
+\end{sloppypar}%
+%
+In \cref{lst:iteration:simple_list_comprehension} we provide some examples for list comprehension.
+First, we want to construct a list with the squares of the integer numbers from~0 to~10.
+Before learning about list comprehension, we would do this by initially creating an empty list~\pythonil{squares_1}.
+In a \pythonilIdx{for} loop letting a variable~\pythonil{i} iterate over the \pythonil{range(0, 11)}\pythonIdx{range}, we would then add \pythonil{i ** 2} to the list~\pythonil{squares_1} by invoking~\pythonil{squares_1.append(i ** 2)}\pythonIdx{list!append}\pythonIdx{append}.
+This will occupy at least three lines of code.
+Instead, we could write the comprehension expression \pythonil{[j ** 2 for j in range(11)]}, which achieves exactly the same thing only using a single line of code.
+
+We can also select which elements we want to insert into our list by using an \pythonilIdx{if} statement during the list comprehension.
+In \cref{lst:iteration:simple_list_comprehension}, we demonstrate this by creating a list of even numbers from the range~0 to~9.
+We let a variable~\pythonil{k} iterate over the \pythonil{range(10)}\pythonIdx{range}.
+This lets~\pythonil{k} take on the values~\pythonil{0}, \pythonil{1}, \pythonil{2}, \dots, \pythonil{8}, and finally~\pythonil{9}.
+Out of these values, we select only those for which \pythonil{k \% 2 == 0} via the \pythonilIdx{if}~statement.
+In other words, we compute the result of the \pgls{modulodiv} of \pythonil{k} and~\pythonil{2}, i.e., the remainder of that division.
+If it is zero, then \pythonil{k} is divisible by~\pythonil{2} and thus even.
+Anyway, we obtain the list~\pythonil{[0, 2, 4, 6, 8]}.%
+%
+\begin{sloppypar}%
+Finally, we play around with \inQuotes{nested} comprehension.
+Let's say you have two \pythonilsIdx{Iterable} and want to produce all possible combinations of their output.
+Assume that the first sequence by~\pythonil{"abc"} and the second one be~\pythonil{"xy"}.
+How can we achieve this?
+By simply writing two \pythonil{for}~statements!
+In \cref{lst:iteration:simple_list_comprehension}, we create the list~\pythonil{combinations} this way.
+We write \pythonil{[f"\{m\}\{n\}" for m in "abc" for n in "xy"]}.
+This lets the variable~\pythonil{m} take on all the characters in the string~\pythonil{"abc"}.
+For each of the values that~\pythonil{m} takes on, the variable~\pythonil{n} iterates over \pythonil{"xy"} and thus first becomes~\pythonil{"x"} and then~\pythonil{"y"}
+The \pgls{fstring} \pythonil{f"\{m\}\{n\}"} is extrapolated for each combination of~\pythonil{m} and~\pythonil{n}.
+The result is thus the list~\pythonil{["ax", "ay", "bx", "by", "cx", "cy"]}.%
+\end{sloppypar}%
+%
+\begin{sloppypar}%
+Of course, we can create lists of arbitrary datatypes using list comprehension.
+These include also other lists, tuples, sets, dictionaries -- whatever we want.
+We can repeat the above example and, instead of storing the combinations of characters as strings, we could store them as \pythonilsIdx{tuple}.
+The list comprehension~\pythonil{[(o, p) for o in "abc" for p in "xy"]} does this.
+It produces~\pythonil{[('a', 'x'), ('a', 'y'), ('b', 'x'), ('b', 'y'), ('c', 'x'), ('c', 'y')]}.
+\end{sloppypar}%
+%
+In \cref{exec:iteration:simple_list_comprehension:ruff}, we present the output that our \cref{ut:ruff} produces when we apply it to \cref{lst:iteration:simple_list_comprehension}.
+Interestingly, \ruff\ considers the construction of a list via the \pythonilIdx{append}\pythonIdx{list!append} function as a \emph{performance issue}, signified by the error prefix~\textil{PERF}.
+This is, of course, only the case if the list could as well be created via list comprehension, which is not always possible.
+But when it can be done, as is the case in our example, we noticed that list comprehension is more compact.
+Code which is more compact is often more readable and in this case, from a software engineering point of view, preferable.
+But why would this also be an issue of performance, i.e., execution speed?
+
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{07_iteration}{list_of_numbers_append.py}{--args format}{iteration:list_of_numbers_append}{%
+Create a \pythonilIdx{list} with the even numbers from~0 to~1'000'000 using the \pythonilIdx{append}.}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{07_iteration}{list_of_numbers_comprehension.py}{--args format}{iteration:list_of_numbers_comprehension}{%
+Create a \pythonilIdx{list} with the even numbers from~0 to~1'000'000 using list comprehension.}%
+
+In order to investigate this issue, we could try to simply create two lists with the same contents, once by using the \pythonilIdx{append} method and once by using list comprehension.
+Whichever is faster, i.e., needs less time, has the better performance.
+Now measuring the runtime needed by something is always a dodgy subject.
+The runtime of a \python\ interpreter obviously depends on the machine and CPU it is running on.
+It is also affected by the operating system, the available RAM, the disk speed, and of course by other processes running on the same machine at the same time.
+Clearly, it also depends on which version of the \python\ interpreter we use and our results could be different after each software update.
+So every runtime measurement is always fuzzy and imprecise.
+Whatever we would measure would have to take with a grain of salt, but we will try it anyway.%
+%
+\usefulTool{timeit}{%
+\pythonilIdx{timeit} is a tool for measuring execution time of small code snippets that ships directly with \python. %
+This module avoids a number of common traps for measuring execution times, see~\cite{PSF2024TMETOSCS,P2002AI}.%
+}%
+%
+\pythonilIdx{timeit} allows us to measure the runtime of a certain statement.
+We want to measure how long it takes to create a list containing all even numbers from~0 to~1'000'000.
+
+In \cref{lst:iteration:list_of_numbers_append} we therefore first implement a function \pythonil{create_by_append} which constructs the list using the \pythonilIdx{append}\pythonIdx{list!append} method.
+In a loop over the \pythonil{range(1_000_001)}, it appends all the even numbers to the list \pythonil{numbers}.
+Finally, it returns the list.
+
+To measure the runtime of this function, we first \pythonilIdx{import} the function \pythonilIdx{repeat}\pythonIdx{timeit!repeat} from the module~\pythonilIdx{timeit}.
+We tell \pythonilIdx{repeat} to call our function \pythonil{create_by_append} one time and measure the consumed runtime (which will be in seconds and stored in a \pythonil{float}).
+However, due to the above factors which may influence the runtime, a single measurement is not very reliable~\cite{P2002AI}.
+We thus instruct \pythonilIdx{repeat} to take 90 such measurements.
+All of the measured runtimes are then return as a \pythonil{list[float]}.
+The documentation of \pythonilIdx{timeit}~\cite{PSF2024TMETOSCS} says:%
+%
+\begin{quote}%
+Note: it's tempting to calculate mean and standard deviation from the result vector and report these.
+However, this is not very useful.
+In a typical case, the lowest value gives a lower bound for how fast your machine can run the given code snippet;
+higher values in the result vector are typically not caused by variability in \python's speed, but by other processes interfering with your timing accuracy.
+So the \pythonil{min()}\pythonIdx{min} of the result is probably the only number you should be interested in.
+After that, you should look at the entire vector and apply common sense rather than statistics.%
+\end{quote}%
+%
+\bestPractice{timeMeasurement}{%
+When measuring the runtime of code for one specific set of inputs, it makes sense to perform multiple measurements and to take the \emph{minimum} of the observed values~\cite{PSF2024TMETOSCS}. %
+The reason is that there are many factors (CPU temperature, other processes, \dots) that may \emph{negatively} impact the runtime. %
+However, there is no factor that can make your code faster than what your hardware permits. %
+So the minimum is likely to give the most accurate impression of how fast your code can theoretically run on your machine. %
+Notice, however, that there might be effects such as caching that could corrupt your measurements.%
+}%
+%
+So we do just that.
+We print the result of \pythonilIdx{min} applied to the returned list.
+We format the output to be in milliseconds and rounded to three digits, to be a bit more readable.
+The result can be seen in \cref{exec:iteration:list_of_numbers_append}.
+
+Now the PDF of this book is built automatically using a \github~Action~\cite{C2024GA}.
+This action executes all the \python\ example programs and weaves their output into the book.
+Everytime I update the book, this process is repeated.
+This means that, when writing this text, I do not know what value you will see in \cref{exec:iteration:list_of_numbers_append}.
+On my local machine, I get \textil{runtime/call: 30.1 ms.}
+
+Anyway, in order to test whether list comprehension is really faster than iterative list construction via \pythonilIdx{append}\pythonilIdx{list!append}, we now write the second program \cref{lst:iteration:list_of_numbers_comprehension}.
+This program is very similar to \cref{lst:iteration:list_of_numbers_append}.
+It defines a function \pythonil{create_by_comprehension} which creates the very same list as \pythonil{create_by_append} does in \cref{lst:iteration:list_of_numbers_append}.
+However, it uses list comprehension.
+We measure the runtime of this function in exactly the same way as before.
+In \cref{exec:iteration:list_of_numbers_comprehension}, you can see the result.
+Of course, this result may be different every time the book is compiled using the \github~Action mentioned above.
+On my local machine, I get \textil{runtime/call: 28.7 ms.}
+
+This confirms that list comprehension is indeed a bit faster than iterative list construction on \python~3.12.
+The difference may have been bigger on older \python\ versions, but it is there.
+Five percent of runtime saved are nice.
+And even if list comprehension was not faster than iteratively constructing a list, it would still be better code, because it is shorter and more readable.%
 %
 \endhsection%
 %
