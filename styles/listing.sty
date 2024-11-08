@@ -178,7 +178,9 @@ breaklines=true%
 \gitLoad{#1}{#2}{#3}%
 \expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitUrl:lst:#4\endcsname{\gitUrl}%
 \expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:lst:#4\endcsname{\gitFile}%
-\lstinputlisting[float,label={lst:#4}#6,caption={#5~(\href{\csname @pwp@gitUrl:lst:#4\endcsname}{src})}]{\csname @pwp@gitFile:lst:#4\endcsname}%
+\begin{figure}[tb]%
+\lstinputlisting[label={lst:#4}#6,caption={#5~(\href{\csname @pwp@gitUrl:lst:#4\endcsname}{src})}]{\csname @pwp@gitFile:lst:#4\endcsname}%
+\end{figure}%
 }%
 %
 %%
@@ -222,7 +224,11 @@ breaklines=true%
 %% #4 the label (exec: will be pre-pended)
 %% #5 the caption
 \protected\gdef\gitOutputTool#1#2#3#4#5{%
-\gitOutputWithStyle{#1}{#2}{#3}{#4}{,label={exec:#4},caption={#5},float}{tool_style}%
+\gitExec{#1}{#2}{#3}%
+\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:exec:#4\endcsname{\gitFile}%
+\begin{figure}[tb]%
+\lstinputlisting[style=tool_style,label={exec:#4},caption={#5}]{\csname @pwp@gitFile:exec:#4\endcsname}%
+\end{figure}%
 }%
 %
 %% Use latexgit to place a listing with code and the program output.

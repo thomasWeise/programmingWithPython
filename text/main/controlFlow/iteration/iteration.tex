@@ -593,8 +593,6 @@ We could have just iterated over the \pythonilIdx{range} directly, which would h
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{07_iteration}{generator_expressions_to_collection.py}{--args format}{iteration:generator_expressions_to_collection}{%
 Using generator expressions when creating collection datastructures\pythonIdx{Generator}\pythonIdx{list}\pythonIdx{dict}.}%
 %
-\FloatBarrier%
-%
 \begin{sloppypar}%
 Finally, generator expressions can also be passed to the constructors of collection datastructures or other functions that create such datastructures.
 In \cref{lst:iteration:generator_expressions_to_collection}, we first define a string \pythonil{csv_text} with the value~\pythonil{"22,56,33,67,43,33,12"}.
@@ -698,6 +696,44 @@ The first \pythonil{next(gen)}\pythonIdx{next} call is supposed to return~\pytho
 The second such call shall return~\pythonil{3}, the third one~\pythonil{5}, the fourth one~\pythonil{7}.
 The fifth and last \pythonil{next(gen)}\pythonIdx{next} invocation in the \pgls{doctest} should return~\pythonil{11}.
 You can use \pytest\ by yourself to check whether the code works as expected\dots%
+\FloatBarrier%
+\endhsection%
+%
+\hsection{Operations on Iterators}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{07_iteration}{filter_takewhile.py}{--args format}{iteration:filter_takewhile}{%
+An example for \pythonilIdx{takewhile}\pythonIdx{itertools!takewhile} and \pythonilIdx{filter}.}%
+%
+Sequences play a very important role in \python\ programming.
+The fact that generator functions and the \pythonilIdx{yield} keyword were added to the language just to provide a natural way to construct complex sequences speaks for itself~\cite{PEP255}.
+Naturally, there also are several utilities for working with and transforming sequences.
+Some of these tools are directly provided as built-in functions, some ship with the module~\pythonilIdx{itertools}~\cite{PSF2024IFCIFEL}.
+Here we want to discuss a few of them.
+
+The first two tools we will look at are the built-in function \pythonilIdx{filter} and the \pythonilIdx{takewhile}\pythonIdx{itertools!takewhile} function from the \pythonilIdx{itertools} module.
+In the previous section, we implemented a generator function returning the endless sequence of prime numbers in \cref{lst:loops:for_loop_sequence_primes}.
+What would we do if we wanted a convenient way to create a list of all prime numbers which are less than 50 by using this never-ending generator?
+The answer can be found in \cref{lst:iteration:filter_takewhile}.
+
+\pythonilIdx{takewhile} is a function with two parameters:
+The second parameter is an \pythonilIdx{Iterator}.
+Let's say that it provides a sequence of elements of some type~\pythonil{T}.
+The first parameter then is a predicate, which is a function accepting one element of type~\pythonil{T} and returning a \pythonil{bool} value.
+Back in \cref{sec:functionsAsVarsAndLambdas}, we learned that we can also pass functions or \pythonilsIdx{lambda} as arguments to other functions.
+This is a practical example of that.
+Basically, \pythonilIdx{takewhile} constructs a new \pythonilIdx{Iterator} which returns the elements from the original \pythonilIdx{Iterator} as long as the predicate function returns~\pythonil{True} for them.
+As soon as the predicate returns \pythonil{False}, it will stop the iteration.
+Therefore, the answer to \inQuotes{How can I extract all the numbers less than~50 from the prime sequence?} is simply to call \pythonil{akewhile(lambda z: z < 50, primes())}.
+This sequence is now no longer infinitely long and can conveniently be converted to a \pythonil{list}.
+
+The built-in function~\pythonilIdx{filter} works quite similarly.
+It, too, accepts a predicate and an~\pythonilIdx{Iterator} as input.
+Different from \pythonil{takewhile}, the new \pythonilIdx{Iterator} created by \pythonilIdx{filter} does not stop if the predicate returns~\pythonil{False}.
+However, it only returns only those elements for which the predicate returned~\pythonil{True}.
+In \cref{lst:iteration:filter_takewhile}, we use this to select prime numbers~$x$ for which an integer~$y$ exists such that~$x=y^2+1$.
+This time, we implement the predicate as function \pythonil{sqr_plus_1} and pass this function to \pythonilIdx{filter}.
+Since there again probably infinitely many such prime numbers, we return only those that are less than~1000, for which we use~\pythonil{takewhile}.
+The results can be seen in \cref{exec:iteration:filter_takewhile}.
 \FloatBarrier%
 \endhsection%
 %
