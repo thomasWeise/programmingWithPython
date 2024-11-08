@@ -57,7 +57,7 @@ Manually iterating over a \pythonilIdx{range}.%
 %
 \begin{sloppypar}%
 Any object that allows us to access its elements one-by-one, i.e., \emph{iteratively} is an instance of \pythonilIdx{typing.Iterable}\pythonIdx{Iterable}.
-The actual iteration over the contents is then done by an \pythonilIdx{typing.Iterator}\pythonIdx{Iterator}.
+The actual iteration over the contents is then done by an \pythonilIdx{typing.Iterator}\pythonIdx{Iterator}~\cite{PEP234}.
 This distinction is necessary because we want to allow some objects to be iterated over multiple times.%
 \end{sloppypar}%
 %
@@ -287,7 +287,7 @@ We present \pglspl{doctest} for \pythonil{flatten}.
 A \pgls{doctest} is a unit test written directly into the \pgls{docstring} of a function or module. %
 We therefore insert small snippets of \python\ code and their expected output. %
 The first line of such codes is prefixed py~\pythonil{>>>}\pythonIdx{>\strut>\strut>}. %
-If the snipped has multiple lines, any following line is prefixed by~\pythonil{...}\pythonIdx{\idxdots}. %
+If a statement needs multiple lines, any following line is prefixed by~\pythonil{...}\pythonIdx{\idxdots}. %
 After the snippet, the expected output is written. %
 The \pglspl{doctest} can be by modules like \pythonilIdx{doctest}~\cite{PSF2024DTIPE} or tools such as \pytest~\cite{KPDT2024HTRD}~(\cref{ut:pytest}). %
 They collect the code, run it, and compare its output to the expected output in the \pgls{docstring}. %
@@ -356,7 +356,7 @@ Set comprehension works exactly like list comprehension, and our first examples 
 \end{sloppypar}%
 %
 Let us now try do something more interesting:
-We want to create the set \pythonil{primes} of the prime numbers in the range~2 to~99.
+We want to create the set \pythonil{primes} of the prime numbers~\cite{W2024PN,CP2005PNACP,R1994PNACMFF} in the range~2 to~99.
 We already created a beautiful program doing this efficiently in \cref{lst:loops:for_loop_sequence_primes}.
 This time, we will use set comprehension\pythonIdx{set!comprehension}\pythonIdx{comprehension!set}.
 
@@ -591,7 +591,7 @@ Well, of course, we would not have needed any generator or datastructure in the 
 We could have just iterated over the \pythonilIdx{range} directly, which would have been even more efficient {\dots} but then we could not have used this as an example.%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{07_iteration}{generator_expressions_to_collection.py}{--args format}{iteration:generator_expressions_to_collection}{%
-Using generator expressions when creating collection datastructures\pythonilIdx{Generator}\pythonilIdx{list}\pythonilIdx{dict}.}%
+Using generator expressions when creating collection datastructures\pythonIdx{Generator}\pythonIdx{list}\pythonIdx{dict}.}%
 %
 \FloatBarrier%
 %
@@ -622,6 +622,82 @@ There is no tuple comprehension, though, and also passing the generator expressi
 The output of \ruff\ for collection creation-expressions in \cref{lst:iteration:generator_expressions_to_collection}: %
 Passing generators to \pythonilIdx{list}, \pythonilIdx{set}, or \pythonilIdx{dict} constructors could be replaced by list-, set-, or dictionary comprehension.}%
 %
+\FloatBarrier%
+\endhsection%
+%
+\hsection{Generator Functions}%
+%
+\gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{07_iteration}{simple_generator_function_1.py}{--args format}{iteration:simple_generator_function_1}{%
+A very simple generator function yielding the numbers~1, 2, and~3\pythonIdx{Generator}.}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{07_iteration}{simple_generator_function_2.py}{--args format}{iteration:simple_generator_function_2}{%
+A generator function yielding the infinite sequence of Fibonacci numbers\pythonIdx{Generator}~\cite{W2024FN,S2022FLAATIMEOLPBOC}.}%
+%
+\gitPython{\programmingWithPythonCodeRepo}{07_iteration/prime_generator.py}{--args format}{iteration:prime_generator}{%
+A generator function yielding the infinite sequence of prime numbers\pythonIdx{Generator}~\cite{W2024PN,CP2005PNACP,R1994PNACMFF}.}%
+%
+The final element in \cref{fig:iteration} that we did not yet discuss are \emph{generator functions}~\cite{PEP255}.
+From the perspective of the user of a generator function, it is a function that returns an \pythonilIdx{Iterator} of values.
+We can process the sequence of values provided by this \pythonilIdx{Iterator} in exactly the same ways already discussed.
+We can iterate over it using a \pythonilIdx{for}~loop.
+We can use it a comprehension or pass it to the constructor of a collection, if we want to.
+
+From the perspective of the implementor, however, it looks more like a function that can return values several times.
+Instead of using the \pythonilIdx{return} keyword, this is achieved by using the \pythonilIdx{yield} keyword.
+Each element of the sequence that we generate is produced by returning it via~\pythonilIdx{yield}.
+This has the feel of a function that can return a value, which is then processed by some outside code, and then the function resumes to return more values.
+
+Since this sounds quite confusing, let's begin by looking at a very simple example.
+In \cref{lst:iteration:simple_generator_function_1}, we create a generator which should produce only the values~1, 2, and~3.
+It is implemented as a function~\pythonil{generator_123}, which is declared with~\pythonilIdx{def} like any normal \python\ function.
+The return type is annotated as \pythonil{Generator[int, None, None]}, meaning that this is a generator function which produces~\pythonil{int} values.
+The function body consists only of the three statements \pythonil{yield 1}, \pythonil{yield 2}, and \pythonil{yield 3}\pythonIdx{yield}.
+
+We can use the \pythonilIdx{Generator} returned by this function to populate a \pythonilIdx{list}:
+\pythonil{list(generator_123())} results in the list~\pythonil{[1, 2, 3]}.
+Of course we can also iterate over the~\pythonilIdx{Generator} like over any normal~\pythonilIdx{Iterator}.
+We first set \pythonil{gen = generator_123()}.
+The first time we invoke \pythonil{next(gen)}\pythonIdx{next}, it returns~\pythonil{1}.
+The second time we invoke \pythonil{next(gen)}\pythonIdx{next}, it returns~\pythonil{2}.
+The third time we invoke \pythonil{next(gen)}\pythonIdx{next}, it returns~\pythonil{3}.
+The fourth call to \pythonil{next(gen)}\pythonIdx{next} raises\pythonIdx{raise} a \pythonilIdx{StopIteration}.
+This indicates that the end of the sequence is reached.
+Indeed, we queried the generator function's result exactly like a normal~\pythonilIdx{Iterator}.
+
+The interesting thing is that the function code is really disrupted by every \pythonilIdx{yield} and resumed when \pythonilIdx{next} is called (unless the sequence was finished, that is).
+This becomes visible when we create a generator function that returns an infinite sequence.
+
+In \cref{lst:iteration:simple_generator_function_2}, we implement a generator function producing the Fibonacci numbers~\cite{W2024FN,S2022FLAATIMEOLPBOC}.
+These numbers follow the sequence~$F_n=F_{n-1} + F_{n-2}$ where~$F_0=0$ and~$F_1=1$.
+We therefore define the function \pythonil{fibonacci}, which is annotated to return a \pythonilIdx{Generator}.
+It begins by setting~$\pythonil{i}=F_0=0$ and~$\pythonil{j}=F_1=1$.
+In a \pythonilIdx{while} loop which will never stop (as the loop condition is imply set to~\pythonil{True}), it always yields~\pythonil{i}\pythonIdx{yield}.
+Then, assign \pythonil{i} and \pythonil{j} to \pythonil{j} and \pythonil{i + j}, respectively.
+This stores the old value of~\pythonil{j} in~\pythonil{i}.
+It also stores the sum of the old \pythonil{i} and \pythonil{j} values in~\pythonil{j}.
+In the next loop iteration, \pythonilIdx{yield} will then produce the next Fibonacci number.
+
+We can now loop over the \pythonilIdx{Generator} returned by \pythonil{fibonacci()} in a normal \pythonilIdx{for}~loop.
+This would result in an endless loop, unless we insert some termination condition.
+In our loop, we print the Fibonacci numbers~\pythonil{a} we get, but stop the iteration via~\pythonilIdx{break} once~\pythonil{a > 300}.
+
+It should be mentioned that doing something like \pythonil{list(fibonacci())} would be a very bad idea.
+It would attempt to produce an infinitely large list, which would lead to an \pythonilIdx{MemoryError}.
+
+As final example for generator functions, let us wrap our code for enumerating prime numbers~\cite{W2024PN,CP2005PNACP,R1994PNACMFF} from back in \cref{sec:loopsOverSequences} into a generator function in \cref{lst:iteration:prime_generator}.
+We used nested \pythonilIdx{for}~loop to produce the prime numbers in \cref{lst:loops:for_loop_sequence_primes}, where the outer loop would iterate at most to~199.
+We do not need such limit anymore, as we can assume that whoever will call our prime number enumeration code will stop iterating whenever they have seen sufficiently many primes.
+A \pythonil{while True} loop therefore will be more appropriate.
+We also do not need to produce a list, so we do not need to store the only even prime number~(2) anywhere.
+Instead, we just \pythonil{yield 2}\pythonIdx{yield} at the beginning of our generator and move on.
+The last difference between the old and new code is that, once we confirm a number to be prime, we do not just add it to the list~\pythonilIdx{found} of odd primes, we also need to \pythonilIdx{yield} it.
+
+We demonstrate how our generator works with a \pgls{doctest}.
+The test begins by instantiating the \pythonilIdx{Generator} as \pythonil{gen = primes()}.
+The first \pythonil{next(gen)}\pythonIdx{next} call is supposed to return~\pythonil{2}.
+The second such call shall return~\pythonil{3}, the third one~\pythonil{5}, the fourth one~\pythonil{7}.
+The fifth and last \pythonil{next(gen)}\pythonIdx{next} invocation in the \pgls{doctest} should return~\pythonil{11}.
+You can use \pytest\ by yourself to check whether the code works as expected\dots%
 \FloatBarrier%
 \endhsection%
 %
