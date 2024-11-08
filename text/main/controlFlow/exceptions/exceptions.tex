@@ -67,12 +67,12 @@ Raising an \pythonilIdx{Exception} means two things:%
 \item We store information about the error and information about the current execution state (current line of code and the function call hierarchy) in an object (the \pythonilIdx{Exception}).%
 %
 \item The control flow immediately leaves the currently executed block of instructions as well as all calling blocks or functions.
-It jumps up in the call hierarchy until reaching code that handles the raised \pythonilIdx{Exception} is reached.
+It jumps up in the call hierarchy until reaching code that handles the raised exception.
 If no such code exists, the current process is terminated with an \pgls{exitCode} different from~\textil{0}.%
 %
 \end{enumerate}%
 %
-In other words, raising an \pythonilIdx{Exception} is a way to exit the current control flow and to signal an error that must either explicitly be handled by code or will lead the process to terminate.
+In other words, raising an exception is a way to exit the current control flow and to signal an error that must either explicitly be handled by code or will lead the process to terminate.
 In my opinion, this is the best way to handle incorrect input or other erroneous situations for several reasons:%
 %
 \begin{enumerate}%
@@ -82,7 +82,7 @@ This makes it much easier to find out whether the error is caused by invalid inp
 %
 \item It prevents \pgls{GIGO} from occurring.
 Thus, it prevents a faulty situation or corrupted data from propagating out of the current context.
-If an error occurs, this the raised \pythonilIdx{Exception} takes down the current path of execution and this stops the contaminated control flow.%
+If an error occurs, this the raised exception takes down the current path of execution and this stops the contaminated control flow.%
 %
 \item It forces programmers to explicitly deal with the error condition.
 An error cannot be simply ignored.
@@ -90,9 +90,9 @@ Indeed, someone who calls our code might write code that ignores or discards the
 But they have to do so \emph{explicitly} in their code.
 Thus, they have to \emph{intentionally} deal with the possible error condition.
 It cannot happen that an error gets overlooked.
-An \pythonilIdx{Exception} that is not handled will lead to the termination of the process.%
+An exception that is not handled will lead to the termination of the process.%
 %
-\item One might argue: \inQuotes{But what if the process crashes because an \pythonilIdx{Exception} is not handled?}
+\item One might argue: \inQuotes{But what if the process crashes because an exception is not handled?}
 The answer may be:
 What is worse?
 That an error causes the current process to crash unexpectedly or that all future results after the error are wrong and, even worse, are wrong \emph{unnoticed}?%
@@ -129,7 +129,7 @@ In the second case, we should rather stop the computation right there and then b
 In both cases, returning~\pythonil{0.0} is not a good idea.
 
 Instead, we want to signal this error explicitly.
-Our function should raise an \pythonilIdx{Exception}.
+Our function should raise an exception.
 We therefore create a new implementation of \pythonil{sqrt} in \cref{lst:exceptions:sqrt_raise}.
 Before writing the actual \python\ code, we will express the new behavior in the \pgls{docstring} of our function:%
 %
@@ -151,7 +151,7 @@ The complete expression becomes \pythonil{True} if the input of the function is 
 We thus check whether the output of the \pythonil{sqrt} function would not be a finite number.
 If this is indeed the case, we \pythonil{raise ArithmeticError(f"sqrt(\{number\}) is not permitted.")}.
 
-\pythonilIdx{raise} is the keyword used to, well, raise an \pythonilIdx{Exception}, i.e., to signal an error.
+\pythonilIdx{raise} is the keyword used to, well, raise an exception, i.e., to signal an error.
 \pythonilIdx{ArithmeticError} then creates the object with the information about the exception.
 We can pass a string as parameter to this function, and we here chose to pass in an \pgls{fstring} which contains the value of the number with which our \pythonil{sqrt} function was called.
 This line of code will force the control flow to immediately exit our \pythonil{sqrt} function.
@@ -171,20 +171,20 @@ As can be seen, for \pythonil{0.0}, \pythonil{1.0}, \pythonil{2.0}, \pythonil{4.
 However, when the \pythonilIdx{for}~loop reaches \pythonilIdx{inf}, the program is terminated an the so-called \pgls{stackTrace} is written to the output.
 
 It begins with the line \textil{Traceback (most recent call last):}.
-In the first line following this text, the source code file and the index of the line in that file where the \pythonilIdx{Exception} was originally raised are printed.
+In the first line following this text, the source code file and the index of the line in that file where the exception was originally raised are printed.
 Notice that the actual path to the files will be different depending on where the source code of the examples is located.
 We replaced the variable part of the path with~\inQuotes{\{\dots\}}.
 The remaining part of the path, \textil{06_exceptions/use_sqrt_raise.py}, clearly points out the calling program as the culprit \cref{lst:exceptions:use_sqrt_raise}.
 Indeed, the following line of text identifies that instruction in \cref{lst:exceptions:use_sqrt_raise} that caused the error and even marks the offending function invocation by underlining it with \textil{{^}{^}{^}{^}{^}{^}{^}{^}{^}{^}{^}{^}}.
 Below that, we get to see the context of our \pythonil{sqrt} function:
-First, the path to its module is given (ending in \textil{06_exceptions/sqrt_raise.py}) and it is pointed out that the \pythonilIdx{Exception} was raised in line~15.
+First, the path to its module is given (ending in \textil{06_exceptions/sqrt_raise.py}) and it is pointed out that the exception was raised in line~15.
 This line of code is then also given, and it indeed is the one starting with \pythonil{raise ArithmeticError}.
 The \pgls{stackTrace} therefore shows us exactly where the error happened and from where the code causing the error was called.%
 %
 \begin{sloppypar}%
 After the \pgls{stackTrace}, we can see information about the error printed that we passed in:
 \textil{ArithmeticError: sqrt(inf) is not permitted.}
-We made this message by ourselves using an \pgls{fstring} when raising the \pythonilIdx{Exception}.
+We made this message by ourselves using an \pgls{fstring} when raising the exception.
 We did this so that it tells the user that \pythonil{sqrt} was called with the argument \pythonil{inf} that we did not permit.%
 \end{sloppypar}%
 %
@@ -194,7 +194,7 @@ They see that a program produces and error and then try to figure out why by loo
 They often do not read the \pgls{stackTrace} or the error information below it.%
 %
 \bestPractice{exceptionStackTrace}{%
-The \pgls{stackTrace} and error information printed on the \python\ console in case of an uncaught \pythonilIdx{Exception} are essential information to identify the problem. %
+The \pgls{stackTrace} and error information printed on the \python\ console in case of an uncaught exception are essential information to identify the problem. %
 They should \emph{always} be read and understood before trying to improve the code.%
 }%
 %
@@ -222,7 +222,7 @@ We use examples that are specifically constructed to cause certain errors to ill
 \hsection{The \texttt{try}\dots\texttt{except} Block}%
 %
 The \pythonilIdx{try}\nobreakdashes-\pythonilIdx{except} clause exists as primary approach to recover from errors.
-We place the code that may raise an \pythonilIdx{Exception} into an indented block that is prefixed by \pythonil{try:}.
+We place the code that may raise an exception into an indented block that is prefixed by \pythonil{try:}.
 After this block, we write the handlers for specific exception types.
 For example, if we assume that a block could raise an \pythonilIdx{ArithmeticError}, we could write \pythonil{except ArithmeticError as ae:}\pythonIdx{as}.
 The code inside this \pythonilIdx{except} block would be executed if and only if indeed an \pythonilIdx{ArithmeticError} was raised somewhere in the \pythonilIdx{try} block.
@@ -260,21 +260,21 @@ In the \pythonilIdx{try}-block, we place a \pythonil{for} loop which lets a vari
 In its first iteration, \pythonil{s = "Hello"} and \pythonil{r.index(s)} will yield~\pythonil{0}.
 This is printed to the output.
 In the second iteration, \pythonil{s = "world"}, which cannot be found since searching in strings is case-sensitive.
-\pythonil{r.index(s)} will therefore raise an \pythonilIdx{Exception}.
+\pythonil{r.index(s)} will therefore raise an exception.
 
 The \pythonilIdx{except} block after the \pythonil{try} block is executed if anywhere inside the \pythonil{try} block a \pythonilIdx{ValueError} is raised.
 In this case, this \pythonilIdx{ValueError} becomes available in variable~\pythonil{ve}.
 In this block, we simply print the error.
 
 After the block, we print \pythonil{"The program is now finished."}.
-This code is executed only if no uncaught \pythonilIdx{Exception} has left the \pythonil{try}-\pythonil{except} block.
+This code is executed only if no uncaught exception has left the \pythonil{try}-\pythonil{except} block.
 The output of the program given in \cref{exec:exceptions:try_except_str_index} shows that this is indeed the case:
 We first get the results of the successful search for \pythonil{"Hello"}, followed by the output for the failed search.
 The last line then is \textil{The program is now finished.}
 
 Notice that the third value in the loop, \pythonil{"!"}, never gets assigned to the variable \pythonil{s}.
-The \pythonilIdx{try} block is immediately terminated as soon as any \pythonilIdx{Exception} occurs.
-If the \pythonilIdx{Exception} can be handled by a corresponding \pythonilIdx{except} block, then this block is executed.
+The \pythonilIdx{try} block is immediately terminated as soon as any exception occurs.
+If the exception can be handled by a corresponding \pythonilIdx{except} block, then this block is executed.
 Otherwise, the whole process will be terminated.
 Either way, even if a fitting \pythonilIdx{except} block exists, the code after the failing instruction in the \pythonilIdx{try} block will not be executed.
 
@@ -290,7 +290,7 @@ A crashed program is the clearest indicator to the user that something is wrong 
 %
 \bestPractice{onlyCatchMeaningfulExceptions}{%
 Only \pythonilsIdx{Exception} should be caught by \pythonilIdx{except} blocks that we can meaningfully handle. %
-The \pythonilIdx{except} block is not to be used to just catch any \pythonilIdx{Exception}, to implement \gls{GIGO}, or to try to sanitize erroneous input.%
+The \pythonilIdx{except} block is not to be used to just catch any exception, to implement \gls{GIGO}, or to try to sanitize erroneous input.%
 }%
 %
 \gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{06_exceptions}{try_multi_except.py}{--args format}{exceptions:try_multi_except}{%
@@ -306,7 +306,7 @@ However, we also know that \pythonil{1 / 0} looks a bit dodgy, as we also try to
 As you can see, we can have two independent \pythonilIdx{except} clauses.
 
 So, which one will be executed?
-Certainly, $\frac{1}{0}$ is not finite, so \pythonil{sqrt} will raise an \pythonilIdx{Exception}.
+Certainly, $\frac{1}{0}$ is not finite, so \pythonil{sqrt} will raise an exception.
 Then again, $\frac{1}{0}$ cannot be computed at all, so maybe we get a \pythonilIdx{ZeroDivisionError} error instead?
 We find that the \pythonilIdx{except} block for \pythonilIdx{ZeroDivisionError} is executed.
 The reason is that in order to invoke \pythonil{sqrt(1 / 0)}, the \python\ interpreter must first compute the result of~\pythonil{1 / 0}.
@@ -326,8 +326,8 @@ Our program will terminate, because the \pythonilIdx{NameError} is never caught 
 Instead, the \pgls{stackTrace} and error information will be printed in \cref{exec:exceptions:try_multi_except}.%
 %
 \bestPractice{noAssignAfterRaise}{%
-If an \pythonilIdx{Exception} is raised, be aware that the control flow will immediately leave the current block. %
-The statement in which the \pythonilIdx{Exception} was raised will not be completed but aborted right away. %
+If an exception is raised, be aware that the control flow will immediately leave the current block. %
+The statement in which the exception was raised will not be completed but aborted right away. %
 Therefore, no variable assignments or other side-effects can take place anymore and it is possible that variables remain undefined.%
 }%
 %
@@ -339,7 +339,7 @@ Therefore, no variable assignments or other side-effects can take place anymore 
 \gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{06_exceptions}{try_except_nested_1.py}{--args format}{exceptions:try_except_nested_1}{%
 An example of \pythonils{Exception} being raised inside an \pythonilIdx{except} block.}%
 %
-What happens if an \pythonilIdx{Exception} is raised \emph{inside} an \pythonilIdx{except} block?
+What happens if an exception is raised \emph{inside} an \pythonilIdx{except} block?
 In \cref{lst:exceptions:try_except_nested_1}, we try to compute \pythonil{sqrt_of_1_div_0 = sqrt(1 / 0)} twice.
 First in the \pythonilIdx{try} block, exactly as in \cref{lst:exceptions:try_multi_except} and then again in the \pythonilIdx{except} block that handles the \pythonilIdx{ZeroDivisionError} that this will cause.
 So inside an \pythonilIdx{except} block for handling \pythonilsIdx{ZeroDivisionError}, another \pythonilIdx{ZeroDivisionError} will be raised.
@@ -347,9 +347,9 @@ So inside an \pythonilIdx{except} block for handling \pythonilsIdx{ZeroDivisionE
 The result is shown in \cref{exec:exceptions:try_except_nested_1}:
 The \pythonilIdx{except} block is terminated immediately and text is written to the \gls{stderr} indicating why.
 While we handled the original \pythonilIdx{ZeroDivisionError}, another error occurred.
-The output first presents the \pgls{stackTrace} of the \pythonilIdx{Exception} that we were handling.
+The output first presents the \pgls{stackTrace} of the exception that we were handling.
 It then informs us that \textil{During handling of the above exception, another exception occurred:}.
-Then it prints the \pgls{stackTrace} of the new \pythonilIdx{Exception} that occurred inside the \pythonilIdx{except} block.
+Then it prints the \pgls{stackTrace} of the new exception that occurred inside the \pythonilIdx{except} block.
 Since there is no code for handling this error, our process terminates with \pgls{exitCode}~1.
 
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{06_exceptions}{try_except_nested_2.py}{--args format}{exceptions:try_except_nested_2}{%
@@ -367,7 +367,7 @@ By placing the second \pythonil{sqrt} invocation located in the \pythonilIdx{exc
 %
 What can we do if we need the result of a computation inside a \pythonilIdx{try} block but only can use it if the \pythonilIdx{try} block completely succeeds?
 One possible solution in such a situation is the \pythonilIdx{try}-\pythonilIdx{except}-\pythonilIdx{else} block.
-The difference to the \pythonilIdx{try}-\pythonilIdx{except} block is only that an \pythonilIdx{else} block follows, which is executed if and only if no \pythonilIdx{Exception} occurred.%
+The difference to the \pythonilIdx{try}-\pythonilIdx{except} block is only that an \pythonilIdx{else} block follows, which is executed if and only if no exception occurred.%
 %
 \begin{pythonSyntax}
 try:  # Begin the try-except block.
@@ -460,10 +460,10 @@ This error could only appear if another programmer was using our function incorr
 We only process this error here for the sake of the example and print an appropriate message in the \pythonilIdx{except} block.
 
 In the example, we also have an \pythonilIdx{else} block which notifies us that no error occurred.
-The code in this block is only executed if no \pythonilIdx{ZeroDivisionError} and no \pythonilIdx{TypeError} and also no other \pythonilIdx{Exception} was raised.
+The code in this block is only executed if no \pythonilIdx{ZeroDivisionError} and no \pythonilIdx{TypeError} and also no other exception was raised.
 
 We finish the division and error handling part of the function with a \pythonilIdx{finally} block.
-This block will be executed if no \pythonilIdx{Exception} was raised anywhere, but also if a \pythonilIdx{ZeroDivisionError}, \pythonilIdx{TypeError}, or other \pythonilIdx{Exception} were raised.
+This block will be executed if no exception was raised anywhere, but also if a \pythonilIdx{ZeroDivisionError}, \pythonilIdx{TypeError}, or other exception were raised.
 Even if an error was raised \emph{inside} one of the \pythonilIdx{except} blocks, this code would be executed.
 It will print that the division code was completed.
 
@@ -519,22 +519,22 @@ Back in \cref{sec:unitTesting}, we introduced the concept of unit tests and show
 We stated in \cref{bp:unitTestCoverage} that we should cover all the branches of the control flow inside a function with unit tests.
 One kind of branch that is often overlooked are \pythonilsIdx{Exception} and extension handling~\cite{LRBP2021AEHTPIOSL}.
 
-If our function raises\pythonIdx{raise} a certain \pythonilIdx{Exception} in some case, then we should have a unit test that checks if this \pythonilsIdx{Exception} is actually raised as it should.
-Now, any \pythonilIdx{Exception} raised by a unit test will cause the test to fail.
+If our function raises\pythonIdx{raise} a certain exception in some case, then we should have a unit test that checks if this \pythonilsIdx{Exception} is actually raised as it should.
+Now, any exception raised by a unit test will cause the test to fail.
 This seems to contradict our goal to intentionally raise the exceptions.
 Luckily, \pytest\ offers us a device for this.%
 %
 \begin{sloppypar}%
 Let us expand our \cref{lst:functions:test_my_math_2} for testing the \pythonil{sqrt} function to now also test for \pythonilsIdx{ArithmeticError}.
-If we want to check whether a function indeed raises a certain \pythonilIdx{Exception} of type \pythonil{ExpectedExceptionType} for a given input, then we can wrap the corresponding function call into a \pythonil{with raises(ExpectedExceptionType):}.
+If we want to check whether a function indeed raises a certain exception of type \pythonil{ExpectedExceptionType} for a given input, then we can wrap the corresponding function call into a \pythonil{with raises(ExpectedExceptionType):}.
 We will learn the exact structure and functioning of \pythonilIdx{with} blocks later.
-They are closely related to \pythonilIdx{Exception} handling, but require knowledge of some other topics that we did not yet cover.
+They are closely related to exception handling, but require knowledge of some other topics that we did not yet cover.
 For now, let us just ignore how the \pythonilIdx{with} statement works and just focus on how it is used for testing.%
 \end{sloppypar}%
 %
 The \pythonilIdx{pytest} module offers a so-called context manager~\cite{PSF2024CUFWSC} named \pythonilIdx{raises}.
-This is basically a function that can be invoked in the \pythonilIdx{with} statement and that tells the \pytest\ system that, in the following, indented, block, we expect that a certain \pythonilIdx{Exception} must be raised.
-If such an \pythonilIdx{Exception} is not raised, the test fails.
+This is basically a function that can be invoked in the \pythonilIdx{with} statement and that tells the \pytest\ system that, in the following, indented, block, we expect that a certain exception must be raised.
+If such an exception is not raised, the test fails.
 If it is raised, the text succeeds.
 
 \gitPython{\programmingWithPythonCodeRepo}{06_exceptions/test_sqrt.py}{--args format}{exceptions:test_sqrt}{%
@@ -544,9 +544,9 @@ Two unit tests checking the original variant of the \pythonil{sqrt} function fro
 The output of the unit tests in \cref{lst:exceptions:test_sqrt}: %
 No error was raised in it, so the first fails and the error message in the second test does not fit, so it fails as well.}%
 %
-In particular, we can provide the \pythonilIdx{Exception} class as well as a \pgls{regex} via the parameter~\pythonil{match} to \pythonilIdx{raises}.
-If the block does not raise an \pythonilIdx{Exception} of the expected type, the test fails.
-If it does raise a corresponding \pythonilIdx{Exception}, then it will be converted to a string.
+In particular, we can provide the exception class as well as a \pgls{regex} via the parameter~\pythonil{match} to \pythonilIdx{raises}.
+If the block does not raise an exception of the expected type, the test fails.
+If it does raise a corresponding exception, then it will be converted to a string.
 The string is then matched against the \pgls{regex} and if it indeed matches, the test succeeds.
 If it does not match, then the test fails.%
 %
@@ -566,10 +566,10 @@ The unit test succeeds.%
 \end{sloppypar}%
 %
 In \cref{lst:exceptions:test_sqrt}, we write a similar test.
-This time, we use basically the original version of our \pythonil{sqrt} function which does not by itself raise any \pythonilIdx{Exception}.
+This time, we use basically the original version of our \pythonil{sqrt} function which does not by itself raise any exception.
 This function is directly implemented in the listing, in the same way as we did in \cref{lst:functions:my_math_2}, and again called \pythonil{sqrt}.
 We also write two unit tests into the new file \textil{test_sqrt.py}.
-Both are intentionally designed to show what happens if either an expected \pythonilIdx{Exception} is not raised~(\pythonil{test_sqrt_1}) or if its error message does not match the \pythonil{match} argument~(\pythonil{test_sqrt_2}).%
+Both are intentionally designed to show what happens if either an expected exception is not raised~(\pythonil{test_sqrt_1}) or if its error message does not match the \pythonil{match} argument~(\pythonil{test_sqrt_2}).%
 %
 \begin{sloppypar}%
 \pythonil{test_sqrt_1} simply feeds the value \pythonil{-1.0} to \pythonil{sqrt}.
@@ -589,7 +589,7 @@ This will fail, because it is too large, as we just discussed back in \cref{sec:
 This failure results in an \pythonilIdx{OverflowError}.
 \pythonilsIdx{OverflowError} are a special case of \pythonilIdx{ArithmeticError} (see later in \cref{fig:pythonExceptions}).
 So indeed, this does fulfill our testing requirement:
-If an \pythonilsIdx{OverflowError} is also a \pythonilIdx{ArithmeticError}, so the right type of \pythonilIdx{Exception} was raised.
+If an \pythonilsIdx{OverflowError} is also a \pythonilIdx{ArithmeticError}, so the right type of exception was raised.
 However, its error message will not fit to our \pythonil{match} argument.
 Therefore, the unit test still fails.
 The output of \cref{exec:exceptions:test_sqrt:pytest} explains this clearly.%
@@ -602,7 +602,7 @@ With \pytest, we can now therefore\pythonIdx{pytest}:%
 \item Test whether a function computes the expected output for selected (correct) inputs. %
 If it does not, the test fails.%
 %
-\item Test whether a function does not raise\pythonIdx{raise} an unexpected \pythonilIdx{Exception} for the selected (correct) inputs. %
+\item Test whether a function does not raise\pythonIdx{raise} an unexpected exception for the selected (correct) inputs. %
 If it does raise one, the test fails.%
 %
 \item Raises the expected \pythonilsIdx{Exception} for selected (wrong) inputs with the correct error messages. %
@@ -697,13 +697,13 @@ An \pythonilIdx{Exception} disrupts the normal control flow and propagates upwar
 Obviously, we cannot just treat every possible error condition in the same way.
 
 Running out of memory is a completely different situation than trying to read from a non-existing file.
-Therefore, different types of \pythonilsIdx{Exception} are raised:
+Therefore, different types of exceptions are raised:
 The former problem causes a \pythonilIdx{MemoryError} while the later raises an \pythonilIdx{FileNotFoundError}.
 The hierarchy of the different problem types is illustrated in \cref{fig:pythonExceptions}~\cite{PSF2024BIE}.
 There, you can also see why an \pythonilIdx{except} block catching \pythonilsIdx{ArithmeticError} would also catch an \pythonilsIdx{OverflowError}, because the latter is a special case of the former.
 
 Depending on the operations that your code tries to perform, you would wrap it into \pythonilIdx{except} blocks for the errors from this list that you could reasonably expect to be able to recover from.
-Of course, the documentation of the \python\ functions that you use will tell you which \pythonilsIdx{Exception} it could raise.
+Of course, the documentation of the \python\ functions that you use will tell you which exceptions it could raise.
 And so should the \pglspl{docstring} of your own code as well as library functions you rely on.%
 \endhsection%
 %

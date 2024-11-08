@@ -142,6 +142,7 @@
 @string { a_heiberg_johan_ludvig = "Johan Ludvig Heiberg" }
 @string { a_henriksen_ian = "Ian Henriksen" }
 @string { a_herbsleb_james_d = "James D.\ Herbsleb" }
+@string { a_hettinger_raymond = "Raymond Hettinger" }
 @string { a_hollasch_steve = "Steve Hollasch" }
 @string { a_hoyer_stephan = "Stephan Hoyer" }
 @string { a_hubbard_steve = "Steve Hubbard" }
@@ -165,6 +166,7 @@
 @string { a_kim_sujin = "Sujin Kim" }
 @string { a_kim_youil = "Youil Kim" }
 @string { a_kissinger_cory = "Cory Kissinger" }
+@string { a_klein_bernd = "Bernd Klein" }
 @string { a_klopf_andreas = "Andreas K{\"o}pf" }
 @string { a_knuth_donald_ervin = "Donald Ervin Knuth" }
 @string { a_kohn_tobias = "Tobias Kohn" }
@@ -369,6 +371,7 @@
 @string { l_germany_freiburg = "{{Freiburg}, {Baden-W{\"u}rttemberg}, {Germany}}" }
 @string { l_germany_heidelberg = "{{Heidelberg}, {Baden-W{\"u}rttemberg}, {Germany}}" }
 @string { l_germany_leipzig = "{{Leipzig}, {Sachsen}, {Germany}}" }
+@string { l_germany_munich = "{{M{\"u}nchen}, {Bayern}, {Germany}}" }
 @string { l_germany_wadern = "{{Wadern}, {Saarland}, {Germany}}" }
 @string { l_iceland_reykjavik = "{{Reykjav{\'i}k}, {Iceland}}" }
 @string { l_india_noida = "{{Noida}, {Uttar Pradesh}, {India}}" }
@@ -444,6 +447,7 @@
 @string { p_elsevier = "{Elsevier~B.V.}" }
 @string { p_geeksforgeeks = "{GeeksforGeeks -- Sanchhaya Education Private Limited}" }
 @string { p_github = "{\github~Inc}" }
+@string { p_hanser_verlag = "{Carl Hanser Verlag GmbH \& Co.~KG}" }
 @string { p_hiroshima_university_dep_ie = "{Department of Information Engineering, Hiroshima University}" }
 @string { p_iec = "{International Electrotechnical Commission~{(IEC)}}" }
 @string { p_ieee = "{Institute of Electrical and Electronics Engineers~{(IEEE)}}" }
@@ -515,6 +519,7 @@
 @string { pa_elsevier = l_netherlands_amsterdam }
 @string { pa_geeksforgeeks = l_india_noida}
 @string { pa_github = l_usa_san_francisco }
+@string { pa_hanser_verlag = l_germany_munich }
 @string { pa_hiroshima_university_dep_ie = l_japan_higashi_hiroshima }
 @string { pa_iso_iec = l_switzerland_geneva }
 @string { pa_ieee = l_usa_piscataway }
@@ -1473,6 +1478,17 @@
  urldate = {2024-09-25},
 }
 
+@book{K2018EIPFEUU,
+ author = a_klein_bernd,
+ title = {Einf{\"u}hrung in \python~3 -- F{\"u}r Ein- und Umsteiger},
+ edition = {3., {\"u}berarbeitete},
+ date = {2018},
+ publisher = p_hanser_verlag,
+ address = pa_hanser_verlag,
+ isbn = {978-3-446-45208-4},
+ doi = {10.3139/9783446453876},
+}
+
 @book{K2024REH,
  author = a_kuchling_andrew_m,
  title = {\glslink{regexp}{Regular Expression} {HOWTO}},
@@ -1769,6 +1785,16 @@
  urldate = {2024-07-27}
 }
 
+@techreport{PEP202,
+ author = a_warsaw_barry,
+ title = {List Comprehensions},
+ xdata = {rep_pep},
+ number = {202},
+ date = {2000-07-13},
+ url = {https://peps.python.org/pep-0202},
+ urldate = {2024-11-08}
+}
+
 @techreport{PEP257,
  title = {\Pgls{docstring} Conventions},
  author = a_goodger_david # and # a_van_rossum_guido,
@@ -1777,6 +1803,26 @@
  date = {2001-05-29/2001-06-13},
  url = {https://peps.python.org/pep-0257},
  urldate = {2024-07-27},
+}
+
+@techreport{PEP274,
+ author = a_warsaw_barry,
+ title = {Dict Comprehensions},
+ xdata = {rep_pep},
+ number = {274},
+ date = {2001-10-25},
+ url = {https://peps.python.org/pep-0274},
+ urldate = {2024-11-08}
+}
+
+@techreport{PEP289,
+ author = a_hettinger_raymond,
+ title = {Generator Expressions},
+ xdata = {rep_pep},
+ number = {274},
+ date = {2002-01-30},
+ url = {https://peps.python.org/pep-0289},
+ urldate = {2024-11-08}
 }
 
 @techreport{PEP482,

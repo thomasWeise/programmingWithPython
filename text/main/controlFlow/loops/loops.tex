@@ -184,6 +184,7 @@ The output in \cref{exec:loops:for_loop_nested_primes} tells us that, after perf
 \endhsection%
 %
 \hsection{Loops over Sequences}%
+\label{sec:loopsOverSequences}%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{04_loops}{for_loop_sequence.py}{--args format}{loops:for_loop_sequence}{%
 An example iterating over the elements in different collection datastructures using \pythonilIdx{for} loops\pythonIdx{loop!for}.}%
@@ -284,12 +285,15 @@ We only need to check those which are less than or equal to \pythonil{isqrt(cand
 The \pythonilIdx{break} statement lets us exit the inner loop as soon as we hit this limit.
 
 The lists of primes that our programs generate in \cref{exec:loops:for_loop_sequence_primes,exec:loops:for_loop_nested_primes} are exactly the same.
-However, our new program needs to perform only 224~divisions instead of~252.%
+However, our new program needs to perform only 224~divisions instead of~252.
+
+Later, in \cref{sec:iteration}, we will learn that loops in \python\ can be applied to the more general concept of~\pythonilsIdx{Iterator}.
+We will also see how the \pythonilIdx{for}~keyword can be used to construct sequences via a process called \emph{comprehensions}.%
 %
 \FloatBarrier%
 \endhsection%
 %
-\hsection{Enumerating over Sequences}%
+\hsection{Enumerating over Sequences when needed Indices}%
 \label{sec:enumOverSequences}%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{04_loops}{for_loop_no_enumerate.py}{--args format}{loops:for_loop_no_enumerate}{%
