@@ -486,7 +486,8 @@ This means that the 999'999'996 elements are never created.
 
 \gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{07_iteration}{generator_expressions_next_2.py}{--args format}{iteration:generator_expressions_next_2}{%
 An investigation of the lazy evaluation in generator expressions\pythonIdx{Generator} by using the \pythonilIdx{next} function.}%
-
+\afterpage{\clearpage}%
+%
 To better understand this, let us try to construct a generator expression which explicitly tells us when an element is created.
 For this, we first create the function \pythonil{as_str} in \cref{lst:iteration:generator_expressions_next_2},.
 \pythonil{as_str} accepts an integer parameter \pythonil{a} as input.
@@ -494,7 +495,7 @@ It immediately writes \pythonil{f"input is \{a\}"} to the \pgls{stdout}.
 This means that whenever \pythonil{as_str} is called, we will immediately see some output.
 Then, it returns simply the string representation of~\pythonil{a}, i.e., \pythonil{str(a)}\pythonIdx{str}.
 
-Let us first use this function a list comprehension \pythonil{lst = [as_str(j) for j in range(3)]}.
+Let us first use this function in a list comprehension \pythonil{lst = [as_str(j) for j in range(3)]}.
 The list comprehension creates the entire list.
 This means in the moment this line of code is executed and \pythonil{lst} is created, our function~\pythonil{as_str} will be invoked three times, with \pythonil{a = 0}, \pythonil{a = 1}, and \pythonil{a = 2}.
 We can see that this happens when the list is created, because all the \pythonil{as_str}-output happens before the \pythonil{print("list created")} completes.
@@ -531,7 +532,7 @@ If the iteration over the elements can stop early, which can happen, e.g., when 
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{07_iteration}{generator_expressions_in_reduction.py}{--args format}{iteration:generator_expressions_in_reduction}{%
 The use of generator expressions in reducing functions, such as \pythonilIdx{sum}, \pythonilIdx{min}, \pythonilIdx{max}, \pythonilIdx{all}, and~\pythonilIdx{any}\pythonIdx{Generator}.}%
 %
-Generator expressions come in especially handy when we want to reduce a sequence of data to a single number.
+Generator expressions come in especially handy when we want to reduce or aggregate a sequence of data to a single number.
 \Cref{lst:iteration:generator_expressions_in_reduction} shows several examples for such computations.
 
 First, we want to sum up the squares of all numbers from~0 to~999'999.
@@ -595,6 +596,8 @@ Using generator expressions when creating collection datastructures\pythonIdx{Ge
 %
 \begin{sloppypar}%
 Finally, generator expressions can also be passed to the constructors of collection datastructures or other functions that create such datastructures.
+Assume that we are processing numbers stored in a \pgls{CSV} format.
+Often, the rows of text files with tabular or matrix data are in this format.
 In \cref{lst:iteration:generator_expressions_to_collection}, we first define a string \pythonil{csv_text} with the value~\pythonil{"22,56,33,67,43,33,12"}.
 Invoking \pythonil{csv_text.split(",")}\pythonIdx{split}\pythonIdx{str!split} will split the string into a list of single strings based on the delimiter~\pythonil{","}.
 This will thus yield \pythonil{["22", "56", "33", "67", "43", "33", "12"]}.
@@ -731,10 +734,98 @@ It, too, accepts a predicate and an~\pythonilIdx{Iterator} as input.
 Different from \pythonil{takewhile}, the new \pythonilIdx{Iterator} created by \pythonilIdx{filter} does not stop if the predicate returns~\pythonil{False}.
 However, it only returns only those elements for which the predicate returned~\pythonil{True}.
 In \cref{lst:iteration:filter_takewhile}, we use this to select prime numbers~$x$ for which an integer~$y$ exists such that~$x=y^2+1$.
-This time, we implement the predicate as function \pythonil{sqr_plus_1} and pass this function to \pythonilIdx{filter}.
+This time, we implement the predicate as function \pythonil{is_sqr_plus_1} and pass this function to \pythonilIdx{filter}.
 Since there again probably infinitely many such prime numbers, we return only those that are less than~1000, for which we use~\pythonil{takewhile}.
-The results can be seen in \cref{exec:iteration:filter_takewhile}.
+The results can be seen in \cref{exec:iteration:filter_takewhile}:
+There are ten such primes.
+The smallest one is $1^2+1=2$ and the largest one is~$26^2+1=677$.
+
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{07_iteration}{map.py}{--args format}{iteration:map}{%
+An example for the function \pythonilIdx{map}.}%
+%
+Another important utility function when dealing with sequences is the function~\pythonilIdx{map}.
+We explore its use in \cref{lst:iteration:map}.
+Back in \cref{lst:iteration:generator_expressions_to_collection}, we used a generator expression to process data that we exracted from a \pgls{CSV}-formatted string.
+Instead of doing \pythonil{int(s) for s in csv_text.split(",")} we can simply write \pythonil{map(int, csv_text.split(",")}.
+The first argument to \pythonilIdx{map} is a function that should be applied all of the elements in the sequence passed in as its second argument.
+The result of \pythonilIdx{map} is a new sequence with the return values of this function.
+In \cref{lst:iteration:map}, we map the string \pythonil{csv_text} split at all~\pythonil{","} to \pythonilsIdx{int} and then \pythonilIdx{filter} the sequence to retain only values greater than~20.
+We can conveniently iterate over the resulting filtered and mapped sequence using a~\pythonilIdx{for}~loop.
+
+How about we now obtain all the unique squares of the values in the CSV data, i.e., we discard all duplicate squares.
+First, we again use \pythonilIdx{split}\pythonIdx{str!split} to divide the text into chunks based on the separator~\pythonil{","}.
+Then we map these chunks to integers and return their squares using the \pythonilIdx{map}~function, but this provide a~\pythonilIdx{lambda} that does the transformation.
+Now we want to retain only the unique values.
+This can be done by passing the resulting \pythonilIdx{Iterator} into the \pythonilIdx{set} constructor.
+A set, by definition, only contains unique values.
+In the resulting output in \cref{exec:iteration:map}, we can see that \textil{9}~indeed only appears once and so does~\textil{144}.
+
+Finally, the \pythonilIdx{map} function also plays nicely together with aggregating functions like~\pythonilIdx{sum}, \pythonilIdx{min}, or~\pythonilIdx{max}.
+In the final example for \pythonilIdx{map}, we have a list of words~\pythonil{words} and want to know the length of the longest word.
+We can first map each word to its length via~\pythonil{map(len, words)}.
+This produces an \pythonilIdx{Iterator} of word lengths, which we can directly pass to~\pythonilIdx{max}.
+
+Notice that \pythonilIdx{map} does not generate a data structure with all the transformed elements in memory.
+Instead, the elements are constructed as needed (and thereafter disposed by the garbage collection when no longer needed).
+This makes \pythonilIdx{map} an elegant and efficient approach to transforming sequences of data.
+
+\gitPython{\programmingWithPythonCodeRepo}{07_iteration/zip.py}{--args format}{iteration:zip}{%
+An example for the function \pythonilIdx{zip}.}%
+%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest_doctest.sh 07_iteration zip.py}{iteration:zip:doctest}{%
+The output of \pytest\ executing the \pglspl{doctest} for the \pythonilIdx{zip} example from \cref{lst:iteration:zip}.}%
+%
+\begin{sloppypar}%
+As last example for sequence processing we play a bit with the \pythonilIdx{zip} function.
+This function accepts several \pythonilsIdx{Iterables} as argument and returns a new \pythonilIdx{Iterator} which steps through all of input iterables in synch, returning tuples of with one value of each of them.
+For example, \pythonil{zip([1, 2, 3], ["a", "b", "c"])} returns an \pythonilIdx{Iterator} that produces the the sequence~\pythonil{(1, "a")}, \pythonil{(2, "b")}, and \pythonil{(3, "c")}.
+Sometimes, the input \pythonilsIdx{Iterable} may be of different length.
+To make sure that such an error is properly reported with a~\pythonilIdx{ValueError}, we must always supply the named argument~\pythonil{strict=True}~\cite{PEP618}.%
+\end{sloppypar}%
+%
+In \cref{lst:iteration:zip}, we use \pythonilIdx{zip} to implement a function \pythonil{distance} that computes the Euclidean distance of two $n$\nobreakdashes-dimensional vectors or points~\pythonil{p1} and~\pythonil{p2}.
+The two points are supplied as \pythonilsIdx{Iterable} of either \pythonil{float} or \pythonil{int}.
+We could, for example, provide them as \pythonils{lists}
+The Euclidean distance is defined as%
+%
+\begin{equation}%
+\pythonil{distance(p1, p2)} = \sqrt{\sum_{i=1}^n (\pythonil{p1}_i - \pythonil{p2}_i)^2}%
+\label{eq:euclideanDistance}%
+\end{equation}%
+%
+This means that we need to iterate over both points in lockstep.
+This is exactly what \pythonilIdx{zip} does.
+If both points were provides as~\pythonils{list}, then \pythonil{zip(p1, p2, strict=True)} will, step by step, give us the tuples~\pythonil{(p1[0], p2[0])}, \pythonil{(p1[1], p2[1])}, {\dots}, until reaching the ends of the lists.
+We can now write the generator expression~\pythonil{(a - b) ** 2 for a, b in zip(p1, p2, strict=True)}.
+It uses tuple expansion to extract the two elements~\pythonil{a} and \pythonil{b} from each of the tuples that \pythonilIdx{zip} creates.
+It then computes the square of the difference of these two elements.
+By passing the generator expression to the~\pythonilIdx{sum} function as-is, we can get the sum of these squares.
+Finally, the \pythonilIdx{sqrt} function from the \pythonilIdx{math} completes the computation of the Euclidean distance as prescribed in \cref{eq:euclideanDistance}.
+
+Instead of testing this new function~\pythonil{distance} with a small example program, we do so with \pglspl{doctest}.
+The \pgls{doctest} shows that the expected distance of two identical vectors with the same value~\pythonil{[1, 1]} should be~\pythonil{0.0}.
+\pythonil{distance((0.0, 1.0, 2.0, 3.0), (1.0, 2.0, 3.0, 4.0))}, which basically is~$\sqrt{1 + 1 + 1 + 1}$ should be~\pythonil{2.0}.
+The distance of the two one-dimensional vectors~\pythonil{[100]} and~\pythonil{[10]} should be~\pythonil{90.0}.
+If we, however, pass in two vectors with different dimensions, this should result in a~\pythonilIdx{ValueError}.
+The output of \pytest\ in \cref{exec:iteration:zip:doctest} shows that the example cases all return their expected results.
+
+This concludes our treatment of operations on \pythonilsIdx{Iterator}.
+We could only scratch the surface here.
+The module~\pythonilIdx{itertools}~\cite{PSF2024IFCIFEL} which ships with \python\ offers many more useful functions.
+However, an understanding of the principles of \pythonilIdx{map}, \pythonilIdx{filter}, and~\pythonilIdx{zip} will enable the reader to explore these tools by themselves.%
 \FloatBarrier%
+\endhsection%
+%
+%
+\hsection{Summary}%
+Working with sequences is a very important aspect of \python\ programming.
+The programming language provides a simplified syntax for working with loops in form of list, set, and dict comprehension.
+Different from comprehension, generator expressions allow us to provide sequences of data that can be processed without storing all elements in memory first or at once.
+Instead, the elements are created when needed.
+If this creation of elements is more complicated than what simple generator expressions can, well, express, we can use generator functions.
+With their \pythonilIdx{yield} statement, they allow us to write functions that perform a computation, pass the result to their output, allow other code outside to process the result, and then resume with the generation of the next element.
+Finally, sequences of data can be processed by aggregating and transforming functions.
+These functions can process containers, comprehensions, generator expressions, and generators alike.%
 \endhsection%
 %
 \endhsection%

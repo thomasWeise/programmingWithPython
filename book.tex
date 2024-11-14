@@ -3,10 +3,24 @@
 %
 \setsecnumdepth{subsubsection}%  number down to sub-sub-sections
 %
-% prepare and set the book margins
+%% prepare and set the book margins
 \setlrmarginsandblock{3cm}{3cm}{*}%
 \setulmarginsandblock{2.5cm}{2.5cm}{*}%
 \setlength{\parskip}{3pt}%
+%
+%% Allow more space per page to be consumed by floats.
+%% This is helpful when we later have larger programs as examples.
+\renewcommand{\topfraction}{.85}%
+\renewcommand{\bottomfraction}{.85}%
+\renewcommand{\textfraction}{.15}%
+\renewcommand{\floatpagefraction}{.8}%
+\renewcommand{\dbltopfraction}{.8}%
+\renewcommand{\dblfloatpagefraction}{.8}%
+\setcounter{topnumber}{9}%
+\setcounter{bottomnumber}{9}%
+\setcounter{totalnumber}{20}%
+\setcounter{dbltopnumber}{9}%
+%
 \checkandfixthelayout%
 %
 \usepackage{styles/styles}%  import our own basic styles

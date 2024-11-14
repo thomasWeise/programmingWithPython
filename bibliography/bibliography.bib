@@ -59,6 +59,7 @@
 @string { a_brucher_matthieu = "Matthieu Brucher" }
 @string { a_bruhin_florian = "Florian Bruhin" }
 @string { a_bruneau_pierrix = "Pierrick Bruneau" }
+@string { a_bucher_brand = "Brandt Bucher" }
 @string { a_burnett_magaret_m = "Margaret M.\ Burnett" }
 @string { a_burovski_evgeni = "Evgeni Burovski" }
 @string { a_carey_cj = "CJ Carey" }
@@ -287,8 +288,9 @@
 @string { a_scipy_1 = "{{SciPy~1.0 Contributors}}" }
 @string { a_scott_larkin_rigdway = "Larkin Ridgway Scott" }
 @string { a_setia_veenu = "Veenu Setia" }
-@string { a_shalev_shwartz_shai = "Shai Shalev{-}Shwartz" }
+@string { a_shafranovich_y = "Y.\ Shafranovich" }
 @string { a_shahrokni_ali = "Ali Shahrokni" }
+@string { a_shalev_shwartz_shai = "Shai Shalev{-}Shwartz" }
 @string { a_shen_kangshen = "Shen Kangshen" }
 @string { a_sheppart_kevin = "Kevin Sheppard" }
 @string { a_sigler_laurence_e = "Laurence E.\ Sigler" }
@@ -428,7 +430,7 @@
 @string { l_usa_sebastopol = "{{Sebastopol}, {CA}, {USA}}" }
 @string { l_usa_shelter_island = "{{Shelter Island}, {NY}, {USA}}" }
 @string { l_usa_south_san_francisco = "{{South San Francisco}, {CA}, {USA}}" }
-@string { l_usa_new_york = "{{New York}, {NY}, {USA}}" }
+@string { l_usa_wilmington = "{{Wilmington}, {DE}, {USA}}" }
 
 
 %% publishers
@@ -456,6 +458,7 @@
 @string { p_iec = "{International Electrotechnical Commission~{(IEC)}}" }
 @string { p_ieee = "{Institute of Electrical and Electronics Engineers~{(IEEE)}}" }
 @string { p_ieee_computer_society = "{{IEEE}~Computer Society}" }
+@string { p_ietf = "{Internet Engineering Task Force~{(IETF)}}" }
 @string { p_infinite_skills = "Infinite Skills Inc" }
 @string { p_informs = "{The Institute for Operations Research and the Management Sciences~({INFORMS})}" }
 @string { p_iso = "{International Organization for Standardization~{(ISO)}}" }
@@ -529,6 +532,7 @@
 @string { pa_ieee = l_usa_piscataway }
 @string { pa_ieee_computer_society = l_usa_los_alamitos }
 @string { pa_ieee_ny = l_usa_new_york }
+@string { pa_ietf = l_usa_wilmington }
 @string { pa_infinite_skills = l_canada_oakville }
 @string { pa_informs = l_usa_catonsville }
 @string { pa_leibniz_zentrum_fur_informatik = l_germany_wadern }
@@ -791,6 +795,14 @@
  type = {National Standard of the People's Republic of China~{(GB)}},
  address = l_china_beijing
 }
+
+@xdata{rep_rfc,
+ institution = p_ietf,
+ address = pa_ietf,
+ type = {Request for Comments~(RFC)},
+ issn = {2070-1721}
+}
+
 
 
 %% series
@@ -1926,6 +1938,16 @@
  urldate = {2024-10-09},
 }
 
+@techreport{PEP618,
+ author = a_bucher_brand,
+ title = {Add Optional Length-Checking To \pythonilIdx{zip}},
+ xdata = {rep_pep},
+ number = {618},
+ date = {2020-05-01},
+ url = {https://peps.python.org/pep-0618},
+ urldate = {2024-11-09}
+}
+
 @techreport{PEP635,
  author = a_kohn_tobias # and # a_van_rossum_guido,
  title = {Structural Pattern Matching:~{M}otivation and Rationale},
@@ -2080,6 +2102,13 @@
  xdata = {PSF2024TPSL},
  url = {https://docs.python.org/3/library/collections.abc.html},
  urldate = {2024-08-22},
+}
+
+@inbook{PSF2024CCFRAW,
+ title = {\pythonilIdx{csv} -- \acrshort[hyper=true]{CSV} File Reading and Writing},
+ xdata = {PSF2024TPSL},
+ url = {https://docs.python.org/3/library/csv.html},
+ urldate = {2024-11-14},
 }
 
 @inbook{PSF2024CUFWSC,
@@ -2356,6 +2385,16 @@
  url = {https://www.researchgate.net/publication/237334342},
  urldate = {2024-08-10},
  doi = {10.2307/2691200},
+}
+
+@techreport{S2005CFAMTFCSVCF,
+ author = a_shafranovich_y,
+ title = {Common Format and MIME Type for Comma-Separated Values~(\acrshort[hyper=true]{CSV}) Files},
+ xdata = {rep_rfc},
+ number = {4180},
+ date = {2005-10},
+ url = {https://datatracker.ietf.org/doc/html/rfc4180.html},
+ urldate = {2024-11-14}
 }
 
 @book{S2022FLAATIMEOLPBOC,
