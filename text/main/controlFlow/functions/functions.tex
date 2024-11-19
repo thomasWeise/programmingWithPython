@@ -80,7 +80,7 @@ Between the header of a function and its body, we always need to place a so-call
 This string consists of a title line shortly describing what the function does.
 After an empty line, we can (but not necessarily need to) place a paragraph of text providing a more detailled discussion.
 Then follows the list of parameters, each in the syntax \pythonil{:param parameter_name: description}\pythonIdx{:param:}.
-Then follows the return value description (if the function returns something) in the form \pythonIdx{:returns: description}\pythonIdx{:returns:}.%
+Then follows the return value description (if the function returns something) in the form \pythonil{:returns: description}\pythonIdx{:returns:}.%
 %
 \bestPractice{funcDocstrings}{%
 Each function should be documented with a \pgls{docstring}. %
@@ -352,6 +352,7 @@ An assertion is defined by the keyword \pythonilIdx{assert} followed by an arbit
 If the Boolean expression evaluates to \pythonil{True}, then nothing happens.
 If it evaluates to \pythonil{False}, then an \pythonilIdx{AssertionError} is raised.
 This error will cause the test function to fail immediately.
+We will learn in \cref{sec:exceptions} what \pythonilsIdx{Exception} are and how to handle them in detail.
 If the complete test function runs through without raising any \pythonilIdx{Exception}, then the test has succeeded.
 If it fails or raises an \pythonilIdx{Exception} at any point during its execution, the test has failed.
 

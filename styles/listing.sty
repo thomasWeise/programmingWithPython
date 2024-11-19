@@ -47,6 +47,7 @@ literate=%
 {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1%
 {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1%
 {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1%
+{š}{{\v{s}}}1%
 {€}{{\EUR}}1 {£}{{\pounds}}1 {«}{{\guillemotleft}}1%
 {»}{{\guillemotright}}1 {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {¿}{{?`}}1%
 {…}{{\ldots}}1 {≥}{{>=}}1 {≤}{{<=}}1 {„}{{\glqq}}1 {“}{{\grqq}}1%
@@ -165,6 +166,12 @@ breaklines=true%
 %% #2 the code to be printed inline
 \gdef\pythonils#1{%
 \inlinelistingbox{\lstinline[style=python_style]$#1$\resizebox{!}{\@lstbasicstylesheight}{\color{darkgray}s}}}%
+%
+%% print some Python code inline with an 'es' added for plural
+%% #1 the optional args
+%% #2 the code to be printed inline
+\gdef\pythoniles#1{%
+\inlinelistingbox{\lstinline[style=python_style]$#1$\resizebox{!}{\@lstbasicstylesheight}{\color{darkgray}es}}}%
 %
 %%
 %% Use latexgit to place a listing.

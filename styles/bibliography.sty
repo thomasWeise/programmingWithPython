@@ -81,3 +81,13 @@ URL\addcolon\space%
 \newrobustcmd*{\citeauthorfull}{\AtNextCite{\DeclareNameAlias{labelname}{given-family}}\citeauthor}%
 %
 %
+%%
+%% A command for quotations.
+%% #1 the citation reference that is quotes
+%% #2 the quotation
+\protected\gdef\quotation#1#2{%
+\begin{quote}{\rmfamily{%
+#2\\%
+\strut\hfill\strut---~{\small{\textit{\citeauthorfull{#1}~\cite{#1}, \citeyear{#1}}}}\strut%
+}}\end{quote}%
+}%

@@ -99,6 +99,7 @@ Because of this, the \pythonil{for y in x}-type of loops can be applied to any \
 \endhsection%
 %
 \hsection{List Comprehension}%
+\label{sec:listComprehension}%
 %
 We can create a list by writing it down as a literal, e.g., \pythonil{[1, 2, 3, 4, 5]} creates a list\pythonIdx{list} containing the first five natural numbers.
 This is very handy, but can also become cumbersome if we either have many elements or want to transform them.
@@ -207,14 +208,14 @@ We thus instruct \pythonilIdx{repeat} to take 90 such measurements.
 All of the measured runtimes are then return as a \pythonil{list[float]}.
 The documentation of \pythonilIdx{timeit}~\cite{PSF2024TMETOSCS} says:%
 %
-\begin{quote}%
+\quotation{PSF2024TMETOSCS}{%
 \emph{Note:}~it's tempting to calculate mean and standard deviation from the result vector and report these.
 However, this is not very useful.
 In a typical case, the lowest value gives a lower bound for how fast your machine can run the given code snippet;
 higher values in the result vector are typically not caused by variability in \python's speed, but by other processes interfering with your timing accuracy.
 So the \pythonil{min()}\pythonIdx{min} of the result is probably the only number you should be interested in.
 After that, you should look at the entire vector and apply common sense rather than statistics.%
-\end{quote}%
+}%
 %
 \bestPractice{timeMeasurement}{%
 When measuring the runtime of code for one specific set of inputs, it makes sense to perform multiple measurements and to take the \emph{minimum} of the observed values~\cite{PSF2024TMETOSCS}. %
@@ -430,6 +431,7 @@ Finally, \pythonil{maxdiv} is printed and indeed contains the largest divisors f
 \endhsection%
 %
 \hsection{Generator Expressions}%
+\label{sec:generatorExpressions}%
 %
 List comprehension gives us the ability to elegantly solidify a sequence of data into an instance of~\pythonilIdx{list}.
 A list datastructure is basically one compact chunk of memory holding all the elements of the list.
@@ -703,6 +705,7 @@ You can use \pytest\ by yourself to check whether the code works as expected\dot
 \endhsection%
 %
 \hsection{Operations on Iterators}%
+\label{sec:operationsOnIterators}%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{07_iteration}{filter_takewhile.py}{--args format}{iteration:filter_takewhile}{%
 An example for \pythonilIdx{takewhile}\pythonIdx{itertools!takewhile} and \pythonilIdx{filter}.}%
