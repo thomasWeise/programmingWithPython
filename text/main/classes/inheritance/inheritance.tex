@@ -5,7 +5,10 @@
 A class for representing shapes in the two-dimensional Euclidean plane.}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{08_classes/circle.py}{--args format}{classes:circle}{%
-A circle is a special shape, namely the set of all points whose distance from the center of the cirlce is exactly the radius.}%
+A circle is a special shape, namely the set of all points whose distance from the center of the circle is exactly the radius.}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{08_classes}{circle_user.py}{--args format}{classes:circle_user}{%
+An example of using our class \pythonil{Circle} from \cref{lst:classes:circle}.}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{08_classes/polygon.py}{--args format}{classes:polygon}{%
 Polygons are special shapes delimited by straight lines between corner points.}%
@@ -15,5 +18,55 @@ Two different points in a plane span a rectangle, which is a special polygon.}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{08_classes/triangle.py}{--args format}{classes:triangle}{%
 A triangle is a polygon spanned by three points in a plane.}%
+%
+We already learned that classes are a proper tool four grouping data and operations on the data together into one semantic unit.
+Classes also offer the concept of inheritance, which basically means \inQuotes{specialization}.
+Imagine that we would wanted to represent all geometrical shapes in a two-dimensional plance.
+Each shape has an associated area as well as a perimeter.
+We could create a class\pythonIdx{class} \pythonil{Shape} that provides two methods, \pythonil{area} and \pythonil{perimeter}, returning the area in in area units and the perimeter length in length units, respectively.
+
+A circle is a special shape.
+It does have a center as well as a radius.
+Knowing these two attributes, we can compute the area and perimeter.
+If we wanted to express this in terms of classes, we could say that the class\pythonIdx{class} \pythonil{Circle} is a special subclass of class~\pythonil{Shape}.
+It would have two attributes, \pythonil{center} (which could be an instance of \pythonil{Point}) and \pythonil{radius}, which would be a \pythonil{float}.
+The methods \pythonil{area} and \pythonil{perimeter} could then be implemented appropriately and use these attributes.
+
+This is already how inheritance works:
+If we want that a new class\pythonIdx{class}~\pythonil{Circle} inherits from a class\pythonIdx{class}~\pythonil{Shape}, all we have to do is to write \pythonil{class Circle(Shape):} instead of just \pythonil{class Circle:} when declaring the new circle class\pythonIdx{class}.
+Of course, we first need to create the class\pythonIdx{class}~\pythonil{Shape}.
+
+We do this in \cref{lst:classes:shape}.
+In this listing, we define \pythonil{Shape} as a new class\pythonIdx{class}.
+We want that this class has two methods, \pythonil{area} and \pythonil{perimeter}.
+The class\pythonIdx{class}~\pythonil{Shape} is not intended for being instantiated.
+Instead, we just want it to be the base class\pythonIdx{class} for \inQuotes{special} shapes.
+It does not have any attribute.
+Of course, we cannot really compute the area or the perimeter of such an abstract object.
+So both methods raise\pythonIdx{raise} an \pythonilIdx{NotImplementedError}.
+If someone would like to actually instantiate \pythonil{Shape} by doing, say, \pythonil{s = Shape()} and then invoke \pythonil{s.perimeter()}, this would fail.
+
+While \pythonil{Shape} itself is useless, it allows us to create different specialized subclasses that do implement \pythonil{area} and \pythonil{perimeter}.
+The user of these classes could then treat all of these different subclasses in the same way, because all of them support the interface defined by~\pythonil{Shape}.
+
+In \cref{lst:classes:circle}, we define the class\pythonIdx{class}~\pythonil{Circle}.
+By writing \pythonil{class Circle(Shape)}\pythonIdx{class}, we declare it as a subclass\pythonIdx{class} of \pythonil{Shape}.
+Its constructor \pythonilIdx{\_\_init\_\_}, we supply two parameters, \pythonil{center}, which is an instance of our class \pythonil{Point} from \cref{lst:classes:point}, and \pythonil{radius}, which can either be an \pythonil{int} or a \pythonil{float}.
+The constructor first checks if \pythonil{radius} is a finite and positive number.
+Otherwise, it raises\pythonIdx{raise} a \pythonilIdx{ValueError}.
+The constructor of the class\pythonIdx{class}~\pythonil{Point} already ensures that both coordinates of \pythonil{point} will be finite.
+This ensures that we indeed create valid circles.
+We store \pythonil{center} and \pythonil{radius} in two attributes of the same names.
+We annotate them with the \pgls{typeHint} \pythonilIdx{Final}, which means that they should not be changed after the object is constructed.
+We can now implement the function \pythonil{area} to return~$\numberPi\pythonil{radius}^2$ and \pythonil{perimeter} to return~$2\numberPi\pythonil{radius}$.
+With this, the complete interface defined by the superclass\pythonIdx{class}~\pythonil{Shape} is now filled with meaning.
+
+In \cref{lst:classes:circle_user}, we explore how this new class can be used.
+We create the new instance \pythonil{circ} of \pythonil{Circle} by providing the \pythonil{point=Point(2, 3)} and \pythonil{radius=4}.
+These parameters are indeed reflected by the corresponding attributes.
+We also confirm that \pythonil{isinstance(cir, Circle)}\pythonIdx{isinstance} is \pythonil{True}.
+It also holds that \pythonil{isinstance(cir, Shape)}\pythonIdx{isinstance}.
+Every instance of \pythonil{Circle} is also an instance of \pythonil{Shape}.
+Because \pythonil{Circle} is a special case of \pythonil{Shape}.
 %
 \endhsection%

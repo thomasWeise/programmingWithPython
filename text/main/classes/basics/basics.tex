@@ -374,7 +374,12 @@ It uses the algorithm by \citeauthor{S1997APFPAAFRGP}~\cite{S1997APFPAAFRGP,H200
 Our \pythonilIdx{KahanSum}, however, uses only three variables for the whole summation process.
 It does not dynamically allocate more memory.
 Also, the number of steps it performs are constant for each addition, whereas the algorithm by \citeauthor{S1997APFPAAFRGP} needs to do a number of steps that depends on the current length of its internal datastructure.
-Thus, \pythonil{KahanSum} is indeed a very nice compromise solution, which offers higher precision than normal summing but retains the same memory and time complexity.%
+Thus, \pythonil{KahanSum} is indeed a very nice compromise solution, which offers higher precision than normal summing but retains the same memory and time complexity.
+
+Another advantage of our \pythonil{KahanSum} over the function \pythonilIdx{fsum} is that we can use it in a more versatile fashion.
+We do not need to have all values ready in an \pythonilIdx{Iterable}.
+If we had a generator of a sequence of values and wanted to compute the sum of the values themselves as well as the sum of their squares, we could simply use two instances \pythonil{KahanSum} while iterating over the sequence.
+With \pythonilIdx{fsum}, we would need to iterate over the sequence twice, which may not be practical if the sequence is generated from some outside source and was too long to just store it in memory.%
 %
 \FloatBarrier%
 \endhsection%
