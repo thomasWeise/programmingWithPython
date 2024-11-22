@@ -1,6 +1,19 @@
 \hsection{Inheritance}%
 \label{sec:inheritance}%
 %
+\begin{figure}[tb]%
+\centering%
+\includegraphics[width=0.985\linewidth]{\currentDir/exampleInheritance}%
+\caption{An example for class inheritance. %
+The base class \pythonil{Shape} offers two abstract methods, \pythonil{area} and \pythonil{perimeter}. %
+The class \pythonil{Circle} inherits from \pythonil{Shape} and implements these methods. %
+It also has an attribute \pythonil{center}, which is an instance of~\pythonil{Point}, and an attribute~\pythonil{radius}. %
+The class \pythonil{Polygon} extends \pythonil{Shape} as well, and offers, amongst others, an \pythonilIdx{Iterable} of its~\pythonils{Point}. %
+It also uses our \pythonil{KahanSum} to implement the \pythonil{perimeter} method. %
+The class \pythonil{Polygon} is realized by the classes \pythonil{Triangle} and \pythonil{Rectangle}.}%
+\label{fig:exampleInheritance}%
+\end{figure}%
+%
 \gitPython{\programmingWithPythonCodeRepo}{08_classes/shape.py}{--args format}{classes:shape}{%
 A class for representing shapes in the two-dimensional Euclidean plane.}%
 %
@@ -21,7 +34,8 @@ A triangle is a polygon spanned by three points in a plane.}%
 %
 We already learned that classes are a proper tool four grouping data and operations on the data together into one semantic unit.
 Classes also offer the concept of inheritance, which basically means \inQuotes{specialization}.
-Imagine that we would wanted to represent all geometrical shapes in a two-dimensional plance.
+This concept is explored by a more elaborate example illustrated in \cref{fig:exampleInheritance}, which we will now discuss step-by-step.
+Imagine that we would wanted to represent all geometrical shapes in a two-dimensional plane.
 Each shape has an associated area as well as a perimeter.
 We could create a class\pythonIdx{class} \pythonil{Shape} that provides two methods, \pythonil{area} and \pythonil{perimeter}, returning the area in in area units and the perimeter length in length units, respectively.
 
@@ -68,5 +82,60 @@ We also confirm that \pythonil{isinstance(cir, Circle)}\pythonIdx{isinstance} is
 It also holds that \pythonil{isinstance(cir, Shape)}\pythonIdx{isinstance}.
 Every instance of \pythonil{Circle} is also an instance of \pythonil{Shape}.
 Because \pythonil{Circle} is a special case of \pythonil{Shape}.
+
+There are, of course, more shapes than just circles.
+Another very general class of shapes are polygons.
+Polygons are shapes enclosed by straight lines.
+This means that every polygon can be defined by its corner points.
+In \cref{lst:classes:polygon}, we define \pythonil{Polygon} as base class for such shapes.
+It is a special case of (and thus inherits from)~\pythonil{Shape}.
+
+\pythonil{Polygon} extends the interface of \pythonil{Shape} by offering the method~\pythonil{points}.
+This method returns an \pythonilIdx{Iterable}\pythonIdx{typing.Iterable} of instances of~\pythonil{Point}, which are the corner points of the polygon.
+Our goal here is to provide a base class for different types of \pythonils{Polygon}.
+We do not actually want to implement a datastructure for arbitrary polygons here.
+So the method \pythonil{points} raises\pythonIdx{raise} an \pythonil{NotImplementedError} and thus must be implemented by the subclasses that we will develop later.
+
+If we know the sequence corner points and also know that they are connected by straight lines, then we can easily compute the perimeter of such a shape.
+We can thus implement \pythonil{perimeter} as follows:
+We iterate over the instances of~\pythonil{Point} returned by~\pythonil{points()}.
+In a summation variable, we add up the distance between each point and its successor in the sequence.
+Finally, we add the distance of the last point to the first point.
+The distance can be computed with the \pythonil{distance} method offered by the \pythonil{Point} class.
+While \pythonil{Polygon} itself does not implement \pythonil{points}, its subclasses will.
+The method \pythonil{perimeter} will then \emph{automatically} use the actual implementation of the subclass.
+We therefore can implement \pythonil{perimeter} here, even if \pythonil{points} is not yet implemented.
+If we create a subclass that does implement \pythonil{points} and call \pythonil{perimeter} upon an instance of this subclass, it will work.
+
+The summation could be easily done with a normal variable of type~\pythonil{float}.
+However, since we implemented the  second-order \citeauthor{K1965PFRORTE}-\citeauthor{B1968NSIMA}-\citeauthor{N1974REVZSES} summation algorithm in~\cref{lst:classes:kahan_sum}, we instead use that one.
+It should give us a very accurate result.
+(Notice that we could not easily use~\pythonilIdx{fsum} here without first storing all distances in a list, because we need to add up over the sequence of points and also the distance from the last to the first point.
+So our \pythonil{KahanSum} does have indeed some advantages.)
+For convenience sake, we also add a method~\pythonil{print} to \pythonil{Polygon}, which just prints the sequence of points.
+
+Rectangles and triangles are special cases of polygons.
+We now implement them as classes \pythonil{Rectangle} and \pythonil{Triangle} in \cref{lst:classes:rectangle,lst:classes:triangle}, respectively, which both are subclasses of~\pythonil{Polygon}.
+
+A rectangle can be defined using its bottom-left and top-right corner point.
+In the constructor \pythonilIdx{\_\_init\_\_} of the class \pythonil{Rectangle}, we pass in two points~\pythonil{p1} and~\pythonil{p2}.
+We raise\pythonIdx{raise} a \pythonilIdx{ValueError} if these would form an empty rectangle.
+Otherwise, we store the minimum x\nobreakdashes-~and y\nobreakdashes-coordinate in the bottom-left point attribute~\pythonil{p1} and the maximum x\nobreakdashes-~and y\nobreakdashes-coordinate in the attribute~\pythonil{p2}, marking the top-right corner of our rectangle.
+
+We implement the method \pythonil{points} to return all four corners of the rectangle.
+We only needed to store two of them, but we here need to return all four to comply with the definition of the method as given in class~\pythonil{Polygon}.
+
+The area of the rectangle is easily computed.
+While we already inherit a perfectly fine method \pythonil{perimeter} computing the perimeter of our rectangle from \pythonil{Polygon} we still override it.
+This makes sense because we can compute the perimeter faster and more exactly by simply returning twice the sum of the length of the horizontal and vertical side length of our rectangle.
+The inherited \pythonil{perimeter} method would instead iterate over all four points and compute Euclidean distances using~\pythonil{sqrt}, which is both slower and less accurate (especially if our coordinates would be~\pythonils{int}).
+
+The class \pythonil{Triangle} is implemented in very much the same fashion.
+This time, we need to store all three corner points (and also return all of them in the \pythonil{points}~method implementation).
+There also is no better way for computing the perimeter than what \pythonil{Polygon} already provides, so we this time do not override~\pythonil{perimeter}.
+The area computation is implemented using the formula~$A=x_1(y2-y3)+x_2(y_3-y_1)+x_3(y_1-y_2)$ you probably remember from high school maths.
+
+Notice that both subclasses of \pythonil{Polygon} offer some \pglspl{doctest} in the \pglspl{docstring}.
+While I needed to keep the \pglspl{docstring} short to be able to fit the listings on pages, these \pglspl{doctest} still are instructive for the user.%
 %
 \endhsection%
