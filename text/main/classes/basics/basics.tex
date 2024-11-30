@@ -11,7 +11,7 @@ class:
     """Docstring of the class."""
 
     def __init__(self) -> None:
-        """Docstring of the constructor __init__."""
+        """Docstring of the initializer __init__."""
         # initialize all attributes
         #: Meaning of attribute 1
         self.attribute_1: type hint = initial value
@@ -70,22 +70,22 @@ Our class \pythonil{Point} will have two attributes, \pythonil{x} and~\pythonil{
 A attribute is a variable that every single instance of the class has.
 In other words, we later want to be able to create one instance of \pythonil{Point} with the x\nobreakdashes-coordinate~5 and the y\nobreakdashes-coordinate~10 and then another instance with the x\nobreakdashes-coordinate~2 and the y\nobreakdashes-coordinate~7.
 
-Therefore, \pythonil{Point} needs a constructor, i.e., a special method that creates these attributes.
+Therefore, \pythonil{Point} needs a initializer, i.e., a special method that creates these attributes.
 This method is called~\pythonilIdx{\_\_init\_\_}.
 As said, every method of a class must have a parameter~\pythonilIdx{self}, which is the instance of the class (the object) upon which the method is called.
-The constructor \pythonilIdx{\_\_init\_\_} is a special method, so it also has this parameter~\pythonilIdx{self}.
+The initializer \pythonilIdx{\_\_init\_\_} is a special method, so it also has this parameter~\pythonilIdx{self}.
 Additionally, we demand that two parameters~\pythonil{x} and~\pythonil{y} be passed in when we create an instance of~\pythonil{Point}.
 We allow the values to be either \pythonils{int} or \pythonils{float}.%
 %
 \bestPractice{attributes}{%
-Object attributes must only be created inside the constructor~\pythonilIdx{\_\_init\_\_}. %
+Object attributes must only be created inside the initializer~\pythonilIdx{\_\_init\_\_}. %
 An initial value must immediately be assigned to each attribute.%
 }
 %
 We only want to allow \pythonils{Point} that have finite coordinates.
 As explained in the \cref{sec:exceptions} on \pythonilsIdx{Exception}, it is better to immediately signal errors if we encounter invalid data.
 So we want to sort out non-finite coordinates right when someone attempts to create the \pythonil{Point} object.
-Thus, the first thing we do in the constructor is to use the \pythonilIdx{isfinite} function from the \pythonilIdx{math} module.
+Thus, the first thing we do in the initializer is to use the \pythonilIdx{isfinite} function from the \pythonilIdx{math} module.
 If either \pythonil{x} or \pythonil{y} is not finite, then we raise\pythonIdx{raise} a \pythonilIdx{ValueError}.
 Otherwise, we set \pythonil{self.x: Final[int | float] = x} and \pythonil{self.y: Final[int | float] = y}.\footnote{%
 Strictly speaking, it could also make sense to check whether \pythonil{x} and \pythonil{y} are indeed either \pythonil{int} or \pythonil{float}. %
@@ -97,7 +97,7 @@ Additionally, the \pgls{typeHint} \pythonilIdx{Final} from the \pythonilIdx{typi
 In other words, we do not allow the coordinates of our \pythonils{Point} to be change after creation.%
 %
 \bestPractice{attributeTypeHint}{%
-Every attribute of an object must be annotated with a \pgls{typeHint} and a documentation comment when created in the constructor~\pythonilIdx{\_\_init\_\_}. %
+Every attribute of an object must be annotated with a \pgls{typeHint} and a documentation comment when created in the initializer~\pythonilIdx{\_\_init\_\_}. %
 \pglspl{typeHint} work as with normal variables, but the documentation is slightly different: %
 In the line \emph{above} the attribute initialization, a \emph{comment} starting with \pythonilIdx{\#: } must be written which explains the meaning of the attribute.%
 }%
@@ -140,7 +140,7 @@ We can check if an object~\pythonil{o} is an instance of our class \pythonil{Poi
 For \pythonil{p1}, this returns~\pythonil{True}.
 
 We now create a second instance, \pythonil{p2}, of the class \pythonil{Point}.
-We assign \pythonil{7} to \pythonil{p2.x} and \pythonil{8} to \pythonil{p2.y} via the \pythonilIdx{\_\_init\_\_} constructor, which is automatically invoked when we write~\pythonil{Point(7, 8)}.
+We assign \pythonil{7} to \pythonil{p2.x} and \pythonil{8} to \pythonil{p2.y} via the \pythonilIdx{\_\_init\_\_} initializer, which is automatically invoked when we write~\pythonil{Point(7, 8)}.
 We can again print the values of these attributes using an \pgls{fstring}.
 While \pythonil{isinstance(p2, Point)} is again \pythonil{True}, \pythonil{isinstance(5, Point)} returns \pythonil{False}.
 
@@ -165,7 +165,7 @@ Well, in \python, \pglspl{typeHint} are just hints and not enforced by the inter
 So the x\nobreakdashes-~and y\nobreakdashes-attributes of instances of \pythonil{Point} can actually be changed. %
 However, tools like \mypy\ will detect such mistakes and report them~\cite{PEP591}.%
 }
-The x\nobreakdashes-~and y\nobreakdashes-attributes are initialized by the \pythonil{\_\_init\_\_} constructor.
+The x\nobreakdashes-~and y\nobreakdashes-attributes are initialized by the \pythonil{\_\_init\_\_} initializer.
 They are marked with the \pgls{typeHint} \pythonilIdx{Final} and thus changing them is an error.
 In many cases, making objects immutable is a good design pattern.%
 %
@@ -333,7 +333,7 @@ Encapsulation therefore allows the programmer to ensure that the state of an obj
 %
 This is going to be the interface for our new class~\pythonil{KahanSum}, which, in turn, is based on~\cite{K2006AGKBSA}.
 
-In the constructor~\pythonilIdx{\_\_init\_\_}, we create the three attributes~\pythonil{__sum}, \pythonil{__cs}, and \pythonil{__ccs} and initialize them to~\pythonil{0}.
+In the initializer~\pythonilIdx{\_\_init\_\_}, we create the three attributes~\pythonil{__sum}, \pythonil{__cs}, and \pythonil{__ccs} and initialize them to~\pythonil{0}.
 These names are directly taken from \cref{algo:kahanSum}.
 Notice the double leading underscores in front of the names.%
 %

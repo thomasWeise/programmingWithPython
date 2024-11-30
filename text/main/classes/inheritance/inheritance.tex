@@ -65,10 +65,10 @@ The user of these classes could then treat all of these different subclasses in 
 
 In \cref{lst:classes:circle}, we define the class\pythonIdx{class}~\pythonil{Circle}.
 By writing \pythonil{class Circle(Shape)}\pythonIdx{class}, we declare it as a subclass\pythonIdx{class} of \pythonil{Shape}.
-Its constructor \pythonilIdx{\_\_init\_\_}, we supply two parameters, \pythonil{center}, which is an instance of our class \pythonil{Point} from \cref{lst:classes:point}, and \pythonil{radius}, which can either be an \pythonil{int} or a \pythonil{float}.
-The constructor first checks if \pythonil{radius} is a finite and positive number.
+Its initializer \pythonilIdx{\_\_init\_\_}, we supply two parameters, \pythonil{center}, which is an instance of our class \pythonil{Point} from \cref{lst:classes:point}, and \pythonil{radius}, which can either be an \pythonil{int} or a \pythonil{float}.
+The initializer first checks if \pythonil{radius} is a finite and positive number.
 Otherwise, it raises\pythonIdx{raise} a \pythonilIdx{ValueError}.
-The constructor of the class\pythonIdx{class}~\pythonil{Point} already ensures that both coordinates of \pythonil{point} will be finite.
+The initializer of the class\pythonIdx{class}~\pythonil{Point} already ensures that both coordinates of \pythonil{point} will be finite.
 This ensures that we indeed create valid circles.
 We store \pythonil{center} and \pythonil{radius} in two attributes of the same names.
 We annotate them with the \pgls{typeHint} \pythonilIdx{Final}, which means that they should not be changed after the object is constructed.
@@ -118,7 +118,7 @@ Rectangles and triangles are special cases of polygons.
 We now implement them as classes \pythonil{Rectangle} and \pythonil{Triangle} in \cref{lst:classes:rectangle,lst:classes:triangle}, respectively, which both are subclasses of~\pythonil{Polygon}.
 
 A rectangle can be defined using its bottom-left and top-right corner point.
-In the constructor \pythonilIdx{\_\_init\_\_} of the class \pythonil{Rectangle}, we pass in two points~\pythonil{p1} and~\pythonil{p2}.
+In the initializer \pythonilIdx{\_\_init\_\_} of the class \pythonil{Rectangle}, we pass in two points~\pythonil{p1} and~\pythonil{p2}.
 We raise\pythonIdx{raise} a \pythonilIdx{ValueError} if these would form an empty rectangle.
 Otherwise, we store the minimum x\nobreakdashes-~and y\nobreakdashes-coordinate in the bottom-left point attribute~\pythonil{p1} and the maximum x\nobreakdashes-~and y\nobreakdashes-coordinate in the attribute~\pythonil{p2}, marking the top-right corner of our rectangle.
 
