@@ -170,16 +170,16 @@ However, converting data to strings like this is rather tedious.
 \begin{figure}%
 \centering%
 \includegraphics[width=0.8\linewidth]{\currentDir/fstrings}%
-\caption{\python\ f-strings in action.}%
+\caption{\python\ \pglspl{fstring} in action.}%
 \label{fig:fstrings}%
 \end{figure}
 
 \pythonIdx{str!f}\pythonIdx{f-string}Let us therefore discuss a very powerful and much more convenient gadget in \python's string processing toolbox: format strings, or \pglspl{fstring}\pythonIdx{f-string}\pythonIdx{str!f} for short~\cite{PSF2024FSL,PEP498,M2017WAFSIPAHCIUT,B2023PFS}.
-An f-string is like a normal string, except that it starts with \pythonil{f"}\pythonIdx{f\textquotedbl\idxdots\textquotedbl} instead of \pythonil{"}.
+An \pgls{fstring} is like a normal string, except that it starts with \pythonil{f"}\pythonIdx{f\textquotedbl\idxdots\textquotedbl} instead of \pythonil{"}.
 And, most importantly, it can contain other data and even complete expressions inside curly braces~(\pythonil{\{...\}}\pythonIdx{\textbraceleft\idxdots\textbraceright!f-string}) which are then embedded into the string.%
 %
 \begin{sloppypar}%
-In \cref{fig:fstrings}, we first consider the f-string \pythonil{f"\{12345678901234\}\ is a really big integer."}\footnote{
+In \cref{fig:fstrings}, we first consider the \pgls{fstring} \pythonil{f"\{12345678901234\}\ is a really big integer."}\footnote{
 The code that formats my inline \python\ examples sometimes eats spaces after \textbraceleft\ or \textbraceright. %
 Therefore, some of the strings presented here may look a bit off. %
 In \cref{fig:fstrings}, they are printed correctly, though.}.
@@ -277,6 +277,16 @@ It will be interpreted as a single \inQuotes{\textbraceleft}~brace.
 If you need \inQuotes{\textbraceright}, just write \inQuotes{\textbraceright\textbraceright}.\pythonIdx{\textbraceright}\pythonIdx{\textbraceright\textbraceright}
 It will be interpreted as a single \inQuotes{\textbraceright}~brace.
 \pythonil{f"Single braces without expression: \{\{ and \}\}."} simply becomes \pythonil{"Single braces without expression: \{ and \}."}
+
+As final example, let us look at a very cool ability of \pglspl{fstring}\pythonIdx{f-string!=}.
+Often, we want to print an expression together with its result.
+Earlier, we wrote \pythonil{f"\{5\}\ + \{4\}\ = \{5 + 4\}"} is evaluated to \pythonil{"5 + 4 = 9"}.
+What we actually wanted to print was the expression \pythonil{5 + 4} together with its result.
+This can be done much easier:
+We can simply write \pythonil{f"\{5\ + 4\ = \}"}, which, too is evaluated to \pythonil{"5 + 4 = 9"}
+The more complex \pythonil{f"\{23\ *\ sin(2\ -\ 5)\ =\ \}"} becomes \pythonil{"23\ *\ sin(2\ -\ 5)\ =\ -3.245760185376946"}.
+One cool feature of this kind of expression-to-string conversation is that you can add the other format specifiers we discussed earlier after the \pythonil{=}.
+For example, you could write \pythonil{f"\{23\ *\ sin(2\ -\ 5)\ =\ :.2f\}"} and then the \pythonil{.2f} format would be applied to the result of the expression, i.e., you would get \pythonil{"23 * sin(2 - 5) = -3.25"} as the result of the extrapolation.
 
 You are now able to convert the results of your computations to nice text.%
 \endhsection%
