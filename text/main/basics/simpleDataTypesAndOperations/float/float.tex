@@ -65,7 +65,7 @@ They can represent integers and fractions.
 However, their accuracy is always limited to about 15~digits.
 In other words, regardless whether your \pythonilIdx{float} stores a very large or a very small number, you can have at most 15~digits of precision.
 For example, adding~1 to~$10^{16}$ would still yield~$10^{16}$, because only 15~digits are \inQuotes{stored} and the~1 will just \inQuotes{fall off.}
-You cannot represent numbers arbitrarily precisely.%
+You cannot represent numbers arbitrarily precisely~\cite{PSF2024FPAIAL}.%
 %
 \endhsection%
 %
@@ -99,7 +99,7 @@ We can write this as \pythonil{3.3 ** 0.5}\pythonIdx{**!power}, which yields \py
 This brings us back to the previous section:
 $\sqrt{3.3}$~is not actually 1.816\decSep590\decSep212\decSep458\decSep495.
 It is an irrational number~\cite{S1988WPCHD,B1991IWNT} and irrational numbers cannot be expressed as fractions of integer numbers (by definition, otherwise they would be rational numbers).
-Since they cannot be expressed as integer fractions, we cannot write them in any way like $\frac{1\decSep816\decSep590\decSep212\decSep458\decSep495\dots}{1\decSep000\decSep000\decSep000\decSep000\decSep000\dots}$, regardless of how large a denominator we would pick.
+Since they cannot be expressed as integer fractions, we cannot write them down exactly in any way like $\frac{1\decSep816\decSep590\decSep212\decSep458\decSep495\dots}{1\decSep000\decSep000\decSep000\decSep000\decSep000\dots}$, regardless of how large a denominator we would pick.
 Hence, we cannot represent them exactly using discrete binary values of our computer's memory.
 Hence, the floating point representation cuts off somewhere.
 And this somewhere is after 15~decimal places.%
@@ -120,12 +120,23 @@ This can be done by typing \pythonil{from math import pi, e}\pythonIdx{import}\p
 When we then type \pythonilIdx{pi} and \pythonilIdx{e}, we can get to see their value in floating point representations: \pythonil{3.141592653589793} and \pythonil{2.718281828459045}, respectively.
 Again, these are not the exact values, but they are as close as we can get in this format.
 
-Of course, \numberPi\ and~\numberE\ alone are not that much useful.
-If you reach back into your highschool days again, you will remember many interesting functions that are related to them.
+Surprisingly, we do not necessarily need irrational or transcendental numbers to experience this cut-off.
+There is no way to write down all the digits of fractions like~$\frac{1}{7}$ as decimals.
+We always need to cut off somewhere, e.g., we could write~$0.14285714285714285$, but that is not exactly the same as~$\frac{1}{7}$.
+As we discussed before, floating point numbers are stored in a binary format, i.e., represented by bits.
+In the binary system, we encounter this problem already for fractions like~$\frac{1}{10}=0.1$~\cite{PSF2024FPAIAL}.
+Essentially, we could write $\frac{1}{10}\approx\frac{1}{2^4}+\frac{1}{2^5}+\frac{1}{2^8}+\frac{1}{2^9}+\frac{1}{2^{12}}+\frac{1}{2^{13}}+\frac{1}{2^{16}}+\dots$, but we would never quite get there.
+This means that $0.1$~cannot be exactly represented as \pythonil{float}.
+Therefore, adding it up ten times also does not exactly equal~$1$.
+Indeed, adding~\pythonil{0.1} ten times and then subtracting~\pythonil{1.0} from the result yields~\pythonil{-1.1102230246251565e-16}.
+So even for \inQuotes{completely normal} numbers, floating point arithmetics may already cost us (a very tiny little bit of) precision.
+
+Anyway, back to the constants \numberPi\ and~\numberE.
+Alone, they are not that much useful, but if you reach back into your high school days again, you will remember many interesting functions that are related to them.
 Let us import a few of them, again from the \pythonilIdx{math} module, via \pythonil{from math import sin, cos, tan, log}\pythonIdx{sin}\pythonIdx{cos}\pythonIdx{tan}\pythonIdx{log}.
 I think you can guess what these functions do.
 
-From highschool, you may remember that~$\sin{\frac{\numberPi}{4}}=\frac{\sqrt{2}}{2}$ and thus~$\sin^2{\frac{\numberPi}{4}}=0.5$.
+From high school, you may remember that~$\sin{\frac{\numberPi}{4}}=\frac{\sqrt{2}}{2}$ and thus~$\sin^2{\frac{\numberPi}{4}}=0.5$.
 Let us compute this in \python\ by doing \pythonil{sin(0.25 * pi) ** 2}\pythonIdx{sin}.
 Surprisingly, we get \pythonil{0.4999999999999999} instead of \pythonil{0.5}.
 The reason is again the limited precision of \pythonilIdx{float}, which cannot represent~$\frac{\sqrt{2}}{2}$ exactly.

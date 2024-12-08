@@ -251,7 +251,7 @@ Here we catch this error in a \pythonilIdx{try}\idxdots\pythonilIdx{except} bloc
 Let us now try the \pythonil{try}-\pythonil{except} block.
 Back in \cref{sec:strBasicOperations}, we learned that text strings offer the method \pythonil{r.find(s)}\pythonIdx{str!find}\pythonIdx{find} that searches a string~\pythonil{s} inside~\pythonil{r} and returns the first index where it is encountered.
 If \pythonil{s} cannot be found in~\pythonil{r}, \pythonil{-1}~is returned instead.
-There exists a very simply operation \pythonil{r.index(s)}\pythonIdx{str!index}\pythonIdx{ind}, which works exactly like \pythonilIdx{find}, but instead of returning~\pythonil{-1}, it will raise a \pythonilIdx{ValueError} if \pythonil{s} cannot be found in~\pythonil{r}.
+There exists a very simply operation \pythonil{r.index(s)}\pythonIdx{str!index}\pythonIdx{index}, which works exactly like \pythonilIdx{find}, but instead of returning~\pythonil{-1}, it will raise a \pythonilIdx{ValueError} if \pythonil{s} cannot be found in~\pythonil{r}.
 This is quite useful in cases where we know that \pythonil{s} must be contained in \pythonil{r} and if it is not, then that is an error.
 
 In \cref{lst:exceptions:try_except_str_index}, we explore this behavior.

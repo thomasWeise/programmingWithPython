@@ -1,0 +1,143 @@
+\hsection{Dunder Methods}%
+%
+In \python, \emph{everything is an object}~\cite{PSF2024OVAT,J2022PPEIAOSCD}.
+Functions, modules, classes, datatypes, values of simple datatypes, and so on -- all are objects.
+Many of these objects have special functionality.
+For example, we can add, multiply, and divide numerical objects.
+We can get string representations for all objects that we can print to the console.
+We can iterate over the elements of objects that represent sequences.
+We can execute objects that represent functions.
+These special functionalities are implemented by so-called \emph{dunder} methods.
+\pythonIdx{dunder}Dunder methods have names that begin and end with two underscores, like~\pythonilIdx{\_\_init\_\_}\pythonIdx{dunder!\_\_init\_\_}.
+And indeed, \pythonilIdx{\_\_init\_\_}\pythonIdx{dunder!\_\_init\_\_}~is a dunder method, the initializer that creates the attributes of an object.
+
+We already learned that, if we create a subclass of a class, we can define new methods and override existing ones.
+We can do the same with dunder methods.
+This means that we can implement, create, change, and customize all of the functionalities listed above!%
+%
+\hsection{\texttt{\_\_str\_\_}, \texttt{\_\_repr\_\_}, and \texttt{\_\_eq\_\_}}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{09_dunder}{str_vs_repr.py}{--args format}{dunder:str_vs_repr}{%
+Comparing the \pythonilIdx{str} and \pythonilIdx{repr} representations of integers, strings, lists, and \python's \pythonilIdx{datetime}\pythonIdx{datetime!datetime}\pythonIdx{datetime!datetime!now}\pythonIdx{datetime!UTC} class.}%
+%
+In \python, we can distinguish two forms of string representations of a given object~\pythonil{o}:%
+%
+\begin{itemize}%
+%
+\item \pythonil{str(o)}\pythonIdx{str} should return a concise and brief representation of the object~\pythonil{o}.
+This representation is mainly for end users.
+\pythonil{str(o)} invokes the \pythonilIdx{\_\_str\_\_}\pythonIdx{dunder!\_\_str\_\_} dunder method, if it has been implemented.
+Otherwise, \pythonilIdx{\_\_repr\_\_}\pythonIdx{dunder!\_\_repr\_\_} is used instead.%
+%
+\item \pythonil{repr(o)}\pythonIdx{repr} should ideally return a string representation that contains all the information that is needed to re-create the object.
+The target audience here are programmers who are working on the code, who may need to write precise information into log files, or who are searching for errors.
+\pythonil{repr(o)} invokes the \pythonilIdx{\_\_repr\_\_}\pythonIdx{dunder!\_\_repr\_\_} dunder method, if it has been implemented.
+Otherwise, it returns the default representation, which is the type name and ID of the object.%
+%
+\end{itemize}%
+%
+These two functions are compared in \cref{lst:dunder:str_vs_repr}.
+Here, we first create an integer variable \pythonil{the_int} with value \pythonil{123}.
+Both \pythonil{str(the_int)} and \pythonil{repr(the_int)} are \pythonil{"123"}.
+This is to be expected, since this is all the information that is needed to completely recreate this value and, at the same time, it is also the most concise way to present the value.
+
+We then create another variable \pythonil{the_str} with value \pythonil{"123"}.
+Printing \pythonil{the_str} to the \pgls{stdout}, which is equivalent to \pythonil{print(str(the_str))}, will make the text \textil{123} appear on the console.
+Printing \pythonil{repr(the_str)}, however, produces~\textil{'123'}.
+Notice the added single quotation marks on each side?
+These are necessary.
+Without them, \pythonil{repr(the_str)} and \pythonil{repr(the_int)} would be the same.
+We could not distinguish whether the value we printed was a string or an integer.
+This, of course, matters only if we care about the internal workings of our program.
+This is the purpose for the existence of~\pythonilIdx{repr}.%
+%
+\begin{sloppypar}%
+Next, we create two collections.
+First comes the list~\pythonil{l1}, which contains the three integers~\pythonil{1}, \pythonil{2}, and~\pythonil{3}.
+Then we create the list~\pythonil{l2}, which contains the three strings~\pythonil{"1"}, \pythonil{"2"}, and~\pythonil{"3"}.
+Then we print both lists, which will use \pythonil{str(l1)} and \pythonil{str(l2)} internally.
+The result of \pythonil{print(f"\{l1 = \}, but \{l2 = \}")} is \textil{l1 = [1, 2, 3], but l2 = ['1', '2', '3']}.
+Notice that the single quotation marks around the string elements of \pythonil{l2} are printed?
+When obtaining the string representations of the standard \python\ collections with either \pythonilIdx{str} or \pythonilIdx{repr}, the elements of the collections are converted to strings using \pythonilIdx{repr}, not~\pythonilIdx{str}~\cite{PEP3140}.
+Otherwise, we could not distinguish \pythonil{l1} and \pythonil{l2} in the output.%
+\end{sloppypar}%
+%
+Another good example of the difference between \pythonilIdx{str} and \pythonilIdx{repr} is \python's \pythonilIdx{datetime}\pythonIdx{datetime!datetime} class.
+We will not discuss this class here in any detail.
+It suffices to know that instances of this class represent a combination of a date and a time.
+In the program, we first import the class \pythonilIdx{datetime} from the module of the same name.
+We create a variable \pythonil{right\_now} and assign to it the result of the function \pythonilIdx{now}\pythonIdx{datetime!datetime!now}, which returns an object representing, well, today and the current time.\footnote{%
+In the output of our program given in \cref{exec:dunder:str_vs_repr}, you cannot see the time of your reading, but the time when this book was compiled.}
+
+If we want to print the result of the \pythonilIdx{str} function applied to an object~\pythonil{o} in an \pgls{fstring}, then we can either do this using the format specifier~\pythonil{!s}\pythonIdx{"!s} or by printing the result of \pythonil{str(o)}.
+The former variant is usually preferred.
+Anyway, we find that the simple string representation of a \pythonilIdx{datetime} object is, well, a simple human readable date and time string.
+The result of the function \pythonilIdx{repr} for an object~\pythonil{o} can be obtained using the format specifier~\pythonil{!r}\pythonIdx{"!r} or by printing the result of \pythonil{repr(o)}.
+Doing this with a \pythonilIdx{datetime} object gives us all the information that we need to manually recreate the object.
+We could copy the output of \pythonilIdx{repr} from \cref{exec:dunder:str_vs_repr} into the \python\ console!
+This would re-create the \pythonil{right\_now} object with the same data.
+This would also work with the string representations that we printed for our lists \pythonil{l1} and \pythonil{l2} above.
+
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{09_dunder}{point_user_2.py}{--args format}{dunder:point_user_2}{%
+Investigating string representations and equality for the class~\pythonil{Point}.}%
+%
+Let us now move a bit backwards and revisit a previous example we created by ourselves.
+In \cref{sec:immutableClassPoints2D}, we created the class \pythonil{Point} for representing points in the two-dimensional Euclidean plane~(see \cref{lst:classes:point}).
+This class turned out to be quite useful when we went on to implement classes for different two-dimensional geometric shapes.
+Here, we already implemented one dunder method, the initializer~\pythonilIdx{\_\_init\_\_}\pythonIdx{dunder!\_\_init\_\_}.
+Let us play with this class a bit more.
+
+In \cref{lst:dunder:point_user_2}, we create three instances of this class.
+\pythonil{p1}~represents the coordinates~$(3,5)$, \pythonil{p2}~stores~$(7, 8)$, and~\pythonil{p3}~has the same coordinates as~\pythonil{p1}.
+In this program, we first print the \pythonil{str} and \pythonil{repr} results for~\pythonil{p1}.
+We immediately find them very unsatisfying.
+Since we implemented neither \pythonilIdx{\_\_str\_\_}\pythonIdx{dunder!\_\_str\_\_} nor \pythonilIdx{\_\_repr\_\_}\pythonIdx{dunder!\_\_repr\_\_}, the default result for \pythonil{str} falls back to the result of \pythonil{repr} which then falls back to just the type name and object~ID.
+This gives us basically no useful information.
+
+While we are on the subject of \inQuotes{not useful,} there is another aspect of our \pythonil{Point} class that does not show useful behavior.
+Way back in \cref{sec:equalityAndIdentity}, we discussed the difference between object identity and object equality.
+All three variables~\pythonil{p1}, \pythonil{p2}, and~\pythonil{p3} point to different objects.
+While \pythonil{p1 is p1}\pythonIdx{is} is obviously \pythonil{True}, \pythonil{p1 is p2} and \pythonil{p1 is p3} are obviously~\pythonil{False}.
+The three objects are not all different instances of~\pythonil{Point}, so this is expected.
+
+However, we find it annoying that \pythonil{p1 == p3}\pythonIdx{==} is \pythonil{False}, too.
+\pythonil{p1 == p2} should be (and is) \pythonil{False}, because the two points are different.
+But the two points \pythonil{p1} and \pythonil{p3} have the same coordinates.
+They should be considered equal for all intents and purposes.
+Vice versa, \pythonil{p1 != p2}\pythonIdx{"!=} should be (and is) \pythonil{True}, but \pythonil{p1 != p3}\pythonIdx{"!=} should be \pythonil{False} but turns out to be \pythonil{True}.
+
+The reason for this is that \python\ cannot know when and why instances of our own class should be equal.
+So it simply assumes that equality~$=$~identity, i.e., only identical instances are equal.
+We could fix this by implementing the \pythonilIdx{\_\_eq\_\_}\pythonIdx{dunder!\_\_eq\_\_} dunder method.
+This method would receive an arbitrary object~\pythonil{other} as input and should return \pythonil{True} if that is equal to the object whose method was invoked.
+
+If you implement \pythonilIdx{\_\_eq\_\_}\pythonIdx{dunder!\_\_eq\_\_}, \python\ will make the reasonable assumption that \pythonil{(a != b) == not (a == b)}\pythonIdx{"!=}\pythonIdx{==}, i.e., assume that two objects are unequal if and only if they are not equal~\cite{PEP207}.
+However, this is not necessarily always the case\footnote{%
+In~\cite{PEP207}, it is stated that IEEE~754 floating point numbers do not satisfy that \pythonilIdx{==} and \pythonil{!=}\pythonIdx{"!=} are each other's complements. %
+However, I could not find for an example where this was true in the standard~\cite{IEEE2019ISFFPA}, maybe with the exception of signaling~\pythonilsIdx{nan}, which does not matter in \python. %
+Maybe it was true for some \python\ implementations back then, as~\cite{PEP754} indicates.%
+}. %
+Therefore, \python\ also allows us to implement an \pythonilIdx{\_\_ne\_\_}\pythonIdx{dunder!\_\_ne\_\_} dunder method to realize inequality differently or, potentially, more efficiently, instead~\cite{PEP207}.
+
+\gitPython{\programmingWithPythonCodeRepo}{09_dunder/point_with_dunder.py}{--args format}{dunder:point_with_dunder}{%
+Our \pythonil{Point} class, extended with the \pythonilIdx{\_\_str\_\_}\pythonIdx{dunder!\_\_str\_\_}, \pythonilIdx{\_\_repr\_\_}\pythonIdx{dunder!\_\_repr\_\_}, and \pythonilIdx{\_\_eq\_\_}\pythonIdx{dunder!\_\_eq\_\_} dunder methods.}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{09_dunder}{point_with_dunder_user.py}{--args format}{dunder:point_with_dunder_user}{%
+The same program exploring string representations and equality as shown in \cref{lst:dunder:point_user_2}, but this time using our new \pythonil{Point} class from \cref{lst:dunder:point_with_dunder}.}%
+
+In order to fix all of the problems discussed above, we implement the three dunder methods \pythonilIdx{\_\_str\_\_}\pythonIdx{dunder!\_\_str\_\_}, \pythonilIdx{\_\_repr\_\_}\pythonIdx{dunder!\_\_repr\_\_}, and \pythonilIdx{\_\_eq\_\_}\pythonIdx{dunder!\_\_eq\_\_} for our \pythonil{Point} class in \cref{lst:dunder:point_with_dunder}.
+The concise string representation returned by \pythonilIdx{\_\_str\_\_}\pythonIdx{dunder!\_\_str\_\_} will just be the point coordinates in parentheses.
+This offers all the information needed at a glance, but it could be mistaken with a tuple as string.
+Therefore, the canonical string representation produced by \pythonilIdx{\_\_repr\_\_}\pythonIdx{dunder!\_\_repr\_\_} will return a string of the shape~\pythonil{"Point(x, y)"}.
+Finally, the \pythonilIdx{\_\_eq\_\_}\pythonIdx{dunder!\_\_eq\_\_} method will first check if the \pythonil{other} object is an instance of \pythonil{Point}.
+If so, it will return \pythonil{True} if and only if the \pythonil{x} and \pythonil{y} coordinate of the \pythonil{other} point are the same as of the point \pythonil{self}.
+We can pack all of these conditions into one big \pythonilIdx{and} clause, because the evaluation of such clauses in \python\ is lazy:
+Only if \pythonil{isinstance(other, Point)}\pythonIdx{isinstance} is \pythonil{True}, the \pythonilIdx{and} clause can be \pythonil{True}.
+So the next condition \pythonil{other.x == self.x} is only evaluated in that case.
+Otherwise, if \pythonil{isinstance(other, Point)} is \pythonil{False}, the clause evaluation is stopped and \pythonil{False} is returned right away.
+
+\Cref{lst:dunder:point_with_dunder_user} is the same as \cref{lst:dunder:point_user_2}, but now uses this new variant of our class \pythonil{Point}.
+As you can see in \cref{exec:dunder:point_with_dunder_user}, its output now matches much better to what one would expect.
+\endhsection%
+%
+\endhsection%

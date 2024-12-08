@@ -23,6 +23,7 @@ class:
 \end{pythonSyntax}
 %
 \hsection{A Simple Immutable Class for Points in the Two-Dimensional Euclidean Plane}%
+\label{sec:immutableClassPoints2D}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{08_classes/point.py}{--args format}{classes:point}{%
 A class for representing points in the two-dimensional Euclidean plane.}%
@@ -71,14 +72,14 @@ A attribute is a variable that every single instance of the class has.
 In other words, we later want to be able to create one instance of \pythonil{Point} with the x\nobreakdashes-coordinate~5 and the y\nobreakdashes-coordinate~10 and then another instance with the x\nobreakdashes-coordinate~2 and the y\nobreakdashes-coordinate~7.
 
 Therefore, \pythonil{Point} needs a initializer, i.e., a special method that creates these attributes.
-This method is called~\pythonilIdx{\_\_init\_\_}.
+This method is called~\pythonilIdx{\_\_init\_\_}\pythonIdx{dunder!\_\_init\_\_}.
 As said, every method of a class must have a parameter~\pythonilIdx{self}, which is the instance of the class (the object) upon which the method is called.
-The initializer \pythonilIdx{\_\_init\_\_} is a special method, so it also has this parameter~\pythonilIdx{self}.
+The initializer \pythonilIdx{\_\_init\_\_}\pythonIdx{dunder!\_\_init\_\_} is a special method, so it also has this parameter~\pythonilIdx{self}.
 Additionally, we demand that two parameters~\pythonil{x} and~\pythonil{y} be passed in when we create an instance of~\pythonil{Point}.
 We allow the values to be either \pythonils{int} or \pythonils{float}.%
 %
 \bestPractice{attributes}{%
-Object attributes must only be created inside the initializer~\pythonilIdx{\_\_init\_\_}. %
+Object attributes must only be created inside the initializer~\pythonilIdx{\_\_init\_\_}\pythonIdx{dunder!\_\_init\_\_}. %
 An initial value must immediately be assigned to each attribute.%
 }
 %
@@ -97,7 +98,7 @@ Additionally, the \pgls{typeHint} \pythonilIdx{Final} from the \pythonilIdx{typi
 In other words, we do not allow the coordinates of our \pythonils{Point} to be change after creation.%
 %
 \bestPractice{attributeTypeHint}{%
-Every attribute of an object must be annotated with a \pgls{typeHint} and a documentation comment when created in the initializer~\pythonilIdx{\_\_init\_\_}. %
+Every attribute of an object must be annotated with a \pgls{typeHint} and a documentation comment when created in the initializer~\pythonilIdx{\_\_init\_\_}\pythonIdx{dunder!\_\_init\_\_}. %
 \pglspl{typeHint} work as with normal variables, but the documentation is slightly different: %
 In the line \emph{above} the attribute initialization, a \emph{comment} starting with \pythonilIdx{\#: } must be written which explains the meaning of the attribute.%
 }%
@@ -140,7 +141,7 @@ We can check if an object~\pythonil{o} is an instance of our class \pythonil{Poi
 For \pythonil{p1}, this returns~\pythonil{True}.
 
 We now create a second instance, \pythonil{p2}, of the class \pythonil{Point}.
-We assign \pythonil{7} to \pythonil{p2.x} and \pythonil{8} to \pythonil{p2.y} via the \pythonilIdx{\_\_init\_\_} initializer, which is automatically invoked when we write~\pythonil{Point(7, 8)}.
+We assign \pythonil{7} to \pythonil{p2.x} and \pythonil{8} to \pythonil{p2.y} via the \pythonilIdx{\_\_init\_\_}\pythonIdx{dunder!\_\_init\_\_} initializer, which is automatically invoked when we write~\pythonil{Point(7, 8)}.
 We can again print the values of these attributes using an \pgls{fstring}.
 While \pythonil{isinstance(p2, Point)} is again \pythonil{True}, \pythonil{isinstance(5, Point)} returns \pythonil{False}.
 
@@ -208,7 +209,7 @@ We learned that the datatype \pythonilIdx{float} can represent numbers accuratel
 This is illustrated in \cref{fig:addingFloatsError}:
 If we add~\pythonil{1} to~$10^{15}=\pythonil{1e15}$, the correct result is~\pythonil{1000000000000001.0}.
 However, if we add~\pythonil{1} to~$10^{16}=\pythonil{1e16}$, the result is still~\pythonil{1e16}.
-It is not possible to represent the number~$1+10^{16}$ correctly with the 64~bit double precision floating point numbers that \python\ offers.
+It is not possible to represent the number~$1+10^{16}$ correctly with the 64~bit double precision floating point numbers that \python\ offers~\cite{PSF2024FPAIAL}.
 Usually, that itself is totally fine:
 There are few application in \inQuotes{everyday programming} where we really need more than fifteen digits of precision.
 
@@ -333,7 +334,7 @@ Encapsulation therefore allows the programmer to ensure that the state of an obj
 %
 This is going to be the interface for our new class~\pythonil{KahanSum}, which, in turn, is based on~\cite{K2006AGKBSA}.
 
-In the initializer~\pythonilIdx{\_\_init\_\_}, we create the three attributes~\pythonil{__sum}, \pythonil{__cs}, and \pythonil{__ccs} and initialize them to~\pythonil{0}.
+In the initializer~\pythonilIdx{\_\_init\_\_}\pythonIdx{dunder!\_\_init\_\_}, we create the three attributes~\pythonil{__sum}, \pythonil{__cs}, and \pythonil{__ccs} and initialize them to~\pythonil{0}.
 These names are directly taken from \cref{algo:kahanSum}.
 Notice the double leading underscores in front of the names.%
 %

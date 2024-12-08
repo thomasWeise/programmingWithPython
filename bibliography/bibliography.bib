@@ -58,6 +58,7 @@
 @string { a_brent_richard_p = "Richard P.\ Brent" }
 @string { a_brett_matthew = "Matthew Brett" }
 @string { a_bright_jonathan = "Jonathan Bright" }
+@string { a_broytman_oleg = "Oleg Broytman" }
 @string { a_brucher_matthieu = "Matthieu Brucher" }
 @string { a_bruhin_florian = "Florian Bruhin" }
 @string { a_bruneau_pierrix = "Pierrick Bruneau" }
@@ -157,6 +158,8 @@
 @string { a_isard_michael = "Michael Isard" }
 @string { a_ito_ysuaki = "Yasuaki Ito" }
 @string { a_jain_shantanu = "Shantanu Jain" }
+@string { a_james_mike = "Mike James" }
+@string { a_jewet_jim_j = "Jim J\. Jewett" }
 @string { a_joh_sangwoo = "Sangwoo Joh" }
 @string { a_johansson_robert = "Robert Johansson" }
 @string { a_johnson_stephen_curtis = "Stephen Curtis Johnson" }
@@ -345,6 +348,7 @@
 @string { a_wallach_hanna_m = "Hanna M.\ Wallach" }
 @string { a_wang_rui = "Rui Wang" }
 @string { a_warden_pete = "Pete Warden" }
+@string { a_warnes_gregory_r = "Gregory R.\ Warnes" }
 @string { a_warsaw_barry = "Barry Warsaw" }
 @string { a_weckesser_warren = "Warren Weckesser" }
 @string { a_weise_thomas = "Thomas Weise" }
@@ -473,6 +477,7 @@
 @string { p_ifip = "{International Federation for Information Processing~{(IFIP)}}" }
 @string { p_infinite_skills = "Infinite Skills Inc" }
 @string { p_informs = "{The Institute for Operations Research and the Management Sciences~({INFORMS})}" }
+@string { p_io_press = "{{I/O}~Press}" }
 @string { p_iso = "{International Organization for Standardization~{(ISO)}}" }
 @string { p_leibniz_zentrum_fur_informatik = "{{Schloss Dagstuhl} -- {Leibniz-Zentrum f{\"u}r Informatik}}" }
 @string { p_logilab = "Logilab" }
@@ -1404,7 +1409,7 @@
 
 @inbook{H1997IS7FPN,
  author = a_hollasch_steve,
- title = {{IEEE} Standard 754 Floating Point Numbers},
+ title = {{IEEE} Standard~754 Floating Point Numbers},
  booktitle = {{CSE401}:~{I}ntroduction to Compiler Construction},
  publisher = p_university_of_washington,
  address = pa_university_of_washington,
@@ -1475,7 +1480,7 @@
 
 @techreport{IEEE2019ISFFPA,
  title = {{IEEE} Standard for Floating-Point Arithmetic},
- number = {754\texttrademark-2019 {(Revision of IEEE~Std 754-2008)}},
+ number = {754\texttrademark-2019 {(Revision of IEEE~Std 754\nobreakdashes-2008)}},
  xdata = {rep_ieee_standard},
  date = {2019-06-13},
  isbn = {978-1-5044-5925-9},
@@ -1515,6 +1520,14 @@
  publisher = p_apress,
  address = pa_apress,
  isbn = {9781484242469}
+}
+
+@book{J2022PPEIAOSCD,
+ author = a_james_mike,
+ title = {Programmer's \python:~Everything is an Object~--~Something Completely Different},
+ edition = {2},
+ date = {2022-06-25},
+ publisher = p_io_press,
 }
 
 @book{J2024PTOGBSI8IS12E,
@@ -1921,6 +1934,16 @@
  urldate = {2024-11-08}
 }
 
+@techreport{PEP207,
+ author = a_van_rossum_guido # and # a_ascher_david,
+ title = {Rich Comparisons},
+ number = {207},
+ date = {2000-07-25},
+ xdata = {rep_pep},
+ url = {https://peps.python.org/pep-0207},
+ urldate = {2024-12-08},
+}
+
 @techreport{PEP234,
  author = a_yee_ka_ping # and # a_van_rossum_guido,
  title = {\pythonilsIdx{Iterator}},
@@ -2069,6 +2092,26 @@
  date = {2020-09-12/2021-02-08},
  url = {https://peps.python.org/pep-0635},
  urldate = {2024-09-23},
+}
+
+@techreport{PEP754,
+ author = a_warnes_gregory_r,
+ title = {{IEEE~754} Floating Point Special Values~[Rejected]},
+ number = {754},
+ xdata = {rep_pep},
+ date = {2003-03-28},
+ url = {https://peps.python.org/pep-0754},
+ urldate = {2024-12-08},
+}
+
+@techreport{PEP3140,
+ authoer = a_broytman_oleg # and # a_jewet_jim_j,
+ title = {\pythonil{str(container)}\pythonIdx{str} should call~\pythonil{str(item)}, not~\pythonil{repr(item)}\pythonIdx{repr}~[Rejected]},
+ number = {3140},
+ xdata = {rep_pep},
+ date = {2008-05-27/2008-05-28},
+ url = {https://peps.python.org/pep-3140},
+ urldate = {2024-12-08},
 }
 
 @inproceedings{PGMLBCKLGADKYDRTCSFBC2019PAISHPDLL,
@@ -2264,6 +2307,14 @@
  urldate = {2024-11-07},
 }
 
+@inbook{PSF2024FPAIAL,
+ title = {Floating-Point Arithmetic:~Issues and Limitations},
+ chapter = {15},
+ xdata = {PSF2024TPT},
+ url = {https://docs.python.org/3/tutorial/floatingpoint.html},
+ urldate = {2024-12-08},
+}
+
 @inbook{PSF2024FSL,
  title = {Formatted String Literals},
  chapter = {7.1.1},
@@ -2308,6 +2359,14 @@
  address = pa_python_software_foundation,
  url = {https://docs.python.org/3},
  urldate = {2024-07-05},
+}
+
+@inbook{PSF2024OVAT,
+ title = {Objects\pythonIdx{object}, Values and Types},
+ chapter = {3.1},
+ xdata = {PSF2024TPLR},
+ url = {https://docs.python.org/3/reference/datamodel.html#objects-values-and-types},
+ urldate = {2024-12-07}
 }
 
 @xdata{PSF2024PH,
