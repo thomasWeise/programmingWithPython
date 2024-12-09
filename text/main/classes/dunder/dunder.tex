@@ -124,11 +124,11 @@ This, obviously, should return~\pythonil{False}.
 And it does so.
 This is because the two objects~\pythonil{p1} and~\pythonil{5} are not identical.
 The default equality comparison only checks for identity.
-If implement \pyhonilIdx{\_\_eq\_\_} by ourselves, this method should clearly return a value that makes \pythonil{p1 == 5} become~\pythonil{False} as well.
+If implement \pythonilIdx{\_\_eq\_\_} by ourselves, this method should clearly return a value that makes \pythonil{p1 == 5} become~\pythonil{False} as well.
 Anything else would be nonsense.
 
 \gitPython{\programmingWithPythonCodeRepo}{09_dunder/point_with_dunder.py}{--args format}{dunder:point_with_dunder}{%
-Our \pythonil{Point} class, extended with the \pythonilIdx{\_\_str\_\_}\pythonIdx{dunder!\_\_str\_\_}, \pythonilIdx{\_\_repr\_\_}\pythonIdx{dunder!\_\_repr\_\_}, and \pythonilIdx{\_\_eq\_\_}\pythonIdx{dunder!\_\_eq\_\_} dunder methods.}%
+Our \pythonil{Point} class, extended with the \pythonilIdx{\_\_str\_\_}\pythonIdx{dunder!\_\_str\_\_}, \pythonilIdx{\_\_repr\_\_}\pythonIdx{dunder!\_\_repr\_\_}, and \pythonilIdx{\_\_eq\_\_}\pythonIdx{dunder!\_\_eq\_\_}\pythonIdx{NotImplementedType} dunder methods.}%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{09_dunder}{point_with_dunder_user.py}{--args format}{dunder:point_with_dunder_user}{%
 The same program exploring string representations and equality as shown in \cref{lst:dunder:point_user_2}, but this time using our new \pythonil{Point} class from \cref{lst:dunder:point_with_dunder}.}%
@@ -143,7 +143,7 @@ If so, it will return \pythonil{True} if and only if the \pythonil{x} and \pytho
 Otherwise, it will return the constant \pythonilIdx{NotImplemented}:%
 %
 \quotation{PSF2024BIC}{%
-A special value which should be returned by the binary special methods [\dots] to indicate that the operation is not implemented with respect to the other type\dots\medskip\\\indent%
+A special value which should be returned by the binary special methods [\dots] to indicate that the operation is not implemented with respect to the other type\dots\medskip\\\strut\hspace{1cm}\strut%
 \emph{Note:}~When a binary (or in-place) method returns \pythonilIdx{NotImplemented} the interpreter will try the reflected operation on the other type (or some other fallback, depending on the operator). %
 If all attempts return \pythonilIdx{NotImplemented}, the interpreter will raise an appropriate exception. %
 Incorrectly returning \pythonilIdx{NotImplemented} will result in a misleading error message or the \pythonilIdx{NotImplemented} value being returned to \python\ code.
@@ -154,6 +154,7 @@ If \pythonil{other} is not an instance of~\pythonil{Point}, then no way to compa
 Now, we could return \pythonil{False} in this case, which would be fine as well.
 Returning \pythonilIdx{NotImplemented} will give us the same result in comparisons with objects of other types~(like~\pythonil{5}).
 However, it keeps an avenue open for other programmers to design new classes which support comparison with our \pythonil{Point} instances in a consistent way.
+When we implement the \pythonilIdx{\_\_eq\_\_} method like this, the proper \pgls{typeHint} for the return value is \pythonil{bool | NotImplementedType}\pythonIdx{NotImplementedType}.
 
 \Cref{lst:dunder:point_with_dunder_user} is the same as \cref{lst:dunder:point_user_2}, but now uses this new variant of our class \pythonil{Point}.
 As you can see in \cref{exec:dunder:point_with_dunder_user}, its output now matches much better to what one would expect.%
