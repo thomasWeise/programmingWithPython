@@ -119,6 +119,14 @@ Maybe it was true for some \python\ implementations back then, as~\cite{PEP754} 
 }. %
 Therefore, \python\ also allows us to implement an \pythonilIdx{\_\_ne\_\_}\pythonIdx{dunder!\_\_ne\_\_} dunder method to realize inequality differently or, potentially, more efficiently, instead~\cite{PEP207}.
 
+Finally, we compare whether \pythonil{p1} is the same as the integer number~\pythonil{5}.
+This, obviously, should return~\pythonil{False}.
+And it does so.
+This is because the two objects~\pythonil{p1} and~\pythonil{5} are not identical.
+The default equality comparison only checks for identity.
+If implement \pyhonilIdx{\_\_eq\_\_} by ourselves, this method should clearly return a value that makes \pythonil{p1 == 5} become~\pythonil{False} as well.
+Anything else would be nonsense.
+
 \gitPython{\programmingWithPythonCodeRepo}{09_dunder/point_with_dunder.py}{--args format}{dunder:point_with_dunder}{%
 Our \pythonil{Point} class, extended with the \pythonilIdx{\_\_str\_\_}\pythonIdx{dunder!\_\_str\_\_}, \pythonilIdx{\_\_repr\_\_}\pythonIdx{dunder!\_\_repr\_\_}, and \pythonilIdx{\_\_eq\_\_}\pythonIdx{dunder!\_\_eq\_\_} dunder methods.}%
 %
@@ -129,15 +137,26 @@ In order to fix all of the problems discussed above, we implement the three dund
 The concise string representation returned by \pythonilIdx{\_\_str\_\_}\pythonIdx{dunder!\_\_str\_\_} will just be the point coordinates in parentheses.
 This offers all the information needed at a glance, but it could be mistaken with a tuple as string.
 Therefore, the canonical string representation produced by \pythonilIdx{\_\_repr\_\_}\pythonIdx{dunder!\_\_repr\_\_} will return a string of the shape~\pythonil{"Point(x, y)"}.
+
 Finally, the \pythonilIdx{\_\_eq\_\_}\pythonIdx{dunder!\_\_eq\_\_} method will first check if the \pythonil{other} object is an instance of \pythonil{Point}.
 If so, it will return \pythonil{True} if and only if the \pythonil{x} and \pythonil{y} coordinate of the \pythonil{other} point are the same as of the point \pythonil{self}.
-We can pack all of these conditions into one big \pythonilIdx{and} clause, because the evaluation of such clauses in \python\ is lazy:
-Only if \pythonil{isinstance(other, Point)}\pythonIdx{isinstance} is \pythonil{True}, the \pythonilIdx{and} clause can be \pythonil{True}.
-So the next condition \pythonil{other.x == self.x} is only evaluated in that case.
-Otherwise, if \pythonil{isinstance(other, Point)} is \pythonil{False}, the clause evaluation is stopped and \pythonil{False} is returned right away.
+Otherwise, it will return the constant \pythonilIdx{NotImplemented}:%
+%
+\quotation{PSF2024BIC}{%
+A special value which should be returned by the binary special methods [\dots] to indicate that the operation is not implemented with respect to the other type\dots\medskip\\\indent%
+\emph{Note:}~When a binary (or in-place) method returns \pythonilIdx{NotImplemented} the interpreter will try the reflected operation on the other type (or some other fallback, depending on the operator). %
+If all attempts return \pythonilIdx{NotImplemented}, the interpreter will raise an appropriate exception. %
+Incorrectly returning \pythonilIdx{NotImplemented} will result in a misleading error message or the \pythonilIdx{NotImplemented} value being returned to \python\ code.
+}%
+%
+In other words, our \pythonilIdx{\_\_eq\_\_} method can only compare the current~\pythonil{Point} for equality with another~\pythonil{Point}.
+If \pythonil{other} is not an instance of~\pythonil{Point}, then no way to compare for equality with it exists.
+Now, we could return \pythonil{False} in this case, which would be fine as well.
+Returning \pythonilIdx{NotImplemented} will give us the same result in comparisons with objects of other types~(like~\pythonil{5}).
+However, it keeps an avenue open for other programmers to design new classes which support comparison with our \pythonil{Point} instances in a consistent way.
 
 \Cref{lst:dunder:point_with_dunder_user} is the same as \cref{lst:dunder:point_user_2}, but now uses this new variant of our class \pythonil{Point}.
-As you can see in \cref{exec:dunder:point_with_dunder_user}, its output now matches much better to what one would expect.
+As you can see in \cref{exec:dunder:point_with_dunder_user}, its output now matches much better to what one would expect.%
 \endhsection%
 %
 \endhsection%
