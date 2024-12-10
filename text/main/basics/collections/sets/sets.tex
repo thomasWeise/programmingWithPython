@@ -114,14 +114,17 @@ Both \pythonil{prime.symmetric_difference(odd)} and \pythonil{odd.symmetric_diff
 The elements of \pythonil{prime} that are \emph{not} in \pythonil{odd} can be computed using \pythonil{prime.difference(odd)}\pythonIdx{difference}\pythonIdx{set!difference}.
 The result, $\pythonil{prime}\setminus\pythonil{odd}$, contains a single element, namely the number~\pythonil{2}.
 Similarly, we can create the new set \pythonil{only_odd} containing all the elements of \pythonil{odd} that are \emph{not} in \pythonil{prime} by using \pythonil{odd.difference(prime)}\pythonIdx{difference}\pythonIdx{set!difference}.
-The result, $\pythonil{odd}\setminus\pythonil{prime}$, contains a the three elements \pythonil{1}, \pythonil{9}, and~\pythonil{15}.
+The result, $\pythonil{odd}\setminus\pythonil{prime}$, contains a the three elements \pythonil{1}, \pythonil{9}, and~\pythonil{15}.%
+\end{sloppypar}%
+%
 Notice that all of these operations create new and independent sets.
 If we want to delete all elements that occur in some container from an existing set, i.e., modify the set, then we use the method~\pythonil{difference_update}\pythonIdx{difference\_update}\pythonIdx{set!difference\_update}.
 \pythonil{odd.difference_update(prime)} modifies the set~\pythonil{odd} by deleting all elements from~\pythonil{prime} from it.
 This operation did not create a new set, but change the existing one.
-\pythonil{odd == only_odd} would now hole.
-It is similar to the \pythonil{update} method, but deletes elements instead of adding them.%
-\end{sloppypar}%
+\pythonil{odd == only_odd} would now hold.
+It is similar to the \pythonil{update} method, but deletes elements instead of adding them.
+
+We will discuss a bit more about the mechanism that allows us to store and retrieve objects from sets in~\cref{sec:hashDunder}.%
 %
 \FloatBarrier%
 \endhsection%
