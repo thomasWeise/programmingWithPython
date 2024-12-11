@@ -163,7 +163,7 @@ As you can see in \cref{exec:dunder:point_with_dunder_user}, its output now matc
 \endhsection%
 %
 %
-\hsection{\texttt{\_\_hash\_\_}, \texttt{\_\_eq\_\_} and \texttt{dict} and \texttt{set}}%
+\hsection{Objects in Sets and as Keys in Dictionaries:~\texttt{\_\_hash\_\_}, \texttt{\_\_eq\_\_}}%
 \label{sec:hashDunder}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{09_dunder/point_with_hash.py}{--args format}{dunder:point_with_hash}{%
@@ -318,6 +318,55 @@ However, a point~\pythonil{p5} whose coordinates are different from those of~\py
 
 Now we can also use the instances of our class~\pythonil{Point} as keys for a dictionary~\pythonil{point_vals}.
 The same dictionary operations as discussed way back in~\cref{sec:dictionaries} can be used without problems.%
+%
+\FloatBarrier%
+\endhsection%
+%
+\hsection{Arithmetic Dunder and Ordering}%
+%
+\gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_1}{dunder:fraction:part_1}{%
+Part~1 of the \pythonil{Fraction} class: The initializer \pythonilIdx{\_\_init\_\_} and global constants.}%
+%
+\gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_2}{dunder:fraction:part_2}{%
+Part~2 of the \pythonil{Fraction} class: Addition (via \pythonilIdx{\_\_add\_\_}) and subtraction (via \pythonilIdx{\_\_sub\_\_}).}%
+%
+\gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_3}{dunder:fraction:part_3}{%
+Part~3 of the \pythonil{Fraction} class: Multiplication (via \pythonilIdx{\_\_mul\_\_}) and division (via \pythonilIdx{\_\_truediv\_\_})}%
+%
+\gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_4}{dunder:fraction:part_4}{%
+Part~4 of the \pythonil{Fraction} class: All order-related dunder methods\pythonIdx{\_\_eq\_\_}\pythonIdx{\_\_ne\_\_}\pythonIdx{\_\_lt\_\_}\pythonIdx{\_\_le\_\_}\pythonIdx{\_\_gt\_\_}\pythonIdx{\_\_ge\_\_}.}%
+%
+\gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_5}{dunder:fraction:part_5}{%
+Part~5 of the \pythonil{Fraction} class: String representation via \pythonilIdx{\_\_str\_\_} and \pythonilIdx{\_\_repr\_\_}.}%
+%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest_doctest.sh 09_dunder fraction.py}{dunder:fraction:doctest}{%
+The output of \pytest\ executing the \pglspl{doctest} for our \pythonil{Fraction} class.}%
+%
+\FloatBarrier%
+\endhsection%
+%
+\hsection{Debugging}%
+%
+\gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction_decimal_str_err_1.py}{--args format --labels part_6}{dunder:fraction_decimal_str_err_1:part_6}{%
+Part~6 of the \pythonil{Fraction} class: Adding a \pythonil{decimal_str} conversation method.}%
+%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest_doctest.sh 09_dunder fraction_decimal_str_err_1.py}{dunder:fraction_decimal_str_err_1:doctest}{%
+The output of \pytest\ executing the \pglspl{doctest} for our \pythonil{Fraction} class with the \pythonil{decimal_str} method from \cref{lst:dunder:fraction_decimal_str_err_1:part_6}: It fails!}%
+%
+\gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction_decimal_str_err_2.py}{--args format --labels part_6}{dunder:fraction_decimal_str_err_2:part_6}{%
+Part~7 of the \pythonil{Fraction} class: A hopefully improved \pythonil{decimal_str} method.}%
+%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest_doctest.sh 09_dunder fraction_decimal_str_err_2.py}{dunder:fraction_decimal_str_err_2:doctest}{%
+The output of \pytest\ executing the \pglspl{doctest} for our \pythonil{Fraction} class with the improved \pythonil{decimal_str} method from \cref{lst:dunder:fraction_decimal_str_err_2:part_6}: It fails!}%
+%
+\gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_6}{dunder:fraction:part_6}{%
+Part~8 of the \pythonil{Fraction} class: A correct \pythonil{decimal_str} method.}%
+%
+\gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction_sqrt.py}{--args format}{dunder:fraction_sqrt}{%
+Using the \pythonil{Fraction} class to compute square roots.}%
+%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest_doctest.sh 09_dunder fraction_sqrt.py}{dunder:fraction_sqrt:doctest}{%
+The (successful) output of \pytest\ executing the \pglspl{doctest} for our \pythonil{sqrt} function from~\cref{lst:dunder:fraction_sqrt} working on instances of the \pythonil{Fraction} class.}%
 %
 \FloatBarrier%
 \endhsection%
