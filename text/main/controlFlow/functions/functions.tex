@@ -5,6 +5,7 @@ You already learned many functions, from the basic \pythonilIdx{print} routine t
 Now you will learn how to make your own functions.%
 %
 \hsection{Defining and Calling Functions}%
+\label{sec:definingFunctions}%
 %
 \pythonIdx{def}\pythonIdx{function!def}%
 The syntax for defining our own functions in \python\ is as follows:%
@@ -37,7 +38,7 @@ my_function(argument_1, argument_2)  # we can call the function like this
 %
 \bestPractice{functionNames}{Function names should be lower case, with underscores separating multiple words if need be~\cite{PEP8}.}%
 %
-\pythonil{function!parameters}\pythonIdx{function!parameter}Then follows an opening and a closing parenthesis, i.e., \pythonil{(...)}\pythonIdx{(\idxdots)}.
+\pythonIdx{function!parameter}Then follows an opening and a closing parenthesis, i.e., \pythonil{(...)}\pythonIdx{(\idxdots)}.
 A function can have parameters through which we can pass values to it.
 Inside the function, these parameters act like variables.
 The values of these variables can be passed in when we call (invoke, execute) the function.%
@@ -46,13 +47,14 @@ The values of these variables can be passed in when we call (invoke, execute) th
 A function \emph{parameter} is a variable defined inside the function that receives its value when the function is called.%
 \end{definition}%
 %
-Notice that, just like variables, all such parameters should be annotated with \pglspl{typeHint}~(see \cref{sec:variableTypesAndTypeHints}).
+Notice that, just like variables, all such parameters should be annotated with \pglspl{typeHint}~(see \cref{sec:variableTypesAndTypeHints})~\cite{PEP3107}.
 Functions can return results~(like the \pythonilIdx{sqrt} function of the \pythonilIdx{math} module does) or return nothing~(like \pythonilIdx{print}).
 \pythonIdx{function!return value}If they return a result, the type of this result is specified via the \pgls{typeHint} \pythonil{ -> result_type}\pythonIdx{->}.
+We refer to the parameters and the return type of a function as its \pgls{signature}\pythonIdx{function!signature}.
 The function header ends with a colon~(\pythonilIdx{:}).%
 %
 \bestPractice{functionTypeHints}{\pythonIdx{function!type hint}%
-All parameters and the return value of a function should be annotated with \pglspl{typeHint}. %
+All parameters and the return value of a function should be annotated with \pglspl{typeHint}~\cite{PEP3107}. %
 From my perspective: \emph{A function without \pglspl{typeHint} is wrong.}%
 }%
 %

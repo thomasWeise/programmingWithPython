@@ -303,16 +303,18 @@ Alas, the developers of \python\ have already solved this:%
 \quotation{PSF2024BIF}{Numeric values that compare equal have the same \pythonilIdx{hash} value (even if they are of different types, as is the case for~\pythonil{1} and~\pythonil{1.0}).}%
 %
 Therefore, we can indeed implement \pythonilIdx{\_\_hash\_\_} with a single line of code in~\cref{sec:hashDunder}.
-And I will later find another example on how the debugger can be used to spot errors in code.
-
+And I will later find another example on how the debugger can be used to spot errors in code.%
+%
+\begin{sloppypar}%
 We use our new variant of the \pythonil{Point} class in~\cref{lst:dunder:point_with_hash_user}.
 We again first create three points~\pythonil{p1 = Point(3, 5)}, \pythonil{p2 = Point(7, 8)} and \pythonil{p3 = Point(3, 5.0)}.
 \pythonil{p1 == p2} is \pythonil{False}, while \pythonil{p1 == p3} is \pythonil{True}, despite the \pythonil{y}\nobreakdashes-coordinate of \pythonil{p1} is an~\pythonil{int} and the one of~\pythonil{p2} is a~\pythonil{float}~(but with the same value).
 When we create the set~\pythonil{points} as~\pythonil{\{p1, p2, p3\}}, it will have the size~2.
 Since \pythonil{p1 == p3}, only one of these two objects is stored in the set.
 However, \pythonil{p1 in points}, \pythonil{p2 in points}, and~\pythonil{p3 in points} are all~\pythonil{True}.
-This is because \pythonil{p1} and \pythonil{p3} also have the same hash value.
-
+This is because \pythonil{p1} and \pythonil{p3} also have the same hash value.%
+\end{sloppypar}%
+%
 If we create a new point~\pythonil{p4} with coordinates equal to those of~\pythonil{p2}, then \pythonil{p4 in points} will also hold.
 However, a point~\pythonil{p5} whose coordinates are different from those of~\pythonil{p1} and~\pythonil{p2} will not be an element of~\pythonil{points}, i.e., \pythonil{p5 in points} would be~\pythonil{False}.
 
@@ -326,22 +328,112 @@ The same dictionary operations as discussed way back in~\cref{sec:dictionaries} 
 %
 \gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_1}{dunder:fraction:part_1}{%
 Part~1 of the \pythonil{Fraction} class: The initializer \pythonilIdx{\_\_init\_\_} and global constants.}%
+\afterpage{\clearpage}%
 %
+Much of \python's syntactic behavior can be grounded on dunder methods.
+Indeed, even the arithmetic operators~\pythonilIdx{+}, \pythonilIdx{-}, \pythonilIdx{*}, and \pythonilIdx{/}.
+This allows us to define new numerical types if we want.
+
+Here, we will do exactly that:
+We implement the basic arithmetic operations for a class~\pythonil{Fraction} that represents fractions~$q\in\rationalNumbers$, i.e., it holds that~$q=\frac{a}{b}$ with~$a,b\in\integerNumbers$ and~$b\neq0$.\footnote{
+\python\ already has such a type built-in. %
+Our goal here is to explore dunder methods, so we make our own class instead. %
+In any actual application, you would use the more efficient class \pythonilIdx{Fraction} from the module~\pythonilIdx{fractions}~\cite{PSF2024FRN}.%
+}
+In other words, we want to pour primary school mathematics into a new numerical type.
+To refresh our memory, $a$~is called the \pgls{numerator} and $b$~is called the \pgls{denominator} of the fraction~$\frac{a}{b}$.
+
+The overall code for this class is a bit longer compared to our previous examples.
+We therefore split it into several parts, namely~\cref{lst:dunder:fraction:part_1,lst:dunder:fraction:part_2,lst:dunder:fraction:part_3,lst:dunder:fraction:part_4,lst:dunder:fraction:part_5} (and later add \cref{lst:dunder:fraction:part_6}).
+At first we need to decide which attributes such a class would need.
+We construct the initializer dunder method \pythonilIdx{\_\_init\_\_} in \cref{lst:dunder:fraction:part_1}.
+
+Since the fraction~$\frac{a}{b}$ can be defined by the two integer numbers~$a$ and~$b$, it makes sense to also have two \pythonil{int} attributes~\pythonil{a} and~\pythonil{b} in our~\pythonil{Fraction} class.
+We want our numbers to be immutable, because like you cannot change the value of~\pythonil{5}, you should also not be able to change the value of~\pythonil{1/3}.
+The attributes will therefore receive the \pgls{typeHint} \pythonilIdx{Final[int]}.
+
+Our fractions should be \emph{canonical}.
+It is totally possible that two fractions~$\frac{a}{b}=\frac{c}{d}$ with $a\neq c$ or $b\neq c$.
+This is the case for, let's say, $\frac{-9}{3}$ and $\frac{12}{-4}$.
+In such cases we want to ideally store them in objects that have exactly the same attribute values.
+
+The fractions~$\frac{1}{2}$ and~$\frac{2}{4}$ are the same.
+They should both be represented as~$\frac{1}{2}$.
+It is clear that~$\frac{a}{b}=\frac{c*a}{c*b}$ for all integer numbers~$a,b,c\in\integerNumbers$ and~$b,c>0$.
+Before storing~$a$ and~$b$, we will divide both numbers by their \emph{greatest common divisor}.
+Back in \cref{sec:definingFunctions}, we implemented our own function~\pythonilIdx{gcd} for computing the greatest common divisor based on the Euclidean algorithm.
+This time, we will use the \pythonilIdx{gcd} function from the \pythonilIdx{math} module directly.
+Anyway, dividing the \pgls{numerator} and \pgls{denominator} by their \pythonilIdx{gcd} ensures that our fractions are represented in a compact way.
+
+This leaves only the question where the sign should be stored.
+Obviously, $\frac{-5}{2}=\frac{5}{-2}$ and $\frac{5}{2}=\frac{-5}{-2}$.
+We decide that the sign of the fraction is always stored in the attribute~\pythonil{a}.
+In other words, if $\frac{a}{b}<0$, then \pythonil{a} will be negative, otherwise it should be positive.
+It can only be that $\frac{a}{b}<0$ if exactly one of $a<0$ or $b<0$ is true.
+Therefore, the sign of our fraction is determined by \pythonil{-1 if ((a < 0) != (b < 0)) else 1}.
+
+In the initializer, we also need to make sure that things like~$\frac{7}{0}$ do not happen.
+In this case, we will \pythonilIdx{raise} an \pythonilIdx{ZeroDivisionError}.
+
+As last step, we must add proper \pglspl{doctest} to the initializer.
+We need to check whether the values~$a$ and~$b$ are properly stored in the attributes~\pythonil{a} and~\pythonil{b}.
+Then we need to check whether our canonicalization by dividing with the \pythonilIdx{gcd} correctly maps~$\frac{12}{2}$ to~$\frac{6}{1}$.
+And we need to verify that~$\frac{2}{-12}$ and~$\frac{-2}{12}$ correctly become~$\frac{-1}{6}$ while $\frac{-2}{-12}$~becomes~$\frac{1}{6}$.
+The special case of the number zero also needs to be checked:
+We know that \pythonil{gcd(0, -9) = -9}, so it should work, but it is better to verify that~$\frac{0}{-9}$ is indeed mapped to~$\frac{0}{1}$.
+Finally, we need to verify that the \pythonilIdx{ZeroDivisionError} is indeed raised when we try to instantiate \pythonil{Fraction} with a zero \pgls{denominator}.
+Without needing to read the actual code of \pythonil{\_\_init\_\_}, a user can therefore already learn a lot about how our class \pythonil{Fraction} represents rational numbers just from the \pglspl{doctest}.
+
+Several special fractions will occur very often in computations.
+Instead of creating them again and again, we can define them as constants.
+A constant is a variable that must never be changed.%
+%
+\bestPractice{constants}{%
+Constants are module-level variables which must be assign a value upon definition and which must be annotated with the \pgls{typeHint}~\pythonilIdx{Final}.%
+}%
+\bestPractice{constNames}{%
+The names of constants contain only capital letters with underscores separating words. %
+Examples include \pythonil{MAX_OVERFLOW} and \pythonil{TOTAL}~\cite{PEP8}.%
+}%
+\bestPractice{constDoc}{%
+Constants are documented by writing a comment starting with \pythonilIdx{\#: } immediately above them~\cite{SD2024DCAD}.%
+}%
+%
+We define three constants, \pythonil{ZERO}, \pythonil{ONE}, and \pythonil{ONE_HALF}, which hold corresponding instances of \pythonil{Fraction}.
+These numbers are often used, and providing them as constant can safe both runtime and memory.
+
 \gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_2}{dunder:fraction:part_2}{%
-Part~2 of the \pythonil{Fraction} class: Addition (via \pythonilIdx{\_\_add\_\_}) and subtraction (via \pythonilIdx{\_\_sub\_\_}).}%
-%
+Part~2 of the \pythonil{Fraction} class: String representation via \pythonilIdx{\_\_str\_\_} and \pythonilIdx{\_\_repr\_\_}.}
+\afterpage{\clearpage}
+
+Did you notice that we had to write \pglspl{doctest} in the \pgls{docstring} of our class in a very inconvenient way?
+This was because we did not yet define the \pythonilIdx{\_\_str\_\_} and \pythonilIdx{\_\_repr\_\_} methods for our class \pythonil{Fraction}.
+We do this in \cref{lst:dunder:fraction:part_2}.
+The method \pythonilIdx{\_\_str\_\_} is supposed to return a compact representation of the fractions.
+We implement such that it returns \pythonil{self.a} as string if the \pgls{denominator} is one, i.e., if~\pythonil{self.b == 1}.
+Otherwise, it should return \pythonil{f"\{self.a\}/\{self.b\}"}.
+This is easy and clear enough for each user to immediately recognize the value of the fraction.
+It is also ambiguous, though, because one cannot distinguish \pythonil{str(Fraction(12, 1))} from \pythonil{str(12)}, i.e., fractions that represent integer numbers will produce the same strings as integer numbers.
+The \pythonilIdx{\_\_repr\_\_} method exists to produce unambiguous output.
+We implement it to return~\pythonil{f\"Fraction(\{self.a\}, \{self.b\})"}.
+
+In the \pglspl{docstring} of both methods, we include \pglspl{doctest}.
+Notice that \pythonilIdx{\_\_str\_\_} is used if pass an object to~\pythonilIdx{print}.
+This means that we can compare the expected output of \pythonil{f.\_\_str\_\_()} for a fraction~\pythonil{f} to the result of~\pythonil{print(f)}.
+Otherwise, \pglspl{doctest} always convert objects to string using~\pythonilIdx{repr}, meaning that the line~\pythonil{Fraction(-5, 12)} in the \pgls{doctest} of \pythonilIdx{\_\_repr\_\_} actually calls \pythonil{repr(Fraction(-5, 12)}.
+Anyway, with the string conversion out of the way, we can begin to implement mathematical operators.
+
 \gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_3}{dunder:fraction:part_3}{%
-Part~3 of the \pythonil{Fraction} class: Multiplication (via \pythonilIdx{\_\_mul\_\_}) and division (via \pythonilIdx{\_\_truediv\_\_})}%
+Part~3 of the \pythonil{Fraction} class: Addition (via \pythonilIdx{\_\_add\_\_}) and subtraction (via \pythonilIdx{\_\_sub\_\_}).}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_4}{dunder:fraction:part_4}{%
-Part~4 of the \pythonil{Fraction} class: All order-related dunder methods\pythonIdx{\_\_eq\_\_}\pythonIdx{\_\_ne\_\_}\pythonIdx{\_\_lt\_\_}\pythonIdx{\_\_le\_\_}\pythonIdx{\_\_gt\_\_}\pythonIdx{\_\_ge\_\_}.}%
+Part~4 of the \pythonil{Fraction} class: Multiplication (via \pythonilIdx{\_\_mul\_\_}) and division (via \pythonilIdx{\_\_truediv\_\_})}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_5}{dunder:fraction:part_5}{%
-Part~5 of the \pythonil{Fraction} class: String representation via \pythonilIdx{\_\_str\_\_} and \pythonilIdx{\_\_repr\_\_}.}%
+Part~5 of the \pythonil{Fraction} class: All order-related dunder methods\pythonIdx{\_\_eq\_\_}\pythonIdx{\_\_ne\_\_}\pythonIdx{\_\_lt\_\_}\pythonIdx{\_\_le\_\_}\pythonIdx{\_\_gt\_\_}\pythonIdx{\_\_ge\_\_}.}%
 %
 \gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest_doctest.sh 09_dunder fraction.py}{dunder:fraction:doctest}{%
 The output of \pytest\ executing the \pglspl{doctest} for our \pythonil{Fraction} class.}%
-%
 \FloatBarrier%
 \endhsection%
 %
