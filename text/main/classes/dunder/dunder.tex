@@ -424,16 +424,87 @@ Otherwise, \pglspl{doctest} always convert objects to string using~\pythonilIdx{
 Anyway, with the string conversion out of the way, we can begin to implement mathematical operators.
 
 \gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_3}{dunder:fraction:part_3}{%
-Part~3 of the \pythonil{Fraction} class: Addition (via \pythonilIdx{\_\_add\_\_}) and subtraction (via \pythonilIdx{\_\_sub\_\_}).}%
+Part~3 of the \pythonil{Fraction} class: Addition (via \pythonilIdx{\_\_add\_\_}\pythonIdx{dunder!\_\_add\_\_}) and subtraction (via \pythonilIdx{\_\_sub\_\_}\pythonIdx{dunder!\_\_sub\_\_}).}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_4}{dunder:fraction:part_4}{%
-Part~4 of the \pythonil{Fraction} class: Multiplication (via \pythonilIdx{\_\_mul\_\_}) and division (via \pythonilIdx{\_\_truediv\_\_})}%
+Part~4 of the \pythonil{Fraction} class: Multiplication (via \pythonilIdx{\_\_mul\_\_}\pythonIdx{dunder!\_\_mul\_\_}), division (via \pythonilIdx{\_\_truediv\_\_}\pythonIdx{dunder!\_\_truediv\_\_}), and computing the absolute value (via \pythonilIdx{\_\_abs\_\_}\pythonIdx{dunder!\_\_abs\_\_}).}%
 %
+\afterpage{\clearpage}
+
+In \cref{lst:dunder:fraction:part_3}, we want to enable our \pythonil{Fraction} class to be used with the \pythonil{+} and \pythonil{-} operators.
+In \python, doing something like \pythonil{x + y} will invoke \pythonil{x.\_\_add\_\_(y)}, if the class of~\pythonil{x} defines the \pythonilIdx{\_\_add\_\_}\pythonIdx{dunder!\_\_add\_\_} method.
+From primary school, we remember that $\frac{a}{b}+{c}{d} = \frac{a*d+c*b}{b*d}$.
+Therefore, if \pythonil{other} is also an instance\pythonIdx{isinstance} of \pythonil{Fraction}, \pythonil{\_\_add\_\_(other)} computes the result like that and creates a new \pythonil{Fraction}.
+Notice that the initializer of that new fraction will automatically normalize the fraction by using~\pythonilIdx{gcd}.
+If \pythonil{other} is not an instance of \pythonil{Fraction}, we return \pythonilIdx{NotImplemented}, because this would enable \python\ to look for other routes to perform addition with our objects.\footnote{%
+\python\ would then look whether \pythonil{other} provides an \pythonilIdx{\_\_radd\_\_}\pythonIdx{dunder!\_\_radd\_\_} method that does not return~\pythonilIdx{NotImplemented} {\dots} but we will not implement all possible arithmetic dunder methods here so we skip this one.%
+}%
+The behavior of this method is again be tested with \pglspl{doctest}.
+These check that $\frac{1}{3} + \frac{1}{2}$ actually yields~$\frac{5}{6}$ and that $\frac{1}{2}+\frac{1}{2}$ really returns~$\frac{1}{1}$.
+They also check correct normalization by trying~$\frac{21}{-12}+\frac{-33}{42}=\frac{882+396}{-504}=\frac{1278}{-504}=\frac{18*1278}{18*-28}=\frac{-71}{28}$.
+
+After confirming that these tests succeed, we continue by implementing the \pythonilIdx{\_\_sub\_\_}\pythonIdx{dunder!\_\_sub\_\_} method in exactly the same way.
+This enables subtraction by using~\pythonilIdx{-}, because \pythonil{x - y} will invoke \pythonil{x.\_\_sub\_\_(y)}, if the class of~\pythonil{x} defines the \pythonilIdx{\_\_sub\_\_}\pythonIdx{dunder!\_\_sub\_\_} method.
+Clearly, $\frac{a}{b}-{c}{d} = \frac{a*d-c*b}{b*d}$.
+As \pglspl{doctest}, the same three cases as used for \pythonil{\_\_add\_\_} will do.
+
+In \cref{lst:dunder:fraction:part_4}, we now focus on multiplication and division.
+The \pythonil{*}~operation will utilize a \pythonilIdx{\_\_mul\_\_}\pythonIdx{dunder!\_\_mul\_\_}, if implemented, and that \pythonil{/}~operation uses \pythonilIdx{\_\_truediv\_\_}\pythonIdx{dunder!\_\_truediv\_\_}.
+Multiplying the fractions~$\frac{a}{b}$ and~$\frac{c}{d}$ yields~$\frac{a*c}{b*d}$.
+Dividing~$\frac{a}{b}$ by~$\frac{c}{d}$ yields~$\frac{a*d}{b*c}$.
+The dunder methods can be implemented according to the same schematic as before.
+We test multiplication by confirming that $\frac{6}{19}*\frac{3}{-7}=\frac{6 * 3}{19*-7}=\frac{18}{-133}=\frac{-18}{133}$.
+The division is tested by computing whether $\frac{6}{19}*\frac{3}{-7}=\frac{6 * -7}{19*3}=\frac{-42}{57}=\frac{3*-14}{3*19}$ indeed gives us~$\frac{-14}{19}$.
+
+Now we also implement support for the \pythonilIdx{abs} function.
+\pythonilIdx{abs} returns the absolute value of a number.
+Therefore, $\pythonil{abs(5)}=\pythonil{abs(-5)}=\pythonil{5}$.
+If present, \pythonil{abs(x)} will invoke~\pythonil{x.\_\_abs\_\_()}\pythonIdx{\_\_abs\_\_}\pythonIdx{dunder!\_\_abs\_\_}.
+We can implement this method as follows:
+If our fraction is positive, then it can be returned as-is.
+Otherwise, we return a new, positive variant of our fraction by simply flipping the sign of it.
+
 \gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_5}{dunder:fraction:part_5}{%
-Part~5 of the \pythonil{Fraction} class: All order-related dunder methods\pythonIdx{\_\_eq\_\_}\pythonIdx{\_\_ne\_\_}\pythonIdx{\_\_lt\_\_}\pythonIdx{\_\_le\_\_}\pythonIdx{\_\_gt\_\_}\pythonIdx{\_\_ge\_\_}.}%
+Part~5 of the \pythonil{Fraction} class: All order-related dunder methods\pythonIdx{\_\_eq\_\_}\pythonIdx{\_\_ne\_\_}\pythonIdx{\_\_lt\_\_}\pythonIdx{\_\_le\_\_}\pythonIdx{\_\_gt\_\_}\pythonIdx{\_\_ge\_\_}\pythonIdx{dunder!\_\_eq\_\_}\pythonIdx{dunder!\_\_ne\_\_}\pythonIdx{dunder!\_\_lt\_\_}\pythonIdx{dunder!\_\_le\_\_}\pythonIdx{dunder!\_\_gt\_\_}\pythonIdx{dunder!\_\_ge\_\_}.}%
 %
 \gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest_doctest.sh 09_dunder fraction.py}{dunder:fraction:doctest}{%
 The output of \pytest\ executing the \pglspl{doctest} for our \pythonil{Fraction} class.}%
+%
+Finally, in \cref{lst:dunder:fraction:part_5} we implement the six rich comparison dunder methods given in~\cite{PEP207}:%
+%
+\begin{itemize}%
+\item \pythonilIdx{\_\_eq\_\_}\pythonIdx{dunder!\_\_eq\_\_} implements the functionality of~\pythonilIdx{==}, as we already discussed before.%
+%
+\item \pythonilIdx{\_\_ne\_\_}\pythonIdx{dunder!\_\_ne\_\_} implements the functionality of~\pythonilIdx{!=}.%
+%
+\item \pythonilIdx{\_\_lt\_\_}\pythonIdx{dunder!\_\_lt\_\_} implements the functionality of~\pythonilIdx{<}.%
+%
+\item \pythonilIdx{\_\_le\_\_}\pythonIdx{dunder!\_\_le\_\_} implements the functionality of~\pythonilIdx{<=}.%
+%
+\item \pythonilIdx{\_\_gt\_\_}\pythonIdx{dunder!\_\_gt\_\_} implements the functionality of~\pythonilIdx{>}.%
+%
+\item \pythonilIdx{\_\_ge\_\_}\pythonIdx{dunder!\_\_ge\_\_} implements the functionality of~\pythonilIdx{>=}.%
+\end{itemize}%
+%
+Implementing equality and inequality is rather easy, since our fractions are all normalized.
+For two fractions~\pythonil{x} and~\pythonil{y}, it holds only that~\pythonil{x == y} if \pythonil{x.a == y.a} and \pythonil{x.b == y.b}.
+\pythonilIdx{\_\_eq\_\_}\pythonIdx{dunder!\_\_eq\_\_} is thus quickly implemented.
+\pythonilIdx{\_\_ne\_\_}\pythonIdx{dunder!\_\_ne\_\_} is its complement for the \pythonilIdx{!=}~operator.
+\pythonil{x != y} is \pythonil{True} if either \pythonil{x.a != y.a} or \pythonil{x.b != y.b}.
+
+The other four comparison methods can be implemented by remembering how we used the common \pgls{denominator} for addition and subtraction.
+We did addition like this:~$\frac{a}{b}+\frac{c}{d}=\frac{a*d}{b*d}+\frac{c*b}{b*d}=\frac{a*d+c*b}{b*d}$.
+Looking at this again, we realize that $\frac{a}{b}<\frac{c}{d}$ is the same as~$\frac{a*d}{b*d}<\frac{c*b}{b*d}$, which must be the same as~$a*d<c*b$.
+Thus, $\frac{a}{b}\leq\frac{c}{d}$ is the same as~$a*d\leq c*b$.
+The greater and greater-or-equal operations can be defined the other way around.
+
+All six comparison operations are defined accordingly in \cref{lst:dunder:fraction:part_5}.
+This time, I omitted \pglspl{doctest} for the sake of space.
+You should never do that, because in program code, you \emph{do} have space.
+Your code does not need to fit on book pages.
+
+Anyway, in \cref{exec:dunder:fraction:doctest} we present the output of \pytest\ running the \pglspl{doctest} of all the methods we implemented.
+All of them succeed.%
 \FloatBarrier%
 \endhsection%
 %
