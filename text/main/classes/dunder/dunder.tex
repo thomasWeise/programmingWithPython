@@ -787,91 +787,114 @@ Our first test case was \pythonil{Fraction(124, 2).decimal_str()}, so the normal
 \centering%
 %
 \subfloat[][%
-Using the \debugger\ in \pycharm.%
+The first \pgls{doctest} case~$\frac{124}{2}$ is uninteresting, so we continue the program execution by clicking \pycharmDebuggerResume\ or hitting \keys{F9}.%
 \label{fig:dunder:debug07}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug07}}}%
 %
 \strut\hfill\strut%
 %
 \subfloat[][%
-Using the \debugger\ in \pycharm.%
+The second \pgls{doctest} case~$\frac{1}{2}$ is also uninteresting. %
+We continue the program execution by clicking \pycharmDebuggerResume.%
 \label{fig:dunder:debug08}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug08}}}%
 %
 \\[10pt]%
 %
 \subfloat[][%
-Using the \debugger\ in \pycharm.%
+The third \pgls{doctest} case, where the fraction is~$\frac{1}{3}$ and \pythonil{max_frac} is~\pythonil{10}. %
+We again skip over it by pressing~\keys{F9}.%
 \label{fig:dunder:debug09}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug09}}}%
 %
 \strut\hfill\strut%
 %
 \subfloat[][%
-Using the \debugger\ in \pycharm.%
+The fourth \pgls{doctest} case~$\frac{-101001}{100000000}$ can be skipped as well.%
 \label{fig:dunder:debug10}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug10}}}%
 %
 \\[10pt]%
 %
 \subfloat[][%
-Using the \debugger\ in \pycharm.%
+The test case~$\frac{1235}{1000}$, normalized to~$\frac{247}{200}$, also was successful and can be skipped by pressing~\pycharmDebuggerResume.%
 \label{fig:dunder:debug11}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug11}}}%
 %
 \strut\hfill\strut%
 %
 \subfloat[][%
-Using the \debugger\ in \pycharm.%
+The last one of the uninteresting \pgls{doctest} cases:~\pythonil{Fraction(99995, 100000)}. %
+We again press~\keys{F9}.%
 \label{fig:dunder:debug12}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug12}}}%
 %
 \caption{Using the \debugger\ in \pycharm.}%
 \label{fig:dunder:debugB}%
 \end{figure}%
-%
+
+This test case is already successful, so we are not interested in it.
+Among the symbols in \menu{Debug} register, we click \pycharmDebuggerResume, which will let the program continue its execution~(\cref{fig:dunder:debug07}).
+Alternatively, we can hit \keys{F9}, which has the same effect.
+The execution of the \pglspl{doctest} is resumed, but again pauses at our \pgls{breakpoint}~(\cref{fig:dunder:debug08}).
+This time, we can see that we have arrived at the beginning of the second \pgls{doctest} case with \pythonil{Fraction(1, 2)}.
+We again continue by clicking \pycharmDebuggerResume\ or pressing~\keys{F9}.
+This takes us to the beginning of the third \pgls{doctest} case, where the fraction is~$\frac{1}{3}$ and \pythonil{max_frac} is~\pythonil{10}~(\cref{fig:dunder:debug09}).
+We can skip it as well by pressing~\keys{F9}.
+The next time we reach the \pgls{breakpoint} is for the fourth \pgls{doctest} case, $\frac{-101001}{100000000}$~(\cref{fig:dunder:debug10}), which we skip, too.
+When the debugger arrives at the fifth test case, \pythonil{Fraction(1235, 1000)}, we find that this fraction has been normalized correctly to~$\frac{247}{200}$.
+Nonetheless, we can skip this test case via \keys{F9}, too, because we know that it will succeed~(\cref{fig:dunder:debug11}).
+This takes us to the last successful \pgls{doctest} case, \pythonil{Fraction(99995, 100000)}, which corresponds to~$\frac{19999}{20000}$ in \cref{fig:dunder:debug12}.
+After skipping it by pressing~\pycharmDebuggerResume, we will finally arrive at the cases that did fail and which we hence want to investigate step-by-step.%
+\clearpage%
 %
 \begin{figure}%
 \ContinuedFloat%
 \centering%
 %
 \subfloat[][%
-Using the \debugger\ in \pycharm.%
+We arrive at the beginning of the failing \pgls{doctest} case \pythonil{Fraction(91995, 100000).decimal_str(3)}. %
+The \pythonil{max_frac} parameter has value~\pythonil{3}, \pythonil{self.a} is \pythonil{18399} and \pythonil{self.b} is \pythonil{20000}, because the fraction was normalized in \pythonil{\_\_init\_\_}.%
 \label{fig:dunder:debug13}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug13}}}%
 %
 \strut\hfill\strut%
 %
 \subfloat[][%
-Using the \debugger\ in \pycharm.%
+We now execute the first line of the \pythonil{decimal_str} function where the \pgls{debugger} has paused. %
+This is done by either pressing the \pycharmDebuggerStepOver~button or by hitting~\keys{F8}.%
 \label{fig:dunder:debug14}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug14}}}%
 %
 \\[10pt]%
 %
 \subfloat[][%
-Using the \debugger\ in \pycharm.%
+The execution of the assignment \pythonil{a = self.a} creates a new local variable~\pythonil{a} with value~\pythonil{18399}. %
+We press \keys{F8} to continue the execution.%
 \label{fig:dunder:debug15}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug15}}}%
 %
 \strut\hfill\strut%
 %
 \subfloat[][%
-Using the \debugger\ in \pycharm.%
+The condition for the \pythonil{if} is not met, so the execution jumps over its body and the next line after the \pythonil{if} is marked. %
+We execute it by pressing~\pythonil{F8}.%
 \label{fig:dunder:debug16}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug16}}}%
 %
 \\[10pt]%
 %
 \subfloat[][%
-Using the \debugger\ in \pycharm.%
+The new local variable~\pythonil{negative} with value~\pythonil{False} appears. %
+The next line of code is marked and we execute it by pressing~\pycharmDebuggerStepOver.%
 \label{fig:dunder:debug17}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug17}}}%
 %
 \strut\hfill\strut%
 %
 \subfloat[][%
-Using the \debugger\ in \pycharm.%
+\pythonil{a = abs(a)} has no effect, since \pythonil{a} is already positive.
+We press \keys{F8} to continue.%
 \label{fig:dunder:debug18}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug18}}}%
 %
@@ -880,27 +903,57 @@ Using the \debugger\ in \pycharm.%
 \label{fig:dunder:debugC}%
 \end{figure}%
 %
+\begin{sloppypar}%
+\Cref{fig:dunder:debug13} shows that we now arrived at the beginning of the failing \pgls{doctest} case \pythonil{Fraction(91995, 100000).decimal_str(3)}.
+The fraction~$\frac{91995}{100000}$ got normalized to~$\frac{18399}{20000}$ in the initializer~\pythonil{\_\_init\_\_}.
+The parameter \pythonil{max_frac} of \pythonil{decimal_str} has the value~\pythonil{3}, as we can see in the \menu{Threads \& Variables} window.
+We now want to execute the \pythonil{decimal_str} method step-by-step.
+Right now, the \pgls{debugger} has paused the execution right at the very first line of this function.
+This line has not yet been executed.%
+\end{sloppypar}%
 %
+In \cref{fig:dunder:debug14}, we execute this line of code, either by pressing the \pycharmDebuggerStepOver~button or by hitting~\keys{F8}.
+We can see in \cref{fig:dunder:debug15} that now a new variable has appeared in the \menu{Threads \& Variables} window.
+Since we executed \pythonil{a = self.a}, the local variable~\pythonil{a} now exists and has value~\pythonil{18399}.
+Now, the next line of code that can be executed is marked with blue color.
+
+By pressing \keys{F8}, the \pythonil{if a == 0:} is executed.
+Since \pythonil{a == 0} is not \pythonil{True}, the body of the \pythonil{if} is not executed.
+The program jumps right over it.
+The next line after the \pythonil{if} is marked~\cref{fig:dunder:debug16}.
+We execute it by pressing~\keys{F8}.
+
+The local variable \pythonil{negative} is created.
+Since \pythonil{a < 0} is \pythonil{False}, \pythonil{negative} is \pythonil{False}, too.
+The next line of code is marked and we press~\pycharmDebuggerStepOver\ to execute it~(\cref{fig:dunder:debug17}).
+
+\pythonil{a = abs(a)} has no effect, since \pythonil{a} is already positive.
+We press \keys{F8} to continue~(\cref{fig:dunder:debug18}).
+
 \begin{figure}%
 \ContinuedFloat%
 \centering%
 %
 \subfloat[][%
-Using the \debugger\ in \pycharm.%
+After executing \pythonil{b = self.b}, the new local variable \pythonil{b} with value \pythonil{20000} comes into existence. %
+We continue debugging by pressing~\keys{F8}.%
 \label{fig:dunder:debug19}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug19}}}%
 %
 \strut\hfill\strut%
 %
 \subfloat[][%
-Using the \debugger\ in \pycharm.%
+The empty list \pythonil{digits} has been created. %
+By pressing~\keys{F8}, the executing \pythonil{while} loop will begin by checking its condition.%
 \label{fig:dunder:debug20}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug20}}}%
 %
 \\[10pt]%
 %
 \subfloat[][%
-Using the \debugger\ in \pycharm.%
+The condition of the \pythonil{while} loop is met. %
+The first line of the loop's body is marked. %
+We press~\pycharmDebuggerStepOver\ to execute it.%
 \label{fig:dunder:debug21}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug21}}}%
 %
@@ -927,9 +980,23 @@ Using the \debugger\ in \pycharm.%
 %
 \caption{Using the \debugger\ in \pycharm.}%
 \label{fig:dunder:debugD}%
-\end{figure}%
-%
-%
+\end{figure}
+
+This executes \pythonil{b = self.b}.
+Thus, the new local variable \pythonil{b} with value \pythonil{20000} is created in~\cref{fig:dunder:debug19}.
+We are now at the last line of \inQuotes{trivial setup} of our \pythonil{decimal_str} method, the creation of the list~\pythonil{digits}.
+We continue debugging by pressing~\keys{F8}.
+
+The new variable~\pythonil{digits} has indeed appeared in~\cref{fig:dunder:debug20}.
+It is an empty list~\pythonil{[]}.
+We arrived at the beginning the \pythonil{while} loop.
+We press \keys{F8}, which will cause the condition of the loop being checked.
+
+In \cref{fig:dunder:debug21}, we find that now the first line of the loop's body is marked.
+This means that \pythonil{a != 0} and \pythonil{len(digits) <= max_frac} are both~\pythonil{True}.
+And they should be, since \pythonil{a} is \pythonil{18399}, \pythonil{len(digits)} if~0, and \pythonil{max_frac} is~3.
+We press~\pycharmDebuggerStepOver.
+
 \begin{figure}%
 \ContinuedFloat%
 \centering%
