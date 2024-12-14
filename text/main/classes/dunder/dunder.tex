@@ -769,7 +769,6 @@ Clicking on the variable \pythonil{self} reveals that we are in the first test c
 \caption{Using the \debugger\ in \pycharm.}%
 \label{fig:dunder:debugA}%
 \end{figure}%
-\afterpage{\clearpage}%
 %
 In \pycharm, we can apply the \debugger\ to a complete program, but also to \pglspl{doctest}.
 This is what we will do in \cref{fig:dunder:debugA}.
@@ -796,8 +795,9 @@ Most importantly, in the register \menu{Threads \& Variables}, we can see the va
 We see that \pythonil{max_frac} has the value \pythonil{100}.
 When clicking on the variable \pythonil{self}, we see that the \pgls{numerator}~\pythonil{a} of the current fraction has value~\pythonil{62}, while the \pgls{denominator}~\pythonil{b} is~\pythonil{1}.
 This is exactly what we expect:
-Our first test case was \pythonil{Fraction(124, 2).decimal_str()}, so the normalized fraction is indeed~$\frac{62}{1}$.
-
+Our first test case was \pythonil{Fraction(124, 2).decimal_str()}, so the normalized fraction is indeed~$\frac{62}{1}$.%
+%
+\clearpage%
 \begin{figure}%
 \ContinuedFloat%
 \centering%
@@ -845,10 +845,9 @@ We again press~\keys{F9}.%
 \label{fig:dunder:debug12}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug12}}}%
 %
-\caption{Using the \debugger\ in \pycharm.}%
+\caption{Using the \debugger\ in \pycharm~(continued).}%
 \label{fig:dunder:debugB}%
 \end{figure}%
-\afterpage{\clearpage}%
 
 This test case is already successful, so we are not interested in it.
 Among the symbols in \menu{Debug} register, we click \pycharmDebuggerResume, which will let the program continue its execution~(\cref{fig:dunder:debug07}).
@@ -915,10 +914,9 @@ We press \keys{F8} to continue.%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug18}}}%
 %
 %
-\caption{Using the \debugger\ in \pycharm.}%
+\caption{Using the \debugger\ in \pycharm~(continued).}%
 \label{fig:dunder:debugC}%
 \end{figure}%
-\afterpage{\clearpage}%
 %
 \begin{sloppypar}%
 \Cref{fig:dunder:debug13} shows that we now arrived at the beginning of the failing \pgls{doctest} case \pythonil{Fraction(91995, 100000).decimal_str(3)}.
@@ -946,7 +944,8 @@ The next line of code is marked and we press~\pycharmDebuggerStepOver\ to execut
 
 \pythonil{a = abs(a)} has no effect, since \pythonil{a} is already positive.
 We press \keys{F8} to continue~(\cref{fig:dunder:debug18}).
-
+\clearpage%
+%
 \begin{figure}%
 \ContinuedFloat%
 \centering%
@@ -998,10 +997,9 @@ The loop condition is still met, so the first line of the loop body is marked ag
 \label{fig:dunder:debug24}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug24}}}%
 %
-\caption{Using the \debugger\ in \pycharm.}%
+\caption{Using the \debugger\ in \pycharm~(continued).}%
 \label{fig:dunder:debugD}%
 \end{figure}%
-\afterpage{\clearpage}%
 
 This executes \pythonil{b = self.b}.
 Thus, the new local variable \pythonil{b} with value \pythonil{20000} is created in~\cref{fig:dunder:debug19}.
@@ -1075,7 +1073,7 @@ The loop condition is still met.%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug30}}}%
 %
 %
-\caption{Using the \debugger\ in \pycharm.}%
+\caption{Using the \debugger\ in \pycharm~(continued).}%
 \label{fig:dunder:debugE}%
 \end{figure}%
 %
@@ -1120,10 +1118,9 @@ Because we did not consider that rounding up could cause the next~9 to become a 
 \label{fig:dunder:debug35}%
 ]{\tightbox{\includegraphics[width=0.8\linewidth]{\currentDir/debug35}}}%
 %
-\caption{Using the \debugger\ in \pycharm.}%
+\caption{Using the \debugger\ in \pycharm~(continued).}%
 \label{fig:dunder:debugF}%
 \end{figure}%
-\afterpage{\clearpage}%
 
 In \cref{fig:dunder:debug25,fig:dunder:debug26,fig:dunder:debug27,fig:dunder:debug29,fig:dunder:debug30,fig:dunder:debug31,fig:dunder:debug32} we work our way through the loop in the same way, by pressing \keys{F8} repeatedly.
 First, \pythonil{9} gets appended to \pythonil{digits}, then \pythonil{a} gets updated to \pythonil{39900}.
@@ -1154,12 +1151,13 @@ The strange trailing zeros in our output were not separate digits.
 They were the zeros of a ten.
 We did not consider that, when rounding up, we do not just have simple cases like~1.25 which we can round to~1.3 by only incrementing one digit.
 We can have cases like~0.9999, which rounds up to~1, even if we want three fractional digits of precision.
-We can stop the debugging here and go back to our code.
-
+We can stop the debugging here and go back to our code.%
+\clearpage%
+%
 \gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_6}{dunder:fraction:part_6}{%
 The repaired Part~6 of the \pythonil{Fraction} class: A correct \pythonil{decimal_str} method.}%
 
-In \cref{dunder:fraction:part_6}, we revisit the \pythonil{decimal_str} method of our class~\pythonil{Fraction}.
+In \cref{lst:dunder:fraction:part_6}, we revisit the \pythonil{decimal_str} method of our class~\pythonil{Fraction}.
 Our rounding-up code becomes more complex:
 First, we need to loop over all fractional digits, from the end of the list \pythonil{digits} forward:
 \pythonil{for i in range(len(digits) - 1, 0, -1)} does this.
@@ -1187,7 +1185,54 @@ All the \pglspl{doctest} now pass.
 Using the \pythonil{Fraction} class to compute square roots.}%
 %
 \gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest_doctest.sh 09_dunder fraction_sqrt.py}{dunder:fraction_sqrt:doctest}{%
-The (successful) output of \pytest\ executing the \pglspl{doctest} for our \pythonil{sqrt} function from~\cref{lst:dunder:fraction_sqrt} working on instances of the \pythonil{Fraction} class.}%
+The (successful) output of \pytest\ executing the \pglspl{doctest} for our \pythonil{sqrt} function from~\cref{lst:dunder:fraction_sqrt} working on instances of the \pythonil{Fraction} class.}
+
+But let's get back to what we actually wanted to do:
+We wanted to compute the square roots of numbers at insane precision.
+For this, we can now revisit \cref{lst:functions:my_math}.
+In \cref{lst:dunder:fraction_sqrt}, we just copy the code of the \pythonil{sqrt} function from this file.
+We will basically replace all \pythonils{float} in this code with \pythonils{Fraction}.%
+%
+\begin{sloppypar}%
+The function's signature changes from~\pythonil{def sqrt(number: float) -> float} to \pythonil{def sqrt(number: Fraction) -> Fraction}.
+Well, we know that the square roots of some numbers like~$\sqrt{2}$ are irrational, i.e., we cannot represent the exactly with an instance of~\pythonil{Fraction}.
+In the original code, due to the limited range of~\pythonils{float}, this is not a problem and the function will eventually stop (when all of the 15 to 16 digits of precision are exhausted).
+However, using \pythonil{Fraction}, the same code could loop forever, trying to find better and better approximations.
+So we need to limit the iterations with an additional parameter \pythonil{max_steps: int = 10} limiting the number of cycles for our loop.
+You will later see that this default value of only permitting ten steps is already quite sufficient to get very nice approximations.%
+\end{sloppypar}%
+%
+In \cref{lst:dunder:fraction_sqrt}, we replace numbers like~\pythonil{0.0}, \pythonil{0.5} and~\pythonil{1.0} with our constants~\pythonil{ZERO}, \pythonil{ONE_HALF}, and~\pythonil{ONE}.
+We need to do this because our mathematical dunder methods only work with other instances of~\pythonil{Fraction}.
+We could have easily implemented them to also support woring with instances of~\pythonil{int} or~\pythonil{float}, but did not do it (again for the sake of brevity).
+Either way, all the numerical constants in \cref{lst:dunder:fraction_sqrt} are now instances of~\pythonil{Fraction}.
+
+Our new function begins with an initial check whether the input number is negative and, if so, raises an~\pythonilIdx{ArithmeticError}.
+Then it has basically the same loop and body as our original variant in~\cref{lst:functions:my_math}.
+The only difference is that we decrease~\pythonil{max_steps} in each iteration and \pythonil{break} out the loop once it reaches~\pythonil{0}.%
+%
+\begin{sloppypar}%
+We, of course, add \pglspl{doctest} to our function.
+For example, we test the expression \pythonil{sqrt(Fraction(2, 1)).decimal_str(750)}.
+This computes~$\sqrt{\frac{2}{1}}=\sqrt{2}$ by performing ten steps of Heron's algorithm.
+Then it translates to a decimal string with \emph{750 fractional digits}.
+We take the correct value from~\cite{S2024DEOSRO2,NB1997TSROTT1MD}.
+This means unless our function provides this number of digits correctly \emph{after only ten steps}, the \pgls{doctest} will fail.%
+\end{sloppypar}%
+%
+The second \pgls{doctest} is simply to check whether~$\sqrt{4}$ renders as~2 when converted to a decimal string.
+Of course, we just approximate the square root through several steps, so the value of the fraction might not actually be~2.
+However, when rendered to 100~digits of precision, it should return~\pythonil{"2"}.
+
+Finally, we want to compute the \pgls{goldenRatio}~\numberGoldenRatio~\cite{CEOEB2024GR,EHF2008EEOGTGOJLH11FEEEELIEILHIATBG11EAPWMETBFR,S2024DEOGRPOT}, which equals~$\frac{1+\sqrt{5}}{2}$.
+We can write this as \pythonil{ONE_HALF * (ONE + sqrt(Fraction(5, 1)))}.
+In the \pgls{doctest}, we want to see whether our results are correct to 420~fractional digits, which we take from~\cite{F1996TGR1T2P}.
+
+The results of the \pglspl{doctest} executed by \pytest\ can be seen in \cref{exec:dunder:fraction_sqrt:doctest}.
+They all pass.
+All we did was implementing primary school math into a class in \python, together with an algorithm which is almost 2000~years old.
+And with \emph{ten steps} of that algorithm, we got approximations of~$\sqrt{2}$ as well as~\numberGoldenRatio\ that were accurate to \emph{several hundreds of digits}.
+Isn't that cool?%
 %
 \FloatBarrier%
 \endhsection%
