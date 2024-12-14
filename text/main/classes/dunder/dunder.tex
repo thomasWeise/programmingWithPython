@@ -512,10 +512,8 @@ This means that we can be fairly confident that using our \pythonil{Fraction} cl
 \FloatBarrier%
 \endhsection%
 %
-\hsection{Debugging}%
-%
-\gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction_decimal_str_err.py}{--args format --labels part_6}{dunder:fraction_decimal_str_err:part_6}{%
-Part~6 of the \pythonil{Fraction} class: Adding a \pythonil{decimal_str} conversation method.}%
+\hsection{Interlude:~Debugging}%
+\label{sec:dunde:debugging}%
 %
 We now want to use mathematics based on our class \pythonil{Fraction} for some \inQuotes{real} computation.
 Remember back in \cref{sec:whileLoop}, we implemented the algorithm of Heron to compute the square root using a \pythonil{while}~loop.
@@ -532,6 +530,9 @@ Instead, we want it to print as~1.4142135623730951.
 So we first need to implement a method \pythonil{decimal_str}, which translates a \pythonil{Fraction} to such a decimal string.
 Since some fractions, like~$\frac{1}{3}$ and~$\frac{1}{7}$ have never-ending decimal representations, this function needs a parameter \pythonil{max_frac} specifying the maximum number of fractional digits to generate.
 We will set it to 100 by default.
+
+\gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction_decimal_str_err.py}{--args format --labels part_6}{dunder:fraction_decimal_str_err:part_6}{%
+Part~6 of the \pythonil{Fraction} class: Adding a \pythonil{decimal_str} conversation method.}%
 
 In \cref{lst:dunder:fraction_decimal_str_err:part_6} we present the part of our class \pythonil{Fraction} that contains the code converting the fraction to a decimal string.
 Like all of our code in \pythonil{Fraction}, it takes the straightforward and probably inefficient route.
@@ -571,7 +572,7 @@ The variable~\pythonil{a} is updated to the result of \pythonil{10 * (a \% b)}, 
 As last digit, we therefore add \pythonil{80 // 16}, which is~\pythonil{5}.
 This is the last digit, because \pythonil{80 \% 16} is~0.
 Therefore, \pythonil{a == 0} holds after the fifth iteration.
-This makes the first part of the the loop condition \pythonil{a != 0} become \pythonil{False} and the loop terminates.
+This makes the first part of the the loop condition~(\pythonil{a != 0}) become \pythonil{False} and the loop terminates.
 
 At this point, \pythonil{digits == [11, 1, 8, 7, 5]}.
 This is also right, because $\frac{179}{16}=11.1875$.
@@ -596,7 +597,7 @@ First, we check if we need to insert a decimal dot~(\inQuotes{.}).
 If we only have a single digit, then our fraction is an integer number and we can return it as such.
 Thus, \pythonil{if len(digits) <= 1}, we convert the single digit to a string (after re-inserting the sign).
 
-Otherwise, we need to have \inQuotes{.} after the first number in \pythonil{digits}.
+Otherwise, we need to have a~\inQuotes{.} after the first number in \pythonil{digits}.
 We can use \pythonil{digits.insert(1, ".")} to place it there\pythonIdx{list!insert}.
 In our original example of~$\frac{-179}{16}$, we first had \pythonil{digits == [11, 1, 8, 7, 5]}.
 After this step, we get \pythonil{digits == [11, ".", 1, 8, 7, 5]}.
@@ -684,7 +685,7 @@ Left-clicking on the second failed test in the small window shows us the test ou
 \end{figure}%
 
 We want to investigate this very strange error.
-First, let us repeat the unit tests by also executing them inside \pycharm\ in \cref{fig:dunder:doctests}.
+First, let us repeat the \pglspl{doctest} by also executing them inside \pycharm\ in \cref{fig:dunder:doctests}.
 We open our source file and scroll to our function \pythonil{decimal_str}.
 With a right mouse click, a context menu is opened.
 Here, we then left-click on \menu{Run \inSQuotes{Doctest decimal\_str}}~(\cref{fig:dunder:doctests1}).

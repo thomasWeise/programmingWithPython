@@ -253,7 +253,7 @@ And even if list comprehension was not faster than iteratively constructing a li
 \FloatBarrier%
 \endhsection%
 %
-\hsection{Brief Interlude: doctests}%
+\hsection{Interlude: doctests}%
 \gitPython{\programmingWithPythonCodeRepo}{07_iteration/list_flatten_iterables.py}{--args format}{iteration:list_flatten_iterables}{%
 A function that flattens \pythonilsIdx{list} and other \pythonilsIdx{Iterable} using list comprehension.}%
 %
@@ -325,6 +325,9 @@ Where ever possible, the \pglspl{docstring} of functions and modules should cont
 This provides unit tests as well as examples as how the code should be used. %
 Since \pglspl{doctest} are usually brief, they are a quick and elegant way to complement more comprehensive unit tests in separate files (see \cref{bp:functionUnitTest}).%
 }%
+%
+While we here execute the \pglspl{doctest} using \pytest\ from the command line, you can also run them directly in~\pycharm.
+We do this later in \cref{sec:dunde:debugging}.%
 %
 \FloatBarrier%
 \endhsection%
