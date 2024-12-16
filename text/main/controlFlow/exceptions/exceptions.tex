@@ -502,10 +502,127 @@ It again prints the \pgls{stackTrace}, which informs us which error occured and 
 %
 \FloatBarrier%
 \endhsection%
+%
+%
+\hsection{The \texttt{with} Block and Context Managers}%
+%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{06_exceptions}{file_try_finally.py}{--args format}{exceptions:file_try_finally}{%
+Using \pythonilIdx{try}-\pythonilIdx{finally} for closing files after writing to and reading from them\pythonIdx{os!remove}\pythonIdx{remove}\pythonIdx{close}\pythonIdx{IO}\pythonIdx{IO!close}\pythonIdx{IO!write}\pythonIdx{write}\pythonIdx{readline}\pythonIdx{IO!readline}.}%
+%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/ruff.sh 06_exceptions file_try_finally.py}{exceptions:file_try_finally:ruff}{%
+The output of \ruff\ when applied to \cref{lst:exceptions:file_try_finally}: It suggests using context managers instead of \pythonilIdx{try}-\pythonilIdx{finally}\pythonIdx{open}.}
+%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pylint.sh 06_exceptions file_try_finally.py}{exceptions:file_try_finally:pylint}{%
+The output of \pylint\ when applied to \cref{lst:exceptions:file_try_finally}: It suggests using the \pythonilIdx{with}~statement instead of \pythonilIdx{try}-\pythonilIdx{finally}.}
+%
+The \pythonilIdx{try}-\pythonilIdx{finally} block allows us to make sure that one action will always be performed, regardless if some other intermediate code fails (and raises exceptions).
+A use case for this is handling resources that need to be explicitly closed after some time.
+Typical examples for this are network connections or file input/output.
+We will discuss both of these topics eventually much later.
+
+Still, let us use file~I/O as an example here anyway in \cref{lst:exceptions:file_try_finally}.
+In this file, we will create and open a text file \textil{example.txt}.
+We will write a line of text into the file and then close it.
+Then we will open it again, read the text, and print it to the \pgls{stdout}.
+At the end, we will delete the file to not leave it laying around.
+
+For that purpose, we first import the function~\pythonilIdx{remove}\pythonIdx{os!remove} from the module~\pythonilIdx{os}.
+We also import the type~\pythonilIdx{IO} from the \pythonilIdx{typing}~module.
+\pythonIdx{IO} is the basic type for text-based input/output streams and will later use it as \pgls{typeHint}.
+
+We open the file \textil{example.txt} for writing.
+To do so, we call the built-in function~\pythonilIdx{open}.
+We pass in the filename~\pythonIdx{"example.txt"} as first parameter.
+The second parameter, \pythonil{mode}\pythonIdx{open!mode}, is set to~\pythonil{"w"}, which means \inQuotes{open for writing.}
+The parameter \pythonil{encoding}\pythonIdx{open!encoding} is set to~\pythonil{"UTF-8"}\pythonIdx{UTF-8}, which defines that the text should be translated to binary form when it is stored in the file via the usual \pgls{utf8}~encoding~\cite{Y2003UATFOI1,ISOIEC106462020ITUCCSU}.
+This is of no importance here and we will discuss this eventually later in the book.
+
+Anyway, if opening the text file succeeds, we now have a variable~\pythonil{stream_out}, which is an instance of~\pythonilIdx{IO}.
+We must make sure to definitely close this so-called text stream again, regardless what happens from now on.
+We know that this can be done with a \pythonilIdx{try}-\pythonilIdx{finally} statement.
+We simply put \pythonil{stream_out.close()}\pythonIdx{close}\pythonIdx{IO!close} into the \pythonilIdx{finally}~block.
+It will thus definitely be called.
+Into the \pythonilIdx{try}~block, we put \pythonil{stream_out.write("Hello world!")}.
+This line will write the string~\pythonil{"Hello world!"} to the file.
+This could, of course, fail.
+Maybe our hard disk does not have enough space left to store this string.
+But even if it fails, the \pythonilIdx{finally} block will make sure to close the file.
+
+So after the block, the file is closed.
+We could now open it in a text editor and would find in there the text that we had written.
+Instead, we want to use code to read the text again right away.
+
+For this purpose, we open the stream again, this time for reading.
+This works exactly as opening for writing.
+Instead of supplying \pythonil{mode="w"}, we could write~\pythonil{mode="r"}, meaning \inQuotes{open for reading.}
+However, \pythonil{"r"} is the default value for the parameter \pythonil{mode}\pythonIdx{open!mode}, so we can just omit it.
+Therefore, \pythonil{stream_in = open("example.txt", encoding="UTF-8")}\pythonIdx{open!encoding}\pythonIdx{UTF-8}\pythonIdx{open} it is.
+Once the file is opened for reading, we must again make sure to close it eventually.
+We do this again with \pythonilIdx{try}-\pythonilIdx{finally} statement, where we put \pythonil{stream_in.close()}\pythonIdx{close}\pythonIdx{IO!close} into the \pythonil{finally}~block.
+
+The line of text that we had written before can now be read in the \pythonilIdx{try}~block.
+This is done via~\pythonil{stream_in.readline()}\pythonIdx{readline}\pythonIdx{IO!readonline}.
+And, as you can see, it gets immediately written to the \pgls{stdout} via~\pythonil{print}.
+
+At the end of our program, we delete the \textil{example.txt} by calling~\pythonil{remove("example.txt")}\pythonIdx{remove}\pythonIdx{os!remove}.
+We had imported the \pythonilIdx{remove}\pythonIdx{os!remove} function from the module~\pythonilIdx{os} exactly for this purpose.
+
+In summary, the output of our program, given in \cref{lst:exceptions:file_try_finally} looks exactly as expected.
+Since we are diligent programmers, we will, of course, also perform static code analysis by using tools such as \ruff\ and \pylint.
+Their output can be found in \cref{exec:exceptions:file_try_finally:ruff,exec:exceptions:file_try_finally:pylint}.
+Oddly enough, they complain:
+\ruff\ suggests to use a \inQuotes{context manager} instead of the \pythonilIdx{try}-\pythonilIdx{finally} statement.
+\pylint\ suggests to go with a \pythonilIdx{with}~statement instead.
+They both mean the same.
+
+\quotation{PSF2024WSCM}{%
+A context manager is an object that defines the runtime context to be established when executing a \pythonilIdx{with} statement. %
+The context manager handles the entry into, and the exit from, the desired runtime context for the execution of the block of code. %
+[\dots] %
+Typical uses of context managers include saving and restoring various kinds of global state, locking and unlocking resources, closing opened files, etc.}%
+%
+The \pythonilIdx{with} statement has the following syntax, where the \pythonil{expression} is supposed to return a context manager~\cite{PSF2024WSCM,PSF2024CUFWSC,PSF2024TWS,PEP343}.%
+%
+\begin{pythonSyntax}
+with expression as variable:
+    # block of code that works with variable
+
+# or
+
+with expression:
+    # block of code that works with variable
+\end{pythonSyntax}
+%
+Right now, we are still lacking some background knowledge needed to discuss what a context manager exactly is or how it works.
+We will therefore do this later in \cref{sec:dunder:contextManager}.
+However, in a nutshell, a context manager is basically an object that has two special methods.
+The first one will be called right at the beginning of the \pythonilIdx{with} block, and its result will be stored in a local \pythonil{variable} (if the \pythonilIdx{with} block has the \pythonil{with expression as variable:}-shape).
+The second special method will be called after the end of the \pythonilIdx{with} block.
+This is always done, regardless whether an exception occurred inside the indented block of code directly under~\pythonilIdx{with}.
+
+This makes the syntax roughly equivalent to calling the first special method before a \pythonilIdx{try} block and the second special method in the corresponding \pythonilIdx{finally} block.
+It is just much shorter and looks more elegant.
+
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{06_exceptions}{file_with.py}{--args format}{exceptions:file_with}{%
+Using a \pythonilIdx{with}~block for closing files after writing to and reading from them\pythonIdx{os!remove}\pythonIdx{remove}\pythonIdx{IO!write}\pythonIdx{write}\pythonIdx{readline}\pythonIdx{IO!readline}.}%
+
+Many of \python's resource-related APIs are realized as context managers.
+This also holds for the file input/output API.
+We now rewrite \cref{lst:exceptions:file_try_finally} using a \pythonilIdx{with} block as \cref{lst:exceptions:file_with}.
+The first thing you will notice is that the file is much shorter.
+It is now 13~lines of code instead of~20.
+It is also much easier to read and clearer.
+We do no longer need to call the \pythonilIdx{close} methods of the streams.
+They will automatically be invoked at the end of the \pythonilIdx{with} statements' bodies.%
+%
+\FloatBarrier%
+\endhsection%
+%
 \endhsection%
 %
 %
 \hsection{Testing Exceptions}%
+\label{sec:testingExceptions}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{06_exceptions/test_sqrt_raise.py}{--args format}{exceptions:test_sqrt_raise}{%
 A unit test checking that our new variant of the \pythonil{sqrt} function given in \cref{lst:exceptions:sqrt_raise} properly raises an \pythonilIdx{ArithmeticError} if its input is non-finite or negative.}%
@@ -519,21 +636,15 @@ Back in \cref{sec:unitTesting}, we introduced the concept of unit tests and show
 We stated in \cref{bp:unitTestCoverage} that we should cover all the branches of the control flow inside a function with unit tests.
 One kind of branch that is often overlooked are \pythonilsIdx{Exception} and extension handling~\cite{LRBP2021AEHTPIOSL}.
 
-If our function raises\pythonIdx{raise} a certain exception in some case, then we should have a unit test that checks if this \pythonilsIdx{Exception} is actually raised as it should.
+If our function is supposed to \pythonilIdx{raise} a certain exception in some cases, then we should have a unit test that checks if this \pythonilsIdx{Exception} is actually raised as it should be.
 Now, any exception raised by a unit test will cause the test to fail.
 This seems to contradict our goal to intentionally raise the exceptions.
-Luckily, \pytest\ offers us a device for this.%
-%
-\begin{sloppypar}%
+Luckily, \pytest\ offers us a device for this.
+
 Let us expand our \cref{lst:functions:test_my_math_2} for testing the \pythonil{sqrt} function to now also test for \pythonilsIdx{ArithmeticError}.
-If we want to check whether a function indeed raises a certain exception of type \pythonil{ExpectedExceptionType} for a given input, then we can wrap the corresponding function call into a \pythonil{with raises(ExpectedExceptionType):}.
-We will learn the exact structure and functioning of \pythonilIdx{with} blocks later.
-They are closely related to exception handling, but require knowledge of some other topics that we did not yet cover.
-For now, let us just ignore how the \pythonilIdx{with} statement works and just focus on how it is used for testing.%
-\end{sloppypar}%
-%
 The \pythonilIdx{pytest} module offers a so-called context manager~\cite{PSF2024CUFWSC} named \pythonilIdx{raises}.
-This is basically a function that can be invoked in the \pythonilIdx{with} statement and that tells the \pytest\ system that, in the following, indented, block, we expect that a certain exception must be raised.
+If we want to check whether a function indeed raises a certain exception of type \pythonil{ExpectedExceptionType} for a given input, then we can wrap the corresponding function call into \pythonil{with raises(ExpectedExceptionType):}.
+This is block tells the \pytest\ system that, in the following, indented, block, we expect that a certain exception must be raised.
 If such an exception is not raised, the test fails.
 If it is raised, the text succeeds.
 
@@ -740,12 +851,14 @@ The operation would fail, but that does not do any harm.
 For these scenarios, the \pythonilIdx{except} blocks exist.
 They allow us to catch errors which we can reasonably expect and that are no show stoppers.
 
-Finally, there is the \pythonilIdx{finally} block.
-This block allows us to properly complete an operation regardless whether an error happened or not.
+The \pythonilIdx{finally} block allows us to properly complete an operation regardless whether an error happened or not.
 If we send data over an internet connection, we want to close this connection properly after we are done.
 We also want to close it if something goes wrong.
 If we write data to a file, then we want to close the file once we are done.
 We still want to close it properly if an error occurs, because then we can at least preserve the data that was already successfully written.
+
+Compared to the \pythonilIdx{try}-\pythonilIdx{finally}~block, the \pythonilIdx{with}~statement adds more ease to handling of resources that need to be explicitly closed at some point in time.
+Such resources can be implemented as context managers, whose special closing routine is automatically called at the end of the body of the \pythonilIdx{with}~statement.
 
 Error handling in \python\ therefore allows us to develop software that is both robust and that clearly indicates if something goes wrong.
 Of course, for software to be called \emph{robust}, it has to be tested.

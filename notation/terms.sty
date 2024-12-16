@@ -321,6 +321,16 @@ See \cref{bp:typeHints,sec:varTypeHints}.%
 }%
 %
 %
+\newglossaryentry{utf8}{%
+name={UTF-8},%
+description={%
+The \acrfull{UTF8} is one standard for encoding \pgls{unicode} characters into a binary format that can be stored in files~\cite{Y2003UATFOI1,ISOIEC106462020ITUCCSU}. %
+It is the world wide web's most commonly used character encoding, where each character is represented by one to four bytes. %
+It is backwards compatible with ASCII~(see~\cref{sec:unicodeChars}).%
+}%
+}%
+%
+%
 \newglossaryentry{unicode}{%
 name={Unicode},%
 description={%
@@ -348,6 +358,19 @@ plural={\ensuremath{x}\nobreakdashes-axes},%
 sort={x-axis},
 description={%
 The \ensuremath{x}\nobreakdashes-axis is the horizontal axis of a two-dimensional coordinate system, often referred to abscissa.%
+}%
+}%
+%
+%
+\newglossaryentry{xml}{%
+name={XML},%
+plural={XML},%
+description={%
+The \acrfull{XML} is a text-based language for storing and transporting of data~\cite{BPSMM2008EMLX1FE,K2019ITXJY,CH2013XFCAMLTMC}. %
+It allows you to define elements in the form \textil{<myElement myAttr="x">...text..</myElement>}. %
+Different from \pgls{csv}, elements in XML can be hierarchically nested, like~\textil{<a><b><c>test</c></b><b>bla</b></a>}, and thus easily represent tree structures. %
+XML is one of most-used data interchange formats. %
+To process XML in \python, use the \pythonilIdx{defusedxml} library~\cite{H2021D0XBPFPSM}, as it protects against several security issues.%
 }%
 }%
 %
