@@ -505,6 +505,7 @@ It again prints the \pgls{stackTrace}, which informs us which error occured and 
 %
 %
 \hsection{The \texttt{with} Block and Context Managers}%
+\label{sec:withAndContextManagers}%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{06_exceptions}{file_try_finally.py}{--args format}{exceptions:file_try_finally}{%
 Using \pythonilIdx{try}-\pythonilIdx{finally} for closing files after writing to and reading from them\pythonIdx{os!remove}\pythonIdx{remove}\pythonIdx{close}\pythonIdx{IO}\pythonIdx{IO!close}\pythonIdx{IO!write}\pythonIdx{write}\pythonIdx{readline}\pythonIdx{IO!readline}.}%
@@ -590,7 +591,7 @@ with expression as variable:
 # or
 
 with expression:
-    # block of code that works with variable
+    # block of code
 \end{pythonSyntax}
 %
 Right now, we are still lacking some background knowledge needed to discuss what a context manager exactly is or how it works.

@@ -84,6 +84,12 @@ morestring=[s]{"""}{"""},%
 \lstset{style=python_style}%
 %
 %
+\lstdefinestyle{xml_style}{%
+style=basic_style,%
+language=XML,%
+}%
+%
+%
 \lstdefinestyle{text_style}{%
 style=basic_style,%
 language={},%
@@ -157,6 +163,13 @@ breaklines=true%
 %% #2 the code to be printed inline
 \gdef\bashil#1{%
 \inlinelistingbox{\lstinline[style=bash_style]$#1$}}%
+%
+%% print some xml inline
+%% #1 the optional args
+%% #2 the code to be printed inline
+\gdef\xmlil#1{%
+\inlinelistingbox{\lstinline[style=xml_style]$#1$}}%
+%
 %
 \newlength\@lstbasicstylesheight%
 \settoheight{\@lstbasicstylesheight}{\mbox{\bgroup\@lstbasicstyle{s}\egroup}}%
@@ -238,6 +251,11 @@ breaklines=true%
 \end{figure}%
 }%
 %
+%%% Set the output format, because sometimes we want to have different formats in the output
+\protected\gdef\gitPythonAndOutputFormat#1{\xdef\@gitPythonAndOutputFormat{#1}}%
+\protected\gdef\gitPythonAndOutputFormatDefault{\gitPythonAndOutputFormat{text_style}}%
+\gitPythonAndOutputFormatDefault%
+%
 %% Use latexgit to place a listing with code and the program output.
 %% #1 the git repository
 %% #2 the path to the directory
@@ -247,6 +265,8 @@ breaklines=true%
 %%    pre-pended to the output)
 %% #6 the caption
 \protected\gdef\gitPythonAndOutput#1#2#3#4#5#6{%
+\expandafter\expandafter\expandafter\edef\expandafter\csname @gitPythonAndOutputFormat:exec:#5\endcsname{\@gitPythonAndOutputFormat}%
+\gitPythonAndOutputFormatDefault%
 %
 \gitLoad{#1}{#2/#3}{python3 -m latexgit.formatters.python #4}%
 \expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitUrl:lst:#5\endcsname{\gitUrl}%
@@ -260,7 +280,8 @@ breaklines=true%
 %
 $\downarrow$~~\expandafter\bashil{python3 #3}~~$\downarrow$%
 %
-\lstinputlisting[label={exec:#5},style=text_style,caption={The \gls{stdout} of the program~\href{\csname @pwp@gitUrl:lst:#5\endcsname}{\textil{#3}} given in~\cref{lst:#5}.}]{\csname @pwp@gitFile:exec:#5\endcsname}%
+\edef\@@@@gitOutputFmt{\csname @gitPythonAndOutputFormat:exec:#5\endcsname}%
+\lstinputlisting[label={exec:#5},style=\@@@@gitOutputFmt,caption={The \gls{stdout} of the program~\href{\csname @pwp@gitUrl:lst:#5\endcsname}{\textil{#3}} given in~\cref{lst:#5}.}]{\csname @pwp@gitFile:exec:#5\endcsname}%
 \end{figure}%
 }%
 %
