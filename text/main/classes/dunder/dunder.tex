@@ -1468,38 +1468,39 @@ So this is actually another example that, at this stage and with what you have l
 \def\dunder#1{\expandafter\pythonilIdx{\_\_#1\_\_}\expandafter\pythonIdx{dunder!\_\_#1\_\_}}%
 %
 \dirtree{%
-.1 String Representation.
-.2 \dunder{str}\DTcomment{returns a concise string representation for users; \pythonil{str(a)} $\equiv$ \pythonil{a.\_\_str\_\_()}}.
-.2 \dunder{repr}\DTcomment{a string with all information about the object for programmers; \pythonil{repr(a)} $\equiv$ \pythonil{a.\_\_repr\_\_()}}.
-.1 Hashing.
-.2 \dunder{hash}\DTcomment{compute an integer value representing this object; \pythonil{hash(a)} $\equiv$ \pythonil{a.\_\_hash\_\_()}}.
-.1 Ordering and Equality.
-.2 \dunder{eq}\DTcomment{equality: \pythonil{a == b} $\equiv$ \pythonil{a.\_\_eq\_\_(b)}}.
-.2 \dunder{ne}\DTcomment{inequality: \pythonil{a != b} $\equiv$ \pythonil{a.\_\_ne\_\_(b)}}.
-.2 \dunder{lt}\DTcomment{less than: \pythonil{a < b} $\equiv$ \pythonil{a.\_\_lt\_\_(b)}}.
-.2 \dunder{le}\DTcomment{less than or equal: \pythonil{a <= b} $\equiv$ \pythonil{a.\_\_le\_\_(b)}}.
-.2 \dunder{gt}\DTcomment{greater than: \pythonil{a > b} $\equiv$ \pythonil{a.\_\_gt\_\_(b)}}.
-.2 \dunder{ge}\DTcomment{greater than or equal: \pythonil{a >= b} $\equiv$ \pythonil{a.\_\_ge\_\_(b)}}.
-.1 Context Managers.
-.2 \dunder{enter}\DTcomment{enter a \pythonilIdx{with} statement, returns a value given to \pythonilIdx{as}}.
-.2 \dunder{exit}\DTcomment{leave a \pythonilIdx{with} statement, receive exception information, returns~\pythonil{False} to re-raise caught exceptions, if any}.
-.1 Arithmetics.
-.2 \dunder{add}\DTcomment{add: \pythonil{a + b} $\equiv$ \pythonil{a.\_\_add\_\_(b)}}.
-.2 \dunder{radd}\DTcomment{right-add: \pythonil{a + b} $\equiv$ \pythonil{b.\_\_radd\_\_(a)}, if \pythonil{a.\_\_add\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
-.2 \dunder{sub}\DTcomment{subtract: \pythonil{a - b} $\equiv$ \pythonil{a.\_\_sub\_\_(b)}}.
-.2 \dunder{rsub}\DTcomment{right-subtract: \pythonil{a - b} $\equiv$ \pythonil{b.\_\_rsub\_\_(a)}, if \pythonil{a.\_\_sub\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
-.2 \dunder{mul}\DTcomment{multiply: \pythonil{a * b} $\equiv$ \pythonil{a.\_\_mul\_\_(b)}}.
-.2 \dunder{rmul}\DTcomment{right-multiply: \pythonil{a * b} $\equiv$ \pythonil{b.\_\_rmul\_\_(a)}, if \pythonil{a.\_\_mul\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
-.2 \dunder{truediv}\DTcomment{divide: \pythonil{a / b} $\equiv$ \pythonil{a.\_\_truediv\_\_(b)}}.
-.2 \dunder{rtruediv}\DTcomment{right-divide: \pythonil{a / b} $\equiv$ \pythonil{b.\_\_rtruediv\_\_(a)}, if \pythonil{a.\_\_truediv\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
-.2 \dunder{mod}\DTcomment{modulo-divide: \pythonil{a \% b} $\equiv$ \pythonil{a.\_\_mod\_\_(b)}}.
-.2 \dunder{rmod}\DTcomment{right-modulo-divide: \pythonil{a \% b} $\equiv$ \pythonil{b.\_\_rmod\_\_(a)}, if \pythonil{a.\_\_mod\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
-.2 \dunder{floordiv}\DTcomment{integer-divide: \pythonil{a // b} $\equiv$ \pythonil{a.\_\_floordiv\_\_(b)}}.
-.2 \dunder{rfloordiv}\DTcomment{right-integer-divide: \pythonil{a // b} $\equiv$ \pythonil{b.\_\_rfloordiv\_\_(a)}, if \pythonil{a.\_\_floordiv\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
-.2 \dunder{pow}\DTcomment{exponential: \pythonil{a ** b} $\equiv$ \pythonil{a.\_\_pow\_\_(b)}}.
-.2 \dunder{rpow}\DTcomment{right-exponential: \pythonil{a ** b} $\equiv$ \pythonil{b.\_\_rpow\_\_(a)}, if \pythonil{a.\_\_pow\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
-.2 \dunder{matmul}\DTcomment{matrix-multiply: \pythonil{a @ b} $\equiv$ \pythonil{a.\_\_matmul\_\_(b)}}.
-.2 \dunder{rmatmul}\DTcomment{right-matrix-multiply: \pythonil{a @ b} $\equiv$ \pythonil{b.\_\_rmatmul\_\_(a)}, if \pythonil{a.\_\_matmul\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
+.1 \pythonilIdx{\_\_}.
+.2 String Representation.
+.3 \dunder{str}\DTcomment{returns a concise string representation for users; \pythonil{str(a)} $\equiv$ \pythonil{a.\_\_str\_\_()}}.
+.3 \dunder{repr}\DTcomment{a string with all information about the object for programmers; \pythonil{repr(a)} $\equiv$ \pythonil{a.\_\_repr\_\_()}}.
+.2 Hashing.
+.3 \dunder{hash}\DTcomment{compute an integer value representing this object; \pythonil{hash(a)} $\equiv$ \pythonil{a.\_\_hash\_\_()}}.
+.2 Ordering and Equality.
+.3 \dunder{eq}\DTcomment{equality: \pythonil{a == b} $\equiv$ \pythonil{a.\_\_eq\_\_(b)}}.
+.3 \dunder{ne}\DTcomment{inequality: \pythonil{a != b} $\equiv$ \pythonil{a.\_\_ne\_\_(b)}}.
+.3 \dunder{lt}\DTcomment{less than: \pythonil{a < b} $\equiv$ \pythonil{a.\_\_lt\_\_(b)}}.
+.3 \dunder{le}\DTcomment{less than or equal: \pythonil{a <= b} $\equiv$ \pythonil{a.\_\_le\_\_(b)}}.
+.3 \dunder{gt}\DTcomment{greater than: \pythonil{a > b} $\equiv$ \pythonil{a.\_\_gt\_\_(b)}}.
+.3 \dunder{ge}\DTcomment{greater than or equal: \pythonil{a >= b} $\equiv$ \pythonil{a.\_\_ge\_\_(b)}}.
+.2 Context Managers.
+.3 \dunder{enter}\DTcomment{enter a \pythonilIdx{with} statement, returns a value given to \pythonilIdx{as}}.
+.3 \dunder{exit}\DTcomment{leave a \pythonilIdx{with} statement, receive exception information, returns~\pythonil{False} to re-raise caught exceptions, if any}.
+.2 Arithmetics.
+.3 \dunder{add}\DTcomment{add: \pythonil{a + b} $\equiv$ \pythonil{a.\_\_add\_\_(b)}}.
+.3 \dunder{radd}\DTcomment{right-add: \pythonil{a + b} $\equiv$ \pythonil{b.\_\_radd\_\_(a)}, if \pythonil{a.\_\_add\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
+.3 \dunder{sub}\DTcomment{subtract: \pythonil{a - b} $\equiv$ \pythonil{a.\_\_sub\_\_(b)}}.
+.3 \dunder{rsub}\DTcomment{right-subtract: \pythonil{a - b} $\equiv$ \pythonil{b.\_\_rsub\_\_(a)}, if \pythonil{a.\_\_sub\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
+.3 \dunder{mul}\DTcomment{multiply: \pythonil{a * b} $\equiv$ \pythonil{a.\_\_mul\_\_(b)}}.
+.3 \dunder{rmul}\DTcomment{right-multiply: \pythonil{a * b} $\equiv$ \pythonil{b.\_\_rmul\_\_(a)}, if \pythonil{a.\_\_mul\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
+.3 \dunder{truediv}\DTcomment{divide: \pythonil{a / b} $\equiv$ \pythonil{a.\_\_truediv\_\_(b)}}.
+.3 \dunder{rtruediv}\DTcomment{right-divide: \pythonil{a / b} $\equiv$ \pythonil{b.\_\_rtruediv\_\_(a)}, if \pythonil{a.\_\_truediv\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
+.3 \dunder{mod}\DTcomment{modulo-divide: \pythonil{a \% b} $\equiv$ \pythonil{a.\_\_mod\_\_(b)}}.
+.3 \dunder{rmod}\DTcomment{right-modulo-divide: \pythonil{a \% b} $\equiv$ \pythonil{b.\_\_rmod\_\_(a)}, if \pythonil{a.\_\_mod\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
+.3 \dunder{floordiv}\DTcomment{integer-divide: \pythonil{a // b} $\equiv$ \pythonil{a.\_\_floordiv\_\_(b)}}.
+.3 \dunder{rfloordiv}\DTcomment{right-integer-divide: \pythonil{a // b} $\equiv$ \pythonil{b.\_\_rfloordiv\_\_(a)}, if \pythonil{a.\_\_floordiv\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
+.3 \dunder{pow}\DTcomment{exponential: \pythonil{a ** b} $\equiv$ \pythonil{a.\_\_pow\_\_(b)}}.
+.3 \dunder{rpow}\DTcomment{right-exponential: \pythonil{a ** b} $\equiv$ \pythonil{b.\_\_rpow\_\_(a)}, if \pythonil{a.\_\_pow\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
+.3 \dunder{matmul}\DTcomment{matrix-multiply: \pythonil{a @ b} $\equiv$ \pythonil{a.\_\_matmul\_\_(b)}}.
+.3 \dunder{rmatmul}\DTcomment{right-matrix-multiply: \pythonil{a @ b} $\equiv$ \pythonil{b.\_\_rmatmul\_\_(a)}, if \pythonil{a.\_\_matmul\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
 }%
 %
 \caption{An overview of the dunder in \python.}%
