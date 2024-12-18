@@ -332,3 +332,8 @@ showspaces=#1%
 \endcenter%
 }%
 %
+%% A dunder method
+%% #1 the method name
+%% This addss the underscores and a index entry.
+\protected\gdef\dunder#1{\expandafter\pythonilIdx{\_\_#1\_\_}\expandafter\pythonIdx{dunder!\_\_#1\_\_}}%
+%
