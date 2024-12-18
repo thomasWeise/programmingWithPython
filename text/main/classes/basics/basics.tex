@@ -114,17 +114,24 @@ This \pgls{docstring} and include \pglspl{doctest} to demonstrate the class usag
 %
 Our class \pythonil{Point} will have two attributes, \pythonil{x} and~\pythonil{y}.
 A attribute is a variable that every single instance of the class has.
-In other words, we later want to be able to create one instance of \pythonil{Point} with the x\nobreakdashes-coordinate~5 and the y\nobreakdashes-coordinate~10 and then another instance with the x\nobreakdashes-coordinate~2 and the y\nobreakdashes-coordinate~7.
+We later want to be able to create one instance of \pythonil{Point} with the x\nobreakdashes-coordinate~5 and the y\nobreakdashes-coordinate~10 and then another instance with the x\nobreakdashes-coordinate~2 and the y\nobreakdashes-coordinate~7.
+So each instance of \pythonil{Point} needs to have these two attributes.
 
-Therefore, \pythonil{Point} needs a initializer, i.e., a special method that creates these attributes.
-This method is called~\pythonilIdx{\_\_init\_\_}\pythonIdx{dunder!\_\_init\_\_}.
+Therefore, \pythonil{Point} needs a initializer, i.e., a special method that creates and initializes these attributes.
+This method is called~\dunder{init}.
 As said, every method of a class must have a parameter~\pythonilIdx{self}, which is the instance of the class (the object) upon which the method is called.
-The initializer \pythonilIdx{\_\_init\_\_}\pythonIdx{dunder!\_\_init\_\_} is a special method, so it also has this parameter~\pythonilIdx{self}.
+The initializer \dunder{init} is a special method, so it also has this parameter~\pythonilIdx{self}.
 Additionally, we demand that two parameters~\pythonil{x} and~\pythonil{y} be passed in when we create an instance of~\pythonil{Point}.
-We allow the values to be either \pythonils{int} or \pythonils{float}.%
+We allow the values to be either \pythonils{int} or \pythonils{float}.
+
+Inside every method of a class, the attributes of objects are accessed via the parameter~\pythonilIdx{self}.
+We can read the attribute~\pythonil{x} of an object inside a method of the class by writing~\pythonil{self.x}.
+Here, \pythonil{self.x} can be used just like a normal local variable.
+We can store the value~\pythonil{a} in a (mutable) attribute~\pythonil{x} of the current object in a method of the class by writing~\pythonil{self.x = a}.
+This value will then remain the same until it is changed, even after the execution of the method is completed.%
 %
 \bestPractice{attributes}{%
-Object attributes must only be created inside the initializer~\pythonilIdx{\_\_init\_\_}\pythonIdx{dunder!\_\_init\_\_}. %
+Object attributes must only be created inside the initializer~\dunder{init}. %
 An initial value must immediately be assigned to each attribute.%
 }
 %
@@ -143,34 +150,65 @@ Additionally, the \pgls{typeHint} \pythonilIdx{Final} from the \pythonilIdx{typi
 In other words, we do not allow the coordinates of our \pythonils{Point} to change after object creation.%
 %
 \bestPractice{attributeTypeHint}{%
-Every attribute of an object must be annotated with a \pgls{typeHint} and a documentation comment when created in the initializer~\pythonilIdx{\_\_init\_\_}\pythonIdx{dunder!\_\_init\_\_}~\cite{LM2024WTMD}. %
+Every attribute of an object must be annotated with a \pgls{typeHint} and a documentation comment when created in the initializer~\dunder{init}~\cite{LM2024WTMD}. %
 \pglspl{typeHint} work as with normal variables.}%
+%
+\bestPractice{attributeFinal}{%
+The \pgls{typeHint} \pythonilIdx{Final}\pythonIdx{typing!Final} marks an attribute as immutable. %
+All attributes that you do not intend to change should be annotated with~\pythonilIdx{Final}\pythonIdx{typing!Final}.%
+}%
 %
 \bestPractice{attributeDocstring}{%
 An attribute is documented in the line \emph{above} the attribute initialization by writing a \emph{comment} starting with \pythonilIdx{\#: }, which explains the meaning of the attribute~\cite{SD2024DCAD}. %
 (Sometimes, the documentation is given as string directly below the attribute definition~\cite{PEP287}, but we stick to the former method, because it has proper tool support, e.g., by~\sphinx.)%
 }%
 %
-After properly defining our initializer, we can now do something like \pythonil{p = Point(1, 2)} and it will create the object~\pythonil{p} which is an instance of the \pythonilIdx{class} \pythonil{Point}.
-This will allocate the memory for~\pythonil{p} and automatically invoke \pythonil{\_\_init\_\_(p, 1, 2)}.
-As a result, \pythonil{p.x} will have the value~\pythonil{1} and \pythonil{p.y} will have value~\pythonil{2}.
-Notice that we can immediately see from the knowledge that \pythonil{p} is an instance of \pythonil{Point} that \pythonil{p.x} and \pythonil{p.y} are its x\nobreakdashes-\ and y\nobreakdashes-coordinate, respectively.
+After properly defining our initializer, we can now do something like~\pythonil{p = Point(1, 2)}.
+This creates a new object as an instance of our \pythonilIdx{class} \pythonil{Point}.
+Therefore, first, the necessary memory is allocated.
+Then, the initializer is invoked as~\pythonil{\_\_init\_\_(p, 1, 2)}.
+As a result, \pythonil{p} now refers to a \pythonil{Point}~object.
+The attribute \pythonil{p.x} has the value~\pythonil{1} and \pythonil{p.y} has value~\pythonil{2}.
+
+From the knowledge that \pythonil{p} is an instance of \pythonil{Point}, we can immediately see that \pythonil{p.x} and \pythonil{p.y} are its x-\ and y\nobreakdashes-coordinate, respectively.
 There is no way to mistake the meaning of these variables.
 Of course, our \pglspl{docstring} with \pglspl{doctest} and \pglspl{typeHint} further help the reader to understand their meaning.
 
-Having a new container class for points in the two-dimensional plane is already nice.
+Having a new class for points in the two-dimensional plane is already nice.
 But \pythoniles{class} also allow us to define operations on such points in form of methods.
 As an example, we implement a method \pythonil{distance} that computes the distance between two points.
 You would have a point~\pythonil{p1} and invoke \pythonil{p1.distance(p2)} to compute the distance to another point~\pythonil{p2}.
 The computation itself will follow \cref{eq:euclideanDistance} from our recent endeavor to operations on iterations in \cref{sec:operationsOnIterators}.
 We therefore need to import the \pythonilIdx{sqrt} function from the \pythonilIdx{math} module.
-Our new method \pythonil{distance} will have two parameters, \pythonil{self}, which will be the object upon which we invoke the method~(\pythonil{p1}~in the above example) and~\pythonil{p}, the other object~(or \pythonil{p2} above).
+
+Our new method \pythonil{distance} will have two parameters, \pythonilIdx{self}, which will be the object upon which we invoke the method~(\pythonil{p1}~in the above example) and~\pythonil{p}, the other object~(or \pythonil{p2} above).
 It then just has to compute the Euclidean distance~\pythonil{sqrt((self.x - p.x) ** 2 + (self.y - p.y) ** 2)}.
-Notice that the \pgls{docstring} not just explains how this method is used, but also provides a simple example in form of a~\pgls{doctest}:
+Inside a method of an object, \pythonilIdx{self} always refers to the object itself.
+Therefore, \pythonil{self.x}~is the x\nobreakdashes-coordinate of the current object and \pythonil{self.y}~is its~y\nobreakdashes-coordinate.
+\pythonil{p.x}~is the x\nobreakdashes-coordinate of the point~\pythonil{p} that was passed in as actual parameter of the method, and \pythonil{p.y}~is its y\nobreakdashes-coordinate.
+Notice that the \pgls{docstring} not just explains how this method is used, but also provides a simple example in form of a~\pgls{doctest}.
 If you compute \pythonil{Point(1, 1).distance(Point(4, 4))}, then the expected result is something like~4.243.%
+%
+\begin{sloppypar}%
+In this \pgls{doctest} -- \pythonil{Point(1, 1).distance(Point(4, 4))} -- we only provided a single parameter to the method~\pythonil{distance}.
+When calling the method~\pythonil{distance}, we never need to provide a value of the parameter~\pythonilIdx{self} directly.
+Instead, it will be provided indirectly:
+If we have two points~\pythonil{p1} and~\pythonil{p2} and invoke~\pythonil{p1.distance(p2)}, then~\pythonil{self = p1} will be set automatically.
+Hence, even though we declared our method as~\pythonil{def distance(self, p: "Point") -> float}, which looks as if we need to provide two parameters~(\pythonilIdx{self} and~\pythonil{p}), we only need to provide one, namely~\pythonil{p}.%
+\end{sloppypar}%
+%
+Reading this again, we notice that the parameter~\pythonil{p} is annotated with a very strange \pgls{typeHint}:
+One would expect that we would annotate it with~\pythonil{Point}, instead it is annotated with the string~\pythonil{"Point"}.
+This has the simple reason that the complete class \pythonil{Point} is only defined \emph{after}, well, the complete definition of class~\pythonil{Point} and, therefore, not yet available as type \emph{inside} its definition.
+Using the string here is therefore just a crutch with no real other effect.
+%
 %
 \bestPractice{methodDocstring}{%
 All methods of \pythoniles{class} must be annotated with \pglspl{docstring} and \pglspl{typeHint}.%
+}%
+\bestPractice{ownClassTypeHint}{%
+When using a class~\pythonil{C} as \pgls{typeHint} \emph{inside} the definition of the class~\pythonil{C}, you must write~\pythonil{"C"} instead of~\pythonil{C}. %
+(Otherwise, static code analysis tools and the \python\ interpreter get confused.)%
 }%
 %
 We could now go on and add more methods that do reasonable computations with instances of~\pythonil{Point}.
@@ -189,7 +227,7 @@ We can check if an object~\pythonil{o} is an instance of our class \pythonil{Poi
 For \pythonil{p1}, this returns~\pythonil{True}.
 
 We now create a second instance, \pythonil{p2}, of the class \pythonil{Point}.
-We assign \pythonil{7} to \pythonil{p2.x} and \pythonil{8} to \pythonil{p2.y} via the \pythonilIdx{\_\_init\_\_}\pythonIdx{dunder!\_\_init\_\_} initializer, which is automatically invoked when we write~\pythonil{Point(7, 8)}.
+We assign \pythonil{7} to \pythonil{p2.x} and \pythonil{8} to \pythonil{p2.y} via the \dunder{init} initializer, which is automatically invoked when we write~\pythonil{Point(7, 8)}.
 We can again print the values of these attributes using an \pgls{fstring}.
 While \pythonil{isinstance(p2, Point)} is again \pythonil{True}, \pythonil{isinstance(5, Point)} returns \pythonil{False}.
 
@@ -239,6 +277,7 @@ We will explore one of them in the next section.%
 \endhsection%
 %
 \hsection{Encapsulation and Accurately Adding Floating Point Numbers}%
+\FloatBarrier%
 %
 We now want to implement our first maybe actually useful piece of code, something that can be used in a real productive system.\footnote{%
 Yes, we did implement LIU Hui's method for approximating~\numberPi\ and Heron's Method for approximating the square root. %
@@ -382,7 +421,7 @@ Encapsulation therefore allows the programmer to ensure that the state of an obj
 %
 This is going to be the interface for our new class~\pythonil{KahanSum}, which, in turn, is based on~\cite{K2006AGKBSA}.
 
-In the initializer~\pythonilIdx{\_\_init\_\_}\pythonIdx{dunder!\_\_init\_\_}, we create the three attributes~\pythonil{__sum}, \pythonil{__cs}, and \pythonil{__ccs} and initialize them to~\pythonil{0}.
+In the initializer~\dunder{init}, we create the three attributes~\pythonil{__sum}, \pythonil{__cs}, and \pythonil{__ccs} and initialize them to~\pythonil{0}.
 These names are directly taken from \cref{algo:kahanSum}.
 Notice the double leading underscores in front of the names.%
 %

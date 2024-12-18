@@ -8,8 +8,8 @@ We can get string representations for all objects that we can print to the conso
 We can iterate over the elements of objects that represent sequences.
 We can execute objects that represent functions.
 These special functionalities are implemented by so-called \emph{dunder} methods.
-\pythonIdx{dunder}Dunder methods have names that begin and end with two underscores, like~\pythonilIdx{\_\_init\_\_}\pythonIdx{dunder!\_\_init\_\_}.
-And indeed, \pythonilIdx{\_\_init\_\_}\pythonIdx{dunder!\_\_init\_\_}~is a dunder method, the initializer that creates the attributes of an object.
+\pythonIdx{dunder}Dunder methods have names that begin and end with two underscores, like~\dunder{init}.
+And indeed, \dunder{init}~is a dunder method, the initializer that creates the attributes of an object.
 
 We already learned that, if we create a subclass of a class, we can define new methods and override existing ones.
 We can do the same with dunder methods.
@@ -26,12 +26,12 @@ In \python, we can distinguish two forms of string representations of a given ob
 %
 \item \pythonil{str(o)}\pythonIdx{str} should return a concise and brief representation of the object~\pythonil{o}.
 This representation is mainly for end users.
-\pythonil{str(o)} invokes the \pythonilIdx{\_\_str\_\_}\pythonIdx{dunder!\_\_str\_\_} dunder method, if it has been implemented.
-Otherwise, \pythonilIdx{\_\_repr\_\_}\pythonIdx{dunder!\_\_repr\_\_} is used instead.%
+\pythonil{str(o)} invokes the \dunder{str} dunder method, if it has been implemented.
+Otherwise, \dunder{repr} is used instead.%
 %
 \item \pythonil{repr(o)}\pythonIdx{repr} should ideally return a string representation that contains all the information that is needed to re-create the object.
 The target audience here are programmers who are working on the code, who may need to write precise information into log files, or who are searching for errors.
-\pythonil{repr(o)} invokes the \pythonilIdx{\_\_repr\_\_}\pythonIdx{dunder!\_\_repr\_\_} dunder method, if it has been implemented.
+\pythonil{repr(o)} invokes the \dunder{repr} dunder method, if it has been implemented.
 Otherwise, it returns the default representation, which is the type name and ID of the object.%
 %
 \end{itemize}%
@@ -84,14 +84,14 @@ Investigating string representations and equality for the class~\pythonil{Point}
 Let us now move a bit backwards and revisit a previous example we created by ourselves.
 In \cref{sec:immutableClassPoints2D}, we created the class \pythonil{Point} for representing points in the two-dimensional Euclidean plane~(see \cref{lst:classes:point}).
 This class turned out to be quite useful when we went on to implement classes for different two-dimensional geometric shapes.
-Here, we already implemented one dunder method, the initializer~\pythonilIdx{\_\_init\_\_}\pythonIdx{dunder!\_\_init\_\_}.
+Here, we already implemented one dunder method, the initializer~\dunder{init}.
 Let us play with this class a bit more.
 
 In \cref{lst:dunder:point_user_2}, we create three instances of this class.
 \pythonil{p1}~represents the coordinates~$(3,5)$, \pythonil{p2}~stores~$(7, 8)$, and~\pythonil{p3}~has the same coordinates as~\pythonil{p1}.
 In this program, we first print the \pythonil{str} and \pythonil{repr} results for~\pythonil{p1}.
 We immediately find them very unsatisfying.
-Since we implemented neither \pythonilIdx{\_\_str\_\_}\pythonIdx{dunder!\_\_str\_\_} nor \pythonilIdx{\_\_repr\_\_}\pythonIdx{dunder!\_\_repr\_\_}, the default result for \pythonil{str} falls back to the result of \pythonil{repr} which then falls back to just the type name and object~ID.
+Since we implemented neither \dunder{str} nor \dunder{repr}, the default result for \pythonil{str} falls back to the result of \pythonil{repr} which then falls back to just the type name and object~ID.
 This gives us basically no useful information.
 
 While we are on the subject of \inQuotes{not useful,} there is another aspect of our \pythonil{Point} class that does not show useful behavior.
@@ -108,37 +108,37 @@ Vice versa, \pythonil{p1 != p2}\pythonIdx{"!=} should be (and is) \pythonil{True
 
 The reason for this is that \python\ cannot know when and why instances of our own class should be equal.
 So it simply assumes that equality~$=$~identity, i.e., only identical instances are equal.
-We could fix this by implementing the \pythonilIdx{\_\_eq\_\_}\pythonIdx{dunder!\_\_eq\_\_} dunder method.
+We could fix this by implementing the \dunder{eq} dunder method.
 This method would receive an arbitrary object~\pythonil{other} as input and should return \pythonil{True} if that is equal to the object whose method was invoked.
 
-If you implement \pythonilIdx{\_\_eq\_\_}\pythonIdx{dunder!\_\_eq\_\_}, \python\ will make the reasonable assumption that \pythonil{(a != b) == not (a == b)}\pythonIdx{"!=}\pythonIdx{==}, i.e., assume that two objects are unequal if and only if they are not equal~\cite{PEP207}.
+If you implement \dunder{eq}, \python\ will make the reasonable assumption that \pythonil{(a != b) == not (a == b)}\pythonIdx{"!=}\pythonIdx{==}, i.e., assume that two objects are unequal if and only if they are not equal~\cite{PEP207}.
 However, this is not necessarily always the case\footnote{%
 In~\cite{PEP207}, it is stated that IEEE~754 floating point numbers do not satisfy that \pythonilIdx{==} and \pythonil{!=}\pythonIdx{"!=} are each other's complements. %
 However, I could not find for an example where this was true in the standard~\cite{IEEE2019ISFFPA}, maybe with the exception of signaling~\pythonilsIdx{nan}, which does not matter in \python. %
 Maybe it was true for some \python\ implementations back then, as~\cite{PEP754} indicates.%
 }. %
-Therefore, \python\ also allows us to implement an \pythonilIdx{\_\_ne\_\_}\pythonIdx{dunder!\_\_ne\_\_} dunder method to realize inequality differently or, potentially, more efficiently, instead~\cite{PEP207}.
+Therefore, \python\ also allows us to implement an \dunder{ne} dunder method to realize inequality differently or, potentially, more efficiently, instead~\cite{PEP207}.
 
 Finally, we compare whether \pythonil{p1} is the same as the integer number~\pythonil{5}.
 This, obviously, should return~\pythonil{False}.
 And it does so.
 This is because the two objects~\pythonil{p1} and~\pythonil{5} are not identical.
 The default equality comparison only checks for identity.
-If implement \pythonilIdx{\_\_eq\_\_} by ourselves, this method should clearly return a value that makes \pythonil{p1 == 5} become~\pythonil{False} as well.
+If implement \dunder{eq} by ourselves, this method should clearly return a value that makes \pythonil{p1 == 5} become~\pythonil{False} as well.
 Anything else would be nonsense.
 
 \gitPython{\programmingWithPythonCodeRepo}{09_dunder/point_with_dunder.py}{--args format}{dunder:point_with_dunder}{%
-Our \pythonil{Point} class, extended with the \pythonilIdx{\_\_str\_\_}\pythonIdx{dunder!\_\_str\_\_}, \pythonilIdx{\_\_repr\_\_}\pythonIdx{dunder!\_\_repr\_\_}, and \pythonilIdx{\_\_eq\_\_}\pythonIdx{dunder!\_\_eq\_\_}\pythonIdx{NotImplementedType} dunder methods.}%
+Our \pythonil{Point} class, extended with the \dunder{str}, \dunder{repr}, and \dunder{eq}\pythonIdx{NotImplementedType} dunder methods.}%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{09_dunder}{point_with_dunder_user.py}{--args format}{dunder:point_with_dunder_user}{%
 The same program exploring string representations and equality as shown in \cref{lst:dunder:point_user_2}, but this time using our new \pythonil{Point} class from \cref{lst:dunder:point_with_dunder}.}%
 
-In order to fix all of the problems discussed above, we implement the three dunder methods \pythonilIdx{\_\_str\_\_}\pythonIdx{dunder!\_\_str\_\_}, \pythonilIdx{\_\_repr\_\_}\pythonIdx{dunder!\_\_repr\_\_}, and \pythonilIdx{\_\_eq\_\_}\pythonIdx{dunder!\_\_eq\_\_} for our \pythonil{Point} class in \cref{lst:dunder:point_with_dunder}.
-The concise string representation returned by \pythonilIdx{\_\_str\_\_}\pythonIdx{dunder!\_\_str\_\_} will just be the point coordinates in parentheses.
+In order to fix all of the problems discussed above, we implement the three dunder methods \dunder{str}, \dunder{repr}, and \dunder{eq} for our \pythonil{Point} class in \cref{lst:dunder:point_with_dunder}.
+The concise string representation returned by \dunder{str} will just be the point coordinates in parentheses.
 This offers all the information needed at a glance, but it could be mistaken with a tuple as string.
-Therefore, the canonical string representation produced by \pythonilIdx{\_\_repr\_\_}\pythonIdx{dunder!\_\_repr\_\_} will return a string of the shape~\pythonil{"Point(x, y)"}.
+Therefore, the canonical string representation produced by \dunder{repr} will return a string of the shape~\pythonil{"Point(x, y)"}.
 
-Finally, the \pythonilIdx{\_\_eq\_\_}\pythonIdx{dunder!\_\_eq\_\_} method will first check if the \pythonil{other} object is an instance of \pythonil{Point}.
+Finally, the \dunder{eq} method will first check if the \pythonil{other} object is an instance of \pythonil{Point}.
 If so, it will return \pythonil{True} if and only if the \pythonil{x} and \pythonil{y} coordinate of the \pythonil{other} point are the same as of the point \pythonil{self}.
 Otherwise, it will return the constant \pythonilIdx{NotImplemented}:%
 %
@@ -149,12 +149,12 @@ If all attempts return \pythonilIdx{NotImplemented}, the interpreter will raise 
 Incorrectly returning \pythonilIdx{NotImplemented} will result in a misleading error message or the \pythonilIdx{NotImplemented} value being returned to \python\ code.
 }%
 %
-In other words, our \pythonilIdx{\_\_eq\_\_} method can only compare the current~\pythonil{Point} for equality with another~\pythonil{Point}.
+In other words, our \dunder{eq} method can only compare the current~\pythonil{Point} for equality with another~\pythonil{Point}.
 If \pythonil{other} is not an instance of~\pythonil{Point}, then no way to compare for equality with it exists.
 Now, we could return \pythonil{False} in this case, which would be fine as well.
 Returning \pythonilIdx{NotImplemented} will give us the same result in comparisons with objects of other types~(like~\pythonil{5}).
 However, it keeps an avenue open for other programmers to design new classes which support comparison with our \pythonil{Point} instances in a consistent way.
-When we implement the \pythonilIdx{\_\_eq\_\_} method like this, the proper \pgls{typeHint} for the return value is \pythonil{bool | NotImplementedType}\pythonIdx{NotImplementedType}.
+When we implement the \dunder{eq} method like this, the proper \pgls{typeHint} for the return value is \pythonil{bool | NotImplementedType}\pythonIdx{NotImplementedType}.
 
 \Cref{lst:dunder:point_with_dunder_user} is the same as \cref{lst:dunder:point_user_2}, but now uses this new variant of our class \pythonil{Point}.
 As you can see in \cref{exec:dunder:point_with_dunder_user}, its output now matches much better to what one would expect.%
@@ -167,7 +167,7 @@ As you can see in \cref{exec:dunder:point_with_dunder_user}, its output now matc
 \label{sec:hashDunder}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{09_dunder/point_with_hash.py}{--args format}{dunder:point_with_hash}{%
-Our \pythonil{Point} class, extended with the \pythonilIdx{\_\_eq\_\_}\pythonIdx{dunder!\_\_eq\_\_} and \pythonilIdx{\_\_hash\_\_}\pythonIdx{dunder!\_\_hash\_\_} dunder methods.}%
+Our \pythonil{Point} class, extended with the \dunder{eq} and \dunder{hash} dunder methods.}%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{09_dunder}{point_with_hash_user.py}{--args format}{dunder:point_with_hash_user}{%
 Using the new \pythonil{Point} class from \cref{lst:dunder:point_with_hash} in sets and dictionaries.}%
@@ -178,10 +178,10 @@ For this to be possible, two things are needed:%
 %
 \begin{itemize}%
 %
-\item A dunder method \pythonilIdx{\_\_eq\_\_} that compares two \pythonils{Point} for equality. %
+\item A dunder method \dunder{eq} that compares two \pythonils{Point} for equality. %
 This, we already have done in \cref{lst:dunder:point_with_dunder}.%
 %
-\item A dunder method \pythonilIdx{\_\_hash\_\_} that returns the hash value of a \pythonil{Point} in form of an~\pythonil{int}.%
+\item A dunder method \dunder{hash} that returns the hash value of a \pythonil{Point} in form of an~\pythonil{int}.%
 %
 \end{itemize}%
 %
@@ -213,11 +213,11 @@ These hash tables~\cite{K1998SAS,CLRS2009ITA,SKS2019DSC} are very fast.
 They have an element-wise access/update time complexity of~\bigOb{1}~\cite{H2024PBOTTCODDSIPP33,B2023T,N2022CCSFPO}.
 As you know, lists can be indexed by integers.
 Since we also want to be able to use objects that are \emph{not} integers as keys, too, we need a way to \inQuotes{translate} these objects to integers.
-That is what \pythonilIdx{\_\_hash\_\_} is supposed to do.
+That is what \dunder{hash} is supposed to do.
 
-Luckily, \pythonilIdx{\_\_hash\_\_} does not need to compute a valid index into such a table.
+Luckily, \dunder{hash} does not need to compute a valid index into such a table.
 That would indeed not be possible:
-The \pythonilIdx{\_\_hash\_\_} method of an object~\pythonil{a} cannot know the length of the internal table underlying a dictionary or set where the object~\pythonil{a} will be stored.
+The \dunder{hash} method of an object~\pythonil{a} cannot know the length of the internal table underlying a dictionary or set where the object~\pythonil{a} will be stored.
 Instead, all it needs to do is to return one integer value that represents~\pythonil{a}.
 The dictionary/set implementation is then responsible for translating this integer into a valid index into its internal table.
 It can use \pgls{modulodiv} for this.
@@ -239,7 +239,7 @@ Then again the index is computed via the hash value and if the object is not alr
 Dictionaries work the same, just use key-value relationships, where the hash values of the keys are computed to find the right places in the internal tables.
 The details are (for the third time), unimportant here -- but you can read them in these very interesting sources here~\cite{G2020PHTUTH,L2011PDI}.
 
-It is already clear, however, that calling \pythonilIdx{\_\_hash\_\_} twice for the same object~\pythonil{a} must return the same value.
+It is already clear, however, that calling \dunder{hash} twice for the same object~\pythonil{a} must return the same value.
 Since this hash value is used to find the place in the table where the object should be, this must never change.
 This is also why dictionary (and set) keys must be immutable~(see~\cref{bp:dictKeys,bp:setsImmutable}).
 
@@ -250,28 +250,28 @@ That would make no sense at all.
 
 With that out of the way, we can now make our \pythonil{Point} class hashable.
 In \cref{lst:dunder:point_with_hash}, we modify the \pythonil{Point} class from \cref{lst:dunder:point_with_dunder}.
-We retain the implementation of~\pythonilIdx{\_\_eq\_\_} and add the method~\pythonilIdx{\_\_hash\_\_}.%
+We retain the implementation of~\dunder{eq} and add the method~\dunder{hash}.%
 %
 \quotation{PSF2024OH}{{\dots}The \pythonil{\_\_hash\_\_()}\pythonIdx{\_\_hash\_\_}\pythonIdx{dunder!\_\_hash\_\_} method should return an integer. %
 The only required property is that objects which compare equal have the same hash value; %
 it is advised to mix together the hash values of the components of the object that also play a part in comparison of objects by packing them into a \pythonil{tuple} and hashing the tuple.}%
 %
 \bestPractice{hash}{%
-For implementing \pythonilIdx{\_\_eq\_\_} and \pythonilIdx{\_\_hash\_\_}, the following rules hold~\cite{PSF2024OH}:%
+For implementing \dunder{eq} and \dunder{hash}, the following rules hold~\cite{PSF2024OH}:%
 \sloppy%
 \begin{itemize}\sloppy%
 %
-\item Only immutable classes are allowed to implement \pythonilIdx{\_\_hash\_\_}, i.e., only classes where all attributes have the \pythonilIdx{Final} \pgls{typeHint} and are only assigned on the initialize~\pythonilIdx{\_\_init\_\_}.%
+\item Only immutable classes are allowed to implement \dunder{hash}, i.e., only classes where all attributes have the \pythonilIdx{Final} \pgls{typeHint} and are only assigned on the initialize~\dunder{init}.%
 %
 \item The result of \pythonil{a.\_\_hash\_\_()} must never change (since \pythonil{a} must never change either).%
 %
-\item If a class does not define \pythonilIdx{\_\_eq\_\_}, it cannot implement \pythonilIdx{\_\_hash\_\_} either.%
+\item If a class does not define \dunder{eq}, it cannot implement \dunder{hash} either.%
 %
-\item Instances of a class that implements \pythonilIdx{\_\_eq\_\_} but not \pythonilIdx{\_\_hash\_\_} cannot be used as keys in a dictionary or set.%
+\item Instances of a class that implements \dunder{eq} but not \dunder{hash} cannot be used as keys in a dictionary or set.%
 %
-\item Only instances of a class that implements both \pythonilIdx{\_\_eq\_\_} and \pythonilIdx{\_\_hash\_\_} can be used as keys in dictionaries or sets.%
+\item Only instances of a class that implements both \dunder{eq} and \dunder{hash} can be used as keys in dictionaries or sets.%
 %
-\item Then, the results of \pythonilIdx{\_\_eq\_\_} and \pythonilIdx{\_\_hash\_\_} must be computed using the exactly same attributes. %
+\item Then, the results of \dunder{eq} and \dunder{hash} must be computed using the exactly same attributes. %
 In other words, the attributes of an object~\pythonil{a} that determine the results of~\pythonil{a.\_\_eq\_\_(...)} must be exactly the same as those determining the results of~\pythonil{a.\_\_hash\_\_(...)}. %
 %
 \item It is best to compute \pythonil{a.\_\_hash\_\_(...)} by simply putting all of these attributes into a \pythonil{tuple} and then passing this \pythonil{tuple} to \pythonilIdx{hash}.%
@@ -282,8 +282,8 @@ In other words, the attributes of an object~\pythonil{a} that determine the resu
 }%
 %
 That sounds complicated, but is actually very easy.
-The only attributes that play a role in our \pythonilIdx{\_\_eq\_\_} method are the two coordinates of the point, \pythonil{self.x} and~\pythonil{self.y}.
-So the result~\pythonilIdx{\_\_hash\_\_} should simply be~\pythonil{hash((self.x, self.y))}\pythonIdx{hash}.
+The only attributes that play a role in our \dunder{eq} method are the two coordinates of the point, \pythonil{self.x} and~\pythonil{self.y}.
+So the result~\dunder{hash} should simply be~\pythonil{hash((self.x, self.y))}\pythonIdx{hash}.
 The double-parentheses are because this basically means \pythonil{t = (self.x, self.y)} and then computing~\pythonil{hash(t)}.%
 %
 \begin{sloppypar}%
@@ -302,7 +302,7 @@ Alas, the developers of \python\ have already solved this:%
 %
 \quotation{PSF2024BIF}{Numeric values that compare equal have the same \pythonilIdx{hash} value (even if they are of different types, as is the case for~\pythonil{1} and~\pythonil{1.0}).}%
 %
-Therefore, we can indeed implement \pythonilIdx{\_\_hash\_\_} with a single line of code in~\cref{sec:hashDunder}.
+Therefore, we can indeed implement \dunder{hash} with a single line of code in~\cref{sec:hashDunder}.
 And I will later find another example on how the debugger can be used to spot errors in code.%
 %
 \begin{sloppypar}%
@@ -327,7 +327,7 @@ The same dictionary operations as discussed way back in~\cref{sec:dictionaries} 
 \hsection{Arithmetic Dunder and Ordering}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_1}{dunder:fraction:part_1}{%
-Part~1 of the \pythonil{Fraction} class: The initializer \pythonilIdx{\_\_init\_\_} and global constants.}%
+Part~1 of the \pythonil{Fraction} class: The initializer \dunder{init} and global constants.}%
 \afterpage{\clearpage}%
 %
 Much of \python's syntactic behavior can be grounded on dunder methods.
@@ -346,7 +346,7 @@ To refresh our memory, $a$~is called the \pgls{numerator} and $b$~is called the 
 The overall code for this class is a bit longer compared to our previous examples.
 We therefore split it into several parts, namely~\cref{lst:dunder:fraction:part_1,lst:dunder:fraction:part_2,lst:dunder:fraction:part_3,lst:dunder:fraction:part_4,lst:dunder:fraction:part_5} (and later add \cref{lst:dunder:fraction:part_6}).
 At first we need to decide which attributes such a class would need.
-We construct the initializer dunder method \pythonilIdx{\_\_init\_\_} in \cref{lst:dunder:fraction:part_1}.
+We construct the initializer dunder method \dunder{init} in \cref{lst:dunder:fraction:part_1}.
 
 Since the fraction~$\frac{a}{b}$ can be defined by the two integer numbers~$a$ and~$b$, it makes sense to also have two \pythonil{int} attributes~\pythonil{a} and~\pythonil{b} in our~\pythonil{Fraction} class.
 We want our numbers to be immutable, because like you cannot change the value of~\pythonil{5}, you should also not be able to change the value of~\pythonil{1/3}.
@@ -403,36 +403,36 @@ We define three constants, \pythonil{ZERO}, \pythonil{ONE}, and \pythonil{ONE_HA
 These numbers are often used, and providing them as constant can safe both runtime and memory.
 
 \gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_2}{dunder:fraction:part_2}{%
-Part~2 of the \pythonil{Fraction} class: String representation via \pythonilIdx{\_\_str\_\_} and \pythonilIdx{\_\_repr\_\_}.}
+Part~2 of the \pythonil{Fraction} class: String representation via \dunder{str} and \dunder{repr}.}
 \afterpage{\clearpage}
 
 Did you notice that we had to write \pglspl{doctest} in the \pgls{docstring} of our class in a very inconvenient way?
-This was because we did not yet define the \pythonilIdx{\_\_str\_\_} and \pythonilIdx{\_\_repr\_\_} methods for our class \pythonil{Fraction}.
+This was because we did not yet define the \dunder{str} and \dunder{repr} methods for our class \pythonil{Fraction}.
 We do this in \cref{lst:dunder:fraction:part_2}.
-The method \pythonilIdx{\_\_str\_\_} is supposed to return a compact representation of the fractions.
+The method \dunder{str} is supposed to return a compact representation of the fractions.
 We implement such that it returns \pythonil{self.a} as string if the \pgls{denominator} is one, i.e., if~\pythonil{self.b == 1}.
 Otherwise, it should return \pythonil{f"\{self.a\}/\{self.b\}"}.
 This is easy and clear enough for each user to immediately recognize the value of the fraction.
 It is also ambiguous, though, because one cannot distinguish \pythonil{str(Fraction(12, 1))} from \pythonil{str(12)}, i.e., fractions that represent integer numbers will produce the same strings as integer numbers.
-The \pythonilIdx{\_\_repr\_\_} method exists to produce unambiguous output.
+The \dunder{repr} method exists to produce unambiguous output.
 We implement it to return~\pythonil{f\"Fraction(\{self.a\}, \{self.b\})"}.
 
 In the \pglspl{docstring} of both methods, we include \pglspl{doctest}.
-Notice that \pythonilIdx{\_\_str\_\_} is used if pass an object to~\pythonilIdx{print}.
+Notice that \dunder{str} is used if pass an object to~\pythonilIdx{print}.
 This means that we can compare the expected output of \pythonil{f.\_\_str\_\_()} for a fraction~\pythonil{f} to the result of~\pythonil{print(f)}.
-Otherwise, \pglspl{doctest} always convert objects to string using~\pythonilIdx{repr}, meaning that the line~\pythonil{Fraction(-5, 12)} in the \pgls{doctest} of \pythonilIdx{\_\_repr\_\_} actually calls \pythonil{repr(Fraction(-5, 12)}.
+Otherwise, \pglspl{doctest} always convert objects to string using~\pythonilIdx{repr}, meaning that the line~\pythonil{Fraction(-5, 12)} in the \pgls{doctest} of \dunder{repr} actually calls \pythonil{repr(Fraction(-5, 12)}.
 Anyway, with the string conversion out of the way, we can begin to implement mathematical operators.
 
 \gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_3}{dunder:fraction:part_3}{%
-Part~3 of the \pythonil{Fraction} class: Addition (via \pythonilIdx{\_\_add\_\_}\pythonIdx{dunder!\_\_add\_\_}) and subtraction (via \pythonilIdx{\_\_sub\_\_}\pythonIdx{dunder!\_\_sub\_\_}).}%
+Part~3 of the \pythonil{Fraction} class: Addition (via \dunder{add}) and subtraction (via \dunder{sub}).}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_4}{dunder:fraction:part_4}{%
-Part~4 of the \pythonil{Fraction} class: Multiplication (via \pythonilIdx{\_\_mul\_\_}\pythonIdx{dunder!\_\_mul\_\_}), division (via \pythonilIdx{\_\_truediv\_\_}\pythonIdx{dunder!\_\_truediv\_\_}), and computing the absolute value (via \pythonilIdx{\_\_abs\_\_}\pythonIdx{dunder!\_\_abs\_\_}).}%
+Part~4 of the \pythonil{Fraction} class: Multiplication (via \dunder{mul}), division (via \dunder{truediv}), and computing the absolute value (via \dunder{abs}).}%
 %
 \afterpage{\clearpage}
 
 In \cref{lst:dunder:fraction:part_3}, we want to enable our \pythonil{Fraction} class to be used with the \pythonil{+} and \pythonil{-} operators.
-In \python, doing something like \pythonil{x + y} will invoke \pythonil{x.\_\_add\_\_(y)}, if the class of~\pythonil{x} defines the \pythonilIdx{\_\_add\_\_}\pythonIdx{dunder!\_\_add\_\_} method.
+In \python, doing something like \pythonil{x + y} will invoke \pythonil{x.\_\_add\_\_(y)}, if the class of~\pythonil{x} defines the \dunder{add} method.
 From primary school, we remember that $\frac{a}{b}+{c}{d} = \frac{a*d+c*b}{b*d}$.
 Therefore, if \pythonil{other} is also an instance\pythonIdx{isinstance} of \pythonil{Fraction}, \pythonil{\_\_add\_\_(other)} computes the result like that and creates a new \pythonil{Fraction}.
 Notice that the initializer of that new fraction will automatically normalize the fraction by using~\pythonilIdx{gcd}.
@@ -443,13 +443,13 @@ The behavior of this method is again be tested with \pglspl{doctest}.
 These check that $\frac{1}{3} + \frac{1}{2}$ actually yields~$\frac{5}{6}$ and that $\frac{1}{2}+\frac{1}{2}$ really returns~$\frac{1}{1}$.
 They also check correct normalization by trying~$\frac{21}{-12}+\frac{-33}{42}=\frac{882+396}{-504}=\frac{1278}{-504}=\frac{18*1278}{18*-28}=\frac{-71}{28}$.
 
-After confirming that these tests succeed, we continue by implementing the \pythonilIdx{\_\_sub\_\_}\pythonIdx{dunder!\_\_sub\_\_} method in exactly the same way.
-This enables subtraction by using~\pythonilIdx{-}, because \pythonil{x - y} will invoke \pythonil{x.\_\_sub\_\_(y)}, if the class of~\pythonil{x} defines the \pythonilIdx{\_\_sub\_\_}\pythonIdx{dunder!\_\_sub\_\_} method.
+After confirming that these tests succeed, we continue by implementing the \dunder{sub} method in exactly the same way.
+This enables subtraction by using~\pythonilIdx{-}, because \pythonil{x - y} will invoke \pythonil{x.\_\_sub\_\_(y)}, if the class of~\pythonil{x} defines the \dunder{sub} method.
 Clearly, $\frac{a}{b}-{c}{d} = \frac{a*d-c*b}{b*d}$.
 As \pglspl{doctest}, the same three cases as used for \pythonil{\_\_add\_\_} will do.
 
 In \cref{lst:dunder:fraction:part_4}, we now focus on multiplication and division.
-The \pythonil{*}~operation will utilize a \pythonilIdx{\_\_mul\_\_}\pythonIdx{dunder!\_\_mul\_\_}, if implemented, and that \pythonil{/}~operation uses \pythonilIdx{\_\_truediv\_\_}\pythonIdx{dunder!\_\_truediv\_\_}.
+The \pythonil{*}~operation will utilize a \dunder{mul}, if implemented, and that \pythonil{/}~operation uses \dunder{truediv}.
 Multiplying the fractions~$\frac{a}{b}$ and~$\frac{c}{d}$ yields~$\frac{a*c}{b*d}$.
 Dividing~$\frac{a}{b}$ by~$\frac{c}{d}$ yields~$\frac{a*d}{b*c}$.
 The dunder methods can be implemented according to the same schematic as before.
@@ -473,23 +473,23 @@ The output of \pytest\ executing the \pglspl{doctest} for our \pythonil{Fraction
 Finally, in \cref{lst:dunder:fraction:part_5} we implement the six rich comparison dunder methods given in~\cite{PEP207}:%
 %
 \begin{itemize}%
-\item \pythonilIdx{\_\_eq\_\_}\pythonIdx{dunder!\_\_eq\_\_} implements the functionality of~\pythonilIdx{==}, as we already discussed before.%
+\item \dunder{eq} implements the functionality of~\pythonilIdx{==}, as we already discussed before.%
 %
-\item \pythonilIdx{\_\_ne\_\_}\pythonIdx{dunder!\_\_ne\_\_} implements the functionality of~\pythonilIdx{!=}.%
+\item \dunder{ne} implements the functionality of~\pythonilIdx{!=}.%
 %
-\item \pythonilIdx{\_\_lt\_\_}\pythonIdx{dunder!\_\_lt\_\_} implements the functionality of~\pythonilIdx{<}.%
+\item \dunder{lt} implements the functionality of~\pythonilIdx{<}.%
 %
-\item \pythonilIdx{\_\_le\_\_}\pythonIdx{dunder!\_\_le\_\_} implements the functionality of~\pythonil{<=}\pythonIdx{<=}.%
+\item \dunder{le} implements the functionality of~\pythonil{<=}\pythonIdx{<=}.%
 %
-\item \pythonilIdx{\_\_gt\_\_}\pythonIdx{dunder!\_\_gt\_\_} implements the functionality of~\pythonilIdx{>}.%
+\item \dunder{gt} implements the functionality of~\pythonilIdx{>}.%
 %
-\item \pythonilIdx{\_\_ge\_\_}\pythonIdx{dunder!\_\_ge\_\_} implements the functionality of~\pythonil{>=}\pythonIdx{>=}.%
+\item \dunder{ge} implements the functionality of~\pythonil{>=}\pythonIdx{>=}.%
 \end{itemize}%
 %
 Implementing equality and inequality is rather easy, since our fractions are all normalized.
 For two fractions~\pythonil{x} and~\pythonil{y}, it holds only that~\pythonil{x == y} if \pythonil{x.a == y.a} and \pythonil{x.b == y.b}.
-\pythonilIdx{\_\_eq\_\_}\pythonIdx{dunder!\_\_eq\_\_} is thus quickly implemented.
-\pythonilIdx{\_\_ne\_\_}\pythonIdx{dunder!\_\_ne\_\_} is its complement for the \pythonilIdx{!=}~operator.
+\dunder{eq} is thus quickly implemented.
+\dunder{ne} is its complement for the \pythonilIdx{!=}~operator.
 \pythonil{x != y} is \pythonil{True} if either \pythonil{x.a != y.a} or \pythonil{x.b != y.b}.
 
 The other four comparison methods can be implemented by remembering how we used the common \pgls{denominator} for addition and subtraction.
@@ -501,7 +501,7 @@ The greater and greater-or-equal operations can be defined the other way around.
 All six comparison operations are defined accordingly in \cref{lst:dunder:fraction:part_5}.
 This time, I omitted \pglspl{doctest} for the sake of space.
 Matter of fact, I have shortened the code and tests in all of the above code snippets.
-For example, we do not check whether the parameters of the initializer \pythonilIdx{\_\_init\_\_} are actually integers (and raise a \pythonilIdx{TypeError} otherwise).
+For example, we do not check whether the parameters of the initializer \dunder{init} are actually integers (and raise a \pythonilIdx{TypeError} otherwise).
 Such checks should then be covered by \pglspl{doctest}.
 You should never omit such checks and tests, because in program code, you \emph{do} have space.
 Your code does not need to fit on book pages\dots
@@ -1328,7 +1328,7 @@ Then, \pythonil{"ABCBA".translate(x)} would yield~\pythonil{"XYZBCBXYZ"}.
 This is very useful to painlessly implement rudimentary support to escape special characters based on the \pgls{xml}~standard~\cite{BPSMM2008EMLX1FE}.
 
 Then we define the \pythonil{class Element}.
-The initializer~\pythonilIdx{\_\_init\_\_} of this class has four important parameters.
+The initializer~\dunder{init} of this class has four important parameters.
 \pythonil{dest}~is a \pythonilIdx{Callable}, i.e., function, that can accept a single string as parameter.
 This will be where all the output of our API is sent to.
 \pythonil{name}~is a string with the name of the element.
@@ -1505,7 +1505,7 @@ So this is actually another example that, at this stage and with what you have l
 .3 \dunder{call}\DTcomment{call an object like a function: \pythonil{a(b, c=d)}~$\cong$~\pythonil{a.\_\_call\_\_(b, c=d)}}.
 }%
 %
-\caption{An overview of the dunder in \python\ (Part~1).}%
+\caption{An overview of the dunder\pythonIdx{dunder} methods in \python\ (Part~1).}%
 \label{fig:pythonDunder:1}%
 \end{figure}%
 %
@@ -1553,7 +1553,7 @@ So this is actually another example that, at this stage and with what you have l
 .3 \dunder{imatmul}\DTcomment{in-place matrix multiplication: \pythonil{a @= b}\pythonIdx{@=}~$\cong$~\pythonil{a.\_\_imatmul\_\_(b)}, returns~\pythonilIdx{self}}.
 }%
 %
-\caption{An overview of the dunder in \python\ (Part~2).}%
+\caption{An overview of the dunder\pythonIdx{dunder} methods in \python\ (Part~2).}%
 \label{fig:pythonDunder:2}%
 \end{figure}%
 %
@@ -1583,9 +1583,12 @@ So this is actually another example that, at this stage and with what you have l
 .3 \dunder{ilshift}\DTcomment{shift left: \pythonil{a <<= b}\pythonIdx{<\myoldstrut<\myoldstrut=}~$\cong$~\pythonil{a.\_\_ilshift\_\_(b)}, returns~\pythonilIdx{self}}.
 }%
 %
-\caption{An overview of the dunder in \python\ (Part~3).}%
+\caption{An overview of the dunder\pythonIdx{dunder} methods in \python\ (Part~3).}%
 \label{fig:pythonDunder:3}%
 \end{figure}%
+%
+Besides the examples mentioned above, there are many more duner methods in \python~\cite{H2024EDMIP}.
+We can only provide an abridged overview in \cref{fig:pythonDunder:1,fig:pythonDunder:2,fig:pythonDunder:3}.
 %
 \FloatBarrier%
 \endhsection%
