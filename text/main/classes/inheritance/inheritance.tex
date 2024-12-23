@@ -1,6 +1,8 @@
 \hsection{Inheritance}%
 \label{sec:inheritance}%
 %
+\hsection{A Hierarchy of Geometric Objects}%
+%
 \begin{figure}[tb]%
 \centering%
 \includegraphics[width=0.985\linewidth]{\currentDir/exampleInheritance}%
@@ -137,5 +139,30 @@ The area computation is implemented using the formula~$A=x_1(y2-y3)+x_2(y_3-y_1)
 
 Notice that both subclasses of \pythonil{Polygon} offer some \pglspl{doctest} in the \pglspl{docstring}.
 While I needed to keep the \pglspl{docstring} short to be able to fit the listings on pages, these \pglspl{doctest} still are instructive for the user.%
+\endhsection%
 %
+\hsection{Summary}%
+In this section, we have discussed how inheritance of classes in \python\ works.
+We used this knowledge to construct a hierarchy of geometric objects in the two-dimensional Euclidean plane.
+While doing this, we saw how methods can be defined in an abstract way in a base class and then implemented and filled with life in a subclass.
+
+What we have seen here, of course in a very abridged manner, is how complex \pglspl{API} can be constructed and implemented.
+In a way, the class \pythonil{Shape} defined an interface for geometric objects.
+This interface defined that each object shall support the two operations \pythonil{area()} and \pythonil{perimeter()}.
+The class \pythonil{Circle} then implements this \pgls{API}, and so do the classes~\pythonil{Triangle} and~\pythonil{Rectangle}.
+
+OK, that was a bit far-fetched.
+But in reality, it actually could be a bit like this.
+
+Imagine that you develop an \pgls{API} for creating graphics programmatically.
+Your \pgls{API} would basically act as a blank canvas.
+It would probably provide a method to draw a rectangle with certain coordinates in a certain color.
+It would probably provide another method to draw a line of a certain width and color connecting two points.
+You could define this as a class with (at least) two methods \pythonil{draw_line} and \pythonil{draw_rectangle}.
+We could then go an implement these methods in a class in such a way that constructs an SVG graphic~\cite{DDGLMSWFJJ2011SVGSSE} in memory.
+Another implementation could instead construct an Adobe~PDF~\cite{A2024WDPM,A2008P3DMPDFP1P1} graphic.
+While doing this would be more complex and exceed the space that we can reasonable use for an example in this book, the principle approach would not be very different from what you have already learned here.%
+\endhsection%
+%
+\FloatBarrier%
 \endhsection%

@@ -8,14 +8,15 @@ We can get string representations for all objects that we can print to the conso
 We can iterate over the elements of objects that represent sequences.
 We can execute objects that represent functions.
 These special functionalities are implemented by so-called \emph{dunder} methods.
-\pythonIdx{dunder}Dunder methods have names that begin and end with two underscores, like~\dunder{init}.
-And indeed, \dunder{init}~is a dunder method, the initializer that creates the attributes of an object.
+\pythonIdx{dunder}\emph{Dunder} stands for \inQuotes{double underscore}, i.e., \pythonilIdx{\_\_}, with which all the names of these special methods begin and end.
+A typical example is the initializer method~\dunder{init}, that creates the attributes of an object.
 
 We already learned that, if we create a subclass of a class, we can define new methods and override existing ones.
 We can do the same with dunder methods.
 This means that we can implement, create, change, and customize all of the functionalities listed above!%
 %
 \hsection{\texttt{\_\_str\_\_}, \texttt{\_\_repr\_\_}, and \texttt{\_\_eq\_\_}}%
+\label{sec:strReprEq}%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{09_dunder}{str_vs_repr.py}{--args format}{dunder:str_vs_repr}{%
 Comparing the \pythonilIdx{str} and \pythonilIdx{repr} representations of integers, strings, lists, and \python's \pythonilIdx{datetime}\pythonIdx{datetime!datetime}\pythonIdx{datetime!datetime!now}\pythonIdx{datetime!UTC} class.}%
@@ -325,6 +326,7 @@ The same dictionary operations as discussed way back in~\cref{sec:dictionaries} 
 \endhsection%
 %
 \hsection{Arithmetic Dunder and Ordering}%
+\label{sec:arithmeticsAndOrder}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_1}{dunder:fraction:part_1}{%
 Part~1 of the \pythonil{Fraction} class: The initializer \dunder{init} and global constants.}%
@@ -532,7 +534,7 @@ Since some fractions, like~$\frac{1}{3}$ and~$\frac{1}{7}$ have never-ending dec
 We will set it to 100 by default.
 
 \gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction_decimal_str_err.py}{--args format --labels part_6}{dunder:fraction_decimal_str_err:part_6}{%
-Part~6 of the \pythonil{Fraction} class: Adding a \pythonil{decimal_str} conversation method.}%
+Part~6 of the \pythonil{Fraction} class: Adding a \pythonil{decimal_str} conversion method.}%
 
 In \cref{lst:dunder:fraction_decimal_str_err:part_6} we present the part of our class \pythonil{Fraction} that contains the code converting the fraction to a decimal string.
 Like all of our code in \pythonil{Fraction}, it takes the straightforward and probably inefficient route.
@@ -1468,7 +1470,7 @@ So this is actually another example that, at this stage and with what you have l
 %
 \dirtree{%
 .1 \pythonilIdx{\_\_}.
-.2 String Representation.
+.2 String Representation, see \cref{sec:strReprEq}.
 .3 \dunder{str}\DTcomment{returns a concise string representation for users; \pythonil{str(a)}\pythonIdx{str}~$\cong$~\pythonil{a.\_\_str\_\_()}}.
 .3 \dunder{repr}\DTcomment{string with all information on the object for programmers; \pythonil{repr(a)}\pythonIdx{repr}~$\cong$~\pythonil{a.\_\_repr\_\_()}}.
 .3 \dunder{format}\DTcomment{used in \pglspl{fstring}: \pythonil{f"\{a:s\}"}~$\cong$~\pythonil{a.\_\_format\_\_(s)}}.
@@ -1478,27 +1480,28 @@ So this is actually another example that, at this stage and with what you have l
 .3 \dunder{float}\DTcomment{convert to \pythonilIdx{float}: \pythonil{float(a)}\pythonIdx{float}~$\cong$~\pythonil{a.\_\_float\_\_()}}.
 .3 \dunder{complex}\DTcomment{convert to \pythonilIdx{complex}: \pythonil{complex(a)}~$\cong$~\pythonil{a.\_\_complex\_\_()}}.
 .3 \dunder{bytes}\DTcomment{convert to \pythonilIdx{bytes}: \pythonil{bytes(a)}~$\cong$~\pythonil{a.\_\_bytes\_\_()}}.
-.2 Hashing.
+.2 Hashing, see \cref{sec:hashDunder}.
 .3 \dunder{hash}\DTcomment{compute an integer value representing this object; \pythonil{hash(a)}~$\cong$~\pythonil{a.\_\_hash\_\_()}}.
-.2 Ordering and Equality.
+.2 Ordering and Equality, see \cref{sec:arithmeticsAndOrder}.
 .3 \dunder{eq}\DTcomment{equality: \pythonil{a == b}\pythonIdx{==}~$\cong$~\pythonil{a.\_\_eq\_\_(b)}}.
 .3 \dunder{ne}\DTcomment{inequality: \pythonil{a != b}\pythonIdx{"!==}~$\cong$~\pythonil{a.\_\_ne\_\_(b)}}.
 .3 \dunder{lt}\DTcomment{less than: \pythonil{a < b}\pythonIdx{<}~$\cong$~\pythonil{a.\_\_lt\_\_(b)}}.
 .3 \dunder{le}\DTcomment{less than or equal: \pythonil{a <= b}\pythonIdx{<=}~$\cong$~\pythonil{a.\_\_le\_\_(b)}}.
 .3 \dunder{gt}\DTcomment{greater than: \pythonil{a > b}\pythonIdx{>}~$\cong$~\pythonil{a.\_\_gt\_\_(b)}}.
 .3 \dunder{ge}\DTcomment{greater than or equal: \pythonil{a >= b}\pythonIdx{>=}~$\cong$~\pythonil{a.\_\_ge\_\_(b)}}.
-.2 Context Managers.
+.2 Context Managers, see \cref{sec:dunder:contextManager}.
 .3 \dunder{enter}\DTcomment{enter a \pythonil{with a as x}\pythonIdx{with} statement, returns the value~\pythonil{x} given to \pythonilIdx{as}}.
 .3 \dunder{exit}\DTcomment{leave a \pythonilIdx{with} statement, receive exception information, returns~\pythonil{False} to re-raise caught exceptions, if any}.
 .2 Collections.
 .3 \dunder{len}\DTcomment{get the number of elements in container; \pythonil{len(a)}\pythonIdx{len}~$\cong$~\pythonil{a.\_\_len\_\_()}}.
 .3 \dunder{contains}\DTcomment{check whether element is present; \pythonil{x in a}\pythonIdx{in}~$\cong$~\pythonil{a.\_\_contains\_\_(x)}}.
-.3 \dunder{iter}\DTcomment{get iterator over elements; \pythonil{iter(a)}\pythonIdx{iter}~$\cong$~\pythonil{a.\_\_iter\_\_()}}.
 .3 \dunder{getitem}\DTcomment{get element at index/key; \pythonil{a[x]}~$\cong$~\pythonil{a.\_\_getitem\_\_(x)}}.
 .3 \dunder{setitem}\DTcomment{set element at index/key; \pythonil{a[x]=y}~$\cong$~\pythonil{a.\_\_setitem\_\_(x, y)}}.
 .3 \dunder{delitem}\DTcomment{delete element at index/key; \pythonil{del a[x]}\pythonIdx{del}~$\cong$~\pythonil{a.\_\_detitem\_\_(x)}}.
-.3 \dunder{reversed}\DTcomment{iterate backwards; \pythonil{reverse(a)}~$\cong$~\pythonil{a.\_\_reversed\_\_()}}.
+.2 Iteration, see \cref{sec:iterable}.
+.3 \dunder{iter}\DTcomment{get iterator over elements; \pythonil{iter(a)}\pythonIdx{iter}~$\cong$~\pythonil{a.\_\_iter\_\_()}}.
 .3 \dunder{next}\DTcomment{get next element from iterator; \pythonil{next(i)}~$\cong$~\pythonil{i.\_\_next\_\_()}}.
+.3 \dunder{reversed}\DTcomment{iterate backwards; \pythonil{reverse(a)}~$\cong$~\pythonil{a.\_\_reversed\_\_()}}.
 .2 Classes.
 .3 \dunder{new}\DTcomment{create a new instance of a class: \pythonil{cls(a, b=c)}~$\cong$~\pythonil{cls.\_\_new\_\_(cls, a, b=c)}, is then followed by~\pythonil{cls.\_\_init\_\_(a, b=c)}}.
 .3 \dunder{init}\DTcomment{initialize an object: \pythonil{cls(a, b=c)}~$\cong$~\pythonil{cls.\_\_init\_\_(a, b=c)}}.
@@ -1515,7 +1518,7 @@ So this is actually another example that, at this stage and with what you have l
 %
 \dirtree{%
 .1 \pythonilIdx{\_\_}.
-.2 Arithmetics.
+.2 Arithmetics, see \cref{sec:arithmeticsAndOrder} for selected examples.
 .3 \dunder{abs}\DTcomment{absolute value: \pythonil{abs(a)}\pythonIdx{abs}~$\cong$~\pythonil{a.\_\_abs\_\_()}}.
 .3 \dunder{minus}\DTcomment{negate: \pythonil{-a}\pythonIdx{-}~$\cong$~\pythonil{a.\_\_minus\_\_()}}.
 .3 \dunder{pos}\DTcomment{positive: \pythonil{+a}\pythonIdx{+}~$\cong$~\pythonil{a.\_\_pos\_\_()}}.
@@ -1535,7 +1538,7 @@ So this is actually another example that, at this stage and with what you have l
 .3 \dunder{pow}\DTcomment{exponential: \pythonil{a ** b}\pythonIdx{**}~$\cong$~\pythonil{a.\_\_pow\_\_(b)}}.
 .3 \dunder{rpow}\DTcomment{right-exponential: \pythonil{a ** b}\pythonIdx{**}~$\cong$~\pythonil{b.\_\_rpow\_\_(a)}, if \pythonil{a.\_\_pow\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
 .3 \dunder{matmul}\DTcomment{matrix-multiply: \pythonil{a @ b}\pythonIdx{@}~$\cong$~\pythonil{a.\_\_matmul\_\_(b)}}.
-.3 \dunder{rmatmul}\DTcomment{right-matrix-multiply: \pythonil{a @ b}\pythonIdx{@}~$\cong$~\pythonil{b.\_\_rmatmul\_\_(a)}, if \pythonil{a.\_\_matmul\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
+.3 \dunder{rmatmul}\DTcomment{right-ma, see \cref{sec:arithmeticsAndOrder}trix-multiply: \pythonil{a @ b}\pythonIdx{@}~$\cong$~\pythonil{b.\_\_rmatmul\_\_(a)}, if \pythonil{a.\_\_matmul\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
 .3 \dunder{divmod}\DTcomment{compute the result of an integer division as well as the remainder and return them as 2-tuple: \pythonil{divmod(a, b)}\pythonIdx{divmod}~$\cong$~\pythonil{a.\_\_divmod\_\_(b)}}.
 .3 \dunder{rdivmod}\DTcomment{right-sided \pythonilIdx{divmod}: \pythonil{divmod(a, b)}\pythonIdx{divmod}~$\cong$~\pythonil{b.\_\_divmod\_\_(a)}, if \pythonil{a.\_\_divmod\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
 .3 \dunder{round}\DTcomment{round: \pythonil{round(a)}\pythonIdx{round}~$\cong$~\pythonil{a.\_\_round\_\_()}}.
@@ -1564,7 +1567,7 @@ So this is actually another example that, at this stage and with what you have l
 %
 \dirtree{%
 .1 \pythonilIdx{\_\_}.
-.2 Logical or Binary Operators.
+.2 Logical or Binary Operators, see~\cref{sec:int:bitstrings}.
 .3 \dunder{and}\DTcomment{and: \pythonil{a & b}\pythonIdx{\&}~$\cong$~\pythonil{a.\_\_and\_\_(b)}}.
 .3 \dunder{rand}\DTcomment{and: \pythonil{a & b}\pythonIdx{\&}~$\cong$~\pythonil{b.\_\_rand\_\_(b)}, if \pythonil{a.\_\_and\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
 .3 \dunder{or}\DTcomment{or: \pythonil{a | b}\pythonIdx{\textbar}~$\cong$~\pythonil{a.\_\_or\_\_(b)}}.
@@ -1589,8 +1592,87 @@ So this is actually another example that, at this stage and with what you have l
 %
 Besides the examples mentioned above, there are many more duner methods in \python~\cite{H2024EDMIP}.
 We can only provide an abridged overview in \cref{fig:pythonDunder:1,fig:pythonDunder:2,fig:pythonDunder:3}.
+
+From \cref{fig:pythonDunder:1} we learn that there are three string representation dunder functions.
+We already discussed \dunder{str} and \dunder{repr} in \cref{sec:strReprEq}.
+The former provides a brief and human-readable string representation of an object, suitable for end users.
+The latter, \dunder{repr}, is instead intended for fellow programmers and debugging purposes.
+The third function, \dunder{format}, allows us to define special formats that can be used, for example, in \pglspl{fstring}.
+
+We can allow our objects to be converted to simple types by specifying dunder methods.
+Technical, \dunder{str} and \dunder{repr} are type conversions to \pythonil{str}.
+We can also provide \dunder{int}, \dunder{float}, and \dunder{bool} functions that should return, well, instances of \pythonil{int}, \pythonil{float}, or~\pythonil{bool}, if our objects can be represented as such.
+The \dunder{bool} function is special here:
+It is used in conditional expressions, such as \pythonil{while} loops or in \pythonil{if} statements.
+For the common collection classes, it is implemented such that \dunder{bool} of an empty collection yields~\pythonil{False} and a non-empty one returns~\pythonil{True}.
+\pythonilIdx{NoneType} implements it to return~\pythonil{False}, so \pythonil{None.__bool__()}, which is the same as \pythonil{bool(None)}, yields~\pythonil{False}.
+Numeric types usually implement it to return \pythonil{False} if the number is zero and~\pythonil{True} otherwise.
+Besides Boolean, strings, and the basic numeric types, conversion functions can also be implemented for the numeric type~\pythonilIdx{complex} for complex numbers as well as for arrays of \pythonil{bytes}, both of which we will not discuss here.
+
+We already discussed the comparison / total ordering dunder methods \dunder{eq}, \dunder{ne}, \dunder{lt}, \dunder{le}, \dunder{gt}, and~\dunder{ge} in-depth in \cref{sec:arithmeticsAndOrder}.
+Similarly, we provided a comprehensive example on context managers and the corresponding special methods in \cref{sec:dunder:contextManager}.
+
+Much of the syntax of \python\ is governed via dunder methods.
+This also holds for convenient shorthands, like the \pythonil{[...]}\pythonIdx{[\idxdots]}~bracket access to elements or the \pythonilIdx{in} and \pythonilIdx{for}~keywords.
+Back in \cref{sec:collections}, we learned about the various basic collection classes that \python\ provides, ranging from dictionaries over sets to lists.
+Maybe we want to implement our own collection?
+It maybe could be a tree datastructure, for example.
+In this case, we would first like to support the \pythonilIdx{len}~function, which returns the number of elements stored in the collection, by implementing~\dunder{len}.
+We maybe also want to support the \pythonil{in}~keyword, allowing us to check whether an element~\pythonil{e} is in a collection~\pythonil{c} by writing~\pythonil{e in c}.
+This can be done by implementing~\dunder{contains}.
+
+The convenient way to access elements of lists and dictionaries via the \pythonil{[...]}\pythonIdx{[\idxdots]}~bracket notation can be implemented as well.
+For reading, the \dunder{getitem} method would receive as parameter the index or key and should return the corresponding element.
+For writing, the \dunder{setitem} method receives both the index/key and the element to be stored at that index/key as parameter.
+Additionally, \dunder{delitem} can be implemented to allow removing the element corresponding to a given key or index.
+
+An important feature of \python\ is the ability to iterate over sequences, which we discussed in \cref{sec:iteration}.
+The \pythonilIdx{iter} function applied to a collection~\pythonil{c} returns an \pythonilIdx{Iterator}.
+It does so by calling~\pythonil{c.\_\_iter\_\_()}\pythonIdx{\_\_iter\_\_}\pythonIdx{dunder!\_\_iter\_\_}.
+By implementing this function, we turn our collections into instances of~\pythonilIdx{Iterable} and can use our collection in \pythonilIdx{for}~loops.
+The \pythonilIdx{Iterator}~object returned by \dunder{iter} then must implement the~\dunder{next} method, which is invoked by~\pythonilIdx{next}.
+Finally, the \dunder{reversed} dunder method should return an \pythonilIdx{Iterator} iterating over the collection~\pythonil{c} \emph{backwards}, which would be returned by~\pythonil{reversed(c)}\pythonIdx{reversed}.
+
+While we implemented several arithmetic dunder methods for our \pythonil{Fractions} class in \cref{sec:arithmeticsAndOrder}, \cref{fig:pythonDunder:2} shows us that there are \emph{many} more.
+The unary methods \dunder{abs}, \dunder{minus}, and \dunder{pos} allow us to implement the computation of the absolute value and the negated variant of a number, as well as the rather obscure unary plus.
+There are dunder methods for basically all binary arithmetic operators, ranging from \pythonilIdx{+}, \pythonilIdx{-}, \pythonilIdx{*}, \pythonilIdx{/}, \pythonilIdx{//}, \pythonilIdx{\%}, to~\pythonilIdx{**} and even the matrix multiplication operator~\pythonilIdx{@}.
+Interestingly, these methods always exist in two variants, the plain one and one prefixed with~\inQuotes{\pythonil{r}.}
+For example, when evaluating the expression~\pythonil{a + b}, \python\ will look whether \pythonil{a}~implements \dunder{add}.
+If so, it will call \pythonil{a.\_\_add\_\_(b)}.
+If the return value of that method is different from \pythonilIdx{NotImplemented}, then this becomes the result of~\pythonil{a + b}.
+If either \dunder{add} is not implemented by~\pythonil{a} or if it returns~\pythonilIdx{NotImplemented}, then the \python\ interpreter will check whether \pythonil{b}~implements~\dunder{radd}.
+If so, then it will invoke~\pythonil{b.\_\_radd\_\_(a)}.
+If this method does not return~\pythonilIdx{NotImplemented}, then its return value becomes the result of~\pythonil{a + b}.
+If it does return~\pythonilIdx{NotImplemented} or if~\pythonil{b} does not implement~\dunder{radd}, then a \pythonilIdx{TypeError} is raised.
+The same schematic exists for the other operators as well.
+
+This allows us to develop new mathematical types independent from existing ones and support mixing them in arithmetic expressions with existing types.
+For example, the existing datatype~\pythonil{int} certainly would not have \dunder{add} implemented in a way that can handle our \pythonil{Fraction} class.
+How could it?
+Nobody could have guessed that we would create our own class for rational numbers.
+However, we could have implemented \dunder{radd} in a way that handles~\pythonils{int}.
+In that case, doing something like~\pythonil{5 + Fraction(3, 5)} would work.
+
+Besides these mathematical operators for useage in expressions, there are also in-place variants.
+They are usually prefixed with~\inQuotes{\pythonil{i}.}
+For example, \dunder{iadd} corresponds to the~\pythonil{+=} operator.
+Doing \pythonil{a += b} would invoke~\pythonil{a.\_\_iadd\_\_(b)}, which then should update the value of~\pythonil{a} to be the sum of~\pythonil{a} and~\pythonil{b}.
+
+Finally, \cref{fig:pythonDunder:3} lists the dunder methods for operators such as~\pythonilIdx{\&}, \pythonil{|}\pythonIdx{\textbar}, \pythonil{\^}\pythonIdx{\textasciicircum}, \pythonil{>>}\pythonIdx{>\strut>}, and \pythonil{<<}\pythonIdx{<\strut<}, which we learned about when we first got in touch with integer numbers in~\cref{sec:int:bitstrings}.
+These dunder methods follow the same schematic as those for arithmetics and also have \inQuotes{\pythonil{r}} and \inQuotes{\pythonil{i}}~variants.
+
+Even more dunder methods are listed in the comprehensive overview~\cite{H2024EDMIP}.
 %
-\FloatBarrier%
+%\FloatBarrier%
 \endhsection%
 %
+\hsection{Summary}%
+Much of \python's syntax is implemented by the special methods, also called magical methods, or \emph{dunder} methods.
+The \emph{dunder} stands for \emph{double underscore}, because the names of such methods begins and ends with~\pythonilIdx{\_\_}.
+
+Knowing about dunder methods allows us to create classes which can seamlessly be used in arithmetic expressions, in \pythonilIdx{with}~statements, as sequences to iterate over with \pythonilIdx{for}~loops, that support indexing with~\pythonil{[...]}\pythonIdx{[\idxdots]}.
+By implementing dunder methods, we can use the \python\ syntax to construct new collections, support more complex mathematical structures, ensure that resources are properly managed (and eventually disposed), or create elegant and concise APIs.%
+\endhsection%
+%
+\FloatBarrier%
 \endhsection%
