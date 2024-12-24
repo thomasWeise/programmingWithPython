@@ -256,7 +256,7 @@ breaklines=true%
 \protected\gdef\gitPythonAndOutputFormatDefault{\gitPythonAndOutputFormat{text_style}}%
 \gitPythonAndOutputFormatDefault%
 %
-%% Use latexgit to place a listing with code and the program output.
+%% Use latexgit to place a listing with Python code and the program output.
 %% #1 the git repository
 %% #2 the path to the directory
 %% #3 the path to the file inside the directory
@@ -282,6 +282,32 @@ $\downarrow$~~\expandafter\bashil{python3 #3}~~$\downarrow$%
 %
 \edef\@@@@gitOutputFmt{\csname @gitPythonAndOutputFormat:exec:#5\endcsname}%
 \lstinputlisting[label={exec:#5},style=\@@@@gitOutputFmt,caption={The \gls{stdout} of the program~\href{\csname @pwp@gitUrl:lst:#5\endcsname}{\textil{#3}} given in~\cref{lst:#5}.}]{\csname @pwp@gitFile:exec:#5\endcsname}%
+\end{figure}%
+}%
+%
+%% Use latexgit to place a listing with Bash code and the program output.
+%% #1 the git repository
+%% #2 the path to the directory
+%% #3 the path to the file inside the directory
+%% #4 the label (lst: will be prepended to the program, exec: will be
+%%    pre-pended to the output)
+%% #5 the caption
+\protected\gdef\gitBashAndOutput#1#2#3#4#5{%
+%
+\gitLoad{#1}{#2/#3}{}%
+\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitUrl:lst:#4\endcsname{\gitUrl}%
+\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:lst:#4\endcsname{\gitFile}%
+\gitExec{#1}{#2}{bash #3}%
+\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:exec:#4\endcsname{\gitFile}%
+%
+\begin{figure}[tb]%
+\centering%
+\lstinputlisting[label={lst:#4},style=bash_style,caption={#5~(stored in file~\href{\csname @pwp@gitUrl:lst:#4\endcsname}{\textil{#3}}; output in~\cref{exec:#4})}]{\csname @pwp@gitFile:lst:#4\endcsname}%
+%
+$\downarrow$~~\expandafter\bashil{bash #3}~~$\downarrow$%
+%
+\edef\@@@@gitOutputFmt{\csname @gitPythonAndOutputFormat:exec:#4\endcsname}%
+\lstinputlisting[label={exec:#4},style=tool_style,caption={The \gls{stdout} of the program~\href{\csname @pwp@gitUrl:lst:#4\endcsname}{\textil{#3}} given in~\cref{lst:#4}.}]{\csname @pwp@gitFile:exec:#4\endcsname}%
 \end{figure}%
 }%
 %
