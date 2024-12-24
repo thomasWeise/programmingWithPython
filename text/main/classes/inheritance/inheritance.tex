@@ -135,7 +135,7 @@ The inherited \pythonil{perimeter} method would instead iterate over all four po
 The class \pythonil{Triangle} is implemented in very much the same fashion.
 This time, we need to store all three corner points (and also return all of them in the \pythonil{points}~method implementation).
 There also is no better way for computing the perimeter than what \pythonil{Polygon} already provides, so we this time do not override~\pythonil{perimeter}.
-The area computation is implemented using the formula~$A=x_1(y2-y3)+x_2(y_3-y_1)+x_3(y_1-y_2)$ you probably remember from high school maths.
+The area computation is implemented using the formula~$A=x_1(y_2-y_3)+x_2(y_3-y_1)+x_3(y_1-y_2)$ you probably remember from high school maths.
 
 Notice that both subclasses of \pythonil{Polygon} offer some \pglspl{doctest} in the \pglspl{docstring}.
 While I needed to keep the \pglspl{docstring} short to be able to fit the listings on pages, these \pglspl{doctest} still are instructive for the user.%
@@ -161,7 +161,7 @@ It would probably provide another method to draw a line of a certain width and c
 You could define this as a class with (at least) two methods \pythonil{draw_line} and \pythonil{draw_rectangle}.
 We could then go an implement these methods in a class in such a way that constructs an SVG graphic~\cite{DDGLMSWFJJ2011SVGSSE} in memory.
 Another implementation could instead construct an Adobe~PDF~\cite{A2024WDPM,A2008P3DMPDFP1P1} graphic.
-While doing this would be more complex and exceed the space that we can reasonable use for an example in this book, the principle approach would not be very different from what you have already learned here.%
+While doing this would be more complex and exceed the space that we can reasonable use for an example in this book, the principle of the approach would not be very different from what you have already learned here.%
 \endhsection%
 %
 \FloatBarrier%
