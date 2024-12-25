@@ -220,6 +220,16 @@ Modulo division is mentioned in \cref{sec:int,sec:floatarith}.%
 }%
 %
 %
+\newglossaryentry{package}{%
+name={package},%
+description={%
+A \python\ package is basically a directory containing \python\ files. %
+This allows us to group functionality together as a library that can be used by different applications. %
+Many popular \python\ packages are offered as open source at \pgls{pypi} and can be installed with~\pip, which we discuss in \cref{sec:pipAndVenv}.%
+}%
+}%
+%
+%
 \newglossaryentry{regexp}{%
 name={regular expression},%
 description={%
@@ -366,6 +376,17 @@ description={%
 A \acrfull{VCS} is a software which allows you to manage and preserve the historical development of your program code~\cite{T2024BGAGVCPMATFTND}. %
 A distributed \pgls{VCS} allows multiple users to work on the same code and upload their changes to the server, which then preserves the change history.
 The most popular distributed \pgls{VCS} is \pgls{git}.%
+}%
+}%
+%
+%
+\newglossaryentry{virtualEnvironment}{%
+name={virtual environment},%
+description={%
+A virtual environment is a directory that contains a local \python\ installation~\cite{PSF2024VEAP,PEP405}. %
+It comes with its own package installation directory. %
+Multiple different virtual environments can be installed on a system. %
+This allows different applications to use different versions of the same packages without conflict, because we can simply install these applications into different \pglspl{virtualEnvironment}.%
 }%
 }%
 %

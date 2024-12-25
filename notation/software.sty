@@ -5,13 +5,26 @@
 \protected\gdef\softwareStyle#1{\scalebox{0.95}[1]{\texttt{#1}}}%
 %
 %
+\newglossaryentry{aptGet}{%
+text={\softwareStyle{apt\nobreakdashes-get}},%
+name={apt-get},%
+sort={apt-get},%
+description={%
+\bashil{apt-get} is a command used to install Debian~\textil{deb} packages under \ubuntu\ \linux~\cite{H2022LML,SFLR2009LIAN,VV2022LF}. %
+Using \bashil{apt-get} requires superuser privileges~(\pgls{sudo}), i.e., one usually does \bashil{sudo apt-get install...}. %
+Learn more at \url{https://salsa.debian.org/apt-team/apt}.%
+}%
+}%
+\protected\gdef\aptGet{\pgls{aptGet}}%
+%
+%
 \newglossaryentry{bash}{%
 text={\softwareStyle{Bash}},%
 name={Bash},%
 sort={Bash},%
 description={%
 is a the shell used under \ubuntu\ \linux, i.e., the program that \inQuotes{runs} in the \pgls{terminal} and interprets your commands, allowing you to start and interact with other programs~\cite{NR2005LTBSUSPCB3,Z2017MB,BN2018BC}. %
-Learn more at \url{https://www.gnu.org/software/bash/}.%
+Learn more at \url{https://www.gnu.org/software/bash}.%
 }%
 }%
 \protected\gdef\bash{\pgls{bash}}%
@@ -35,10 +48,10 @@ text={\softwareStyle{Linux}},%
 name={Linux},%
 sort={Linux},%
 description={%
-is the leading open source operating system, i.e., a free alternative for \windows~\cite{T1999TLE,B2022ELATCL,H2022LML}. %
+is the leading open source operating system, i.e., a free alternative for \windows~\cite{T1999TLE,B2022ELATCL,H2022LML,SFLR2009LIAN,VV2022LF}. %
 Its variant \ubuntu\ is particularly easy to use and install. %
 We recommend using it for this course, for software development, and for research. %
-Learn more at \url{https://www.linux.org/}.%
+Learn more at \url{https://www.linux.org}.%
 }%
 }%
 \protected\gdef\linux{\pgls{linux}}%
@@ -87,7 +100,7 @@ name={NumPy},%
 sort={NumPy},%
 description={%
 is a fundamental package for scientific computing with \python, which offers efficient array datastructures~\cite{HMvdWGVCWTBSKPHvKBHFdRWPGMSRWAGO2020APWN,DBvR2024ITN,J2018NPSCADSAWNSAM}. %
-Learn more at \url{https://numpy.org/}.%
+Learn more at \url{https://numpy.org}.%
 }%
 }%
 \protected\gdef\numpy{\pgls{numpy}}%
@@ -111,7 +124,7 @@ name={pip},%
 sort={pip},%
 description={%
 \pythonIdx{pip}%
-is the standard tool to install \python\ software packages from the \pgls{pypi} repository~\cite{PSF2024IPM}. %
+is the standard tool to install \python\ software packages from the \pgls{pypi} repository~\cite{PSF2024IPM,PD2024PD}. %
 To install a package \bashil{thepackage} hosted on \pgls{pypi}, type \bashil{pip install thepackage} into the \pgls{terminal}. %
 Learn more at \url{https://packaging.python.org/installing}.%
 }%
@@ -268,6 +281,19 @@ If you are in China, you can download it from \expandafter\url{\ubuntuDownloadUr
 }%
 \protected\gdef\ubuntu{\pgls{ubuntu}}%
 \xdef\ubuntuDownloadUrl{https://mirrors.ustc.edu.cn/ubuntu-releases}%
+%
+%
+\newglossaryentry{venv}{%
+text={\softwareStyle{venv}},%
+name={venv},%
+sort={venv},%
+description={%
+\pythonIdx{venv}%
+is a \python\ module and tool for creating \pglspl{virtualEnvironment}~\cite{PSF2024VCOVE}. %
+Learn more at \url{https://docs.python.org/3/library/venv.html}~\cite{PSF2024VCOVE}.%
+}%
+}%
+\protected\gdef\venv{\pgls{venv}}%
 %
 %
 \newglossaryentry{windows}{%

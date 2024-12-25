@@ -127,6 +127,7 @@
 @string { a_feng_yu = "Yu Feng" }
 @string { a_fernandez_del_rio_jaime = "Jaime {Fern{\'a}ndez del R{\'i}o}" }
 @string { a_ferraiolo_jon = "Jon Ferraiolo" }
+@string { a_figgins_stephen = "Stephen Figgins" }
 @string { a_filaseta_michael = "Michael Filaseta" }
 @string { a_finucane_stephen = "Stephen Finucane" }
 @string { a_fitzpatrick_richard = "Richard Fitzpatrick" }
@@ -243,6 +244,7 @@
 @string { a_lin_zeming = "Zeming Lin" }
 @string { a_liu_yuxi = "Yuxi Liu" }
 @string { a_lotha_gloria = "Gloria Lotha" }
+@string { a_love_robert = "Robert Love" }
 @string { a_lownds_tony = "Tony Lownds" }
 @string { a_loy_marc = "Marc Loy" }
 @string { a_luce_laurent = "Laurent Luce" }
@@ -261,6 +263,7 @@
 @string { a_mdn_contributors = "{{MDN}~Contributors}" }
 @string { a_mejia_alvarez_pedro = "Pedro {Mejia Alvarez}" }
 @string { a_mendoza_mark = "Mark Mendoza" }
+@string { a_meyer_carl = "Carl Meyer" }
 @string { a_michel_vincent = "Vincent Michel" }
 @string { a_mikkonen_tommi = "Tommi Mikkonen" }
 @string { a_millman_jarrod_k = "K.\ Jarrod Millman" }
@@ -309,6 +312,7 @@
 @string { a_pfeiffer_silvia = "Silvia Pfeiffer" }
 @string { a_phalgun_amit = "Amit Phalgun" }
 @string { a_picus_matti = "Matti Picus" }
+@string { a_pip_developers = "\pip\ developers" }
 @string { a_polat_ilhan = "Ilhan Polat" }
 @string { a_pollard_tom_j = "Tom J.\ Pollard" }
 @string { a_pomerance_carl = "Carl Pomerance" }
@@ -325,6 +329,7 @@
 @string { a_riesel_hans = "Hans Riesel" }
 @string { a_ritter_frank_e = "Frank E. Ritter" }
 @string { a_rivest_ronald_linn = "Ronald Linn Rivest" }
+@string { a_robbins_arnold = "Arnold Robbins" }
 @string { a_robertson_edmund_f = "Edmund F.\ Robertson" }
 @string { a_robson_eleanor = "Eleanor Robson" }
 @string { a_rocha_linoln_s = "Lincoln S.\ Rocha" }
@@ -360,6 +365,7 @@
 @string { a_sheppart_kevin = "Kevin Sheppard" }
 @string { a_shewchuk_jonathan_richard = "Jonathan Richard Shewchuk" }
 @string { a_shimizukawa_takayuki = "Takayuki Shimizukawa" }
+@string { a_siever_ellen = "Ellen Siever" }
 @string { a_sigler_laurence_e = "Laurence E.\ Sigler" }
 @string { a_silberschatz_avi = "Avi Silberschatz" }
 @string { a_silva_sara = "Sara Silva" }
@@ -401,6 +407,7 @@
 @string { a_van_mulbregt_paul = "Paul {van Mulbregt}" }
 @string { a_van_rossum_guido = "Guido {van Rossum}" }
 @string { a_van_rysdam = "Peter {van Rysdam}" }
+@string { a_van_vugt_sander = "Sander {van Vugt}" }
 @string { a_varoquaux_gael = "Ga{\"e}l Varoquaux" }
 @string { a_varro_daniel = "D{\'a}niel Varr{\'o}" }
 @string { a_vasilescu_bogdan = "Bogdan Vasilescu" }
@@ -588,6 +595,7 @@
 @string { p_payhip = "{Payhip}" }
 @string { p_pearson_education = "{Pearson Education,~Inc.}" }
 @string { p_microsoft_press = "{Microsoft Press}, " # p_pearson_education }
+@string { p_pearson_it_certification = "{Pearson {IT} Certification}" }
 @string { p_plos = "{Public Library of Science~{(PLOS)}}" }
 @string { p_pragmatic_ai_labs = "{Pragmatic {AI} Labs}" }
 @string { p_pragmatic_bookshelf = "{{Pragmatic Bookshelf} {by} {The Pragmatic Programmers, {L.L.C.}}}" }
@@ -681,6 +689,7 @@
 @string { pa_payhip = l_uk_london }
 @string { pa_pearson_education = l_usa_hoboken }
 @string { pa_microsoft_press = pa_pearson_education }
+@string { pa_pearson_it_certification = pa_pearson_education }
 @string { pa_plos = l_usa_san_francisco }
 @string { pa_pragmatic_ai_labs = l_usa_san_francisco }
 @string { pa_pragmatic_bookshelf = l_usa_flower_mound }
@@ -1406,9 +1415,9 @@
 }
 
 @book{CN2020ULB,
+ author = a_clinton_david # and # a_negus_christopher,
  title = {\ubuntu\ \linux\ Bible},
  edition = {10},
- author = a_clinton_david # and # a_negus_christopher,
  date = {2020-11-10},
  isbn = {978-1119722335},
  xdata = {ser_bs},
@@ -2309,6 +2318,23 @@
  urldate = {2024-09-24}
 }
 
+@book{PD2024PD,
+ title = {\pip\ Documentation~v24.3.1},
+ author = a_pip_developers,
+ date = {2024-10-27},
+ publisher = p_python_software_foundation,
+ address = pa_python_software_foundation,
+ url = {https://pip.pypa.io},
+ urldate = {2024-12-25},
+}
+
+@inbook{PD2024RFF,
+ title = {Requirements File Format},
+ crossref = {PD2024PD},
+ url = {https://pip.pypa.io/en/stable/reference/requirements-file-format},
+ urldate = {2024-12-25},
+}
+
 @techreport{PEP8,
  title = {Style Guide for \python\ Code},
  author = a_van_rossum_guido # and # a_warsaw_barry # and # a_coghlan_alyssa,
@@ -2416,6 +2442,16 @@
  number = {362},
  url = {https://peps.python.org/pep-0362},
  urldate = {2024-12-12},
+}
+
+@techreport{PEP405,
+ author = a_meyer_carl,
+ title = {\python\ \glslink{virtualEnvironment}{Virtual Environments}},
+ number = {405},
+ xdata = {rep_pep},
+ date = {2011-06-13/2012-05-24},
+ url = {https://peps.python.org/pep-0405},
+ urldate = {2024-12-25},
 }
 
 @techreport{PEP482,
@@ -2955,6 +2991,21 @@
  urldate = {2024-12-15},
 }
 
+@inbook{PSF2024VCOVE,
+ title = {\pythonilIdx{venv} -- Creation of \glslink{virtualEnvironment}{Virtual Environments}},
+ xdata = {PSF2024TPSL},
+ url = {https://docs.python.org/3/library/venv.html},
+ urldate = {2024-12-25},
+}
+
+@inbook{PSF2024VEAP,
+ title = {Virtual Environments and Packages},
+ chapter = {12},
+ xdata = {PSF2024TPT},
+ url = {https://docs.python.org/3/tutorial/venv.html},
+ urldate = {2024-12-24},
+}
+
 @xdata{PSF2024WNIP,
  volume = {What's New in \python},
  crossref = {PSF2024P3D}
@@ -3184,14 +3235,6 @@
  urldate = {2024-12-12},
 }
 
-@book{SD2024SIDFD,
- author = a_sphinx_developers,
- title = {\pythonilIdx{sphinx.ext.autodoc} -- Include Documentation from \pglspl{docstring}},
- date = {2024-10-13},
- url = {https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html},
- urldate = {2024-12-12},
-}
-
 @book{SCL1999TNCOTMACAC,
  title = {The Nine Chapters on the Mathematical Art:~{C}ompanion and Commentary},
  author = a_shen_kangshen # and # a_crossley_john_newsome # and # a_lun_anthony_w_c,
@@ -3200,6 +3243,14 @@
  date = {1999-10-07},
  publisher = p_oxford_university_press,
  address = pa_oxford_university_press
+}
+
+@book{SD2024SIDFD,
+ author = a_sphinx_developers,
+ title = {\pythonilIdx{sphinx.ext.autodoc} -- Include Documentation from \pglspl{docstring}},
+ date = {2024-10-13},
+ url = {https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html},
+ urldate = {2024-12-12},
 }
 
 @article{SF2013ASROSR,
@@ -3213,6 +3264,16 @@
  doi = {10.1016/J.INFSOF.2012.06.002},
  url = {http://robertfeldt.net/publications/shahrokni_2013_sysrev_robustness.pdf},
  urldate = {2024-10-29},
+}
+
+@book{SFLR2009LIAN,
+ author = a_siever_ellen # and # a_figgins_stephen # and # a_love_robert # and # a_robbins_arnold,
+ title = {\linux\ in a Nutshell},
+ edition = {6},
+ date = {2009-09},
+ publisher = p_oreilly,
+ address = pa_oreilly,
+ isbn = {9780596154486},
 }
 
 @book{SKS2019DSC,
@@ -3359,6 +3420,16 @@
  number = {90120-1a},
  url = {https://www.python.org/doc/essays/cp4e},
  urldate = {2024-06-27}
+}
+
+@book{VV2022LF,
+ author = a_van_vugt_sander,
+ title = {\linux\ Fundamentals},
+ edition = {2},
+ date = {2022-06},
+ isbn = {0137929315},
+ publisher = p_pearson_it_certification,
+ address = pa_pearson_it_certification
 }
 
 @inproceedings{VVH2018ELDOSAIOSPACSOTPE,
