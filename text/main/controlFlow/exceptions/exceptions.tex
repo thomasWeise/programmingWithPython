@@ -109,10 +109,10 @@ Instead, the input of our functions should be checked for validity (where reason
 %
 \hsection{Raising Exceptions}%
 %
-\gitPython{\programmingWithPythonCodeRepo}{06_exceptions/sqrt_raise.py}{--args format}{exceptions:sqrt_raise}{%
+\gitPython{\programmingWithPythonCodeRepo}{exceptions/sqrt_raise.py}{--args format}{exceptions:sqrt_raise}{%
 A new variant of the \pythonil{sqrt} function from back in \cref{lst:functions:my_math_2} that raises an \pythonilIdx{ArithmeticError} if its input is non-finite or negative.}%
 %
-\gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{06_exceptions}{use_sqrt_raise.py}{--args format}{exceptions:use_sqrt_raise}{%
+\gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{exceptions}{use_sqrt_raise.py}{--args format}{exceptions:use_sqrt_raise}{%
 Using the new variant of the \pythonil{sqrt} function from \cref{lst:exceptions:sqrt_raise} that raises an \pythonilIdx{ArithmeticError} if its input is non-finite or negative.}%
 %
 Let us now first look at an example of how we can signal an error condition in our code.
@@ -174,10 +174,10 @@ It begins with the line \textil{Traceback (most recent call last):}.
 In the first line following this text, the source code file and the index of the line in that file where the exception was originally raised are printed.
 Notice that the actual path to the files will be different depending on where the source code of the examples is located.
 We replaced the variable part of the path with~\inQuotes{\{\dots\}}.
-The remaining part of the path, \textil{06_exceptions/use_sqrt_raise.py}, clearly points out the calling program as the culprit \cref{lst:exceptions:use_sqrt_raise}.
+The remaining part of the path, \textil{exceptions/use_sqrt_raise.py}, clearly points out the calling program as the culprit \cref{lst:exceptions:use_sqrt_raise}.
 Indeed, the following line of text identifies that instruction in \cref{lst:exceptions:use_sqrt_raise} that caused the error and even marks the offending function invocation by underlining it with \textil{{^}{^}{^}{^}{^}{^}{^}{^}{^}{^}{^}{^}}.
 Below that, we get to see the context of our \pythonil{sqrt} function:
-First, the path to its module is given (ending in \textil{06_exceptions/sqrt_raise.py}) and it is pointed out that the exception was raised in line~15.
+First, the path to its module is given (ending in \textil{exceptions/sqrt_raise.py}) and it is pointed out that the exception was raised in line~15.
 This line of code is then also given, and it indeed is the one starting with \pythonil{raise ArithmeticError}.
 The \pgls{stackTrace} therefore shows us exactly where the error happened and from where the code causing the error was called.%
 %
@@ -244,7 +244,7 @@ next statement  # Executed only if there are no uncaught Exceptions.
 \end{pythonSyntax}
 \FloatBarrier%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{06_exceptions}{try_except_str_index.py}{--args format}{exceptions:try_except_str_index}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{exceptions}{try_except_str_index.py}{--args format}{exceptions:try_except_str_index}{%
 The \pythonil{index}\pythonIdx{str!index} function of a string raises a \pythonilIdx{ValueError} if it cannot find the given substring. %
 Here we catch this error in a \pythonilIdx{try}\idxdots\pythonilIdx{except} block.}%
 %
@@ -293,7 +293,7 @@ Only \pythonilsIdx{Exception} should be caught by \pythonilIdx{except} blocks th
 The \pythonilIdx{except} block is not to be used to just catch any exception, to implement \gls{GIGO}, or to try to sanitize erroneous input.%
 }%
 %
-\gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{06_exceptions}{try_multi_except.py}{--args format}{exceptions:try_multi_except}{%
+\gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{exceptions}{try_multi_except.py}{--args format}{exceptions:try_multi_except}{%
 The handling of multiple errors, namely \pythonilIdx{ZeroDivisionError} and \pythonilIdx{ArithmeticError}, as well as what happens if a variable remains unassigned due to an error (a \pythonilIdx{NameError} is raised).}%
 %
 In \cref{lst:exceptions:try_multi_except}, we revisit our new \pythonil{sqrt} function.
@@ -336,7 +336,7 @@ Therefore, no variable assignments or other side-effects can take place anymore 
 %
 \hsection{Exceptions in Exception Handlers}%
 %
-\gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{06_exceptions}{try_except_nested_1.py}{--args format}{exceptions:try_except_nested_1}{%
+\gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{exceptions}{try_except_nested_1.py}{--args format}{exceptions:try_except_nested_1}{%
 An example of \pythonils{Exception} being raised inside an \pythonilIdx{except} block.}%
 %
 What happens if an exception is raised \emph{inside} an \pythonilIdx{except} block?
@@ -352,7 +352,7 @@ It then informs us that \textil{During handling of the above exception, another 
 Then it prints the \pgls{stackTrace} of the new exception that occurred inside the \pythonilIdx{except} block.
 Since there is no code for handling this error, our process terminates with \pgls{exitCode}~1.
 
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{06_exceptions}{try_except_nested_2.py}{--args format}{exceptions:try_except_nested_2}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{exceptions}{try_except_nested_2.py}{--args format}{exceptions:try_except_nested_2}{%
 An example of nested \pythonilIdx{try}-\pythonilIdx{except} blocks, as an improvement over \cref{lst:exceptions:try_except_nested_1}.}%
 %
 It is of course possible that an error that we normally can handle may cause another error.
@@ -382,7 +382,7 @@ else:
 next statement  # Executed only if there are no uncaught Exceptions.
 \end{pythonSyntax}
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{06_exceptions}{try_except_else.py}{--args format}{exceptions:try_except_else}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{exceptions}{try_except_else.py}{--args format}{exceptions:try_except_else}{%
 An example of the \pythonilIdx{try}-\pythonilIdx{except}-\pythonilIdx{else} block which is structured a bit similar to \cref{lst:exceptions:try_multi_except} but avoids the \pythonilIdx{NameError} by placing the access to the variables into the \pythonilIdx{else} blocks.}%
 %
 In \cref{lst:exceptions:try_except_else}, we present an example of the \pythonilIdx{try}-\pythonilIdx{except}-\pythonilIdx{else} block.
@@ -438,10 +438,10 @@ finally:  # The **optional** finally block.
 next statement  # Executed only if there are no uncaught Exceptions.
 \end{pythonSyntax}
 %
-\gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{06_exceptions}{try_except_else_finally.py}{--args format}{exceptions:try_except_else_finally}{%
+\gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{exceptions}{try_except_else_finally.py}{--args format}{exceptions:try_except_else_finally}{%
 An example for the \pythonilIdx{try}-\pythonilIdx{except}-\pythonilIdx{else}-\pythonilIdx{finally} block.}%
 %
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/mypy.sh 06_exceptions try_except_else_finally.py}{exceptions:try_except_else_finally:mypy}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh exceptions try_except_else_finally.py}{exceptions:try_except_else_finally:mypy}{%
 The results of static type checking with \mypy\ of the program given in \cref{lst:exceptions:try_except_else_finally}.}
 %
 \begin{sloppypar}%
@@ -507,13 +507,13 @@ It again prints the \pgls{stackTrace}, which informs us which error occured and 
 \hsection{The \texttt{with} Block and Context Managers}%
 \label{sec:withAndContextManagers}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{06_exceptions}{file_try_finally.py}{--args format}{exceptions:file_try_finally}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{exceptions}{file_try_finally.py}{--args format}{exceptions:file_try_finally}{%
 Using \pythonilIdx{try}-\pythonilIdx{finally} for closing files after writing to and reading from them\pythonIdx{os!remove}\pythonIdx{remove}\pythonIdx{close}\pythonIdx{IO}\pythonIdx{IO!close}\pythonIdx{IO!write}\pythonIdx{write}\pythonIdx{readline}\pythonIdx{IO!readline}.}%
 %
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/ruff.sh 06_exceptions file_try_finally.py}{exceptions:file_try_finally:ruff}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh exceptions file_try_finally.py}{exceptions:file_try_finally:ruff}{%
 The output of \ruff\ when applied to \cref{lst:exceptions:file_try_finally}: It suggests using context managers instead of \pythonilIdx{try}-\pythonilIdx{finally}\pythonIdx{open}.}
 %
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pylint.sh 06_exceptions file_try_finally.py}{exceptions:file_try_finally:pylint}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/pylint.sh exceptions file_try_finally.py}{exceptions:file_try_finally:pylint}{%
 The output of \pylint\ when applied to \cref{lst:exceptions:file_try_finally}: It suggests using the \pythonilIdx{with}~statement instead of \pythonilIdx{try}-\pythonilIdx{finally}.}
 %
 The \pythonilIdx{try}-\pythonilIdx{finally} block allows us to make sure that one action will always be performed, regardless if some other intermediate code fails (and raises exceptions).
@@ -604,7 +604,7 @@ This is always done, regardless whether an exception occurred inside the indente
 This makes the syntax roughly equivalent to calling the first special method before a \pythonilIdx{try} block and the second special method in the corresponding \pythonilIdx{finally} block.
 It is just much shorter and looks more elegant.
 
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{06_exceptions}{file_with.py}{--args format}{exceptions:file_with}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{exceptions}{file_with.py}{--args format}{exceptions:file_with}{%
 Using a \pythonilIdx{with}~block for closing files after writing to and reading from them\pythonIdx{os!remove}\pythonIdx{remove}\pythonIdx{IO!write}\pythonIdx{write}\pythonIdx{readline}\pythonIdx{IO!readline}.}%
 
 Many of \python's resource-related APIs are realized as context managers.
@@ -625,10 +625,10 @@ They will automatically be invoked at the end of the \pythonilIdx{with} statemen
 \hsection{Testing Exceptions}%
 \label{sec:testingExceptions}%
 %
-\gitPython{\programmingWithPythonCodeRepo}{06_exceptions/test_sqrt_raise.py}{--args format}{exceptions:test_sqrt_raise}{%
+\gitPython{\programmingWithPythonCodeRepo}{exceptions/test_sqrt_raise.py}{--args format}{exceptions:test_sqrt_raise}{%
 A unit test checking that our new variant of the \pythonil{sqrt} function given in \cref{lst:exceptions:sqrt_raise} properly raises an \pythonilIdx{ArithmeticError} if its input is non-finite or negative.}%
 %
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest.sh 06_exceptions test_sqrt_raise.py}{exceptions:test_sqrt_raise:pytest}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest.sh exceptions test_sqrt_raise.py}{exceptions:test_sqrt_raise:pytest}{%
 The output of the unit tests in \cref{lst:exceptions:test_sqrt_raise}: %
 The \pythonilsIdx{ArithmeticError} are correctly raised.}%
 %
@@ -649,10 +649,10 @@ This is block tells the \pytest\ system that, in the following, indented, block,
 If such an exception is not raised, the test fails.
 If it is raised, the text succeeds.
 
-\gitPython{\programmingWithPythonCodeRepo}{06_exceptions/test_sqrt.py}{--args format}{exceptions:test_sqrt}{%
+\gitPython{\programmingWithPythonCodeRepo}{exceptions/test_sqrt.py}{--args format}{exceptions:test_sqrt}{%
 Two unit tests checking the original variant of the \pythonil{sqrt} function from back in \cref{lst:functions:test_my_math_2} that does not raise errors.}%
 %
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest.sh 06_exceptions test_sqrt.py}{exceptions:test_sqrt:pytest}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest.sh exceptions test_sqrt.py}{exceptions:test_sqrt:pytest}{%
 The output of the unit tests in \cref{lst:exceptions:test_sqrt}: %
 No error was raised in it, so the first fails and the error message in the second test does not fit, so it fails as well.}%
 %

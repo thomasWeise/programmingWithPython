@@ -327,7 +327,7 @@ $\downarrow$~~\expandafter\bashil{bash #3}~~$\downarrow$%
 \gitLoad{#1}{#2/#3}{python3 -m latexgit.formatters.python #4}%
 \expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitUrl:lst:#5\endcsname{\gitUrl}%
 \expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:lst:#5\endcsname{\gitFile}%
-\gitExec{#1}{.}{./scripts/pythonIgnoreErrors.sh #2 #3}%
+\gitExec{#1}{.}{./_scripts_/pythonIgnoreErrors.sh #2 #3}%
 \expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:exec:#5\endcsname{\gitFile}%
 %
 \begin{figure}[tb]%

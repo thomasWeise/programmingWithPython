@@ -22,7 +22,7 @@ normal statement 2
 \end{pythonSyntax}
 %
 \FloatBarrier%
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{03_conditionals}{if_example.py}{--args format}{conditionals:if}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{conditionals}{if_example.py}{--args format}{conditionals:if}{%
 An example of using the \pythonilIdx{if} statement.}%
 %
 The first line begins with \pythonilIdx{if}~statement, followed by a Boolean expression, followed by a colon~(\pythonilIdx{:}).
@@ -65,10 +65,10 @@ The output of our program given in \cref{exec:conditionals:if} confirms that 202
 %
 \hsection{The \texttt{if}\dots\texttt{else} Statement}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{03_conditionals}{if_else_example.py}{--args format}{conditionals:if_else}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{conditionals}{if_else_example.py}{--args format}{conditionals:if_else}{%
 An example of using the \pythonil{if ... else}\pythonIdx{if{\idxdots}else} statement.}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{03_conditionals}{if_else_nested.py}{--args format}{conditionals:if_else_nested}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{conditionals}{if_else_nested.py}{--args format}{conditionals:if_else_nested}{%
 An example of using nested \pythonil{if ... else}\pythonIdx{if{\idxdots}else!nested} statements.}%
 %
 The ability to perform some action if a given expression evaluates to \pythonil{True} is already nice.
@@ -135,13 +135,13 @@ The minimum is obtained using~\pythonil{min(a, b, c)}.%
 %
 \hsection{The \texttt{if}\dots\texttt{elif}\dots\texttt{else} Statement}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{03_conditionals}{if_elif_example.py}{--args format}{conditionals:if_elif}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{conditionals}{if_elif_example.py}{--args format}{conditionals:if_elif}{%
 An example of using the \pythonil{if ... elif}\pythonIdx{if{\idxdots}elif{\idxdots}else} statement.}%
 %
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/ruff.sh 03_conditionals if_else_nested.py}{conditionals:if_else_nested:ruff}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh conditionals if_else_nested.py}{conditionals:if_else_nested:ruff}{%
 The results of linting with \ruff\ of the program given in \cref{lst:conditionals:if_else_nested}.}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{03_conditionals}{if_elif_nested.py}{--args format}{conditionals:if_elif_nested}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{conditionals}{if_elif_nested.py}{--args format}{conditionals:if_elif_nested}{%
 An example of using the nested \pythonil{if ... elif}\pythonIdx{if{\idxdots}elif{\idxdots}else!nested} statement based on the recommendations of the \ruff\ \pgls{linter} applied to \cref{lst:conditionals:if_else_nested}.}%
 %
 %
@@ -217,14 +217,14 @@ This program achieves in 15 lines for what \cref{lst:conditionals:if_else_nested
 \hsection{The Inline \texttt{if}\dots\texttt{else} Statement}%
 \label{sec:inlineIfThenElse}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{03_conditionals}{if_else_could_be_inline.py}{--args format}{conditionals:if_else_could_be_inline}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{conditionals}{if_else_could_be_inline.py}{--args format}{conditionals:if_else_could_be_inline}{%
 An example of using the nested \pythonil{if ... else}\pythonIdx{if{\idxdots}elif{\idxdots}else} statements that could be inlined. %
 See \cref{lst:conditionals:inline_if_else} for the more compact inlined variant.}%
 %
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/ruff.sh 03_conditionals if_else_could_be_inline.py}{conditionals:if_else_could_be_inline:ruff}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh conditionals if_else_could_be_inline.py}{conditionals:if_else_could_be_inline:ruff}{%
 The results of linting with \ruff\ of the program given in \cref{lst:conditionals:if_else_could_be_inline}.}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{03_conditionals}{inline_if_else.py}{--args format}{conditionals:inline_if_else}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{conditionals}{inline_if_else.py}{--args format}{conditionals:inline_if_else}{%
 An example of using the inline \pythonil{if ... else}\pythonIdx{if{\idxdots}else!inline} expression to shorten \cref{lst:conditionals:if_else_could_be_inline}, which incorporates the suggestion by \ruff\ in \cref{exec:conditionals:if_else_could_be_inline:ruff}.}%
 %
 A very common use case of \pythonil{if...else}~statements is to assign values to variables.

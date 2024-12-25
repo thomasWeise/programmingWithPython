@@ -7,13 +7,13 @@ They work very similar to the strings we already discussed in \cref{sec:str}, bu
 \hsection{Basic Functionality and Examples}%
 \label{sec:lists:basicFunctions}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{lists_1.py}{--args format}{lists:lists_1}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{collections}{lists_1.py}{--args format}{lists:lists_1}{%
 A first example for using lists in \python: creating, indexing, printing of and appending elements and other lists to lists.}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{lists_2.py}{--args format}{lists:lists_2}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{collections}{lists_2.py}{--args format}{lists:lists_2}{%
 A second example of using lists in \python: inserting and deleting elements, sorting and reversing lists.}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{lists_3.py}{--args format}{lists:lists_3}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{collections}{lists_3.py}{--args format}{lists:lists_3}{%
 A third example of using lists in \python: slicing, adding, and multiplying lists.}%
 %
 In \cref{lst:lists:lists_1}, we provide some first examples for using lists.
@@ -143,7 +143,7 @@ If we know the number of elements in the list in our program, then we can assign
 \hsection{An Example of Errors and a new Tool}%
 \label{sec:listExampleForErrorsAndRuff}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{lists_error.py}{--args format}{lists:lists_error}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{collections}{lists_error.py}{--args format}{lists:lists_error}{%
 A program processing lists which exhibits some subtle errors and inefficiencies.}
 
 Now, in the previous chapter, we learned that static code analysis tools can help us to discover subtle problems in our programs.
@@ -153,7 +153,7 @@ The program consists of only two lines, \pythonil{my_list: list[str] = list([1, 
 It does not have any \emph{error} in the strict sense.
 We can execute it just fine and it will produce the output \textil{[1, 2, 3]} as shown in \cref{exec:lists:lists_error}.
 
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/mypy.sh 02_collections lists_error.py}{lists:lists_error:mypy}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh collections lists_error.py}{lists:lists_error:mypy}{%
 The results of static type checking with \mypy\ of the program given in \cref{lst:lists:lists_error}.}
 
 However, upon closer inspection, we discover some issues.
@@ -179,7 +179,7 @@ You can then apply \ruff\ using the command \bashil{ruff check fileToScan.py}. %
 We provide a script for using \ruff\ with a reasonable default configuration in \cref{lst:bash:ruff} on \cpageref{lst:bash:ruff}.%
 }%
 %
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/ruff.sh 02_collections lists_error.py}{lists:lists_error:ruff}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh collections lists_error.py}{lists:lists_error:ruff}{%
 The results of linting with \ruff\ of the program given in \cref{lst:lists:lists_error}. (We used the script given in \cref{lst:bash:ruff} on \cpageref{lst:bash:ruff} to apply \ruff.)}%
 %
 Let us apply \ruff\ to the program \textil{lists_error.py} given in \cref{lst:lists:lists_error}, which produces the output \cref{exec:lists:lists_error:ruff}.
@@ -199,7 +199,7 @@ Additionally, \ruff\ finds that writing \pythonil{list([1, 2, 3])} is actually u
 It basically creates a list via \pythonil{[1, 2, 3]} and then immediately makes a copy of it via the \pythonilIdx{list} function wrapped around the list specification.
 We can leave this outer call to \pythonil{list} away.
 
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{02_collections}{lists_fixed.py}{--args format}{lists:lists_fixed}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{collections}{lists_fixed.py}{--args format}{lists:lists_fixed}{%
 The corrected version of~\cref{lst:lists:lists_error}, taking into account the information given by \mypy\ in \cref{exec:lists:lists_error:mypy} and \ruff\ in \cref{exec:lists:lists_error:ruff}.}%
 %
 %
@@ -220,10 +220,10 @@ Do not just apply them, but also \emph{implement} their suggestions where possib
 %
 \FloatBarrier%
 %
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/mypy.sh 02_collections lists_fixed.py}{lists:lists_fixed:mypy}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh collections lists_fixed.py}{lists:lists_fixed:mypy}{%
 The results of static type checking with \mypy\ of the program given in \cref{lst:lists:lists_fixed}.}%
 %
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/ruff.sh 02_collections lists_fixed.py}{lists:lists_fixed:ruff}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh collections lists_fixed.py}{lists:lists_fixed:ruff}{%
 The results of static type checking with \ruff\ of the program given in \cref{lst:lists:lists_fixed}.}
 
 Well, this was only a two-line program.

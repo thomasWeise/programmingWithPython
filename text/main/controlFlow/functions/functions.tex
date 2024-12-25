@@ -94,7 +94,7 @@ From my perspective: \emph{A function without \pgls{docstring} is wrong.}%
 After the function and its body are defined, leave \emph{two} blank lines before writing the next code~\cite{PEP8}.%
 }%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{05_functions}{def_factorial.py}{--args format}{functions:def_factorial}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{functions}{def_factorial.py}{--args format}{functions:def_factorial}{%
 Implementing a function computing the factorial of a positive integer number.}%
 %
 After all of this long introduction, let us finally come to some example.
@@ -136,7 +136,7 @@ And then we compute the factorials of the numbers from~$1$ to~$9$ in a \pythonil
 Inside this loop and in the \pgls{fstring}, we can use the function \pythonil{factorial} exactly like any other function we used before, like \pythonil{sqrt} or \pythonil{print}.
 It may be an interesting side information at the end of this example that the factorial can actually be computed \emph{faster} than using this product form, see, e.g.~\cite{L2015ANKOFF}.
 
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{05_functions}{def_gcd.py}{--args format}{functions:def_gcd}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{functions}{def_gcd.py}{--args format}{functions:def_gcd}{%
 Implementing the Euclidean Algorithm as a function and calling it from another function.}%
 
 Functions can have a more than one parameter or no parameter at all.
@@ -207,7 +207,7 @@ This binary variant may have been developed in China in the first century~CE~\ci
 \label{sec:functionsInModules}%
 \pythonIdx{module!import}\pythonIdx{function!import}\pythonIdx{function!module}%
 %
-\gitPython{\programmingWithPythonCodeRepo}{05_functions/my_math.py}{--args format}{functions:my_math}{%
+\gitPython{\programmingWithPythonCodeRepo}{functions/my_math.py}{--args format}{functions:my_math}{%
 The module \pythonil{my_math}, which provides two mathematics functions, namely \pythonil{sqrt}, implementing the algorithm of Heron to compute the square root from \cref{lst:loops:while_loop_sqrt}, and \pythonil{factorial}, copied from \cref{lst:functions:def_factorial}.}%
 %
 You may not have noticed it, but we just made a very big step in our programming skills.
@@ -241,7 +241,7 @@ This is the purpose of this module:
 It just provides the functions.
 We will use them elsewhere.
 
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{05_functions}{use_my_math.py}{--args format}{functions:use_my_math}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{functions}{use_my_math.py}{--args format}{functions:use_my_math}{%
 A program using the functions \pythonil{sqrt} and \pythonil{factorial} from the module \pythonil{my_math} given in \cref{lst:functions:my_math}.}%%
 %
 \begin{sloppypar}%
@@ -329,10 +329,10 @@ We have our actual program code in one or multiple \python\ files.
 We have our test code in some other \python\ files.
 For the same of clarity, if the actual code is in a file~\textil{my_code.py}, then we could the code for the tests into a file called~\textil{test_my_code.py}.
 
-\gitPython{\programmingWithPythonCodeRepo}{05_functions/test_my_math.py}{--args format}{functions:test_my_math}{%
+\gitPython{\programmingWithPythonCodeRepo}{functions/test_my_math.py}{--args format}{functions:test_my_math}{%
 A small unit test suite for \cref{lst:functions:my_math}.}%
 %
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest.sh 05_functions test_my_math.py}{functions:test_my_math:pytest}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest.sh functions test_my_math.py}{functions:test_my_math:pytest}{%
 The output of the unit tests in \cref{lst:functions:test_my_math}: While the test of \pythonil{factorial} succeeds, our \pythonil{sqrt} function fails for input~\pythonil{0.0}.}%
 
 In \cref{lst:functions:test_my_math} we do just that.
@@ -413,13 +413,13 @@ This will happen here too, and \pythonil{guess} will thus eventually become~\pyt
 In the next iteration, this leads to us trying to divide~\pythonil{0.0 / 0.0}, causing the \pythonilIdx{ZeroDivisionError}.
 %
 \FloatBarrier%
-\gitPython{\programmingWithPythonCodeRepo}{05_functions/my_math_2.py}{--args format}{functions:my_math_2}{%
+\gitPython{\programmingWithPythonCodeRepo}{functions/my_math_2.py}{--args format}{functions:my_math_2}{%
 An improved variant of \cref{lst:functions:my_math} dealing with the failing test case~\pythonil{0.0} discovered in \cref{exec:functions:test_my_math:pytest}.}%
 %
-\gitPython{\programmingWithPythonCodeRepo}{05_functions/test_my_math_2.py}{--args format}{functions:test_my_math_2}{%
+\gitPython{\programmingWithPythonCodeRepo}{functions/test_my_math_2.py}{--args format}{functions:test_my_math_2}{%
 We use the same small unit test suite given in \cref{lst:functions:test_my_math} for \pythonil{sqrt} in \cref{lst:functions:my_math_2}.}%
 %
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest.sh 05_functions test_my_math_2.py}{functions:test_my_math_2:pytest}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest.sh functions test_my_math_2.py}{functions:test_my_math_2:pytest}{%
 The output of the unit tests in \cref{lst:functions:test_my_math_2}: This time, we hit the timeout because of an endless loop!}
 
 In order to fix this problem, we introduce the check \pythonil{if number <= 0.0} into our \pythonil{sqrt} function in \cref{lst:functions:test_my_math_2}.
@@ -451,13 +451,13 @@ From now on, all calculations yields \pythonil{nan}.
 Since \pythonil{nan != nan} is \pythonil{True}, the loop never ends.%
 \end{sloppypar}%
 %
-\gitPython{\programmingWithPythonCodeRepo}{05_functions/my_math_3.py}{--args format}{functions:my_math_3}{%
+\gitPython{\programmingWithPythonCodeRepo}{functions/my_math_3.py}{--args format}{functions:my_math_3}{%
 An improved variant of \cref{lst:functions:my_math_2} dealing with the failing test case~\pythonilIdx{inf} discovered in \cref{exec:functions:test_my_math_2:pytest}.}%
 %
-\gitPython{\programmingWithPythonCodeRepo}{05_functions/test_my_math_3.py}{--args format}{functions:test_my_math_3}{%
+\gitPython{\programmingWithPythonCodeRepo}{functions/test_my_math_3.py}{--args format}{functions:test_my_math_3}{%
 We use the same small unit test suite given in \cref{lst:functions:test_my_math} for \pythonil{sqrt} in \cref{lst:functions:my_math_3}.}%
 %
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest.sh 05_functions test_my_math_3.py}{functions:test_my_math_3:pytest}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest.sh functions test_my_math_3.py}{functions:test_my_math_3:pytest}{%
 The output of the successful unit tests in \cref{lst:functions:test_my_math_3}.}%
 %
 \begin{sloppypar}%
@@ -492,10 +492,10 @@ If a function does one thing in one situation and another thing in another situa
 %
 \hsection{Function Arguments: Default Values, Passing them by Name, and Constructing them}%
 %
-\gitPython{\programmingWithPythonCodeRepo}{05_functions/normal_pdf.py}{--args format}{functions:normal_pdf}{%
+\gitPython{\programmingWithPythonCodeRepo}{functions/normal_pdf.py}{--args format}{functions:normal_pdf}{%
 Implementing the probability density function~(PDF) of the normal distribution as function with default argument values.\pythonIdx{pi}\pythonIdx{exp}\pythonIdx{sqrt}}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{05_functions}{use_normal_pdf.py}{--args format}{functions:use_normal_pdf}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{functions}{use_normal_pdf.py}{--args format}{functions:use_normal_pdf}{%
 Using the PDF of the normal distribution implemented in \cref{lst:functions:normal_pdf}.}%
 %
 After the brief introduction into unit testing, let us now come to a lighter topic: passing arguments to functions.%
@@ -651,7 +651,7 @@ The larger~$n$, the smaller will the strips get, the more accurate should our es
 \label{fig:normalDistPdfInteg}%
 \end{figure}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{05_functions}{integral.py}{--args format}{functions:integral}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{functions}{integral.py}{--args format}{functions:integral}{%
 Using the trapezoid method to numerically approximate definite integrals, as sketched in \cref{fig:normalDistPdfInteg}.}%
 
 The trapezoid method is one very simple implementation of this idea~\cite{E2013AITNMAA}.
@@ -757,7 +757,7 @@ Notice that this function actually had three parameters, \pythonil{x}, \pythonil
 The latter two had the default values~\pythonil{mu = 0.0} and~\pythonil{sigma = 1.0}.
 If these values are used, the function computes the PDF of the \emph{standard} normal distribution.
 
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/mypy.sh 05_functions integral.py}{functions:integral:mypy}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh functions integral.py}{functions:integral:mypy}{%
 The results of static type checking with \mypy\ of the program given in \cref{lst:functions:integral}.}
 
 Interestingly, although we demand that the function supplied to \pythonil{integrate} should only have one parameter, we can still pass in~\pythonil{pdf} due to its second and third parameter being optional.

@@ -18,7 +18,7 @@ This means that we can implement, create, change, and customize all of the funct
 \hsection{\texttt{\_\_str\_\_}, \texttt{\_\_repr\_\_}, and \texttt{\_\_eq\_\_}}%
 \label{sec:strReprEq}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{09_dunder}{str_vs_repr.py}{--args format}{dunder:str_vs_repr}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{dunder}{str_vs_repr.py}{--args format}{dunder:str_vs_repr}{%
 Comparing the \pythonilIdx{str} and \pythonilIdx{repr} representations of integers, strings, lists, and \python's \pythonilIdx{datetime}\pythonIdx{datetime!datetime}\pythonIdx{datetime!datetime!now}\pythonIdx{datetime!UTC} class.}%
 %
 In \python, we can distinguish two forms of string representations of a given object~\pythonil{o}:%
@@ -79,7 +79,7 @@ We could copy the output of \pythonilIdx{repr} from \cref{exec:dunder:str_vs_rep
 This would re-create the \pythonil{right\_now} object with the same data.
 This would also work with the string representations that we printed for our lists \pythonil{l1} and \pythonil{l2} above.
 
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{09_dunder}{point_user_2.py}{--args format}{dunder:point_user_2}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{dunder}{point_user_2.py}{--args format}{dunder:point_user_2}{%
 Investigating string representations and equality for the class~\pythonil{Point}.}%
 %
 Let us now move a bit backwards and revisit a previous example we created by ourselves.
@@ -128,10 +128,10 @@ The default equality comparison only checks for identity.
 If implement \dunder{eq} by ourselves, this method should clearly return a value that makes \pythonil{p1 == 5} become~\pythonil{False} as well.
 Anything else would be nonsense.
 
-\gitPython{\programmingWithPythonCodeRepo}{09_dunder/point_with_dunder.py}{--args format}{dunder:point_with_dunder}{%
+\gitPython{\programmingWithPythonCodeRepo}{dunder/point_with_dunder.py}{--args format}{dunder:point_with_dunder}{%
 Our \pythonil{Point} class, extended with the \dunder{str}, \dunder{repr}, and \dunder{eq}\pythonIdx{NotImplementedType} dunder methods.}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{09_dunder}{point_with_dunder_user.py}{--args format}{dunder:point_with_dunder_user}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{dunder}{point_with_dunder_user.py}{--args format}{dunder:point_with_dunder_user}{%
 The same program exploring string representations and equality as shown in \cref{lst:dunder:point_user_2}, but this time using our new \pythonil{Point} class from \cref{lst:dunder:point_with_dunder}.}%
 
 In order to fix all of the problems discussed above, we implement the three dunder methods \dunder{str}, \dunder{repr}, and \dunder{eq} for our \pythonil{Point} class in \cref{lst:dunder:point_with_dunder}.
@@ -167,10 +167,10 @@ As you can see in \cref{exec:dunder:point_with_dunder_user}, its output now matc
 \hsection{Objects in Sets and as Keys in Dictionaries:~\texttt{\_\_hash\_\_}, \texttt{\_\_eq\_\_}}%
 \label{sec:hashDunder}%
 %
-\gitPython{\programmingWithPythonCodeRepo}{09_dunder/point_with_hash.py}{--args format}{dunder:point_with_hash}{%
+\gitPython{\programmingWithPythonCodeRepo}{dunder/point_with_hash.py}{--args format}{dunder:point_with_hash}{%
 Our \pythonil{Point} class, extended with the \dunder{eq} and \dunder{hash} dunder methods.}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{09_dunder}{point_with_hash_user.py}{--args format}{dunder:point_with_hash_user}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{dunder}{point_with_hash_user.py}{--args format}{dunder:point_with_hash_user}{%
 Using the new \pythonil{Point} class from \cref{lst:dunder:point_with_hash} in sets and dictionaries.}%
 %
 Our \pythonil{Point} objects are immutable and just consist of two numerical coordinates.
@@ -328,7 +328,7 @@ The same dictionary operations as discussed way back in~\cref{sec:dictionaries} 
 \hsection{Arithmetic Dunder and Ordering}%
 \label{sec:arithmeticsAndOrder}%
 %
-\gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_1}{dunder:fraction:part_1}{%
+\gitPython{\programmingWithPythonCodeRepo}{dunder/fraction.py}{--args format --labels part_1}{dunder:fraction:part_1}{%
 Part~1 of the \pythonil{Fraction} class: The initializer \dunder{init} and global constants.}%
 \afterpage{\clearpage}%
 %
@@ -404,7 +404,7 @@ Constants are documented by writing a comment starting with \pythonilIdx{\#: } i
 We define three constants, \pythonil{ZERO}, \pythonil{ONE}, and \pythonil{ONE_HALF}, which hold corresponding instances of \pythonil{Fraction}.
 These numbers are often used, and providing them as constant can safe both runtime and memory.
 
-\gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_2}{dunder:fraction:part_2}{%
+\gitPython{\programmingWithPythonCodeRepo}{dunder/fraction.py}{--args format --labels part_2}{dunder:fraction:part_2}{%
 Part~2 of the \pythonil{Fraction} class: String representation via \dunder{str} and \dunder{repr}.}
 \afterpage{\clearpage}
 
@@ -425,10 +425,10 @@ This means that we can compare the expected output of \pythonil{f.\_\_str\_\_()}
 Otherwise, \pglspl{doctest} always convert objects to string using~\pythonilIdx{repr}, meaning that the line~\pythonil{Fraction(-5, 12)} in the \pgls{doctest} of \dunder{repr} actually calls \pythonil{repr(Fraction(-5, 12)}.
 Anyway, with the string conversion out of the way, we can begin to implement mathematical operators.
 
-\gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_3}{dunder:fraction:part_3}{%
+\gitPython{\programmingWithPythonCodeRepo}{dunder/fraction.py}{--args format --labels part_3}{dunder:fraction:part_3}{%
 Part~3 of the \pythonil{Fraction} class: Addition (via \dunder{add}) and subtraction (via \dunder{sub}).}%
 %
-\gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_4}{dunder:fraction:part_4}{%
+\gitPython{\programmingWithPythonCodeRepo}{dunder/fraction.py}{--args format --labels part_4}{dunder:fraction:part_4}{%
 Part~4 of the \pythonil{Fraction} class: Multiplication (via \dunder{mul}), division (via \dunder{truediv}), and computing the absolute value (via \dunder{abs}).}%
 %
 \afterpage{\clearpage}
@@ -466,10 +466,10 @@ We can implement this method as follows:
 If our fraction is positive, then it can be returned as-is.
 Otherwise, we return a new, positive variant of our fraction by simply flipping the sign of it.
 
-\gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_5}{dunder:fraction:part_5}{%
+\gitPython{\programmingWithPythonCodeRepo}{dunder/fraction.py}{--args format --labels part_5}{dunder:fraction:part_5}{%
 Part~5 of the \pythonil{Fraction} class: All order-related dunder methods\pythonIdx{\_\_eq\_\_}\pythonIdx{\_\_ne\_\_}\pythonIdx{\_\_lt\_\_}\pythonIdx{\_\_le\_\_}\pythonIdx{\_\_gt\_\_}\pythonIdx{\_\_ge\_\_}\pythonIdx{dunder!\_\_eq\_\_}\pythonIdx{dunder!\_\_ne\_\_}\pythonIdx{dunder!\_\_lt\_\_}\pythonIdx{dunder!\_\_le\_\_}\pythonIdx{dunder!\_\_gt\_\_}\pythonIdx{dunder!\_\_ge\_\_}.}%
 %
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest_doctest.sh 09_dunder fraction.py}{dunder:fraction:doctest}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest_doctest.sh dunder fraction.py}{dunder:fraction:doctest}{%
 The output of \pytest\ executing the \pglspl{doctest} for our \pythonil{Fraction} class.}%
 %
 Finally, in \cref{lst:dunder:fraction:part_5} we implement the six rich comparison dunder methods given in~\cite{PEP207}:%
@@ -533,7 +533,7 @@ So we first need to implement a method \pythonil{decimal_str}, which translates 
 Since some fractions, like~$\frac{1}{3}$ and~$\frac{1}{7}$ have never-ending decimal representations, this function needs a parameter \pythonil{max_frac} specifying the maximum number of fractional digits to generate.
 We will set it to 100 by default.
 
-\gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction_decimal_str_err.py}{--args format --labels part_6}{dunder:fraction_decimal_str_err:part_6}{%
+\gitPython{\programmingWithPythonCodeRepo}{dunder/fraction_decimal_str_err.py}{--args format --labels part_6}{dunder:fraction_decimal_str_err:part_6}{%
 Part~6 of the \pythonil{Fraction} class: Adding a \pythonil{decimal_str} conversion method.}%
 
 In \cref{lst:dunder:fraction_decimal_str_err:part_6} we present the part of our class \pythonil{Fraction} that contains the code converting the fraction to a decimal string.
@@ -623,7 +623,7 @@ We first test that integer numbers are correctly represented.
 It is clear that \pythonil{Fraction(124, 2).decimal_str()} should yield~\pythonil{"62"}.
 Then we check a simple fraction that can exactly be translated:~\pythonil{Fraction(1, 2).decimal_str()} should result in~\pythonil{0.5}.
 
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest_doctest.sh 09_dunder fraction_decimal_str_err.py}{dunder:fraction_decimal_str_err:doctest}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest_doctest.sh dunder fraction_decimal_str_err.py}{dunder:fraction_decimal_str_err:doctest}{%
 The output of \pytest\ executing the \pglspl{doctest} for our \pythonil{Fraction} class with the \pythonil{decimal_str} method from \cref{lst:dunder:fraction_decimal_str_err:part_6}: It fails!}
 
 As fraction that cannot be exactly written down as finite decimal string, we choose~$\frac{1}{3}$.
@@ -1158,7 +1158,7 @@ We can have cases like~0.9999, which rounds up to~1, even if we want three fract
 We can stop the debugging here and go back to our code.%
 \clearpage%
 %
-\gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction.py}{--args format --labels part_6}{dunder:fraction:part_6}{%
+\gitPython{\programmingWithPythonCodeRepo}{dunder/fraction.py}{--args format --labels part_6}{dunder:fraction:part_6}{%
 The repaired Part~6 of the \pythonil{Fraction} class: A correct \pythonil{decimal_str} method.}%
 
 In \cref{lst:dunder:fraction:part_6}, we revisit the \pythonil{decimal_str} method of our class~\pythonil{Fraction}.
@@ -1185,10 +1185,10 @@ And with this, we are done.
 We have working code converting fractional numbers to decimal strings.
 All the \pglspl{doctest} now pass.
 
-\gitPython{\programmingWithPythonCodeRepo}{09_dunder/fraction_sqrt.py}{--args format}{dunder:fraction_sqrt}{%
+\gitPython{\programmingWithPythonCodeRepo}{dunder/fraction_sqrt.py}{--args format}{dunder:fraction_sqrt}{%
 Using the \pythonil{Fraction} class to compute square roots.}%
 %
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{scripts/pytest_doctest.sh 09_dunder fraction_sqrt.py}{dunder:fraction_sqrt:doctest}{%
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest_doctest.sh dunder fraction_sqrt.py}{dunder:fraction_sqrt:doctest}{%
 The (successful) output of \pytest\ executing the \pglspl{doctest} for our \pythonil{sqrt} function from~\cref{lst:dunder:fraction_sqrt} working on instances of the \pythonil{Fraction} class.}
 
 But let's get back to what we actually wanted to do:
@@ -1301,10 +1301,10 @@ The second \xmlil{<student>} element includes some additional text.
 In this next, you notice that two characters have been \emph{escaped}: since \textil{<} and \textil{>} are used to mark the beginning and ending of the start and end element strings, they should not occur inside the normal text, as this may confuse the \pgls{xml} parsers.
 Therefore, they are escaped as entities~\xmlil{&#38;} and~\xmlil{&#62;}.
 
-\gitPython{\programmingWithPythonCodeRepo}{09_dunder/xml_context.py}{--args format --labels part_1}{dunder:xml_context:part_1}{%
+\gitPython{\programmingWithPythonCodeRepo}{dunder/xml_context.py}{--args format --labels part_1}{dunder:xml_context:part_1}{%
 Part~1 of our very simply context manager-based \pgls{XML} output API.}%
 %
-\gitPython{\programmingWithPythonCodeRepo}{09_dunder/xml_context.py}{--args format --labels part_2}{dunder:xml_context:part_2}{%
+\gitPython{\programmingWithPythonCodeRepo}{dunder/xml_context.py}{--args format --labels part_2}{dunder:xml_context:part_2}{%
 Part~2 of our very simply context manager-based \pgls{XML} output API.}%
 
 Would it not be nice to have a simple \pgls{API} that allows us to produce valid~\pgls{xml} and that takes care of the escaping of special characters?
@@ -1414,11 +1414,11 @@ Therefore, we only need to pass the parameters~\pythonil{name} and~\pythonil{att
 With this, our simple \pgls{API} for a subset of the \pgls{xml} standard~\cite{BPSMM2008EMLX1FE} is already completed.%
 %
 \gitPythonAndOutputFormat{xml_style}%
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{09_dunder}{xml_user_print.py}{--args format}{dunder:xml_user_print}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{dunder}{xml_user_print.py}{--args format}{dunder:xml_user_print}{%
 An example of using our simple context manager-based \pgls{XML} output API from \cref{lst:dunder:xml_context:part_1,lst:dunder:xml_context:part_2}, where the output is printed to the \pgls{stdout}.}%
 %
 \gitPythonAndOutputFormat{xml_style}%
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{09_dunder}{xml_user_file.py}{--args format}{dunder:xml_user_file}{%
+\gitPythonAndOutput{\programmingWithPythonCodeRepo}{dunder}{xml_user_file.py}{--args format}{dunder:xml_user_file}{%
 An example of using our simple context manager-based \pgls{XML} output API from \cref{lst:dunder:xml_context:part_1,lst:dunder:xml_context:part_2}, where the output is written to a text file\pythonIdx{write}\pythonIdx{IO!write}\pythonIdx{open}\pythonIdx{remove}\pythonIdx{os!remove}.}%
 
 We now use this \pgls{API} in \cref{lst:dunder:xml_user_print,lst:dunder:xml_user_file} to basically reproduce the small \pgls{xml}~snippet that I showed you before.
