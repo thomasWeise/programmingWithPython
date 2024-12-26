@@ -36,18 +36,14 @@ This enforces that \pip\ is really executed in a \pgls{virtualEnvironment} and w
 %
 \usefulTool{venv}{The module \venv\ is used for creating and managing \pglspl{virtualEnvironment} under \python.}%
 %
-%
 \gitPython{\programmingWithPythonCodeRepo}{packages/numpy_user.py}{--args format}{packages:numpy_user}{%
 A small \python\ script using the \numpy\ library.}%
 %
 For demonstration purposes, let us assume that we have written a program using the \pgls{package} \numpy~\cite{HMvdWGVCWTBSKPHvKBHFdRWPGMSRWAGO2020APWN,DBvR2024ITN,J2018NPSCADSAWNSAM}.
 The small program in \cref{lst:packages:numpy_user} only creates and prints a \numpy\ array, but for this, obviously, \numpy\ is needed.
 \numpy\ is not available in fresh \python\ installations and needs to be installed so that we can run our program.
-This will be the example that we will use to demonstrate the use of \pglspl{virtualEnvironment} in the following sections.%
-%
-%
-\hsection{pip and Virtual Environments in the Command Line}%
-%
+This will be the example that we will use to demonstrate the use of \pglspl{virtualEnvironment} in the following sections.
+
 As prerequisites to install \pglspl{package} in \pglspl{virtualEnvironment}, we need to make sure that both \pip\ and \venv\ are installed on our system.
 The procedures for both differ under \linux\ and \windows.
 Using \pip\ and \venv\ is often done in the \pgls{terminal}, i.e., by typing commands or executing shell scripts.
@@ -55,7 +51,7 @@ This, naturally, too works differently under \linux\ and \windows.
 We therefore will briefly explore how to achieve these things under both operating systems.%
 %
 \FloatBarrier%
-\hsection{pip and Virtual Environments in \ubuntu\ \linux}%
+\hsection{pip and Virtual Environments in Ubuntu Linux}%
 %
 \begin{figure}%
 \centering%
@@ -206,7 +202,7 @@ As said, once you have installed the required \pglspl{package}, you can simply a
 \FloatBarrier%
 \endhsection%
 %
-\hsection{pip and Virtual Environments under \windows}%
+\hsection{pip and Virtual Environments under Windows}%
 %
 \begin{figure}%
 \centering%
@@ -351,8 +347,7 @@ It was actually not very much different from the \ubuntu\ \linux\ example in the
 %
 \endhsection%
 %
-\FloatBarrier%
-\endhsection%
+\FloatBarrier
 %
 \endhsection%
 %

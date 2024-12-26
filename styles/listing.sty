@@ -247,6 +247,16 @@ breaklines=true%
 \gitCode{#1}{#2}{}{#3}{#4}{,style=bat_style}%
 }%
 %
+%%
+%% Use latexgit to place a plain text listing.
+%% #1 the git repository
+%% #2 the local path
+%% #3 the label (lst: will be pre-pended)
+%% #4 the caption
+\protected\gdef\gitText#1#2#3#4{%
+\gitCode{#1}{#2}{}{#3}{#4}{,style=text_style}%
+}%
+%
 %% Use latexgit to place a listing with program output.
 %% #1 the git repository
 %% #2 the local path

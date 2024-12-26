@@ -2,6 +2,7 @@
 
 ## pdflatex Compiler Script
 ## $1 the document to compile
+## $2 == "quick" for incomplete compile
 
 # strict error handling
 set -o pipefail  # trace ERR through pipes
@@ -120,6 +121,7 @@ echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We will now perform runs of the tool chain
 
 watchFileContents=""
 oldWatchFileContents="old"
+quickArg="${2:-}"
 cycle=0
 additional=1
 
@@ -221,7 +223,7 @@ while (("$additional" >= 0))  ; do
       echo "$(date +'%0Y-%0m-%0d %0R:%0S'): '$auxFile' does not exist, so we do not need to apply makeglossaries."
   fi
 
-  echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Now loading the contents should no longer change when the built is complete."
+  echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Now loading the contents that should no longer change when the built is complete."
   for suffix in "acn" "acr" "alg" "bbl" "bcf" "glg" "glo" "gls" "idx" "ind" "ist""slg" "slo" "sls" "toc"; do
     echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Now looking for '$suffix' files."
     for theFile in *.$suffix; do
@@ -234,6 +236,13 @@ while (("$additional" >= 0))  ; do
   done
 
   echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Finished build cycle $cycle."
+
+  if [ "$quickArg" == "quick" ] ; then
+    if (("$cycle" > 1)) ; then
+      echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Quick and incomplete compilation was selected, so we stop after now (cycle $cycle)."
+      break
+    fi
+  fi
 
   if (("$cycle" > 640)) ; then
     echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Something odd is happening: We have performed $cycle cycles. That's too many. Let's quit."
@@ -254,7 +263,7 @@ echo "$(date +'%0Y-%0m-%0d %0R:%0S'): The tool chain has been applied until noth
 latexWarningsCount=0
 latexWarningString=""
 logFile="$documentName.log"
-if [ -f "$logFile" ]; then
+if [ -f "$logFile" ] && [ "$quickArg" != "quick" ]; then
   echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We found the log file '$logFile' and check its contents."
   fileContents="$(<$logFile)"
 

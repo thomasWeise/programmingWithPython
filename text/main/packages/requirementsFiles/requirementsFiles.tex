@@ -1,0 +1,51 @@
+%
+\hsection{Requirements Files}
+%
+\gitPython{\programmingWithPythonCodeRepo}{packages/requirements.txt}{--args format}{packages:requirementstxt}{%
+A requirements file demanding that version~\textil{1.26.4} of \numpy\ be installed.}%
+%
+\gitBashAndOutput{\programmingWithPythonCodeRepo}{packages}{numpy_user_venv_req.sh}{packages:numpy_user_venv_req_sh}{%
+A script that runs our example program using a \pgls{virtualEnvironment} created by using the \textil{requirements.txt} file given in \cref{lst:packages:requirementstxt}.}%
+%
+It is very normal that our projects require multiple different \pglspl{package}.
+Sometimes, they require specific versions of specific \pglspl{package}.
+Instead of manually installing these dependencies with \pip\ every time we want to use our program, it makes sense to \emph{write them down}.
+Indeed, the dependencies of an application are a very important part of the documentation.%
+%
+\begin{sloppypar}%
+Requirements files offer a very simple format for this purpose.
+They are usually called \textil{requirements.txt} and reside in the root folder of a project.
+As their name implies, they are simple text files.
+Each of their lines lists one \pgls{package} that is required, optionally with version constraints.%
+\end{sloppypar}%
+%
+\Cref{lst:packages:requirementstxt} gives a trivial example of such a file.
+It contains the line \textil{numpy==1.26.4}.
+This means that \numpy\ of exactly the version~1.26.4 is required for our application.
+Had we written \textil{numpy>=1.26.4}, then a larger version of \numpy\ would also have been OK.
+The other operators, \textil{>}, \textil{<}, and~\textil{<=} can be used as well and have their natural corresponding meaning.
+If we had wanted, we could have written \textil{matplotlib} in the second line of our \textil{requirements.txt} file, which would then have meant that, besides \numpy\ of version~\textil{1.26.4}, the package \matplotlib\ is needed as well.
+Writing only \textil{matplotlib} would be interpreted as \inQuotes{find the highest version of \matplotlib\ that is compatible with \numpy\ version~1.26.4.}
+But we only need one package, \numpy, so our file just has a single line.
+
+In \cref{lst:packages:numpy_user_venv_req_sh}, we present a version of the script that we used to set up a virtual environment and run our two-line \numpy\ program under \ubuntu\ \linux~(see \cref{lst:packages:numpy_user_venv_req_sh}.)
+The only difference is that we now do not write \bashil{pip install numpy} but instead write \bashil{pip install -r requirements.txt}.
+This tells \pip\ to install \emph{all} the requirements from the requirements file \textil{requirements.txt}.
+Under \windows, it works exactly the same.
+
+Having a \textil{requirements.txt} file in the root directory of your project is very useful.
+It automatically informs anybody who works with your code or who uses your program which versions of which \pglspl{package} they need.
+Therefore, it makes sense to specify \pgls{package} versions as precisely as possible in \textil{requirements.txt}.%
+%
+\bestPractice{requirementsTxt}{%
+The \pglspl{package} that a \python\ project requires or depends on should be listed in a file called \textil{requirements.txt} in the root folder of the project.}%
+%
+\bestPractice{requirementsTxtExact}{%
+All required \pglspl{package} in a \textil{requirements.txt} file should be specified with the exact version, i.e., in the form of~\textil{package==version}. %
+This ensures that the behavior of the project can be exactly replicated on other machines. %
+It rules out that errors can be caused due to incompatible versions of dependencies, because it allows the users to exactly replicate the set up of the machine on which the project was developed.%
+}%
+%
+\FloatBarrier%
+\endhsection%
+%
