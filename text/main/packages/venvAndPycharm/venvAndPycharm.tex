@@ -118,7 +118,21 @@ We right-click the file in three view on the left-hand side of the window.
 A popup menu appears, in which we click on \menu{Run \inSQuotes{numpy\_user.py}}.
 We could just as well have pressed \keys{\ctrl+\shift+F10}.
 Our program is executed and the expected output appears (\cref{fig:venvPycharm8}).
-All is well.%
+All is well.
+
+However, it must be understood that the support for \pglspl{virtualEnvironment} and requirements files in \pycharm\ is for \emph{software development}.
+If you want to actually use the software you have developed, you should \emph{always} use the command line and \pglspl{terminal}, as discussed in \cref{sec:pipAndVenv}.
+\pycharm\ is not a runtime environment for the deployment of productive code.
+It is an \acrfull{IDE} for developing programs.%
+%
+\bestPractice{noPycharmForProductive}{%
+\pycharm\ must \textbf{never} be used for running an application in a productive setting. %
+It is \emph{only} to be used as \pgls{IDE} for software development. %
+For actually executing programs, always use a \pglspl{virtualEnvironment} in the \pgls{terminal} as introduced in \cref{sec:pipAndVenv}.%
+}%
+%
+This holds also and especially for scenarios where we do use \python\ for scientific experiments.
+It is an even worse idea to try to run multiple concurrent instances of a program in a \pycharm\ window or to have multiple \pycharm\ instances open to run multiple applications in parallel.%
 %
 \FloatBarrier%
 \endhsection%
