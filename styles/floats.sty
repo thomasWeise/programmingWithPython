@@ -3,7 +3,8 @@
 %%
 %
 \RequirePackage{subfig}%
-\renewcommand\thesubfigure{\arabic{subfigure}}%
+\renewcommand{\thesubfigure}{\thefigure.\arabic{subfigure}}%
+\renewcommand{\p@subfigure}{}%
 %
 \protected\gdef\tightbox#1{\bgroup%
 \fboxsep=0pt%

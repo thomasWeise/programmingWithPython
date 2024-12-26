@@ -132,6 +132,12 @@ language=bash,%
 }%
 %
 %
+\lstdefinestyle{bat_style}{%
+style=basic_style,%
+language=command.com,%
+}%
+%
+%
 \lstdefinestyle{tool_style}{%
 style=text_style,%
 morecomment=[f][\color{listing-tool-command}][0]{\$ },
@@ -164,6 +170,12 @@ breaklines=true%
 %% #2 the code to be printed inline
 \gdef\bashil#1{%
 \inlinelistingbox{\lstinline[style=bash_style]$#1$}}%
+%
+%% print some BAT code inline
+%% #1 the optional args
+%% #2 the code to be printed inline
+\gdef\batil#1{%
+\inlinelistingbox{\lstinline[style=bat_style]$#1$}}%
 %
 %% print some xml inline
 %% #1 the optional args
@@ -223,6 +235,16 @@ breaklines=true%
 %% #4 the caption
 \protected\gdef\gitBash#1#2#3#4{%
 \gitCode{#1}{#2}{}{#3}{#4}{,style=bash_style}%
+}%
+%
+%%
+%% Use latexgit to place a windows BAT listing.
+%% #1 the git repository
+%% #2 the local path
+%% #3 the label (lst: will be pre-pended)
+%% #4 the caption
+\protected\gdef\gitBat#1#2#3#4{%
+\gitCode{#1}{#2}{}{#3}{#4}{,style=bat_style}%
 }%
 %
 %% Use latexgit to place a listing with program output.

@@ -54,6 +54,7 @@ Using \pip\ and \venv\ is often done in the \pgls{terminal}, i.e., by typing com
 This, naturally, too works differently under \linux\ and \windows.
 We therefore will briefly explore how to achieve these things under both operating systems.%
 %
+\FloatBarrier%
 \hsection{pip and Virtual Environments in \ubuntu\ \linux}%
 %
 \begin{figure}%
@@ -76,48 +77,126 @@ This process is illustrated in \cref{fig:installPipVenvUbuntu}.
 After \aptGet\ completes, we can check the version of \pip\ via \bashil{pip --version}.
 Whether \venv\ is installed correctly can be checked via \bashil{python3 -m venv -h}.
 
-\gitBashAndOutput{\programmingWithPythonCodeRepo}{packages}{numpy_user_venv.sh}{packages:numpy_user_venv}{%
+\gitBashAndOutput{\programmingWithPythonCodeRepo}{packages}{numpy_user_venv.sh}{packages:numpy_user_venv_sh}{%
 An example of using \pglspl{virtualEnvironment} and \pip\ under \ubuntu\ \linux\ to install \numpy\ and to run our program \cref{lst:packages:numpy_user}.}%
 %
-\Cref{lst:packages:numpy_user_venv} presents a self-contained example where we execute the necessary commands to setup a \pgls{virtualEnvironment}, install the needed package, run our program, and tear down the virtual environment.
+\begin{figure}%
+\centering%
+%
+\subfloat[][%
+Create the directory for the \pgls{virtualEnvironment} by typing \bashil{mkdir -p .venv} into the \pgls{terminal} and hitting~\keys{\return}.%
+\label{fig:venvLinux1}%
+]{\includegraphics[width=0.48\linewidth]{\currentDir/venvLinux1}}%
+%
+\strut\hfill\strut%
+%
+\subfloat[][%
+Set up the \pgls{virtualEnvironment} in directory \bashil{.venv} by typing \bashil{python3 -m venv .venv} and hitting~\keys{\return}.%
+\label{fig:venvLinux2}%
+]{\includegraphics[width=0.48\linewidth]{\currentDir/venvLinux2}}%
+%
+\\[10pt]%
+%
+\subfloat[][%
+We activate the \pgls{virtualEnvironment} by \bashil{source .venv/bin/activate} + \keys{\return}. %
+Notice that the prompt changes: It now has the prefix \bashil{(.venv)}.%
+\label{fig:venvLinux3}%
+]{\includegraphics[width=0.48\linewidth]{\currentDir/venvLinux3}}%
+%
+\strut\hfill\strut%
+%
+\subfloat[][%
+We install the \numpy\pythonIdx{numpy} \pgls{package} into the activated \pgls{virtualEnvironment} vis \bashil{pip install --require-virtualenv numpy} + \keys{\return}.%
+\label{fig:venvLinux4}%
+]{\includegraphics[width=0.48\linewidth]{\currentDir/venvLinux4}}%
+%
+\\[10pt]%
+%
+\subfloat[][%
+Now we can execute the \python\ program \textil{numpy_user.py} from \cref{lst:packages:numpy_user} via \bashil{python3 numpy_user.py} + \keys{\return}.%
+\label{fig:venvLinux5}%
+]{\includegraphics[width=0.48\linewidth]{\currentDir/venvLinux5}}%
+%
+\strut\hfill\strut%
+%
+\subfloat[][%
+We deactivate the \pgls{virtualEnvironment} by calling \bashil{deactivate} and hitting~\keys{\return}. %
+We could activate it again at any point in time in the same way shown in \cref{fig:venvLinux3}.%
+\label{fig:venvLinux6}%
+]{\includegraphics[width=0.48\linewidth]{\currentDir/venvLinux6}}%
+%
+\\[10pt]%
+%
+\subfloat[][%
+Trying to execute \textil{numpy_user.py} will now fail, because \numpy\ is only installed in the \pgls{virtualEnvironment}, which is not active now.%
+\label{fig:venvLinux7}%
+]{\includegraphics[width=0.48\linewidth]{\currentDir/venvLinux7}}%
+%
+\strut\hfill\strut%
+%
+\subfloat[][%
+Finally, we delete the directory \bashil{.venv} via \bashil{rm -rf .venv} + \keys{\return}. %
+Normally, you would retain this directory and use it again next time you want to execute our program.%
+\label{fig:venvLinux8}%
+]{\includegraphics[width=0.48\linewidth]{\currentDir/venvLinux8}}%
+%
+\caption{A step-by-step execution of the commands in \cref{lst:packages:numpy_user_venv_sh} in the \ubuntu\ \linux\ \pgls{terminal}, which was opened by hitting \ubuntuTerminal.}%
+\label{fig:venvLinux}%
+\end{figure}%
+%
+\Cref{lst:packages:numpy_user_venv_sh} presents a self-contained example where we execute the necessary commands to setup a \pgls{virtualEnvironment}, install the needed package, run our program, and tear down the virtual environment.
 In the real world, you would set up the environment once and could use it many times to run your program.
 
 Assume that we have already opened a \pgls{terminal} by pressing~\ubuntuTerminal\ and that we have entered the directory where our program~\bashil{numpy_user.py} from \cref{lst:packages:numpy_user} is located.
-We begin by creating a new empty directory named~\bashil{.venv} in our current directory by \bashil{mkdir -p .venv} command followed by~\keys{\return}.
-Inside this directory, we create an empty \pgls{virtualEnvironment} by typing \bashil{python3 -m venv .venv}, again followed by~\keys{\return}.
+In \cref{fig:venvLinux}, we step-by-step execute the commands from \cref{lst:packages:numpy_user_venv_sh} and show their output.
+We begin by creating a new empty directory named~\bashil{.venv} in our current directory by \bashil{mkdir -p .venv} command followed by~\keys{\return}~(\cref{fig:venvLinux1}).
+Inside this directory, we set up the new and empty \pgls{virtualEnvironment} by typing \bashil{python3 -m venv .venv}, again followed by~\keys{\return}~(\cref{fig:venvLinux2}).
 The directory \bashil{.venv} now should contain a \python\ interpreter as well as all files needed for managing the environment.
 
 The next step is to activate the environment.
 If we would type \bashil{python3} right now, we would still be using the system's \python\ interpreter and the packages installed system-wide.
 However, we actually want to use the \pgls{virtualEnvironment} instead.
-For this, we need to execute \emph{all} the commands in the file \bashil{.venv/bin/activate}.
+For this, we need to execute \emph{all} the commands in the file \bashil{.venv/bin/activate}, which was automatically created for us when we set up the \pgls{virtualEnvironment}.
 The simplest way to do this is to just copy all of them into the current \pgls{terminal} as if we had written by hand.
-\bashil{source .venv/bin/activate}, confirmed by~\keys{\return} does exactly that.
+This happens if we type \bashil{source .venv/bin/activate}, confirmed by~\keys{\return}, as shown in \cref{fig:venvLinux3}.
 If you are following this example on your own computer, then after executing this command, the \bash\ prompt (the little text on the left-hand side) changes, showing that now the \pgls{virtualEnvironment} is active.
+This is also visible in \cref{fig:venvLinux3}, where the prefix~\bashil{(.venv)} is added to the prompt.
 
 This means that any call to the \python\ interpreter will, from now on, use the interpreter stored in the \pgls{virtualEnvironment}.
 We can also only use packages that were installed there.
 If we execute \bashil{pip install --require-virtualenv numpy}, this will install the \numpy\ \pgls{package}.
 But it uses the \python\ interpreter and \pgls{package} directory of the activated \pgls{virtualEnvironment}.
-So \numpy\ is not installed system-wide, but into the \pgls{virtualEnvironment}.
-
-We can now execute our small program \bashil{numpy_user.py}.
+So in \cref{fig:venvLinux4}, \numpy\pythonIdx{numpy} is not installed system-wide, but into the \pgls{virtualEnvironment}.%
+%
+\begin{sloppypar}%
+We can now execute our small program \bashil{numpy_user.py} in \cref{fig:venvLinux5}.
 We type \bashil{python3 numpy_user.py} and hit~\keys{\return}.
-Indeed, the expected output \textil{look, a numpy array: [1. 2. 3.]} appears in the \pgls{terminal}, as shown in \cref{exec:packages:numpy_user_venv}.
-Our program uses the local \numpy\ installation inside the \pgls{virtualEnvironment}.
+Indeed, the expected output \textil{look, a numpy array: [1. 2. 3.]} appears in the \pgls{terminal}, as also already shown in \cref{exec:packages:numpy_user_venv_sh}.
+Our program uses the local \numpy\ installation inside the \pgls{virtualEnvironment}.%
+\end{sloppypar}%
+%
+We are now finished with our application.
+To clean up, we deactivate the \pgls{virtualEnvironment} by executing~\bashil{deactivate} in \cref{fig:venvLinux6}.
+This causes the prompt to change back to normal.
+Any invocation of \python\ would now use the system installation.
+It would no longer have access to our \pgls{virtualEnvironment} and the \pglspl{package} installed within.
 
 If this was a more complex and useful application, then this would be the steps to get it ready and usable:
 We create the \pgls{virtualEnvironment} exactly once.
 Exactly once we need to install all the required \pglspl{package} into it.
-Whenever we want to run our application, we would open a new \pgls{terminal}, enter our directory, activate the \pgls{virtualEnvironment}, and then just run the program.
-Before closing the \pgls{terminal}, if we want to be tidy, we can deactivate the \pgls{virtualEnvironment} again by executing~\bashil{deactivate}.
+Whenever we want to run our application, we would open a new \pgls{terminal}, we enter our directory, activate the \pgls{virtualEnvironment}, and then just run the program.
+After that, we would deactivate the environment.
+Deactivating the environment does not delete anything.
+All of our settings and installed \pglspl{package} are still there.
+The next time we activate the environment again, we can use them again, without the need to re-install them.
 
-To confirm that we really installed \numpy\ only locally and that our program was really using the \pgls{package} installed in the \pgls{virtualEnvironment}, we try to run our program again \emph{after} deactivating the environment.
-As you can see in \cref{exec:packages:numpy_user_venv}, this second execution fails:
+Anyway, we did deactivate the environment just now.
+To confirm that we really installed \numpy\ only locally and that our program was really using the \pgls{package} installed in the \pgls{virtualEnvironment}, we try to run our program again \emph{after} deactivating the environment in \cref{fig:venvLinux7}.
+As you can see in \cref{fig:venvLinux7,exec:packages:numpy_user_venv_sh}, this second execution fails:
 A \pythonilIdx{ModuleNotFoundError} is raised and the interpreter terminates.%
 %
 \begin{sloppypar}%
-Finally, in our example in \cref{lst:packages:numpy_user_venv}, we delete the \pgls{virtualEnvironment} directory again via~\bashil{rm -rf .venv}.
+Finally, in our example in \cref{lst:packages:numpy_user_venv_sh,fig:venvLinux8}, we delete the \pgls{virtualEnvironment} directory again via~\bashil{rm -rf .venv}.
 Normally, you would \emph{not} do this.\footnote{%
 I just clean up here because my examples are automatically executed whenever the book is built and I want to avoid that the examples interfer with each other or that, accidentally, some files from the environment land in my \git\ repositories.}%
 You do not want to re-create the \pgls{virtualEnvironment} again every time you execute your application.
@@ -135,6 +214,141 @@ As said, once you have installed the required \pglspl{package}, you can simply a
 \caption{Installing \pip\ and \venv\ under \windows: They are already installed.}%
 \label{fig:installPipVenvWindows}%
 \end{figure}%
+%
+Like under \linux, we also need to make sure that \pip\ and \venv\ are installed before we can actually use either of them.
+Luckily, as shown in \cref{fig:installPipVenvWindows}, they already came pre-installed with my \python\ distribution.
+
+\gitBat{\programmingWithPythonCodeRepo}{packages/numpy_user_venv.bat}{packages:numpy_user_venv_bat}{%
+An example of using \pglspl{virtualEnvironment} and \pip\ under \windows\ to install \numpy\ and to run our program \cref{lst:packages:numpy_user}. %
+The output is given in \cref{fig:venvWindowsScript,fig:venvWindows}}%
+%
+\begin{figure}%
+\centering%
+\tightbox{\includegraphics[width=0.75\linewidth]{\currentDir/venvWindowsScript}}%
+\caption{The output of \cref{lst:packages:numpy_user_venv_bat} when executed in a \windows\ \pgls{terminal}. %
+To open the terminal, \windowsTerminal.}%
+\label{fig:venvWindowsScript}%
+\end{figure}%
+%
+\begin{figure}%
+\centering%
+%
+\subfloat[][%
+Create the directory for the \pgls{virtualEnvironment} by typing \batil{md .venv} into the \pgls{terminal} and hitting~\keys{\return}.%
+\label{fig:venvWindows1}%
+]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/venvWindows1}}}%
+%
+\strut\hfill\strut%
+%
+\subfloat[][%
+Set up the \pgls{virtualEnvironment} in directory \batil{.venv} by typing \batil{python -m venv .venv} and hitting~\keys{\return}.%
+\label{fig:venvWindows2}%
+]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/venvWindows2}}}%
+%
+\\[10pt]%
+%
+\subfloat[][%
+We activate the \pgls{virtualEnvironment} by \batil{.venv\\Scripts\\activate.bat} + \keys{\return}. %
+Notice that the prompt changes: It now has the prefix~\batil{(.venv)}.%
+\label{fig:venvWindows3}%
+]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/venvWindows3}}}%
+%
+\strut\hfill\strut%
+%
+\subfloat[][%
+We install the \numpy\pythonIdx{numpy} \pgls{package} into the activated \pgls{virtualEnvironment} vis \batil{pip install --require-virtualenv numpy} + \keys{\return}.%
+\label{fig:venvWindows4}%
+]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/venvWindows4}}}%
+%
+\\[10pt]%
+%
+\subfloat[][%
+Now we can execute the \python\ program \textil{numpy_user.py} from \cref{lst:packages:numpy_user} via \batil{python numpy_user.py} + \keys{\return}.%
+\label{fig:venvWindows5}%
+]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/venvWindows5}}}%
+%
+\strut\hfill\strut%
+%
+\subfloat[][%
+We deactivate the \pgls{virtualEnvironment} by calling \batil{deactivate} and hitting~\keys{\return}. %
+We could activate it again at any point in time in the same way shown in \cref{fig:venvWindows3}.%
+\label{fig:venvWindows6}%
+]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/venvWindows6}}}%
+%
+\\[10pt]%
+%
+\subfloat[][%
+Trying to execute \textil{numpy_user.py} will now fail, because \numpy\ is only installed in the \pgls{virtualEnvironment}, which is not active now.%
+\label{fig:venvWindows7}%
+]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/venvWindows7}}}%
+%
+\strut\hfill\strut%
+%
+\subfloat[][%
+Finally, we delete the directory \batil{.venv} via \batil{rd /S /Q .venv} + \keys{\return}. %
+Normally, you would retain this directory and use it again next time you want to execute our program.%
+\label{fig:venvWindows8}%
+]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/venvWindows8}}}%
+%
+\caption{A step-by-step execution of the commands in \cref{lst:packages:numpy_user_venv_bat} in the \windows\ \pgls{terminal}. %
+To open the terminal, \windowsTerminal.}%
+\label{fig:venvWindows}%
+\end{figure}%
+
+We now want to execute our small program \cref{lst:packages:numpy_user}, which uses \numpy.
+\numpy\pythonIdx{numpy} does not come pre-installed.
+So we need to install it first.
+Following general best practices, we will do so using a virtual environment.
+All the necessary commands for this are listed in the \windows\ batch file in \cref{lst:packages:numpy_user_venv_bat}.
+The complete corresponding output in the \pgls{terminal} is given in \cref{fig:venvWindowsScript}.
+
+Here, we will work our way through this step-by-step in \cref{fig:venvWindows}.
+First, you need to \windowsTerminal\ to open a \windows\ \pgls{terminal}.
+We enter the directory where our program file \batil{numpy_user.py} is located with the \batil{cd}~commend~(not illustrated).
+
+As a first step, we need to create a directory \batil{.venv} to host the \pgls{virtualEnvironment}.
+We therefore write \batil{md .venv} and hit~\keys{\return} in~\cref{fig:venvWindows1}.
+To then set up a new and, initially, empty \pgls{virtualEnvironment} in this directory, we type \batil{python -m venv .venv} and hit~\keys{\return}~(see \cref{fig:venvWindows2}).
+Notice that under \ubuntu\ \linux, we always used the \bashil{python3} command, but here we always use \batil{python} instead.
+Either way, executing the command has filled the directory \batil{.venv} with the necessary files and scripts for an isolated \python\ environment.
+
+In \cref{fig:venvWindows3}, we activate this environment by running \batil{.venv\\Scripts\\activate.bat} (and hitting~\keys{\return}).
+This \windows\ batch file has been created for us when we set up the \pgls{virtualEnvironment}.
+It activates the environment, which leads to a change in the prompt, i.e., the little text that always appears left of where we type the input.
+As can be seen in \cref{fig:venvWindows3}, the text \batil{(.venv)} has been pre-pended to the prompt, which tells us that this is the currently active \pgls{virtualEnvironment}.
+
+We now want to install the \numpy\pythonIdx{numpy} \pgls{package} into this \pgls{virtualEnvironment}.
+We can do this by typing \batil{pip install --require-virtualenv numpy} and then pressing~\keys{\return}.
+This causes \numpy\ to be downloaded (or copied from the internal cache) and installed, as shown in \cref{fig:venvWindows4}.%
+%
+\begin{sloppypar}%
+We can now run our program \textil{numpy_user.py} by typing \batil{python numpy_user.py} and hitting~\keys{\return}.
+Indeed, as you can see in \cref{fig:venvWindows5}, the program runs without error and prints \textil{look, a numpy array: [1. 2. 3.]}, exactly as expected.
+It found the \numpy\pythonIdx{numpy} \pgls{package} that was installed in the \pgls{virtualEnvironment}.%
+\end{sloppypar}%
+%
+Now that we have finished executing our program, we can deactivate the \pgls{virtualEnvironment}.
+In \cref{fig:venvWindows6}, we type \batil{deactivate} and press~\keys{\return}.
+This causes the prompt to change back to normal.
+The \pgls{virtualEnvironment} is no longer active.
+This means that from now on, all interaction takes place with the system \python\ installation.
+If our program was a real, valuable application, then the next time we would like to use it, we would simply activate the \pgls{virtualEnvironment} again.
+All of our files, settings, and installed \pglspl{package} are still there.
+Nothing has been deleted~(yet).
+If we would activate the \pgls{virtualEnvironment} again, we could just run the program again, we would not need to re-installed any package.
+
+However, we now want to verify that deactivating the \pgls{virtualEnvironment} really means that right now, we are just working with the system \python\ setup.
+For this purpose, we try to run our program again \cref{fig:venvWindows7} by again writing \batil{python numpy_user.py} and hitting~\keys{\return}.
+As you can see, this does not work.
+\numpy\ was only installed in the \pgls{virtualEnvironment} and is not available system-wide.
+The first line of our program, which tries to \pythonil{import numpy}, therefore raises a~\pythonilIdx{ModuleNotFoundError}.
+
+At the very end of this example, I want to clean up my folder by typing \batil{rd /S /Q .venv} and hitting~\keys{\return}.
+This deletes the directory \batil{.venv} and everything within.
+You would normally not do this, because normally we want to re-use our \pglspl{virtualEnvironment} by activating and deactivating them as needed.
+Either way, this was a complete example for using \pglspl{virtualEnvironment}, \pip, and \venv\ under \windows.
+It was actually not very much different from the \ubuntu\ \linux\ example in the previous section.%
+%
 \endhsection%
 %
 \FloatBarrier%
