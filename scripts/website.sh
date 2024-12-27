@@ -1,7 +1,6 @@
 #!/bin/bash -
 
-## pdflatex Compiler Script
-## $1 the document to compile
+## The website building script.
 
 # strict error handling
 set -o pipefail  # trace ERR through pipes
