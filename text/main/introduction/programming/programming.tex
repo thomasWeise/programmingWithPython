@@ -50,7 +50,7 @@ You learned how to do that with this book.
 So you now have the file with the program code.
 The problem is solved.
 
-Is that easy?
+Is it that easy?
 On one hand, you may wonder whether you made any mistake.
 We are people, we all make mistakes.
 The more complex the task we tackle, the more (program code) we write, the more likely it is that we make some small error somewhere.
@@ -61,20 +61,29 @@ What if it is part of some sort of software ecosystem?
 What if other programs may later need to use/run it?
 Maybe it can access some sort of sensor measuring something, or maybe it can convert data from one file format to another one.
 Then, other programmers may need to be able to at least understand how to correctly run the program and what kind of input and output data it will expect or produce, respectively.
+You must \emph{document} your program clearly.
+If you write a package that offers functions that can be used by other programs, there must be annotations that clearly explain what kind of input and output datatypes these functions accept and produce, respectively.
 
 What if this program is going to be needed for the next ten or so years?
 Maybe it could eventually become necessary to add new functionality?
 Maybe some of the software libraries you use get outdated and need to be replaced?
 There also are several situations in which a totally different person may need to work, read, modify, and improve \emph{your} code.
+They need to be able to read and understand your code easily.
+You cannot just write stuff down quickly, you cannot just produce one big soup of unformatted code.
+You need to both have good documentation and write clean and easy-to-read code.
 
 Or maybe you are a researcher, using \python~3 to implement some algorithm and to run an experiment.
 In order to make your experiments and results replicable, you would probably want to publish your algorithm implementation together with the results.
-This only makes sense if your code is at least a bit readable.
+This, agin, only makes sense if your code is at least a bit readable.
+The names of variables and functions must be clear and understandable.
+The coding style should be consistent throughout all files and it should follow common conventions~\cite{PEP8}.
 
 All of these things need to be considered when we learn how to program.
 Because you do not just \inQuotes{program,} you develop software.
+Indeed, a good share of programmers usually spend only about 50\%~of their time with programming~\cite{T2019MOSWBFDHOT2TMOSS,AS2019DS2OSRP}.
+Of course, we cannot cover all other topics related to software engineering in a programming course.
 
-In typical courses, such aspects are ignored.
+However, in typical courses, such aspects are ignored entirely.
 In a typical course, you learn how to write a small program that solves a certain task.
 The task is usually simple, so the teachers are able to read your code even if you have ugliest style imaginable.
 Also, nobody is ever going to look at or use the programs you write as your homework again.
@@ -90,7 +99,7 @@ Such that all of your code will be reusable, readable, clear, clean, and \emph{b
 
 As a result, this will be a course which is very practice centered.
 We will learn programming the \emph{right} way.\footnote{%
-Well, at least, what I consider as the \emph{right} way.%
+Well, at least, what \emph{I} consider as the \emph{right} way.%
 }
 The downside of this approach is that we will sometimes go off on tangents in the text.
 While I am introducing variables in \cref{sec:variables}, for example, I will also explain how to use a static code analysis tool designed to find type errors in variable use.
