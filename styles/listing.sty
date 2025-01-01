@@ -6,6 +6,9 @@
 %
 \def\@lstbasicstyle{\small\color{listing-text-color}\linespread{1.0}\lst@ifdisplaystyle\small\fi\ttfamily{}}%
 %
+\newsavebox\@lst@mypostbreak%
+\savebox\@lst@mypostbreak{\textcolor{red}{$\hookrightarrow$}\space}%
+%
 \lstdefinestyle{basic_style}{%
 backgroundcolor=\color{listing-background},%
 numbers=left,%
@@ -34,7 +37,7 @@ stringstyle=\color{listing-string},%
 showspaces=false,%
 showtabs=false,%
 showstringspaces=false,%
-postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},%
+postbreak=\usebox\@lst@mypostbreak,%
 %
 literate=%
 {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1%
@@ -198,198 +201,6 @@ breaklines=true%
 %% #2 the code to be printed inline
 \gdef\pythoniles#1{%
 \inlinelistingbox{\lstinline[style=python_style]$#1$\resizebox{!}{\@lstbasicstylesheight}{\color{darkgray}es}}}%
-%
-%%
-%% Use latexgit to place a listing.
-%% #1 the git repository
-%% #2 the local path
-%% #3 the post-processing
-%% #4 the label (lst: will be pre-pended)
-%% #5 the caption
-%% #6 the style to use
-\protected\gdef\gitCode#1#2#3#4#5#6{%
-\gitLoad{#1}{#2}{#3}%
-\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitUrl:lst:#4\endcsname{\gitUrl}%
-\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:lst:#4\endcsname{\gitFile}%
-\begin{figure}[tb]%
-\lstinputlisting[label={lst:#4}#6,caption={#5~(\href{\csname @pwp@gitUrl:lst:#4\endcsname}{src})}]{\csname @pwp@gitFile:lst:#4\endcsname}%
-\end{figure}%
-}%
-%
-%%
-%% Use latexgit to place a Python listing.
-%% #1 the git repository
-%% #2 the local path
-%% #3 the post-processing
-%% #4 the label (lst: will be pre-pended)
-%% #5 the caption
-\protected\gdef\gitPython#1#2#3#4#5{%
-\gitCode{#1}{#2}{python3 -m latexgit.formatters.python #3}{#4}{#5}{,style=python_style}%
-}%
-%
-%%
-%% Use latexgit to place a Bash listing.
-%% #1 the git repository
-%% #2 the local path
-%% #3 the label (lst: will be pre-pended)
-%% #4 the caption
-\protected\gdef\gitBash#1#2#3#4{%
-\gitCode{#1}{#2}{}{#3}{#4}{,style=bash_style}%
-}%
-%
-%%
-%% Use latexgit to place a windows BAT listing.
-%% #1 the git repository
-%% #2 the local path
-%% #3 the label (lst: will be pre-pended)
-%% #4 the caption
-\protected\gdef\gitBat#1#2#3#4{%
-\gitCode{#1}{#2}{}{#3}{#4}{,style=bat_style}%
-}%
-%
-%%
-%% Use latexgit to place a plain text listing.
-%% #1 the git repository
-%% #2 the local path
-%% #3 the label (lst: will be pre-pended)
-%% #4 the caption
-\protected\gdef\gitText#1#2#3#4{%
-\gitCode{#1}{#2}{}{#3}{#4}{,style=text_style}%
-}%
-%
-%% Use latexgit to place a listing with program output.
-%% #1 the git repository
-%% #2 the local path
-%% #3 the command
-%% #4 the label (exec: will be pre-pended)
-%% #5 the additional parameters, if any
-%% #6 the style to use
-\protected\gdef\gitOutputWithStyle#1#2#3#4#5#6{%
-\gitExec{#1}{#2}{#3}%
-\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:exec:#4\endcsname{\gitFile}%
-\lstinputlisting[style=#6#5]{\csname @pwp@gitFile:exec:#4\endcsname}%
-}%
-%
-%% Use latexgit to place a listing with tool output.
-%% #1 the git repository
-%% #2 the local path
-%% #3 the command
-%% #4 the label (exec: will be pre-pended)
-%% #5 the caption
-\protected\gdef\gitOutputTool#1#2#3#4#5{%
-\gitExec{#1}{#2}{#3}%
-\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:exec:#4\endcsname{\gitFile}%
-\begin{figure}[tb]%
-\lstinputlisting[style=tool_style,label={exec:#4},caption={#5}]{\csname @pwp@gitFile:exec:#4\endcsname}%
-\end{figure}%
-}%
-%
-%%% Set the output format, because sometimes we want to have different formats in the output
-\protected\gdef\gitPythonAndOutputFormat#1{\xdef\@gitPythonAndOutputFormat{#1}}%
-\protected\gdef\gitPythonAndOutputFormatDefault{\gitPythonAndOutputFormat{text_style}}%
-\gitPythonAndOutputFormatDefault%
-%
-%% Use latexgit to place a listing with Python code and the program output.
-%% #1 the git repository
-%% #2 the path to the directory
-%% #3 the path to the file inside the directory
-%% #4 the post-processing
-%% #5 the label (lst: will be prepended to the program, exec: will be
-%%    pre-pended to the output)
-%% #6 the caption
-\protected\gdef\gitPythonAndOutput#1#2#3#4#5#6{%
-\expandafter\expandafter\expandafter\edef\expandafter\csname @gitPythonAndOutputFormat:exec:#5\endcsname{\@gitPythonAndOutputFormat}%
-\gitPythonAndOutputFormatDefault%
-%
-\gitLoad{#1}{#2/#3}{python3 -m latexgit.formatters.python #4}%
-\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitUrl:lst:#5\endcsname{\gitUrl}%
-\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:lst:#5\endcsname{\gitFile}%
-\gitExec{#1}{#2}{python3 #3}%
-\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:exec:#5\endcsname{\gitFile}%
-%
-\begin{figure}[tb]%
-\centering%
-\lstinputlisting[label={lst:#5},style=python_style,caption={#6~(stored in file~\href{\csname @pwp@gitUrl:lst:#5\endcsname}{\textil{#3}}; output in~\cref{exec:#5})}]{\csname @pwp@gitFile:lst:#5\endcsname}%
-%
-$\downarrow$~~\expandafter\bashil{python3 #3}~~$\downarrow$%
-%
-\edef\@@@@gitOutputFmt{\csname @gitPythonAndOutputFormat:exec:#5\endcsname}%
-\lstinputlisting[label={exec:#5},style=\@@@@gitOutputFmt,caption={The \gls{stdout} of the program~\href{\csname @pwp@gitUrl:lst:#5\endcsname}{\textil{#3}} given in~\cref{lst:#5}.}]{\csname @pwp@gitFile:exec:#5\endcsname}%
-\end{figure}%
-}%
-%
-%% Use latexgit to place a listing with Bash code and the program output.
-%% #1 the git repository
-%% #2 the path to the directory
-%% #3 the path to the file inside the directory
-%% #4 the label (lst: will be prepended to the program, exec: will be
-%%    pre-pended to the output)
-%% #5 the caption
-\protected\gdef\gitBashAndOutput#1#2#3#4#5{%
-%
-\gitLoad{#1}{#2/#3}{}%
-\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitUrl:lst:#4\endcsname{\gitUrl}%
-\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:lst:#4\endcsname{\gitFile}%
-\gitExec{#1}{#2}{bash #3}%
-\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:exec:#4\endcsname{\gitFile}%
-%
-\begin{figure}[tb]%
-\centering%
-\lstinputlisting[label={lst:#4},style=bash_style,caption={#5~(stored in file~\href{\csname @pwp@gitUrl:lst:#4\endcsname}{\textil{#3}}; output in~\cref{exec:#4})}]{\csname @pwp@gitFile:lst:#4\endcsname}%
-%
-$\downarrow$~~\expandafter\bashil{bash #3}~~$\downarrow$%
-%
-\edef\@@@@gitOutputFmt{\csname @gitPythonAndOutputFormat:exec:#4\endcsname}%
-\lstinputlisting[label={exec:#4},style=tool_style,caption={The \gls{stdout} of the program~\href{\csname @pwp@gitUrl:lst:#4\endcsname}{\textil{#3}} given in~\cref{lst:#4}.}]{\csname @pwp@gitFile:exec:#4\endcsname}%
-\end{figure}%
-}%
-%
-%
-%% Use latexgit to place a listing with code and the program output.
-%% Ignore errors.
-%% #1 the git repository
-%% #2 the path to the directory
-%% #3 the path to the file inside the directory
-%% #4 the post-processing
-%% #5 the label (lst: will be prepended to the program, exec: will be
-%%    pre-pended to the output)
-%% #6 the caption
-\protected\gdef\gitPythonAndErrorOutput#1#2#3#4#5#6{%
-%
-\gitLoad{#1}{#2/#3}{python3 -m latexgit.formatters.python #4}%
-\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitUrl:lst:#5\endcsname{\gitUrl}%
-\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:lst:#5\endcsname{\gitFile}%
-\gitExec{#1}{.}{./_scripts_/pythonIgnoreErrors.sh #2 #3}%
-\expandafter\expandafter\expandafter\edef\expandafter\csname @pwp@gitFile:exec:#5\endcsname{\gitFile}%
-%
-\begin{figure}[tb]%
-\centering%
-\lstinputlisting[label={lst:#5},style=python_style,caption={#6~(stored in file~\href{\csname @pwp@gitUrl:lst:#5\endcsname}{\textil{#3}}; output in~\cref{exec:#5})}]{\csname @pwp@gitFile:lst:#5\endcsname}%
-%
-$\downarrow$~~\expandafter\bashil{python3 #3}~~$\downarrow$%
-%
-\lstinputlisting[label={exec:#5},style=text_style,caption={The \gls{stdout} and \gls{stderr} as well as the \pgls{exitCode} of the program~\href{\csname @pwp@gitUrl:lst:#5\endcsname}{\textil{#3}} given in~\cref{lst:#5}.}]{\csname @pwp@gitFile:exec:#5\endcsname}%
-\end{figure}%
-}%
-%
-%%
-%% The python syntax environment.
-%% Warning: If we do not use the minipage, this may or may not
-%% cause strange errors like:
-%% "! Argument of ? has an extra }."
-\lstnewenvironment{pythonSyntax}[1][true]{%
-\center%
-\minipage{\linewidth}%
-\let\@old@lst@visiblespace\lst@visiblespace%
-\def\lst@visiblespace{{\color{listing-spaces}\@old@lst@visiblespace}}%
-\lstset{%
-style=python_style,%
-showspaces=#1%
-}}{%
-\let\lst@visiblespace\@old@lst@visiblespace%
-\endminipage%
-\endcenter%
-}%
 %
 %% A dunder method
 %% #1 the method name
