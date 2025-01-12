@@ -143,7 +143,7 @@ Finally, the \dunder{eq} method will first check if the \pythonil{other} object 
 If so, it will return \pythonil{True} if and only if the \pythonil{x} and \pythonil{y} coordinate of the \pythonil{other} point are the same as of the point \pythonil{self}.
 Otherwise, it will return the constant \pythonilIdx{NotImplemented}:%
 %
-\quotation{PSF2024BIC}{%
+\cquotation{PSF2024BIC}{%
 A special value which should be returned by the binary special methods [\dots] to indicate that the operation is not implemented with respect to the other type\dots\medskip\\\strut\hspace{1cm}\strut%
 \emph{Note:}~When a binary (or in-place) method returns \pythonilIdx{NotImplemented} the interpreter will try the reflected operation on the other type (or some other fallback, depending on the operator). %
 If all attempts return \pythonilIdx{NotImplemented}, the interpreter will raise an appropriate exception. %
@@ -253,7 +253,7 @@ With that out of the way, we can now make our \pythonil{Point} class hashable.
 In \cref{lst:dunder:point_with_hash}, we modify the \pythonil{Point} class from \cref{lst:dunder:point_with_dunder}.
 We retain the implementation of~\dunder{eq} and add the method~\dunder{hash}.%
 %
-\quotation{PSF2024OH}{{\dots}The \pythonil{\_\_hash\_\_()}\pythonIdx{\_\_hash\_\_}\pythonIdx{dunder!\_\_hash\_\_} method should return an integer. %
+\cquotation{PSF2024OH}{{\dots}The \pythonil{\_\_hash\_\_()}\pythonIdx{\_\_hash\_\_}\pythonIdx{dunder!\_\_hash\_\_} method should return an integer. %
 The only required property is that objects which compare equal have the same hash value; %
 it is advised to mix together the hash values of the components of the object that also play a part in comparison of objects by packing them into a \pythonil{tuple} and hashing the tuple.}%
 %
@@ -301,7 +301,7 @@ That would be a very counter-intuitive bug in our code.
 Actually, I secretly planned to use this as a very tricky example for learning how to use the debugger{\dots}
 Alas, the developers of \python\ have already solved this:%
 %
-\quotation{PSF2024BIF}{Numeric values that compare equal have the same \pythonilIdx{hash} value (even if they are of different types, as is the case for~\pythonil{1} and~\pythonil{1.0}).}%
+\cquotation{PSF2024BIF}{Numeric values that compare equal have the same \pythonilIdx{hash} value (even if they are of different types, as is the case for~\pythonil{1} and~\pythonil{1.0}).}%
 %
 Therefore, we can indeed implement \dunder{hash} with a single line of code in~\cref{sec:hashDunder}.
 And I will later find another example on how the debugger can be used to spot errors in code.%

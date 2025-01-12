@@ -488,6 +488,25 @@ For a parameter, we should test both the smallest and largest possible argument 
 A good unit test for a function should cover all branches of the control flow inside the function. %
 If a function does one thing in one situation and another thing in another situation, then both of these scenarios should have associated unit tests.%
 }%
+%
+Many junior programmers are not aware how important unit testing is.
+Being able to understand, design, and use unit tests is one of the most important abilities in software development.%
+%
+\cquotation{GPBHKP2022SPPAF}{
+No single factor is likely responsible for \sqlite's popularity.
+Instead, in addition to its fundamentally embeddable design, several characteristics combine to make \sqlite\ useful in a broad range of scenarios.
+In particular, \sqlite\ strives to be:\par\relax[\dots]\par\relax%
+\textbf{Reliable}.
+There are over 600~lines of test code for every line of code in \sqlite~\cite{HO2023WKUOS}.
+Tests cover 100\% of branches in the library.
+The test suite is extremely diverse, including fuzz tests, boundary value tests, regression tests, and tests that simulate operating system crashes, power losses, I/O~errors, and out-of-memory errors.
+Due to its reliability, \sqlite\ is often used in mission-critical applications such as flight software~\cite{HO2024HSIT}%
+}%
+%
+\sqlite\ is the most used \pgls{SQL} \pgls{db} in the world.
+It is installed in nearly every smartphone, computer, web browser, television, and automobile~\cite{WB2019RHSOOS,GPBHKP2022SPPAF,C20245YOQ}.
+And its core developers mark reliability, shown by thorough tests, as one of the four reasons for that.%
+%
 \endhsection%
 %
 \hsection{Function Arguments: Default Values, Passing them by Name, and Constructing them}%
