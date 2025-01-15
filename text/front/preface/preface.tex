@@ -55,11 +55,13 @@ The book is written using \LaTeX\ and this repository contains all the scripts, 
 \strut\vfill\strut%
 %
 \begin{center}%
+\resizebox{\linewidth}{!}{%
 \begin{tabular}{c@{~~~~~~~~~~~~}c}%
 \includegraphics[width=7cm]{\currentDir/bookUrl}&\includegraphics[width=7cm]{\currentDir/courseUrl}\\\relax%
 [\href{https://thomasweise.github.io/programmingWithPython/programmingWithPython.pdf}{book pdf}]&[\href{https://thomasweise.github.io/programmingWithPython}{course website}]\\%
-\end{tabular}\\[12pt]%
-\url{https://thomasweise.github.io/programmingWithPython/programmingWithPython.pdf}%
+\end{tabular}}%
+\\[12pt]\noindent%
+\resizebox{0.85\linewidth}{!}{\expandafter\url{\programmingWithPythonUrl}}%
 \end{center}%
 %
 \strut\vfill\strut%
