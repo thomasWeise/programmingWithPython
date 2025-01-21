@@ -84,14 +84,14 @@ Create the directory for the \pgls{virtualEnvironment} by typing \bashil{mkdir -
 \label{fig:venvLinux1}%
 ]{\includegraphics[width=0.48\linewidth]{\currentDir/venvLinux1}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 Set up the \pgls{virtualEnvironment} in directory \bashil{.venv} by typing \bashil{python3 -m venv .venv} and hitting~\keys{\return}.%
 \label{fig:venvLinux2}%
 ]{\includegraphics[width=0.48\linewidth]{\currentDir/venvLinux2}}%
 %
-\\[10pt]%
+\floatRowSep%
 %
 \subfloat[][%
 We activate the \pgls{virtualEnvironment} by \bashil{source .venv/bin/activate} + \keys{\return}. %
@@ -99,21 +99,21 @@ Notice that the prompt changes: It now has the prefix \bashil{(.venv)}.%
 \label{fig:venvLinux3}%
 ]{\includegraphics[width=0.48\linewidth]{\currentDir/venvLinux3}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 We install the \numpy\pythonIdx{numpy} \pgls{package} into the activated \pgls{virtualEnvironment} vis \bashil{pip install --require-virtualenv numpy} + \keys{\return}.%
 \label{fig:venvLinux4}%
 ]{\includegraphics[width=0.48\linewidth]{\currentDir/venvLinux4}}%
 %
-\\[10pt]%
+\floatRowSep%
 %
 \subfloat[][%
 Now we can execute the \python\ program \textil{numpy_user.py} from \cref{lst:packages:numpy_user} via \bashil{python3 numpy_user.py} + \keys{\return}.%
 \label{fig:venvLinux5}%
 ]{\includegraphics[width=0.48\linewidth]{\currentDir/venvLinux5}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 We deactivate the \pgls{virtualEnvironment} by calling \bashil{deactivate} and hitting~\keys{\return}. %
@@ -121,14 +121,14 @@ We could activate it again at any point in time in the same way shown in \cref{f
 \label{fig:venvLinux6}%
 ]{\includegraphics[width=0.48\linewidth]{\currentDir/venvLinux6}}%
 %
-\\[10pt]%
+\floatRowSep%
 %
 \subfloat[][%
 Trying to execute \textil{numpy_user.py} will now fail, because \numpy\ is only installed in the \pgls{virtualEnvironment}, which is not active now.%
 \label{fig:venvLinux7}%
 ]{\includegraphics[width=0.48\linewidth]{\currentDir/venvLinux7}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 Finally, we delete the directory \bashil{.venv} via \bashil{rm -rf .venv} + \keys{\return}. %
@@ -234,14 +234,14 @@ Create the directory for the \pgls{virtualEnvironment} by typing \batil{md .venv
 \label{fig:venvWindows1}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/venvWindows1}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 Set up the \pgls{virtualEnvironment} in directory \batil{.venv} by typing \batil{python -m venv .venv} and hitting~\keys{\return}.%
 \label{fig:venvWindows2}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/venvWindows2}}}%
 %
-\\[10pt]%
+\floatRowSep%
 %
 \subfloat[][%
 We activate the \pgls{virtualEnvironment} by \batil{.venv\\Scripts\\activate.bat} + \keys{\return}. %
@@ -249,21 +249,21 @@ Notice that the prompt changes: It now has the prefix~\batil{(.venv)}.%
 \label{fig:venvWindows3}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/venvWindows3}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 We install the \numpy\pythonIdx{numpy} \pgls{package} into the activated \pgls{virtualEnvironment} vis \batil{pip install --require-virtualenv numpy} + \keys{\return}.%
 \label{fig:venvWindows4}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/venvWindows4}}}%
 %
-\\[10pt]%
+\floatRowSep%
 %
 \subfloat[][%
 Now we can execute the \python\ program \textil{numpy_user.py} from \cref{lst:packages:numpy_user} via \batil{python numpy_user.py} + \keys{\return}.%
 \label{fig:venvWindows5}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/venvWindows5}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 We deactivate the \pgls{virtualEnvironment} by calling \batil{deactivate} and hitting~\keys{\return}. %
@@ -271,14 +271,14 @@ We could activate it again at any point in time in the same way shown in \cref{f
 \label{fig:venvWindows6}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/venvWindows6}}}%
 %
-\\[10pt]%
+\floatRowSep%
 %
 \subfloat[][%
 Trying to execute \textil{numpy_user.py} will now fail, because \numpy\ is only installed in the \pgls{virtualEnvironment}, which is not active now.%
 \label{fig:venvWindows7}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/venvWindows7}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 Finally, we delete the directory \batil{.venv} via \batil{rd /S /Q .venv} + \keys{\return}. %

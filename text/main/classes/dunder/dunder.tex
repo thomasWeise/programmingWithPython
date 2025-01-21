@@ -661,21 +661,21 @@ We left-click on \menu{Run \inSQuotes{Doctest decimal\_str}}.%
 \label{fig:dunder:doctests1}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/doctests1}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 The \pglspl{doctest} are run, and in the window at the bottom-left, we see the failing tests.%
 \label{fig:dunder:doctests2}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/doctests2}}}%
 %
-\\[10pt]%
+\floatRowSep%
 %
 \subfloat[][%
 Left-clicking on the first failed test in the small window shows us the test output in bottom-centered window.%
 \label{fig:dunder:doctests3}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/doctests3}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 Left-clicking on the second failed test in the small window shows us the test output in bottom-centered window.%
@@ -731,7 +731,7 @@ We open our source code file in \pycharm\ and locate our function \pythonil{deci
 \label{fig:dunder:debug01}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug01}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 We place a \pgls{breakpoint} at the first line of our function by right-clicking on the line number. %
@@ -740,14 +740,14 @@ Later, the program execution will pause at this location.%
 \label{fig:dunder:debug02}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug02}}}%
 %
-\\[10pt]%
+\floatRowSep%
 %
 \subfloat[][%
 We open the context menu by right-clicking into the \pgls{doctest} and click \menu{Debug \inSQuotes{Doctest decimal\_str}}.%
 \label{fig:dunder:debug03}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug03}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 The execution of the \pglspl{doctest} begins, but is immediately paused the first time the \pgls{breakpoint} is reached. %
@@ -755,7 +755,7 @@ This line is now marked with blue color, but not yet executed.%
 \label{fig:dunder:debug04}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug04}}}%
 %
-\\[10pt]%
+\floatRowSep%
 %
 \subfloat[][%
 We drag the \menu{Debug} register up from the bottom of our \pycharm\ window. %
@@ -763,7 +763,7 @@ We find the new register \menu{Threads \& Variables}, where we can see the value
 \label{fig:dunder:debug05}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug05}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 Clicking on the variable \pythonil{self} reveals that we are in the first test case, where \pythonil{Fraction(124, 2)} is tested, which was normalized to \pythonil{Fraction(62, 1)} by the initializer~\pythonil{\_\_init\_\_}.%
@@ -811,7 +811,7 @@ The first \pgls{doctest} case~$\frac{124}{2}$ is uninteresting, so we continue t
 \label{fig:dunder:debug07}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug07}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 The second \pgls{doctest} case~$\frac{1}{2}$ is also uninteresting. %
@@ -819,7 +819,7 @@ We continue the program execution by clicking \pycharmDebuggerResume.%
 \label{fig:dunder:debug08}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug08}}}%
 %
-\\[10pt]%
+\floatRowSep%
 %
 \subfloat[][%
 The third \pgls{doctest} case, where the fraction is~$\frac{1}{3}$ and \pythonil{max_frac} is~\pythonil{10}. %
@@ -827,21 +827,21 @@ We again skip over it by pressing~\keys{F9}.%
 \label{fig:dunder:debug09}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug09}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 The fourth \pgls{doctest} case~$\frac{-101001}{100000000}$ can be skipped as well.%
 \label{fig:dunder:debug10}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug10}}}%
 %
-\\[10pt]%
+\floatRowSep%
 %
 \subfloat[][%
 The test case~$\frac{1235}{1000}$, normalized to~$\frac{247}{200}$, also was successful and can be skipped by pressing~\pycharmDebuggerResume.%
 \label{fig:dunder:debug11}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug11}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 The last one of the uninteresting \pgls{doctest} cases:~\pythonil{Fraction(99995, 100000)}. %
@@ -877,7 +877,7 @@ The \pythonil{max_frac} parameter has value~\pythonil{3}, \pythonil{self.a} is \
 \label{fig:dunder:debug13}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug13}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 We now execute the first line of the \pythonil{decimal_str} function where the \pgls{debugger} has paused. %
@@ -885,7 +885,7 @@ This is done by either pressing the \pycharmDebuggerStepOver~button or by hittin
 \label{fig:dunder:debug14}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug14}}}%
 %
-\\[10pt]%
+\floatRowSep%
 %
 \subfloat[][%
 The execution of the assignment \pythonil{a = self.a} creates a new local variable~\pythonil{a} with value~\pythonil{18399}. %
@@ -893,7 +893,7 @@ We press \keys{F8} to continue the execution.%
 \label{fig:dunder:debug15}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug15}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 The condition for the \pythonil{if} is not met, so the execution jumps over its body and the next line after the \pythonil{if} is marked. %
@@ -901,7 +901,7 @@ We execute it by pressing~\pythonil{F8}.%
 \label{fig:dunder:debug16}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug16}}}%
 %
-\\[10pt]%
+\floatRowSep%
 %
 \subfloat[][%
 The new local variable~\pythonil{negative} with value~\pythonil{False} appears. %
@@ -909,7 +909,7 @@ The next line of code is marked and we execute it by pressing~\pycharmDebuggerSt
 \label{fig:dunder:debug17}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug17}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 \pythonil{a = abs(a)} has no effect, since \pythonil{a} is already positive.
@@ -960,7 +960,7 @@ We continue debugging by pressing~\keys{F8}.%
 \label{fig:dunder:debug19}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug19}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 The empty list \pythonil{digits} has been created. %
@@ -968,7 +968,7 @@ By pressing~\keys{F8}, the executing \pythonil{while} loop will begin by checkin
 \label{fig:dunder:debug20}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug20}}}%
 %
-\\[10pt]%
+\floatRowSep%
 %
 \subfloat[][%
 The condition of the \pythonil{while} loop is met. %
@@ -977,7 +977,7 @@ We press~\pycharmDebuggerStepOver\ to execute it.%
 \label{fig:dunder:debug21}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug21}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 \pythonil{digits} now contains the result of \pythonil{a // b}, i.e., is~\pythonil{[0]}. %
@@ -985,7 +985,7 @@ We press~\keys{F8}.%
 \label{fig:dunder:debug22}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug22}}}%
 %
-\\[10pt]%
+\floatRowSep%
 %
 \subfloat[][%
 \pythonil{a} now is \pythonil{183990}. %
@@ -993,7 +993,7 @@ We press~\pycharmDebuggerStepOver\ to continue.%
 \label{fig:dunder:debug23}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug23}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 We hit the \keys{F8} key to continue. %
@@ -1041,35 +1041,35 @@ The loop condition is still met, so the first line in the loop body is marked ag
 \label{fig:dunder:debug25}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug25}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 \pythonil{a} gets updated to \pythonil{39900}.%%
 \label{fig:dunder:debug26}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug26}}}%
 %
-\\[10pt]%
+\floatRowSep%
 %
 \subfloat[][%
 The loop condition is still met.%
 \label{fig:dunder:debug27}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug27}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 \pythonil{1} gets appended to \pythonil{digits}.%
 \label{fig:dunder:debug28}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug28}}}%
 %
-\\[10pt]%
+\floatRowSep%
 %
 \subfloat[][%
 \pythonil{a} gets updated to \pythonil{199000}.%
 \label{fig:dunder:debug29}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug29}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 The loop condition is still met.%
@@ -1090,14 +1090,14 @@ The loop condition is still met.%
 \label{fig:dunder:debug31}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug31}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 \pythonil{a} gets updated to \pythonil{190000}.%
 \label{fig:dunder:debug32}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug32}}}%
 %
-\\[10pt]%
+\floatRowSep%
 %
 \subfloat[][%
 Since the loop condition evaluates to \pythonil{False}, the cursor is now at the next line after the loop body. %
@@ -1106,7 +1106,7 @@ We hit \keys{F8}.%
 \label{fig:dunder:debug33}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug33}}}%
 %
-\strut\hfill\strut%
+\floatSep%
 %
 \subfloat[][%
 The condition of the \pythonil{if} is met, we can now execute its body. %
@@ -1114,7 +1114,7 @@ We press the \pycharmDebuggerStepOver~button.%
 \label{fig:dunder:debug34}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/debug34}}}%
 %
-\\[10pt]%
+\floatRowSep%
 %
 \subfloat[][%
 Our code for rounding up actually turned the last digit into a~\pythonil{10}! %
