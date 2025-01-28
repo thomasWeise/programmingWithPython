@@ -175,6 +175,7 @@ In the first line following this text, the source code file and the index of the
 Notice that the actual path to the files will be different depending on where the source code of the examples is located.
 We replaced the variable part of the path with~\inQuotes{\{\dots\}}.
 The remaining part of the path, \textil{exceptions/use_sqrt_raise.py}, clearly points out the calling program as the culprit \cref{lst:exceptions:use_sqrt_raise}.
+We already took a glimps on how useful the \pgls{stackTrace} is back in \cref{sec:errorsInIde}.
 Indeed, the following line of text identifies that instruction in \cref{lst:exceptions:use_sqrt_raise} that caused the error and even marks the offending function invocation by underlining it with \textil{{^}{^}{^}{^}{^}{^}{^}{^}{^}{^}{^}{^}}.
 Below that, we get to see the context of our \pythonil{sqrt} function:
 First, the path to its module is given (ending in \textil{exceptions/sqrt_raise.py}) and it is pointed out that the exception was raised in line~15.
@@ -195,7 +196,8 @@ They often do not read the \pgls{stackTrace} or the error information below it.%
 %
 \bestPractice{exceptionStackTrace}{%
 The \pgls{stackTrace} and error information printed on the \python\ console in case of an uncaught exception are essential information to identify the problem. %
-They should \emph{always} be read and understood before trying to improve the code.%
+They should \emph{always} be read and understood before trying to improve the code. %
+See also \cref{bp:readErrorMessage}.%
 }%
 %
 In our original \pythonil{tuple} of inputs that we iteratively passed to \pythonil{sqrt}, the last three elements are \pythonilIdx{inf}, \pythonilIdx{nan}, and \pythonil{-1.0}.
@@ -759,7 +761,7 @@ The latter case should raise\pythonIdx{raise} \pythonilsIdx{Exception}, which we
 .4 \pythonilIdx{IndexError}\DTcomment{a sequence index is out of range, see, e.g., \cref{sec:strBasicOperations}}.
 .4 \pythonilIdx{KeyError}\DTcomment{a dictionary key is not found, see, e.g., \cref{sec:dictionaries}}.
 .3 \pythonilIdx{MemoryError}\DTcomment{when we are out of memory}.
-.3 \pythonilIdx{NameError}\DTcomment{e.g., when reading an unassigned variable, see, e.g., \cref{lst:exceptions:try_multi_except}}.
+.3 \pythonilIdx{NameError}\DTcomment{e.g., when reading an unassigned variable, see, e.g., \cref{lst:variables:assignment_wrong,lst:exceptions:try_multi_except}}.
 .4 \pythonilIdx{UnboundLocalError}\DTcomment{reference to a local method or function to which no value is bound}.
 .3 \pythonilIdx{OSError}\DTcomment{an operating system function failed}.
 .4 \pythonilIdx{BlockingIOError}\DTcomment{a blocking operation is applied to an object set for non-blocking operations}.

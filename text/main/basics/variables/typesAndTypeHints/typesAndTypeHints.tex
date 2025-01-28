@@ -220,7 +220,7 @@ With \pglspl{typeHint} and static type checkers like \mypy, we can bring this fu
 A variant of \cref{lst:variables:types} which has been improved by adding type annotations.}%
 %
 \gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh variables variable_types_hints.py}{variables:variable_types_hints:mypy}{%
-The results of static type checking with \mypy\ of the program given in \cref{lst:variables:types_hints}.}
+The results of static type checking with \mypy\ of the program \textil{variable_types_hints} given in \cref{lst:variables:types_hints}.}
 
 For the sake of completeness, let us also annotate \cref{lst:variables:types} with \pglspl{typeHint} as a small exercise.
 The variable \pythonil{int_var}, in which we want to store the integer value~\pythonil{8}, will be annotated with \pythonil{: int}.
@@ -240,7 +240,16 @@ Since they are optional, a programmer can choose whether and where to use them.
 However, if you are a student attending one of my courses, consider them as mandatory.
 Their advantage is that they allow us to find many (though by far not all) logical errors.
 They make the code easier to read and easier to understand.
-Therefore, from my perspective, \cref{bp:typeHints} \emph{always} applies.%
+Therefore, from my perspective, \cref{bp:typeHints} \emph{always} applies.
+
+\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh variables assignment_wrong.py}{variables:assignment_wrong:mypy}{%
+The results of static type checking with \mypy\ of the program \textil{assignment_wrong} given in \cref{lst:variables:assignment_wrong}.}%
+%
+For the sake of completeness, we also apply \mypy\ to the program \textil{assignment_wrong} given in \cref{lst:variables:assignment_wrong} that we used to illustrate the use of the \pycharm\ \pgls{IDE} in finding bugs.
+The output given in \cref{exec:variables:assignment_wrong:mypy} informs us about the same error we encountered back in \cref{sec:errorsInIde}:
+\emph{\inQuotes{Name \inQuotes{intvar} is not defined.}}
+With the \pgls{IDE} and \mypy, we now have independent tools that can help us to discover errors in our code.
+The more such tools we have \emph{and actively use}, the more likely it is that we can produce error-free programs.%
 %
 \FloatBarrier%
 \endhsection%
