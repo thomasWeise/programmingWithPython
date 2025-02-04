@@ -177,9 +177,15 @@ Sometimes, there might be some incorrect instructions in your program that just 
 So even correct program output does not guarantee that the program itself is correct.
 Therefore, always checking each and every piece of code that your \pgls{IDE} marks as dodgy is very important.
 Make sure that you full understand all error and warning messages.
-Always fix them when necessary (obviously).
+
+Warnings can be important, too.
+They can indicate possible errors, potential problems with variable types, or missing required packages (see, e.g., \cref{sec:gitClonePycharm}).
+Always fix errors and warnings wherever possible (obviously).
 Even where you deem the warnings as false-positives, try to fix them anyway.
-On one hand, \emph{you} might wrong on.
+They could result from non-standard code formatting that still \inQuotes{works}, but may be confusing for readers of your code.
+You should always try to produce warning-free code.
+For every warning or error that you deem as not a problem, remember:
+On one hand, \emph{you} might wrong.
 On the other hand, having fewer warnings and false-positive suspected errors makes it easier to find the actual problem if an actual problem happens.%
 %
 \FloatBarrier%
