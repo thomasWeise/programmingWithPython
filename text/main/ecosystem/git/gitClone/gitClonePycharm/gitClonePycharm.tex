@@ -14,14 +14,14 @@ We click on the \menu{Code} drop down menu.%
 \floatRowSep%
 %
 \subfloat[][%
-We click on the button for copying the URL to the clipboard.%
+We click on the button for copying the \pgls{URL} to the clipboard.%
 \label{fig:gitClonePycharm02copyUrl}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/gitClonePycharm02copyUrl}}}%
 %
 \floatSep%
 %
 \subfloat[][%
-Now the URL is copied to the clipboard and we can paste it wherever we like via~\keys{\ctrl+V}.%
+Now the \pgls{URL} is copied to the clipboard and we can paste it wherever we like via~\keys{\ctrl+V}.%
 \label{fig:gitClonePycharm03copiedUrl}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/gitClonePycharm03copiedUrl}}}%
 %
@@ -55,8 +55,8 @@ The \inQuotes{Clone Repository} form appears.%
 \floatSep%
 %
 \subfloat[][%
-Normally, we would write the URL of the repository that we want to clone into the \menu{URL:} field. %
-Here, we paste the repository URL that we copied from the \github\ page with \keys{\ctrl + V}. %
+Normally, we would write the \pgls{URL} of the repository that we want to clone into the \menu{URL:} field. %
+Here, we paste the repository \pgls{URL} that we copied from the \github\ page with \keys{\ctrl + V}. %
 We also enter a directory where the repository should be copied to into the \menu{Directory:} field. %
 Here, I simply selected a folder on my \linux\ temporary files partition (because I will delete the project once I am done with this example). %
 You would instead choose a more appropriate location. %
@@ -263,34 +263,38 @@ It, too, comes with a repository with sources for examples, this time at \url{\d
 
 As usual, we work through a topic based on an example.
 This time, our goal is to \emph{download and get to run code from a \github\ repository in \pycharm.}
-As example repository, we pick the companion code of our \citetitle{databases} book~\cite{databases} at \url{\databasesCodeRepo}.
+Matter of fact, we already exercised the whole process of cloning the \github\ repository in \pycharm\ with the examples of this book in \cref{sec:gettingExamples}.
+To complement the excursion from back then, we this time pick the companion code of our \citetitle{databases} book~\cite{databases} at \url{\databasesCodeRepo} as example.
+This repository comes with a file \textil{requirements.txt}, which allows us to present the workflow of cloning a \git\ repository with setting up a \pgls{virtualEnvironment} and installing required packages into one single example.
 
-In \cref{fig:gitClonePycharm01website}, we pretend that you came across this interesting repository on \github\ using your normal web browser
+Therefore, in \cref{fig:gitClonePycharm01website}, we pretend that you came across this interesting repository on \github\ using your normal web browser.
 If you visit \url{\databasesCodeRepo}, you can see the big drop down menu~\menu{Code}.
-If you click on it, it shows the HTTPS URL under which the project can be found in \cref{fig:gitClonePycharm02copyUrl}.
-If you work with \github, there are two ways to write a URL to a repository:%
+If you click on it, it shows the \pgls{HTTPS} \pgls{URL} under which the project can be found in \cref{fig:gitClonePycharm02copyUrl}.
+If you work with \github, there are two ways to write a \pgls{URL} to a repository:%
 %
 \begin{itemize}%
 %
-\item \url{https://github.com/user/repository} (or \url{https://github.com/user/repository.git}) use the HTTPS protocol to access the repository \textil{repository} of user \textil{user}. %
+\item \url{https://github.com/user/repository} (or \url{https://github.com/user/repository.git}) use \pgls{HTTPS} protocol to access the repository \textil{repository} of user \textil{user}. %
 This form is often and commonly used.%
 %
-\item \url{ssh://git@github.com/user/repository} (or \url{ssh://git@github.com/user/repository.git}) use SSH protocol to access the repository \textil{repository} of user \textil{user}. %
+\item \url{ssh://git@github.com/user/repository} (or \url{ssh://git@github.com/user/repository.git}) use \pgls{SSH} to access the repository \textil{repository} of user \textil{user}. %
 I find this form more reliable when working with \github\ from China.%
 %
 \end{itemize}%
 %
 Here, obviously, \textil{user} is \textil{thomasWeise}, which is my personal \github\ account, and \textil{repository} is \textil{databasesCode}.
-The URL that will be copied to the clipboard by clicking the button in \cref{fig:gitClonePycharm02copyUrl} is \url{https://github.com/thomasWeise/databasesCode.git}.
+The \pgls{URL} that will be copied to the clipboard by clicking the button in \cref{fig:gitClonePycharm02copyUrl} is \url{\databasesCodeRepo.git}.
+If you wanted to clone the repository with the example codes for this book instead, you would use \url{\programmingWithPythonCodeRepo.git}.
+
 It is important to understand, however, that creating projects by cloning \git\ repositories is by no means restricted to \github.
 As stated before, \git\ is a \pgls{client}-\pgls{server} application.
 You could work in an enterprise that runs its own \git\ \pgls{server}.
 You could work with other \git-based repository hosts like \pgls{gitee}.
-Regardless of what \git\ service you use, you could use the very same way to type in the corresponding repository URL and then clone the repository in the same way.
-Only the structure of the URLs may be different.
+Regardless of what \git\ service you use, you could use the very same way to type in the corresponding repository \pgls{URL} and then clone the repository in the same way.
+Only the structure of the \pglspl{URL} may be different.
 
-In \cref{fig:gitClonePycharm02copyUrl}, we click on the button for copying the URL to the clipboard.
-Now the URL is copied to the clipboard (\cref{fig:gitClonePycharm03copiedUrl}) and we can paste it wherever we like via~\keys{\ctrl+V}.
+In \cref{fig:gitClonePycharm02copyUrl}, we click on the button for copying the \pgls{URL} to the clipboard.
+Now the \pgls{URL} is copied to the clipboard (\cref{fig:gitClonePycharm03copiedUrl}) and we can paste it wherever we like via~\keys{\ctrl+V}.
 But where shall we paste it?
 
 We open \pycharm.
@@ -301,8 +305,8 @@ Alternatively, if we already had a project opened in \pycharm\ before, this proj
 In that case, we click through \menu{\pycharmMainMenu > File > Project from Version Control\dots}.
 
 Either way, the \inQuotes{Clone Repository} form appears in \cref{fig:gitClonePycharm05cloneRepositoryForm}.
-Normally, we would now write the URL of the repository that we want to clone into the \menu{URL:} field.
-Here, we paste the repository URL that we copied from the \github\ page with \keys{\ctrl + V}.
+Normally, we would now write the \pgls{URL} of the repository that we want to clone into the \menu{URL:} field.
+Here, we paste the repository \pgls{URL} that we copied from the \github\ page with \keys{\ctrl + V}.
 We also enter a directory where the repository should be copied to into the \menu{Directory:} field.
 This directory is where all the files will be downloaded to.
 You would normally select some appropriate place in your filesystem where you store your program codes.
