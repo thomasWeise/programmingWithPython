@@ -601,7 +601,7 @@ Using generator expressions when creating collection datastructures\pythonIdx{Ge
 %
 \begin{sloppypar}%
 Finally, generator expressions can also be passed to the constructors of collection datastructures or other functions that create such datastructures.
-Assume that we are processing numbers stored in a \pgls{CSV} format.
+Assume that we are processing numbers stored in a \pgls{csv} format.
 Often, the rows of text files with tabular or matrix data are in this format.
 In \cref{lst:iteration:generator_expressions_to_collection}, we first define a string \pythonil{csv_text} with the value~\pythonil{"22,56,33,67,43,33,12"}.
 Invoking \pythonil{csv_text.split(",")}\pythonIdx{split}\pythonIdx{str!split} will split the string into a list of single strings based on the delimiter~\pythonil{","}.
@@ -751,14 +751,14 @@ An example for the function \pythonilIdx{map}.}%
 %
 Another important utility function when dealing with sequences is the function~\pythonilIdx{map}.
 We explore its use in \cref{lst:iteration:map}.
-Back in \cref{lst:iteration:generator_expressions_to_collection}, we used a generator expression to process data that we exracted from a \pgls{CSV}-formatted string.
+Back in \cref{lst:iteration:generator_expressions_to_collection}, we used a generator expression to process data that we exracted from a \pgls{csv}-formatted string.
 Instead of doing \pythonil{int(s) for s in csv_text.split(",")} we can simply write \pythonil{map(int, csv_text.split(",")}.
 The first argument to \pythonilIdx{map} is a function that should be applied all of the elements in the sequence passed in as its second argument.
 The result of \pythonilIdx{map} is a new sequence with the return values of this function.
 In \cref{lst:iteration:map}, we map the string \pythonil{csv_text} split at all~\pythonil{","} to \pythonilsIdx{int} and then \pythonilIdx{filter} the sequence to retain only values greater than~20.
 We can conveniently iterate over the resulting filtered and mapped sequence using a~\pythonilIdx{for}~loop.
 
-How about we now obtain all the unique squares of the values in the CSV data, i.e., we discard all duplicate squares.
+How about we now obtain all the unique squares of the values in the \pgls{csv} data, i.e., we discard all duplicate squares.
 First, we again use \pythonilIdx{split}\pythonIdx{str!split} to divide the text into chunks based on the separator~\pythonil{","}.
 Then we map these chunks to integers and return their squares using the \pythonilIdx{map}~function, but this provide a~\pythonilIdx{lambda} that does the transformation.
 Now we want to retain only the unique values.

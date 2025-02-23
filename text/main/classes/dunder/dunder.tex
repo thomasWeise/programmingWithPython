@@ -1261,7 +1261,7 @@ At this stage, it will not surprise you that these \inQuotes{special methods} ar
 These methods are \pythonilIdx{\_\_enter\_\_} and \pythonilIdx{\_\_exit\_\_}.
 Since \pythonilIdx{with}~blocks are nice syntactical sugar of the \python\ language, we will here play around with them a little bit.
 
-As example, let us create a simple API that allows us to write output in a subset of the \acrfull{XML} format~\cite{BPSMM2008EMLX1FE,K2019ITXJY,CH2013XFCAMLTMC}.
+As example, let us create a simple API that allows us to write output in a subset of the \glsreset{xml}\pgls{xml} format~\cite{BPSMM2008EMLX1FE,K2019ITXJY,CH2013XFCAMLTMC}.
 \pgls{xml} is a format for data interchange which was predominant in distributed systems the~2000s.
 After that, it began to fade out in favor~\cite{A2020XLATDOEOL} of \pgls{json}~\cite{E2017SE4TJDIS,RFC8259} and \pgls{yaml}~\cite{DNMAASBE2021YAMLYV1,K2019ITXJY,CGTYB2022YFFDCAIE}.
 It is still very relevant today, for example, as foundation of several document formats such as those used in LibreOffice~\cite{DF2024LTDF,GL2012LTSOOSSCBAFACSOL} and Microsoft~Word~\cite{MS2024MW,DR2019STFAWAUMW}, or as the basis for the SVG graphics format~\cite{DDGLMSWFJJ2011SVGSSE}.
@@ -1302,10 +1302,10 @@ In this next, you notice that two characters have been \emph{escaped}: since \te
 Therefore, they are escaped as entities~\xmlil{&#38;} and~\xmlil{&#62;}.
 
 \gitPython{\programmingWithPythonCodeRepo}{dunder/xml_context.py}{--args format --labels part_1}{dunder:xml_context:part_1}{%
-Part~1 of our very simply context manager-based \pgls{XML} output API.}%
+Part~1 of our very simply context manager-based \pgls{xml} output API.}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{dunder/xml_context.py}{--args format --labels part_2}{dunder:xml_context:part_2}{%
-Part~2 of our very simply context manager-based \pgls{XML} output API.}%
+Part~2 of our very simply context manager-based \pgls{xml} output API.}%
 
 Would it not be nice to have a simple \pgls{API} that allows us to produce valid~\pgls{xml} and that takes care of the escaping of special characters?
 While countless such tools already exist {\dots} let us make our own.
@@ -1415,11 +1415,11 @@ With this, our simple \pgls{API} for a subset of the \pgls{xml} standard~\cite{B
 %
 \gitPythonAndOutputFormat{xml_style}%
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{dunder}{xml_user_print.py}{--args format}{dunder:xml_user_print}{%
-An example of using our simple context manager-based \pgls{XML} output API from \cref{lst:dunder:xml_context:part_1,lst:dunder:xml_context:part_2}, where the output is printed to the \pgls{stdout}.}%
+An example of using our simple context manager-based \pgls{xml} output API from \cref{lst:dunder:xml_context:part_1,lst:dunder:xml_context:part_2}, where the output is printed to the \pgls{stdout}.}%
 %
 \gitPythonAndOutputFormat{xml_style}%
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{dunder}{xml_user_file.py}{--args format}{dunder:xml_user_file}{%
-An example of using our simple context manager-based \pgls{XML} output API from \cref{lst:dunder:xml_context:part_1,lst:dunder:xml_context:part_2}, where the output is written to a text file\pythonIdx{write}\pythonIdx{IO!write}\pythonIdx{open}\pythonIdx{remove}\pythonIdx{os!remove}.}%
+An example of using our simple context manager-based \pgls{xml} output API from \cref{lst:dunder:xml_context:part_1,lst:dunder:xml_context:part_2}, where the output is written to a text file\pythonIdx{write}\pythonIdx{IO!write}\pythonIdx{open}\pythonIdx{remove}\pythonIdx{os!remove}.}%
 
 We now use this \pgls{API} in \cref{lst:dunder:xml_user_print,lst:dunder:xml_user_file} to basically reproduce the small \pgls{xml}~snippet that I showed you before.
 In the former example, we use \pythonil{print} as destination function.
@@ -1671,7 +1671,7 @@ Much of \python's syntax is implemented by the special methods, also called magi
 The \emph{dunder} stands for \emph{double underscore}, because the names of such methods begins and ends with~\pythonilIdx{\_\_}.
 
 Knowing about dunder methods allows us to create classes which can seamlessly be used in arithmetic expressions, in \pythonilIdx{with}~statements, as sequences to iterate over with \pythonilIdx{for}~loops, that support indexing with~\pythonil{[...]}\pythonIdx{[\idxdots]}.
-By implementing dunder methods, we can use the \python\ syntax to construct new collections, support more complex mathematical structures, ensure that resources are properly managed (and eventually disposed), or create elegant and concise APIs.%
+By implementing dunder methods, we can use the \python\ syntax to construct new collections, support more complex mathematical structures, ensure that resources are properly managed (and eventually disposed), or create elegant and concise \pglspl{API}.%
 \endhsection%
 %
 \FloatBarrier%
