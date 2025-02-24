@@ -76,7 +76,7 @@ Our program is executed without error and produces the expected output.%
 \label{fig:venvPycharmB}%
 \end{figure}%
 %
-The \pgls{IDE} \pycharm\ also supports using \pglspl{virtualEnvironment} and \textil{requirements.txt} files.
+The \pgls{ide} \pycharm\ also supports using \pglspl{virtualEnvironment} and \textil{requirements.txt} files.
 Let us here demonstrate this on the example program that requires \numpy\ which was given as \cref{lst:packages:numpy_user} and \textil{requirements.txt} file given in \cref{lst:packages:requirementstxt}.
 In \cref{fig:venvPycharmA}, we work through the steps to create and manage a project with a \pgls{virtualEnvironment} in \pycharm\ on their basis.
 (A complete example on how to copy a source code repository from \git\ or \github\ and how to set up a \pgls{virtualEnvironment} for its dependencies is given in \cref{sec:gitClonePycharm}.)
@@ -125,11 +125,11 @@ All is well.
 However, it must be understood that the support for \pglspl{virtualEnvironment} and requirements files in \pycharm\ is for \emph{software development}.
 If you want to actually use the software you have developed, you should \emph{always} use the command line and \pglspl{terminal}, as discussed in \cref{sec:pipAndVenv}.
 \pycharm\ is not a runtime environment for the deployment of productive code.
-It is an \acrfull{IDE} for developing programs.%
+It is an \acrfull{ide} for developing programs.%
 %
 \bestPractice{noPycharmForProductive}{%
 \pycharm\ must \textbf{never} be used for running an application in a productive setting. %
-It is \emph{only} to be used as \pgls{IDE} for software development. %
+It is \emph{only} to be used as \pgls{ide} for software development. %
 For actually executing programs, always use a \pglspl{virtualEnvironment} in the \pgls{terminal} as introduced in \cref{sec:pipAndVenv}. %
 See also \cref{bp:runningProgram}.%
 }%

@@ -245,10 +245,10 @@ Therefore, from my perspective, \cref{bp:typeHints} \emph{always} applies.
 \gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh variables assignment_wrong.py}{variables:assignment_wrong:mypy}{%
 The results of static type checking the program \textil{assignment_wrong.py} with \mypy\ given in \cref{lst:variables:assignment_wrong}.}%
 %
-For the sake of completeness, we also apply \mypy\ to the program \textil{assignment_wrong} given in \cref{lst:variables:assignment_wrong} that we used to illustrate the use of the \pycharm\ \pgls{IDE} in finding bugs.
+For the sake of completeness, we also apply \mypy\ to the program \textil{assignment_wrong} given in \cref{lst:variables:assignment_wrong} that we used to illustrate the use of the \pycharm\ \pgls{ide} in finding bugs.
 The output given in \cref{exec:variables:assignment_wrong:mypy} informs us about the same error we encountered back in \cref{sec:errorsInIde}:
 \emph{\inQuotes{Name \inQuotes{intvar} is not defined.}}
-With the \pgls{IDE} and \mypy, we now have independent tools that can help us to discover errors in our code.
+With the \pgls{ide} and \mypy, we now have independent tools that can help us to discover errors in our code.
 The more such tools we have \emph{and actively use}, the more likely it is that we can produce error-free programs.
 
 You may ask why we emphasize that \pglspl{typeHint} are important and good for a programming language where they are originally not part of.
