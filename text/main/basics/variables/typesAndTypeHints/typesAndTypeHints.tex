@@ -222,7 +222,7 @@ A variant of \cref{lst:variables:types} which has been improved by adding type a
 \gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh variables variable_types_hints.py}{variables:variable_types_hints:mypy}{%
 The results of static type checking with \mypy\ of the program \textil{variable_types_hints.py} given in \cref{lst:variables:types_hints}.}
 
-For the sake of completeness, let us also annotate \cref{lst:variables:types} with \pglspl{typeHint} as a small exercise.
+We now annotate \cref{lst:variables:types} with \pglspl{typeHint} as a small exercise.
 The variable \pythonil{int_var}, in which we want to store the integer value~\pythonil{8}, will be annotated with \pythonil{: int}.
 The variable \pythonil{float_var}, in which we want to store the floating point number~\pythonil{3.0}, will be annotated with \pythonil{: float}.
 The variable \pythonil{str_var}, in which we want to store the string~\pythonil{"float_var=3.0"}, will be annotated with \pythonil{: str}.
@@ -252,7 +252,7 @@ With the \pgls{ide} and \mypy, we now have independent tools that can help us to
 The more such tools we have \emph{and actively use}, the more likely it is that we can produce error-free programs.
 
 You may ask why we emphasize that \pglspl{typeHint} are important and good for a programming language where they are originally not part of.
-Several important tools, like \psycopg, the \postgresql\ \python\ adapter, are fully annotated with \pglspl{typeHint} based on the PEP484~\cite{PEP484} specification.
+Several important tools, like \psycopg~\cite{VDGE2022PPDAFP:ST}, the \postgresql\ \python\ adapter, are fully annotated with \pglspl{typeHint} based on the PEP484~\cite{PEP484} specification.
 Others use these annotations at least partially and/or try to ensure that code which is newly contributed to them is annotated, e.g., \matplotlib~\cite{HDFDM2012MVWPCG}, \numpy~\cite{N2025NTNT}, and \pandas~\cite{PD2025PCTTCB}.
 The fact that many popular tools use it only \emph{partially} use instead of being completely type-hinted is that they simply are older than PEP484~\cite{PEP484}, which is from \citeyear{PEP484}.
 \scikitlearn\ and \scipy, for instance, to the best of our knowledge, do not adopt static typing at the time of this writing, because this would be very complicated with their existing codebases~\cite{CFNYLH2020ST,DPVPCHG2018ATHFS}.
@@ -263,11 +263,11 @@ It is important to integrate \pglspl{typeHint} from the very start at each proje
 The idea to first write code and later annotate it with \pglspl{typeHint} is wrong.%
 }%
 %
-Finally, it is worth noting that using static type-checkers can even have a positive influence on security aspects of your code, as you can learn in our \citetitle{databases}~\cite{databases} class.
+Finally, it is worth noting that using static type-checkers can even have a positive influence on security aspects of your code, as you can learn in our \citetitle{databases} class~\cite{databases}.
 Injection attacks such as \pglspl{SQLi} have been an application security concern for decades.
 Such attacks can be prevented if the queries to \dbs\ are never dynamically constructed by the likes of \pglspl{fstring} but instead are always defined as string constants.
 \python\ supports the type~\pythonilIdx{LiteralString} for string constants~\cite{PEP675}.
-Implementations of the \python\ \db\ \pgls{API}, such as \psycopg, can be annotated to only accept such strings.
+Implementations of the \python\ \db\ \pgls{API}, such as \psycopg~\cite{VDGE2022PPDAFP:ST}, can be annotated to only accept such strings.
 Hence, a type checker like \mypy\ would detect and complain if you would try to dynamically construct queries, thus preventing \pglspl{SQLi} -- but only if you use it\dots%
 %
 \FloatBarrier%
