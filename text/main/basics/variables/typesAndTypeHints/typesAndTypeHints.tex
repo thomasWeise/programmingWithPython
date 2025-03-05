@@ -268,7 +268,8 @@ Injection attacks such as \pglspl{SQLi} have been an application security concer
 Such attacks can be prevented if the queries to \dbs\ are never dynamically constructed by the likes of \pglspl{fstring} but instead are always defined as string constants.
 \python\ supports the type~\pythonilIdx{LiteralString} for string constants~\cite{PEP675}.
 Implementations of the \python\ \db\ \pgls{API}, such as \psycopg~\cite{VDGE2022PPDAFP:ST}, can be annotated to only accept such strings.
-Hence, a type checker like \mypy\ would detect and complain if you would try to dynamically construct queries, thus preventing \pglspl{SQLi} -- but only if you use it\dots%
+Hence, a type checker could detect and complain if you would try to dynamically construct queries, thus preventing \pglspl{SQLi} -- but only if you use it\dots
+At the time of this writing, \mypy\ does not yet support this functionality, though~\cite{ZDWVSLS2022I1SP6L,VDGE2022PPDAFP:ST}.
 %
 \FloatBarrier%
 \endhsection%
