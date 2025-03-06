@@ -45,9 +45,9 @@ The small program in \cref{lst:packages:numpy_user} only creates and prints a \n
 This will be the example that we will use to demonstrate the use of \pglspl{virtualEnvironment} in the following sections.
 
 As prerequisites to install \pglspl{package} in \pglspl{virtualEnvironment}, we need to make sure that both \pip\ and \venv\ are installed on our system.
-The procedures for both differ under \linux\ and \windows.
+The procedures for both differ under \linux\ and \microsoftWindows.
 Using \pip\ and \venv\ is often done in the \pgls{terminal}, i.e., by typing commands or executing shell scripts.
-This, naturally, too works differently under \linux\ and \windows.
+This, naturally, too works differently under \linux\ and \microsoftWindows.
 We therefore will briefly explore how to achieve these things under both operating systems.%
 %
 \FloatBarrier%
@@ -202,12 +202,12 @@ As said, once you have installed the required \pglspl{package}, you can simply a
 \FloatBarrier%
 \endhsection%
 %
-\hsection{pip and Virtual Environments under Windows}%
+\hsection{pip and Virtual Environments under Microsoft Windows}%
 %
 \begin{figure}%
 \centering%
 \tightbox{\includegraphics[width=0.85\linewidth]{\currentDir/installPipVenvWindows}}%
-\caption{Installing \pip\ and \venv\ under \windows: They are already installed.}%
+\caption{Installing \pip\ and \venv\ under \microsoftWindows: They are already installed.}%
 \label{fig:installPipVenvWindows}%
 \end{figure}%
 %
@@ -215,13 +215,13 @@ Like under \linux, we also need to make sure that \pip\ and \venv\ are installed
 Luckily, as shown in \cref{fig:installPipVenvWindows}, they already came pre-installed with my \python\ distribution.
 
 \gitBat{\programmingWithPythonCodeRepo}{packages/numpy_user_venv.bat}{packages:numpy_user_venv_bat}{%
-An example of using \pglspl{virtualEnvironment} and \pip\ under \windows\ to install \numpy\ and to run our program \cref{lst:packages:numpy_user}. %
+An example of using \pglspl{virtualEnvironment} and \pip\ under \microsoftWindows\ to install \numpy\ and to run our program \cref{lst:packages:numpy_user}. %
 The output is given in \cref{fig:venvWindowsScript,fig:venvWindows}}%
 %
 \begin{figure}%
 \centering%
 \tightbox{\includegraphics[width=0.75\linewidth]{\currentDir/venvWindowsScript}}%
-\caption{The output of \cref{lst:packages:numpy_user_venv_bat} when executed in a \windows\ \pgls{terminal}. %
+\caption{The output of \cref{lst:packages:numpy_user_venv_bat} when executed in a \microsoftWindows\ \pgls{terminal}. %
 To open the terminal, \windowsTerminal.}%
 \label{fig:venvWindowsScript}%
 \end{figure}%
@@ -286,7 +286,7 @@ Normally, you would retain this directory and use it again next time you want to
 \label{fig:venvWindows8}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/venvWindows8}}}%
 %
-\caption{A step-by-step execution of the commands in \cref{lst:packages:numpy_user_venv_bat} in the \windows\ \pgls{terminal}. %
+\caption{A step-by-step execution of the commands in \cref{lst:packages:numpy_user_venv_bat} in the \microsoftWindows\ \pgls{terminal}. %
 To open the terminal, \windowsTerminal.}%
 \label{fig:venvWindows}%
 \end{figure}%
@@ -295,11 +295,11 @@ We now want to execute our small program \cref{lst:packages:numpy_user}, which u
 \numpy\pythonIdx{numpy} does not come pre-installed.
 So we need to install it first.
 Following general best practices, we will do so using a virtual environment.
-All the necessary commands for this are listed in the \windows\ batch file in \cref{lst:packages:numpy_user_venv_bat}.
+All the necessary commands for this are listed in the \microsoftWindows\ batch file in \cref{lst:packages:numpy_user_venv_bat}.
 The complete corresponding output in the \pgls{terminal} is given in \cref{fig:venvWindowsScript}.
 
 Here, we will work our way through this step-by-step in \cref{fig:venvWindows}.
-First, you need to \windowsTerminal\ to open a \windows\ \pgls{terminal}.
+First, you need to \windowsTerminal\ to open a \microsoftWindows\ \pgls{terminal}.
 We enter the directory where our program file \batil{numpy_user.py} is located with the \batil{cd}~commend~(not illustrated).
 
 As a first step, we need to create a directory \batil{.venv} to host the \pgls{virtualEnvironment}.
@@ -309,7 +309,7 @@ Notice that under \ubuntu\ \linux, we always used the \bashil{python3} command, 
 Either way, executing the command has filled the directory \batil{.venv} with the necessary files and scripts for an isolated \python\ environment.
 
 In \cref{fig:venvWindows3}, we activate this environment by running \batil{.venv\\Scripts\\activate.bat} (and hitting~\keys{\return}).
-This \windows\ batch file has been created for us when we set up the \pgls{virtualEnvironment}.
+This \microsoftWindows\ batch file has been created for us when we set up the \pgls{virtualEnvironment}.
 It activates the environment, which leads to a change in the prompt, i.e., the little text that always appears left of where we type the input.
 As can be seen in \cref{fig:venvWindows3}, the text \batil{(.venv)} has been pre-pended to the prompt, which tells us that this is the currently active \pgls{virtualEnvironment}.
 
@@ -342,7 +342,7 @@ The first line of our program, which tries to \pythonil{import numpy}, therefore
 At the very end of this example, I want to clean up my folder by typing \batil{rd /S /Q .venv} and hitting~\keys{\return}.
 This deletes the directory \batil{.venv} and everything within.
 You would normally not do this, because normally we want to re-use our \pglspl{virtualEnvironment} by activating and deactivating them as needed.
-Either way, this was a complete example for using \pglspl{virtualEnvironment}, \pip, and \venv\ under \windows.
+Either way, this was a complete example for using \pglspl{virtualEnvironment}, \pip, and \venv\ under \microsoftWindows.
 It was actually not very much different from the \ubuntu\ \linux\ example in the previous section.%
 %
 \endhsection%

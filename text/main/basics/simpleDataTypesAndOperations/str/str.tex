@@ -364,7 +364,7 @@ The result printed to the output then is~\textil{"'\\}.
 Another situation where escape sequences are nice is when we want to have strings that span over multiple lines\pythonIdx{str!escaping}\pythonIdx{escaping}.
 The newline sequence \inQuotes{\textbackslash{n}}\pythonIdx{\textbackslash{n}} represents a \inQuotes{newline character} which causes the console to skip to the next line.
 \pythonil{print("Hello\\nWorld!")} will first print \textil{Hello}, then end the current line and begin a new line, and then print \textil{World!}.
-Notice that the newline character sequence \inQuotes{\textbackslash{n}} is used in \linux\ and similar systems, whereas \windows\ uses \inQuotes{\textbackslash{r}\textbackslash{n}}\pythonIdx{\textbackslash{r}\textbackslash{n}}.
+Notice that the newline character sequence \inQuotes{\textbackslash{n}} is used in \linux\ and similar systems, whereas \microsoftWindows\ uses \inQuotes{\textbackslash{r}\textbackslash{n}}\pythonIdx{\textbackslash{r}\textbackslash{n}}.
 Under \python, both always work, regardless under which operating system you are working, and you should \emph{always} use \inQuotes{\textbackslash{n}}.
 However, only for the sake of completeness, I include the example \pythonil{print("Hello\\r\\nWorld!")} as well, which produces the same output as \pythonil{print("Hello\\nWorld!")}.
 
