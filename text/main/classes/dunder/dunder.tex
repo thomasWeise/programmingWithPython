@@ -1228,7 +1228,7 @@ The second \pgls{doctest} is simply to check whether~$\sqrt{4}$ renders as~2 whe
 Of course, we just approximate the square root through several steps, so the value of the fraction might not actually be~2.
 However, when rendered to 100~digits of precision, it should return~\pythonil{"2"}.
 
-Finally, we want to compute the \pgls{goldenRatio}~\numberGoldenRatio~\cite{CEOEB2024GR,EHF2008EEOGTGOJLH11FEEEELIEILHIATBG11EAPWMETBFR,S2024DEOGRPOT}, which equals~$\frac{1+\sqrt{5}}{2}$.
+Finally, we want to compute the golden ratio~\numberGoldenRatio~\cite{CEOEB2024GR,EHF2008EEOGTGOJLH11FEEEELIEILHIATBG11EAPWMETBFR,S2024DEOGRPOT}, which equals~$\frac{1+\sqrt{5}}{2}$.
 We can write this as \pythonil{ONE_HALF * (ONE + sqrt(Fraction(5, 1)))}.
 In the \pgls{doctest}, we want to see whether our results are correct to 420~fractional digits, which we take from~\cite{F1996TGR1T2P}.
 
@@ -1261,15 +1261,15 @@ At this stage, it will not surprise you that these \inQuotes{special methods} ar
 These methods are \pythonilIdx{\_\_enter\_\_} and \pythonilIdx{\_\_exit\_\_}.
 Since \pythonilIdx{with}~blocks are nice syntactical sugar of the \python\ language, we will here play around with them a little bit.
 
-As example, let us create a simple API that allows us to write output in a subset of the \glsreset{xml}\pgls{xml} format~\cite{BPSMM2008EMLX1FE,K2019ITXJY,CH2013XFCAMLTMC}.
-\pgls{xml} is a format for data interchange which was predominant in distributed systems the~2000s.
-After that, it began to fade out in favor~\cite{A2020XLATDOEOL} of \pgls{json}~\cite{E2017SE4TJDIS,RFC8259} and \pgls{yaml}~\cite{DNMAASBE2021YAMLYV1,K2019ITXJY,CGTYB2022YFFDCAIE}.
-It is still very relevant today, for example, as foundation of several document formats such as those used in LibreOffice~\cite{DF2024LTDF,GL2012LTSOOSSCBAFACSOL} and Microsoft~Word~\cite{MS2024MW,DR2019STFAWAUMW}, or as the basis for the SVG graphics format~\cite{DDGLMSWFJJ2011SVGSSE}.
-If you are a bit familiar with web design, then you will find that \pgls{xml} looks a bit like HTML~\cite{HBFLDNOP2014HAVAAAFHAX}.%
+As example, let us create a simple API that allows us to write output in a subset of the \glsreset{XML}\pgls{XML} format~\cite{BPSMM2008EMLX1FE,K2019ITXJY,CH2013XFCAMLTMC}.
+\pgls{XML} is a format for data interchange which was predominant in distributed systems the~2000s.
+After that, it began to fade out in favor~\cite{A2020XLATDOEOL} of \pgls{JSON}~\cite{E2017SE4TJDIS,RFC8259} and \pgls{YAML}~\cite{DNMAASBE2021YAMLYV1,K2019ITXJY,CGTYB2022YFFDCAIE}.
+It is still very relevant today, for example, as foundation of several document formats such as those used in \libreoffice~\cite{DF2024LTDF,GL2012LTSOOSSCBAFACSOL} and \microsoftWord~\cite{MS2024MW,DR2019STFAWAUMW}, or as the basis for the \pgls{SVG} format~\cite{DDGLMSWFJJ2011SVGSSE}.
+If you are a bit familiar with web design, then you will find that \pgls{XML} looks a bit like \pgls{HTML}~\cite{HBFLDNOP2014HAVAAAFHAX}.%
 %
 \begin{sloppypar}%
-As shown below, an \pgls{xml}~documents begins with the \pgls{xml} version declaration~\xmlil{<?xml version="1.0"?>}.
-Then, it includes \pgls{xml}~elements that can be arbitrarily nested.
+As shown below, an \pgls{XML}~documents begins with the \pgls{XML} version declaration~\xmlil{<?xml version="1.0"?>}.
+Then, it includes \pgls{XML}~elements that can be arbitrarily nested.
 Each elements has a name and begins with an opening and closing string, looking somewhat like~\xmlil{<name>...</name>}.
 Between the opening and closing string, text and other elements can be included.
 An element can have attributes stored in the opening string, which looks like~\xmlil{<name key='value'... >...}.%
@@ -1291,43 +1291,43 @@ An element can have attributes stored in the opening string, which looks like~\x
 \end{minipage}%
 \end{center}%
 %
-Here we have a nicely formatted \pgls{xml} text about this course.
+Here we have a nicely formatted \pgls{XML} text about this course.
 The \xmlil{<class>} element has two attributes, \xmlil{title} and \xmlil{year}.
 It contains other elements, such as \xmlil{<description>} with a brief description of the class.
 Then follows the element \xmlil{<teacher>} with an attribute storing my given name as well as brief text.
 Finally, there is an element \xmlil{<students>}, which, in turn, holds two elements of type \xmlil{<student>}.
 Each of them hold the student's given name as attribute \xmlil{name}.
 The second \xmlil{<student>} element includes some additional text.
-In this next, you notice that two characters have been \emph{escaped}: since \textil{<} and \textil{>} are used to mark the beginning and ending of the start and end element strings, they should not occur inside the normal text, as this may confuse the \pgls{xml} parsers.
+In this next, you notice that two characters have been \emph{escaped}: since \textil{<} and \textil{>} are used to mark the beginning and ending of the start and end element strings, they should not occur inside the normal text, as this may confuse the \pgls{XML} parsers.
 Therefore, they are escaped as entities~\xmlil{&#38;} and~\xmlil{&#62;}.
 
 \gitPython{\programmingWithPythonCodeRepo}{dunder/xml_context.py}{--args format --labels part_1}{dunder:xml_context:part_1}{%
-Part~1 of our very simply context manager-based \pgls{xml} output API.}%
+Part~1 of our very simply context manager-based \pgls{XML} output API.}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{dunder/xml_context.py}{--args format --labels part_2}{dunder:xml_context:part_2}{%
-Part~2 of our very simply context manager-based \pgls{xml} output API.}%
+Part~2 of our very simply context manager-based \pgls{XML} output API.}%
 
-Would it not be nice to have a simple \pgls{API} that allows us to produce valid~\pgls{xml} and that takes care of the escaping of special characters?
+Would it not be nice to have a simple \pgls{API} that allows us to produce valid~\pgls{XML} and that takes care of the escaping of special characters?
 While countless such tools already exist {\dots} let us make our own.
 For this, we realize:
-First, every \pgls{xml} element that is opened must also be closed.
-Second, \pgls{xml} elements can be nested arbitrarily.
+First, every \pgls{XML} element that is opened must also be closed.
+Second, \pgls{XML} elements can be nested arbitrarily.
 This kind of looks like an application of the \pythonilIdx{with} statement.
 
 We now make our own context manager.
 When the \pythonilIdx{with} statement begins, our context manager will write the element start text.
 Inside the body of the \pythonilIdx{with}~statement, we will allow to write the element text or to open sub-elements.
-At the end of the \pythonilIdx{with}~statement, the \pgls{xml} element closing text should be written.
+At the end of the \pythonilIdx{with}~statement, the \pgls{XML} element closing text should be written.
 Furthermore, we want to be able to direct the output of our \pgls{API} to any destination where strings can be written to, say, \pythonil{print}, to \pythonils{list}, or to files.
 As you will see in \cref{lst:dunder:xml_context:part_1,lst:dunder:xml_context:part_2}, we can implement all of that in a fairly small module.
 
-In \cref{lst:dunder:xml_context:part_1}, we begin by defining an internal constant \pythonil{_ESC}, which we use for \pgls{xml} escaping special characters in strings with \pgls{xml}~entities.
+In \cref{lst:dunder:xml_context:part_1}, we begin by defining an internal constant \pythonil{_ESC}, which we use for \pgls{XML} escaping special characters in strings with \pgls{XML}~entities.
 For this purpose, we use the functions \pythonilIdx{maketrans}\pythonIdx{str!maketrans} and \pythonilIdx{translate}\pythonIdx{str!translate} of the class~\pythonilIdx{str}.
 The former accepts a dictionary where the keys are single characters and the corresponding values are strings with which these characters should be replaced.
 It creates some \python-internal datastructure which then can be passed to \pythonilIdx{translate}\pythonIdx{str!translate} to perform the replacement.
 For example, we could do~\pythonil{x = str.maketrans(\{"A": "XYZ"\})}.
 Then, \pythonil{"ABCBA".translate(x)} would yield~\pythonil{"XYZBCBXYZ"}.
-This is very useful to painlessly implement rudimentary support to escape special characters based on the \pgls{xml}~standard~\cite{BPSMM2008EMLX1FE}.
+This is very useful to painlessly implement rudimentary support to escape special characters based on the \pgls{XML}~standard~\cite{BPSMM2008EMLX1FE}.
 
 Then we define the \pythonil{class Element}.
 The initializer~\dunder{init} of this class has four important parameters.
@@ -1337,13 +1337,13 @@ This will be where all the output of our API is sent to.
 \pythonil{attrs}~contains the attributes of the element.
 It is either \pythonil{None} if there are no attributes (which is the default).
 Otherwise, it is a \pythonilIdx{dict} mapping string keys to arbitrary values.
-Finally, \pythonil{is_root} is a Boolean value that is \pythonil{True} if this element is the single root element of the \pgls{xml}~document that we want to write, and \pythonil{False} if it is some nested element.
-This is needed, because before writing the root element, the \pgls{xml} version declaration~\xmlil{<?xml version="1.0"?>} must be written.
-This must happen only once and only at the beginning of an \pgls{xml}~document.
+Finally, \pythonil{is_root} is a Boolean value that is \pythonil{True} if this element is the single root element of the \pgls{XML}~document that we want to write, and \pythonil{False} if it is some nested element.
+This is needed, because before writing the root element, the \pgls{XML} version declaration~\xmlil{<?xml version="1.0"?>} must be written.
+This must happen only once and only at the beginning of an \pgls{XML}~document.
 
 In the initializer, we store the \pythonil{dest} argument in an attribute that is both private~(signified by the two leading underscores) and immutable~(signified by the \pgls{typeHint}~\pythonilIdx{Final}).
 We then construct the element start string by filling a list~\pythonil{head} and store its concatenated elements in the attribute~\pythonil{__head}.
-Only if our element is a root element, the \pgls{xml} version declaration is included in the list~\pythonil{head}.
+Only if our element is a root element, the \pgls{XML} version declaration is included in the list~\pythonil{head}.
 The actual element start string begins by the less-than symbol and the element name~(\xmlil{<name}).
 Then, if \pythonil{attrs} is neither \pythonil{None} nor empty, we want to add the attributes.
 Interestingly, this condition can be expressed by a simple~\pythonil{if attrs:}.
@@ -1405,23 +1405,23 @@ What is still missing is some functionality to write text into an element and to
 The former is very easy:
 We define a method~\pythonil{text} taking a string~\pythonil{txt} as input parameter.
 All we have to do in the body of this method is~\pythonil{self.__dest(txt.translate(_ESC))}.
-This escapes any dangerous \pgls{xml} special characters in the string and passes the result on to the output destination.
+This escapes any dangerous \pgls{XML} special characters in the string and passes the result on to the output destination.
 
 The method~\pythonil{element} is used to branch off new sub-elements.
 It basically would take the same parameters as the initializer~\pythonil{\_\_init\_\_}.
 However, the new element must use the same output destination and it cannot be a root element (because it is a sub-element).
 Therefore, we only need to pass the parameters~\pythonil{name} and~\pythonil{attrs} to a new instance of~\pythonil{Element}, whereas we hand over \pythonil{self.__dest} as destination and \pythonil{False} as \pythonil{is_root}.
-With this, our simple \pgls{API} for a subset of the \pgls{xml} standard~\cite{BPSMM2008EMLX1FE} is already completed.%
+With this, our simple \pgls{API} for a subset of the \pgls{XML} standard~\cite{BPSMM2008EMLX1FE} is already completed.%
 %
 \gitPythonAndOutputFormat{xml_style}%
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{dunder}{xml_user_print.py}{--args format}{dunder:xml_user_print}{%
-An example of using our simple context manager-based \pgls{xml} output API from \cref{lst:dunder:xml_context:part_1,lst:dunder:xml_context:part_2}, where the output is printed to the \pgls{stdout}.}%
+An example of using our simple context manager-based \pgls{XML} output API from \cref{lst:dunder:xml_context:part_1,lst:dunder:xml_context:part_2}, where the output is printed to the \pgls{stdout}.}%
 %
 \gitPythonAndOutputFormat{xml_style}%
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{dunder}{xml_user_file.py}{--args format}{dunder:xml_user_file}{%
-An example of using our simple context manager-based \pgls{xml} output API from \cref{lst:dunder:xml_context:part_1,lst:dunder:xml_context:part_2}, where the output is written to a text file\pythonIdx{write}\pythonIdx{IO!write}\pythonIdx{open}\pythonIdx{remove}\pythonIdx{os!remove}.}%
+An example of using our simple context manager-based \pgls{XML} output API from \cref{lst:dunder:xml_context:part_1,lst:dunder:xml_context:part_2}, where the output is written to a text file\pythonIdx{write}\pythonIdx{IO!write}\pythonIdx{open}\pythonIdx{remove}\pythonIdx{os!remove}.}%
 
-We now use this \pgls{API} in \cref{lst:dunder:xml_user_print,lst:dunder:xml_user_file} to basically reproduce the small \pgls{xml}~snippet that I showed you before.
+We now use this \pgls{API} in \cref{lst:dunder:xml_user_print,lst:dunder:xml_user_file} to basically reproduce the small \pgls{XML}~snippet that I showed you before.
 In the former example, we use \pythonil{print} as destination function.
 This means that any string that our \pgls{API} passes to its internal \pythonil{__dest}~attribute will immediately be written as a single line to the~\pgls{stdout}.
 
@@ -1433,9 +1433,9 @@ The class description can then be written via \pythonil{desc.text(...)}.
 Notice that our \pgls{API} writes the element start and end strings to the output without requiring us to do anything.
 It also escapes all special characters for us.
 The other elements are created in the same convenient fashion.
-Our \python\ code basically mirrors the \pgls{xml} structure.
+Our \python\ code basically mirrors the \pgls{XML} structure.
 The output of the program in \cref{exec:dunder:xml_user_print} looks very much like our example, with a slightly different indentation and line breaking.
-But this is permitted and acceptable under the \pgls{xml} standard~\cite{BPSMM2008EMLX1FE}.
+But this is permitted and acceptable under the \pgls{XML} standard~\cite{BPSMM2008EMLX1FE}.
 
 Instead of writing to the \pgls{stdout}, we can also recall our very first example for the \pythonilIdx{with} statement back in \cref{sec:withAndContextManagers}:
 writing to and reading from a file.
@@ -1447,15 +1447,15 @@ We later \pythonilIdx{open} the file again and read all of its lines one-by-one 
 Files are actually \pythonilsIdx{Iterator} of line strings!
 All the file contents get written to the \pgls{stdout}.
 Since \pythonilIdx{write} does not append newline characters, this format is much more compact, as can be seen in~\cref{exec:dunder:xml_user_file}.
-But it is perfectly valid~\pgls{xml}.
+But it is perfectly valid~\pgls{XML}.
 
 We now have learned how the functionality of the \pythonilIdx{with}~statement is implemented internally.
-And we used it to hammer together a very compact and yet functional \pgls{API} for a subset of the \pgls{xml} standard~\cite{BPSMM2008EMLX1FE}.
+And we used it to hammer together a very compact and yet functional \pgls{API} for a subset of the \pgls{XML} standard~\cite{BPSMM2008EMLX1FE}.
 Obviously, we do not implement the complete standard, which is much more complicated.
-And you should never use our class if you really wanted to produce \pgls{xml} in a productive code.
+And you should never use our class if you really wanted to produce \pgls{XML} in a productive code.
 We also omitted type and sanity checks -- for example, we should forbid element names that are empty or contain special characters like~\textil{<}.
 A real implementation would be more conservative~(and too long to serve as a good example in this book).
-Still, on one hand, our \pgls{xml} is valid.
+Still, on one hand, our \pgls{XML} is valid.
 On the other hand, you \emph{could} use extend and improve this class to have all the functionality that you need, if you wanted to.
 So this is actually another example that, at this stage and with what you have learned, you can already do real things.%
 %
