@@ -265,7 +265,7 @@ The idea to first write code and later annotate it with \pglspl{typeHint} is wro
 %
 Finally, it is worth noting that using static type-checkers can even have a positive influence on security aspects of your code, as you can learn in our \citetitle{databases} class~\cite{databases}.
 Injection attacks such as \pglspl{SQLi} have been an application security concern for decades.
-Such attacks can be prevented if the queries to \dbs\ are never dynamically constructed by the likes of \pglspl{fstring} but instead are always defined as string constants.
+Such attacks can be prevented if the queries to \pglspl{db} are never dynamically constructed by the likes of \pglspl{fstring} but instead are always defined as string constants.
 \python\ supports the type~\pythonilIdx{LiteralString} for string constants~\cite{PEP675}.
 Implementations of the \python\ \db\ \pgls{API}, such as \psycopg~\cite{VDGE2022PPDAFP:ST}, can be annotated to only accept such strings.
 Hence, a type checker could detect and complain if you would try to dynamically construct queries, thus preventing \pglspl{SQLi} -- but only if you use it\dots

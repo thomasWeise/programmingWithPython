@@ -471,9 +471,9 @@ normal statement 2
 \end{pythonSyntax}
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{loops}{while_loop_search.py}{--args format}{loops:while_loop_search}{%
-We implement binary search~\cite{K1998SAS,H2024POICBS,B1999PP} using a \pythonilIdx{while} loop with a \pythonilIdx{break} statement.}%
+We implement binary search~\cite{K1998SAS,H2024POIC:BS,B1999PP} using a \pythonilIdx{while} loop with a \pythonilIdx{break} statement.}%
 %
-We now use this construct to implement a binary search~\cite{K1998SAS,H2024POICBS,B1999PP}.
+We now use this construct to implement a binary search~\cite{K1998SAS,H2024POIC:BS,B1999PP}.
 Binary search works is an algorithm that finds the index of an element in a \emph{sorted} sequence \pythonil{data} of values.
 The core concept of binary search is that we consider a segment~$S$ of the list in which the element~$E$ we search may be contained.
 In each step of the algorithm, we want to reduce the size of this segment by ruling out the \emph{half} in which~$E$ cannot be.
@@ -483,7 +483,7 @@ If~$M$ is bigger than~$E$, then $E$ must be in the lower half, i.e., in the sub-
 If~$M$ is smaller than~$E$, then $E$ must be in the upper half, i.e., in the sub-segment starting right after~$M$ and reaching until the end of~$S$.
 Otherwise, we must have found the element.
 This means in one step we have effectively halved the size of~$S$.
-If~$n=\pythonil{len(data)}$, then we can do this at most $\log_2 n$~times and the time complexity of binary search is in~\bigOb{\log n}~\cite{K1998SAS,H2024POICBS,B1999PP}.%
+If~$n=\pythonil{len(data)}$, then we can do this at most $\log_2 n$~times and the time complexity of binary search is in~\bigOb{\log n}~\cite{K1998SAS,H2024POIC:BS,B1999PP}.%
 %
 \begin{sloppypar}%
 In~\cref{lst:loops:while_loop_search}, we want to find the indices of some characters in the alphabetically sorted string~\pythonil{data = "abdfjlmoqsuvwyz"}.
@@ -504,7 +504,7 @@ This is therefore the loop condition of the inner loop.
 
 Inside the binary search loop, we first compute the mid index as \pythonil{mid = (lower + upper) // 2}\footnote{%
 Interestingly, this works only because \python~3 has integers of infinite range (see \cref{sec:int}). %
-In programming languages like \pgls{C} or \pgls{Java} where integer types have limited ranges, we need to do \pythonil{mid = lower + (upper - lower) // 2}~\cite{H2024POICBS}.%
+In programming languages like \pgls{C} or \pgls{Java} where integer types have limited ranges, we need to do \pythonil{mid = lower + (upper - lower) // 2}~\cite{H2024POIC:BS}.%
 }.
 We obtain the value \pythonil{mid_str} as the single character at that index via \pythonil{mid_str = data[mid]}.
 
