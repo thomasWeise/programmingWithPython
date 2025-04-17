@@ -120,7 +120,7 @@ You can then apply \mypy\ using the command \bashil{mypy fileToScan.py}. %
 We use the \bash\ script given in \cref{lst:bash:mypy} on \cpageref{lst:bash:mypy} to apply \mypy\ to the example programs in this book.%
 }%
 %
-If we instead apply \mypy\ the completely fine (albeit useless) program \cref{lst:variables:types}, it will tell us that there is no error, as illustrated in \cref{exec:variables:variable_types:mypy}.
+If we instead apply \mypy\ to the completely fine (albeit useless) program \cref{lst:variables:types}, it will tell us that there is no error, as illustrated in \cref{exec:variables:variable_types:mypy}.
 So we now have one tool at our hands with which we can check our source code for type-related problems.
 Notice that this program just checks the source code.
 It does not change the code and it does not execute our program.
@@ -135,6 +135,25 @@ In other words, type check the program. %
 If there is an error, fix the error and \emph{type check it again}. %
 Repeat this until no errors are found anymore.%
 }%
+%
+When reading the text, you may think:
+\mypy\ is an additional software.
+If I want to use it, I need to install it and I will have to learn its command line parameters.
+Everytime I do use it and apply it to some \python\ code, I need to open the \pgls{terminal}, go into the directory where my program code is located, run the \mypy\ program, and read the output.
+This is, like, lots of work.
+Why do I need to bother?
+There are two answers, the first one is \inQuotes{This will improve the quality of your code.}
+We elaborate this answer more later.
+But there also is a second answer:%
+%
+\bestPractice{manyTools}{%
+A professional software engineer or programmer or, actually, any professional computer scientist knows many tools and is always keen to learn new tools.%
+}%
+%
+In your professional life, you will learn dozens if not hundreds of tools on different \pglspl{OS}.
+The more tools you know, the easier it gets to learn and dig into other software if need be.
+Today, automated builds in \pgls{continuousIntegration}, for example, alone may involve more than a dozen programs.
+Being able to learning new tools and becoming proficient with them is thus an essential skill of a programmer.%
 %
 \endhsection%
 %

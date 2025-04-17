@@ -285,7 +285,7 @@ This time, we do something else:
 We present \pglspl{doctest} for \pythonil{flatten}.
 
 \usefulTool{doctest}{%
-A \pgls{doctest} is a unit test written directly into the \pgls{docstring} of a function or module. %
+A \pgls{doctest} is a \pgls{unitTest} written directly into the \pgls{docstring} of a function or module. %
 We therefore insert small snippets of \python\ code and their expected output. %
 The first line of such codes is prefixed py~\pythonil{>>>}\pythonIdx{>\strut>\strut>}. %
 If a statement needs multiple lines, any following line is prefixed by~\pythonil{...}\pythonIdx{\idxdots}. %
@@ -298,7 +298,7 @@ We use \pytest\ in this book, with the default configuration given in \cref{lst:
 %
 Using \pglspl{doctest} has a very unique advantage:
 It allows us to include examples of how our code should be used directly into the \pglspl{docstring}.
-And these examples can directly serve as unit tests!
+And these examples can directly serve as \pglspl{unitTest}!
 Let's read the \pglspl{docstring} of our \pythonil{flatten} function in \cref{lst:iteration:list_flatten_iterables}.
 
 The first \pgls{doctest} tells us that if we invoke \pythonil{flatten([[1, 2, 3], [4, 5, 6]])}, we can expect the output \pythonil{[1, 2, 3, 4, 5, 6]}.
@@ -322,8 +322,8 @@ The output in \cref{exec:iteration:list_flatten_iterables:doctest} shows that ou
 %
 \bestPractice{doctest}{%
 Where ever possible, the \pglspl{docstring} of functions and modules should contain \pglspl{doctest}. %
-This provides unit tests as well as examples as how the code should be used. %
-Since \pglspl{doctest} are usually brief, they are a quick and elegant way to complement more comprehensive unit tests in separate files (see \cref{bp:functionUnitTest}).%
+This provides \pglspl{unitTest} as well as examples as how the code should be used. %
+Since \pglspl{doctest} are usually brief, they are a quick and elegant way to complement more comprehensive \pglspl{unitTest} in separate files (see \cref{bp:functionUnitTest}).%
 }%
 %
 While we here execute the \pglspl{doctest} using \pytest\ from the command line, you can also run them directly in~\pycharm.

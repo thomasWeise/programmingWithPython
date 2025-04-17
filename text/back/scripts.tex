@@ -29,7 +29,7 @@ So we put them here, at the end of the book, where they do not hurt anyone and w
 In the scripts, we install tools if they are not yet installed.
 We then apply the tools to whatever the parameters of the scripts state.
 Now, in a real environment, a tool can either succeed or fail.
-A unit test executed with \pytest\ will fail and exit with a non-zero exit code if the test, well, fails.
+A \pgls{unitTest} executed with \pytest\ will fail and exit with a non-zero exit code if the test, well, fails.
 A static code analysis tool like \ruff\ will fail with a non-zero exit code if it discovers any issue with the code.
 However, our scripts invoking these tools will \emph{not} fail in such cases.
 They will collect the \pgls{exitCode} of the tool they are invoking and print it.
@@ -66,7 +66,7 @@ It checks if this tool is installed and installs it if not.
 It then applies \pylint\ to a the selected set of files, using a reasonable default configuration.
 \Cref{exec:loops:for_loop_no_enumerate:pylint} is an example of the output of this \pgls{linter}.
 
-\Cref{lst:bash:pytest} is similarly structured, but instead of performing \emph{static} code analysis, it executes unit test cases.
+\Cref{lst:bash:pytest} is similarly structured, but instead of performing \emph{static} code analysis, it executes \pgls{unitTest} cases.
 The directory and list of \python\ files with the test cases are provided as command line arguments.
 This script checks if \pytest\ and its plugin \textil{pytest-timeout} are installed and, if not, installs them.
 It then executes the tests with a fixed ten second timeout that we use in this book.

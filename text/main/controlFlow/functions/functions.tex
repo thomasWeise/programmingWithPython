@@ -296,16 +296,17 @@ We can test each component separately, too.
 It is much easier to check whether our \pythonil{factorial} and \pythonil{sqrt} functions behave as we expect them than to do this for a whole complex program.%
 %
 \begin{definition}[Unit Testing]
-\emph{Unit Testing} is a software testing technique where separate components or functions of an application are tested in isolation.
+\label{def:unitTesting}%
+\glslink{unitTest}{\emph{Unit Testing}} is a software testing technique where separate components or functions of an application are tested in isolation.
 \end{definition}%
 %
-The goal of unit testing is to ensure that each unit of the software performs as expected.
+The goal of using \pglspl{unitTest} is to ensure that each unit of the software performs as expected.
 Since tests can be developed along (or even before!) the single functions are implemented, potential errors can be found early in the development process.
-As the unit tests focus on smaller, well, units, they can be less complex and easier to understand.
-The consequent usage of unit tests supports a modular and cleaner programming style, as it forces the developer to divide bigger programs into smaller pieces that can be invoked and tested in separation.
-Finally, unit testing is especially useful if an application is developed, improved, and maintained over a long time:
-If test cases are preserved and re-tested every time the software changes, then we can discover if a change that we applied to an older piece of code breaks a unit test, i.e., may lead to an unwanted change of behavior our program that we did not anticipate.
-Especially with its increased automation, unit testing in software development has steadily gained importance during the past decades~\cite{W2000WISTAWIISH,TLG2006UTCU,R2006ASOUTP} and is an important cornerstone of \python\ software development~\cite{P2021PUTAAOAEUTIP,O2022PTWP,DG2020TIP}.%
+As the \pglspl{unitTest} focus on smaller, well, units, they can be less complex and easier to understand.
+The consequent usage of \pglspl{unitTest} supports a modular and cleaner programming style, as it forces the developer to divide bigger programs into smaller pieces that can be invoked and tested in separation.
+Finally, \pglspl{unitTest} are especially useful if an application is developed, improved, and maintained over a long time:
+If test cases are preserved and re-tested every time the software changes, then we can discover if a change that we applied to an older piece of code breaks a \pgls{unitTest}, i.e., may lead to an unwanted change of behavior our program that we did not anticipate.
+Especially with its increased automation, e.g., due to \pgls{continuousIntegration}, \pglspl{unitTest} in software development have steadily gained importance during the past decades~\cite{W2000WISTAWIISH,TLG2006UTCU,R2006ASOUTP} and are an important cornerstone of \python\ software development~\cite{P2021PUTAAOAEUTIP,O2022PTWP,DG2020TIP}.%
 %
 %
 \begin{figure}%
@@ -330,10 +331,10 @@ We have our test code in some other \python\ files.
 For the same of clarity, if the actual code is in a file~\textil{my_code.py}, then we could the code for the tests into a file called~\textil{test_my_code.py}.
 
 \gitPython{\programmingWithPythonCodeRepo}{functions/test_my_math.py}{--args format}{functions:test_my_math}{%
-A small unit test suite for \cref{lst:functions:my_math}.}%
+A small \pgls{unitTest} suite for \cref{lst:functions:my_math}.}%
 %
 \gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest.sh functions test_my_math.py}{functions:test_my_math:pytest}{%
-The output of the unit tests in \cref{lst:functions:test_my_math}: While the test of \pythonil{factorial} succeeds, our \pythonil{sqrt} function fails for input~\pythonil{0.0}.}%
+The output of the \pglspl{unitTest} in \cref{lst:functions:test_my_math}: While the test of \pythonil{factorial} succeeds, our \pythonil{sqrt} function fails for input~\pythonil{0.0}.}%
 
 In \cref{lst:functions:test_my_math} we do just that.
 We create a file \textil{test_my_math.py} and into this file, we want to put the code for testing our module~\textil{my_math}.
@@ -417,10 +418,10 @@ In the next iteration, this leads to us trying to divide~\pythonil{0.0 / 0.0}, c
 An improved variant of \cref{lst:functions:my_math} dealing with the failing test case~\pythonil{0.0} discovered in \cref{exec:functions:test_my_math:pytest}.}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{functions/test_my_math_2.py}{--args format}{functions:test_my_math_2}{%
-We use the same small unit test suite given in \cref{lst:functions:test_my_math} for \pythonil{sqrt} in \cref{lst:functions:my_math_2}.}%
+We use the same small \pgls{unitTest} suite given in \cref{lst:functions:test_my_math} for \pythonil{sqrt} in \cref{lst:functions:my_math_2}.}%
 %
 \gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest.sh functions test_my_math_2.py}{functions:test_my_math_2:pytest}{%
-The output of the unit tests in \cref{lst:functions:test_my_math_2}: This time, we hit the timeout because of an endless loop!}
+The output of the \pglspl{unitTest} in \cref{lst:functions:test_my_math_2}: This time, we hit the timeout because of an endless loop!}
 
 In order to fix this problem, we introduce the check \pythonil{if number <= 0.0} into our \pythonil{sqrt} function in \cref{lst:functions:test_my_math_2}.
 If this new conditional evaluates to \pythonil{True}, we return~\pythonil{0.0} directly.
@@ -437,7 +438,7 @@ Ten seconds is a reasonable time for \emph{this book} as we actually run all the
 In practical situations, you will usually choose a larger time limit.%
 %
 \bestPractice{testTimeout}{%
-Always attach a timeout to your unit tests. %
+Always attach a timeout to your \pglspl{unitTest}. %
 This timeout can be generous, maybe one hour, but it will serve as sentinel against either endless loops, deadlocks, or other congestion situations which all would be practical test failures. %
 Timeouts protect automated builds or continuous integration systems from clogging.}%
 %
@@ -455,10 +456,10 @@ Since \pythonil{nan != nan} is \pythonil{True}, the loop never ends.%
 An improved variant of \cref{lst:functions:my_math_2} dealing with the failing test case~\pythonilIdx{inf} discovered in \cref{exec:functions:test_my_math_2:pytest}.}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{functions/test_my_math_3.py}{--args format}{functions:test_my_math_3}{%
-We use the same small unit test suite given in \cref{lst:functions:test_my_math} for \pythonil{sqrt} in \cref{lst:functions:my_math_3}.}%
+We use the same small \pgls{unitTest} suite given in \cref{lst:functions:test_my_math} for \pythonil{sqrt} in \cref{lst:functions:my_math_3}.}%
 %
 \gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest.sh functions test_my_math_3.py}{functions:test_my_math_3:pytest}{%
-The output of the successful unit tests in \cref{lst:functions:test_my_math_3}.}%
+The output of the successful \pglspl{unitTest} in \cref{lst:functions:test_my_math_3}.}%
 %
 \begin{sloppypar}%
 We finally solve this problem in \cref{lst:functions:my_math_3}.
@@ -470,7 +471,7 @@ Thus, we return \pythonil{inf}~if the input of our function is~\pythonilIdx{inf}
 These are also the results that we would expect.%
 \end{sloppypar}%
 %
-In \cref{lst:functions:test_my_math_3}, we apply our unit tests to this new version of our \pythonil{sqrt} function.
+In \cref{lst:functions:test_my_math_3}, we apply our \pglspl{unitTest} to this new version of our \pythonil{sqrt} function.
 As you can see in the output provided in \cref{exec:functions:test_my_math_3:pytest}, the tests now complete successfully.
 This was a good example of how tests can help us to spot errors in our code.
 When looking at \cref{lst:functions:use_my_math}, we certain assumed that all of our functions were implemented correctly.
@@ -478,19 +479,19 @@ However, \pytest\ has helped us to spot two erros.
 We then fixed these errors.%
 %
 \bestPractice{functionUnitTest}{%
-A function which is not unit tested is \emph{wrong}.%
+A function which is not \glslink{unitTest}{unit tested} is \emph{wrong}.%
 }%
 \bestPractice{goodUnitTestsParam}{%
-A good unit test for a given function should cover both expected as well as extreme cases. %
+A good \pgls{unitTest} for a given function should cover both expected as well as extreme cases. %
 For a parameter, we should test both the smallest and largest possible argument values, as well as values from its normally expected range.%
 }%
 \bestPractice{unitTestCoverage}{%
-A good unit test for a function should cover all branches of the control flow inside the function. %
-If a function does one thing in one situation and another thing in another situation, then both of these scenarios should have associated unit tests.%
+A good \pgls{unitTest} for a function should cover all branches of the control flow inside the function. %
+If a function does one thing in one situation and another thing in another situation, then both of these scenarios should have associated \pglspl{unitTest}.%
 }%
 %
-Many junior programmers are not aware how important unit testing is.
-Being able to understand, design, and use unit tests is one of the most important abilities in software development.%
+Many junior programmers are not aware how important \pglspl{unitTest} are.
+Being able to understand, design, and use \pglspl{unitTest} is one of the most important abilities in software development.%
 %
 \cquotation{GPBHKP2022SPPAF}{
 No single factor is likely responsible for \sqlite's popularity.
@@ -517,7 +518,7 @@ Implementing the probability density function~(PDF) of the normal distribution a
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{functions}{use_normal_pdf.py}{--args format}{functions:use_normal_pdf}{%
 Using the PDF of the normal distribution implemented in \cref{lst:functions:normal_pdf}.}%
 %
-After the brief introduction into unit testing, let us now come to a lighter topic: passing arguments to functions.%
+After the brief introduction into \pglspl{unitTest}, let us now come to a lighter topic: passing arguments to functions.%
 We have already seen examples for this.
 Our \pythonil{gcd} function from back in \cref{lst:functions:def_gcd} has two parameters \pythonil{a} and \pythonil{b} and we can invoke it by writing the values of these parameters in parentheses.
 \pythonil{gcd(12, 4)} will invoke \pythonil{gcd} and assign \pythonil{12} to \pythonil{a} and \pythonil{4} to \pythonil{b}.
@@ -819,12 +820,12 @@ We can make one and use it in two different locations.
 Fourth, if we have a code with clearly defined input and output that exists in isolation from other code, then we can \emph{test} this code in isolation as well.
 It may be extremely difficult to test a complete program.
 However, it may be rather straightforward to test a small function.
-Unit tests, for example using the \pytest\ framework, allow us to do just that.
-It is also not hard to imagine that unit tests can compound our trust into our code:
+\Pglspl{unitTest}, for example using the \pytest\ framework, allow us to do just that.
+It is also not hard to imagine that \pglspl{unitTest} can compound our trust into our code:
 In the previous sections, we developed a function~\pythonil{pdf} for computing the probability density function of the normal distribution and a function~\pythonil{integrate} for approximating definite integrals.
-Assume that we properly unit tested these two functions and shown for both of them that they produce the expected results for a wide range of different inputs.
+Assume that we properly applied \pglspl{unitTest} to these two functions and have shown for both of them that they produce the expected results for a wide range of different inputs.
 It would be easy to see that this then would also give us a certain confidence that using \pythonil{integrate} to compute a definite integral over a certain input range of~\pythonil{pdf} should be correct, too.
-This could be verified with some additional unit tests.
+This could be verified with some additional \pglspl{unitTest}.
 Working our way up from testing small components to larger and larger building blocks of an application gives us a good chance to have only few bugs in the final product.
 
 These are a lot of advantages of using functions.

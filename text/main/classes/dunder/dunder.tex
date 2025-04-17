@@ -211,7 +211,7 @@ The internal tables could be represented as lists.
 Differently from lists, new elements are not added at the end.
 Instead, they would be more like lists of a fixed length where new elements are placed at specific indices where they can be found again.
 These hash tables~\cite{K1998SAS,CLRS2009ITA,SKS2019DSC} are very fast.
-They have an element-wise access/update time complexity of~\bigOb{1}~\cite{H2024PBOTTCODDSIPP33,B2023T,N2022CCSFPO}.
+They have an element-wise access/update time complexity of~\bigOb{1}~\cite{H2025PM:PBOTTCODDSIPP33,B2023T,N2022CCSFPO}.
 As you know, lists can be indexed by integers.
 Since we also want to be able to use objects that are \emph{not} integers as keys, too, we need a way to \inQuotes{translate} these objects to integers.
 That is what \dunder{hash} is supposed to do.
@@ -1590,7 +1590,7 @@ So this is actually another example that, at this stage and with what you have l
 \label{fig:pythonDunder:3}%
 \end{figure}%
 %
-Besides the examples mentioned above, there are many more duner methods in \python~\cite{H2024EDMIP}.
+Besides the examples mentioned above, there are many more duner methods in \python~\cite{H2025PM:EDMIP}.
 We can only provide an abridged overview in \cref{fig:pythonDunder:1,fig:pythonDunder:2,fig:pythonDunder:3}.
 
 From \cref{fig:pythonDunder:1} we learn that there are three string representation dunder functions.
@@ -1661,7 +1661,7 @@ Doing \pythonil{a += b} would invoke~\pythonil{a.\_\_iadd\_\_(b)}, which then sh
 Finally, \cref{fig:pythonDunder:3} lists the dunder methods for operators such as~\pythonilIdx{\&}, \pythonil{|}\pythonIdx{\textbar}, \pythonil{\^}\pythonIdx{\textasciicircum}, \pythonil{>>}\pythonIdx{>\strut>}, and \pythonil{<<}\pythonIdx{<\strut<}, which we learned about when we first got in touch with integer numbers in~\cref{sec:int:bitstrings}.
 These dunder methods follow the same schematic as those for arithmetics and also have \inQuotes{\pythonil{r}} and \inQuotes{\pythonil{i}}~variants.
 
-Even more dunder methods are listed in the comprehensive overview~\cite{H2024EDMIP}.
+Even more dunder methods are listed in the comprehensive overview~\cite{H2025PM:EDMIP}.
 %
 %\FloatBarrier%
 \endhsection%

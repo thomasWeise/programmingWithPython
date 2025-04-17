@@ -7,7 +7,7 @@ We try to create code that is free of errors.
 When we execute our programs, then there are at least two things that can go wrong.
 On one hand, we can never really be sure that our program code is free of programming mistakes.
 The larger a project gets, the more likely it is that there are some bugs hidden somewhere in the code.
-Thorough unit testing can reduce the likelihood of bugs, but it cannot entirely prevent them.
+Thorough \pglspl{unitTest} can reduce the likelihood of bugs, but it cannot entirely prevent them.
 
 On the other hand, our programs do not exist all by themselves in a vacuum.
 They receive input, maybe from files, maybe from the user, maybe from sensors.
@@ -628,19 +628,19 @@ They will automatically be invoked at the end of the \pythonilIdx{with} statemen
 \label{sec:testingExceptions}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{exceptions/test_sqrt_raise.py}{--args format}{exceptions:test_sqrt_raise}{%
-A unit test checking that our new variant of the \pythonil{sqrt} function given in \cref{lst:exceptions:sqrt_raise} properly raises an \pythonilIdx{ArithmeticError} if its input is non-finite or negative.}%
+A \pgls{unitTest} checking that our new variant of the \pythonil{sqrt} function given in \cref{lst:exceptions:sqrt_raise} properly raises an \pythonilIdx{ArithmeticError} if its input is non-finite or negative.}%
 %
 \gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest.sh exceptions test_sqrt_raise.py}{exceptions:test_sqrt_raise:pytest}{%
-The output of the unit tests in \cref{lst:exceptions:test_sqrt_raise}: %
+The output of the \pglspl{unitTest} in \cref{lst:exceptions:test_sqrt_raise}: %
 The \pythonilsIdx{ArithmeticError} are correctly raised.}%
 %
 
-Back in \cref{sec:unitTesting}, we introduced the concept of unit tests and show how the tool \pytest\ can be used to test our functions.
-We stated in \cref{bp:unitTestCoverage} that we should cover all the branches of the control flow inside a function with unit tests.
+Back in \cref{sec:unitTesting}, we introduced the concept of \pglspl{unitTest} and show how the tool \pytest\ can be used to test our functions.
+We stated in \cref{bp:unitTestCoverage} that we should cover all the branches of the control flow inside a function with \pglspl{unitTest}.
 One kind of branch that is often overlooked are \pythonilsIdx{Exception} and extension handling~\cite{LRBP2021AEHTPIOSL}.
 
-If our function is supposed to \pythonilIdx{raise} a certain exception in some cases, then we should have a unit test that checks if this \pythonilsIdx{Exception} is actually raised as it should be.
-Now, any exception raised by a unit test will cause the test to fail.
+If our function is supposed to \pythonilIdx{raise} a certain exception in some cases, then we should have a \pgls{unitTest} that checks if this \pythonilsIdx{Exception} is actually raised as it should be.
+Now, any exception raised by a \pgls{unitTest} will cause the test to fail.
 This seems to contradict our goal to intentionally raise the exceptions.
 Luckily, \pytest\ offers us a device for this.
 
@@ -652,10 +652,10 @@ If such an exception is not raised, the test fails.
 If it is raised, the text succeeds.
 
 \gitPython{\programmingWithPythonCodeRepo}{exceptions/test_sqrt.py}{--args format}{exceptions:test_sqrt}{%
-Two unit tests checking the original variant of the \pythonil{sqrt} function from back in \cref{lst:functions:test_my_math_2} that does not raise errors.}%
+Two \pglspl{unitTest} checking the original variant of the \pythonil{sqrt} function from back in \cref{lst:functions:test_my_math_2} that does not raise errors.}%
 %
 \gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest.sh exceptions test_sqrt.py}{exceptions:test_sqrt:pytest}{%
-The output of the unit tests in \cref{lst:exceptions:test_sqrt}: %
+The output of the \pglspl{unitTest} in \cref{lst:exceptions:test_sqrt}: %
 No error was raised in it, so the first fails and the error message in the second test does not fit, so it fails as well.}%
 %
 In particular, we can provide the exception class as well as a \pgls{regex} via the parameter~\pythonil{match} to \pythonilIdx{raises}.
@@ -676,13 +676,13 @@ The dot~(\textil{.}) can be replaced with any other character and the star~(\tex
 Therefore, our produced error message must follow this pattern for the test to work.
 And, as you can find in the \pytest\ output in \cref{exec:exceptions:test_sqrt_raise:pytest}, for the values \pythonil{v in [-1.0, inf, -inf, nan]}, no error is reported.
 For these values, our \pythonil{sqrt} function does indeed raise\pythonIdx{raise} the expected \pythonilsIdx{Exception}, with the expected error messages.
-The unit test succeeds.%
+The \pgls{unitTest} succeeds.%
 \end{sloppypar}%
 %
 In \cref{lst:exceptions:test_sqrt}, we write a similar test.
 This time, we use basically the original version of our \pythonil{sqrt} function which does not by itself raise any exception.
 This function is directly implemented in the listing, in the same way as we did in \cref{lst:functions:my_math_2}, and again called \pythonil{sqrt}.
-We also write two unit tests into the new file \textil{test_sqrt.py}.
+We also write two \pglspl{unitTest} into the new file \textil{test_sqrt.py}.
 Both are intentionally designed to show what happens if either an expected exception is not raised~(\pythonil{test_sqrt_1}) or if its error message does not match the \pythonil{match} argument~(\pythonil{test_sqrt_2}).%
 %
 \begin{sloppypar}%
@@ -705,7 +705,7 @@ This failure results in an \pythonilIdx{OverflowError}.
 So indeed, this does fulfill our testing requirement:
 If an \pythonilsIdx{OverflowError} is also a \pythonilIdx{ArithmeticError}, so the right type of exception was raised.
 However, its error message will not fit to our \pythonil{match} argument.
-Therefore, the unit test still fails.
+Therefore, the \pgls{unitTest} still fails.
 The output of \cref{exec:exceptions:test_sqrt:pytest} explains this clearly.%
 \end{sloppypar}%
 %
@@ -727,11 +727,11 @@ We do this by using the \pythonil{with raises(...)}\pythonIdx{raises} statement.
 %
 This allows us to cover both the expected and correct use of our function with tests as well as unexpected incorrect uses.
 We can then be confident that our code is unlikely to cause harm, neither due to bugs created by ourselves nor due to accidental misuse by other programmers due to misunderstandings (which would immediately signaled to them by \pythonilsIdx{Exception}).
-Notice that good unit testing goes hand in hand with good documentation in \pglspl{docstring}, because good \pglspl{docstring} reduce the chance of such misunderstandings.%
+Notice that good \pglspl{unitTest} go hand in hand with good documentation in \pglspl{docstring}, because good \pglspl{docstring} reduce the chance of such misunderstandings.%
 %
 \bestPractice{testAll}{%
 It is important to cover both the reasonable expected use of our functions as well as unexpected use with incorrect arguments with test cases. %
-The latter case should raise\pythonIdx{raise} \pythonilsIdx{Exception}, which we should verify with unit tests.%
+The latter case should raise\pythonIdx{raise} \pythonilsIdx{Exception}, which we should verify with \pglspl{unitTest}.%
 }%
 %
 \FloatBarrier%
@@ -865,7 +865,7 @@ Such resources can be implemented as context managers, whose special closing rou
 
 Error handling in \python\ therefore allows us to develop software that is both robust and that clearly indicates if something goes wrong.
 Of course, for software to be called \emph{robust}, it has to be tested.
-Luckily, \pytest\ offers us also unit testing capabilities that check whether \pythonilsIdx{Exceptions} are raised where expected.
+Luckily, \pytest\ offers us also \pgls{unitTest} capabilities that check whether \pythonilsIdx{Exceptions} are raised where expected.
 This completes our discussion of the error-related control flow.%
 \endhsection%
 %
