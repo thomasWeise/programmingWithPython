@@ -100,9 +100,10 @@ That an error causes the current process to crash unexpectedly or that all futur
 \end{enumerate}%
 %
 \bestPractice{exceptions}{%
-Errors should not be ignored and input should be sanitized. %
-Instead, the input of our functions should be checked for validity (where reasonable). %
-\pythonilsIdx{Exception} should be raised as early as possible if any unexpected situation occurs.%
+Errors should \emph{not} be ignored and input should \emph{not} be artificially sanitized. %
+Instead, the input of our functions should be checked for validity wherever reasonable. %
+Faulty input should always be signaled by errors breaking the program flow. %
+\pythonilsIdx{Exception} should be raised as early as possible and whenever an unexpected situation occurs.%
 }%
 %
 \endhsection%
