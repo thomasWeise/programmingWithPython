@@ -100,8 +100,8 @@ That an error causes the current process to crash unexpectedly or that all futur
 \end{enumerate}%
 %
 \bestPractice{exceptions}{%
-Errors should \emph{not} be ignored and input should \emph{not} be artificially sanitized. %
-Instead, the input of our functions should be checked for validity wherever reasonable. %
+Errors should \emph{not} be ignored and input data should \emph{not} be artificially sanitized. %
+Instead, the input of functions should be checked for validity wherever reasonable. %
 Faulty input should always be signaled by errors breaking the program flow. %
 \pythonilsIdx{Exception} should be raised as early as possible and whenever an unexpected situation occurs.%
 }%
@@ -657,7 +657,8 @@ Two \pglspl{unitTest} checking the original variant of the \pythonil{sqrt} funct
 %
 \gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest.sh exceptions test_sqrt.py}{exceptions:test_sqrt:pytest}{%
 The output of the \pglspl{unitTest} in \cref{lst:exceptions:test_sqrt}: %
-No error was raised in it, so the first fails and the error message in the second test does not fit, so it fails as well.}%
+No error was raised in it, so the first test fails. %
+The error message in the second test does not fit, so it fails as well.}%
 %
 In particular, we can provide the exception class as well as a \pgls{regex} via the parameter~\pythonil{match} to \pythonilIdx{raises}.
 If the block does not raise an exception of the expected type, the test fails.
