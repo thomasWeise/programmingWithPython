@@ -29,7 +29,7 @@ Only put immutable objects into sets.%
 }%
 %
 Different from tuples, sets themselves are not immutable.
-Furthermore, sets are \emph{unordered} collections~\cite{PSF2024STSF}.
+Furthermore, sets are \emph{unordered} collections~\cite{PSF:P3D:TPSL:STSF}.
 Therefore, also different from tuples and lists, they cannot be indexed, i.e., the square-bracket notation does not work with sets.%
 %
 \bestPractice{setsUnordered}{%
@@ -82,7 +82,7 @@ We add all the elements of set \pythonil{lower} to the set \pythonil{letters} by
 
 We can also convert the set \pythonil{letters} to a list or tuple.
 \pythonil{list(letters)}\pythonIdx{list} will achieve the former, \pythonil{tuple(letters)}\pythonil{tuple} the latter.
-However, since sets are unordered~\cite{PSF2024STSF,PSF2024ST} and the order in which the elements would appear in the created list or tuple is not defined.
+However, since sets are unordered~\cite{PSF:P3D:TPSL:STSF,PSF:P3D:TPLR:ST} and the order in which the elements would appear in the created list or tuple is not defined.
 They may appear in a strange or unexpected order.
 Here we therefore use the function \pythonilIdx{sorted}, which accepts an arbitrary collection of objects as input and returns a sorted list.
 \pythonil{sorted(letters)} therefore creates a list where all the elements of letters appear in a sorted fashion.

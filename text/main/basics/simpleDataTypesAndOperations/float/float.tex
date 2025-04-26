@@ -28,7 +28,7 @@ We cannot really represent the real numbers~\realNumbers\ exactly in the memory 
 But how does it work in \python?
 How can we deal with the fact that we cannot dynamically represent fractional numbers exactly even in typical everyday cases?
 With \pythonilIdx{float}, \python\ offers us one type for fractional numbers.
-This datatype represents numbers usually in the same internal structure as \pythonils{double} in the \pgls{C}~programming language~\cite{PSF2024NTIFC}, which, in turn, internally have a 64~bit IEEE~Standard 754 floating point number layout~\cite{IEEE2019ISFFPA,H1997IS7FPN}.
+This datatype represents numbers usually in the same internal structure as \pythonils{double} in the \pgls{C}~programming language~\cite{PSF:P3D:TPSL:NTIFC}, which, in turn, internally have a 64~bit IEEE~Standard 754 floating point number layout~\cite{IEEE2019ISFFPA,H1997IS7FPN}.
 The idea behind this standard is to represent both very large numbers, like~$10^{300}$ and very small numbers, like~$10^{-300}$.
 In order to achieve this, the 64~bits are divided into three pieces, as illustrated in \cref{fig:floatIEEEStructure}.
 %
@@ -65,7 +65,7 @@ They can represent integers and fractions.
 However, their accuracy is always limited to about 15~digits.
 In other words, regardless whether your \pythonilIdx{float} stores a very large or a very small number, you can have at most 15~digits of precision.
 For example, adding~1 to~$10^{16}$ would still yield~$10^{16}$, because only 15~digits are \inQuotes{stored} and the~1 will just \inQuotes{fall off.}
-You cannot represent numbers arbitrarily precisely~\cite{PSF2024FPAIAL}.%
+You cannot represent numbers arbitrarily precisely~\cite{PSF:P3D:TPT:FPAIAL}.%
 %
 \endhsection%
 %
@@ -124,7 +124,7 @@ Surprisingly, we do not necessarily need irrational or transcendental numbers to
 There is no way to write down all the digits of fractions like~$\frac{1}{7}$ as decimals.
 We always need to cut off somewhere, e.g., we could write~$0.14285714285714285$, but that is not exactly the same as~$\frac{1}{7}$.
 As we discussed before, floating point numbers are stored in a binary format, i.e., represented by bits.
-In the binary system, we encounter this problem already for fractions like~$\frac{1}{10}=0.1$~\cite{PSF2024FPAIAL}.
+In the binary system, we encounter this problem already for fractions like~$\frac{1}{10}=0.1$~\cite{PSF:P3D:TPT:FPAIAL}.
 Essentially, we could write $\frac{1}{10}\approx\frac{1}{2^4}+\frac{1}{2^5}+\frac{1}{2^8}+\frac{1}{2^9}+\frac{1}{2^{12}}+\frac{1}{2^{13}}+\frac{1}{2^{16}}+\dots$, but we would never quite get there.
 This means that $0.1$~cannot be exactly represented as \pythonil{float}.
 Therefore, adding it up ten times also does not exactly equal~$1$.

@@ -1,7 +1,7 @@
 \hsection{Lists}%
 \label{sec:lists}%
 %
-A \pythonilIdx{list} is a mutable sequence of objects which can be accessed via their index~\cite{PSF2024S}.
+A \pythonilIdx{list} is a mutable sequence of objects which can be accessed via their index~\cite{PSF:P3D:TPLR:S}.
 They work very similar to the strings we already discussed in \cref{sec:str}, but instead of characters, they can contain any kind of objects and they can be modified.%
 %
 \hsection{Basic Functionality and Examples}%
@@ -104,7 +104,7 @@ Similarly, if you multiply a list by an integer~\pythonil{n}, you get a new list
 \pythonil{[5, 6, 7] * 3}\pythonIdx{*!list}\pythonIdx{list!*} therefore yields \pythonil{[5, 6, 7, 5, 6, 7, 5, 6, 7]}.
 
 In \cref{sec:strBasicOperations}, we discussed string slicing.
-Lists can be sliced in pretty much the same way\pythonIdx{list!slicing}\pythonIdx{slicing}\pythonIdx{slice}~\cite{PSF2024S}.
+Lists can be sliced in pretty much the same way\pythonIdx{list!slicing}\pythonIdx{slicing}\pythonIdx{slice}~\cite{PSF:P3D:TPLR:S}.
 When slicing a list~\pythonil{l} or a string, you can provide either two or three values in the square brackets\pythonIdx{[\idxdots]}\pythonIdx{[i:j:k]}, i.e., either do~\pythonil{l[i:j]}\pythonIdx{[i:j]}\pythonIdx{slicing} or \pythonil{l[i:j:k]}.
 If \pythonil{j < 0}, then it is replaced with~\pythonil{len(l) - j}.
 In both the two and three indices case, \pythonil{i} is the inclusive start index and \pythonil{j} is the exclusive end index, i.e., all elements with index~\pythonil{m} such that \pythonil{i <= m < j}.

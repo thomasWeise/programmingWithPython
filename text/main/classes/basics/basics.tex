@@ -296,7 +296,7 @@ We learned that the datatype \pythonilIdx{float} can represent numbers accuratel
 This is illustrated in \cref{fig:addingFloatsError}:
 If we add~\pythonil{1} to~$10^{15}=\pythonil{1e15}$, the correct result is~\pythonil{1000000000000001.0}.
 However, if we add~\pythonil{1} to~$10^{16}=\pythonil{1e16}$, the result is still~\pythonil{1e16}.
-It is not possible to represent the number~$1+10^{16}$ correctly with the 64~bit double precision floating point numbers that \python\ offers~\cite{PSF2024FPAIAL}.
+It is not possible to represent the number~$1+10^{16}$ correctly with the 64~bit double precision floating point numbers that \python\ offers~\cite{PSF:P3D:TPT:FPAIAL}.
 Usually, that itself is totally fine:
 There are few application in \inQuotes{everyday programming} where we really need more than fifteen digits of precision.
 

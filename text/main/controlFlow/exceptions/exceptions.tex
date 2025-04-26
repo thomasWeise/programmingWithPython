@@ -579,13 +579,13 @@ Oddly enough, they complain:
 \pylint\ suggests to go with a \pythonilIdx{with}~statement instead.
 They both mean the same.
 
-\cquotation{PSF2024WSCM}{%
+\cquotation{PSF:P3D:TPLR:WSCM}{%
 A context manager is an object that defines the runtime context to be established when executing a \pythonilIdx{with} statement. %
 The context manager handles the entry into, and the exit from, the desired runtime context for the execution of the block of code. %
 [\dots] %
 Typical uses of context managers include saving and restoring various kinds of global state, locking and unlocking resources, closing opened files, etc.}%
 %
-The \pythonilIdx{with} statement has the following syntax, where the \pythonil{expression} is supposed to return a context manager~\cite{PSF2024WSCM,PSF2024CUFWSC,PSF2024TWS,PEP343}.%
+The \pythonilIdx{with} statement has the following syntax, where the \pythonil{expression} is supposed to return a context manager~\cite{PSF:P3D:TPLR:WSCM,PSF:P3D:TPSL:CUFWSC,PSF:P3D:TPLR:TWS,PEP343}.%
 %
 \begin{pythonSyntax}
 with expression as variable:
@@ -646,7 +646,7 @@ This seems to contradict our goal to intentionally raise the exceptions.
 Luckily, \pytest\ offers us a device for this.
 
 Let us expand our \cref{lst:functions:test_my_math_2} for testing the \pythonil{sqrt} function to now also test for \pythonilsIdx{ArithmeticError}.
-The \pythonilIdx{pytest} module offers a so-called context manager~\cite{PSF2024CUFWSC} named \pythonilIdx{raises}.
+The \pythonilIdx{pytest} module offers a so-called context manager~\cite{PSF:P3D:TPSL:CUFWSC} named \pythonilIdx{raises}.
 If we want to check whether a function indeed raises a certain exception of type \pythonil{ExpectedExceptionType} for a given input, then we can wrap the corresponding function call into \pythonil{with raises(ExpectedExceptionType):}.
 This is block tells the \pytest\ system that, in the following, indented, block, we expect that a certain exception must be raised.
 If such an exception is not raised, the test fails.
@@ -802,7 +802,7 @@ The latter case should raise\pythonIdx{raise} \pythonilsIdx{Exception}, which we
 .2 \pythonilIdx{SystemExit}\DTcomment{raised by \pythonilIdx{exit}; not an error}.
 }%
 %
-\caption{An overview of the hierarchy of \pythonilsIdx{Exception} in \python~\cite{PSF2024BIE}.}%
+\caption{An overview of the hierarchy of \pythonilsIdx{Exception} in \python~\cite{PSF:P3D:TPSL:BIE}.}%
 \label{fig:pythonExceptions}%
 \end{figure}%
 %
@@ -815,7 +815,7 @@ Obviously, we cannot just treat every possible error condition in the same way.
 Running out of memory is a completely different situation than trying to read from a non-existing file.
 Therefore, different types of exceptions are raised:
 The former problem causes a \pythonilIdx{MemoryError} while the later raises an \pythonilIdx{FileNotFoundError}.
-The hierarchy of the different problem types is illustrated in \cref{fig:pythonExceptions}~\cite{PSF2024BIE}.
+The hierarchy of the different problem types is illustrated in \cref{fig:pythonExceptions}~\cite{PSF:P3D:TPSL:BIE}.
 There, you can also see why an \pythonilIdx{except} block catching \pythonilsIdx{ArithmeticError} would also catch an \pythonilsIdx{OverflowError}, because the latter is a special case of the former.
 
 Depending on the operations that your code tries to perform, you would wrap it into \pythonilIdx{except} blocks for the errors from this list that you could reasonably expect to be able to recover from.

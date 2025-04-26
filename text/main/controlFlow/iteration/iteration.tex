@@ -191,7 +191,7 @@ Whatever we would measure would have to take with a grain of salt, but we will t
 %
 \usefulTool{timeit}{%
 \pythonilIdx{timeit} is a tool for measuring execution time of small code snippets that ships directly with \python. %
-This module avoids a number of common traps for measuring execution times, see~\cite{PSF2024TMETOSCS,P2002AI}.%
+This module avoids a number of common traps for measuring execution times, see~\cite{PSF:P3D:TPSL:TMETOSCS,P2002AI}.%
 }%
 %
 \pythonilIdx{timeit} allows us to measure the runtime of a certain statement.
@@ -206,9 +206,9 @@ We tell \pythonilIdx{repeat} to call our function \pythonil{create_by_append} on
 However, due to the above factors which may influence the runtime, a single measurement is not very reliable~\cite{P2002AI}.
 We thus instruct \pythonilIdx{repeat} to take 90 such measurements.
 All of the measured runtimes are then return as a \pythonil{list[float]}.
-The documentation of \pythonilIdx{timeit}~\cite{PSF2024TMETOSCS} says:%
+The documentation of \pythonilIdx{timeit}~\cite{PSF:P3D:TPSL:TMETOSCS} says:%
 %
-\cquotation{PSF2024TMETOSCS}{%
+\cquotation{PSF:P3D:TPSL:TMETOSCS}{%
 \emph{Note:}~it's tempting to calculate mean and standard deviation from the result vector and report these.
 However, this is not very useful.
 In a typical case, the lowest value gives a lower bound for how fast your machine can run the given code snippet;
@@ -218,7 +218,7 @@ After that, you should look at the entire vector and apply common sense rather t
 }%
 %
 \bestPractice{timeMeasurement}{%
-When measuring the runtime of code for one specific set of inputs, it makes sense to perform multiple measurements and to take the \emph{minimum} of the observed values~\cite{PSF2024TMETOSCS}. %
+When measuring the runtime of code for one specific set of inputs, it makes sense to perform multiple measurements and to take the \emph{minimum} of the observed values~\cite{PSF:P3D:TPSL:TMETOSCS}. %
 The reason is that there are many factors (CPU temperature, other processes, \dots) that may \emph{negatively} impact the runtime. %
 However, there is no factor that can make your code faster than what your hardware permits. %
 So the minimum is likely to give the most accurate impression of how fast your code can theoretically run on your machine. %
@@ -290,7 +290,7 @@ We therefore insert small snippets of \python\ code and their expected output. %
 The first line of such codes is prefixed py~\pythonil{>>>}\pythonIdx{>\strut>\strut>}. %
 If a statement needs multiple lines, any following line is prefixed by~\pythonil{...}\pythonIdx{\idxdots}. %
 After the snippet, the expected output is written. %
-The \pglspl{doctest} can be by modules like \pythonilIdx{doctest}~\cite{PSF2024DTIPE} or tools such as \pytest~\cite{KPDT2024HTRD}~(\cref{ut:pytest}). %
+The \pglspl{doctest} can be by modules like \pythonilIdx{doctest}~\cite{PSF:P3D:TPSL:DTIPE} or tools such as \pytest~\cite{KPDT2024HTRD}~(\cref{ut:pytest}). %
 They collect the code, run it, and compare its output to the expected output in the \pgls{docstring}. %
 If they do not match, the tests fail. %
 We use \pytest\ in this book, with the default configuration given in \cref{lst:bash:pytest_doctest}.%
@@ -716,7 +716,7 @@ An example for \pythonilIdx{takewhile}\pythonIdx{itertools!takewhile} and \pytho
 Sequences play a very important role in \python\ programming.
 The fact that generator functions and the \pythonilIdx{yield} keyword were added to the language just to provide a natural way to construct complex sequences speaks for itself~\cite{PEP255}.
 Naturally, there also are several utilities for working with and transforming sequences.
-Some of these tools are directly provided as built-in functions, some ship with the module~\pythonilIdx{itertools}~\cite{PSF2024IFCIFEL}.
+Some of these tools are directly provided as built-in functions, some ship with the module~\pythonilIdx{itertools}~\cite{PSF:P3D:TPSL:IFCIFEL}.
 Here we want to discuss a few of them.
 
 The first two tools we will look at are the built-in function \pythonilIdx{filter} and the \pythonilIdx{takewhile}\pythonIdx{itertools!takewhile} function from the \pythonilIdx{itertools} module.
@@ -817,7 +817,7 @@ The output of \pytest\ in \cref{exec:iteration:zip:doctest} shows that the examp
 
 This concludes our treatment of operations on \pythonilsIdx{Iterator}.
 We could only scratch the surface here.
-The module~\pythonilIdx{itertools}~\cite{PSF2024IFCIFEL} which ships with \python\ offers many more useful functions.
+The module~\pythonilIdx{itertools}~\cite{PSF:P3D:TPSL:IFCIFEL} which ships with \python\ offers many more useful functions.
 However, an understanding of the principles of \pythonilIdx{map}, \pythonilIdx{filter}, and~\pythonilIdx{zip} will enable the reader to explore these tools by themselves.%
 \FloatBarrier%
 \endhsection%

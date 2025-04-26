@@ -217,10 +217,10 @@ And we can distribute code over multiple files.
 This clearly is a concern for any application larger than a simple script:
 How can we avoid writing our applications as a single, huge, and unstructured file which would be impossible to maintain in the long run?
 How can we divide our application into smaller units that we can test, improve, and maintain separately and maybe use and reuse in different contexts?
-A big part of the answer to this question are \emph{modules} and \emph{packages}~\cite{PSF2024TIS}.
+A big part of the answer to this question are \emph{modules} and \emph{packages}~\cite{PSF:P3D:TPLR:TIS}.
 
 For all intents and purposes within this book, a \emph{module}\pythonIdx{module} is a \python\ file and a \emph{package}\pythonIdx{package} is a directory wherein the file is located.
-As described in~\cite{PSF2024TIS}, modules do not necessarily need to be files and packages can probably be created otherwise as well, but let us keep it simple here.
+As described in~\cite{PSF:P3D:TPLR:TIS}, modules do not necessarily need to be files and packages can probably be created otherwise as well, but let us keep it simple here.
 
 Indeed, we have already worked with modules, most prominently the~\pythonilIdx{math} module.
 This module is basically a collection of mathematical functions.
@@ -256,7 +256,7 @@ There is a module \pythonil{my_math} from which we want to import, i.e., make av
 %
 Now, the \python\ interpreter knows a lot of modules.
 Several modules ship with any \python\ installation, like \pythonilIdx{math}.
-Others are installed via a package manager like \pgls{pip}~\cite{PSF2024IPM} (we will eventually discuss this later).
+Others are installed via a package manager like \pgls{pip}~\cite{PSF:P3D:IPM} (we will eventually discuss this later).
 The \pythonil{my_math} module is found because it is in the same directory as the program \textil{use_my_math}.
 
 If we had placed the \textil{my_math.py} file into a sub-directory named \textil{math_pack} instead, then we would import our functions from \textil{math_pack.my_math} instead, where \textil{math_pack} would be called a~\emph{package}.
@@ -693,7 +693,7 @@ Our implementation \pythonil{integrate} of this approach, given in \cref{lst:fun
 The interesting part of our \pythonil{integrate} method, however, is not the approximation of the integral.
 It is the header.
 More precisely, it is the first parameter:~\pythonil{f: Callable[[float], float | int]}\pythonIdx{Callable}\pythonIdx{typing}.
-\pythonilIdx{Callable} is the \pgls{typeHint} for anything that can be called, i.e., functions~\cite{PSF2024ACO}.
+\pythonilIdx{Callable} is the \pgls{typeHint} for anything that can be called, i.e., functions~\cite{PSF:P3D:TPSL:ACO}.
 Like the \pgls{typeHint} for lists and tuples, it can be parameterized following the scheme~\cite{PEP612}:%
 %
 \begin{pythonSyntax}
@@ -705,7 +705,7 @@ In other words, inside the \pythonil{Callable[...]}, we first provide the list o
 \pythonil{f}~must accept one parameter of type~\pythonil{float}.
 Its return type is \pythonil{float | int}, i.e., it should return either a~\pythonil{float} or~\pythonil{int}\pythonIdx{\textbar!type hints}~\cite{PEP604}.
 Notice that the type \pythonilIdx{Callable} is provided by the module~\pythonilIdx{typing}\footnote{%
-\cite{PSF2024ACO}~states that this import is now deprecated and we should use \pythonil{collections.abc.Callable}\pythonIdx{collections.abc} instead. %
+\cite{PSF:P3D:TPSL:ACO}~states that this import is now deprecated and we should use \pythonil{collections.abc.Callable}\pythonIdx{collections.abc} instead. %
 In the past, this created some errors for me, so for now we stick with using~\pythonilIdx{typing}.}, %
 so we need to import it first if we want to use it.%
 %
@@ -736,7 +736,7 @@ where the \pythonil{_}\pythonIdx{\_} indicates that we are actually going to ign
 We could then invoke~\pythonil{integrate(const_1)}.
 
 However, there also is a more compact way to specify functions that we are only going to use once:
-The so-called \pythonilsIdx{lambda}~\cite{PSF2024L}, which have the structure%
+The so-called \pythonilsIdx{lambda}~\cite{PSF:P3D:TPLR:L}, which have the structure%
 %
 \begin{pythonSyntax}
 lambda param1, param2, ...: return value

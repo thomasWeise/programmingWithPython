@@ -141,7 +141,7 @@ As final functions, we can check whether a string begins or ends with another, w
 \pythonil{"Hello World!".endswith("Hello")} is \pythonilIdx{False}, too, but \pythonil{"Hello World!".endswith("World!")} is \pythonilIdx{True}.
 
 Of course, these were just a small selection of the many string operations available in \python.
-You can find more in the \href{https://docs.python.org/3/library/stdtypes.html\#textseq}{official documentation}~\cite{PSF2024TSTS}.%
+You can find more in the \href{https://docs.python.org/3/library/stdtypes.html\#textseq}{official documentation}~\cite{PSF:P3D:TPSL:TSTS}.%
 \endhsection%
 %
 \hsection{The str Function and f-strings}%
@@ -174,7 +174,7 @@ However, converting data to strings like this is rather tedious.
 \label{fig:fstrings}%
 \end{figure}
 
-\pythonIdx{str!f}\pythonIdx{f-string}Let us therefore discuss a very powerful and much more convenient gadget in \python's string processing toolbox: format strings, or \pglspl{fstring}\pythonIdx{f-string}\pythonIdx{str!f} for short~\cite{PSF2024FSL,PEP498,M2017WAFSIPAHCIUT,B2023PFS}.
+\pythonIdx{str!f}\pythonIdx{f-string}Let us therefore discuss a very powerful and much more convenient gadget in \python's string processing toolbox: format strings, or \pglspl{fstring}\pythonIdx{f-string}\pythonIdx{str!f} for short~\cite{PSF:P3D:TPT:FSL,PEP498,M2017WAFSIPAHCIUT,B2023PFS}.
 An \pgls{fstring} is like a normal string, except that it starts with \pythonil{f"}\pythonIdx{f\textquotedbl\idxdots\textquotedbl} instead of \pythonil{"}.
 And, most importantly, it can contain other data and even complete expressions inside curly braces~(\pythonil{\{...\}}\pythonIdx{\textbraceleft\idxdots\textbraceright!f-string}) which are then embedded into the string.%
 %
@@ -279,7 +279,7 @@ It will be interpreted as a single \inQuotes{\textbraceright}~brace.
 \pythonil{f"Single braces without expression: \{\{ and \}\}."} simply becomes \pythonil{"Single braces without expression: \{ and \}."}
 
 As final example, let us look at a very cool ability of \pglspl{fstring}\pythonIdx{f-string!=}.
-Often, we want to print an expression together with its result~\cite{PSF2024WNIP38FSFSDEAD}.
+Often, we want to print an expression together with its result~\cite{PSF:P3D:WNIP:WNIP38FSFSDEAD}.
 Earlier, we wrote \pythonil{f"\{5\}\ + \{4\}\ = \{5 + 4\}"} is evaluated to \pythonil{"5 + 4 = 9"}.
 What we actually wanted to print was the expression \pythonil{5 + 4} together with its result.
 This can be done much easier:

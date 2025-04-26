@@ -1,6 +1,6 @@
 \hsection{Dunder Methods}%
 %
-In \python, \emph{everything is an object}~\cite{PSF2024OVAT,J2022PPEIAOSCD}.
+In \python, \emph{everything is an object}~\cite{PSF:P3D:TPLR:OVAT,J2022PPEIAOSCD}.
 Functions, modules, classes, datatypes, values of simple datatypes, and so on -- all are objects.
 Many of these objects have special functionality.
 For example, we can add, multiply, and divide numerical objects.
@@ -143,7 +143,7 @@ Finally, the \dunder{eq} method will first check if the \pythonil{other} object 
 If so, it will return \pythonil{True} if and only if the \pythonil{x} and \pythonil{y} coordinate of the \pythonil{other} point are the same as of the point \pythonil{self}.
 Otherwise, it will return the constant \pythonilIdx{NotImplemented}:%
 %
-\cquotation{PSF2024BIC}{%
+\cquotation{PSF:P3D:TPSL:BIC}{%
 A special value which should be returned by the binary special methods [\dots] to indicate that the operation is not implemented with respect to the other type\dots\medskip\\\strut\hspace{1cm}\strut%
 \emph{Note:}~When a binary (or in-place) method returns \pythonilIdx{NotImplemented} the interpreter will try the reflected operation on the other type (or some other fallback, depending on the operator). %
 If all attempts return \pythonilIdx{NotImplemented}, the interpreter will raise an appropriate exception. %
@@ -186,14 +186,14 @@ This, we already have done in \cref{lst:dunder:point_with_dunder}.%
 %
 \end{itemize}%
 %
-For these two methods, it must hold that~\cite{PSF2024OH}%
+For these two methods, it must hold that~\cite{PSF:P3D:TPLR:OH}%
 %
 \begin{equation}%
 \pythonil{a.\_\_eq\_\_(b)} \Rightarrow \pythonil{a.\_\_hash\_\_()} = \pythonil{b.\_\_hash\_\_()}%
 \label{eq:eqAndHash1}%
 \end{equation}%
 %
-This is equivalent~\cite{PSF2024BIE,PSF2024OH} to:%
+This is equivalent~\cite{PSF:P3D:TPSL:BIE,PSF:P3D:TPLR:OH} to:%
 %
 \begin{equation}%
 \pythonil{a == b} \Rightarrow \pythonil{hash(a)} = \pythonil{hash(b)}%
@@ -253,12 +253,12 @@ With that out of the way, we can now make our \pythonil{Point} class hashable.
 In \cref{lst:dunder:point_with_hash}, we modify the \pythonil{Point} class from \cref{lst:dunder:point_with_dunder}.
 We retain the implementation of~\dunder{eq} and add the method~\dunder{hash}.%
 %
-\cquotation{PSF2024OH}{{\dots}The \pythonil{\_\_hash\_\_()}\pythonIdx{\_\_hash\_\_}\pythonIdx{dunder!\_\_hash\_\_} method should return an integer. %
+\cquotation{PSF:P3D:TPLR:OH}{{\dots}The \pythonil{\_\_hash\_\_()}\pythonIdx{\_\_hash\_\_}\pythonIdx{dunder!\_\_hash\_\_} method should return an integer. %
 The only required property is that objects which compare equal have the same hash value; %
 it is advised to mix together the hash values of the components of the object that also play a part in comparison of objects by packing them into a \pythonil{tuple} and hashing the tuple.}%
 %
 \bestPractice{hash}{%
-For implementing \dunder{eq} and \dunder{hash}, the following rules hold~\cite{PSF2024OH}:%
+For implementing \dunder{eq} and \dunder{hash}, the following rules hold~\cite{PSF:P3D:TPLR:OH}:%
 \sloppy%
 \begin{itemize}\sloppy%
 %
@@ -301,7 +301,7 @@ That would be a very counter-intuitive bug in our code.
 Actually, I secretly planned to use this as a very tricky example for learning how to use the debugger{\dots}
 Alas, the developers of \python\ have already solved this:%
 %
-\cquotation{PSF2024BIF}{Numeric values that compare equal have the same \pythonilIdx{hash} value (even if they are of different types, as is the case for~\pythonil{1} and~\pythonil{1.0}).}%
+\cquotation{PSF:P3D:TPSL:BIF}{Numeric values that compare equal have the same \pythonilIdx{hash} value (even if they are of different types, as is the case for~\pythonil{1} and~\pythonil{1.0}).}%
 %
 Therefore, we can indeed implement \dunder{hash} with a single line of code in~\cref{sec:hashDunder}.
 And I will later find another example on how the debugger can be used to spot errors in code.%
@@ -340,7 +340,7 @@ Here, we will do exactly that:
 We implement the basic arithmetic operations for a class~\pythonil{Fraction} that represents fractions~$q\in\rationalNumbers$, i.e., it holds that~$q=\frac{a}{b}$ with~$a,b\in\integerNumbers$ and~$b\neq0$.\footnote{
 \python\ already has such a type built-in. %
 Our goal here is to explore dunder methods, so we make our own class instead. %
-In any actual application, you would use the more efficient class \pythonilIdx{Fraction} from the module~\pythonilIdx{fractions}~\cite{PSF2024FRN}.%
+In any actual application, you would use the more efficient class \pythonilIdx{Fraction} from the module~\pythonilIdx{fractions}~\cite{PSF:P3D:TPSL:FRN}.%
 }
 In other words, we want to pour primary school mathematics into a new numerical type.
 To refresh our memory, $a$~is called the \pgls{numerator} and $b$~is called the \pgls{denominator} of the fraction~$\frac{a}{b}$.
@@ -1385,7 +1385,7 @@ Therefore, we write \pythonil{self.__dest(self.__foot)}.
 The \pythonilIdx{\_\_exit\_\_}\pythonIdx{dunder!\_\_exit\_\_} method looks a bit different from \pythonilIdx{\_\_enter\_\_}\pythonIdx{dunder!\_\_enter\_\_}.
 First, it also gets three parameters: the exception type~\pythonil{exc_type}, the exception value~\pythonil{exc_value}, and the stack~\pythonil{traceback}.
 These parameters are filled with the information about any \pythonilIdx{Exception} raised within the \pythonilIdx{with}~body.
-Otherwise, they will be~\pythonil{None}~\cite{PSF2024WSCM}.
+Otherwise, they will be~\pythonil{None}~\cite{PSF:P3D:TPLR:WSCM}.
 We here just define a single parameter~\pythonil{*exc}.
 This syntax tells \python\ to capture all positional arguments into a single tuple.
 Since we do not care about exceptions here, we just write this to safe space, honestly, because I do not want to write three lines of \pgls{docstring} where one suffices.
