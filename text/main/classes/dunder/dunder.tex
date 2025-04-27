@@ -398,7 +398,7 @@ The names of constants contain only capital letters with underscores separating 
 Examples include \pythonil{MAX_OVERFLOW} and \pythonil{TOTAL}~\cite{PEP8}.%
 }%
 \bestPractice{constDoc}{%
-Constants are documented by writing a comment starting with \pythonilIdx{\#: } immediately above them~\cite{SD2024DCAD}.%
+Constants are documented by writing a comment starting with \pythonilIdx{\#: } immediately above them~\cite{SD2024SIDFD:DCAD}.%
 }%
 %
 We define three constants, \pythonil{ZERO}, \pythonil{ONE}, and \pythonil{ONE_HALF}, which hold corresponding instances of \pythonil{Fraction}.
@@ -1228,7 +1228,7 @@ The second \pgls{doctest} is simply to check whether~$\sqrt{4}$ renders as~2 whe
 Of course, we just approximate the square root through several steps, so the value of the fraction might not actually be~2.
 However, when rendered to 100~digits of precision, it should return~\pythonil{"2"}.
 
-Finally, we want to compute the golden ratio~\numberGoldenRatio~\cite{CEOEB2024GR,EHF2008EEOGTGOJLH11FEEEELIEILHIATBG11EAPWMETBFR,S2024DEOGRPOT}, which equals~$\frac{1+\sqrt{5}}{2}$.
+Finally, we want to compute the golden ratio~\numberGoldenRatio~\cite{EOEBEB:GR,EHF2008EEOGTGOJLH11FEEEELIEILHIATBG11EAPWMETBFR,S2024DEOGRPOT}, which equals~$\frac{1+\sqrt{5}}{2}$.
 We can write this as \pythonil{ONE_HALF * (ONE + sqrt(Fraction(5, 1)))}.
 In the \pgls{doctest}, we want to see whether our results are correct to 420~fractional digits, which we take from~\cite{F1996TGR1T2P}.
 

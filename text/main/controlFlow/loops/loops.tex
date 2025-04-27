@@ -131,7 +131,7 @@ Like conditional statements, \pythonilIdx{for}~loops can be arbitrarily nested.
 Let us explore this by computing the list of all prime numbers less than~200 in \cref{lst:loops:for_loop_nested_primes}.%
 %
 \begin{definition}[Prime Number]%
-A prime number~$p\in\naturalNumbersO$ is a positive integer~$p>1$ (greater than one) that has no positive integer divisors other than~$1$ and~$p$ itself~\cite{W2024PN,CP2005PNACP,R1994PNACMFF}.%
+A prime number~$p\in\naturalNumbersO$ is a positive integer~$p>1$ (greater than one) that has no positive integer divisors other than~$1$ and~$p$ itself~\cite{W2024MAWWR:PN,CP2005PNACP,R1994PNACMFF}.%
 \end{definition}%
 %
 In our example program, we want to store all of these prime numbers in the list\pythonIdx{list} \pythonil{primes}.
@@ -358,11 +358,11 @@ Regardless, it becomes clear that using more static analysis tools is always a g
 \hsection{The \texttt{while} Loop}%
 \label{sec:whileLoop}%
 %
-Old clay tablets show that the Babylonians were able to approximate~$\sqrt{2}$ maybe as far back as 4000~years ago~\cite{FR1998SRAIOBMY7IC,S2011NA2}.
-The mathematician Hero(n) of Alexandria, who lived in the first century~CE, specified an abstract algorithm for computing the square root of numbers which, today, is known as Heron's Method~\cite{S2011NA2,K2009BMOCTSRJBOFTAOCC}.
+Old clay tablets show that the Babylonians were able to approximate~$\sqrt{2}$ maybe as far back as 4000~years ago~\cite{FR1998SRAIOBMY7IC,S2011NA:NA}.
+The mathematician Hero(n) of Alexandria, who lived in the first century~CE, specified an abstract algorithm for computing the square root of numbers which, today, is known as Heron's Method~\cite{S2011NA:NA,K2009BMOCTSRJBOFTAOCC}.
 
 Given a number~$a$ and aiming to find the square root~$\sqrt{a}$ of~$a$, this algorithm starts with a guess~$x_0$, let's say~$x_0=1$.
-In each iteration~$i$, it will compute a new guess as follows~\cite{S2011NA2,K2009BMOCTSRJBOFTAOCC}:%
+In each iteration~$i$, it will compute a new guess as follows~\cite{S2011NA:NA,K2009BMOCTSRJBOFTAOCC}:%
 %
 \begin{equation}%
 x_{i+1}=\frac{1}{2}\left(x_i+\frac{a}{x_i}\right)%
@@ -374,7 +374,7 @@ If $x_i$ was too big, i.e., $x_i>\sqrt{a}$, then~$\frac{a}{x_i}<\sqrt{a}<x_i$.
 If $x_i$ was too small, i.e., $x_i<\sqrt{a}$, then $\frac{a}{x_i}>\sqrt{a}>x_i$.
 By computing the average of~$x_i$ and~$\frac{a}{x_i}$ as the next guess, we hope to approach~$\sqrt{a}$.
 If $x_i=\sqrt{a}$, then $\frac{a}{x_i}=\sqrt{a}$ by definition and~$x_{i+1}=x_i$.
-Showing that this actually works and that the error gets smaller over time is more complicated~\cite{S2011NA2}.
+Showing that this actually works and that the error gets smaller over time is more complicated~\cite{S2011NA:NA}.
 
 If we want to implement this algorithm, we will naturally need a loop of some sort.
 Clearly, we perform the same computation again and again.
@@ -396,7 +396,7 @@ normal statement 2
 \FloatBarrier%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{loops}{while_loop_sqrt.py}{--args format}{loops:while_loop_sqrt}{%
-We compute the square root of a number using Heron's Method~\cite{S2011NA2,K2009BMOCTSRJBOFTAOCC} implemented as py \pythonilIdx{while} loop.}%
+We compute the square root of a number using Heron's Method~\cite{S2011NA:NA,K2009BMOCTSRJBOFTAOCC} implemented as py \pythonilIdx{while} loop.}%
 %
 In the \pythonilIdx{while} loop, the body is executed as long as a Boolean expression in the head of the loop evaluates to~\pythonilIdx{True}.
 We now use this new construct to implement Heron's Method in \cref{lst:loops:while_loop_sqrt} and use it to compute the square roots of~0.5, 2, and~3.

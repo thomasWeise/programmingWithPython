@@ -290,7 +290,7 @@ We therefore insert small snippets of \python\ code and their expected output. %
 The first line of such codes is prefixed py~\pythonil{>>>}\pythonIdx{>\strut>\strut>}. %
 If a statement needs multiple lines, any following line is prefixed by~\pythonil{...}\pythonIdx{\idxdots}. %
 After the snippet, the expected output is written. %
-The \pglspl{doctest} can be by modules like \pythonilIdx{doctest}~\cite{PSF:P3D:TPSL:DTIPE} or tools such as \pytest~\cite{KPDT2024HTRD}~(\cref{ut:pytest}). %
+The \pglspl{doctest} can be by modules like \pythonilIdx{doctest}~\cite{PSF:P3D:TPSL:DTIPE} or tools such as \pytest~\cite{KPDT2024PD:HTRD}~(\cref{ut:pytest}). %
 They collect the code, run it, and compare its output to the expected output in the \pgls{docstring}. %
 If they do not match, the tests fail. %
 We use \pytest\ in this book, with the default configuration given in \cref{lst:bash:pytest_doctest}.%
@@ -360,7 +360,7 @@ Set comprehension works exactly like list comprehension, and our first examples 
 \end{sloppypar}%
 %
 Let us now try do something more interesting:
-We want to create the set \pythonil{primes} of the prime numbers~\cite{W2024PN,CP2005PNACP,R1994PNACMFF} in the range~2 to~99.
+We want to create the set \pythonil{primes} of the prime numbers~\cite{W2024MAWWR:PN,CP2005PNACP,R1994PNACMFF} in the range~2 to~99.
 We already created a beautiful program doing this efficiently in \cref{lst:loops:for_loop_sequence_primes}.
 This time, we will use set comprehension\pythonIdx{set!comprehension}\pythonIdx{comprehension!set}.
 
@@ -637,10 +637,10 @@ Passing generators to \pythonilIdx{list}, \pythonilIdx{set}, or \pythonilIdx{dic
 A very simple generator function yielding the numbers~1, 2, and~3\pythonIdx{Generator}.}%
 %
 \gitPythonAndOutput{\programmingWithPythonCodeRepo}{iteration}{simple_generator_function_2.py}{--args format}{iteration:simple_generator_function_2}{%
-A generator function yielding the infinite sequence of Fibonacci numbers\pythonIdx{Generator}~\cite{W2024FN,S2022FLAATIMEOLPBOC}.}%
+A generator function yielding the infinite sequence of Fibonacci numbers\pythonIdx{Generator}~\cite{W2024MAWWR:FN,S2022FLAATIMEOLPBOC}.}%
 %
 \gitPython{\programmingWithPythonCodeRepo}{iteration/prime_generator.py}{--args format}{iteration:prime_generator}{%
-A generator function yielding the infinite sequence of prime numbers\pythonIdx{Generator}~\cite{W2024PN,CP2005PNACP,R1994PNACMFF}.}%
+A generator function yielding the infinite sequence of prime numbers\pythonIdx{Generator}~\cite{W2024MAWWR:PN,CP2005PNACP,R1994PNACMFF}.}%
 %
 The final element in \cref{fig:iteration} that we did not yet discuss are \emph{generator functions}~\cite{PEP255}.
 From the perspective of the user of a generator function, it is a function that returns an \pythonilIdx{Iterator} of values.
@@ -673,7 +673,7 @@ Indeed, we queried the generator function's result exactly like a normal~\python
 The interesting thing is that the function code is really disrupted by every \pythonilIdx{yield} and resumed when \pythonilIdx{next} is called (unless the sequence was finished, that is).
 This becomes visible when we create a generator function that returns an infinite sequence.
 
-In \cref{lst:iteration:simple_generator_function_2}, we implement a generator function producing the Fibonacci numbers~\cite{W2024FN,S2022FLAATIMEOLPBOC}.
+In \cref{lst:iteration:simple_generator_function_2}, we implement a generator function producing the Fibonacci numbers~\cite{W2024MAWWR:FN,S2022FLAATIMEOLPBOC}.
 These numbers follow the sequence~$F_n=F_{n-1} + F_{n-2}$ where~$F_0=0$ and~$F_1=1$.
 We therefore define the function \pythonil{fibonacci}, which is annotated to return a \pythonilIdx{Generator}.
 It begins by setting~$\pythonil{i}=F_0=0$ and~$\pythonil{j}=F_1=1$.
@@ -690,7 +690,7 @@ In our loop, we print the Fibonacci numbers~\pythonil{a} we get, but stop the it
 It should be mentioned that doing something like \pythonil{list(fibonacci())} would be a very bad idea.
 It would attempt to produce an infinitely large list, which would lead to an \pythonilIdx{MemoryError}.
 
-As final example for generator functions, let us wrap our code for enumerating prime numbers~\cite{W2024PN,CP2005PNACP,R1994PNACMFF} from back in \cref{sec:loopsOverSequences} into a generator function in \cref{lst:iteration:prime_generator}.
+As final example for generator functions, let us wrap our code for enumerating prime numbers~\cite{W2024MAWWR:PN,CP2005PNACP,R1994PNACMFF} from back in \cref{sec:loopsOverSequences} into a generator function in \cref{lst:iteration:prime_generator}.
 We used nested \pythonilIdx{for}~loop to produce the prime numbers in \cref{lst:loops:for_loop_sequence_primes}, where the outer loop would iterate at most to~199.
 We do not need such limit anymore, as we can assume that whoever will call our prime number enumeration code will stop iterating whenever they have seen sufficiently many primes.
 A \pythonil{while True} loop therefore will be more appropriate.
