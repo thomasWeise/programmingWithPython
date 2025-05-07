@@ -423,14 +423,14 @@ First-time readers can safely skip over it.}%
 \begin{figure}%
 \centering%
 \includegraphics[width=0.65\linewidth]{\currentDir/unicodeCharacterTableSubset}%
-\caption{A subset of the \pgls{unicode} character table including the Basic Lating characters as well as some Simplified Chinese characters.}%
+\caption{A subset of the \pgls{unicode} character table including the Basic Lating characters as well as some Simplified Chinese characters~(简体中文)~\cite{SCR1956ROTSCOPTSCCS1}.}%
 \label{fig:unicodeCharacterTableSubset}%
 \end{figure}%
 %
 \begin{figure}%
 \centering%
 \includegraphics[width=0.65\linewidth]{\currentDir/strUnicodeEscape}%
-\caption{\inQuotes{Hello} in Simplified Chinese and entered via \pgls{unicode} escaped string.}%
+\caption{\inQuotes{Hello}, i.e., \inQuotes{你好。} in Simplified Chinese~(简体中文)~\cite{SCR1956ROTSCOPTSCCS1} and entered via \pgls{unicode} escaped string.}%
 \label{fig:strUnicodeEscape}%
 \end{figure}%
 %
@@ -450,7 +450,7 @@ Today, the vast majority of computers and systems understand one common standard
 \pgls{unicode}~\cite{TUC2023U1510,TUC2023U151ACS,ISOIEC106462020ITUCCSU}, the most frequently used mapping of characters to numbers.
 Therefore, \python\ uses \pgls{unicode} as well\pythonIdx{str!unicode}.
 
-\cref{fig:unicodeCharacterTableSubset} illustrates a subset of the \pgls{unicode} code table, including the Basic Latin characters, which are basically still compatible with~ASCII, and some Simplified Chinese characters.
+\cref{fig:unicodeCharacterTableSubset} illustrates a subset of the \pgls{unicode} code table, including the Basic Latin characters, which are basically still compatible with~ASCII, and some Simplified Chinese characters~(简体中文)~\cite{SCR1956ROTSCOPTSCCS1}.
 Most \pgls{unicode} characters can be identified by a number represented as four hexadecimal digits (mentioned back in \cref{sec:int:bitstrings}).
 The rows \cref{fig:unicodeCharacterTableSubset} are annotated with the first three of these digits and the columns with fourth and last hexadecimal digits.
 
@@ -462,9 +462,9 @@ But some computers may misinterpret \pgls{unicode} text as something else becaus
 If we use the \pythonil{\\u}-based\pythonIdx{\textbackslash{u}} escape, then we can represent \emph{any} character as Basic Latin text sequence.
 It is also useful if we want to, e.g., enter Chinese text on a machine that does not have an IME or other corresponding tools, or text in any other kind of language where we do not have corresponding keys on the keyboard (see, e.g., \cref{lst:variables:pi_liu_hui} later on).
 
-Anyway, in \cref{fig:strUnicodeEscape}, we use the information obtained in \cref{fig:unicodeCharacterTableSubset} to print the Chinese text \inQuotes{Ni Hao.} standing for \inQuotes{Hello.} as unicode escaped string.
-We found that the character for \inQuotes{Ni} has unicode number~4f60, \inQuotes{Hao} has~597d, and the big period has~3002.
-The string \pythonil{"\\u4f60\\u597d\\u3002"} then corresponds to the correct Chinese text.%
+Anyway, in \cref{fig:strUnicodeEscape}, we use the information obtained in \cref{fig:unicodeCharacterTableSubset} to print the Chinese text \inQuotes{你好。} standing for \inQuotes{Hello.} and pronounced as \inQuotes{N{\v{i}} h{\v{a}}o.} as a unicode-escaped string.
+We found that the character for \inQuotes{你} has unicode number~4f60, \inQuotes{好} has~597d, and the big period~\inQuotes{。} has~3002.
+The string \pythonil{"\\u4f60\\u597d\\u3002"} then corresponds to the correct Chinese text~\inQuotes{你好。}.%
 \endhsection%
 %
 \hsection{Summary}%
