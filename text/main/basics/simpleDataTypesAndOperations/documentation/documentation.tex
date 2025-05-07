@@ -441,9 +441,13 @@ You can use search engines, you can read in internet forums like \citetitle{SE:S
 All of these tools can guide you to the right answer.
 However, at least of today, they provide answers that, ultimately, are grounded on human experience.
 And humans make errors.
+There are two (known) differences between \pgls{AI} tools and human-written sources, though.
+First, \pgls{AI} tools can make errors that no human would make.
+An illustrative example in the \python\ world is given in~\cite{BSHETB:VSK2025CIC}, where it is documented that Microsoft Copilot renamed a class in a misleading way, leading to a particularly hard-to-find error.
+Second, sometimes, an \pgls{AI} may reference non-existing packages~\cite{AT:G2025AGCCBADFTSSCHW}.
 Therefore, once you found an answer to your question, you need to take the new information and check it with the documentation.
 
-As example, in this section, we were looking for a function that rounds floating point numbers towards positive infinity.
+Anyway, as example for searching information using \pgls{AI} tools, we looked for a function that rounds floating point numbers towards positive infinity.
 We did not know what this function was called~(or whether it even exists).
 The \pgls{AI} told us that it was called \pythonilIdx{ceil}.
 Instead of just using \pythonilIdx{ceil} in our code directly, we then would go back to the official \python\ documentation and search for \pythonilIdx{ceil}.

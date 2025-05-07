@@ -462,7 +462,7 @@ But some computers may misinterpret \pgls{unicode} text as something else becaus
 If we use the \pythonil{\\u}-based\pythonIdx{\textbackslash{u}} escape, then we can represent \emph{any} character as Basic Latin text sequence.
 It is also useful if we want to, e.g., enter Chinese text on a machine that does not have an IME or other corresponding tools, or text in any other kind of language where we do not have corresponding keys on the keyboard (see, e.g., \cref{lst:variables:pi_liu_hui} later on).
 
-Anyway, in \cref{fig:strUnicodeEscape}, we use the information obtained in \cref{fig:unicodeCharacterTableSubset} to print the Chinese text \inQuotes{你好。} standing for \inQuotes{Hello.} and pronounced as \inQuotes{N{\v{i}} h{\v{a}}o.} as a unicode-escaped string.
+Anyway, in \cref{fig:strUnicodeEscape}, we use the information obtained in \cref{fig:unicodeCharacterTableSubset} to print the Chinese text \inQuotes{你好。} standing for \inQuotes{Hello.} and pronounced as \inQuotes{N{\v{\i}} h{\v{a}}o.} as a unicode-escaped string.
 We found that the character for \inQuotes{你} has unicode number~4f60, \inQuotes{好} has~597d, and the big period~\inQuotes{。} has~3002.
 The string \pythonil{"\\u4f60\\u597d\\u3002"} then corresponds to the correct Chinese text~\inQuotes{你好。}.%
 \endhsection%
