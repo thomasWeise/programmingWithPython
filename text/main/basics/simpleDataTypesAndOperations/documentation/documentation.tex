@@ -1,7 +1,6 @@
-\hsection{Interlude:~Searching in the Python Documentation}%
+\hsection{Interlude:~The Python Documentation and other Information Resources}%
 \label{sec:pythonDocumentation}%
-\let\oldinterludepythonglslink\glslink%
-\protected\gdef\glslink#1#2{#2}%
+\begin{noglslink}%
 %
 \begin{figure}%
 \centering%
@@ -56,6 +55,57 @@ Indeed, we find a brief explanation about the \pythonilIdx{ceil} function.~%
 \label{fig:pythondoc:A}%
 \end{figure}%
 %
+In the previous section, we discussed lots of functions, \pythonilIdx{sin}, \pythonilIdx{cos}, \pythonilIdx{tan}, \pythonilIdx{atan}, \pythonilIdx{exp}, \pythonilIdx{log}, \pythonilIdx{round}, \pythonilIdx{floor}, \pythonilIdx{trunc}, and~\pythonilIdx{ceil}, to name just a few.
+You could read about and explore what these functions do in this book.
+However, there are two issues with this:
+
+First, this book can only provide brief introductions into these functions from a didactic perspective.
+It does not make any sense to here discuss their exact specifications and relationships to other functions in the \python\ ecosystem.
+So what do you do if you need the exact authoritative\footnote{%
+\emph{Authoritative} means that the information stems from the proper standardizing organization. %
+For \python, this is the \citelist{PSF:P3D}{publisher}. %
+Such organizations determine the specification of functions.%
+} information about the full specification of a function?
+Second, you only learn about the functions that we \emph{do} list.
+What do you do if you want to learn about a function that we do not discuss here?
+
+The answer to the first question is rather simple:
+There is a complete online help catalog available for \python:~the \citetitle{PSF:P3D}~\cite{PSF:P3D} at~\url{https://docs.python.org/3}.
+This should be your primary destination if you want to learn anything about \python.
+Also, it is available in Chinese.
+
+As example, let us imagine that you want to learn more about the function~\pythonilIdx{ceil}.
+In \cref{fig:pythondoc01website}, we open a browser and visit the \citetitle{PSF:P3D}~\cite{PSF:P3D} at~\url{https://docs.python.org/3}.
+On this page, you will either directly see a drop-down box where you can choose your favorite language or you can find it by clicking the \menu{\threeBarButton} at on the top-left corner of the website.
+In the menu that opens in \cref{fig:pythondoc02language}, you can change the language and, e.g., select simplified Chinese~(简体中文) if that is your preferred language.
+I will not do so and instead continue here in English.
+
+Regardless of which language you chose, we still want to find information about the \pythonilIdx{ceil}~function.
+Therefore, we locate the search bar \emph{in the website}~(not the one where you type in the \pglspl{URL} in the web browser).
+Into this search bar, we type \pythonilIdx{ceil} and click on~\menu{Go} in \cref{fig:pythondoc03searchCeil}.
+
+Depending on your internet connection and your location on the globe, it may take a bit of time until results are displaced.
+Especially when visiting the page for the first time during a browsing session.
+We wait patiently in \cref{fig:pythondoc04wait}.
+And indeed, a list of documentation articles about the \pythonilIdx{ceil} function appears after a brief wait in \cref{fig:pythondoc05results}.
+We decide that the link to \pythonil{math.ceil} looks most promising and click on it.
+
+It takes us to the \pythonilIdx{ceil}~entry of the \citetitle{PSF:P3D:TPSL:MMF} page~\cite{PSF:P3D:TPSL:MMF} at \citeurl{PSF:P3D:TPSL:MMF}.
+There, we find a brief explanation about the \pythonilIdx{ceil} function, as shown in \cref{fig:pythondoc06mathceil}.
+The explanation also provides further reading, e.g., a link to the \dunder{ceil} method.
+This is not important here, we will discuss it much later in~\cref{fig:pythonDunder:2}, but if we were interested, we could continue exploring and find more information about~\pythonilIdx{ceil}.
+Also, we see that the information about the \pythonilIdx{ceil}~function is part of a longer list of mathematical functions.
+Being curious, we would scroll a bit through this list.
+Maybe we could learn about one or two other functions that we did not know about yet.%
+%
+\usefulTool{pythonDoc}{%
+The first place to look for information about \python\ is the official \citetitle{PSF:P3D} at \citeurl{PSF:P3D}. %
+This is the \emph{authoritative} source about \python: %
+Everything what is written there is \emph{true} and \emph{exact} regarding~\python. %
+All other sources may contain errors, be imprecise, ambiguous, or outdated. %
+Therefore, always first consult the official \python\ documentation when being in doubt or looking for information.%
+}%
+%
 \begin{figure}%
 \centering%
 %
@@ -105,91 +155,9 @@ If we click on the hyperlink, it takes us to the \pythonilIdx{ceil}~entry in the
 \label{fig:rounding06foundCeilInPythonDoc}%
 ]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/rounding06foundCeilInPythonDoc}}}%
 %
-%
-\caption{Searching for a \python\ function for \inQuotes{rounding up} if we do not know its name.}%
+\caption{Searching for a \python\ function for \inQuotes{rounding up} if we do not know its name by using a search engine.}%
 \label{fig:pythondoc:B}%
-%
 \end{figure}%
-%
-\begin{figure}%
-\centering%
-%
-\subfloat[][%
-The \citetitle{PSF:P3D:PSAU} page~\cite{PSF:P3D:PSAU} at~\citeurl{PSF:P3D:PSAU}.%
-\label{fig:pythondocOther01setupAndUsage}%
-]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/pythondocOther01setupAndUsage}}}%
-%
-\floatSep%
-%
-\subfloat[][%
-The \citetitle{PSF:P3D:TPT} page~\cite{PSF:P3D:TPT} page at~\citeurl{PSF:P3D:TPT}.%
-\label{fig:pythondocOther02tutorial}%
-]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/pythondocOther02tutorial}}}%
-%
-\floatRowSep%
-%
-\subfloat[][%
-The \citetitle{PSF:P3D:TPSL} page~\cite{PSF:P3D:TPSL} at~\citeurl{PSF:P3D:TPSL}.%
-\label{fig:pythondocOther03standardLibrary}%
-]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/pythondocOther03standardLibrary}}}%
-%
-\floatSep%
-%
-\subfloat[][%
-The \citetitle{PEP0} page~\cite{PEP0} at~\citeurl{PEP0}.%
-\label{fig:pythondocOther04pep0}%
-]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/pythondocOther04pep0}}}%
-%
-\caption{Several important authoritative online resources on \python.}%
-\label{fig:pythondoc:C}%
-\end{figure}%
-%
-In the previous section, we discussed lots of functions, \pythonilIdx{sin}, \pythonilIdx{cos}, \pythonilIdx{tan}, \pythonilIdx{atan}, \pythonilIdx{exp}, \pythonilIdx{log}, \pythonilIdx{round}, \pythonilIdx{floor}, \pythonilIdx{trunc}, and~\pythonilIdx{ceil}, to name just a few.
-You could read about and explore what these functions do in this book.
-However, there are two issues with this:
-
-First, this book can only provide brief introductions into these functions from a didactic perspective.
-It does not make any sense to here discuss their exact specifications and relationships to other functions in the \python\ ecosystem.
-So what do you do if you need exact, authoritative information about full specification of a function?
-Second, you only learn about the functions that we \emph{do} list.
-What do you do if you want to learn about a function that we do not discuss here?
-
-The answer to the first question is rather simple:
-There is a complete online help catalog available for \python:~the \citetitle{PSF:P3D}~\cite{PSF:P3D} at~\url{https://docs.python.org/3}.
-This should be your primary destination if you want to learn anything about \python.
-Also, it is available in Chinese.
-
-As example, let us imagine that you want to learn more about the function~\pythonilIdx{ceil}.
-In \cref{fig:pythondoc01website}, we open a browser and visit the \citetitle{PSF:P3D}~\cite{PSF:P3D} at~\url{https://docs.python.org/3}.
-On this page, you will either directly see a drop-down box where you can choose your favorite language or you can find it by clicking the \menu{\threeBarButton} at on the top-left corner of the website.
-In the menu that opens in \cref{fig:pythondoc02language}, you can change the language and, e.g., select simplified Chinese~(简体中文) if that is your preferred language.
-I will not do so and instead continue here in English.
-
-Regardless of which language you chose, we still want to find information about the \pythonilIdx{ceil}~function.
-Therefore, we locate the search bar \emph{in the website}~(not the one where you type in the \pglspl{URL} in the web browser).
-Into this search bar, we type \pythonilIdx{ceil} and click on~\menu{Go} in \cref{fig:pythondoc03searchCeil}.
-
-Depending on your internet connection and your location on the globe, it may take a bit of time until results are displaced.
-Especially when visiting the page for the first time during a browsing session.
-We wait patiently in \cref{fig:pythondoc04wait}.
-And indeed, a list of documentation articles about the \pythonilIdx{ceil} function appears after a brief wait in \cref{fig:pythondoc05results}.
-We decide that the link to \pythonil{math.ceil} looks most promising and click on it.
-
-It takes us to the \pythonilIdx{ceil}~entry of the \citetitle{PSF:P3D:TPSL:MMF} page~\cite{PSF:P3D:TPSL:MMF} at \citeurl{PSF:P3D:TPSL:MMF}.
-There, we find a brief explanation about the \pythonilIdx{ceil} function, as shown in \cref{fig:pythondoc06mathceil}.
-The explanation also provides further reading, e.g., a link to the \dunder{ceil} method.
-This is not important here, we will discuss it much later in~\cref{fig:pythonDunder:2}, but if we were interested, we could continue exploring and find more information about~\pythonilIdx{ceil}.
-Also, we see that the information about the \pythonilIdx{ceil}~function is part of a longer list of mathematical functions.
-Being curious, we would scroll a bit through this list.
-Maybe we could learn about one or two other functions that we did not know about yet.%
-%
-\usefulTool{pythonDoc}{%
-The first place to look for information about \python\ is the official \citetitle{PSF:P3D} at \citeurl{PSF:P3D}. %
-This is the \emph{authoritative} source about \python: %
-Everything what is written there is \emph{true} and \emph{exact} regarding~\python. %
-All other sources may contain errors, be imprecise, ambiguous, or outdated. %
-Therefore, always first consult the official \python\ documentation when being in doubt or looking for information.%
-}%
 %
 Of course, in many cases, we do not know the name of the function we are looking for.
 Assume that you did not know that the function~\pythonilIdx{ceil} exists.
@@ -225,8 +193,8 @@ The second thing that we could try is to enter the description of what we want t
 In \cref{fig:rounding03searchEngine}, we use Microsoft Bing at~\url{https://bing.com}, but any other search engine would probably be as same as good.
 We enter \inQuotes{round towards positive infinity} into the search mask and hit~\menu{Search}.
 
-The first result looks promising right way.
-\inQuotes{\cite{D2021RPT:A2024HTRNIP}} {\dots} while it does not say \inQuotes{round towards infinity,} if it summarizes all information about rounding numbers, that topic is bound to come up somewhere.
+The first result looks promising right way:~\citetitle{D2021RPT:A2024HTRNIP}.
+While it does not say \inQuotes{round towards infinity,} if it summarizes all information about rounding numbers as the title indicates, then that topic is bound to come up somewhere.
 So we click the link.
 
 It takes us visit to the page~\citetitle{D2021RPT:A2024HTRNIP}~\cite{D2021RPT:A2024HTRNIP} at \citeurl{D2021RPT:A2024HTRNIP} in \cref{fig:rounding04realPython}.
@@ -246,11 +214,209 @@ Even if we do not know how to do a given thing or what its name is, we can still
 Search engines are useful tools to find information about certain functionality. %
 Writing a precise description of the problem or functionality into the search bar of a search engine can lead to pages that describe answers or take us to the official \python\ documentation. %
 However, search engines can also lead us to pages containing wrong, incomplete, ambiguous, outdated, or otherwise useless information. %
-It is important to compare whatever information we found with the official \python\ documentation~\cite{PSF:P3D}.%
+It is important to compare whatever information we found with the official \python\ documentation~\cite{PSF:P3D}~(see also~\cref{bp:searchAndLLM}).%
 }%
 %
-Let us also note:
-Besides being a source of authoritative information about \python, the official website also offers a variety of other useful information.
+%
+\begin{figure}%
+\centering%
+%
+\subfloat[][%
+We open the BaiDu~(百度) search page at~\url{https://baidu.com} and click on \inQuotes{AI搜索已接入DeepSeek\nobreakdashes-V3最新版模型}.%
+\label{fig:ai01baidu}%
+]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/ai01baidu}}}%
+%
+\floatSep%
+%
+\subfloat[][%
+We arrive at the \inQuotes{Hi，AI搜索已支持R1满血版，快来试试吧！}~page where we can enter the prompt for the DeepSeek\nobreakdashes-R1 model~\cite{DAGYZSZXZMWBZYWWGSLGLXWWFLZDZRDCJLLDLHCLZBXWDXGQLGLWCYQLCNLCDHGGHYWZZWZXXZZTLWLTHZWCDGZPWCJCLZCYWYZPL2024DRIRCILVRL} in the input field at the bottom.%
+\label{fig:ai02deepseek}%
+]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/ai02deepseek}}}%
+%
+\floatRowSep%
+%
+\subfloat[][%
+We enter our query~\inQuotes{How can I round floating point numbers towards positive infinity in Python?} and execute it.%
+\label{fig:ai03deepseekQuery}%
+]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/ai03deepseekQuery}}}%
+%
+\floatSep%
+%
+\subfloat[][%
+DeepSeek responds with a long answer of over 1700~words of text, as illustrated in \cref{fig:deepseek:output}.%
+\label{fig:ai04deepseekAnswer1}%
+]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/ai04deepseekAnswer1}}}%
+%
+\floatRowSep%
+%
+\subfloat[][%
+But it still and early on correctly points us to \pythonil{math.ceil} plus it shows this information prominently in the text.%
+\label{fig:ai05deepseekAnswer2}%
+]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/ai05deepseekAnswer2}}}%
+%
+\floatSep%
+%
+\subfloat[][%
+And it even provides a small snippet of code.%
+\label{fig:ai06deepseekAnswer3}%
+]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/ai06deepseekAnswer3}}}%
+%
+\caption{Searching for a \python\ function for \inQuotes{rounding up} if we do not know its name by using an~\pgls{AI}.}%
+\label{fig:pythondoc:C}%
+\end{figure}%
+%
+\begin{figure}%
+\centering%
+\fcolorbox{yellow!20!black}{yellow!10!white}{%
+\resizebox{0.97\linewidth}{!}{%
+\begin{minipage}{1.12\linewidth}%
+{\tiny{\input{\currentDir/deepseek_answer_20250427.tex}}}%
+\end{minipage}}}%
+\caption{The output of the DeepSeek search provided by Baidu for the unoptimized English prompt \inQuotes{How can I round floating point numbers towards positive infinity in Python?}, recorded on 2025\nobreakdashes-04\nobreakdashes-27, with added formatting.}%
+\label{fig:deepseek:output}%
+\end{figure}%
+%
+Another question that naturally will occur is:~\inQuotes{Can I use an \pgls{AI} to figure out how to solve my problem?}
+This is a very double-edged sword, a slippery slope.
+Before we discuss advantages and disadvantages, let us simply try.
+
+We open the BaiDu~(百度) search page at~\url{https://baidu.com} in \cref{fig:ai01baidu} and click on \inQuotes{AI搜索已接入DeepSeek\nobreakdashes-V3最新版模型}.
+At the time of this writing, DeepSeek is one of the best \pglspl{AI} based on a \pgls{LLM}.
+We arrive at the \inQuotes{Hi，AI搜索已支持R1满血版，快来试试吧！}~page where we can enter the prompt for the DeepSeek\nobreakdashes-R1 model~\cite{DAGYZSZXZMWBZYWWGSLGLXWWFLZDZRDCJLLDLHCLZBXWDXGQLGLWCYQLCNLCDHGGHYWZZWZXXZZTLWLTHZWCDGZPWCJCLZCYWYZPL2024DRIRCILVRL} in the input field at the bottom in \cref{fig:ai02deepseek}.
+We enter our query~\inQuotes{How can I round floating point numbers towards positive infinity in Python?} and execute it in \cref{fig:ai03deepseekQuery}.
+Let us note that this query is not optimized in anyway, it is just the question that we want to have answered, in plain English.
+
+DeepSeek responds with an answer of over 1700~words of text in \cref{fig:ai04deepseekAnswer1}.
+The answer is listed in \cref{fig:deepseek:output}, which was copied from the browser to text, with formatting added on our side.
+The answer begins with~\emph{\inQuotes{%
+Okay, I need to figure out how to round floating point numbers towards positive infinity in Python. %
+Let's see, rounding towards positive infinity is also known as ceiling. %
+So, maybe there's a function called \pythonilIdx{ceil} in Python?}}
+This is quite good, as it already contains a hint to the right answer, which it presents directly after as~\emph{\inQuotes{Wait, I remember that Python has a \pythonilIdx{math} module. %
+Let me check. %
+Yes, the \pythonilIdx{math} module has a \pythonilIdx{ceil} function. %
+So, \pythonil{math.ceil()} should do the trick.}}
+
+It would be best to stop reading at this point.
+Our question was answered correctly.
+After that, the \pgls{AI} provides several examples and considerations.
+The style is very similar to a programmer who sorts out their memory and, having a good idea about the solution, tries to find counter-examples.
+
+If we scroll down a bit, it also more prominently points us to \pythonil{math.ceil} in \cref{fig:ai05deepseekAnswer2}.
+And it even provides a small snippet of code in \cref{fig:ai06deepseekAnswer3}.
+It would have been extra-nice if it had pointed us directly to the authoritative \python\ documentation for the function.
+Maybe future versions will do that.
+
+This part of answer is actually good.
+It is maybe long, but it is focused on our question.
+If you are not familiar with \pythonilIdx{ceil}, it provides you lots of examples.
+Of course, some of the text sounds a bit clumsy, but that's totally OK.
+This is better than the result of the search engine.
+It directly answered our question clearly in the first paragraph.
+
+However, upon closer inspection, we also can also find a mistake in the answer that the \pgls{LLM} gave us.
+It wrote:
+%
+\begin{quotation}{\rmfamily{
+But how about when dealing with floating points that are very close to an integer due to precision issues? %
+Like \pythonil{2.0000000001}, would \pythonilIdx{ceil} round it to \pythonil{3}? %
+Probably not, because the function should handle that as per the actual value.%
+}}\end{quotation}%
+%
+Well, \pythonil{ceil(2.0000000001)} does indeed give us~\pythonil{3}.
+Therefore, besides the lengthy monologue in the answer, it did contain an error.
+I can only assume that the \pgls{AI} tried to refer to the limited precision of the \pythonilIdx{float} datatype.
+However, it misinterpreted the influence of this concept in this scenario.
+Such error would be unlikely to appear by human-written sources, because a human would either have understood the issue or would have tested their claim and found it to be wrong.
+
+At this point, I want to mention that I also asked the \pgls{AI} about how to implement some algorithms in \python, just out of curiosity.
+It provided really good and convincing answers.
+However, when asked about the \pythonil{ceil} function here, which is easier to answer, it happened to make a mistake.
+
+In summary, using \pgls{AI} as a tool for finding information and solving programming questions is a valid option, but also not without danger.
+Here we learned another lesson that should hold for \emph{all} methods with which we can find solutions to questions online:%
+%
+\bestPractice{searchAndLLM}{%
+We can use web-based resources, search tools, and \pglspl{AI} for finding answers to questions like \inQuotes{How do I do \dots\ using [Programming Language]?}. %
+However, the answers that we get are not necessarily complete and may not be correct. %
+We must make sure that we understand them fully. %
+If the answers use functions that we are not familiar with, then we must look them up in the official authoritative documentation. %
+Answers given by any non-authoritative source are never to be used verbatim without proper analysis.%
+}%
+%
+Before, we stated that the use of \pgls{AI} is a double-edged sword.
+The same holds for the use of any source in the internet, so with the emergence of \pglspl{LLM}, actually, not much has changed.
+There are several problems we must be aware of when working with non-authoritative sources:%
+%
+\begin{enumerate}%
+%
+\item Answers for programming problems that we find on websites, via \pgls{AI} tools, or other non-authoritative sources may be wrong or incomplete.%
+%
+\item We must only ever use code that we fully and completely understand. %
+This means that we should never use any function, object, or tool without knowing its specification. %
+Only authoritative sources for specifications are acceptable.%
+%
+\item Code that we cannot explain with our own words is wrong.%
+%
+\item Tools like \pglspl{LLM} incentivize laziness. %
+Even if the tools gave us correct results that passed our scrutinization several times, it is necessary to maintain proper discipline and continue to always and every time check their output. %
+Such discipline is against the human nature of laziness and therefore must be consciously maintained.%
+%
+\item The value of an computer scientist or software engineer is their knowledge and ability to solve problems and develop software. %
+If your skills are centered around copy-pasting the output of DeepSeek, then you have very little value for our organization. %
+You can and should be replaced with a kid who just graduated high school.%
+%
+\item An important feature of good software is overall architectural and stylistic coherence. %
+If software is the result of patched-together pieces that were the output of different \pglspl{LLM} and found on websites, then no such coherence can exist. %
+The resulting software will be extremely hard to maintain, to test, to update and improve, and to extend. %
+A new programmer joining the team will not be able to understand it, because, maybe, there never was any human programmer who ever understood it in the first place.%
+%
+\end{enumerate}%
+%
+From these points, we can conclude:%
+%
+\bestPractice{searchAndLLMDoc}{%
+\pglspl{AI} tools and web-based non-authoritative resources can be used to \emph{find} solutions. %
+They should never be used to \emph{document} solutions, because this must be done by a human. %
+Documentation, i.e., the textual description of what the software does, must be done by actual people who fully understand the software.%
+}%
+%
+%
+\begin{figure}%
+\centering%
+%
+\subfloat[][%
+The \citetitle{PSF:P3D:PSAU} page~\cite{PSF:P3D:PSAU} at~\citeurl{PSF:P3D:PSAU}.%
+\label{fig:pythondocOther01setupAndUsage}%
+]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/pythondocOther01setupAndUsage}}}%
+%
+\floatSep%
+%
+\subfloat[][%
+The \citetitle{PSF:P3D:TPT} page~\cite{PSF:P3D:TPT} page at~\citeurl{PSF:P3D:TPT}.%
+\label{fig:pythondocOther02tutorial}%
+]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/pythondocOther02tutorial}}}%
+%
+\floatRowSep%
+%
+\subfloat[][%
+The \citetitle{PSF:P3D:TPSL} page~\cite{PSF:P3D:TPSL} at~\citeurl{PSF:P3D:TPSL}.%
+\label{fig:pythondocOther03standardLibrary}%
+]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/pythondocOther03standardLibrary}}}%
+%
+\floatSep%
+%
+\subfloat[][%
+The \citetitle{PEP0} page~\cite{PEP0} at~\citeurl{PEP0}.%
+\label{fig:pythondocOther04pep0}%
+]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/pythondocOther04pep0}}}%
+%
+\caption{Several important authoritative online resources on \python.}%
+\label{fig:pythondoc:D}%
+\end{figure}%
+%
+At the end of this section, let us also note:
+Besides being a source of authoritative information about \python, the official website \citeurl{PSF:P3D} also offers a variety of other useful information.
 You may have already used the \citetitle{PSF:P3D:PSAU} page~\cite{PSF:P3D:PSAU} at~\citeurl{PSF:P3D:PSAU}, screenshotted in \cref{fig:pythondocOther01setupAndUsage}, when installing \python\ on your system.
 
 The \citetitle{PSF:P3D:TPT} page~\cite{PSF:P3D:TPT} page at~\citeurl{PSF:P3D:TPT} and shown in \cref{fig:pythondocOther02tutorial} offers several useful tutorials.
@@ -261,9 +427,29 @@ The \citetitle{PSF:P3D:TPSL} page~\cite{PSF:P3D:TPSL} at~\citeurl{PSF:P3D:TPSL} 
 It is therefore a very useful tool when checking what a function \emph{actually} does, to complement our learned knowledge.
 
 Finally, the \citetitle{PEP0} page~\cite{PEP0} at~\citeurl{PEP0} shown in \cref{fig:pythondocOther04pep0} contains all changes and additions to the \python\ language since roughly the year~2000.
-We can find many of the language utilities that we are using in this book defined in a so-called~\emph{Python Enhancement Proposal~(PEP)}.%
-%
+We can find many of the language utilities that we are using in this book defined in a so-called~\emph{Python Enhancement Proposal~(PEP)}.
+
+So what did we learn in this section?
+We learned that an important tool for a programmer is the official documentation of the programming language that they are using and of the tools that they employ.
+We can trust the documentation.
+It is an important skill to be able to sit down, concentrate, and read such documentation.
+If you have a certain question or task, it is very useful if you are able to work your way through a large body of text, be it some documentation or some standard, to identify which information is relevant for your situation, to ingest and understand this information, and to determine the actions you need to take to bring the task to a successful end.
+
+That being said, it is not always possible to easily find the information that you are looking for in the documentation.
+Luckily, there exist other useful tools that you can apply.
+You can use search engines, you can read in internet forums like \citetitle{SE:SO}~\cite{SE:SO}, and you can ask your questions to an~\pgls{AI}.
+All of these tools can guide you to the right answer.
+However, at least of today, they provide answers that, ultimately, are grounded on human experience.
+And humans make errors.
+Therefore, once you found an answer to your question, you need to take the new information and check it with the documentation.
+
+As example, in this section, we were looking for a function that rounds floating point numbers towards positive infinity.
+We did not know what this function was called~(or whether it even exists).
+The \pgls{AI} told us that it was called \pythonilIdx{ceil}.
+Instead of just using \pythonilIdx{ceil} in our code directly, we then would go back to the official \python\ documentation and search for \pythonilIdx{ceil}.
+If we did this, we would have discovered that the \pgls{AI} pointed us to the right answer.
+After checking the documentation, we would have had absolute clarity and confidence that we will produce the right code.%
 \FloatBarrier%
-\global\let\glslink\oldinterludepythonglslink%
+\end{noglslink}%
 \endhsection%
 %
