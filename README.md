@@ -20,18 +20,24 @@ The website with up-to-date information about the course is <https://thomasweise
 ### 2.1. The Book
 The book itself can be downloaded as pdf at <https://thomasweise.github.io/programmingWithPython/programmingWithPython.pdf>.
 
-### 2.2. The Slides
+### 2.2. Die Slides in Deutsch &mdash; The Slides in German Language
+Die Slides zum Kurs in deutscher Sprache können unter <https://thomasweise.github.io/programmingWithPythonSlidesDE> gefunden werden und sind hier aufgelistet:
+
+1. [Einleitung](https://thomasweise.github.io/programmingWithPythonSlidesDE/01_einleitung.pdf)
+
+### 2.3. The Slides in English
 The slides for the course are available at <https://thomasweise.github.io/programmingWithPythonSlides> and also listed below.
+Since the course is taught in German, these slides will remain incomplete.
 
 1. [Introduction](https://thomasweise.github.io/programmingWithPythonSlides/01_introduction.pdf)
 2. [Getting Started](https://thomasweise.github.io/programmingWithPythonSlides/02_getting_started.pdf)
 
-### 2.3. The Example Python Programs 
+### 2.4. The Example Python Programs 
 Our course offers a lot of examples.
 You can find all of them in the repository <https://github.com/thomasWeise/programmingWithPythonCode>.
 
 
-### 2.4. LaTeX Sources, Graphics, Bibliography, etc.
+### 2.5. LaTeX Sources, Graphics, Bibliography, etc.
 Both the book and the slides are written in LaTeX.
 You can find their sources in <https://github.com/thomasWeise/programmingWithPython> and <https://github.com/thomasWeise/programmingWithPythonSlides>, respectively.
 You may use these files under the licensing terms provided below.
@@ -51,7 +57,7 @@ Your feedback would help us to improve the book.
 
 This book is released under the Attribution-NonCommercial-ShareAlike 4.0 International license (CC&nbsp;BY&#8209;NC&#8209;SA&nbsp;4.0), see [http://creativecommons.org/licenses/by-nc-sa/4.0/](http://creativecommons.org/licenses/by-nc-sa/4.0/) for a summary.
 
-We statically include the [pdfsizeopt](https://github.com/pts/pdfsizeopt) tool in the [GitHub Repository](https://github.com/thomasWeise/programmingWithPython) of our book and use it during the book compiling and building process to compress the book pdf file.
+We statically include the [pdfsizeopt](https://github.com/pts/pdfsizeopt) tool in the build process of our book  via the [bookbase repository](https://github.com/thomasWeise/bookbase) and use it during the book compiling and building process to compress the book pdf file.
 This tool is excluded from the license mentioned above.
 It is under the GNU GENERAL PUBLIC LICENSE Version 2, June 1991 and the copyright belongs to its authors.
 
