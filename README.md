@@ -50,7 +50,7 @@ This version may change since this course and book both are work in progress.
 You can freely share this.
 You can also copy text or figures under the license given below, as long as you cite the book as the original source, e.g., by using the following BibTeX:
 
-<pre>@book{programmingWithPython,<br/>&nbsp;author&nbsp;=&nbsp;{<a href="http://iao.hfuu.edu.cn/5">Thomas&nbsp;Weise</a>},<br/>&nbsp;title&nbsp;=&nbsp;{Programming&nbsp;with&nbsp;Python},<br/>&nbsp;year&nbsp;=&nbsp;{2024--2025},<br/>&nbsp;publisher&nbsp;=&nbsp;{<a href="http://iao.hfuu.edu.cn">Institute&nbsp;of&nbsp;Applied&nbsp;Optimization</a>,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.hfuu.edu.cn/aibd">School&nbsp;of&nbsp;Artificial&nbsp;Intelligence&nbsp;and&nbsp;Big&nbsp;Data</a>,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.hfuu.edu.cn/">Hefei&nbsp;University</a>},<br/>&nbsp;address&nbsp;=&nbsp;{Hefei,&nbsp;Anhui,&nbsp;China},<br/>&nbsp;url&nbsp;=&nbsp;{<a href="https://thomasweise.github.io/programmingWithPython">https://thomasweise.github.io/programmingWithPython</a>}<br/>}</pre>
+<pre>@book{programmingWithPython,<br/>&nbsp;author&nbsp;=&nbsp;{Thomas&nbsp;Weise},<br/>&nbsp;title&nbsp;=&nbsp;{Programming&nbsp;with&nbsp;Python},<br/>&nbsp;year&nbsp;=&nbsp;{2024--2025},<br/>&nbsp;publisher&nbsp;=&nbsp;{Institute&nbsp;of&nbsp;Applied&nbsp;Optimization,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.hfuu.edu.cn/aibd">School&nbsp;of&nbsp;Artificial&nbsp;Intelligence&nbsp;and&nbsp;Big&nbsp;Data</a>,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.hfuu.edu.cn/">Hefei&nbsp;University</a>},<br/>&nbsp;address&nbsp;=&nbsp;{Hefei,&nbsp;Anhui,&nbsp;China},<br/>&nbsp;url&nbsp;=&nbsp;{<a href="https://thomasweise.github.io/programmingWithPython">https://thomasweise.github.io/programmingWithPython</a>}<br/>}</pre>
 
 **If you have any comments or suggestions regarding the book, or if you spotted an error or typo, please feel free to submit an [issue here](https://github.com/thomasWeise/programmingWithPython/issues).**
 Your feedback would help us to improve the book.
@@ -64,8 +64,8 @@ It is under the GNU GENERAL PUBLIC LICENSE Version 2, June 1991 and the copyrigh
 
 ## 4. Contact
 If you have any questions or suggestions, please contact
-Prof. Dr. [Thomas Weise](http://iao.hfuu.edu.cn/5) (汤卫思教授)
-at the Institute of Applied Optimization (应用优化研究所, [IAO](http://iao.hfuu.edu.cn))
+Prof. Dr. Thomas Weise (汤卫思教授)
+at the Institute of Applied Optimization (应用优化研究所, IAO)
 of the School of Artificial Intelligence and Big Data ([人工智能与大数据学院](http://www.hfuu.edu.cn/aibd))
 of [Hefei University](http://www.hfuu.edu.cn/english/) ([合肥大学](http://www.hfuu.edu.cn/)),
 in Hefei, Anhui, China (中国安徽省合肥市)
