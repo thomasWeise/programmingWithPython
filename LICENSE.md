@@ -1,3 +1,18 @@
+This repository contains two types of material:
+Materials that I (Thomas Weise) have created by myself and such that have been created by others.
+
+The vast majority of the material is teaching material created by me (Thomas Weise).
+This and only this material is released under the Attribution-NonCommercial-ShareAlike 4.0 International license (CC&nbsp;BY&#8209;NC&#8209;SA&nbsp;4.0), see below and [http://creativecommons.org/licenses/by-nc-sa/4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/) for a summary.
+
+However, the repository also includes some images and figures created by others, which are marked explicitly and licensed under their authors' terms.
+For example, all logos and trademarks are under the copyright of their respective owners.
+The list of files not under the CC&nbsp;BY&#8209;NC&#8209;SA&nbsp;4.0 license but under their individual owners' copyrights includes, but is not limited to:
+
++ the [Python](https://www.python.org) Logo, e.g.,
+  - text/main/introduction/pythonLogo.pdf
+  - text/main/introduction/pythonLogo.svg
+
+
 ## creative commons
 
 # Attribution-NonCommercial-ShareAlike 4.0 International

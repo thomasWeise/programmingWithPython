@@ -44,18 +44,28 @@ You may use these files under the licensing terms provided below.
 
 
 ## 3. License
-All the course material is freely available.
-You can download its newest version from <https://thomasweise.github.io/programmingWithPython>.
+This repository contains two types of material:
+Materials that I (Thomas Weise) have created by myself and such that have been created by others.
+
+The vast majority of the material is teaching material created by me (Thomas Weise).
+This and only this material is released under the Attribution-NonCommercial-ShareAlike 4.0 International license (CC&nbsp;BY&#8209;NC&#8209;SA&nbsp;4.0), see [http://creativecommons.org/licenses/by-nc-sa/4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/) for a summary.
+
+However, the repository also includes some images and figures created by others, which are marked explicitly and licensed under their authors' terms.
+For example, all logos and trademarks are under the copyright of their respective owners.
+The list of files not under the CC&nbsp;BY&#8209;NC&#8209;SA&nbsp;4.0 license but under their individual owners' copyrights includes, but is not limited to:
+
++ the [Python](https://www.python.org) Logo, e.g.,
+  - text/main/introduction/pythonLogo.pdf
+  - text/main/introduction/pythonLogo.svg
+
+You can download its newest version of the course material from <https://thomasweise.github.io/databases>.
 This version may change since this course and book both are work in progress.
-You can freely share this.
-You can also copy text or figures under the license given below, as long as you cite the book as the original source, e.g., by using the following BibTeX:
+You can cite this book as follows:
 
 <pre>@book{programmingWithPython,<br/>&nbsp;author&nbsp;=&nbsp;{Thomas&nbsp;Weise},<br/>&nbsp;title&nbsp;=&nbsp;{Programming&nbsp;with&nbsp;Python},<br/>&nbsp;year&nbsp;=&nbsp;{2024--2025},<br/>&nbsp;publisher&nbsp;=&nbsp;{Institute&nbsp;of&nbsp;Applied&nbsp;Optimization,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.hfuu.edu.cn/aibd">School&nbsp;of&nbsp;Artificial&nbsp;Intelligence&nbsp;and&nbsp;Big&nbsp;Data</a>,<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.hfuu.edu.cn/">Hefei&nbsp;University</a>},<br/>&nbsp;address&nbsp;=&nbsp;{Hefei,&nbsp;Anhui,&nbsp;China},<br/>&nbsp;url&nbsp;=&nbsp;{<a href="https://thomasweise.github.io/programmingWithPython">https://thomasweise.github.io/programmingWithPython</a>}<br/>}</pre>
 
 **If you have any comments or suggestions regarding the book, or if you spotted an error or typo, please feel free to submit an [issue here](https://github.com/thomasWeise/programmingWithPython/issues).**
 Your feedback would help us to improve the book.
-
-This book is released under the Attribution-NonCommercial-ShareAlike 4.0 International license (CC&nbsp;BY&#8209;NC&#8209;SA&nbsp;4.0), see [http://creativecommons.org/licenses/by-nc-sa/4.0/](http://creativecommons.org/licenses/by-nc-sa/4.0/) for a summary.
 
 We statically include the [pdfsizeopt](https://github.com/pts/pdfsizeopt) tool in the build process of our book  via the [bookbase repository](https://github.com/thomasWeise/bookbase) and use it during the book compiling and building process to compress the book pdf file.
 This tool is excluded from the license mentioned above.
