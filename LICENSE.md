@@ -9,8 +9,8 @@ For example, all logos and trademarks are under the copyright of their respectiv
 The list of files not under the CC&nbsp;BY&#8209;NC&#8209;SA&nbsp;4.0 license but under their individual owners' copyrights includes, but is not limited to:
 
 + the [Python](https://www.python.org) Logo, e.g.,
-  - text/main/introduction/pythonLogo.pdf
-  - text/main/introduction/pythonLogo.svg
+    - text/main/introduction/pythonLogo.pdf
+    - text/main/introduction/pythonLogo.svg
 
 
 ## creative commons
