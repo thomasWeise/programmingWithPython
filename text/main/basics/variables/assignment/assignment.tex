@@ -6,8 +6,9 @@ You can define a variable and assign its value by writing \pythonil{name = value
 Here, \pythonil{name} is the name of the variable and \pythonil{value} be the value that we want to assign to that name.%
 %
 \hsection{A Simple Example of Variable Assignment and Comments in the Code}%
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{variables}{assignment.py}{--args format}{variables:assignment}{%
-A \python\ program showing some examples for variable assignments.}%
+\gitLoadAndExecPython{variables:assignment}{}{variables}{assignment.py}{}%
+\listingPythonAndOutput{variables:assignment}{assignment.py}{%
+A \python\ program showing some examples for variable assignments.}{}%
 %
 \begin{figure}[tb]%
 \centering%
@@ -203,7 +204,7 @@ For $e=6$~edges, this gives us $\pi_6=\frac{6\liuhuir}{2\liuhuir}=3$.
 
 Now this is a very coarse approximation of~\numberPi.
 We can get closer to the actual ratio if we would use more edges, i.e., higher values of~$e$.
-The ingenious idea of LIU Hui is to use $e$\nobreakdashes-gons with~$e=3*2^n$.
+The ingenious idea of LIU Hui~(刘徽) is to use $e$\nobreakdashes-gons with~$e=3*2^n$.
 For $n=1$, we get the hexagon with $e=6$.
 For $n=2$, we double the edges and have a dodecagon with $e=12$~edges.
 But how do we get the edge length~\liuhuist\ of this dodecagon?
@@ -232,8 +233,9 @@ s_{2e} &= \sqrt{2-\sqrt{4-s_e^2}}\label{eq:liuhui:sidelength}\\%
 \pi_{2e} &= \frac{e}{2} s_{2e}\label{eq:liuhui:approx}%
 \end{align}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{variables}{pi_liu_hui.py}{--args format}{variables:pi_liu_hui}{%
-A \python\ program showing several steps of the approximation of~\numberPi\ using the method of LIU Hui.}%
+\gitLoadAndExecPython{variables:pi_liu_hui}{}{variables}{pi_liu_hui.py}{}%
+\listingPythonAndOutput{variables:pi_liu_hui}{file}{%
+A \python\ program showing several steps of the approximation of~\numberPi\ using the method of LIU Hui~(刘徽).}{}%
 %
 \begin{figure}[tb]%
 \centering%

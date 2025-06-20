@@ -112,10 +112,12 @@ Luckily, \python\ offers the much more convenient syntax of list comprehension\p
 [expression for item in sequence if condition]
 \end{pythonSyntax}
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{iteration}{simple_list_comprehension.py}{--args format}{iteration:simple_list_comprehension}{%
-Some simple examples for list comprehension\pythonIdx{list!comprehension}\pythonIdx{comprehension!list}.}%
+\gitLoadAndExecPython{iteration:simple_list_comprehension}{}{iteration}{simple_list_comprehension.py}{}%
+\listingPythonAndOutput{iteration:simple_list_comprehension}{simple_list_comprehension.py}{%
+Some simple examples for list comprehension\pythonIdx{list!comprehension}\pythonIdx{comprehension!list}.}{}%
 %
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh iteration simple_list_comprehension.py}{iteration:simple_list_comprehension:ruff}{%
+\gitExec{exec:iteration:simple_list_comprehension:ruff}{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh iteration simple_list_comprehension.py}%
+\listingToolOutput{iteration:simple_list_comprehension:ruff}{%
 The output of \ruff\ for the examples for list comprehension in \cref{lst:iteration:simple_list_comprehension}: %
 The \pythonilIdx{for}~loop constructing the list \textil{squares_1} can indeed by replaced by a list comprehension\pythonIdx{list!comprehension}\pythonIdx{comprehension!list}.}%
 %
@@ -174,11 +176,13 @@ But when it can be done, as is the case in our example, we noticed that list com
 Code which is more compact is often more readable and in this case, from a software engineering point of view, preferable.
 But why would this also be an issue of performance, i.e., execution speed?
 
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{iteration}{list_of_numbers_append.py}{--args format}{iteration:list_of_numbers_append}{%
-Create a \pythonilIdx{list} with the even numbers from~0 to~1'000'000 using the \pythonilIdx{append}.}%
+\gitLoadAndExecPython{iteration:list_of_numbers_append}{}{iteration}{list_of_numbers_append.py}{}%
+\listingPythonAndOutput{iteration:list_of_numbers_append}{list_of_numbers_append.py}{%
+Create a \pythonilIdx{list} with the even numbers from~0 to~1'000'000 using the \pythonilIdx{append}.}{}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{iteration}{list_of_numbers_comprehension.py}{--args format}{iteration:list_of_numbers_comprehension}{%
-Create a \pythonilIdx{list} with the even numbers from~0 to~1'000'000 using list comprehension.}%
+\gitLoadAndExecPython{iteration:list_of_numbers_comprehension}{}{iteration}{list_of_numbers_comprehension.py}{}%
+\listingPythonAndOutput{iteration:list_of_numbers_comprehension}{list_of_numbers_comprehension.py}{%
+Create a \pythonilIdx{list} with the even numbers from~0 to~1'000'000 using list comprehension.}{}%
 
 In order to investigate this issue, we could try to simply create two lists with the same contents, once by using the \pythonilIdx{append} method and once by using list comprehension.
 Whichever is faster, i.e., needs less time, has the better performance.
@@ -254,10 +258,12 @@ And even if list comprehension was not faster than iteratively constructing a li
 \endhsection%
 %
 \hsection{Interlude: doctests}%
-\gitPython{\programmingWithPythonCodeRepo}{iteration/list_flatten_iterables.py}{--args format}{iteration:list_flatten_iterables}{%
+\gitLoadPython{iteration:list_flatten_iterables}{}{iteration/list_flatten_iterables.py}{}%
+\listingPython{iteration:list_flatten_iterables}{%
 A function that flattens \pythonilsIdx{list} and other \pythonilsIdx{Iterable} using list comprehension.}%
 %
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest_doctest.sh iteration list_flatten_iterables.py}{iteration:list_flatten_iterables:doctest}{%
+\gitExec{exec:iteration:list_flatten_iterables:doctest}{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest_doctest.sh iteration list_flatten_iterables.py}%
+\listingToolOutput{iteration:list_flatten_iterables:doctest}{%
 The output of \pytest\ executing the \pglspl{doctest} for the examples for list comprehension in \cref{lst:iteration:list_flatten_iterables}: %
 The test succeeded. %
 We used the test execution script given in \cref{lst:bash:pytest_doctest}.}%
@@ -342,8 +348,9 @@ The corresponding syntax is as follows:%
 {expression for item in sequence if condition}
 \end{pythonSyntax}
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{iteration}{simple_set_comprehension.py}{--args format}{iteration:simple_set_comprehension}{%
-Some simple examples for set comprehension\pythonIdx{set!comprehension}\pythonIdx{comprehension!set}.}%
+\gitLoadAndExecPython{iteration:simple_set_comprehension}{}{iteration}{simple_set_comprehension.py}{}%
+\listingPythonAndOutput{iteration:simple_set_comprehension}{simple_set_comprehension.py}{%
+Some simple examples for set comprehension\pythonIdx{set!comprehension}\pythonIdx{comprehension!set}.}{}%
 %
 In \cref{lst:iteration:simple_set_comprehension}, we provide some simple examples for set comprehension\pythonIdx{set!comprehension}\pythonIdx{comprehension!set} and in \cref{exec:iteration:simple_set_comprehension} you can find the output of the program.
 First, we create a set with the results of the \pythonilIdx{isqrt} function from the \pythonilIdx{math} module.
@@ -397,8 +404,9 @@ Dictionary comprehension has the following syntax:%
 {expression1: expression2 for item in sequence if condition}
 \end{pythonSyntax}
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{iteration}{simple_dict_comprehension.py}{--args format}{iteration:simple_dict_comprehension}{%
-Some simple examples for set comprehension\pythonIdx{dict!comprehension}\pythonIdx{comprehension!dict}.}%
+\gitLoadAndExecPython{iteration:simple_dict_comprehension}{}{iteration}{simple_dict_comprehension.py}{}%
+\listingPythonAndOutput{iteration:simple_dict_comprehension}{simple_dict_comprehension.py}{%
+Some simple examples for set comprehension\pythonIdx{dict!comprehension}\pythonIdx{comprehension!dict}.}{}%
 %
 In \cref{lst:iteration:simple_dict_comprehension} we provide some examples for dictionary comprehension.
 We again start by \inQuotes{manually} creating a dictionary and then show how dictionary comprehension is much more concise.
@@ -473,8 +481,9 @@ The syntax for generator expressions is basically the same as for list expressio
 function(expression for item in sequence if condition)
 \end{pythonSyntax}
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{iteration}{generator_expressions_next_1.py}{--args format}{iteration:generator_expressions_next_1}{%
-An investigation of how generator expressions work\pythonIdx{Generator} by using the \pythonilIdx{next} function.}%
+\gitLoadAndExecPython{iteration:generator_expressions_next_1}{}{iteration}{generator_expressions_next_1.py}{}%
+\listingPythonAndOutput{iteration:generator_expressions_next_1}{generator_expressions_next_1.py}{%
+An investigation of how generator expressions work\pythonIdx{Generator} by using the \pythonilIdx{next} function.}{}%
 %
 First, let us investigate how generator expressions work internally.
 In \cref{lst:iteration:generator_expressions_next_1}, we create the generator expression \pythonil{(i ** 2 for i in range(1_000_000_000))}.
@@ -534,8 +543,9 @@ Generator expression require less memory. %
 If the iteration over the elements can stop early, which can happen, e.g., when using the \pythonilIdx{all} or \pythonilIdx{any} functions, they may also be faster.%
 }%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{iteration}{generator_expressions_in_reduction.py}{--args format}{iteration:generator_expressions_in_reduction}{%
-The use of generator expressions in reducing functions, such as \pythonilIdx{sum}, \pythonilIdx{min}, \pythonilIdx{max}, \pythonilIdx{all}, and~\pythonilIdx{any}\pythonIdx{Generator}.}%
+\gitLoadAndExecPython{iteration:generator_expressions_in_reduction}{}{iteration}{generator_expressions_in_reduction.py}{}%
+\listingPythonAndOutput{iteration:generator_expressions_in_reduction}{generator_expressions_in_reduction.py}{%
+The use of generator expressions in reducing functions, such as \pythonilIdx{sum}, \pythonilIdx{min}, \pythonilIdx{max}, \pythonilIdx{all}, and~\pythonilIdx{any}\pythonIdx{Generator}.}{}%
 %
 Generator expressions come in especially handy when we want to reduce or aggregate a sequence of data to a single number.
 \Cref{lst:iteration:generator_expressions_in_reduction} shows several examples for such computations.
@@ -577,8 +587,9 @@ And again, the evaluation of the sequence can stop at the point that the first~\
 Lazy evaluation here again reduces both the runtime and memory footprint.%
 \end{sloppypar}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{iteration}{generator_expressions_loops.py}{--args format}{iteration:generator_expressions_loops}{%
-The behavior of generator expressions in \pythonilIdx{for}~loops\pythonIdx{Generator}.}%
+\gitLoadAndExecPython{iteration:generator_expressions_loops}{}{iteration}{generator_expressions_loops.py}{}%
+\listingPythonAndOutput{iteration:generator_expressions_loops}{generator_expressions_loops.py}{%
+The behavior of generator expressions in \pythonilIdx{for}~loops\pythonIdx{Generator}.}{}%
 %
 We said before that \python\ \pythonilIdx{for}~loops actually work on \pythonilsIdx{Iterator}.
 Every \pythonilIdx{Generator} is also an \pythonilIdx{Iterator}.
@@ -596,8 +607,9 @@ Using a generator here was not just more memory efficient than using a list, it 
 Well, of course, we would not have needed any generator or datastructure in the first place.
 We could have just iterated over the \pythonilIdx{range} directly, which would have been even more efficient {\dots} but then we could not have used this as an example.%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{iteration}{generator_expressions_to_collection.py}{--args format}{iteration:generator_expressions_to_collection}{%
-Using generator expressions when creating collection datastructures\pythonIdx{Generator}\pythonIdx{list}\pythonIdx{dict}.}%
+\gitLoadAndExecPython{iteration:generator_expressions_to_collection}{}{iteration}{generator_expressions_to_collection.py}{}%
+\listingPythonAndOutput{iteration:generator_expressions_to_collection}{generator_expressions_to_collection.py}{%
+Using generator expressions when creating collection datastructures\pythonIdx{Generator}\pythonIdx{list}\pythonIdx{dict}.}{}%
 %
 \begin{sloppypar}%
 Finally, generator expressions can also be passed to the constructors of collection datastructures or other functions that create such datastructures.
@@ -624,7 +636,8 @@ Notice that this dictionary also does not contain duplicates.
 If we apply the trusty tool \ruff\ to \cref{lst:iteration:generator_expressions_to_collection}, it tells us that using generators to create lists, sets, and dictionaries is unnecessary, since we could use the corresponding comprehension instead.
 There is no tuple comprehension, though, and also passing the generator expression to the \pythonilIdx{sorted} function is without better alternative.%
 %
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh iteration generator_expressions_to_collection.py}{iteration:generator_expressions_to_collection:ruff}{%
+\gitExec{exec:iteration:generator_expressions_to_collection:ruff}{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh iteration generator_expressions_to_collection.py}%
+\listingToolOutput{iteration:generator_expressions_to_collection:ruff}{%
 The output of \ruff\ for collection creation-expressions in \cref{lst:iteration:generator_expressions_to_collection}: %
 Passing generators to \pythonilIdx{list}, \pythonilIdx{set}, or \pythonilIdx{dict} constructors could be replaced by list-, set-, or dictionary comprehension.}%
 %
@@ -636,10 +649,12 @@ Passing generators to \pythonilIdx{list}, \pythonilIdx{set}, or \pythonilIdx{dic
 \gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{iteration}{simple_generator_function_1.py}{--args format}{iteration:simple_generator_function_1}{%
 A very simple generator function yielding the numbers~1, 2, and~3\pythonIdx{Generator}.}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{iteration}{simple_generator_function_2.py}{--args format}{iteration:simple_generator_function_2}{%
-A generator function yielding the infinite sequence of Fibonacci numbers\pythonIdx{Generator}~\cite{W2024MAWWR:FN,S2022FLAATIMEOLPBOC}.}%
+\gitLoadAndExecPython{iteration:simple_generator_function_2}{}{iteration}{simple_generator_function_2.py}{}%
+\listingPythonAndOutput{iteration:simple_generator_function_2}{simple_generator_function_2.py}{%
+A generator function yielding the infinite sequence of Fibonacci numbers\pythonIdx{Generator}~\cite{W2024MAWWR:FN,S2022FLAATIMEOLPBOC}.}{}%
 %
-\gitPython{\programmingWithPythonCodeRepo}{iteration/prime_generator.py}{--args format}{iteration:prime_generator}{%
+\gitLoadPython{iteration:prime_generator}{}{iteration/prime_generator.py}{}%
+\listingPython{iteration:prime_generator}{%
 A generator function yielding the infinite sequence of prime numbers\pythonIdx{Generator}~\cite{W2024MAWWR:PN,CP2005PNACP,R1994PNACMFF}.}%
 %
 The final element in \cref{fig:iteration} that we did not yet discuss are \emph{generator functions}~\cite{PEP255}.
@@ -710,8 +725,9 @@ You can use \pytest\ by yourself to check whether the code works as expected\dot
 \hsection{Operations on Iterators}%
 \label{sec:operationsOnIterators}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{iteration}{filter_takewhile.py}{--args format}{iteration:filter_takewhile}{%
-An example for \pythonilIdx{takewhile}\pythonIdx{itertools!takewhile} and \pythonilIdx{filter}.}%
+\gitLoadAndExecPython{iteration:filter_takewhile}{}{iteration}{filter_takewhile.py}{}%
+\listingPythonAndOutput{iteration:filter_takewhile}{filter_takewhile.py}{%
+An example for \pythonilIdx{takewhile}\pythonIdx{itertools!takewhile} and \pythonilIdx{filter}.}{}%
 %
 Sequences play a very important role in \python\ programming.
 The fact that generator functions and the \pythonilIdx{yield} keyword were added to the language just to provide a natural way to construct complex sequences speaks for itself~\cite{PEP255}.
@@ -746,8 +762,9 @@ The results can be seen in \cref{exec:iteration:filter_takewhile}:
 There are ten such primes.
 The smallest one is $1^2+1=2$ and the largest one is~$26^2+1=677$.
 
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{iteration}{map.py}{--args format}{iteration:map}{%
-An example for the function \pythonilIdx{map}.}%
+\gitLoadAndExecPython{iteration:map}{}{iteration}{map.py}{}%
+\listingPythonAndOutput{iteration:map}{map.py}{%
+An example for the function \pythonilIdx{map}.}{}%
 %
 Another important utility function when dealing with sequences is the function~\pythonilIdx{map}.
 We explore its use in \cref{lst:iteration:map}.
@@ -775,10 +792,12 @@ Notice that \pythonilIdx{map} does not generate a data structure with all the tr
 Instead, the elements are constructed as needed (and thereafter disposed by the garbage collection when no longer needed).
 This makes \pythonilIdx{map} an elegant and efficient approach to transforming sequences of data.
 
-\gitPython{\programmingWithPythonCodeRepo}{iteration/zip.py}{--args format}{iteration:zip}{%
+\gitLoadPython{iteration:zip}{}{iteration/zip.py}{}%
+\listingPython{iteration:zip}{%
 An example for the function \pythonilIdx{zip}.}%
 %
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest_doctest.sh iteration zip.py}{iteration:zip:doctest}{%
+\gitExec{exec:iteration:zip:doctest}{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest_doctest.sh iteration zip.py}%
+\listingToolOutput{iteration:zip:doctest}{%
 The output of \pytest\ executing the \pglspl{doctest} for the \pythonilIdx{zip} example from \cref{lst:iteration:zip}.}%
 %
 \begin{sloppypar}%

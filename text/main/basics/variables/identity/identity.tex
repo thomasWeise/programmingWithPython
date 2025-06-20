@@ -21,11 +21,13 @@
 \label{fig:variables:equalityAndIdentity}%
 \end{figure}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{variables}{identity_1.py}{--args format}{variables:identity_1}{%
-An example of the difference between equality and identity\pythonIdx{sqrt}.}%
+\gitLoadAndExecPython{variables:identity_1}{}{variables}{identity_1.py}{}%
+\listingPythonAndOutput{variables:identity_1}{identity_1.py}{%
+An example of the difference between equality and identity\pythonIdx{sqrt}.}{}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{variables}{identity_2.py}{--args format}{variables:identity_2}{%
-An second example of the difference between equality and identity.}%
+\gitLoadAndExecPython{variables:identity_2}{}{variables}{identity_2.py}{}%
+\listingPythonAndOutput{variables:identity_2}{identity_2.py}{%
+An second example of the difference between equality and identity.}{}%
 %
 We use variables to references objects in memory.
 When we compare two variables, we actually compare the objects they reference.

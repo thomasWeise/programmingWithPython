@@ -70,11 +70,13 @@ Class names should follow the CapWords convention (often also called camel case)
 \hsection{A Simple Immutable Class for Points in the Two-Dimensional Euclidean Plane}%
 \label{sec:immutableClassPoints2D}%
 %
-\gitPython{\programmingWithPythonCodeRepo}{classes/point.py}{--args format}{classes:point}{%
-A class for representing points in the two-dimensional Euclidean plane.}%
+\gitLoadPython{classes:point}{}{classes/point.py}{}%
+\listingPython{classes:point}{%
+A class for representing points in the two-dimensional Euclidean plane}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{classes}{point_user.py}{--args format}{classes:point_user}{%
-An example of using our new \pythonil{class Point} from \cref{lst:classes:point}.}%
+\gitLoadAndExecPython{classes:point_user}{}{classes}{point_user.py}{}%
+\listingPythonAndOutput{classes:point_user}{point_user.py}{%
+An example of using our new \pythonil{class Point} from \cref{lst:classes:point}.}{}%
 %
 We begin directly with an example.
 Assume that we want to write a program that processes points in the two-dimensional Euclidean plane.
@@ -346,11 +348,13 @@ The second-order \citeauthor{K1965PFRORTE}-\citeauthor{B1968NSIMA}-\citeauthor{N
 }% end for
 }% end algorithm
 %
-\gitPython{\programmingWithPythonCodeRepo}{classes/kahan_sum.py}{--args format}{classes:kahan_sum}{%
+\gitLoadPython{classes:kahan_sum}{}{classes/kahan_sum.py}{}%
+\listingPython{classes:kahan_sum}{%
 An implementation of the second-order \citeauthor{K1965PFRORTE}-\citeauthor{B1968NSIMA}-\citeauthor{N1974REVZSES} summation algorithm given in \cref{algo:kahanSum}.}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{classes}{kahan_user.py}{--args format}{classes:kahan_user}{%
-Some use cases of our \citeauthor{K1965PFRORTE}-summation class from \cref{lst:classes:kahan_sum} and a comparison with \python's \pythonilIdx{sum} and the function~\pythonilIdx{fsum} from the \pythonilIdx{math} module.}%
+\gitLoadAndExecPython{classes:kahan_user}{}{classes}{kahan_user.py}{}%
+\listingPythonAndOutput{classes:kahan_user}{kahan_user.py}{%
+Some use cases of our \citeauthor{K1965PFRORTE}-summation class from \cref{lst:classes:kahan_sum} and a comparison with \python's \pythonilIdx{sum} and the function~\pythonilIdx{fsum} from the \pythonilIdx{math} module.}{}%
 
 Luckily, in the 1960s, \citeauthor{K1965PFRORTE}~\cite{K1965PFRORTE} and \citeauthor{B1968NSIMA}~\cite{B1968NSIMA} had an idea how to fix that:
 We add numbers up in a \pythonil{sum} variable and carry with us a variable~\pythonil{cs} where we remember how far off this sum is.

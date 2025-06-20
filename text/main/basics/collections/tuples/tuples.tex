@@ -1,16 +1,19 @@
 \hsection{Tuples}%
 \label{sec:tuples}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{collections}{tuples_1.py}{--args format}{tuples:tuples_1}{%
-A first example of using tuples in \python: creating, indexing, and printing of tuples.}%
+\gitLoadAndExecPython{tuples:tuples_1}{}{collections}{tuples_1.py}{}%
+\listingPythonAndOutput{tuples:tuples_1}{tuples_1.py}{%
+A first example of using tuples in \python:~creating, indexing, and printing of tuples.}{}%
 %
-\gitPythonAndOutput{\programmingWithPythonCodeRepo}{collections}{tuples_2.py}{--args format}{tuples:tuples_2}{%
-A second example of using tuples in \python: tuples with elements of different types and tuple unpacking.}%
+\gitLoadAndExecPython{tuples:tuples_2}{}{collections}{tuples_2.py}{}%
+\listingPythonAndOutput{tuples:tuples_2}{tuples_2.py}{%
+A second example of using tuples in \python:~tuples with elements of different types and tuple unpacking.}{}%
 %
 \gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{collections}{tuples_3.py}{--args format}{tuples:tuples_3}{%
-A third example of using tuples in \python: testing the immutability property.}%
+A third example of using tuples in \python:~testing the immutability property.}%
 %
-\gitOutputTool{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh collections tuples_3.py}{tuples:tuples_3:mypy}{%
+\gitExec{exec:tuples:tuples_3:mypy}{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh collections tuples_3.py}%
+\listingToolOutput{tuples:tuples_3:mypy}{%
 The results of static type checking with \mypy\ of the program given in \cref{lst:tuples:tuples_3}.}%
 %
 \pythonIdx{tuple}%

@@ -36,7 +36,8 @@ This enforces that \pip\ is really executed in a \pgls{virtualEnvironment} and w
 %
 \usefulTool{venv}{The module \venv\ is used for creating and managing \pglspl{virtualEnvironment} under \python.}%
 %
-\gitPython{\programmingWithPythonCodeRepo}{packages/numpy_user.py}{--args format}{packages:numpy_user}{%
+\gitLoadPython{packages:numpy_user}{}{packages/numpy_user.py}{}%
+\listingPython{packages:numpy_user}{%
 A small \python\ script using the \numpy\ library.}%
 %
 For demonstration purposes, let us assume that we have written a program using the \pgls{package} \numpy~\cite{HMvdWGVCWTBSKPHvKBHFdRWPGMSRWAGO2020APWN,DBvR2024ITN,J2018NPSCADSAWNSAM}.
@@ -214,7 +215,8 @@ As said, once you have installed the required \pglspl{package}, you can simply a
 Like under \linux, we also need to make sure that \pip\ and \venv\ are installed before we can actually use either of them.
 Luckily, as shown in \cref{fig:installPipVenvWindows}, they already came pre-installed with my \python\ distribution.
 
-\gitBat{\programmingWithPythonCodeRepo}{packages/numpy_user_venv.bat}{packages:numpy_user_venv_bat}{%
+\gitLoad{lst:packages:numpy_user_venv_bat}{\programmingWithPythonCodeRepo}{packages/numpy_user_venv.bat}{}%
+\listingBash{packages:numpy_user_venv_bat}{%
 An example of using \pglspl{virtualEnvironment} and \pip\ under \microsoftWindows\ to install \numpy\ and to run our program \cref{lst:packages:numpy_user}. %
 The output is given in \cref{fig:venvWindowsScript,fig:venvWindows}}%
 %

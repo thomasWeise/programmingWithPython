@@ -68,4 +68,5 @@ The book is written using \LaTeX\ and this repository contains all the scripts, 
 %
 \strut\vfill\strut%
 This book was built using the following software:%
-\gitOutputWithStyle{}{}{text/front/preface/dependencyVersions.sh}{versions}{}{text_style}%
+\gitExec{exec:versions}{}{}{text/front/preface/dependencyVersions.sh}%
+\lstinputlisting[style=text_style]{\gitFile{exec:versions}}%
