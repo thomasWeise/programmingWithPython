@@ -27,6 +27,7 @@ book.pdf
 
 # any potential git archive folder
 __git__
+__git__/**
 *.texgit.*
 
 # the project files
