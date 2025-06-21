@@ -114,7 +114,8 @@ Faulty input should always be signaled by errors breaking the program flow. %
 \listingPython{exceptions:sqrt_raise}{%
 A new variant of the \pythonil{sqrt} function from back in \cref{lst:functions:my_math_2} that raises an \pythonilIdx{ArithmeticError} if its input is non-finite or negative.}%
 %
-\gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{exceptions}{use_sqrt_raise.py}{--args format}{exceptions:use_sqrt_raise}{%
+\gitLoadAndExecPythonAndErrors{exceptions:use_sqrt_raise}{}{exceptions}{use_sqrt_raise.py}{}%
+\listingPythonAndError{exceptions:use_sqrt_raise}{use_sqrt_raise.py}{%
 Using the new variant of the \pythonil{sqrt} function from \cref{lst:exceptions:sqrt_raise} that raises an \pythonilIdx{ArithmeticError} if its input is non-finite or negative.}%
 %
 Let us now first look at an example of how we can signal an error condition in our code.
@@ -298,7 +299,8 @@ Only \pythonilsIdx{Exception} should be caught by \pythonilIdx{except} blocks th
 The \pythonilIdx{except} block is not to be used to just catch any exception, to implement \gls{GIGO}, or to try to sanitize erroneous input.%
 }%
 %
-\gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{exceptions}{try_multi_except.py}{--args format}{exceptions:try_multi_except}{%
+\gitLoadAndExecPythonAndErrors{exceptions:try_multi_except}{}{exceptions}{try_multi_except.py}{}%
+\listingPythonAndError{exceptions:try_multi_except}{try_multi_except.py}{%
 The handling of multiple errors, namely \pythonilIdx{ZeroDivisionError} and \pythonilIdx{ArithmeticError}, as well as what happens if a variable remains unassigned due to an error (a \pythonilIdx{NameError} is raised).}%
 %
 In \cref{lst:exceptions:try_multi_except}, we revisit our new \pythonil{sqrt} function.
@@ -341,7 +343,8 @@ Therefore, no variable assignments or other side-effects can take place anymore 
 %
 \hsection{Exceptions in Exception Handlers}%
 %
-\gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{exceptions}{try_except_nested_1.py}{--args format}{exceptions:try_except_nested_1}{%
+\gitLoadAndExecPythonAndErrors{exceptions:try_except_nested_1}{}{exceptions}{try_except_nested_1.py}{}%
+\listingPythonAndError{exceptions:try_except_nested_1}{try_except_nested_1.py}{%
 An example of \pythonils{Exception} being raised inside an \pythonilIdx{except} block.}%
 %
 What happens if an exception is raised \emph{inside} an \pythonilIdx{except} block?
@@ -445,7 +448,8 @@ finally:  # The **optional** finally block.
 next statement  # Executed only if there are no uncaught Exceptions.
 \end{pythonSyntax}
 %
-\gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{exceptions}{try_except_else_finally.py}{--args format}{exceptions:try_except_else_finally}{%
+\gitLoadAndExecPythonAndErrors{exceptions:try_except_else_finally}{}{exceptions}{try_except_else_finally.py}{}%
+\listingPythonAndError{exceptions:try_except_else_finally}{try_except_else_finally.py}{%
 An example for the \pythonilIdx{try}-\pythonilIdx{except}-\pythonilIdx{else}-\pythonilIdx{finally} block.}%
 %
 \gitExec{exec:exceptions:try_except_else_finally:mypy}{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh exceptions try_except_else_finally.py}%

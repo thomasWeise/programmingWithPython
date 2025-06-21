@@ -74,8 +74,13 @@ This process is illustrated in \cref{fig:installPipVenvUbuntu}.
 After \aptGet\ completes, we can check the version of \pip\ via \bashil{pip --version}.
 Whether \venv\ is installed correctly can be checked via \bashil{python3 -m venv -h}.
 
-\gitBashAndOutput{\programmingWithPythonCodeRepo}{packages}{numpy_user_venv.sh}{packages:numpy_user_venv_sh}{%
-An example of using \pglspl{virtualEnvironment} and \pip\ under \ubuntu\ \linux\ to install \numpy\ and to run our program \cref{lst:packages:numpy_user}.}%
+\gitLoad{lst:packages:numpy_user_venv_sh}{\programmingWithPythonCodeRepo}{packages/numpy_user_venv.sh}{}%
+\gitExecBash{exec:packages:numpy_user_venv_sh}{\programmingWithPythonCodeRepo}{packages}{numpy_user_venv.sh}
+\listingDoubleBox{packages:numpy_user_venv_sh}{%
+An example of using \pglspl{virtualEnvironment} and \pip\ under \ubuntu\ \linux\ to install \numpy\ and to run our program \cref{lst:packages:numpy_user}.}{%
+\captionStdout{packages:numpy_user}{numpy_user_venv.sh}}{%
+,style=bash_style}{,style=text_style}{%
+\listingSepBash{numpy_user_venv.sh}}%
 %
 \begin{figure}%
 \centering%

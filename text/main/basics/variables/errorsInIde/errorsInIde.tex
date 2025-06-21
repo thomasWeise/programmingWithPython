@@ -1,8 +1,9 @@
 \hsection{Interlude: Finding Errors in your Code with the IDE}%
 \label{sec:errorsInIde}%
 %
-\gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{variables}{assignment_wrong.py}{--args format}{variables:assignment_wrong}{%
-A variant of \cref{lst:variables:assignment} with an error: \pythonil{int_var} is accidentally spelled as \pythonil{intvar} in one location.}%
+\gitLoadAndExecPythonAndErrors{variables:assignment_wrong}{}{variables}{assignment_wrong.py}{}%
+\listingPythonAndError{variables:assignment_wrong}{assignment_wrong.py}{%
+A variant of \cref{lst:variables:assignment} with an error:~\pythonil{int_var} is accidentally spelled as \pythonil{intvar} in one location.}%
 %
 \begin{figure}%
 \centering%

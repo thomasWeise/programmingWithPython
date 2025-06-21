@@ -6,8 +6,13 @@
 \listingTxt{packages:requirementstxt}{%
 A requirements file demanding that version~\textil{1.26.4} of \numpy\ be installed.}%
 %
-\gitBashAndOutput{\programmingWithPythonCodeRepo}{packages}{numpy_user_venv_req.sh}{packages:numpy_user_venv_req_sh}{%
-A script that runs our example program using a \pgls{virtualEnvironment} created by using the \textil{requirements.txt} file given in \cref{lst:packages:requirementstxt}.}%
+\gitLoad{lst:packages:numpy_user_venv_req_sh}{\programmingWithPythonCodeRepo}{packages/numpy_user_venv_req.sh}{}%
+\gitExecBash{exec:packages:numpy_user_venv_req_sh}{\programmingWithPythonCodeRepo}{packages}{numpy_user_venv_req.sh}
+\listingDoubleBox{packages:numpy_user_venv_req_sh}{%
+A script that runs our example program using a \pgls{virtualEnvironment} created by using the \textil{requirements.txt} file given in \cref{lst:packages:requirementstxt}.}{%
+\captionStdout{packages:numpy_user_venv_req_sh}{numpy_user_venv_req.sh}}{%
+,style=bash_style}{,style=text_style}{%
+\listingSepBash{numpy_user_venv_req.sh}}%
 %
 It is very normal that our projects require multiple different \pglspl{package}.
 Sometimes, they require specific versions of specific \pglspl{package}.

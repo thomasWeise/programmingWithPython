@@ -9,7 +9,8 @@ A first example of using tuples in \python:~creating, indexing, and printing of 
 \listingPythonAndOutput{tuples:tuples_2}{tuples_2.py}{%
 A second example of using tuples in \python:~tuples with elements of different types and tuple unpacking.}{}%
 %
-\gitPythonAndErrorOutput{\programmingWithPythonCodeRepo}{collections}{tuples_3.py}{--args format}{tuples:tuples_3}{%
+\gitLoadAndExecPythonAndErrors{tuples:tuples_3}{}{collections}{tuples_3.py}{}%
+\listingPythonAndError{tuples:tuples_3}{tuples_3.py}{%
 A third example of using tuples in \python:~testing the immutability property.}%
 %
 \gitExec{exec:tuples:tuples_3:mypy}{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh collections tuples_3.py}%
