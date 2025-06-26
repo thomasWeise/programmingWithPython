@@ -113,7 +113,7 @@ Luckily, \python\ offers the much more convenient syntax of list comprehension\p
 \end{pythonSyntax}
 %
 \gitLoadAndExecPython{iteration:simple_list_comprehension}{}{iteration}{simple_list_comprehension.py}{}%
-\listingPythonAndOutput{iteration:simple_list_comprehension}{simple_list_comprehension.py}{%
+\listingPythonAndOutput{iteration:simple_list_comprehension}{%
 Some simple examples for list comprehension\pythonIdx{list!comprehension}\pythonIdx{comprehension!list}.}{}%
 %
 \gitExec{exec:iteration:simple_list_comprehension:ruff}{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh iteration simple_list_comprehension.py}%
@@ -177,11 +177,11 @@ Code which is more compact is often more readable and in this case, from a softw
 But why would this also be an issue of performance, i.e., execution speed?
 
 \gitLoadAndExecPython{iteration:list_of_numbers_append}{}{iteration}{list_of_numbers_append.py}{}%
-\listingPythonAndOutput{iteration:list_of_numbers_append}{list_of_numbers_append.py}{%
+\listingPythonAndOutput{iteration:list_of_numbers_append}{%
 Create a \pythonilIdx{list} with the even numbers from~0 to~1'000'000 using the \pythonilIdx{append}.}{}%
 %
 \gitLoadAndExecPython{iteration:list_of_numbers_comprehension}{}{iteration}{list_of_numbers_comprehension.py}{}%
-\listingPythonAndOutput{iteration:list_of_numbers_comprehension}{list_of_numbers_comprehension.py}{%
+\listingPythonAndOutput{iteration:list_of_numbers_comprehension}{%
 Create a \pythonilIdx{list} with the even numbers from~0 to~1'000'000 using list comprehension.}{}%
 
 In order to investigate this issue, we could try to simply create two lists with the same contents, once by using the \pythonilIdx{append} method and once by using list comprehension.
@@ -349,7 +349,7 @@ The corresponding syntax is as follows:%
 \end{pythonSyntax}
 %
 \gitLoadAndExecPython{iteration:simple_set_comprehension}{}{iteration}{simple_set_comprehension.py}{}%
-\listingPythonAndOutput{iteration:simple_set_comprehension}{simple_set_comprehension.py}{%
+\listingPythonAndOutput{iteration:simple_set_comprehension}{%
 Some simple examples for set comprehension\pythonIdx{set!comprehension}\pythonIdx{comprehension!set}.}{}%
 %
 In \cref{lst:iteration:simple_set_comprehension}, we provide some simple examples for set comprehension\pythonIdx{set!comprehension}\pythonIdx{comprehension!set} and in \cref{exec:iteration:simple_set_comprehension} you can find the output of the program.
@@ -405,7 +405,7 @@ Dictionary comprehension has the following syntax:%
 \end{pythonSyntax}
 %
 \gitLoadAndExecPython{iteration:simple_dict_comprehension}{}{iteration}{simple_dict_comprehension.py}{}%
-\listingPythonAndOutput{iteration:simple_dict_comprehension}{simple_dict_comprehension.py}{%
+\listingPythonAndOutput{iteration:simple_dict_comprehension}{%
 Some simple examples for set comprehension\pythonIdx{dict!comprehension}\pythonIdx{comprehension!dict}.}{}%
 %
 In \cref{lst:iteration:simple_dict_comprehension} we provide some examples for dictionary comprehension.
@@ -482,7 +482,7 @@ function(expression for item in sequence if condition)
 \end{pythonSyntax}
 %
 \gitLoadAndExecPython{iteration:generator_expressions_next_1}{}{iteration}{generator_expressions_next_1.py}{}%
-\listingPythonAndOutput{iteration:generator_expressions_next_1}{generator_expressions_next_1.py}{%
+\listingPythonAndOutput{iteration:generator_expressions_next_1}{%
 An investigation of how generator expressions work\pythonIdx{Generator} by using the \pythonilIdx{next} function.}{}%
 %
 First, let us investigate how generator expressions work internally.
@@ -499,7 +499,7 @@ In our example program, we stop here.
 This means that the 999'999'996 elements are never created.
 
 \gitLoadAndExecPythonAndErrors{iteration:generator_expressions_next_2}{}{iteration}{generator_expressions_next_2.py}{}%
-\listingPythonAndError{iteration:generator_expressions_next_2}{generator_expressions_next_2.py}{%
+\listingPythonAndError{iteration:generator_expressions_next_2}{%
 An investigation of the lazy evaluation in generator expressions\pythonIdx{Generator} by using the \pythonilIdx{next} function.}%
 \afterpage{\clearpage}%
 %
@@ -545,7 +545,7 @@ If the iteration over the elements can stop early, which can happen, e.g., when 
 }%
 %
 \gitLoadAndExecPython{iteration:generator_expressions_in_reduction}{}{iteration}{generator_expressions_in_reduction.py}{}%
-\listingPythonAndOutput{iteration:generator_expressions_in_reduction}{generator_expressions_in_reduction.py}{%
+\listingPythonAndOutput{iteration:generator_expressions_in_reduction}{%
 The use of generator expressions in reducing functions, such as \pythonilIdx{sum}, \pythonilIdx{min}, \pythonilIdx{max}, \pythonilIdx{all}, and~\pythonilIdx{any}\pythonIdx{Generator}.}{}%
 %
 Generator expressions come in especially handy when we want to reduce or aggregate a sequence of data to a single number.
@@ -589,7 +589,7 @@ Lazy evaluation here again reduces both the runtime and memory footprint.%
 \end{sloppypar}%
 %
 \gitLoadAndExecPython{iteration:generator_expressions_loops}{}{iteration}{generator_expressions_loops.py}{}%
-\listingPythonAndOutput{iteration:generator_expressions_loops}{generator_expressions_loops.py}{%
+\listingPythonAndOutput{iteration:generator_expressions_loops}{%
 The behavior of generator expressions in \pythonilIdx{for}~loops\pythonIdx{Generator}.}{}%
 %
 We said before that \python\ \pythonilIdx{for}~loops actually work on \pythonilsIdx{Iterator}.
@@ -609,7 +609,7 @@ Well, of course, we would not have needed any generator or datastructure in the 
 We could have just iterated over the \pythonilIdx{range} directly, which would have been even more efficient {\dots} but then we could not have used this as an example.%
 %
 \gitLoadAndExecPython{iteration:generator_expressions_to_collection}{}{iteration}{generator_expressions_to_collection.py}{}%
-\listingPythonAndOutput{iteration:generator_expressions_to_collection}{generator_expressions_to_collection.py}{%
+\listingPythonAndOutput{iteration:generator_expressions_to_collection}{%
 Using generator expressions when creating collection datastructures\pythonIdx{Generator}\pythonIdx{list}\pythonIdx{dict}.}{}%
 %
 \begin{sloppypar}%
@@ -648,11 +648,11 @@ Passing generators to \pythonilIdx{list}, \pythonilIdx{set}, or \pythonilIdx{dic
 \hsection{Generator Functions}%
 %
 \gitLoadAndExecPythonAndErrors{iteration:simple_generator_function_1}{}{iteration}{simple_generator_function_1.py}{}%
-\listingPythonAndError{iteration:simple_generator_function_1}{simple_generator_function_1.py}{%
+\listingPythonAndError{iteration:simple_generator_function_1}{%
 A very simple generator function yielding the numbers~1, 2, and~3\pythonIdx{Generator}.}%
 %
 \gitLoadAndExecPython{iteration:simple_generator_function_2}{}{iteration}{simple_generator_function_2.py}{}%
-\listingPythonAndOutput{iteration:simple_generator_function_2}{simple_generator_function_2.py}{%
+\listingPythonAndOutput{iteration:simple_generator_function_2}{%
 A generator function yielding the infinite sequence of Fibonacci numbers\pythonIdx{Generator}~\cite{W2024MAWWR:FN,S2022FLAATIMEOLPBOC}.}{}%
 %
 \gitLoadPython{iteration:prime_generator}{}{iteration/prime_generator.py}{}%
@@ -728,7 +728,7 @@ You can use \pytest\ by yourself to check whether the code works as expected\dot
 \label{sec:operationsOnIterators}%
 %
 \gitLoadAndExecPython{iteration:filter_takewhile}{}{iteration}{filter_takewhile.py}{}%
-\listingPythonAndOutput{iteration:filter_takewhile}{filter_takewhile.py}{%
+\listingPythonAndOutput{iteration:filter_takewhile}{%
 An example for \pythonilIdx{takewhile}\pythonIdx{itertools!takewhile} and \pythonilIdx{filter}.}{}%
 %
 Sequences play a very important role in \python\ programming.
@@ -765,7 +765,7 @@ There are ten such primes.
 The smallest one is $1^2+1=2$ and the largest one is~$26^2+1=677$.
 
 \gitLoadAndExecPython{iteration:map}{}{iteration}{map.py}{}%
-\listingPythonAndOutput{iteration:map}{map.py}{%
+\listingPythonAndOutput{iteration:map}{%
 An example for the function \pythonilIdx{map}.}{}%
 %
 Another important utility function when dealing with sequences is the function~\pythonilIdx{map}.

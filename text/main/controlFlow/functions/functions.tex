@@ -95,7 +95,7 @@ After the function and its body are defined, leave \emph{two} blank lines before
 }%
 %
 \gitLoadAndExecPython{functions:def_factorial}{}{functions}{def_factorial.py}{}%
-\listingPythonAndOutput{functions:def_factorial}{def_factorial.py}{%
+\listingPythonAndOutput{functions:def_factorial}{%
 Implementing a function computing the factorial of a positive integer number.}{}%
 %
 After all of this long introduction, let us finally come to some example.
@@ -138,7 +138,7 @@ Inside this loop and in the \pgls{fstring}, we can use the function \pythonil{fa
 It may be an interesting side information at the end of this example that the factorial can actually be computed \emph{faster} than using this product form, see, e.g.~\cite{L2015ANKOFF}.
 
 \gitLoadAndExecPython{functions:def_gcd}{}{functions}{def_gcd.py}{}%
-\listingPythonAndOutput{functions:def_gcd}{def_gcd.py}{%
+\listingPythonAndOutput{functions:def_gcd}{%
 Implementing the Euclidean Algorithm as a function and calling it from another function.}{}%
 
 Functions can have a more than one parameter or no parameter at all.
@@ -245,7 +245,7 @@ It just provides the functions.
 We will use them elsewhere.
 
 \gitLoadAndExecPython{functions:use_my_math}{}{functions}{use_my_math.py}{}%
-\listingPythonAndOutput{functions:use_my_math}{use_my_math.py}{%
+\listingPythonAndOutput{functions:use_my_math}{%
 A program using the functions \pythonil{sqrt} and \pythonil{factorial} from the module \pythonil{my_math} given in \cref{lst:functions:my_math}.}{}%
 %
 \begin{sloppypar}%
@@ -529,7 +529,7 @@ And its core developers mark reliability, shown by thorough tests, as one of the
 Implementing the probability density function~(PDF) of the normal distribution as function with default argument values.\pythonIdx{pi}\pythonIdx{exp}\pythonIdx{sqrt}}%
 %
 \gitLoadAndExecPython{functions:use_normal_pdf}{}{functions}{use_normal_pdf.py}{}%
-\listingPythonAndOutput{functions:use_normal_pdf}{use_normal_pdf.py}{%
+\listingPythonAndOutput{functions:use_normal_pdf}{%
 Using the PDF of the normal distribution implemented in \cref{lst:functions:normal_pdf}.}{}%
 %
 After the brief introduction into \pglspl{unitTest}, let us now come to a lighter topic: passing arguments to functions.%
@@ -686,7 +686,7 @@ The larger~$n$, the smaller will the strips get, the more accurate should our es
 \end{figure}%
 %
 \gitLoadAndExecPython{functions:integral}{}{functions}{integral.py}{}%
-\listingPythonAndOutput{functions:integral}{integral.py}{%
+\listingPythonAndOutput{functions:integral}{%
 Using the trapezoid method to numerically approximate definite integrals, as sketched in \cref{fig:normalDistPdfInteg}.}{}%
 
 The trapezoid method is one very simple implementation of this idea~\cite{E2013AITNMAA}.

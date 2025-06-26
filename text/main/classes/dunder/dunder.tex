@@ -19,7 +19,7 @@ This means that we can implement, create, change, and customize all of the funct
 \label{sec:strReprEq}%
 %
 \gitLoadAndExecPython{dunder:str_vs_repr}{}{dunder}{str_vs_repr.py}{}%
-\listingPythonAndOutput{dunder:str_vs_repr}{str_vs_repr.py}{%
+\listingPythonAndOutput{dunder:str_vs_repr}{%
 Comparing the \pythonilIdx{str} and \pythonilIdx{repr} representations of integers, strings, lists, and \python's \pythonilIdx{datetime}\pythonIdx{datetime!datetime}\pythonIdx{datetime!datetime!now}\pythonIdx{datetime!UTC} class.}{}%
 %
 In \python, we can distinguish two forms of string representations of a given object~\pythonil{o}:%
@@ -81,7 +81,7 @@ This would re-create the \pythonil{right\_now} object with the same data.
 This would also work with the string representations that we printed for our lists \pythonil{l1} and \pythonil{l2} above.
 
 \gitLoadAndExecPython{dunder:point_user_2}{}{dunder}{point_user_2.py}{}%
-\listingPythonAndOutput{dunder:point_user_2}{point_user_2.py}{%
+\listingPythonAndOutput{dunder:point_user_2}{%
 Investigating string representations and equality for the class~\pythonil{Point}.}{}%
 %
 Let us now move a bit backwards and revisit a previous example we created by ourselves.
@@ -135,7 +135,7 @@ Anything else would be nonsense.
 Our \pythonil{Point} class, extended with the \dunder{str}, \dunder{repr}, and \dunder{eq}\pythonIdx{NotImplementedType} dunder methods.}%
 %
 \gitLoadAndExecPython{dunder:point_with_dunder_user}{}{dunder}{point_with_dunder_user.py}{}%
-\listingPythonAndOutput{dunder:point_with_dunder_user}{point_with_dunder_user.py}{%
+\listingPythonAndOutput{dunder:point_with_dunder_user}{%
 The same program exploring string representations and equality as shown in \cref{lst:dunder:point_user_2}, but this time using our new \pythonil{Point} class from \cref{lst:dunder:point_with_dunder}.}{}%
 
 In order to fix all of the problems discussed above, we implement the three dunder methods \dunder{str}, \dunder{repr}, and \dunder{eq} for our \pythonil{Point} class in \cref{lst:dunder:point_with_dunder}.
@@ -176,7 +176,7 @@ As you can see in \cref{exec:dunder:point_with_dunder_user}, its output now matc
 Our \pythonil{Point} class, extended with the \dunder{eq} and \dunder{hash} dunder methods.}%
 %
 \gitLoadAndExecPython{dunder:point_with_hash_user}{}{dunder}{point_with_hash_user.py}{}%
-\listingPythonAndOutput{dunder:point_with_hash_user}{point_with_hash_user.py}{%
+\listingPythonAndOutput{dunder:point_with_hash_user}{%
 Using the new \pythonil{Point} class from \cref{lst:dunder:point_with_hash} in sets and dictionaries.}{}%
 %
 Our \pythonil{Point} objects are immutable and just consist of two numerical coordinates.
@@ -1433,11 +1433,11 @@ Therefore, we only need to pass the parameters~\pythonil{name} and~\pythonil{att
 With this, our simple \pgls{API} for a subset of the \pgls{XML} standard~\cite{BPSMM2008EMLX1FE} is already completed.%
 %
 \gitLoadAndExecPython{dunder:xml_user_print}{}{dunder}{xml_user_print.py}{}%
-\listingPythonAndOutput{dunder:xml_user_print}{xml_user_print.py}{%
+\listingPythonAndOutput{dunder:xml_user_print}{%
 An example of using our simple context manager-based \pgls{XML} output API from \cref{lst:dunder:xml_context:part_1,lst:dunder:xml_context:part_2}, where the output is printed to the \pgls{stdout}.}{,style=xml_style}%
 %
 \gitLoadAndExecPython{dunder:xml_user_file}{}{dunder}{xml_user_file.py}{}%
-\listingPythonAndOutput{dunder:xml_user_file}{xml_user_file.py}{%
+\listingPythonAndOutput{dunder:xml_user_file}{%
 An example of using our simple context manager-based \pgls{XML} output API from \cref{lst:dunder:xml_context:part_1,lst:dunder:xml_context:part_2}, where the output is written to a text file\pythonIdx{write}\pythonIdx{IO!write}\pythonIdx{open}\pythonIdx{remove}\pythonIdx{os!remove}.}{,style=xml_style}%
 
 We now use this \pgls{API} in \cref{lst:dunder:xml_user_print,lst:dunder:xml_user_file} to basically reproduce the small \pgls{XML}~snippet that I showed you before.

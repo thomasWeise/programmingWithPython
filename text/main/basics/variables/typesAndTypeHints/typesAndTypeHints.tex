@@ -3,7 +3,7 @@
 %
 \hsection{Variable Types}%
 \gitLoadAndExecPython{variables:types}{}{variables}{variable_types.py}{}%
-\listingPythonAndOutput{variables:types}{variable_types.py}{%
+\listingPythonAndOutput{variables:types}{%
 An example of the types of variables.}{}%
 %
 A variable is basically a name pointing to an object.
@@ -18,7 +18,7 @@ There really is not much to say about that.%
 \label{sec:typesAndConfusion}%
 %
 \gitLoadAndExecPython{variables:types_wrong}{}{variables}{variable_types_wrong.py}{}%
-\listingPythonAndOutput{variables:types_wrong}{variable_types_wrong.py}{%
+\listingPythonAndOutput{variables:types_wrong}{%
 An example of the confusing variable types.}{}%
 %
 Well, actually, there is.
@@ -191,11 +191,11 @@ However, by writing \pythonil{: int}\pythonIdx{:} after its name, we also clearl
 And this makes a difference.
 
 \gitLoadAndExecPython{variables:types_wrong_hints_1}{}{variables}{variable_types_wrong_hints_1.py}{}%
-\listingPythonAndOutput{variables:types_wrong_hints_1}{variable_types_wrong_hints_1.py}{%
+\listingPythonAndOutput{variables:types_wrong_hints_1}{%
 \cref{lst:variables:types_wrong}, but with the variable explicitly hinted as \pythonil{int}.}{}%
 %%
 \gitLoadAndExecPython{variables:types_wrong_hints_2}{}{variables}{variable_types_wrong_hints_2.py}{}%
-\listingPythonAndOutput{variables:types_wrong_hints_2}{variable_types_wrong_hints_2.py}{%
+\listingPythonAndOutput{variables:types_wrong_hints_2}{%
 \cref{lst:variables:types_wrong}, but with the variable explicitly hinted as either \pythonil{int} or \pythonil{float} and named appropriately.}{}%
 %
 \gitExec{exec:variables:variable_types_wrong_hints_1:mypy}{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh variables variable_types_wrong_hints_1.py}%

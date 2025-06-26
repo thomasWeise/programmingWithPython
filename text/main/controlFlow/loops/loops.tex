@@ -23,11 +23,11 @@ normal statement 2
 %
 %
 \gitLoadAndExecPython{loops:for_loop_range}{}{loops}{for_loop_range.py}{}%
-\listingPythonAndOutput{loops:for_loop_range}{for_loop_range.py}{%
+\listingPythonAndOutput{loops:for_loop_range}{%
 An example of using the \pythonilIdx{for} loop over a \pythonilsIdx{range} of integer numbers.}{}%
 %
 \gitLoadAndExecPython{loops:for_loop_pi_liu_hui}{}{loops}{for_loop_pi_liu_hui.py}{}%
-\listingPythonAndOutput{loops:for_loop_pi_liu_hui}{for_loop_pi_liu_hui.py}{%
+\listingPythonAndOutput{loops:for_loop_pi_liu_hui}{%
 A variant of \cref{lst:variables:pi_liu_hui} which uses a \pythonilIdx{for} loop instead of five copies of the same instructions.}{}%
 %
 The keyword~\pythonilIdx{for} is followed by a loop variable.
@@ -90,7 +90,7 @@ The outputs in \cref{exec:variables:pi_liu_hui,exec:loops:for_loop_pi_liu_hui} a
 \hsection{The \texttt{continue} and \texttt{break} Statements}%
 %
 \gitLoadAndExecPython{loops:for_loop_continue_break}{}{loops}{for_loop_continue_break.py}{}%
-\listingPythonAndOutput{loops:for_loop_continue_break}{for_loop_continue_break.py}{%
+\listingPythonAndOutput{loops:for_loop_continue_break}{%
 An example of the \pythonilIdx{continue} and \pythonilIdx{break} statements in a \pythonilIdx{for} loop.}{}%
 %
 Loops often have complex bodies, maybe containing conditional statements or other loops.
@@ -128,7 +128,7 @@ With \pythonilIdx{break} and \pythonilIdx{continue}, we now have two tools that 
 \hsection{Nesting Loops}%
 %
 \gitLoadAndExecPython{loops:for_loop_nested_primes}{}{loops}{for_loop_nested_primes.py}{}%
-\listingPythonAndOutput{loops:for_loop_nested_primes}{for_loop_nested_primes.py}{%
+\listingPythonAndOutput{loops:for_loop_nested_primes}{%
 Computing a list of all primes from \intRange{2}{200} using nested \pythonilIdx{for} loops.}{}%
 %
 Like conditional statements, \pythonilIdx{for}~loops can be arbitrarily nested.
@@ -191,7 +191,7 @@ The output in \cref{exec:loops:for_loop_nested_primes} tells us that, after perf
 \label{sec:loopsOverSequences}%
 %
 \gitLoadAndExecPython{loops:for_loop_sequence}{}{loops}{for_loop_sequence.py}{}%
-\listingPythonAndOutput{loops:for_loop_sequence}{for_loop_sequence.py}{%
+\listingPythonAndOutput{loops:for_loop_sequence}{%
 An example iterating over the elements in different collection datastructures using \pythonilIdx{for} loops\pythonIdx{loop!for}.}{}%
 %
 When introducing the \pythonilIdx{for} loop\pythonIdx{for}\pythonIdx{loop!for}, we stated that it iterates over sequences of data.
@@ -268,7 +268,7 @@ Thus, invoking \pythonil{", ".join(txt)} produces \textil{i=1, i=2, i=3, i=50, f
 This text is finally is written to the output via the \pythonilIdx{print} function, giving us the results shown in  \cref{exec:loops:for_loop_sequence}.
 
 \gitLoadAndExecPython{loops:for_loop_sequence_primes}{}{loops}{for_loop_sequence_primes.py}{}%
-\listingPythonAndOutput{loops:for_loop_sequence_primes}{for_loop_sequence_primes.py}{%
+\listingPythonAndOutput{loops:for_loop_sequence_primes}{%
 Computing a list of all primes from \intRange{2}{200} using nested \pythonilIdx{for} loops. %
 Compared to \cref{lst:loops:for_loop_nested_primes}, this program is more efficient because it only tests primes as divisors.%
 }{}
@@ -303,7 +303,7 @@ We will also see how the \pythonilIdx{for}~keyword can be used to construct sequ
 \label{sec:enumOverSequences}%
 %
 \gitLoadAndExecPython{loops:for_loop_no_enumerate}{}{loops}{for_loop_no_enumerate.py}{}%
-\listingPythonAndOutput{loops:for_loop_no_enumerate}{for_loop_no_enumerate.py}{%
+\listingPythonAndOutput{loops:for_loop_no_enumerate}{%
 Enumerating over the index-value pairs of a list (inefficiently).}{}%
 %
 Assume that we have a list \pythonil{data} of integer values~\pythonil{v}.
@@ -346,7 +346,7 @@ We provide a script for using \pylint\ with a reasonable default configuration i
 The results of static code analysis using the \pylint\ \pgls{linter} for the program given in \cref{lst:loops:for_loop_no_enumerate}.}%
 %
 \gitLoadAndExecPython{loops:for_loop_enumerate}{}{loops}{for_loop_enumerate.py}{}%
-\listingPythonAndOutput{loops:for_loop_enumerate}{for_loop_enumerate.py}{%
+\listingPythonAndOutput{loops:for_loop_enumerate}{%
 Enumerating over the index-value pairs of a list using the \pythonilIdx{enumerate} function.}{}%
 %
 In \cref{exec:loops:for_loop_no_enumerate:pylint}, \pylint\ suggest that we should iterate over the list \pythonil{data} using the \pythonilIdx{enumerate} function.
@@ -405,7 +405,7 @@ normal statement 2
 \FloatBarrier%
 %
 \gitLoadAndExecPython{loops:while_loop_sqrt}{}{loops}{while_loop_sqrt.py}{}%
-\listingPythonAndOutput{loops:while_loop_sqrt}{while_loop_sqrt.py}{%
+\listingPythonAndOutput{loops:while_loop_sqrt}{%
 We compute the square root of a number using Heron's Method~\cite{S2011NA:NA,K2009BMOCTSRJBOFTAOCC} implemented as py \pythonilIdx{while} loop.}{}%
 %
 In the \pythonilIdx{while} loop, the body is executed as long as a Boolean expression in the head of the loop evaluates to~\pythonilIdx{True}.
@@ -481,7 +481,7 @@ normal statement 2
 \end{pythonSyntax}
 %
 \gitLoadAndExecPython{loops:while_loop_search}{}{loops}{while_loop_search.py}{}%
-\listingPythonAndOutput{loops:while_loop_search}{while_loop_search.py}{%
+\listingPythonAndOutput{loops:while_loop_search}{%
 We implement binary search~\cite{K1998SAS,H2024POIC:BS,B1999PP} using a \pythonilIdx{while} loop with a \pythonilIdx{break} statement.}{}%
 %
 We now use this construct to implement a binary search~\cite{K1998SAS,H2024POIC:BS,B1999PP}.

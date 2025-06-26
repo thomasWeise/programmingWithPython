@@ -8,15 +8,15 @@ They work very similar to the strings we already discussed in \cref{sec:str}, bu
 \label{sec:lists:basicFunctions}%
 %
 \gitLoadAndExecPython{lists:lists_1}{}{collections}{lists_1.py}{}%
-\listingPythonAndOutput{lists:lists_1}{lists_1.py}{%
+\listingPythonAndOutput{lists:lists_1}{%
 A first example for using lists in \python:~creating, indexing, printing of and appending elements and other lists to lists.}{}%
 %
 \gitLoadAndExecPython{lists:lists_2}{}{collections}{lists_2.py}{}%
-\listingPythonAndOutput{lists:lists_2}{lists_2.py}{%
+\listingPythonAndOutput{lists:lists_2}{%
 A second example of using lists in \python: inserting and deleting elements, sorting and reversing lists.}{}%
 %
 \gitLoadAndExecPython{lists:lists_3}{}{collections}{lists_3.py}{}%
-\listingPythonAndOutput{lists:lists_3}{lists_3.py}{%
+\listingPythonAndOutput{lists:lists_3}{%
 A third example of using lists in \python: slicing, adding, and multiplying lists.}{}%
 %
 In \cref{lst:lists:lists_1}, we provide some first examples for using lists.
@@ -147,7 +147,7 @@ If we know the number of elements in the list in our program, then we can assign
 \label{sec:listExampleForErrorsAndRuff}%
 %
 \gitLoadAndExecPython{lists:lists_error}{}{collections}{lists_error.py}{}%
-\listingPythonAndOutput{lists:lists_error}{lists_error.py}{%
+\listingPythonAndOutput{lists:lists_error}{%
 A program processing lists which exhibits some subtle errors and inefficiencies.}{}%
 %
 Now, in the previous chapter, we learned that static code analysis tools can help us to discover subtle problems in our programs.
@@ -206,7 +206,7 @@ It basically creates a list via \pythonil{[1, 2, 3]} and then immediately makes 
 We can leave this outer call to \pythonil{list} away.
 
 \gitLoadAndExecPython{lists:lists_fixed}{}{collections}{lists_fixed.py}{}%
-\listingPythonAndOutput{lists:lists_fixed}{lists_fixed.py}{%
+\listingPythonAndOutput{lists:lists_fixed}{%
 The corrected version of~\cref{lst:lists:lists_error}, taking into account the information given by \mypy\ in \cref{exec:lists:lists_error:mypy} and \ruff\ in \cref{exec:lists:lists_error:ruff}.}{}%
 %
 %

@@ -24,7 +24,7 @@ normal statement 2
 \FloatBarrier%
 %
 \gitLoadAndExecPython{conditionals:if}{}{conditionals}{if_example.py}{}%
-\listingPythonAndOutput{conditionals:if}{if_example.py}{%
+\listingPythonAndOutput{conditionals:if}{%
 An example of using the \pythonilIdx{if} statement.}{}%
 %
 The first line begins with \pythonilIdx{if}~statement, followed by a Boolean expression, followed by a colon~(\pythonilIdx{:}).
@@ -68,11 +68,11 @@ The output of our program given in \cref{exec:conditionals:if} confirms that 202
 \hsection{The \texttt{if}\dots\texttt{else} Statement}%
 %
 \gitLoadAndExecPython{conditionals:if_else}{}{conditionals}{if_else_example.py}{}%
-\listingPythonAndOutput{conditionals:if_else}{if_else_example.py}{%
+\listingPythonAndOutput{conditionals:if_else}{%
 An example of using the \pythonil{if ... else}\pythonIdx{if{\idxdots}else} statement.}{}%
 %
 \gitLoadAndExecPython{conditionals:if_else_nested}{}{conditionals}{if_else_nested.py}{}%
-\listingPythonAndOutput{conditionals:if_else_nested}{if_else_nested.py}{%
+\listingPythonAndOutput{conditionals:if_else_nested}{%
 An example of using nested \pythonil{if ... else}\pythonIdx{if{\idxdots}else!nested} statements.}{}%
 %
 The ability to perform some action if a given expression evaluates to \pythonil{True} is already nice.
@@ -140,7 +140,7 @@ The minimum is obtained using~\pythonil{min(a, b, c)}.%
 \hsection{The \texttt{if}\dots\texttt{elif}\dots\texttt{else} Statement}%
 %
 \gitLoadAndExecPython{conditionals:if_elif}{}{conditionals}{if_elif_example.py}{}%
-\listingPythonAndOutput{conditionals:if_elif}{if_elif_example.py}{%
+\listingPythonAndOutput{conditionals:if_elif}{%
 An example of using the \pythonil{if ... elif}\pythonIdx{if{\idxdots}elif{\idxdots}else} statement.}{}%
 %
 \gitExec{exec:conditionals:if_else_nested:ruff}{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh conditionals if_else_nested.py}%
@@ -148,7 +148,7 @@ An example of using the \pythonil{if ... elif}\pythonIdx{if{\idxdots}elif{\idxdo
 The results of linting with \ruff\ of the program given in \cref{lst:conditionals:if_else_nested}.}%
 %
 \gitLoadAndExecPython{conditionals:if_elif_nested}{}{conditionals}{if_elif_nested.py}{}%
-\listingPythonAndOutput{conditionals:if_elif_nested}{if_elif_nested.py}{%
+\listingPythonAndOutput{conditionals:if_elif_nested}{%
 An example of using the nested \pythonil{if ... elif}\pythonIdx{if{\idxdots}elif{\idxdots}else!nested} statement based on the recommendations of the \ruff\ \pgls{linter} applied to \cref{lst:conditionals:if_else_nested}.}{}%
 %
 %
@@ -225,7 +225,7 @@ This program achieves in 15 lines for what \cref{lst:conditionals:if_else_nested
 \label{sec:inlineIfThenElse}%
 %
 \gitLoadAndExecPython{conditionals:if_else_could_be_inline}{}{conditionals}{if_else_could_be_inline.py}{}%
-\listingPythonAndOutput{conditionals:if_else_could_be_inline}{if_else_could_be_inline.py}{%
+\listingPythonAndOutput{conditionals:if_else_could_be_inline}{%
 An example of using the nested \pythonil{if ... else}\pythonIdx{if{\idxdots}elif{\idxdots}else} statements that could be inlined. %
 See \cref{lst:conditionals:inline_if_else} for the more compact inlined variant.}{}%
 %
@@ -234,7 +234,7 @@ See \cref{lst:conditionals:inline_if_else} for the more compact inlined variant.
 The results of linting with \ruff\ of the program given in \cref{lst:conditionals:if_else_could_be_inline}.}%
 %
 \gitLoadAndExecPython{conditionals:inline_if_else}{}{conditionals}{inline_if_else.py}{}%
-\listingPythonAndOutput{conditionals:inline_if_else}{inline_if_else.py}{%
+\listingPythonAndOutput{conditionals:inline_if_else}{%
 An example of using the inline \pythonil{if ... else}\pythonIdx{if{\idxdots}else!inline} expression to shorten \cref{lst:conditionals:if_else_could_be_inline}, which incorporates the suggestion by \ruff\ in \cref{exec:conditionals:if_else_could_be_inline:ruff}.}{}%
 %
 A very common use case of \pythonil{if...else}~statements is to assign values to variables.
