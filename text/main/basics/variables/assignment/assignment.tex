@@ -157,6 +157,25 @@ For the sake of creating readable code that fits nicely together with code from 
 Variable names should be lowercase, with words separated by underscores~\cite{PEP8}.%
 }
 %
+We now have seen some best practices on styling our code, e.g., \cref{bp:variableNames,bp:longstrDoubleQuote,bp:comments}, and many more such best practices will follow.
+Before continuing further, let us revisit the deeper meaning behind them.
+Why is it important to style our code in a consistent way?
+Why can't we just write things down in any way that pleases us?%
+%
+\bestPractice{codeStyle}{%
+Regardless which programming language you are using, it is important to write code and scripts in a consistent style, to use a consistent naming scheme for all things that can be named, and to follow the generally established best practices and norms for that language.%
+}%
+For many programming languages, there exist comprehensive and clear style guides.
+Since we usually work collaboratively on larger projects, writing code in a consistent style is very important.
+Ideally, all collaborators can open a source code file and easily read and understand our code.
+If everybody writes code in different styles, maybe using different indentations or different naming conventions, reading code can become harder and even confusing.
+Therefore, style guides often tell us how to name things and how to structure code consistently.%
+%
+\bestPractice{PEP8}{%
+The most important style guide for the \python\ programming language is PEP8:~\citetitle{PEP8}~\cite{PEP8} at \citeurl{PEP8}. %
+\python\ code violating PEP8 is invalid \python code.%
+}%
+%
 \FloatBarrier%
 \endhsection%
 %
@@ -241,7 +260,7 @@ A \python\ program showing several steps of the approximation of~\numberPi\ usin
 \centering%
 %
 \subfloat[][%
-The file \textil{pi_liu_hui.py} opened in \pycharm.%
+The file \programUrl{variables:pi_liu_hui} opened in \pycharm.%
 \label{fig:liuHuiPiPyCharm1}%
 ]{%
 \tightbox{\includegraphics[width=0.49\linewidth]{\currentDir/liuHuiPiPyCharm1}}%
@@ -249,7 +268,7 @@ The file \textil{pi_liu_hui.py} opened in \pycharm.%
 \hfill%
 %
 \subfloat[][%
-Left-clicking on \menu{Run `pi\_liu\_hui'} in the pop-up menu after right-clicking on \textil{pi_liu_hui.py}, or directly pressing \keys{\ctrl+\shift+F10}, to run the program.%
+Left-clicking on \menu{Run `pi\_liu\_hui'} in the pop-up menu after right-clicking on \programUrl{variables:pi_liu_hui}, or directly pressing \keys{\ctrl+\shift+F10}, to run the program.%
 \label{fig:liuHuiPiPyCharm2}%
 ]{%
 \tightbox{\includegraphics[width=0.49\linewidth]{\currentDir/liuHuiPiPyCharm2}}%
@@ -257,7 +276,7 @@ Left-clicking on \menu{Run `pi\_liu\_hui'} in the pop-up menu after right-clicki
 \\%
 %
 \subfloat[][%
-The output of the program \textil{pi_liu_hui.py} in \pycharm.%
+The output of the program \programUrl{variables:pi_liu_hui} in \pycharm.%
 \label{fig:liuHuiPiPyCharm3}%
 ]{%
 \tightbox{\includegraphics[width=0.7\linewidth]{\currentDir/liuHuiPiPyCharm3}}%
@@ -265,13 +284,13 @@ The output of the program \textil{pi_liu_hui.py} in \pycharm.%
 \\%
 %
 \subfloat[][%
-The output of the program \textil{pi_liu_hui.py} in the \ubuntu\ \pgls{terminal} (which you can open via~\ubuntuTerminal).%
+The output of the program \programUrl{variables:pi_liu_hui} in the \ubuntu\ \pgls{terminal} (which you can open via~\ubuntuTerminal).%
 \label{fig:liuHuiPiTerminal}%
 ]{%
 \includegraphics[width=0.7\linewidth]{\currentDir/liuHuiPiTerminal}%
 }%
 %
-\caption{Running the program \textil{pi_liu_hui.py} from \cref{lst:variables:assignment} in \pycharm~(\cref{fig:assignmentPyCharm1,fig:assignmentPyCharm2,fig:assignmentPyCharm3}) or the \ubuntu\ \pgls{terminal}~(\cref{fig:assignmentTerminal}).}%
+\caption{Running the program \programUrl{variables:pi_liu_hui} from \cref{lst:variables:assignment} in \pycharm~(\cref{fig:assignmentPyCharm1,fig:assignmentPyCharm2,fig:assignmentPyCharm3}) or the \ubuntu\ \pgls{terminal}~(\cref{fig:assignmentTerminal}).}%
 \label{fig:variables:liuHuiPi}%
 \end{figure}%
 %

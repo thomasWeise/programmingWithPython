@@ -95,8 +95,8 @@ They are not the same object.
 
 We can change~\pythonil{cpy} by deleting its first element via~\pythonil{del cpy[0]}.
 \pythonil{numbers} will be unaffected by this and stays unchanged.
-Now, both \pythonil{cpy == numbers} and \pythonil{cpy is numbers}\pythonIdx{is} will be~\pythonil{False}.
-By the way, in the same manner as \pythonil{not in} is the opposite of the \pythonil{in}~operator, \pythonilIdx{not is} is the opposite of~\pythonilIdx{is}:
+Now, both \pythonil{cpy == numbers}\pythonIdx{==} and \pythonil{cpy is numbers}\pythonIdx{is} will be~\pythonil{False}.
+By the way, in the same manner as \pythonilIdx{not in} is the opposite of the \pythonil{in}~operator, \pythonilIdx{not is} is the opposite of~\pythonilIdx{is}:
 \pythonil{cpy is not numbers} yields \pythonil{True} because \pythonil{cpy} is not the same object as \pythonil{numbers}.
 
 In \cref{lst:lists:lists_3}, we continue our journey through the magical land of \python\ \pythonils{list}.
@@ -109,7 +109,7 @@ Similarly, if you multiply a list by an integer~\pythonil{n}, you get a new list
 In \cref{sec:strBasicOperations}, we discussed string slicing.
 Lists can be sliced in pretty much the same way\pythonIdx{list!slicing}\pythonIdx{slicing}\pythonIdx{slice}~\cite{PSF:P3D:TPLR:S}.
 When slicing a list~\pythonil{l} or a string, you can provide either two or three values in the square brackets\pythonIdx{[\idxdots]}\pythonIdx{[i:j:k]}, i.e., either do~\pythonil{l[i:j]}\pythonIdx{[i:j]}\pythonIdx{slicing} or \pythonil{l[i:j:k]}.
-If \pythonil{j < 0}, then it is replaced with~\pythonil{len(l) - j}.
+If \pythonil{j < 0}, then it is replaced with~\pythonil{len(l) - j}\pythonIdx{len}.
 In both the two and three indices case, \pythonil{i} is the inclusive start index and \pythonil{j} is the exclusive end index, i.e., all elements with index~\pythonil{m} such that \pythonil{i <= m < j}.
 In other words, the slice will contain elements from~\pythonil{l} whose index is between~\pythonil{i} and~\pythonil{j}, including the element at index~\pythonil{i} but \emph{not} including the element at index~\pythonil{j}.
 If a third index~\pythonil{k} is provided, the it is the step length.
