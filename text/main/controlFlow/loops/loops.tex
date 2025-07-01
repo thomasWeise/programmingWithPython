@@ -10,17 +10,7 @@ Loops allow us to do just that, to perform the same actions multiple times.%
 \pythonIdx{loop!for}%
 The most basic such sequence in \python\ may be the \pythonilIdx{for}~loop, which has the following pattern:%
 %
-\begin{pythonSyntax}
-for loopVariable in sequence:
-    loop body statement 1
-    loop body statement 2
-    # ...
-
-normal statement 1
-normal statement 2
-# ...
-\end{pythonSyntax}
-%
+\pythonSyntax{syntax/for_loop.py}%
 %
 \gitLoadAndExecPython{loops:for_loop_range}{}{loops}{for_loop_range.py}{}%
 \listingPythonAndOutput{loops:for_loop_range}{%
@@ -392,16 +382,7 @@ We do not know the number of steps that we will need in advance.
 Of course, we could try to pick a very very huge number and then \pythonil{break} the loop when the guesses converg {\dots} but that is just ugly.
 The \pythonilIdx{while} comes to rescue:%
 %
-\begin{pythonSyntax}
-while booleanExpression:
-    loop body statement 1
-    loop body statement 2
-    # ...
-
-normal statement 1
-normal statement 2
-# ...
-\end{pythonSyntax}
+\pythonSyntax{syntax/while_loop.py}%
 \FloatBarrier%
 %
 \gitLoadAndExecPython{loops:while_loop_sqrt}{}{loops}{while_loop_sqrt.py}{}%
@@ -454,31 +435,8 @@ After the loop, we could place an \pythonil{if} to check if the variable is stil
 This is totally fine, but \python\ offers us a much less verbose method:
 Using the \pythonilIdx{else} statement at the bottom of the loop, which works for both \pythonilIdx{for} and \pythonilIdx{while} loops:%
 %
-\begin{pythonSyntax}
-for loopVariable in sequence:
-    loop body statement 1
-    loop body statement 2
-    # ...
-else:
-    code executed if break not invoked 1
-    # ...
-normal statement 1
-normal statement 2
-# ...
-\end{pythonSyntax}
-%
-\begin{pythonSyntax}
-while booleanExpression:
-    loop body statement 1
-    loop body statement 2
-    # ...
-else:
-    code executed if break not invoked 1
-    # ...
-normal statement 1
-normal statement 2
-# ...
-\end{pythonSyntax}
+\pythonSyntax{syntax/for_loop_else.py}%
+\pythonSyntax{syntax/while_loop_else.py}%
 %
 \gitLoadAndExecPython{loops:while_loop_search}{}{loops}{while_loop_search.py}{}%
 \listingPythonAndOutput{loops:while_loop_search}{%

@@ -48,21 +48,7 @@ Second, they offer us a simple way to group several operators under one \pgls{AP
 In this chapter, we discuss \pythoniles{class} in \python.
 Syntactly, \pythoniles{classes} follow the general blueprint below:%
 %
-\begin{pythonSyntax}
-class MyClass:   # or `class MyClass(MyBaseClass)`
-    """Docstring of the class."""
-
-    def __init__(self) -> None:
-        """Docstring of the initializer __init__."""
-        # initialize all attributes
-        #: Meaning of attribute 1
-        self.attribute_1: type hint = initial value
-        # ...
-
-    def my_method(self, param1, param2) -> result:
-        """Docstring of my_method."""
-        # compute something using the attributes
-\end{pythonSyntax}
+\pythonSyntax{syntax/class_init_method.py}%
 %
 \bestPractice{className}{\sloppy%
 Class names should follow the CapWords convention (often also called camel case), i.e., look like \pythonil{MyClass} or \pythonil{UniversityDepartment} (not \pythonil{my_class} or \pythonil{university_department})~\cite{PEP8}.}%

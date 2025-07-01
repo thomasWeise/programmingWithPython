@@ -107,10 +107,7 @@ Needing to write a literal in the same way that creates a list with the first on
 If we want to create a list with the logarithms of first five natural numbers, writing \pythonil{[log(1), log(2), log(3), log(4), log(5)]}\pythonIdx{log} looks clunky as well.
 Luckily, \python\ offers the much more convenient syntax of list comprehension\pythonIdx{list!comprehension}\pythonIdx{comprehension!list}~\cite{PEP202}:%
 %
-\begin{pythonSyntax}
-# Create a list from the items in a sequence; the condition is optional
-[expression for item in sequence if condition]
-\end{pythonSyntax}
+\pythonSyntax{syntax/list_comprehension.py}%
 %
 \gitLoadAndExecPython{iteration:simple_list_comprehension}{}{iteration}{simple_list_comprehension.py}{}%
 \listingPythonAndOutput{iteration:simple_list_comprehension}{%
@@ -343,10 +340,7 @@ We do this later in \cref{sec:dunder:debugging}.%
 Set comprehension works very much the same as list comprehension.
 The corresponding syntax is as follows:%
 %
-\begin{pythonSyntax}
-# Create a set from the items in a sequence; the condition is optional
-{expression for item in sequence if condition}
-\end{pythonSyntax}
+\pythonSyntax{syntax/set_comprehension.py}%
 %
 \gitLoadAndExecPython{iteration:simple_set_comprehension}{}{iteration}{simple_set_comprehension.py}{}%
 \listingPythonAndOutput{iteration:simple_set_comprehension}{%
@@ -399,10 +393,7 @@ This is also the difference between the syntax of set and dictionary comprehensi
 Both of them use curly braces, but in dictionary comprehension\pythonIdx{dict!comprehension}\pythonIdx{comprehension!dict}, keys and values are separated by~\pythonilIdx{:}, whereas in a set comprehension, only single values are given.
 Dictionary comprehension has the following syntax:%
 %
-\begin{pythonSyntax}
-# Create a dict from the items in a sequence; the condition is optional
-{expression1: expression2 for item in sequence if condition}
-\end{pythonSyntax}
+\pythonSyntax{syntax/dict_comprehension.py}%
 %
 \gitLoadAndExecPython{iteration:simple_dict_comprehension}{}{iteration}{simple_dict_comprehension.py}{}%
 \listingPythonAndOutput{iteration:simple_dict_comprehension}{%
@@ -472,14 +463,7 @@ All it requires is that the elements be provided via the \pythonilIdx{next} func
 To allow us to create \inQuotes{lazy} sequences that return their elements as needed (instead of keeping them all in memory all the time), generator expressions exist~\cite{PEP289}.
 The syntax for generator expressions is basically the same as for list expressions, except that we use parenthesis instead of square brackets:%
 %
-\begin{pythonSyntax}
-# A generator with the items in a sequence; the condition is optional
-(expression for item in sequence if condition)
-
-# If generator expressions are single function parameters, then the
-# parentheses are unnecessary.
-function(expression for item in sequence if condition)
-\end{pythonSyntax}
+\pythonSyntax{syntax/generator_comprehension.py}%
 %
 \gitLoadAndExecPython{iteration:generator_expressions_next_1}{}{iteration}{generator_expressions_next_1.py}{}%
 \listingPythonAndOutput{iteration:generator_expressions_next_1}{%

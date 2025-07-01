@@ -10,16 +10,7 @@ A conditional statement is basically a piece of program code which will execute 
 The condition is provided as the kind of Boolean expressions that we already discussed back in \cref{sec:bool}.
 The syntax for this in \python\ is very simple:%
 %
-\begin{pythonSyntax}
-if booleanExpression:
-    conditional statement 1
-    conditional statement 2
-    # ...
-
-normal statement 1
-normal statement 2
-# ...
-\end{pythonSyntax}
+\pythonSyntax{syntax/if.py}%
 %
 \FloatBarrier%
 %
@@ -82,20 +73,7 @@ We could write the same \pythonil{if} statment twice, but in the second one we w
 This seems to be quite verbose and verbosity leads to confusion.
 So we are offered a better alternative: the \pythonil{if ... else}\pythonIdx{if{\idxdots}else} statement, which looks like this:%
 %
-\begin{pythonSyntax}
-if booleanExpression:
-    conditional statement 1
-    conditional statement 2
-    # ...
-else:
-    alternative statement 1
-    alternative statement 2
-    # ...
-
-normal statement 1
-normal statement 2
-# ...
-\end{pythonSyntax}
+\pythonSyntax{syntax/if_else.py}%
 %
 The statement begins like a normal \pythonilIdx{if}~statement:
 \pythonil{if}, followed by a Boolean expression, followed by a colon~(\pythonilIdx{:}) marks the condition.
@@ -157,24 +135,7 @@ Since everytime we nest a conditional statement into another one we have to add 
 Therefore, the \pythonilIdx{elif} statement has been developed, which can replace an \pythonil{else} containing just another \pythonil{if}.
 The syntax of a combined \pythonil{if ... elif} looks like this:%
 %
-\begin{pythonSyntax}
-if booleanExpression 1:
-    conditional 1 statement 1
-    conditional 1 statement 2
-    # ...
-elif booleanExpression 2:  # such block can be placed arbitrarily often
-    conditional 2 statement 1
-    conditional 2 statement 2
-    # ...
-else:  # this, too, is optional
-    alternative statement 1
-    alternative statement 2
-    # ...
-
-normal statement 1
-normal statement 2
-# ...
-\end{pythonSyntax}
+\pythonSyntax{syntax/if_elif_else.py}%
 %
 Notice that we can use arbitrarily many \pythonils{elif}\pythonIdx{elif} and, optionally, one~\pythonilIdx{else}.
 Only if the condition of the \pythonilIdx{if} evaluates to~\pythonilIdx{False}, the condition of the first~\pythonilIdx{elif} is checked.
@@ -254,11 +215,7 @@ Likewise, in the \pythonil{if...elif...else} statement, each branch \emph{only} 
 \python\ offers us a more compact syntax for this, and \ruff\ can again give us some idea about that in \cref{exec:conditionals:if_else_could_be_inline:ruff}:
 The inline \pythonil{if...then...else} statement, which has the following syntax:%
 %
-\begin{pythonSyntax}[false]
-variable = valueA if conditionForUsingValueA else valueB
-
-variable = valueA if conditionForUsingValueA else (valueB if conditionForUsingValueB else valueC)
-\end{pythonSyntax}
+\pythonSyntax{syntax/if_else_inline.py}%
 %
 In the first variant, the value \pythonil{valueA} will be assigned to \pythonil{variable} if \pythonil{conditionForUsingValueA} evaluates to \pythonil{True}.
 Otherwise, \pythonil{valueB} is assigned.

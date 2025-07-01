@@ -235,18 +235,7 @@ In this case, the \pythonilIdx{ArithmeticError} would be available as local vari
 Of course, multiple different types of \pythonilsIdx{Exception} may be raised, so we can have multiple \pythonilIdx{except} blocks.
 This looks like this:%
 %
-\begin{pythonSyntax}
-try:  # Begin the try-except block.
-    # Code that may raise an exception or that
-    # calls a function that may rise one.
-except ExceptionType1 as ex1:  # One exception type that can be caught.
-    # Code the handles exceptions of type ExceptionType1.
-except ExceptionType2 as ex2:  # Another exception type (optional).
-    # Code the handles exceptions of type ExceptionType2 that are not
-    # instances of ExceptionType1.
-
-next statement  # Executed only if there are no uncaught Exceptions.
-\end{pythonSyntax}
+\pythonSyntax{syntax/try_except.py}%
 \FloatBarrier%
 %
 \gitLoadAndExecPython{exceptions:try_except_str_index}{}{exceptions}{try_except_str_index.py}{}%
@@ -378,18 +367,7 @@ What can we do if we need the result of a computation inside a \pythonilIdx{try}
 One possible solution in such a situation is the \pythonilIdx{try}-\pythonilIdx{except}-\pythonilIdx{else} block.
 The difference to the \pythonilIdx{try}-\pythonilIdx{except} block is only that an \pythonilIdx{else} block follows, which is executed if and only if no exception occurred.%
 %
-\begin{pythonSyntax}
-try:  # Begin the try-except block.
-    # Code that may raise an exception or that
-    # calls a function that may rise one.
-except ExceptionType1 as ex1:  # One exception type that can be caught.
-    # Code the handles exceptions of type ExceptionType1.
-# ... maybe more `except` blocks
-else:
-    # Code executed if and only if no Exception occurred.
-
-next statement  # Executed only if there are no uncaught Exceptions.
-\end{pythonSyntax}
+\pythonSyntax{syntax/try_except_else.py}%
 %
 \gitLoadAndExecPython{exceptions:try_except_else}{}{exceptions}{try_except_else.py}{}%
 \listingPythonAndOutput{exceptions:try_except_else}{%
@@ -433,20 +411,7 @@ For this purpose, the \pythonilIdx{try}-\pythonilIdx{finally} block exists.
 Basically, we can add a \pythonilIdx{finally} block that contains the code that should always be executed.
 While we definitely need a \pythonilIdx{try} block that contains that code that may cause an error, we can optionally add \pythonilIdx{except} blocks to handle certain \pythonilsIdx{Exception} and an \pythonilIdx{else} block to be executed if no error occurs.%
 %
-\begin{pythonSyntax}
-try:  # Begin the try-except block.
-    # Code that may raise an exception or that
-    # calls a function that may rise one.
-except ExceptionType1 as ex1:  # The **optional** except blocks.
-    # Code the handles exceptions of type ExceptionType1.
-# ... maybe more `except` blocks
-else:  # The **optional** else block.
-    # Code executed if and only if no Exception occurred.
-finally:  # The **optional** finally block.
-    # Code will always be executed, even if exceptions are uncaught.
-
-next statement  # Executed only if there are no uncaught Exceptions.
-\end{pythonSyntax}
+\pythonSyntax{syntax/try_except_else_finally.py}%
 %
 \gitLoadAndExecPythonAndErrors{exceptions:try_except_else_finally}{}{exceptions}{try_except_else_finally.py}{}%
 \listingPythonAndError{exceptions:try_except_else_finally}{%
@@ -599,15 +564,7 @@ Typical uses of context managers include saving and restoring various kinds of g
 %
 The \pythonilIdx{with} statement has the following syntax, where the \pythonil{expression} is supposed to return a context manager~\cite{PSF:P3D:TPLR:WSCM,PSF:P3D:TPSL:CUFWSC,PSF:P3D:TPLR:TWS,PEP343}.%
 %
-\begin{pythonSyntax}
-with expression as variable:
-    # block of code that works with variable
-
-# or
-
-with expression:
-    # block of code
-\end{pythonSyntax}
+\pythonSyntax{syntax/with.py}%
 %
 Right now, we are still lacking some background knowledge needed to discuss what a context manager exactly is or how it works.
 We will therefore do this later in \cref{sec:dunder:contextManager}.

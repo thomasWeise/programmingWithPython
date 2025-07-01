@@ -10,29 +10,7 @@ Now you will learn how to make your own functions.%
 \pythonIdx{def}\pythonIdx{function!def}%
 The syntax for defining our own functions in \python\ is as follows:%
 %
-\begin{pythonSyntax}
-def my_function(param_1: type, param_2: type, ...) -> result_type:
-    """
-    Short sentence describing the function.
-
-    The title of the so-called docstring is a short sentence stating
-    what the function does. It can be followed by several paragraphs of
-    text describing it in more detail. Then follows the list of
-    parameters, return values, and raised exceptions (if any).
-
-    :param param_1: the description of the first parameter (if any)
-    :param param_2: the description of the second parameter (if any)
-    :returns: the description of the return value (unless `-> None`).
-    """
-    body of function 1
-    body of function 2
-    return result  # if result_type is not None we return something
-
-
-normal statement 1
-normal statement 2
-my_function(argument_1, argument_2)  # we can call the function like this
-\end{pythonSyntax}
+\pythonSyntax{syntax/function.py}%
 %
 \pythonIdx{function!def}A function in \python\ is created by using the \pythonilIdx{def}\pythonIdx{function!def} keyword, followed by the name of the function.%
 %
@@ -354,9 +332,7 @@ These functions have no parameters and no return values.
 
 Tests are often defined in the form of several assertions assertions:\pythonIdx{assert}%
 %
-\begin{pythonSyntax}
-assert booleanExpr  # raises AssertionError if not booleanExpr
-\end{pythonSyntax}
+\pythonSyntax{syntax/assert.py}%
 %
 An assertion is defined by the keyword \pythonilIdx{assert} followed by an arbitrary Boolean expression.
 If the Boolean expression evaluates to \pythonil{True}, then nothing happens.
@@ -711,9 +687,7 @@ More precisely, it is the first parameter:~\pythonil{f: Callable[[float], float 
 \pythonilIdx{Callable} is the \pgls{typeHint} for anything that can be called, i.e., functions~\cite{PSF:P3D:TPSL:ACO}.
 Like the \pgls{typeHint} for lists and tuples, it can be parameterized following the scheme~\cite{PEP612}:%
 %
-\begin{pythonSyntax}
-Callable[[parameterType1, parameterType2, ...], resultType]
-\end{pythonSyntax}
+\pythonSyntax{syntax/callable.py}%
 %
 In other words, inside the \pythonil{Callable[...]}, we first provide the list of parameter types, then a comma~\pythonil{,} followed by the return type.
 \pythonil{f: Callable[[float], float | int]} thus states that our function expects, as first parameter, \emph{another function}~\pythonil{f}.
@@ -735,17 +709,7 @@ First, let's compute the definite integral~$\int_0^1 1\,dx$.
 For this purpose, we need to pass the function~$f(x)=1$ as the~\pythonil{f} parameter of~\pythonil{integrate}.
 We could do this by writing:%
 %
-\begin{pythonSyntax}
-def const_1(x: float) -> float:
-    return 1.0
-\end{pythonSyntax}
-%
-or%
-%
-\begin{pythonSyntax}
-def const_1(_: float) -> float:
-    return 1.0
-\end{pythonSyntax}
+\pythonSyntax{syntax/const_unary_function.py}%
 %
 where the \pythonil{_}\pythonIdx{\_} indicates that we are actually going to ignore this parameter~(see~\cref{bp:underscore}).
 We could then invoke~\pythonil{integrate(const_1)}.
@@ -753,17 +717,13 @@ We could then invoke~\pythonil{integrate(const_1)}.
 However, there also is a more compact way to specify functions that we are only going to use once:
 The so-called \pythonilsIdx{lambda}~\cite{PSF:P3D:TPLR:L}, which have the structure%
 %
-\begin{pythonSyntax}
-lambda param1, param2, ...: return value
-\end{pythonSyntax}
+\pythonSyntax{syntax/lambda.py}%
 %
 Due to the \pythonilIdx{:} in the notation, we cannot annotate \pythonilsIdx{lambda} with \pglspl{typeHint}.
 As a \pythonil{lambda} expression is very small and only used once, this does not pose a serious problem.
 Either way, since we need one parameter for our 1-returning-function and since we do not care about the value of this parameter, we can simply write:%
 %
-\begin{pythonSyntax}
-integrate(lambda _: 1.0)
-\end{pythonSyntax}
+\pythonSyntax{syntax/lambda_as_arg.py}%
 %
 \pythonilsIdx{lambda} are functions that we only want use in a single place.
 This is clearly the case for a function that ignores its parameter and always returns~\pythonil{1.0}.
