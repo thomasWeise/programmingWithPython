@@ -23,11 +23,12 @@ The book itself can be downloaded as pdf at <https://thomasweise.github.io/progr
 ### 2.2. Die Slides in Deutsch &mdash; The Slides in German Language
 Die Slides zum Kurs in deutscher Sprache können unter <https://thomasweise.github.io/programmingWithPythonSlidesDE> gefunden werden und sind hier aufgelistet:
 
-
 1. [Organisation](https://thomasweise.github.io/programmingWithPythonSlidesDE/01_organisation.pdf)
 2. [Einleitung](https://thomasweise.github.io/programmingWithPythonSlidesDE/02_einleitung.pdf)
 3. [Python Installieren](https://thomasweise.github.io/programmingWithPythonSlidesDE/03_python_installieren.pdf)
 4. [PyCharm Installieren](https://thomasweise.github.io/programmingWithPythonSlidesDE/04_pycharm_installieren.pdf)
+5. [Programme Erstellen und Ausführen](https://thomasweise.github.io/programmingWithPythonSlidesDE/05_programme_erstellen_und_ausführen.pdf)
+6. [Beispiele Herunterladen](https://thomasweise.github.io/programmingWithPythonSlidesDE/06_beispiele_herunterladen.pdf)
 
 ### 2.3. The Slides in English
 The slides for the course are available at <https://thomasweise.github.io/programmingWithPythonSlides> and also listed below.

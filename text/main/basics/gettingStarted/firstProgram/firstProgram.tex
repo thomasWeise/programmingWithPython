@@ -3,7 +3,7 @@
 \FloatBarrier%
 %
 We now want to write and execute our very first \python\ program.
-This program should just print \inQuotes{Hello World!} to the text output and then exit.
+This program should just print \inQuotes{Hello World!} to the \pgls{stdout} and then exit.
 It therefore will consist of the single statement \pythonil{print("Hello World!")}, as illustrated in \cref{lst:very_first_program}.
 
 \gitLoadAndExecPython{very_first_program}{}{veryFirstProject}{very_first_program.py}{}%
@@ -14,31 +14,34 @@ Our very first \python\ program, which just prints \inQuotes{Hello World!}}{}%
 \centering%
 %
 \subfloat[][%
-Creating a new project in \pycharm, step~1: click \menu{New Project}.%
+To create a new project in \pycharm, we click on~\menu{New Project} in the opening screen.%
 \label{fig:firstProgram01createPycharmProject}%
 ]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/firstProgram01createPycharmProject}}}%
 %
 \floatSep%
 %
 \subfloat[][%
-Creating a new project in \pycharm, step~2: Make sure that \menu{Pure Python} is selected in the left pane, then select a name for the project (here: \directory{00\_veryFirstProject}), a directory location (some path on my \ubuntu\ machine, you will pick some other directory), and we select the current \python\ installation as \menu{Custom Environment}. %
+Make sure that \menu{Pure Python} is selected in the left pane, then select a name for the project. %
+We here choose \directory{veryFirstProject}. %
+Also choose a directory location where your project will be stored. %
+We leave the other settings at the default and/or select the current \python\ installation as \menu{Custom Environment}. %
 We finally click \menu{Create}.%
-\label{fig:firstProgram02createPycharmProject}%
-]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/firstProgram02createPycharmProject}}}%
+\label{fig:firstProgram02createPyCharmProjectData}%
+]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/firstProgram02createPyCharmProjectData}}}%
 %
 \floatRowSep%
 %
 \subfloat[][%
 The new and empty project has been created.%
 \label{fig:firstProgram03pycharmProjectCreated}%
-]{\tightbox{\includegraphics[width=0.775\linewidth]{\currentDir/firstProgram03pycharmProjectCreated}}}%
+]{\tightbox{\includegraphics[width=0.77\linewidth]{\currentDir/firstProgram03pycharmProjectCreated}}}%
 %
 \floatRowSep%
 %
 \subfloat[][%
-We create a new \python\ file within this project by right-clicking on the project folder \directory{00\_veryFirstProject} and selecting \menu{New>Python File}.%
+We create a new \python\ file within this project by right-clicking on the project folder \directory{veryFirstProject} and selecting \menu{New>Python File}.%
 \label{fig:firstProgram04createPythonFile}%
-]{\tightbox{\includegraphics[width=0.775\linewidth,trim={0 200 0 0},clip]{\currentDir/firstProgram04createPythonFile}}}%
+]{\tightbox{\includegraphics[width=0.77\linewidth,trim={0 200px 0 0},clip]{\currentDir/firstProgram04createPythonFile}}}%
 %
 \caption{The steps to create a new \python\ file in a new \pycharm\ project and to then run it (\ubuntu).}%
 \label{fig:veryFirstProgramA}%
@@ -49,23 +52,23 @@ We create a new \python\ file within this project by right-clicking on the proje
 \centering%
 %
 \subfloat[][%
-We enter a name for the new \python\ file (here:~\directory{very\_first\_program}) and hit \keys{\enter}.%
-\label{fig:firstProgram05createPythonFile}%
-]{\tightbox{\includegraphics[width=0.775\linewidth]{\currentDir/firstProgram05createPythonFile}}}%
+We now can enter a name for the new \python\ file.%
+\label{fig:firstProgram05createPythonFileEnterName}%
+]{\tightbox{\includegraphics[width=0.775\linewidth]{\currentDir/firstProgram05createPythonFileEnterName}}}%
 %
 \floatRowSep%
 %
 \subfloat[][%
-The new and empty file \directory{very\_first\_program.py} has been created in the project \directory{00\_veryFirstProject}.%
-\label{fig:firstProgram06pythonFileCreated}%
-]{\tightbox{\includegraphics[width=0.775\linewidth]{\currentDir/firstProgram06pythonFileCreated}}}%
+We enter a name for the new \python\ file (here:~\directory{very\_first\_program}) and hit \keys{\enter}.
+\label{fig:firstProgram06createPythonFileNameEntered}%
+]{\tightbox{\includegraphics[width=0.775\linewidth]{\currentDir/firstProgram06createPythonFileNameEntered}}}%
 %
 \floatRowSep%
 %
 \subfloat[][%
-We enter the text from \cref{lst:very_first_program}. \pycharm\ automatically saves it.%
-\label{fig:firstProgram07writeHelloWorld}%
-]{\tightbox{\includegraphics[width=0.775\linewidth]{\currentDir/firstProgram07writeHelloWorld}}}%
+The new and empty file \directory{very\_first\_program.py} has been created in the project \directory{veryFirstProject}.%
+\label{fig:firstProgram07pythonFileCreated}%
+]{\tightbox{\includegraphics[width=0.775\linewidth]{\currentDir/firstProgram07pythonFileCreated}}}%
 %
 %
 \caption{The steps to create a new \python\ file in a new \pycharm\ project and to then run it (\ubuntu,~continued).}%
@@ -79,17 +82,24 @@ We enter the text from \cref{lst:very_first_program}. \pycharm\ automatically sa
 \centering%
 %
 \subfloat[][%
-In order to run this program, we right-click on the program file in the tree view and select \menu{Run `very\_first\_program'}. %
-Alternatively, we could press \keys{\ctrl+\shift+F10}.%
-\label{fig:firstProgram08runProgram}%
-]{\tightbox{\includegraphics[width=0.775\linewidth,trim={0 200px 0 0},clip]{\currentDir/firstProgram08runProgram}}}%
+We enter the text from \cref{lst:very_first_program}. \pycharm\ automatically saves it.%
+\label{fig:firstProgram08writeHelloWorld}%
+]{\tightbox{\includegraphics[width=0.775\linewidth]{\currentDir/firstProgram08writeHelloWorld}}}%
 %
 \floatRowSep%
 %
 \subfloat[][%
+In order to run this program, we right-click on the program file in the tree view and select \menu{Run `very\_first\_program'}. %
+Alternatively, we could press \keys{\ctrl+\shift+F10}.%
+\label{fig:firstProgram09runProgram}%
+]{\tightbox{\includegraphics[width=0.775\linewidth,trim={0 200px 0 50px},clip]{\currentDir/firstProgram09runProgram}}}%
+%
+\floatSep%
+%
+\subfloat[][%
 And indeed, in the console pane at the bottom of the \pycharm\ window, the text \inQuotes{Hello World!} appears.%
-\label{fig:firstProgram09programResult}%
-]{\tightbox{\includegraphics[width=0.775\linewidth]{\currentDir/firstProgram09programResult}}}%
+\label{fig:firstProgram10programResult}%
+]{\tightbox{\includegraphics[width=0.775\linewidth]{\currentDir/firstProgram10programResult}}}%
 %
 \caption{The steps to create a new \python\ file in a new \pycharm\ project and to then run it (\ubuntu,~continued).}%
 \label{fig:veryFirstProgramC}%
@@ -100,58 +110,56 @@ And indeed, in the console pane at the bottom of the \pycharm\ window, the text 
 In \pycharm, we usually will not just create a single \python\ source code file.
 Instead, we will work in the context of \emph{projects}, which can contain many \python\ files, settings, build scripts, and other resources.
 Inside such a project, we would create the \python\ file, write our source code from \cref{lst:very_first_program} into it, and then run it.
-The steps for doing this are illustrated with screenshots in \cref{fig:veryFirstProgramA}, which were taken on my \ubuntu\ machine.
-On \microsoftWindows, this will look very similar (maybe with the exception of ``\verb=\='' instead of ``\verb=/='' as directory separator characters in paths).
+The steps for doing this are illustrated with screenshots in \cref{fig:veryFirstProgramA}.
 
 Since we started with a completely new \pycharm\ installation in \cref{sec:installingPyCharm}, no project has yet been created.
 So when we open \pycharm, we will arrive at the project creation screen illustrated in \cref{fig:firstProgram01createPycharmProject}.
-Here, we will \menu{New Project}, which takes us to the second project creation screen shown in \cref{fig:firstProgram02createPycharmProject}.
+Here, we will \menu{New Project}, which takes us to the second project creation screen shown in \cref{fig:firstProgram02createPyCharmProjectData}.
 In case that you already had \pycharm\ installed and already created some projects in the past, you can get to the same screen by clicking \menu{\pycharmMainMenu > File > New Project}.
 Either way, when arriving at the screen, you will find several confusingly looking options.
 First, make sure that \menu{Pure Python} is selected in the left pane.
 Then you can choose a name for the project in the \menu{Name:} text box.
-For the sake of our example, let's call the new project \directory{00\_veryFirstProject}.
+For the sake of our example, let's call the new project \directory{veryFirstProject}.
 
 Below the name text box, you can select the destination directory in which the project folder should be created in the \menu{Location:} box.
-You can ignore the text in the screenshot, as this is just the path that I am using on my \ubuntu\ machine.
-Instead, you will choose some suitable directory on your computer.
-(Notice that in \microsoftWindows, the directory separator character is ``\verb=\='' and not ``\verb=/='' as on my \ubuntu\ \linux.)
-Either way, on my machine, I choose the rather elaborate path \directory{home/tweise/local/programming/python/programmingWithPythonCode}.
-\pycharm\ will create the folder \directory{00\_veryFirstProject} for our new project \emph{inside} this directory.
-But, as said, you will choose some other suitable place on your computer.
+In the screenshot, I have cropped out the directory path to avoid confusion.
+You will need to use a different location and paths also look different on \linux\ and \microsoftWindows.
+So you will choose some suitable directory on your computer.
+However, you may choose the same project name -- \directory{veryFirstProject} -- \emph{inside} your chosen directory.
+This name will then become a new folder and this folder will contain all the project files.
 
 The following options may not make any sense for you, which is totally OK for now.
 Please make sure to select \menu{Interpreter Type: > Custom Environment} as well as \menu{Environment: > Select existing} and \menu{Type: > Python}.
 Under \menu{Python Path:}, you would choose the \python\ interpreter you have installed on your system (see \cref{sec:installingPython}).
-On my system that was \inQuotes{\python~3.10.12} at the time of this writing.\footnote{%
+On my system that was \inQuotes{\python~3.12.3} at the time of this writing.\footnote{%
 Now I am using~\python~\pythonVersion, but this is not important.}
 We finally click \menu{Create}.
 We now have created our first and empty \pycharm\ \python\ project -- as illustrated in \cref{fig:firstProgram03pycharmProjectCreated}.
 
 We can now create the \python\ file to write our actual program code.
-To do this, we right-click on the folder \directory{00\_veryFirstProject} in our \menu{Project} tree view pane on the left-hand side (see \cref{fig:firstProgram04createPythonFile}).
+To do this, we right-click on the folder \directory{veryFirstProject} in our \menu{Project} tree view pane on the left-hand side (see \cref{fig:firstProgram04createPythonFile}).
 In the menu that pops up, we select and click \menu{New > Python File}.
-This takes us the \menu{New Python file} creation dialog illustrated in \cref{fig:firstProgram05createPythonFile}.
-Here, we enter the name for our first program.
+This takes us the \menu{New Python file} creation dialog illustrated in \cref{fig:firstProgram05createPythonFileEnterName}.
+Here, we enter the name for our first program as shown in \cref{fig:firstProgram06createPythonFileNameEntered}.
 What could be more fitting than \directory{very\_first\_program}?
-After hitting \keys{Enter}, the file is created in our project folder and opened in the editor pane, as shown in \cref{fig:firstProgram06pythonFileCreated}.
+After hitting \keys{Enter}, the file is created in our project folder and opened in the editor pane, as shown in \cref{fig:firstProgram07pythonFileCreated}.
 
-We now enter the single line of code from \cref{lst:very_first_program} into the editor, as illustrated in \cref{fig:firstProgram07writeHelloWorld}.
-We do not need to save the file, as \pycharm\ does this automatically for us.
+We now enter the single line of code from \cref{lst:very_first_program} into the editor, as illustrated in \cref{fig:firstProgram08writeHelloWorld}.
+We do not need to explicitly save the file, as \pycharm\ does this automatically for us.
 
 Finally, we want to actually execute, i.e., run, our program.
 We can do this directly from the editor by pressing \keys{\ctrl + \shift + F10}.
-We can also do it by right-clicking on the file in the project tree view on the left-hand side and then clicking \menu{Run `very\_first\_program'} in the popup menu, as shown in \cref{fig:firstProgram08runProgram}.
+We can also do it by right-clicking on the file in the project tree view on the left-hand side and then clicking \menu{Run `very\_first\_program'} in the popup menu, as shown in \cref{fig:firstProgram09runProgram}.
 
 Either way, a console with the title \inQuotes{very\_first\_program} opens at the bottom of our editor.
 And behold:
 Indeed, the text \bashil{Hello World!} appears.
 
-Well, before that text, we see the command line that was actually executed, namely the \python\ interpreter with our file's path as parameter.
+Well, before that text, we see the command line that was actually executed, namely the \python\ interpreter with our file's path as parameter, as illustrated in \cref{fig:firstProgram10programResult}.
 And after our program's output, we are notified that \inQuotes{Process finished with \pgls{exitCode}~0,} which means that the program has completed successfully and without error.
 
 Congratulations.
 You now have written, saved, and executed your first ever \python\ program!%
-%
+\FloatBarrier%
 \endhsection%
 %

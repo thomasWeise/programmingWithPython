@@ -7,24 +7,32 @@
 %
 \subfloat[][%
 Open a \pgls{terminal} (by pressing \ubuntuTerminal\ under \ubuntu\ \linux; under \microsoftWindows\ \windowsTerminal). %
-Change into the directory \inQuotes{directory} where your \python\ file is located, by typing \bashil{cd directory} and hit \keys{\enter}.%
+Change into the directory \inQuotes{directory} where your \python\ file is located, by typing \bashil{cd directory} and hit \keys{\enter}. %
+(I here had it in the temporary directory \bashil{/tmp}, you will have it elsewhere\dots)%
 \label{fig:terminalPython1cd}%
 ]{\includegraphics[width=0.9\linewidth]{\currentDir/terminalPython1cd}}%
 %
 \floatRowSep%
 %
 \subfloat[][%
+We are now in the project directory.%
+\label{fig:terminalPython2cded}%
+]{\includegraphics[width=0.9\linewidth]{\currentDir/terminalPython2cded}}%
+%
+\floatRowSep%
+%
+\subfloat[][%
 Execute a \python\ program \inQuotes{program.py} by typing \bashil{python3 program.py} and hit \keys{\enter}. %
 In our case, the program is \inQuotes{very\_first\_program.py}.%
-\label{fig:terminalPython2python}%
-]{\includegraphics[width=0.9\linewidth]{\currentDir/terminalPython2python}}%
+\label{fig:terminalPython3python}%
+]{\includegraphics[width=0.9\linewidth]{\currentDir/terminalPython3python}}%
 %
 \floatRowSep%
 %
 \subfloat[][%
 As expected, the text \inQuotes{Hello World!} appears in the \pgls{terminal}.%
-\label{fig:terminalPython3result}%
-]{\includegraphics[width=0.9\linewidth]{\currentDir/terminalPython3result}}%
+\label{fig:terminalPython4result}%
+]{\includegraphics[width=0.9\linewidth]{\currentDir/terminalPython4result}}%
 %
 \caption{Example of executing a \python\ program in a \pgls{terminal} (on \ubuntu).}%
 \label{fig:terminalPython}%
@@ -36,7 +44,7 @@ As expected, the text \inQuotes{Hello World!} appears in the \pgls{terminal}.%
 \subfloat[][%
 Pressing the \menu{\pycharmConsole} on the vertical icon bar on the left side of the \pycharm\ window.%
 \label{fig:pycharmConsole1consoleButton}%
-]{\tightbox{\includegraphics[width=0.76\linewidth]{\currentDir/pycharmConsole1consoleButton}}}%
+]{\tightbox{\includegraphics[width=0.76\linewidth]{\currentDir/pycharmConsole1consoleButton.pdf}}}%
 %
 \floatRowSep%
 %
@@ -105,7 +113,7 @@ And indeed, the output is \inQuotes{Hello World!}.%
 \centering%
 %
 \subfloat[][%
-We exit the console by typing \pythonil{exit()} and pressing \keys{\enter}.%
+We exit the console by typing \pythonil{exit()}\pythonIdx{exit} and pressing \keys{\enter}.%
 \label{fig:terminalConsole5exit}%
 ]{\includegraphics[width=0.852\linewidth]{\currentDir/terminalConsole5exit}}%
 %
@@ -152,8 +160,8 @@ Under both \linux\ and \microsoftWindows, this can be done by typing the command
 Under \microsoftWindows, you may also need to change into the correct drive first.}
 We provide a screenshot for that, taken under \ubuntu\ \linux, in \cref{fig:terminalPython1cd}.
 Now we simply call the \python\ interpreter by writing \bashil{python3} followed by the file name of our program, which is \bashil{very_first_program.py} in our case.
-In \cref{fig:terminalPython2python} we do this and hit \keys{\enter}, which causes the \python\ interpreter to execute our program.
-The output \inQuotes{Hello World!} is then printed into the \pgls{terminal} in \cref{fig:terminalPython3result}.%
+In \cref{fig:terminalPython3python} we do this and hit \keys{\enter}, which causes the \python\ interpreter to execute our program.
+The output \inQuotes{Hello World!} is then printed into the \pgls{terminal} in \cref{fig:terminalPython4result}.%
 \endhsection%
 %
 \hsection{Entering Commands in the \python\ Console inside \pycharm}%
@@ -192,5 +200,6 @@ On \microsoftWindows\ or other \linux\ variants, the process would have looked q
 \endhsection%
 %
 \bestPractice{runningProgram}{The only proper way to run a \python\ application in a productive scenario is in the terminal, as shown in \cref{sec:terminalPython}.}%
+\FloatBarrier%
 \endhsection%
 %
