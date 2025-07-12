@@ -24,16 +24,21 @@ We can add, subtract, multiply, divide, \glsdisp{modulodiv}{modulo divide}, and 
 \begin{figure}%
 \centering%
 \includegraphics[width=0.8\linewidth]{\currentDir/pythonIntMathInConsoleArith}%
-\caption{Examples for \python\ integer math in the console, part~1 (see \cref{fig:pythonIntMathInConsolePower} for part~2).}%
+\caption{Examples of \python\ integer math in the console, part~1 (see \cref{exec:int_math_arith} for part~2).}%
 \label{fig:pythonIntMathInConsoleArith}%
 \end{figure}%
+%
+\gitEvalPython{int_math_arith}{}{simple_datatypes/int_math_arith.py}%
+\listingBox{exec:int_math_arith}{The same examples of \python\ integer math in the \python\ console as given in \cref{fig:pythonIntMathInConsoleArith}, just as listing instead of screenshot.}{,style=python_console_style}%
 
-In \cref{fig:pythonIntMathInConsoleArith}, you can find some examples for this.
+In \cref{fig:pythonIntMathInConsoleArith}, you can find some examples of this.
+(The same example is given in \cref{exec:int_math_arith}, just as listing instead of screenshot.
+We will use such listings from now on, as they convey the exactly same information, but are easier to read and I can more conveniently include comments.)
 Like back in \cref{sec:terminalConsolem}, press \ubuntuTerminal\ under \ubuntu\ \linux\ or \windowsTerminal\ under \microsoftWindows\ to open a \pgls{terminal}.
 After entering \bashil{python3} and hitting \keys{\enter}, we can begin experimenting with integer maths.
 The lines with \python\ commands in the console begin with \pythonil{>>>}, whereas the result is directly output below them without prefix string.
 
-In the very first line of \cref{fig:pythonIntMathInConsoleArith}, we enter \pythonil{4 + 3}\pythonIdx{+} and hit \keys{\enter}.
+In the very first line of \cref{fig:pythonIntMathInConsoleArith,exec:int_math_arith}, we enter \pythonil{4 + 3}\pythonIdx{+} and hit \keys{\enter}.
 The result is displayed on the next line and, as expected, is \pythonil{7}.
 We then attempt to multiply the two integers \pythonil{7} and \pythonil{5} by typing \pythonil{7 * 5}\pythonIdx{*!multiplication} and hitting \keys{\enter}.
 The result is \pythonil{35}.
@@ -65,14 +70,10 @@ Now above we have said that \pythonil{33 // 4} yields the integer~\pythonil{8}.
 The remainder of this operation can be computed using the \pgls{modulodiv} operator \expandafter\pythonilIdx{\%}, i.e., by typing \pythonil{33 \% 4}, which yields~\pythonil{1}.
 We also find that \expandafter\pythonil{34 \% 4} yields~\pythonil{2}, \expandafter\pythonil{35 \% 4} gives us~\pythonil{3}, and \expandafter\pythonil{36 \% 4} is~\pythonil{0}.
 
-\begin{figure}%
-\centering%
-\includegraphics[width=0.8\linewidth]{\currentDir/pythonIntMathInConsolePower}%
-\caption{Examples for \python\ integer math in the console, part~2 (see \cref{fig:pythonIntMathInConsoleArith} for part~1).}%
-\label{fig:pythonIntMathInConsolePower}%
-\end{figure}%
+\gitEvalPython{int_math_power}{}{simple_datatypes/int_math_power.py}%
+\listingBox{exec:int_math_power}{Examples of \python\ integer math (powers) in the \python\ console, part~2 (see \cref{exec:int_math_arith} for part~1).}{,style=python_console_style,literate={0}{0\-}1 {1}{1\-}1 {2}{2\-}1 {3}{3\-}1 {4}{4\-}1 {5}{5\-}1 {6}{6\-}1 {7}{7\-}1 {8}{8\-}1 {9}{9\-}1,breakatwhitespace=false,breaklines=true}
 
-As you will find in \cref{fig:pythonIntMathInConsolePower}, integers can also be raised to a power.
+As you will find in \cref{exec:int_math_arith}, integers can also be raised to a power.
 For example, $2^7$~is expressed as \pythonil{2 ** 7}\pythonIdx{**!power} in \python\ (and yields~\pythonil{128}).
 \pythonil{7 ** 11}, i.e., $7^{11}$ gives us~1\decSep977\decSep326\decSep743 and shows as \pythonil{1977326743} in the output.
 
@@ -82,8 +83,8 @@ An unsinged 64~bit integer type, such as \pythonil{unsigned long long} in \pgls{
 In \python\, we can compute $2^{63}$~(\pythonil{2 ** 63}), namely 9\decSep223\decSep372\decSep036\decSep854\decSep775\decSep808, and
 $2^{64}$~(\pythonil{2 ** 64}), which is~18\decSep446\decSep744\decSep073\decSep709\decSep551\decSep616.
 These are very large numbers and the latter one would overflow the range of the standard integer types of \pgls{Java} and \pgls{C}.
-However, we can also keep going and compute \pythonil{2 ** 1024}, which is such a huge number that it wraps four times in the output of our \python\ console in \cref{fig:pythonIntMathInConsolePower}!
-\python\ integers are basically unbounded.
+However, we can also keep going and compute \pythonil{2 ** 1024}, which is such a huge number that it wraps several times in the output of our \python\ console in \cref{exec:int_math_arith}!
+\python\ integers are basically unbounded~(or bounded only by the memory size of our computer).
 However, the larger they get, the more memory they need and the longer it will take to compute with them.
 \endhsection%
 %
@@ -102,12 +103,8 @@ You can circle back to it later.}%
 \caption{Examples for how integer numbers are represented as bit strings in the computer (upper part) and for the binary (bitwise) operations \emph{and}, \emph{or}, and \emph{exclusive or} (often called~\emph{xor}).}%
 \label{fig:binaryMath}%
 \end{figure}
-\begin{figure}%
-\centering%
-\includegraphics[width=0.8\linewidth]{\currentDir/pythonIntMathInConsoleBin}%
-\caption{Examples for the binary representation of integers and the operations that apply to it.}%
-\label{fig:pythonIntMathInConsoleBin}%
-\end{figure}
+\gitEvalPython{int_math_bin}{}{simple_datatypes/int_math_bin.py}%
+\listingBox{exec:int_math_bin}{Examples of the binary representation of integers and the operations that apply to it.}{,style=python_console_style}
 
 All integer numbers can be represented as bit strings.
 In other words, a number $z\in\integerNumbers$ can be expressed as $b_0 2^0 + b_1 2^1 + b_2 2^2 + b_3 2^3 + b_4 2^4\dots$, where the $b_i$-values each are either~0 or~1.
@@ -116,7 +113,7 @@ If we represent integers with such strings of five bits, then the number~1 would
 In in \cref{fig:binaryMath}, we illustrate that the number~22 would be \texttt{10110} because $22=2^4+2^2+2^1$ and the number~15 would correspond to \texttt{01111}, as~$15=2^3+2^2+2^1+2^0$.
 
 We can obtain the binary representation of integer numbers as text using the \pythonilIdx{bin} function in \python.
-As shown in \cref{fig:pythonIntMathInConsoleBin}, \pythonil{bin(22)} yields \pythonil{'0b10110'}.
+As shown in \cref{exec:int_math_bin}, \pythonil{bin(22)} yields \pythonil{'0b10110'}.
 Here, the \pythonilIdx{0b} prefix means that the following number is in binary representation.
 We can also enter numbers in binary representation in the console.
 Typing \pythonil{0b10110} corresponds to the number~\pythonil{22}.

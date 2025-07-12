@@ -73,15 +73,11 @@ You cannot represent numbers arbitrarily precisely~\cite{PSF:P3D:TPT:FPAIAL}.%
 \hsection{Floating Point Arithmetic}%
 \label{sec:floatarith}%
 %
-\begin{figure}%
-\centering%
-\includegraphics[width=0.8\linewidth]{\currentDir/floatMathInConsoleArith}%
-\caption{Basic arithmetics with floating point numbers in \python.}%
-\label{fig:floatMathInConsoleArith}%
-\end{figure}%
+\gitEvalPython{float_arith}{}{simple_datatypes/float_arith.py}%
+\listingBox{exec:float_arith}{Basic arithmetics with floating point numbers in \python.}{,style=python_console_style}%
 %
 Floating point numbers in \python\ can be distinguished from \pythonils{int}\pythonIdx{int} by having a decimal dot in their text representation, i.e., \pythonil{5.0} is a \pythonilIdx{float} and \pythonil{5} is an \pythonilIdx{int}.
-Let us now look at some examples for the basic arithmetic operations available for \pythonils{float}\pythonIdx{float} in \cref{fig:floatMathInConsoleArith}.
+Let us now look at some examples for the basic arithmetic operations available for \pythonils{float}\pythonIdx{float} in \cref{exec:float_arith}.
 
 We already learned that the division operator~\pythonilIdx{/} always yields a \pythonilIdx{float} result.
 Therefore \pythonil{6 / 3} yields \pythonil{2.0} instead of \pythonil{2}.
