@@ -73,11 +73,11 @@ You cannot represent numbers arbitrarily precisely~\cite{PSF:P3D:TPT:FPAIAL}.%
 \hsection{Floating Point Arithmetic}%
 \label{sec:floatarith}%
 %
-\gitEvalPython{float_arith}{}{simple_datatypes/float_arith.py}%
-\listingBox{exec:float_arith}{Basic arithmetics with floating point numbers in \python.}{,style=python_console_style}%
+\gitEvalPython{float_arithmetics}{}{simple_datatypes/float_arithmetics.py}%
+\listingBox{exec:float_arithmetics}{Basic arithmetics with floating point numbers in \python.}{,style=python_console_style}%
 %
 Floating point numbers in \python\ can be distinguished from \pythonils{int}\pythonIdx{int} by having a decimal dot in their text representation, i.e., \pythonil{5.0} is a \pythonilIdx{float} and \pythonil{5} is an \pythonilIdx{int}.
-Let us now look at some examples for the basic arithmetic operations available for \pythonils{float}\pythonIdx{float} in \cref{exec:float_arith}.
+Let us now look at some examples for the basic arithmetic operations available for \pythonils{float}\pythonIdx{float} in \cref{exec:float_arithmetics}.
 
 We already learned that the division operator~\pythonilIdx{/} always yields a \pythonilIdx{float} result.
 Therefore \pythonil{6 / 3} yields \pythonil{2.0} instead of \pythonil{2}.
@@ -162,12 +162,8 @@ But digits could also be lost when adding numbers of roughly the same scale, bec
 %
 \hsection{Back to Integers: Rounding}%
 %
-\begin{figure}%
-\centering%
-\includegraphics[width=0.8\linewidth]{\currentDir/floatMathInConsoleRound}%
-\caption{Rounding \pythonilIdx{float} values to \pythonilIdx{int} values.}%
-\label{fig:floatMathInConsoleRound}%
-\end{figure}%
+\gitEvalPython{float_rounding}{}{simple_datatypes/float_rounding.py}%
+\listingBox{exec:float_rounding}{Rounding \pythonilIdx{float} values to \pythonilIdx{int} values.}{,style=python_console_style}%
 %
 We already learned that a single \pythonilIdx{float} value inside a computation that otherwise uses \pythonils{int}\pythonIdx{int} basically forces the whole result to become a \pythonilIdx{float} as well.
 But maybe sometimes we want to have an \pythonilIdx{int} as result.
@@ -179,7 +175,7 @@ This function accepts a \pythonilIdx{float} and rounds it to the nearest integer
 If two integer numbers are equally close, it rounds it to the one that is even.
 This can be very surprising, as we learned in school that $x.5$ should be rounded to $x+1$.
 This will only happen with \pythonilIdx{round} if $x+1$~is even.
-We find examples for the behavior of \pythonilIdx{round} in \cref{fig:floatMathInConsoleRound}.
+We find examples for the behavior of \pythonilIdx{round} in \cref{exec:float_rounding}.
 \pythonil{round(0.4)} yields the integer~\pythonil{0}, as expected.
 \pythonil{round(0.5)} returns~\pythonil{0} as well, which one may not expect -- but \pythonil{0} is even and \pythonil{1} would be odd.
 \pythonil{round(0.6)} gives us the integer~\pythonil{1}.
@@ -233,13 +229,8 @@ It does \emph{not} work as one would expect!%
 \label{fig:scientificNotation}%
 \end{figure}%
 %
-\begin{figure}%
-\centering%
-%
-\includegraphics[width=0.8\linewidth]{\currentDir/floatMathInConsoleSciNot}%
-\caption{Examples for the scientific notation in \python.}%
-\label{fig:floatMathInConsoleSciNot}%
-\end{figure}%
+\gitEvalPython{float_scientific_notation}{}{simple_datatypes/float_scientific_notation.py}%
+\listingBox{exec:float_scientific_notation}{Examples of the scientific notation in \python.}{,style=python_console_style}%
 %
 Earlier on, we wrote that \pythonils{float}\pythonIdx{float} can represent numbers as large as~$10^{300}$ or as small as~$10^{-300}$.
 This leads to the question how it would print such values on the console and how we can read them.
@@ -256,7 +247,7 @@ In order to make sure that each number~$\alpha$ has unique representation, it is
 This notation is illustrated in \cref{fig:scientificNotation}.
 \emph{This notation only applies to \pythonils{float}\pythonIdx{float}, \textbf{not} \pythonils{int}\pythonIdx{int}.}
 
-In \cref{fig:floatMathInConsoleSciNot} we provide some examples for this notation.
+In \cref{exec:float_scientific_notation} we provide some examples for this notation.
 When we write \pythonil{0.001} or \pythonil{0.0001} in a \python\ console, the output is still this same number.
 However, \pythonil{0.00009} is presented as \pythonil{9e-05}, which stands for~$9*10^{-5}$.%
 %
@@ -301,12 +292,9 @@ Similarly, \pythonil{0.023e-20} becomes \pythonil{2.3e-22}.
 \hsection{Limits and Special Floating Point Values: Infinity and \inQuotes{Not a Number}}%
 \label{sec:float:special}%
 %
-\begin{figure}%
-\centering%
-\includegraphics[width=0.7\linewidth]{\currentDir/floatMathInConsoleZero}%
-\caption{What happens with very small floating point numbers in \python?\pythonIdx{0.0}}%
-\label{fig:floatMathInConsoleZero}%
-\end{figure}%
+%
+\gitEvalPython{float_very_small}{}{simple_datatypes/float_very_small.py}%
+\listingBox{exec:float_very_small}{What happens with very small floating point numbers in \python?\pythonIdx{0.0}.}{,style=python_console_style}%
 %
 We already learned that the floating point type \pythonilIdx{float} can represent both very small and very large numbers.
 But we also know that it is internally stored as chunk of 64~bits.
@@ -321,7 +309,7 @@ Luckily, \pgls{Java} uses the same standard for its class \pythonil{Double}.
 In its documentation~\cite{O2024JPSEJDKV2AS:CD}, we find that the minimum value is~$2^{-1074}$, which is approximately~$4.940\decSep656\decSep458\decSep412\decSep465\decSep44*10^{-324}$.
 So we would expect the smallest possible floating point value in \python\ to also be in this range.
 
-In \cref{fig:floatMathInConsoleInf}, we take a look what happens if we approach this number.
+In \cref{exec:float_very_large}, we take a look what happens if we approach this number.
 We use the scientific notation and begin to print the number~\pythonil{1e-323} (which is~$10^{-323}$).
 This number is correctly represented as \pythonilIdx{float} and shows up in the console exactly as we wrote it.
 However, if we go a bit smaller and enter \pythonil{9e-324}, which is~$9*10^{-324}=0.9*10^{-323}$, we find that it again shows up in the console as \pythonil{1e-323}.
@@ -343,16 +331,12 @@ See \cref{sec:bool} for more information on comparisons and the \pythonilIdx{boo
 So we learned what happens if we try to define very small floating point numbers:
 They become zero.
 
-\begin{figure}%
-\centering%
-\includegraphics[width=0.7\linewidth]{\currentDir/floatMathInConsoleInf}%
-\caption{What happens with very large floating point numbers in \python?\pythonIdx{inf}}%
-\label{fig:floatMathInConsoleInf}%
-\end{figure}%
+\gitEvalPython{float_very_large}{}{simple_datatypes/float_very_large.py}%
+\listingBox{exec:float_very_large}{What happens with very large floating point numbers in \python?\pythonIdx{inf}.}{,style=python_console_style,literate={0}{0\-}1 {1}{1\-}1 {2}{2\-}1 {3}{3\-}1 {4}{4\-}1 {5}{5\-}1 {6}{6\-}1 {7}{7\-}1 {8}{8\-}1 {9}{9\-}1,breakatwhitespace=false,breaklines=true}
 
 But what happens to numbers that are too big for the available range?
 Again, according to the nice documentation of \pgls{Java}, the maximum 64~bit double precision floating point number value is~$(2-2^{-52})*2^{1023}\approx1.797\decSep693\decSep134\decSep862\decSep315\decSep708\dots*10^{308}$.
-We can enter this value as \pythonilIdx{1.7976931348623157e+308}\pythonIdx{float!largest} and it indeed prints correctly in \cref{fig:floatMathInConsoleInf}.
+We can enter this value as \pythonilIdx{1.7976931348623157e+308}\pythonIdx{float!largest} and it indeed prints correctly in \cref{exec:float_very_large}.
 If we step it up a little bit and enter \pythonil{1.7976931348623158e+308}, due to the limited precision, we again get \pythonilIdx{1.7976931348623157e+308}\pythonIdx{float!largest}.
 However, if we try entering \pythonil{1.7976931348623159e+308} into the \python\ console, something strange happens:
 The output is \pythonilIdx{inf}.
@@ -391,15 +375,11 @@ Finally, \pythonilIdx{inf} also exists as constant in the \pythonilIdx{math} mod
 We can import it via \pythonil{from math import inf}\pythonIdx{inf}.
 And indeed, since the text \pythonil{1.7976931348623159e+308} is parsed to a \pythonilIdx{float} value of \pythonilIdx{inf}, we find that \pythonil{1.7976931348623159e+308 == inf} yields~\pythonilIdx{True}.
 
-\begin{figure}%
-\centering%
-\includegraphics[width=0.8\linewidth]{\currentDir/floatMathInConsoleNaN}%
-\caption{Not a Number\pythonIdx{Not a Number}, i.e., \pythonilIdx{nan}.}%
-\label{fig:floatMathInConsoleNaN}%
-\end{figure}%
-list
+\gitEvalPython{float_nan}{}{simple_datatypes/float_nan.py}%
+\listingBox{exec:float_nan}{Not a Number\pythonIdx{Not a Number}, i.e., \pythonilIdx{nan}.}{,style=python_console_style}%
+
 Now, \pythonilIdx{inf} not actually being~$\infty$ is a little bit weird.
-But it can get even stranger, as you will see in \cref{fig:floatMathInConsoleNaN}.
+But it can get even stranger, as you will see in \cref{exec:float_nan}.
 \pythonilIdx{inf} is a number which is too big to be represented as \pythonilIdx{float} \emph{or}~$\infty$.
 So it is natural to assume that \pythonil{inf - 1} remains \pythonilIdx{inf} and that even \pythonil{inf - 1e300} remains \pythonilIdx{inf} as well.
 However, what is \pythonil{inf - inf}?
@@ -421,16 +401,12 @@ Mathematicians may have mixed feelings about proclaiming that $\infty=\infty$ ho
 However, \pythonilIdx{nan} is \emph{really} different from really \emph{anything}.
 Therefore, \pythonil{nan == nan}\pythonIdx{==} is \pythonilIdx{False} and \pythonil{nan != nan}\pythonIdx{"!=} is \pythonilIdx{True}!
 
-\begin{figure}%
-\centering%
-\includegraphics[width=0.8\linewidth]{\currentDir/floatMathInConsoleCheckFinite}%
-\caption{Checking for \pythonilIdx{nan} and \pythonilIdx{inf} via \pythonilIdx{isfinite}, \pythonilIdx{isinf}, and \pythonilIdx{isnan}.}%
-\label{fig:floatMathInConsoleCheckFinite}%
-\end{figure}%
+\gitEvalPython{float_check_finite}{}{simple_datatypes/float_check_finite.py}%
+\listingBox{exec:float_check_finite}{Checking for \pythonilIdx{nan} and \pythonilIdx{inf} via \pythonilIdx{isfinite}, \pythonilIdx{isinf}, and \pythonilIdx{isnan}.}{,style=python_console_style}%
 
 Either way, the possible occurrence \pythonilIdx{inf} and \pythonilIdx{nan} in floating point computations is a cumbersome issue.
 If we want to further process results of a computation, we often want to make sure that it is neither \pythonilIdx{inf} nor \pythonilIdx{-inf} nor \pythonilIdx{nan}.
-This can be done via the function \pythonilIdx{isfinite}, which we can import from the \pythonilIdx{math} module\pythonIdx{import}\pythonIdx{from}, as you can see in \cref{fig:floatMathInConsoleCheckFinite}.
+This can be done via the function \pythonilIdx{isfinite}, which we can import from the \pythonilIdx{math} module\pythonIdx{import}\pythonIdx{from}, as you can see in \cref{exec:float_check_finite}.
 \pythonil{1e34} is a large number, but \pythonil{isfinite(1e34)} is certainly \pythonilIdx{True}.
 \pythonil{isfinite(inf)} and \pythonil{isfinite(nan)} are both \pythonilIdx{False}.
 The function \pythonilIdx{isinf}, again from the \pythonilIdx{math} module, checks if a \pythonilIdx{float} is infinite.
