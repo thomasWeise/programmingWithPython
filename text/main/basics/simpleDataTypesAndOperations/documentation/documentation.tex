@@ -358,6 +358,13 @@ Only authoritative sources for specifications are acceptable.%
 %
 \item Code that we cannot explain with our own words is wrong.%
 %
+\item \pglspl{AI} can only give good suggestions for questions and situations that are similar to what has been in their training data. %
+They can work well if you, say, ask how to load data from a text file, separate it into columns, and then create a \sqlil{INSERT INTO} query in \sql\ to send the data to a \dbms. %
+They cannot work well if you ask questions that involve new scenarios. %
+If you study as a Master's or PhD student, then most likely your programming issues involve exactly such new scenarios. %
+Because part of your work is research. %
+Using an \pgls{AI} in a situation where you have to do something that nobody has done before is very very dangerous and its results are much more likely to be wrong or incomplete or not cover corner cases.%
+%
 \item Tools like \pglspl{LLM} incentivize laziness. %
 Even if the tools gave us correct results that passed our scrutinization several times, it is necessary to maintain proper discipline and continue to always and every time check their output. %
 Such discipline is against the human nature of laziness and therefore must be consciously maintained.%
@@ -381,6 +388,21 @@ They should never be used to \emph{document} solutions, because this must be don
 Documentation, i.e., the textual description of what the software does, must be done by actual people who fully understand the software.%
 }%
 %
+There is another issue with the use of \pgls{AI}.
+Remember back when you were in primary school.
+During the first few years of maths lessons, you never got to use a calculator.
+Of course, your teachers knew very well that you will use calculators or other computing devises to do calculations in your later life and rarely compute things by hand or in your head.
+Yet, they did not give you a calculator right from the start.
+Even though they knew you would use calculating machines later.
+Why was that?
+
+It was because you were supposed to learn how maths works.
+If a calculator was given to you, then you would have learned how to use a calculator.
+But your understanding of mathematics would be very very limited.
+
+Right now, you are supposed to learn how programming works.
+If you would ask an \pgls{AI} to answer your programming questions, you would learn how to use the \pgls{AI}.
+But your understanding of programming would be very very limited.%
 %
 \begin{figure}%
 \centering%

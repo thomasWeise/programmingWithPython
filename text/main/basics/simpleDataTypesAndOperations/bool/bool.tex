@@ -7,12 +7,8 @@ They are fundamental for making decisions in a program, i.e., for deciding what 
 %
 \hsection{Comparisons}%
 %
-\begin{figure}%
-\centering%
-\includegraphics[width=0.8\linewidth]{\currentDir/boolComparisons}%
-\caption{The results of basic comparisons are instances of \pythonilIdx{bool}.}%
-\label{fig:boolComparisons}%
-\end{figure}%
+\gitEvalPython{bool_comparisons}{}{simple_datatypes/bool_comparisons.py}%
+\listingBox{exec:bool_comparisons}{The results of basic comparisons are instances of \pythonilIdx{bool}.}{,style=python_console_style}%
 %
 In the sections on \pythonils{float}\pythonIdx{float} and \pythonils{int}\pythonIdx{int}, we learned how to do arithmetics with real and integer numbers.
 You have learned these operations already in preschool.
@@ -31,7 +27,7 @@ If we compare two numbers, the result is either \pythonilIdx{True}, if the compa
 %
 \end{itemize}%
 %
-How to use these operators is illustrated in \cref{fig:boolComparisons}.
+How to use these operators is illustrated in \cref{exec:bool_comparisons}.
 It shows that \pythonil{6 == 6}\pythonIdx{==} yields \pythonilIdx{True}, while \pythonil{6 != 6}\pythonIdx{"!=} yields \pythonilIdx{False}.
 The expression \pythonil{6 > 6}\pythonIdx{>} gives us \pythonilIdx{False}, but \pythonil{6 >= 6}\pythonIdx{>=} is \pythonilIdx{True}.
 \pythonil{6 < 6}\pythonIdx{<} is also \pythonilIdx{False} while \pythonil{6 <= 6} is, of course, \pythonilIdx{True}.
@@ -122,18 +118,14 @@ The truth table for the logical negation\pythonIdx{bool!negation} (\emph{logical
 }%
 %
 \caption{The truth tables for the Boolean operators \pythonilIdx{and}, \pythonilIdx{or}, and \pythonilIdx{not}.}%
-\label{fig:boolLogicTables}%
+\label{exec:bool_logicTables}%
 \end{figure}%
 %
-\begin{figure}%
-\centering%
-\includegraphics[width=0.8\linewidth]{\currentDir/boolLogic}%
-\caption{The \pythonilIdx{bool} values can be combined with the Boolean logical operators \pythonilIdx{and}, \pythonilIdx{or}, and \pythonilIdx{not}.}%
-\label{fig:boolLogic}%
-\end{figure}%
+\gitEvalPython{bool_logic}{}{simple_datatypes/bool_logic.py}%
+\listingBox{exec:bool_logic}{The \pythonilIdx{bool} values can be combined with the Boolean logical operators \pythonilIdx{and}, \pythonilIdx{or}, and \pythonilIdx{not}.}{,style=python_console_style}%
 %
 The most common operations with Boolean values are the well-known Boolean logical operators \pythonilIdx{and}, \pythonilIdx{or}, and \pythonilIdx{not}.
-Their truth tables are illustrated in \cref{fig:boolLogicTables}.%
+Their truth tables are illustrated in \cref{exec:bool_logicTables}.%
 %
 \begin{itemize}%
 %
@@ -147,7 +139,7 @@ Otherwise, it is \pythonilIdx{False}, as shown in \cref{fig:booleanNot}.%
 \end{itemize}%
 %
 \begin{sloppypar}%
-In \cref{fig:boolLogic} we explore these three operators in the \python\ console.
+In \cref{exec:bool_logic} we explore these three operators in the \python\ console.
 You can see that the operations can be used exactly as in the truth tables and yield the expected results.
 Additionally, you can of course nest and combine Boolean operators using parentheses\pythonIdx{(}\pythonIdx{)}.
 For example, \pythonil{(True or False) and ((False or True) or (False and False))} resolves to \pythonil{True and (True or False)}, which becomes \pythonil{True and True}, which ultimately becomes \pythonilIdx{True}.

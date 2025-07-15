@@ -1,12 +1,8 @@
 \hsection{None}%
 \label{sec:none}%
 %
-\begin{figure}%
-\centering%
-\includegraphics[width=0.7\linewidth]{\currentDir/none}%
-\caption{Examples of using the value \pythonil{None}.}%
-\label{fig:none}%
-\end{figure}%
+\gitEvalPython{none}{}{simple_datatypes/none.py}%
+\listingBox{exec:none}{Examples of using the value \pythonil{None}.}{,style=python_console_style}%
 %
 The last simple type we talk about is the \pythonilIdx{NoneType} and its one single value:~\pythonilIdx{None}.
 Now you already learned the type \pythonil{bool} which can take on only two different values, \pythonil{True} and~\pythonil{False}.
@@ -18,7 +14,7 @@ It is not an integer, float, string, or bool.
 \pythonilIdx{None} is not equivalent to \pythonil{0}, it is not equivalent to~\pythonilIdx{nan}, and also different from the empty string~\pythonil{""}\pythonIdx{\textquotedbl\textquotedbl}.
 It is just nothing.
 
-\cref{fig:none} illustrates some of the things we can do with \pythonilIdx{None}.
+\Cref{exec:none} illustrates some of the things we can do with \pythonilIdx{None}.
 If we write \pythonilIdx{None} into the \python\ console, then nothing happens.
 In the past, we just wrote values, such as \pythonil{34} and, after we hit \keys{\enter}, they would be printed again.
 Not so~\pythonilIdx{None}.

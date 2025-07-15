@@ -10,14 +10,10 @@ Indeed, we have already used it before, even in our very first example program b
 \hsection{Basic String Operations}%
 \label{sec:strBasicOperations}%
 %
-\begin{figure}%
-\centering%
-\includegraphics[width=0.8\linewidth]{\currentDir/strIndexing}%
-\caption{Specifying string literals and indexing its characters.}%
-\label{fig:strIndexing}%
-\end{figure}%
+\gitEvalPython{str_indexing}{}{simple_datatypes/str_indexing.py}%
+\listingBox{exec:str_indexing}{Specifying string literals and indexing its characters.}{,style=python_console_style}%
 %
-As \cref{fig:strIndexing} shows, there are two basic ways to specify a text string literal\pythonIdx{str!literal}:
+As \cref{exec:str_indexing} shows, there are two basic ways to specify a text string literal\pythonIdx{str!literal}:
 Either enclosed by double quotes, e.g., \pythonil{"Hello World!"}\pythonIdx{\textquotedbl\idxdots\textquotedbl} or enclosed by single quotes, e.g., \pythonil{'Hello World!'}\pythonIdx{\textquotesingle\idxdots\textquotesingle}.
 The quotation marks are only used to delimit the strings, i.e., to tell \python\ where the string begins or ends.
 They are not themselves part of the string.
@@ -74,19 +70,15 @@ Therefore, \pythonil{"Hello"[:-2]} will return everything from the beginning of 
 This gives us \pythonil{"Hel"}.
 We will discussing slicing again later when discussing lists in~\cref{sec:lists}.
 
-\begin{figure}%
-\centering%
-\includegraphics[width=0.8\linewidth]{\currentDir/strBasicOps}%
-\caption{Some more basic string operations.}%
-\label{fig:strBasicOps}%
-\end{figure}%
+\gitEvalPython{str_basic_ops}{}{simple_datatypes/str_basic_ops.py}%
+\listingBox{exec:str_basic_ops}{Some more basic string operations.}{,style=python_console_style}%
 
 Besides concatenating and extracting substrings, the \pythonilIdx{str} datatype supports many other operations.
 Here, we can just discuss the few most commonly used ones.
 
 There are several ways to check whether one string is contained in another one.
 The first method is to use the \pythonilIdx{in} keyword.
-As \cref{fig:strBasicOps} shows, \pythonil{"World" in "Hello World!"} yields \pythonilIdx{True}, as it checks whether \pythonil{"World"} is contained in \pythonil{"Hello World!"}, which is indeed the case.
+As \cref{exec:str_basic_ops} shows, \pythonil{"World" in "Hello World!"} yields \pythonilIdx{True}, as it checks whether \pythonil{"World"} is contained in \pythonil{"Hello World!"}, which is indeed the case.
 \pythonil{"Earth" in "Hello World!"} is \pythonilIdx{False}, because \pythonil{"Earth"} is not contained in \pythonil{"Hello World!"}.
 
 Often, however, we do not just want to know whether a string is contained in another one, but also \emph{where} it is contained.
@@ -147,12 +139,8 @@ You can find more in the \href{https://docs.python.org/3/library/stdtypes.html\#
 \hsection{The str Function and f-strings}%
 \label{sec:fstrings}%
 %
-\begin{figure}%
-\centering%
-\includegraphics[width=0.8\linewidth]{\currentDir/strStr}%
-\caption{The \pythonilIdx{str} function converts objects to strings.}%
-\label{fig:strStr}%
-\end{figure}%
+\gitEvalPython{str_str}{}{simple_datatypes/str_str.py}%
+\listingBox{exec:str_str}{The \pythonilIdx{str} function converts objects to strings.}{,style=python_console_style}%
 %
 We now have learned the basic operations that can process strings.
 However, we did not yet learn one essential thing:
@@ -160,29 +148,25 @@ How can we convert an object, like an \pythonilIdx{int} or \pythonilIdx{float} v
 Very often, we want to perform some complicated calculation that produces a number and then print this number.
 
 In \python, you can convert many different objects to strings by passing them to the function \pythonilIdx{str}\pythonIdx{str!function}.
-As \cref{fig:strStr} shows, passing the integer number~\pythonil{23} to \pythonilIdx{str}, i.e., invoking \pythonil{str(23)}, yields the string~\pythonil{"23"}.
+As \cref{exec:str_str} shows, passing the integer number~\pythonil{23} to \pythonilIdx{str}, i.e., invoking \pythonil{str(23)}, yields the string~\pythonil{"23"}.
 Similarly, invoking \pythonil{str} with the \pythonilIdx{float} value \pythonil{23.5} produces the string~\pythonil{"23.5"}.
 
 We can of course concatenate the results of such computations to form more comprehensive texts:
 \pythonil{str(1 < 5) + " is True and " + str(1 + 5) + " = 6."} produces \pythonil{"True is True and 6 = 6."}, because \pythonil{1 < 5} evaluated to \pythonilIdx{True}, which is converted to a string, and \pythonil{1 + 5} gives us \pythonil{6}, which, too, is converted to a string.
 However, converting data to strings like this is rather tedious.
 
-\begin{figure}%
-\centering%
-\includegraphics[width=0.8\linewidth]{\currentDir/fstrings}%
-\caption{\python\ \pglspl{fstring} in action.}%
-\label{fig:fstrings}%
-\end{figure}
+\gitEvalPython{str_fstrings}{}{simple_datatypes/str_fstrings.py}%
+\listingBox{exec:str_fstrings}{\python\ \pglspl{fstring} in action.}{,style=python_console_style}%
 
 \pythonIdx{str!f}\pythonIdx{f-string}Let us therefore discuss a very powerful and much more convenient gadget in \python's string processing toolbox: format strings, or \pglspl{fstring}\pythonIdx{f-string}\pythonIdx{str!f} for short~\cite{PSF:P3D:TPT:FSL,PEP498,M2017WAFSIPAHCIUT,B2023PFS}.
 An \pgls{fstring} is like a normal string, except that it starts with \pythonil{f"}\pythonIdx{f\textquotedbl\idxdots\textquotedbl} instead of \pythonil{"}.
 And, most importantly, it can contain other data and even complete expressions inside curly braces~(\pythonil{\{...\}}\pythonIdx{\textbraceleft\idxdots\textbraceright!f-string}) which are then embedded into the string.%
 %
 \begin{sloppypar}%
-In \cref{fig:fstrings}, we first consider the \pgls{fstring} \pythonil{f"\{12345678901234\}\ is a really big integer."}\footnote{
+In \cref{exec:str_fstrings}, we first consider the \pgls{fstring} \pythonil{f"\{12345678901234\}\ is a really big integer."}\footnote{
 The code that formats my inline \python\ examples sometimes eats spaces after \textbraceleft\ or \textbraceright. %
 Therefore, some of the strings presented here may look a bit off. %
-In \cref{fig:fstrings}, they are printed correctly, though.}.
+In \cref{exec:str_fstrings}, they are printed correctly, though.}.
 This is basically a normal string, except that it contains an integer value.
 The opening curly brace~(\inQuotes{\textbraceleft}) right at its beginning signifies that some \python\ expression will begin which must be translated to a string.
 The actual expression, \pythonil{12345678901234} is just a really big integer.
@@ -292,18 +276,15 @@ You are now able to convert the results of your computations to nice text.%
 \endhsection%
 %
 \hsection{Converting Strings to other Datatypes}%
-\begin{figure}%
-\centering%
-\includegraphics[width=0.8\linewidth]{\currentDir/fromStr}%
-\caption{Converting strings to other datatypes.}%
-\label{fig:fromStr}%
-\end{figure}%
+%
+\gitEvalPython{str_from}{}{simple_datatypes/str_from.py}%
+\listingBox{exec:str_from}{Converting strings to other datatypes.}{,style=python_console_style}%
 %
 While converting the other datatypes to strings is important to produce output, converting strings to the other datatypes is also important.
 If our programs accept input from the console, the command line, or from text files, we need to somehow translate these input strings to whatever datatype we actually need.
 Luckily, the datatypes we have discussed so far conveniently provide functions for doing so, and these functions are named like the datatypes themselves.
 
-\cref{fig:fromStr} shows that we can convert the string \pythonil{"1111"} to an integer \pythonil{1111} simply by passing it to the function \pythonilIdx{int}\pythonIdx{int!function}.
+\cref{exec:str_from} shows that we can convert the string \pythonil{"1111"} to an integer \pythonil{1111} simply by passing it to the function \pythonilIdx{int}\pythonIdx{int!function}.
 If we want to convert hexadecimal-formatted text such as the string \pythonil{"0x1111"} instead, we need to tell the \pythonilIdx{int} function that the basis for conversion is~16.
 Doing \pythonil{int("0x1111", 16)} yields \pythonil{4369}, because~$1+16^1+16^2+16^3=1+16+256+4096=4369$.
 Similarly, if we have a string in binary annotation, we pass~2 as second parameter to \pythonilIdx{int}.
@@ -329,12 +310,8 @@ This section tells you how to include special characters in strings that you oth
 You can skip this section and circle back to it when you need it.%
 }%
 %
-\begin{figure}%
-\centering%
-\includegraphics[width=0.8\linewidth]{\currentDir/strEscapes}%
-\caption{Escaping special characters in \python\ strings.\pythonIdx{str!escaping}\pythonIdx{escaping}}%
-\label{fig:strEscapes}%
-\end{figure}%
+\gitEvalPython{str_escape}{}{simple_datatypes/str_escape.py}%
+\listingBox{exec:str_escape}{Escaping special characters in \python\ strings.\pythonIdx{str!escaping}\pythonIdx{escaping}}{,style=python_console_style}%
 %
 The last example of \pglspl{fstring} brought up an interesting topic:
 \inQuotes{What do we do if we want to use a character in a string which we cannot use?}
@@ -348,7 +325,7 @@ The idea is very simple:
 If we need a certain quotation mark, then we simply put a backslash~(\inQuotes{\textbackslash})\pythonIdx{\textbackslash} before it.
 The backslash tells the \python\ interpreter that the next character should be considered as a normal character and not be interpreted as any special character, like a string delimiter.
 
-In \cref{fig:strEscapes}, we present several strings with escape sequences\pythonIdx{str!escaping}\pythonIdx{escaping}.
+In \cref{exec:str_escape}, we present several strings with escape sequences\pythonIdx{str!escaping}\pythonIdx{escaping}.
 For clarity reasons, we pass them to the \pythonilIdx{print} function to output them, which means that they show up undelimited in the console.
 A double quotation mark can be printed as \pythonil{print("\\"")}, i.e., as a string which is delimited and that then contains the escape sequence {\textbackslash\textquotedbl}\pythonIdx{\textbackslash\textquotedbl}.
 It then shows up as~\textil{"} in the output.
@@ -387,12 +364,8 @@ The backslash-based escape sequence we discussed in this section work for both \
 \hsection{Multi-Line Strings}%
 \label{sec:multiLineStrings}%
 %
-\begin{figure}%
-\centering%
-\includegraphics[width=0.8\linewidth]{\currentDir/strMultiline}%
-\caption{Examples for multi-line strings.}%
-\label{fig:strMultiline}%
-\end{figure}%
+\gitEvalPython{str_multiline}{}{simple_datatypes/str_multiline.py}%
+\listingBox{exec:str_multiline}{Examples of multi-line strings.}{,style=python_console_style}%
 %
 Before we discussed that strings in \python\ are delimited either by \pythonil{"}\pythonIdx{\textquotedbl\idxdots\textquotedbl} or \pythonil{'}\pythonIdx{\textquotesingle\idxdots\textquotesingle} on each side.
 However, we can actually delimit them also delimit them with \emph{three quotation marks} on each side, i.e., with either \pythonil{"""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl\idxdots\textquotedbl\textquotedbl\textquotedbl} or \pythonil{'''}\pythonIdx{\textquotesingle\textquotesingle\textquotesingle\idxdots\textquotesingle\textquotesingle\textquotesingle}.
@@ -403,14 +376,14 @@ The main use case are \pglspl{docstring}, which we will discuss later, see, e.g.
 
 \bestPractice{longstrDoubleQuote}{When defining a multi-line string literal, the double-quotation mark variant~(\pythonil{"""..."""})\pythonIdx{\textquotedbl\textquotedbl\textquotedbl\idxdots\textquotedbl\textquotedbl\textquotedbl} is usually preferred over the single-quotation mark variant~(\pythonil{'''...'''}\pythonIdx{\textquotesingle\textquotesingle\textquotesingle})~\cite{PEP257,PEP8}.}
 
-\cref{fig:strMultiline} shows what happens if we print such a multi-line string.
+\cref{exec:str_multiline} shows what happens if we print such a multi-line string.
 We first create the string by writing the three lines \textil{This is a multi-line string.}, \textil{I can hit enter to begin a new line.}, and \textil{This linebreak is then part of the string.}.
 The first line begins with \pythonil{"""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl\idxdots\textquotedbl\textquotedbl\textquotedbl} and the last one ends with \pythonil{"""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl\idxdots\textquotedbl\textquotedbl\textquotedbl} as well.
 Passing this text to the \pythonilIdx{print} function, well, prints exactly this three-line string.
 
 We can also have multi-line \pglspl{fstring}\pythonIdx{str!f}\pythonIdx{f-string!multi-line}.
 These then simply start with \pythonil{f"""}\pythonIdx{f\textquotedbl\textquotedbl\textquotedbl\idxdots\textquotedbl\textquotedbl\textquotedbl}.
-The example in \cref{fig:strMultiline} presents such a multi-line \pgls{fstring} with two expressions for \pgls{strinterpolation} which spans over three lines.%
+The example in \cref{exec:str_multiline} presents such a multi-line \pgls{fstring} with two expressions for \pgls{strinterpolation} which spans over three lines.%
 \endhsection%
 %
 \hsection{Unicode and Character Representation}%
@@ -427,14 +400,15 @@ First-time readers can safely skip over it.}%
 \label{fig:unicodeCharacterTableSubset}%
 \end{figure}%
 %
+%
 \begin{figure}%
 \centering%
-\includegraphics[width=0.65\linewidth]{\currentDir/strUnicodeEscape}%
+\includegraphics[width=0.75\linewidth]{\currentDir/strUnicodeEscape}%
 \caption{\inQuotes{Hello}, i.e., \inQuotes{你好。} in Simplified Chinese~(简体中文)~\cite{SCR1956ROTSCOPTSCCS1} and entered via \pgls{unicode} escaped string.}%
-\label{fig:strUnicodeEscape}%
+\label{exec:str_unicode}%
 \end{figure}%
 %
-The memory of our computers basically stores chunks of bits of certain fixed sizes, say, bytes that are composed of8~bit each.
+The memory of our computers basically stores chunks of bits of certain fixed sizes, say, bytes that are composed of 8~bit each.
 Usually, these are interpreted as integer numbers.
 While \python\ supports arbitrarily large integers, usually we deal with integers composed of 8~bytes, i.e., 64~bits.
 The \pythonil{float} datatype in \python\ is also usually 8~bytes large, but these are interpreted differently in order to facilitate fractional numbers (see, e.g., \cref{fig:floatIEEEStructure}).
@@ -462,7 +436,7 @@ But some computers may misinterpret \pgls{unicode} text as something else becaus
 If we use the \pythonil{\\u}-based\pythonIdx{\textbackslash{u}} escape, then we can represent \emph{any} character as Basic Latin text sequence.
 It is also useful if we want to, e.g., enter Chinese text on a machine that does not have an \pgls{IME} or other corresponding tools, or text in any other kind of language where we do not have corresponding keys on the keyboard (see, e.g., \cref{lst:variables:pi_liu_hui} later on).
 
-Anyway, in \cref{fig:strUnicodeEscape}, we use the information obtained in \cref{fig:unicodeCharacterTableSubset} to print the Chinese text \inQuotes{你好。} standing for \inQuotes{Hello.} and pronounced as \inQuotes{N{\v{\i}} h{\v{a}}o.} as a unicode-escaped string.
+Anyway, in \cref{exec:str_unicode}, we use the information obtained in \cref{fig:unicodeCharacterTableSubset} to print the Chinese text \inQuotes{你好。} standing for \inQuotes{Hello.} and pronounced as \inQuotes{N{\v{\i}} h{\v{a}}o.} as a unicode-escaped string.
 We found that the character for \inQuotes{你} has unicode number~4f60, \inQuotes{好} has~597d, and the big period~\inQuotes{。} has~3002.
 The string \pythonil{"\\u4f60\\u597d\\u3002"} then corresponds to the correct Chinese text~\inQuotes{你好。}.%
 \endhsection%
