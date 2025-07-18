@@ -147,6 +147,15 @@ We can obtain the hexadecimal representation of~22 by computing \pythonil{hex(22
 We can also enter hexadecimal numbers in the console like \pythonil{0x16}, which yields~\pythonil{22}.
 The octal representation of~22 is obtained as \pythonil{oct(22)}\pythonIdx{oct}, which produces \pythonil{0o26}\pythonIdx{0o}, which, in turn, corresponds to~$2*8^1+6$.
 Similarly, this octal number can be entered as \pythonil{0o26}.
+
+You may wonder:~\inQuotes{How does an \pythonil{int} know whether it was entered in hexadecimal, octal, binary, or decimal notation?}
+It does not.
+It does not matter at all in which format an integer value is entered in the computer or in your program code.
+These are just text formats to store numbers~(either in your program code, the interpreter, or the input of your program).
+These text formats get converted to \pythonil{int} structures which do not remember in any way how the numbers were originally entered.
+These formats only exist for input and output.
+Depending of your situation, you can use whatever format is most convenient in your situations.
+
 With this, our excursion into binary maths ends and we now welcome back all first-time readers.%
 %
 \endhsection%

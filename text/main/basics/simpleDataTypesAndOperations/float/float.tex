@@ -9,7 +9,7 @@ There is only the single type \pythonilIdx{int} and it can store any integer val
 \begin{sloppypar}%
 In an ideal world, we would have a similar feature also for real numbers.
 However, such a thing cannot be practically implemented.
-You will certainly remember the numbers $\numberPi\approx3.141\decSep592\decSep653\decSep590\dots$ and $e\approx2.718\decSep281\decSep828\decSep459\dots$ from highschool maths.
+You will certainly remember the numbers $\numberPi\approx3.141\decSep592\decSep653\decSep590\dots$ and $\numberE\approx2.718\decSep281\decSep828\decSep459\dots$ from highschool maths.
 They are transcendental~\cite{N1939TTOP,APM1991AAAFI:TOEAP,F2011TTOEAP}, i.e., their fractional digits never end and nobody has yet detected an orderly pattern in them.
 Since these numbers are \inQuotes{infinitely long,} we would require infinitely much memory to store them \emph{if} we wanted to represent them \emph{exactly}.
 So we don't and neither does \python.
@@ -27,10 +27,11 @@ We cannot really represent the real numbers~\realNumbers\ exactly in the memory 
 \end{figure}%
 %
 But how does it work in \python?
-How can we deal with the fact that we cannot dynamically represent fractional numbers exactly even in typical everyday cases?
+How can we deal with the fact that we cannot represent arbitrary fractional numbers exactly even in typical everyday cases like~\numberPi\ and~\numberE?
+How can we deal with the situation that real numbers exist as big as~$10^{300}$ and as small as~$10^{-300}$?
 With \pythonilIdx{float}, \python\ offers us one type for fractional numbers.
-This datatype represents numbers usually in the same internal structure as \pythonils{double} in the \pgls{C}~programming language~\cite{PSF:P3D:TPSL:NTIFC}, which, in turn, internally have a 64~bit IEEE~Standard 754 floating point number layout~\cite{IEEE2019ISFFPA,H1997IS7FPN}.
-The idea behind this standard is to represent both very large numbers, like~$10^{300}$ and very small numbers, like~$10^{-300}$.
+This datatype represents numbers usually in the same internal structure as \pythonils{double} in the \pgls{C}~programming language~\cite{PSF:P3D:TPSL:NTIFC} -- it is based on the 64~bit IEEE~Standard 754 floating point number layout~\cite{IEEE2019ISFFPA,H1997IS7FPN}.
+The idea behind this standard is exactly to be able to represent both very large numbers, like~$10^{300}$ and very small numbers, like~$10^{-300}$, while accepting that we cannot exactly represent~$10^{300}+10^{-300}$.
 In order to achieve this, the 64~bits are divided into three pieces, as illustrated in \cref{fig:floatIEEEStructure}.
 %
 \noviceHint{%
@@ -45,10 +46,11 @@ In this case, we could represent numbers from~$0$ to $0.001*(2^{52}-1)$ and the 
 Whatever fixed resolution we would choose, it would be good in some cases and bad in others.
 
 Therefore, the second part of the 64~bit floating point number representation comes into play:
-The 11~bits of the \pgls{exponent} represent a power of~2 which is multiplied to the \pgls{significand} to get the actual number.
+The 11~bits of the \pgls{exponent} store the resolution.
+They represent a power of~2 which is multiplied to the \pgls{significand} to get the actual number.
 In order to allow us to have both small and large numbers, this value must be able represent positive and negative exponents.
-Therefore, the stored value of the \pgls{exponent} is taken and a \pgls{bias} of~1023 is subtracted.
-Thus, a stored value of 2000 in the exponent fields leads to an actual exponent of $1050-1023=27$, which would mean that the \pgls{significand} is multiplied with~$2^{27}$, i.e., $134\decSep217\decSep728$.%
+Therefore, the stored value of the \pgls{exponent} is taken and a constant \pgls{bias} of~1023 is subtracted.
+Thus, a stored value of 1050 in the exponent fields leads to an actual exponent of $1050-1023=27$, which would mean that the \pgls{significand} is multiplied with~$2^{27}$, i.e., $134\decSep217\decSep728$.%
 %
 \begin{sloppypar}%
 Finally, the \pgls{signBit} in the floating point number dataformat indicates whether the number is positive or negative.
@@ -58,15 +60,17 @@ Indeed, there are even special floating point values for infinity and errors.
 But more about this later.%
 \end{sloppypar}%
 %
-Luckily, you will never really need to know these exact information.
+Luckily, you will never really need to know these exact information in your day-to-day programming work.
 The important thing to remember is:
-Floating point numbers can represent a wide range of different values.
+Floating point numbers~(\pythonils{float}) can represent a wide range of different values.
 Their range is large but still limited.
 They can represent integers and fractions.
 However, their accuracy is always limited to about 15~digits.
 In other words, regardless whether your \pythonilIdx{float} stores a very large or a very small number, you can have at most 15~digits of precision.
 For example, adding~1 to~$10^{16}$ would still yield~$10^{16}$, because only 15~digits are \inQuotes{stored} and the~1 will just \inQuotes{fall off.}
-You cannot represent numbers arbitrarily precisely~\cite{PSF:P3D:TPT:FPAIAL}.%
+You cannot represent numbers arbitrarily precisely with \pythonils{float}~\cite{PSF:P3D:TPT:FPAIAL}.
+Except for that, \pythonils{float} are pretty cool, though.%
+%
 %
 \endhsection%
 %
@@ -143,8 +147,9 @@ They are off by \emph{less than~$10^{-15}$} so for all practical concerns, they 
 Sometimes, we even get the accurate result, e.g., when computing $\ln(e^{10})$ by evaluating \pythonil{log(e ** 10)}\pythonIdx{log}, which results in~\pythonil{10.0}.
 
 As final example of floating point arithmetics, let us import the inverse trigonometric functions by doing \pythonil{from math import asin, acos, atan}\pythonIdx{math}\pythonIdx{asin}\pythonIdx{acos}\pythonIdx{atan}.
-Obviously, $\arcsin{\sin{0.925}}$ should be~$0.925$.
+Obviously, $\arcsin{\sin{0.925}}$ should be~$0.925$, since $\arcsin{\sin x} = x$~$\forall x\in[-\frac{\numberPi}{2},\frac{\numberPi}{2}]$.
 Calculating \pythonil{asin(sin(0.925))}\pythonIdx{asin}\pythonIdx{sin} indeed yields~\pythonil{0.9250000000000002}.
+It also holds that $\arccos{\cos x} = x$~$\forall x\in[0,\numberPi]$.
 Due to the periodicity of the trigonometric functions, $\arccos{\cos{-0.3}}$ is~$0.3$ and \pythonil{acos(cos(-0.3))}\pythonIdx{acos}\pythonIdx{cos} results in~\pythonil{0.30000000000000016}.
 For $\arctan{\tan{1}}$ we even get the exact result \pythonil{1.0} by computing \pythonil{atan(tan(1))}\pythonIdx{atan}\pythonIdx{tan}.%
 %
@@ -153,7 +158,7 @@ Always assume that any \pythonilIdx{float} value is imprecise. %
 Never expect it to be exact~\cite{PTVF2007NRTAOSC:EAAS,BHK2006CNFCMEARFCS:NS}.%
 }%
 %
-Due to the limited precision, it could be that you add two numbers $c=a+b$ but then find that $c-a\neq b$, because some digit was lost. %
+Due to the limited precision, it could be that you add two numbers~$a+b=c$ but then find that $c-a\neq b$, because some digit was lost. %
 This is obvious when adding a very small number to a very large number.
 We only have about 15~digits, so doing something like~$10^{20} + 1$ will usually work out to just be~$10^{20}$ in floating point arithmetics~\cite{PTVF2007NRTAOSC:EAAS}.
 But digits could also be lost when adding numbers of roughly the same scale, because their sum could just be larger so that the 15-digit-window shifts such that the least-significant digit falls off~\cite{BHK2006CNFCMEARFCS:NS}{\dots}%
@@ -172,16 +177,24 @@ Therefore, we need a \inQuotes{way back} from \pythonilIdx{float} to \pythonilId
 
 The first and maybe most common one is \pythonilIdx{round}.
 This function accepts a \pythonilIdx{float} and rounds it to the nearest integer.
-If two integer numbers are equally close, it rounds it to the one that is even.
-This can be very surprising, as we learned in school that $x.5$ should be rounded to $x+1$.
-This will only happen with \pythonilIdx{round} if $x+1$~is even.
+If two integer numbers are equally close to it, it returns the one that is even~\cite{PSF:P3D:TPSL:BIF}.
+This rounding method is called Banker's Rounding.
+It is defined in the IEEE~754 standard for floating point arithmetics~\cite{IEEE2019ISFFPA} and used in many applications today, including Alipay\textsuperscript{+}~\cite{APDOC:BR}.
+
+This rounding behavior can be very surprising, as we learned in school that $x.5$ should be rounded to~$x+1$.
+Well, I learned it like this in Germany (and \pgls{Java}'s~\pythonil{Math.round} also works like that\cite{O2024JPSEJDKV2AS}), but elsewhere it may be taught differently{\dots}
+Under Banker's Rounding, this will only happen with \pythonilIdx{round} if $x+1$~is even.
+The reason why Banker's Rounding is preferred is that it is not biased in any direction~\cite{MB2005RA1,SE:SO:WDP3RHTE}.
+If $x.5$ is always rounded toward~$x+1$ and we have many numbers of the form $x.5$, then the average rounded result tends to be somewhat larger than the average of the unrounded numbers.
+Banker's Rounding avoids this problem by sometimes rounding numbers ending in~5 to larger and sometimes to smaller values.
+
 We find examples for the behavior of \pythonilIdx{round} in \cref{exec:float_rounding}.
-\pythonil{round(0.4)} yields the integer~\pythonil{0}, as expected.
-\pythonil{round(0.5)} returns~\pythonil{0} as well, which one may not expect -- but \pythonil{0} is even and \pythonil{1} would be odd.
-\pythonil{round(0.6)} gives us the integer~\pythonil{1}.
-If we compute \pythonil{round(1.4)}, we still get~\pythonil{1}.
-However, doing \pythonil{round(1.5)} gives us~\pythonil{2}.
-This is because \pythonil{2} is even.
+\pythonil{round(0.4)}~yields the integer~\pythonil{0}, as expected.
+\pythonil{round(0.5)}~returns~\pythonil{0} as well, which one may not expect -- but \pythonil{0}~is even and \pythonil{1}~would be odd.
+\pythonil{round(0.6)}~gives us the integer~\pythonil{1}.
+If we compute~\pythonil{round(1.4)}, we still get~\pythonil{1}.
+However, doing~\pythonil{round(1.5)} gives us~\pythonil{2}.
+This is because \pythonil{2}~is even.
 
 Three more common functions to turn \pythonils{float}\pythonIdx{float} to \pythonils{int}\pythonIdx{int} are given in the \pythonilIdx{math} module.
 We can import them via \pythonil{from math import floor, trunc, ceil}\pythonIdx{from}\pythonIdx{import}\pythonIdx{math}\pythonIdx{floor}\pythonIdx{trunc}\pythonIdx{ceil}.
@@ -206,9 +219,18 @@ With \pythonils{float}\pythonIdx{float}, this works exactly as invoking \pythoni
 \pythonil{int(0.9)} and \pythonil{int(-0.9)} both give us~\pythonil{1}.
 \pythonil{11.6} yields~\pythonil{11}.
 
+The result of \pythonil{int(x)} and \pythonil{trunc(x)} is the same for all finite \pythonils{float}~\pythonil{x}.
+The semantic difference between the two functions is that \pythonil{int(x)} means~\emph{\inQuotes{Convert \pythonil{x} to an~\pythonil{int}.}} whereas \pythonil{trunc(x)} means~\emph{\inQuotes{Discards the fractional digits and return integer part of the number as an~\pythonil{int}.}}
+\pythonil{int(x)}~thus is inherently a datatype conversion function whereas \pythonil{trunc(x)}~is a mathematical operation.
+Besides these semantic differences, there is not much of a practical relevant difference between the two functions.
+
+If you want to round the way I learned in school, namely that~$x.5$ becomes $x + 1$, then this goes via \pythonilIdx{int} or \pythonilIdx{trunc}:~We can simply compute~\pythonil{int(x + 0.5)} (or \pythonil{trunc(x + 0.5)}).
+\Cref{exec:float_rounding} shows this, too.
+Here, \pythonil{int(11.5 + 0.5)} becomes~\pythonil{12} and \pythonil{int(12.5 + 0.5)} becomes~\pythonil{13}.
+
 With this, we have several ways to turn \pythonils{float}\pythonIdx{float} to \pythonils{int}\pythonIdx{int}.
 However, especially with the function \pythonilIdx{round}, we need to be careful.
-It does \emph{not} work as one would expect!%
+It does \emph{not} necessarily work as one would expect!~({\dots}but arguably better.)%
 %
 \endhsection%
 %
@@ -236,16 +258,22 @@ Earlier on, we wrote that \pythonils{float}\pythonIdx{float} can represent numbe
 This leads to the question how it would print such values on the console and how we can read them.
 While it would be hugely impractical to write a~1 followed by 300~zeros to represent~$10^{300}$, it would also be \emph{wrong}.
 We also already know the reason for this:
-A \pythonilIdx{float} is accurate to 15~decimals.
+A \pythonilIdx{float} is accurate to between 15~and 16~decimals.
 So basically, the first 15~zeros would be correct, but the values of the other digits are actually \emph{undefined}.
 
 \python, like many programming languages, solves this problem by using the \emph{scientific notation} for floating point numbers.
 It uses this notation for any (absolute) \pythonilIdx{float} value smaller than~$10^{-4}$ or larger than or equal to~$10^{16}$.
-Such numbers~$\alpha$ are then represented in the form~$\beta*10^{\gamma}$ (such that $\beta*10^{\gamma}=\alpha$, obviously).
+Such numbers~$\alpha$ are then represented in the form~$\alpha=\beta*10^{\gamma}$.
 Since we cannot write this so nicely in a console, a lowercase~\texttt{e} takes the place of the~$10$ and $\beta$ and $\gamma$ are written as normal text.
-In order to make sure that each number~$\alpha$ has unique representation, it is defined that $\alpha$ must have exactly one non-zero leading digit, which may be followed by a decimal dot and then a fractional part.
+In other words, we write~$\beta\texttt{e}\gamma$.
+In order to make sure that each number~$\alpha$ has unique representation, it is defined that $\beta$ must have exactly one non-zero leading digit, which may be followed by a decimal dot and then a fractional part.
 This notation is illustrated in \cref{fig:scientificNotation}.
+
 \emph{This notation only applies to \pythonils{float}\pythonIdx{float}, \textbf{not} \pythonils{int}\pythonIdx{int}.}
+Also, please be aware that this is just a notation, a way to represent numbers as text.
+It is only used for input and output of numbers.
+Internally, the numbers are still stored in exactly the IEEE~754~Standard format~\cite{IEEE2019ISFFPA,H1997IS7FPN}.
+This is very similar to the fact that we can enter integer numbers in hexadecimal, decimal, octal, or binary format -- but regardless of how we enter them, they are still stored in the \inQuotes{same} \pythonil{int} structure, which does not remember in which format the numbers were originally specified.
 
 In \cref{exec:float_scientific_notation} we provide some examples for this notation.
 When we write \pythonil{0.001} or \pythonil{0.0001} in a \python\ console, the output is still this same number.
@@ -255,7 +283,7 @@ Did you know that you are allowed to insert underscores (\pythonil{_}\pythonIdx{
 If not, you know now.
 %
 \bestPractice{underscoresInNumbers}{%
-If you need to specify large integers or floats, using underscores~(\pythonil{_}\pythonIdx{\_}) to separate groups of digits can be very helpful~\cite{PEP515}. %
+If you need to specify large \pythonils{int} or \pythonils{float}, using underscores~(\pythonil{_}\pythonIdx{\_}) to separate groups of digits can be very helpful~\cite{PEP515}. %
 For example, \pythonil{37_859_378} is much easier to read than~\pythonil{37859378}.%
 }
 %
@@ -305,7 +333,7 @@ First the easy part:
 We said that \python\ can store very small numbers, like $10^{-300}$, in the \pythonilIdx{float} datatype.
 But how small really?
 Finding this out from the documentation is actually not so easy.
-Luckily, \pgls{Java} uses the same standard for its class \pythonil{Double}.
+Luckily, \pgls{Java} uses the same IEEE~754~Standard\cite{IEEE2019ISFFPA} for its datatyoe \pythonil{double}.
 In its documentation~\cite{O2024JPSEJDKV2AS:CD}, we find that the minimum value is~$2^{-1074}$, which is approximately~$4.940\decSep656\decSep458\decSep412\decSep465\decSep44*10^{-324}$.
 So we would expect the smallest possible floating point value in \python\ to also be in this range.
 
