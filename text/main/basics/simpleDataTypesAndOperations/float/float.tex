@@ -363,11 +363,13 @@ They become zero.
 \listingBox{exec:float_very_large}{What happens with very large floating point numbers in \python?\pythonIdx{inf}.}{,style=python_console_style,literate={0}{0\-}1 {1}{1\-}1 {2}{2\-}1 {3}{3\-}1 {4}{4\-}1 {5}{5\-}1 {6}{6\-}1 {7}{7\-}1 {8}{8\-}1 {9}{9\-}1,breakatwhitespace=false,breaklines=true}
 
 But what happens to numbers that are too big for the available range?
-Again, according to the nice documentation of \pgls{Java}, the maximum 64~bit double precision floating point number value is~$(2-2^{-52})*2^{1023}\approx1.797\decSep693\decSep134\decSep862\decSep315\decSep708\dots*10^{308}$.
+Again, according to the nice documentation of \pgls{Java}~\cite{O2024JPSEJDKV2AS:CD}, the maximum 64~bit double precision floating point number value is~$(2-2^{-52})*2^{1023}\approx1.797\decSep693\decSep134\decSep862\decSep315\decSep708\dots*10^{308}$.
 We can enter this value as \pythonilIdx{1.7976931348623157e+308}\pythonIdx{float!largest} and it indeed prints correctly in \cref{exec:float_very_large}.
 If we step it up a little bit and enter \pythonil{1.7976931348623158e+308}, due to the limited precision, we again get \pythonilIdx{1.7976931348623157e+308}\pythonIdx{float!largest}.
 However, if we try entering \pythonil{1.7976931348623159e+308} into the \python\ console, something strange happens:
 The output is \pythonilIdx{inf}.
+\pythonil{inf} means \emph{\inQuotes{too big to be represented as number with \pythonil{float},}} which obviously includes infinity~($+\infty$), but also simply all numbers bigger than~\pythonil{1.7976931348623158e+308}.
+
 \pythonil{-1.7976931348623159e+308} gives us \pythonilIdx{-inf}.
 Multiplying this value by two, i.e., computing \pythonil{-1.7976931348623157e+308 * 2}, still yields \pythonil{-inf}.
 Intuitively, based on its name, one would assume that \pythonilIdx{inf} stands for \inQuotes{infinity} or~$\infty$.
@@ -399,7 +401,7 @@ The result is the very small number \pythonil{5.562684646268003e-309}.
 However, if we divide~1 by \pythonil{1.7976931348623159e+308}, we get~\pythonil{0.0}.
 The reason is that \pythonil{1.7976931348623159e+308} becomes \pythonilIdx{inf} and \pythonil{1 / inf}\pythonIdx{/} is~\pythonilIdx{0.0}.
 
-Finally, \pythonilIdx{inf} also exists as constant in the \pythonilIdx{math} module.
+\pythonilIdx{inf} exists as constant in the \pythonilIdx{math} module.
 We can import it via \pythonil{from math import inf}\pythonIdx{inf}.
 And indeed, since the text \pythonil{1.7976931348623159e+308} is parsed to a \pythonilIdx{float} value of \pythonilIdx{inf}, we find that \pythonil{1.7976931348623159e+308 == inf} yields~\pythonilIdx{True}.
 
@@ -409,14 +411,15 @@ And indeed, since the text \pythonil{1.7976931348623159e+308} is parsed to a \py
 Now, \pythonilIdx{inf} not actually being~$\infty$ is a little bit weird.
 But it can get even stranger, as you will see in \cref{exec:float_nan}.
 \pythonilIdx{inf} is a number which is too big to be represented as \pythonilIdx{float} \emph{or}~$\infty$.
+Once a variable has the value \pythonilIdx{inf}, however, it is treated as if it was actually infinity.
 So it is natural to assume that \pythonil{inf - 1} remains \pythonilIdx{inf} and that even \pythonil{inf - 1e300} remains \pythonilIdx{inf} as well.
 However, what is \pythonil{inf - inf}?
-Mathematically speaking, this is very dodgy and $\infty-\infty$ as such is not a thing.
+Mathematically speaking, this is very dodgy and $\infty-\infty$ as such is not a~\inQuotes{thing}.
 Or \emph{not a number}\pythonIdx{Not a Number}.
 Or \pythonilIdx{nan}, which stands for, well, Not a Number\pythonIdx{Not a Number}.
 
 \pythonilIdx{nan} means that the result of a computation is neither a finite number or infinite.
-It is the result of shenanigans such as \pythonil{inf - inf} or \pythonil{inf / inf}.
+It is the result of shenanigans such as \pythonil{inf - inf} or \pythonil{inf / inf} or \pythonil{0 * inf}.
 A \pythonilIdx{nan} value anywhere in a computation infects the result of the computation to also become \pythonilIdx{nan}.
 \pythonil{nan + 1} remains \pythonilIdx{nan} and so does \pythonil{nan + inf}.
 
@@ -428,6 +431,10 @@ In floating point mathematics, \pythonil{inf == inf} is \pythonilIdx{True} and \
 Mathematicians may have mixed feelings about proclaiming that $\infty=\infty$ holds while $\infty-\infty$ is undefined\dots}.
 However, \pythonilIdx{nan} is \emph{really} different from really \emph{anything}.
 Therefore, \pythonil{nan == nan}\pythonIdx{==} is \pythonilIdx{False} and \pythonil{nan != nan}\pythonIdx{"!=} is \pythonilIdx{True}!
+
+Interestingly, we said that \pythonil{inf} behaves more or less like~$\infty$ in computations.
+Except that \pythonil{inf == inf} is \pythonil{True}, which is strange, because \pythonil{inf - inf} is undefined.
+But OK, let's just accept that somethings are a bit strange and move on.
 
 \gitEvalPython{float_check_finite}{}{simple_datatypes/float_check_finite.py}%
 \listingBox{exec:float_check_finite}{Checking for \pythonilIdx{nan} and \pythonilIdx{inf} via \pythonilIdx{isfinite}, \pythonilIdx{isinf}, and \pythonilIdx{isnan}.}{,style=python_console_style}%
