@@ -223,7 +223,7 @@ With \pythonils{float}\pythonIdx{float}, this works exactly as invoking \pythoni
 The result of \pythonil{int(x)} and \pythonil{trunc(x)} is the same for all finite \pythonils{float}~\pythonil{x}.
 The semantic difference between the two functions is that \pythonil{int(x)} means~\emph{\inQuotes{Convert \pythonil{x} to an~\pythonil{int}.}} whereas \pythonil{trunc(x)} means~\emph{\inQuotes{Discards the fractional digits and return integer part of the number as an~\pythonil{int}.}}
 \pythonil{int(x)}~thus is inherently a datatype conversion function whereas \pythonil{trunc(x)}~is a mathematical operation.
-Besides these semantic differences, there is not much of a practical relevant difference between the two functions.
+Besides these semantic differences, there is not much of a practical relevant difference between the two functions~\cite{PEP3141}.
 
 If you want to round the way I learned in school, namely that~$x.5$ becomes $x + 1$, then this goes via \pythonilIdx{int} or \pythonilIdx{trunc}:~We can simply compute~\pythonil{int(x + 0.5)} (or \pythonil{trunc(x + 0.5)}).
 \Cref{exec:float_rounding} shows this, too.

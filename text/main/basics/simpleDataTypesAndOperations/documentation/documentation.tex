@@ -1,8 +1,53 @@
 \hsection{Interlude:~The Python Documentation and other Information Resources}%
 \label{sec:pythonDocumentation}%
-\begin{noglslink}%
+%
+I~learned programming in the 1990s.
+It was mainly self-taught.
+I~was in seventh grade when I first saw \pgls{turboPascal}~\cite{B1992TPV7UB}, a programming language popular at that time.
+I~immediately know that this is what I want to do.
+My self-teaching experience was based on two pillars:
+Books borrowed from friends and the really great help system of \pgls{turboPascal}.
+You see, that programming language shipped with a \pgls{ide}, just like \pycharm\ is.
+This \pgls{ide} was text-based, but it had lots of cool features, such as a good compiler and \pgls{debugger}.
+But it also had a help system that listed every single command provided by the language.
+And each command came with an example.
+Sometimes I would just randomly scroll through the list, click on some command, and try out the example.
+It was beautiful.
+I loved it.
+
+So that was an important part of my experience.
+Which means that something similar should be available for you as you are learning \python.
+Sadly, \pycharm\ cannot offer such a list of commands as good old \pgls{turboPascal} did.
+Because the team behind \pycharm\ is not the team that creates and maintains \python.
+
+Now, in the previous section, we discussed lots of functions, \pythonilIdx{sin}, \pythonilIdx{cos}, \pythonilIdx{tan}, \pythonilIdx{atan}, \pythonilIdx{exp}, \pythonilIdx{log}, \pythonilIdx{round}, \pythonilIdx{floor}, \pythonilIdx{trunc}, and~\pythonilIdx{ceil}, to name just a few.
+You could read about and explore what these functions do in this book, to some degree.
+As said, books were one side of the experience.
+You need them to get the big picture, to understand programming paradigms, to develop an understanding of broad concepts.
+
+But books like this one here cannot be your only source of information.
+This book can only provide brief introductions into these functions from a didactic perspective.
+It does not make any sense to here discuss their exact specifications and relationships to other functions in the \python\ ecosystem and neither can we exhaustively explore all the possible aspects of the \python\ language.
+This leads to two questions:%
+%
+\begin{enumerate}%
+%
+\item Where do you turn to if you need to know the exact authoritative\footnote{%
+\emph{Authoritative} means that the information stems from the proper standardizing organization. %
+For \python, this is the \citelist{PSF:P3D}{publisher}. %
+Such organizations determine the specification of functions.%
+} specification of a function?%
+%
+\item From this book, you only learn about the functions that we \emph{do} list.
+Where do you turn to if you want to do something but do not know what commands or combination of commands can be used to achieve it?%
+%
+\end{enumerate}%
+%
+\hsection{Using the Authoritative Documentation}%
+\label{sec:authorativeDoc}%
 %
 \begin{figure}%
+\begin{noglslink}%
 \centering%
 %
 \subfloat[][%
@@ -53,24 +98,11 @@ Indeed, we find a brief explanation about the \pythonilIdx{ceil} function.~%
 %
 \caption{Searching the \citetitle{PSF:P3D}~\cite{PSF:P3D} for information about the function~\pythonilIdx{ceil}.}%
 \label{fig:pythondoc:A}%
+\end{noglslink}%
 \end{figure}%
 %
-In the previous section, we discussed lots of functions, \pythonilIdx{sin}, \pythonilIdx{cos}, \pythonilIdx{tan}, \pythonilIdx{atan}, \pythonilIdx{exp}, \pythonilIdx{log}, \pythonilIdx{round}, \pythonilIdx{floor}, \pythonilIdx{trunc}, and~\pythonilIdx{ceil}, to name just a few.
-You could read about and explore what these functions do in this book.
-However, there are two issues with this:
-
-First, this book can only provide brief introductions into these functions from a didactic perspective.
-It does not make any sense to here discuss their exact specifications and relationships to other functions in the \python\ ecosystem.
-So what do you do if you need the exact authoritative\footnote{%
-\emph{Authoritative} means that the information stems from the proper standardizing organization. %
-For \python, this is the \citelist{PSF:P3D}{publisher}. %
-Such organizations determine the specification of functions.%
-} information about the full specification of a function?
-Second, you only learn about the functions that we \emph{do} list.
-What do you do if you want to learn about a function that we do not discuss here?
-
 The answer to the first question is rather simple:
-There is a complete online help catalog available for \python:~the \citetitle{PSF:P3D}~\cite{PSF:P3D} at~\url{https://docs.python.org/3}.
+There is a complete online help catalog available for \python:~the \citetitle{PSF:P3D}~\cite{PSF:P3D} at~\citeurl{PSF:P3D}.
 This should be your primary destination if you want to learn anything about \python.
 Also, it is available in Chinese.
 
@@ -106,8 +138,42 @@ All other sources may contain errors, be imprecise, ambiguous, or outdated. %
 Therefore, always first consult the official \python\ documentation when being in doubt or looking for information.%
 }%
 %
+Of course, in many cases, we do not know the name of the function we are looking for.
+Assume that you did not know that the function~\pythonilIdx{ceil} exists.
+You were looking for a way to round floating point numbers \inQuotes{upwards.}
+
+You want to do something that you know should somehow be possible.
+You think that \python\ should probably offer some out-of-the-box function for doing that.
+If not, there should at least be some \inQuotes{standard \python way} to do that.
+Anyway, the point is:
+You do not have a function name to look for.
+
+Let's again start at the search mask of the \citetitle{PSF:P3D} at~\citeurl{PSF:P3D}.
+In \cref{fig:rounding01searchInDocumentation}, we try to describe what we want to do as clearly as possible.
+\inQuotes{Rounding up} is maybe not very precise.
+Let's enter \inQuotes{round towards positive infinity} into the search mask.
+
+Sadly, the results shown in \cref{fig:rounding02foundNothingUseful} are not too useful.
+This can happen.
+The first result is unrelated to floating point numbers.
+It offers us some discussion about objects implementing fractional arithmetics in a different way.
+While we could find some hints in this text, it is not useful.
+
+The second search result takes us to the a complete list of all functions in the module~\pythonilIdx{math}~\cite{PSF:P3D:TPSL:MMF}, but \emph{not} to the \pythonilIdx{ceil} function.
+This means that we would need to go through the whole list of functions, read all of their descriptions, until we arrive at one that matches our goals.
+This is a feasible method.
+The list is not too long.
+We could indeed spot the right answer here.
+And we would probably learn more about \python\ on the way.
+So directly working our way through the documentation here is a good idea.%
+%
+\FloatBarrier%
+\endhsection%
+%
+\hsection{Searching for Second-Hand Information in the Web}%
 \begin{figure}%
 \centering%
+\begin{noglslink}%
 %
 \subfloat[][%
 We try searching for information about \inQuotes{round towards positive infinity} in the~\citetitle{PSF:P3D}~\cite{PSF:P3D} at~\citeurl{PSF:P3D}.%
@@ -157,37 +223,9 @@ If we click on the hyperlink, it takes us to the \pythonilIdx{ceil}~entry in the
 %
 \caption{Searching for a \python\ function for \inQuotes{rounding up} if we do not know its name by using a search engine.}%
 \label{fig:pythondoc:B}%
+\end{noglslink}%
 \end{figure}%
 %
-Of course, in many cases, we do not know the name of the function we are looking for.
-Assume that you did not know that the function~\pythonilIdx{ceil} exists.
-You were looking for a way to round floating point numbers \inQuotes{upwards.}
-
-You want to do something that you know should somehow be possible.
-You think that \python\ should probably offer some out-of-the-box function for doing that.
-If not, there should at least be some \inQuotes{standard \python way} to do that.
-Anyway, the point is:
-You do not have a function name to look for.
-
-Let's again start at the search mask of the \citetitle{PSF:P3D} at~\citeurl{PSF:P3D}.
-In \cref{fig:rounding01searchInDocumentation}, we try to describe what we want to do as clearly as possible.
-\inQuotes{Rounding up} is maybe not very precise.
-Let's enter \inQuotes{round towards positive infinity} into the search mask.
-
-Sadly, the results shown in \cref{fig:rounding02foundNothingUseful} are not too useful.
-This can happen.
-The first result is unrelated to floating point numbers.
-It offers us some discussion about objects implementing fractional arithmetics in a different way.
-While we could find some hints in this text, it is not useful.
-
-The second search result takes us to the a complete list of all functions in the module~\pythonilIdx{math}~\cite{PSF:P3D:TPSL:MMF}, but \emph{not} to the \pythonilIdx{ceil} function.
-This means that we would need to go through the whole list of functions, read all of their descriptions, until we arrive at one that matches our goals.
-This is a feasible method.
-The list is not too long.
-We could indeed spot the right answer here.
-And we would probably learn more about \python\ on the way.
-So directly working our way through the documentation here is a good idea.
-
 But let's say that we did not find anything useful and gave up using the \python\ documentation directly.
 The second thing that we could try is to enter the description of what we want to do into a common search engine.
 In \cref{fig:rounding03searchEngine}, we use Microsoft Bing at~\url{https://bing.com}, but any other search engine would probably be as same as good.
@@ -217,9 +255,109 @@ However, search engines can also lead us to pages containing wrong, incomplete, 
 It is important to compare whatever information we found with the official \python\ documentation~\cite{PSF:P3D}~(see also~\cref{bp:searchAndLLM}).%
 }%
 %
+\begin{figure}%
+\centering%
+\begin{noglslink}%
+%
+\subfloat[][%
+We visit \citetitle{SE:SO}~\cite{SE:SO} at \citeurl{SE:SO}. %
+(Sometimes we get asked to load some \pgls{javascript} from additional sources, which we click OK.)%
+\label{fig:stackOverflow01websiteLoading}%
+]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/stackOverflow01websiteLoading}}}%
+%
+\floatSep%
+%
+\subfloat[][%
+The website has loaded, we can click into the search field to enter a query.%
+\label{fig:stackOverflow02websiteLoadedEnterQuery}%
+]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/stackOverflow02websiteLoadedEnterQuery}}}%
+%
+\floatRowSep%
+%
+\subfloat[][%
+We enter our query \emph{\inQuotes{python rounding towards infinity}} and press~\keys{\enter}.%
+\label{fig:stackOverflow03queryEntered}%
+]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/stackOverflow01websiteLoading}}}%
+%
+\floatSep%
+%
+\subfloat[][%
+The questions that are similar to our query are displayed. %
+The first few look unrelated. %
+We scroll down.%
+\label{fig:stackOverflow04queryAnsweres}%
+]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/stackOverflow04queryAnsweres}}}%
+%
+\floatRowSep%
+%
+\subfloat[][%
+We find the vaguely related-sounding question \citetitle{SE:SO:HTIDWRTIIP}~\cite{SE:SO:HTIDWRTIIP} and click on it.%
+\label{fig:stackOverflow05foundVaguelyRelatedQuestion}%
+]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/stackOverflow05foundVaguelyRelatedQuestion}}}%
+%
+\floatSep%
+%
+\subfloat[][%
+Indeed, the question fits {\dots} but its explanation of the division operator does not fit to our understanding of it. %
+We realize that it is from \citeyear{SE:SO:HTIDWRTIIP} and about \python~2.%
+\label{fig:stackOverflow06questionFits}%
+]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/stackOverflow06questionFits}}}%
+%
+\floatRowSep%
+%
+\subfloat[][%
+Scrolling to the answers of the question, we find an explanation of this issue and a pointer to an authoritative source~\cite{PEP238} explaining it. %
+We also find the \pythonilIdx{ceil}\pythonIdx{math!ceil} function. %
+We can now look it up in the \python~3 documentation.%
+\label{fig:stackOverflow07solutionFits}%
+]{\parbox{0.99\linewidth}{\centering%
+\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/stackOverflow07solutionFits}}}}%
+%
+\caption{Using \citetitle{SE:SO} to find information how to \inQuotes{round up} \pythonils{float} in \python.}%
+\label{fig:searchingForInfosUsingSO}%
+\end{noglslink}%
+\end{figure}%
+%
+Another group of possible sources for information on how to solve a certain programming problem or what command can be used to achieve a certain effect are dedicated websites for programming.
+The maybe most well-known is \citetitle{SE:SO}~\cite{SE:SO} at \citeurl{SE:SO}.
+This is a website where programmers can ask and answer programming questions.
+Let's see whether we can use it to find a way to round numbers toward infinity in \python.
+
+One such attempt is illustrated in \cref{fig:searchingForInfosUsingSO}.
+There, we visit the \citetitle{SE:SO} website and enter our query \emph{\inQuotes{python rounding towards infinity.}}
+This will show us several pages of questions that programmers have asked in the past and which \citetitle{SE:SO} thinks are related to our issue.
+We even find a question~\cite{SE:SO:HTIDWRTIIP} that sounds vaguely related to what we want to know.
+
+Clicking on it, we notice that this question seems odd:
+The author seems under the impression that \pythonilIdx{/} conducts an integer division, which we know is not true.
+We know that \pythonilIdx{//} does integer divisions, but \pythonilIdx{/} produces~\pythonils{float}.
+At first we are puzzled by this, but then notice that this question is from~\citeyear{SE:SO:HTIDWRTIIP}.
+It targets \python~2, which, at that time, was the \inQuotes{only} \python.
+
+Still, after scrolling down into the answers a bit, we find the whole issue explained.
+The answers even point us to the authoritative source regarding the semantics of the division operators, namely PEP~238~\cite{PEP238}.
+And we find the operator \pythonilIdx{ceil}!
+Having found the name of the operator, we could now go back to the \python\ documentation as shown in \cref{sec:authorativeDoc}.
+We can then look up the operator, get the information we need, and continue programming.
+
+This example shows one more issue of non-authoritative sources:
+They may be outdated.
+Software is not static.
+It changes and evolves.
+This holds for the programs that we develop as well as for the programming languages themselves.
+
+So any text that you find in the web -- including this book -- may be out of date when you read it.
+The information it provides may be incomplete or not even correct anymore.
+Therefore, circling back to the authoritative sources is always necessary after we found the hints we are looking for.%
+%
+\FloatBarrier%
+\endhsection%
+%
+\hsection{Asking an AI for Answers}%
 %
 \begin{figure}%
 \centering%
+\begin{noglslink}%
 %
 \subfloat[][%
 We open the BaiDu~(百度) search page at~\url{https://baidu.com} and click on \inQuotes{AI搜索已接入DeepSeek\nobreakdashes-V3最新版模型}.%
@@ -263,10 +401,12 @@ And it even provides a small snippet of code.%
 %
 \caption{Searching for a \python\ function for \inQuotes{rounding up} if we do not know its name by using an~\pgls{AI}.}%
 \label{fig:pythondoc:C}%
+\end{noglslink}%
 \end{figure}%
 %
 \begin{figure}%
 \centering%
+\begin{noglslink}%
 \fcolorbox{yellow!20!black}{yellow!10!white}{%
 \resizebox{0.97\linewidth}{!}{%
 \begin{minipage}{1.12\linewidth}%
@@ -274,6 +414,7 @@ And it even provides a small snippet of code.%
 \end{minipage}}}%
 \caption{The output of the DeepSeek search provided by Baidu for the unoptimized English prompt \inQuotes{How can I round floating point numbers towards positive infinity in Python?}, recorded on 2025\nobreakdashes-04\nobreakdashes-27, with added formatting.}%
 \label{fig:deepseek:output}%
+\end{noglslink}%
 \end{figure}%
 %
 Another question that naturally will occur is:~\inQuotes{Can I use an \pgls{AI} to figure out how to solve my problem?}
@@ -380,7 +521,7 @@ A new programmer joining the team will not be able to understand it, because, ma
 %
 \end{enumerate}%
 %
-From these points, we can conclude:%
+From these points, we can draw one more conclusion:%
 %
 \bestPractice{searchAndLLMDoc}{%
 \pglspl{AI} tools and web-based non-authoritative resources can be used to \emph{find} solutions. %
@@ -402,7 +543,13 @@ But your understanding of mathematics would be very very limited.
 
 Right now, you are supposed to learn how programming works.
 If you would ask an \pgls{AI} to answer your programming questions, you would learn how to use the \pgls{AI}.
-But your understanding of programming would be very very limited.%
+But your understanding of programming would be very very limited.
+And with this very very limited understanding, you would be unable to, well, understand and verify the code produced by the \pgls{AI}.%
+%
+\FloatBarrier%
+\endhsection%
+%
+\hsection{More Authoritative Sources of Information on Python}%
 %
 \begin{figure}%
 \centering%
@@ -437,7 +584,7 @@ The \citetitle{PEP0} page~\cite{PEP0} at~\citeurl{PEP0}.%
 \label{fig:pythondoc:D}%
 \end{figure}%
 %
-At the end of this section, let us also note:
+Before getting to the end of this section, let us also note:
 Besides being a source of authoritative information about \python, the official website \citeurl{PSF:P3D} also offers a variety of other useful information.
 You may have already used the \citetitle{PSF:P3D:PSAU} page~\cite{PSF:P3D:PSAU} at~\citeurl{PSF:P3D:PSAU}, screenshotted in \cref{fig:pythondocOther01setupAndUsage}, when installing \python\ on your system.
 
@@ -449,8 +596,11 @@ The \citetitle{PSF:P3D:TPSL} page~\cite{PSF:P3D:TPSL} at~\citeurl{PSF:P3D:TPSL} 
 It is therefore a very useful tool when checking what a function \emph{actually} does, to complement our learned knowledge.
 
 Finally, the \citetitle{PEP0} page~\cite{PEP0} at~\citeurl{PEP0} shown in \cref{fig:pythondocOther04pep0} contains all changes and additions to the \python\ language since roughly the year~2000.
-We can find many of the language utilities that we are using in this book defined in a so-called~\emph{Python Enhancement Proposal~(PEP)}.
-
+We can find many of the language utilities that we are using in this book defined in a so-called~\emph{Python Enhancement Proposal~(PEP)}.%
+%
+\endhsection%
+%
+\hsection{Summary}%
 So what did we learn in this section?
 We learned that an important tool for a programmer is the official documentation of the programming language that they are using and of the tools that they employ.
 We can trust the documentation.
@@ -461,8 +611,12 @@ That being said, it is not always possible to easily find the information that y
 Luckily, there exist other useful tools that you can apply.
 You can use search engines, you can read in internet forums like \citetitle{SE:SO}~\cite{SE:SO}, and you can ask your questions to an~\pgls{AI}.
 All of these tools can guide you to the right answer.
-However, at least of today, they provide answers that, ultimately, are grounded on human experience.
-And humans make errors.
+We always need to check these answers by circling back to the authoritative documentation, because there is no guarantee that the answeres are correct or up-to-date.
+
+All non-authoritative sources provide answers that, ultimately, are grounded on prior human experience and training.
+On one hand, humans can make errors and not even know that they made them.
+on the other hand, non-authoritative sources might be outdated.
+
 There are two (known) differences between \pgls{AI} tools and human-written sources, though.
 First, \pgls{AI} tools can make errors that no human would make.
 An illustrative example in the \python\ world is given in~\cite{BSHETB:VSK2025CIC}, where it is documented that Microsoft Copilot renamed a class in a misleading way, leading to a particularly hard-to-find error.
@@ -472,10 +626,12 @@ Therefore, once you found an answer to your question, you need to take the new i
 Anyway, as example for searching information using \pgls{AI} tools, we looked for a function that rounds floating point numbers towards positive infinity.
 We did not know what this function was called~(or whether it even exists).
 The \pgls{AI} told us that it was called \pythonilIdx{ceil}.
-Instead of just using \pythonilIdx{ceil} in our code directly, we then would go back to the official \python\ documentation and search for \pythonilIdx{ceil}.
-If we did this, we would have discovered that the \pgls{AI} pointed us to the right answer.
-After checking the documentation, we would have had absolute clarity and confidence that we will produce the right code.%
+We got the exact same information by using a search engine and by using a community portal.
+Regardless how we got that information, we would not just use the function \pythonilIdx{ceil} in our code directly.
+We would go back to the official \python\ documentation and search for \pythonilIdx{ceil}.
+Only after checking the documentation, we would have clarity and confidence that we will produce the right code.%
+\endhsection%
+%
 \FloatBarrier%
-\end{noglslink}%
 \endhsection%
 %

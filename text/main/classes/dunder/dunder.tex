@@ -1496,8 +1496,8 @@ So this is actually another example that, at this stage and with what you have l
 .3 \dunder{format}\DTcomment{used in \pglspl{fstring}: \pythonil{f"\{a:s\}"}~$\cong$~\pythonil{a.\_\_format\_\_(s)}}.
 .2 Type Conversion.
 .3 \dunder{bool}\DTcomment{convert to \pythonilIdx{bool}: \pythonil{bool(a)}\pythonIdx{bool}~$\cong$~\pythonil{a.\_\_bool\_\_()}; used in conditions, e.g, in~\pythonil{if}}.
-.3 \dunder{int}\DTcomment{convert to \pythonilIdx{int}: \pythonil{int(a)}\pythonIdx{int}~$\cong$~\pythonil{a.\_\_int\_\_()}}.
-.3 \dunder{float}\DTcomment{convert to \pythonilIdx{float}: \pythonil{float(a)}\pythonIdx{float}~$\cong$~\pythonil{a.\_\_float\_\_()}}.
+.3 \dunder{int}\DTcomment{convert to \pythonilIdx{int}: \pythonil{int(a)}\pythonIdx{int}~$\cong$~\pythonil{a.\_\_int\_\_()}~\cite{PEP3141}}.
+.3 \dunder{float}\DTcomment{convert to \pythonilIdx{float}: \pythonil{float(a)}\pythonIdx{float}~$\cong$~\pythonil{a.\_\_float\_\_()}~\cite{PEP3141}}.
 .3 \dunder{complex}\DTcomment{convert to \pythonilIdx{complex}: \pythonil{complex(a)}~$\cong$~\pythonil{a.\_\_complex\_\_()}}.
 .3 \dunder{bytes}\DTcomment{convert to \pythonilIdx{bytes}: \pythonil{bytes(a)}~$\cong$~\pythonil{a.\_\_bytes\_\_()}}.
 .2 Hashing, see \cref{sec:hashDunder}.
@@ -1538,7 +1538,7 @@ So this is actually another example that, at this stage and with what you have l
 %
 \dirtree{%
 .1 \pythonilIdx{\_\_}.
-.2 Arithmetics, see \cref{sec:arithmeticsAndOrder} for selected examples.
+.2 Arithmetics~\cite{PEP3141}, see \cref{sec:arithmeticsAndOrder} for selected examples.
 .3 \dunder{abs}\DTcomment{absolute value: \pythonil{abs(a)}\pythonIdx{abs}~$\cong$~\pythonil{a.\_\_abs\_\_()}}.
 .3 \dunder{minus}\DTcomment{negate: \pythonil{-a}\pythonIdx{-}~$\cong$~\pythonil{a.\_\_minus\_\_()}}.
 .3 \dunder{pos}\DTcomment{positive: \pythonil{+a}\pythonIdx{+}~$\cong$~\pythonil{a.\_\_pos\_\_()}}.
@@ -1561,10 +1561,10 @@ So this is actually another example that, at this stage and with what you have l
 .3 \dunder{rmatmul}\DTcomment{right-ma, see \cref{sec:arithmeticsAndOrder}trix-multiply: \pythonil{a @ b}\pythonIdx{@}~$\cong$~\pythonil{b.\_\_rmatmul\_\_(a)}, if \pythonil{a.\_\_matmul\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
 .3 \dunder{divmod}\DTcomment{compute the result of an integer division as well as the remainder and return them as 2-tuple: \pythonil{divmod(a, b)}\pythonIdx{divmod}~$\cong$~\pythonil{a.\_\_divmod\_\_(b)}}.
 .3 \dunder{rdivmod}\DTcomment{right-sided \pythonilIdx{divmod}: \pythonil{divmod(a, b)}\pythonIdx{divmod}~$\cong$~\pythonil{b.\_\_divmod\_\_(a)}, if \pythonil{a.\_\_divmod\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
-.3 \dunder{round}\DTcomment{round: \pythonil{round(a)}\pythonIdx{round}~$\cong$~\pythonil{a.\_\_round\_\_()}}.
-.3 \dunder{trunc}\DTcomment{truncated to integer: \pythonil{math.trunc(a)}\pythonIdx{trunc}\pythonIdx{math!trunc}~$\cong$~\pythonil{a.\_\_trunc\_\_()}}.
-.3 \dunder{floor}\DTcomment{round towards~$-\infty$: \pythonil{math.floor(a)}\pythonIdx{floor}\pythonIdx{math!floor}~$\cong$~\pythonil{a.\_\_floor\_\_()}}.
-.3 \dunder{ceil}\DTcomment{round towards~$+\infty$: \pythonil{math.ceil(a)}\pythonIdx{ceil}\pythonIdx{math!ceil}~$\cong$~\pythonil{a.\_\_ceil\_\_()}}.
+.3 \dunder{round}\DTcomment{round: \pythonil{round(a)}\pythonIdx{round}~$\cong$~\pythonil{a.\_\_round\_\_()}~\cite{PEP3141}}.
+.3 \dunder{trunc}\DTcomment{truncated to integer: \pythonil{math.trunc(a)}\pythonIdx{trunc}\pythonIdx{math!trunc}~$\cong$~\pythonil{a.\_\_trunc\_\_()}~\cite{PEP3141}}.
+.3 \dunder{floor}\DTcomment{round towards~$-\infty$: \pythonil{math.floor(a)}\pythonIdx{floor}\pythonIdx{math!floor}~$\cong$~\pythonil{a.\_\_floor\_\_()}~\cite{PEP3141}}.
+.3 \dunder{ceil}\DTcomment{round towards~$+\infty$: \pythonil{math.ceil(a)}\pythonIdx{ceil}\pythonIdx{math!ceil}~$\cong$~\pythonil{a.\_\_ceil\_\_()}~\cite{PEP3141}}.
 .2 In-Place Arithmetics.
 .3 \dunder{iadd}\DTcomment{in-place addition: \pythonil{a += b}\pythonIdx{+=}~$\cong$~\pythonil{a.\_\_iadd\_\_(b)}, returns~\pythonilIdx{self}}.
 .3 \dunder{isub}\DTcomment{in-place subtraction: \pythonil{a -= b}\pythonIdx{-=}~$\cong$~\pythonil{a.\_\_isub\_\_(b)}, returns~\pythonilIdx{self}}.
