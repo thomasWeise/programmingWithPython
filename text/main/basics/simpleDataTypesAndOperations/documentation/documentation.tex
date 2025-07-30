@@ -521,15 +521,57 @@ A new programmer joining the team will not be able to understand it, because, ma
 %
 \end{enumerate}%
 %
-From these points, we can draw one more conclusion:%
+\begin{figure}%
+\centering%
+\begin{noglslink}%
+%
+\subfloat[][%
+Part of a screenshot obtained from the news article~\cite{T2025ACPGRDCFADECDRCAAAESIMACEIJADAPD}.%
+\label{fig:aiDBdeleteTomsHW}%
+]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/aiDBdeleteTomsHW}}}%
+%
+\floatSep%
+%
+\subfloat[][%
+Slightly edited part of a screenshot obtained from the news article~\cite{N2025AAPCTWOASCDTAFACFOMP}.%
+\label{fig:aiDBdeleteFortune}%
+]{\tightbox{\includegraphics[width=0.47\linewidth]{\currentDir/aiDBdeleteFortune}}}%
+%
+\floatRowSep%
+%
+\subfloat[][%
+Part of a screenshot obtained from the news article~\cite{S2025AMRCKLPUVR}.%
+\label{fig:aiDBdeleteGolem}%
+]{\tightbox{\includegraphics[width=0.7\linewidth]{\currentDir/aiDBdeleteGolem}}}%
+%
+\caption{Three news articles describing an incident where a vibe coding \pgls{AI} deleted the production database of a company without asking for permission and despite being told to not make any changes without asking for permission.}%
+\label{fig:aiDBdelete}%
+\end{noglslink}%
+\end{figure}%
+%
+Additionally, there are differences between \pgls{AI} tools and human-written sources.
+\pgls{AI} tools can make errors that no human would make.
+An illustrative example in the \python\ world is given in~\cite{BSHETB:VSK2025CIC}, where it is documented that Microsoft Copilot renamed a class in a misleading way, leading to a particularly hard-to-find error.
+\Cref{fig:aiDBdelete} shows an even worse example:
+A vibe coding \pgls{AI} deleted the \glsreset{db}\gls{db} of a company, fabricated test results, and later explained that it intentionally ignored the directives given to it.
+This clearly shows that we need to be careful with the tools that we use.
+We need to understand what they can do and how to use them properly.
+Finally, sometimes, an \pgls{AI} may reference non-existing packages~\cite{AT:G2025AGCCBADFTSSCHW}.
+This can become a security concern, if hijackers create such packages to inject code into our applications.
+Therefore, once you found an answer to your question, you need to take the new information and check it with the documentation.
+
+We can derive a simple rule from these issues:%
 %
 \bestPractice{searchAndLLMDoc}{%
-\pglspl{AI} tools and web-based non-authoritative resources can be used to \emph{find} solutions. %
+\pgls{AI} tools and web-based non-authoritative resources can be used to \emph{find} solutions. %
 They should never be used to \emph{document} solutions, because this must be done by a human. %
 Documentation, i.e., the textual description of what the software does, must be done by actual people who fully understand the software.%
 }%
 %
-There is another issue with the use of \pgls{AI}.
+Only if a person is able to properly document code, they have really understood it.
+By enforcing the above rule, we can use \pgls{AI} while simultaneously making sure that our code is understood and does what it is supposed to do.
+
+There is another issue with the use of \pgls{AI} that applies to this course and that dovetails with the above.
 Remember back when you were in primary school.
 During the first few years of maths lessons, you never got to use a calculator.
 Of course, your teachers knew very well that you will use calculators or other computing devises to do calculations in your later life and rarely compute things by hand or in your head.
@@ -611,22 +653,17 @@ That being said, it is not always possible to easily find the information that y
 Luckily, there exist other useful tools that you can apply.
 You can use search engines, you can read in internet forums like \citetitle{SE:SO}~\cite{SE:SO}, and you can ask your questions to an~\pgls{AI}.
 All of these tools can guide you to the right answer.
+
+But remember that all non-authoritative sources provide answers that, ultimately, are grounded on prior human experience and training.
+On one hand, humans can make errors and not even know that they made them.
+On the other hand, non-authoritative sources might be outdated.
 We always need to check these answers by circling back to the authoritative documentation, because there is no guarantee that the answeres are correct or up-to-date.
 
-All non-authoritative sources provide answers that, ultimately, are grounded on prior human experience and training.
-On one hand, humans can make errors and not even know that they made them.
-on the other hand, non-authoritative sources might be outdated.
-
-There are two (known) differences between \pgls{AI} tools and human-written sources, though.
-First, \pgls{AI} tools can make errors that no human would make.
-An illustrative example in the \python\ world is given in~\cite{BSHETB:VSK2025CIC}, where it is documented that Microsoft Copilot renamed a class in a misleading way, leading to a particularly hard-to-find error.
-Second, sometimes, an \pgls{AI} may reference non-existing packages~\cite{AT:G2025AGCCBADFTSSCHW}.
-Therefore, once you found an answer to your question, you need to take the new information and check it with the documentation.
-
-Anyway, as example for searching information using \pgls{AI} tools, we looked for a function that rounds floating point numbers towards positive infinity.
+As example for searching information using \pgls{AI} tools, we looked for a function that rounds floating point numbers towards positive infinity.
 We did not know what this function was called~(or whether it even exists).
 The \pgls{AI} told us that it was called \pythonilIdx{ceil}.
 We got the exact same information by using a search engine and by using a community portal.
+So this works.
 Regardless how we got that information, we would not just use the function \pythonilIdx{ceil} in our code directly.
 We would go back to the official \python\ documentation and search for \pythonilIdx{ceil}.
 Only after checking the documentation, we would have clarity and confidence that we will produce the right code.%
