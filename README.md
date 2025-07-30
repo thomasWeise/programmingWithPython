@@ -64,6 +64,7 @@ The list of files not under the CC&nbsp;BY&#8209;NC&#8209;SA&nbsp;4.0 license bu
 + the [Python](https://www.python.org) Logo, e.g.,
     - text/main/introduction/pythonLogo.pdf
     - text/main/introduction/pythonLogo.svg
++ all screenshots from websites
 
 You can download its newest version of the course material from <https://thomasweise.github.io/databases>.
 This version may change since this course and book both are work in progress.
