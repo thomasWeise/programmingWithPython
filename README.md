@@ -31,6 +31,7 @@ Die Slides zum Kurs in deutscher Sprache können unter <https://thomasweise.gith
 6. [Beispiele Herunterladen](https://thomasweise.github.io/programmingWithPythonSlidesDE/06_beispiele_herunterladen.pdf)
 7. [Der Datentyp `int`](https://thomasweise.github.io/programmingWithPythonSlidesDE/07_int.pdf)
 8. [Der Datentyp `float`](https://thomasweise.github.io/programmingWithPythonSlidesDE/08_float.pdf)
+9. [Zwischenspiel: Python Dokumentation und Informationsquellen](https://thomasweise.github.io/programmingWithPythonSlidesDE/09_dokumentation.pdf)
 
 ### 2.3. The Slides in English
 The slides for the course are available at <https://thomasweise.github.io/programmingWithPythonSlides> and also listed below.
