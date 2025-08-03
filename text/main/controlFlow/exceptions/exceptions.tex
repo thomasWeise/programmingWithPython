@@ -46,17 +46,27 @@ Matter of fact, our \pythonil{sqrt} function implemented in \cref{lst:functions:
 The latter is what \python\ does in the examples mentioned initially:
 While it could simply ignore if we try to overwrite an element of a \pythonil{tuple}, it instead raises an~\pythonilIdx{TypeError}, for example.
 Personally, I am also a fan of this approach.
-
+And the \python\ documentation is, too:%
+%
+\cquotation{PEP20}{%
+Errors should never pass silently. %
+Unless explicitly silenced.%
+}%
+%
 If we would follow the \pgls{GIGO} paradigm, then faulty data will propagate.
 Maybe the output of our function is fed as input into another function, whose output is then piped into another function, and so on.
 An error could then will lead to some crash down the line.
-If functions that are written under the assumption that \pgls{GIGO} is OK are paired with such that perform input sanitization, errors could remain unnoticed.
+Then again, if functions that are written under the assumption that \pgls{GIGO} is OK are paired with such that perform input sanitization, errors could remain unnoticed.
 The erroneous results could then become part of some actual, real-life decisions and designs.
 And even if found out, it will be extremely hard to discover where things went wrong in the long chain of computations and function calls.
+It could even be that faulty results are stored in files and then cause other tools to crash later.
+And \emph{later} could mean something like a week later.
+And \emph{other tools} could mean \emph{programs run by someone else in another department}.
+Good luck finding the piece of code that caused the error then.
 
 Input sanitization could cover some error that happened earlier.
 This could even cause more errors, because it will allow other programmers to call our code with wrong values.
-Input sanitization encourages sloppy programming.
+Input sanitization also encourages sloppy programming.
 
 This leaves raising an \pythonilIdx{Exception}.
 But what does that actually mean?
@@ -64,7 +74,7 @@ Raising an \pythonilIdx{Exception} means two things:%
 %
 \begin{enumerate}%
 %
-\item We store information about the error and information about the current execution state (current line of code and the function call hierarchy) in an object (the \pythonilIdx{Exception}).%
+\item We store information about the error and information about the current execution state~(the current line of code and the function call hierarchy) in an object~(the \pythonilIdx{Exception}).%
 %
 \item The control flow immediately leaves the currently executed block of instructions as well as all calling blocks or functions.
 It jumps up in the call hierarchy until reaching code that handles the raised exception.
