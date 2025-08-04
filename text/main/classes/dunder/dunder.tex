@@ -489,7 +489,7 @@ Finally, in \cref{lst:dunder:fraction:part_5} we implement the six rich comparis
 \begin{itemize}%
 \item \dunder{eq} implements the functionality of~\pythonilIdx{==}, as we already discussed before.%
 %
-\item \dunder{ne} implements the functionality of~\pythonilIdx{!=}.%
+\item \dunder{ne} implements the functionality of~\pythonil{!=}\pythonIdx{"!=}.%
 %
 \item \dunder{lt} implements the functionality of~\pythonilIdx{<}.%
 %
@@ -503,7 +503,7 @@ Finally, in \cref{lst:dunder:fraction:part_5} we implement the six rich comparis
 Implementing equality and inequality is rather easy, since our fractions are all normalized.
 For two fractions~\pythonil{x} and~\pythonil{y}, it holds only that~\pythonil{x == y} if \pythonil{x.a == y.a} and \pythonil{x.b == y.b}.
 \dunder{eq} is thus quickly implemented.
-\dunder{ne} is its complement for the \pythonilIdx{!=}~operator.
+\dunder{ne} is its complement for the \pythonil{!=}\pythonIdx{"!=}~operator.
 \pythonil{x != y} is \pythonil{True} if either \pythonil{x.a != y.a} or \pythonil{x.b != y.b}.
 
 The other four comparison methods can be implemented by remembering how we used the common \pgls{denominator} for addition and subtraction.
@@ -1557,8 +1557,8 @@ So this is actually another example that, at this stage and with what you have l
 .3 \dunder{rfloordiv}\DTcomment{right-integer-divide: \pythonil{a // b}\pythonIdx{//}~$\cong$~\pythonil{b.\_\_rfloordiv\_\_(a)}, if \pythonil{a.\_\_floordiv\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
 .3 \dunder{pow}\DTcomment{exponential: \pythonil{a ** b}\pythonIdx{**}~$\cong$~\pythonil{a.\_\_pow\_\_(b)}}.
 .3 \dunder{rpow}\DTcomment{right-exponential: \pythonil{a ** b}\pythonIdx{**}~$\cong$~\pythonil{b.\_\_rpow\_\_(a)}, if \pythonil{a.\_\_pow\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
-.3 \dunder{matmul}\DTcomment{matrix-multiply: \pythonil{a @ b}\pythonIdx{@}~$\cong$~\pythonil{a.\_\_matmul\_\_(b)}}.
-.3 \dunder{rmatmul}\DTcomment{right-ma, see \cref{sec:arithmeticsAndOrder}trix-multiply: \pythonil{a @ b}\pythonIdx{@}~$\cong$~\pythonil{b.\_\_rmatmul\_\_(a)}, if \pythonil{a.\_\_matmul\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
+.3 \dunder{matmul}\DTcomment{matrix-multiply: \pythonil{a @ b}\pythonIdx{"@}~$\cong$~\pythonil{a.\_\_matmul\_\_(b)}}.
+.3 \dunder{rmatmul}\DTcomment{right-ma, see \cref{sec:arithmeticsAndOrder}trix-multiply: \pythonil{a @ b}\pythonIdx{"@}~$\cong$~\pythonil{b.\_\_rmatmul\_\_(a)}, if \pythonil{a.\_\_matmul\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
 .3 \dunder{divmod}\DTcomment{compute the result of an integer division as well as the remainder and return them as 2-tuple: \pythonil{divmod(a, b)}\pythonIdx{divmod}~$\cong$~\pythonil{a.\_\_divmod\_\_(b)}}.
 .3 \dunder{rdivmod}\DTcomment{right-sided \pythonilIdx{divmod}: \pythonil{divmod(a, b)}\pythonIdx{divmod}~$\cong$~\pythonil{b.\_\_divmod\_\_(a)}, if \pythonil{a.\_\_divmod\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
 .3 \dunder{round}\DTcomment{round: \pythonil{round(a)}\pythonIdx{round}~$\cong$~\pythonil{a.\_\_round\_\_()}~\cite{PEP3141}}.
@@ -1573,7 +1573,7 @@ So this is actually another example that, at this stage and with what you have l
 .3 \dunder{imod}\DTcomment{in-place modulo division: \pythonil{a \%= b}\pythonIdx{\%=}~$\cong$~\pythonil{a.\_\_imod\_\_(b)}, returns~\pythonilIdx{self}}.
 .3 \dunder{ifloordiv}\DTcomment{in-place integer division: \pythonil{a //= b}\pythonIdx{//=}~$\cong$~\pythonil{a.\_\_ifloordiv\_\_(b)}, returns~\pythonilIdx{self}}.
 .3 \dunder{ipow}\DTcomment{in-place exponentiation: \pythonil{a **= b}\pythonIdx{**=}~$\cong$~\pythonil{a.\_\_ipow\_\_(b)}, returns~\pythonilIdx{self}}.
-.3 \dunder{imatmul}\DTcomment{in-place matrix multiplication: \pythonil{a @= b}\pythonIdx{@=}~$\cong$~\pythonil{a.\_\_imatmul\_\_(b)}, returns~\pythonilIdx{self}}.
+.3 \dunder{imatmul}\DTcomment{in-place matrix multiplication: \pythonil{a @= b}\pythonIdx{"@=}~$\cong$~\pythonil{a.\_\_imatmul\_\_(b)}, returns~\pythonilIdx{self}}.
 }%
 %
 \caption{An overview of the dunder\pythonIdx{dunder} methods in \python\ (Part~2).}%
@@ -1655,7 +1655,7 @@ Finally, the \dunder{reversed} dunder method should return an \pythonilIdx{Itera
 
 While we implemented several arithmetic dunder methods for our \pythonil{Fractions} class in \cref{sec:arithmeticsAndOrder}, \cref{fig:pythonDunder:2} shows us that there are \emph{many} more.
 The unary methods \dunder{abs}, \dunder{minus}, and \dunder{pos} allow us to implement the computation of the absolute value and the negated variant of a number, as well as the rather obscure unary plus.
-There are dunder methods for basically all binary arithmetic operators, ranging from \pythonilIdx{+}, \pythonilIdx{-}, \pythonilIdx{*}, \pythonilIdx{/}, \pythonilIdx{//}, \pythonilIdx{\%}, to~\pythonilIdx{**} and even the matrix multiplication operator~\pythonilIdx{@}.
+There are dunder methods for basically all binary arithmetic operators, ranging from \pythonilIdx{+}, \pythonilIdx{-}, \pythonilIdx{*}, \pythonilIdx{/}, \pythonilIdx{//}, \pythonilIdx{\%}, to~\pythonilIdx{**} and even the matrix multiplication operator~\pythonil{@}\pythonIdx{"@}.
 Interestingly, these methods always exist in two variants, the plain one and one prefixed with~\inQuotes{\pythonil{r}.}
 For example, when evaluating the expression~\pythonil{a + b}, \python\ will look whether \pythonil{a}~implements \dunder{add}.
 If so, it will call \pythonil{a.\_\_add\_\_(b)}.

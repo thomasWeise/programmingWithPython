@@ -1,7 +1,7 @@
 \hsection{Text Strings}%
 \label{sec:str}%
 %
-The fourth and last important basic datatype in \python\ are text strings.
+The fourth important basic datatype in \python\ are text strings.
 Text strings are sequences of characters of an arbitrary length.
 In \python, they are represented by the datatype \pythonilIdx{str}.
 Indeed, we have already used it before, even in our very first example program back that simply printed \pythonil{"Hello World"} in \cref{lst:very_first_program} in \cref{sec:ourFirstProgram}.
@@ -168,7 +168,7 @@ However, converting data to strings like this is rather tedious.
 \gitEvalPython{str_fstrings}{}{simple_datatypes/str_fstrings.py}%
 \listingBox{exec:str_fstrings}{\python\ \pglspl{fstring} in action.}{,style=python_console_style}%
 
-\pythonIdx{str!f}\pythonIdx{f-string}Let us therefore discuss a very powerful and much more convenient gadget in \python's string processing toolbox: format strings, or \pglspl{fstring}\pythonIdx{f-string}\pythonIdx{str!f} for short~\cite{PSF:P3D:TPT:FSL,PEP498,M2017WAFSIPAHCIUT,B2023PFS}.
+\pythonIdx{str!f}\pythonIdx{f-string}Let us therefore discuss a very powerful and much more convenient gadget in \python's string processing toolbox: format strings, or \glspl{fstring}\pythonIdx{f-string}\pythonIdx{str!f} for short~\cite{PSF:P3D:TPT:FSL,PEP498,M2017WAFSIPAHCIUT,B2023PFS}.
 An \pgls{fstring} is like a normal string, except that it starts with \pythonil{f"}\pythonIdx{f\textquotedbl\idxdots\textquotedbl} instead of \pythonil{"}.
 And, most importantly, it can contain other data and even complete expressions inside curly braces~(\pythonil{\{...\}}\pythonIdx{\textbraceleft\idxdots\textbraceright!f-string}) which are then embedded into the string.%
 %
@@ -282,7 +282,25 @@ The more complex \pythonil{f"\{23\ *\ sin(2\ -\ 5)\ =\ \}"} becomes \pythonil{"2
 One cool feature of this kind of expression-to-string conversation is that you can add the other format specifiers we discussed earlier after the \pythonil{=}.
 For example, you could write \pythonil{f"\{23\ *\ sin(2\ -\ 5)\ =\ :.2f\}"} and then the \pythonil{.2f} format would be applied to the result of the expression, i.e., you would get \pythonil{"23 * sin(2 - 5) = -3.25"} as the result of the extrapolation.
 
-You are now able to convert the results of your computations to nice text.%
+We can also convert our last example of the \pythonil{str}\nobreakdashes-function, \pythonil{str(1 < 5) + " is True and " + str(1 + 5) + " = 6."}, to an \pgls{fstring} and get \pythonil{f"\{1 < 5\} is True and \{1 + 5\} = 6."}.
+This not just looks nicer, but it is also faster.
+
+In the original example, \python\ needs to perform three string concatenation operations via the \pythonil{+}~operator.
+It first creates the result of \pythonil{str(1 < 5)}, which is a string.
+\pythonil{" is True and "} is also a string by definition.
+The two are concatenated, which results in a third string.
+Then \pythonil{str(1 + 5)} is evaluated, yielding the fourth string.
+The third string and this one are concatenated, resulting in a fifth string.
+And so on, resulting in the creation of seven separate string objects in total.
+All of them need to be explicitly created, because this is what we demanded with the command.
+
+When using an \pgls{fstring}, there is no explicit need to create the intermediate concatenation results as objects.
+There might just be some text in a buffer somewhere under the hood that is finally returned as a string.
+Furthermore, \pglspl{fstring} are parsed when the code is loaded and evaluated during runtime, meaning that no runtime parsing is required~\cite{G2025MFIP}.
+There even exist specified \python\ bytecode for \pglspl{fstring}~\cite{PCPI:IFSIFO}.
+They also do not require an explicit or implicit function call and they can access the symbols of the current scope directly without needing them to be passed as arguments~\cite{G2025MFIP}.
+For all of these reasons, \Pglspl{fstring} therefore are fast and efficient~\cite{DEVC:WFAAPODSCMIP}.
+Having learned about them, you are now able to swiftly and elegantly convert the results of your computations to beautiful text.%
 \FloatBarrier%
 \endhsection%
 %
