@@ -143,11 +143,14 @@ We already know that \pythonil{bin(22)} is \pythonil{'0b10110'} and so it comes 
 Shifting \pythonil{22} by two bit positions to the \emph{right} -- which is done by entering \pythonil{22 >> 2}\pythonIdx{>\strut>} -- results in \pythonil{5}.
 The \pythonil{10} on the right hand side of the binary representation disappeared, as \pythonil{bin(5)} is \pythonil{'0b101'}.
 
-Besides the binary representation of integer numbers, which is to the basis~2, there also exists the hexadecimal representation (base~16) and the octal representation (base~7).
+\hinput{.}{numberTable.tex}
+
+Besides the binary representation of integer numbers, which is to the~base~2, there also exists the hexadecimal representation~(base~16) and the octal representation~(base~7).
 We can obtain the hexadecimal representation of~22 by computing \pythonil{hex(22)}\pythonIdx{hex} and get \pythonil{0x16}\pythonIdx{0x}, which corresponds to~$1*16^1+6*1=22$.
 We can also enter hexadecimal numbers in the console like \pythonil{0x16}, which yields~\pythonil{22}.
 The octal representation of~22 is obtained as \pythonil{oct(22)}\pythonIdx{oct}, which produces \pythonil{0o26}\pythonIdx{0o}, which, in turn, corresponds to~$2*8^1+6$.
 Similarly, this octal number can be entered as \pythonil{0o26}.
+As a refresher on these numerical systems, we include \cref{tbl:numbersBases}, which illustrates decimal, binary, octal, and hexdecimal notations of the first couple of natural numbers.
 
 You may wonder:~\inQuotes{How does an \pythonil{int} know whether it was entered in hexadecimal, octal, binary, or decimal notation?}
 It does not.
