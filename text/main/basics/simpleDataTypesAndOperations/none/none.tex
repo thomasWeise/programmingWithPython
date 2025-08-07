@@ -16,9 +16,9 @@ It is just nothing.
 
 \Cref{exec:none} illustrates some of the things we can do with \pythonilIdx{None}.
 If we write \pythonilIdx{None} into the \python\ console, then nothing happens.
-In the past, we just wrote values, such as \pythonil{34} and, after we hit \keys{\enter}, they would be printed again.
+In the past, we just wrote values, such as \pythonil{34} and, after we hit~\keys{\enter}, they would be printed again.
 Not so~\pythonilIdx{None}.
-If we want to print~\pythonilIdx{None}, we have to force it by using the function \pythonilIdx{print}.
+If we want to print~\pythonilIdx{None}, we have to force it by using the function~\pythonilIdx{print}.
 \pythonil{print(None)} then indeed prints~\pythonilIdx{None}.
 
 The value \pythonilIdx{None} has many use cases.
@@ -29,9 +29,18 @@ If we had a \pythonil{float}, we could try to set it to \pythonil{nan} instead, 
 \pythonilIdx{None} would be much clearer, as no arithmetic calculation could ever return~\pythonilIdx{None}.
 
 For this to work we need to be able to check whether a value is~\pythonilIdx{None}.
-And we can do this using the operator~\pythonilIdx{is}.\footnote{%
-\pythonilIdx{is} is a bit similar to \pythonilIdx{==}, but instead of comparing whether the contents of an object are the same, it compares whether two values reference the same object.}%
-\pythonil{1 is None} gives us \pythonil{False} and so does \pythonil{"Hello World!" is None}.
+We can use the \pythonilIdx{==}~operator for it, but its use is discouraged~\cite{PEP8}.
+We do it here anyway, just for demonstration purposes, because you are already very familiar with~\pythonil{==}.
+\pythonil{1 == None} gives us \pythonil{False} and so does \pythonil{"Hello World!" == None}.
+\pythonil{None == None}, however, is \pythonil{True}.
+This is a bit interesting, because \pythonil{nan == nan} would give us~\pythonil{False}, but then again, \pythonil{nan} means \inQuotes{undefined} and \pythonil{None} means \inQuotes{nothing.}%
+%
+\bestPractice{cmpWithNone}{%
+Comparisons to singletons like \pythonil{None} should always be done with \pythonil{is} or \pythonil{is not}, never the equality operators~\python{==} or~\pythonil{!=}~\cite{PEP8}.}%
+%
+As stated above, the right way to compare values if \pythonil{None} may be involved is using the operator~\pythonilIdx{is}~\cite{PEP8}.
+\pythonilIdx{is}~is a bit similar to~\pythonilIdx{==}, but instead of comparing whether the contents of an object are the same, it compares whether two values reference the same object.
+As expected \pythonil{1 is None} gives us \pythonil{False} and so does \pythonil{"Hello World!" is None}.
 \pythonil{None is None}, however, is \pythonil{True}.
 
 Also, functions that do not return any result do, in fact, return~\pythonilIdx{None}.
