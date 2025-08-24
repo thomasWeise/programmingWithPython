@@ -169,25 +169,36 @@ The result is \pythonil{3.5 * 4}, i.e., \pythonil{14.0}, \pythonilIdx{float} val
 Finally, \pythonil{print(f"new_var = \{new_var\}." )} then prints \textil{new_var = 14.0.}.%
 \end{sloppypar}%
 %
-The \acrfull{stdout} of the complete program is given in \cref{exec:variables:assignment}.
-For your convenience, we also showed the results when executing the program in \pycharm\ or the \ubuntu\ \pgls{terminal} in \cref{fig:variables:assignment}.
-They are obviously identical.
+This first program is stored in a file named~\textil{assignment.py}.
+To execute it, you have two choices:
+You can either open a \pgls{terminal} and enter the folder where the program is stored.
+Then you would execute the command~\bashil{python3 assignment.py} to run the \python\ interpreter in the terminal, as illustrated in \cref{fig:assignmentTerminal}~(for the case of \ubuntu\ \linux).
 
-Notice that we wrote the names of variables in a certain style, which is somewhat standard in \python\ programming.
-For the sake of creating readable code that fits nicely together with code from other projects\dots%
+Alternatively, you can open the program file in \pycharm\ \pgls{ide}, as sketched in \cref{fig:assignmentPyCharm1}.
+You would then right-click on the file \textil{assignment.py} in the project tree view.
+In the popup-menu that opens, you would left-click on \menu{Run `assignment'} as shown in \cref{fig:assignmentPyCharm2}.
+As a shortcut, you can also simply press~\keys{\ctrl+\shift+F10}.
+Either way, \pycharm\ will run the program and the output appears in \cref{fig:assignmentPyCharm}.
+As you see, the full \acrfull{stdout} of the complete program given in \cref{exec:variables:assignment} is identical to what we get from the manual execution in either the \pgls{terminal} or \pycharm.
+
+We are not completely done yet, though.
+Notice that we wrote the names of variables in a certain style, in lowercase letters.
+This is the defactor standard way to name variables and functions in \python\ programming.%
 %
 \bestPractice{variableNames}{%
 Variable names should be lowercase, with words separated by underscores~\cite{PEP8}.%
 }
 %
-We now have seen some best practices on styling our code, e.g., \cref{bp:variableNames,bp:longstrDoubleQuote,bp:comments}, and many more such best practices will follow.
-Before continuing further, let us revisit the deeper meaning behind them.
+This seems like a strange thing to introduce right at the beginning when learning programming.
+Matter of fact, we now have seen some best practices on styling our code, e.g., \cref{bp:variableNames,bp:longstrDoubleQuote,bp:comments}, and many more such best practices will follow.
+Before continuing further, let us therefore revisit the deeper meaning behind them.
 Why is it important to style our code in a consistent way?
 Why can't we just write things down in any way that pleases us?%
 %
 \bestPractice{codeStyle}{%
 Regardless which programming language you are using, it is important to write code and scripts in a consistent style, to use a consistent naming scheme for all things that can be named, and to follow the generally established best practices and norms for that language.%
 }%
+%
 For many programming languages, there exist comprehensive and clear style guides.
 Since we usually work collaboratively on larger projects, writing code in a consistent style is very important.
 Ideally, all collaborators can open a source code file and easily read and understand our code.
