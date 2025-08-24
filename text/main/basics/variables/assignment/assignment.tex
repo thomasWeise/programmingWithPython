@@ -3,7 +3,39 @@
 %
 Like in mathematics, a variable in \python\ is basically a name with a value assigned to it.
 You can define a variable and assign its value by writing \pythonil{name = value}.
-Here, \pythonil{name} is the name of the variable and \pythonil{value} be the value that we want to assign to that name.%
+Here, \pythonil{name} is the name of the variable and \pythonil{value} be the value that we want to assign to that name.
+If we want to access the value that was stored, we can just use the \pythonil{name} instead.
+You can write \pythonil{name} in an arbitrary expression and \python\ then just uses \pythonil{value} instead.
+Indeed, you have seen this before, when we used the variables~\pythonilIdx{pi}, \pythonilIdx{e}, \pythonilIdx{inf}, and \pythonilIdx{nan} that we imported from the module~\pythonilIdx{math}.
+You can also change which value is stored under a given name by assigning another value to it, e.g., by doing~\pythonil{name = new_value}.
+
+With this, we can now store intermediate results and use them in later computation steps.
+This allows us, for the first time, two write programs that perform computations in multiple steps and that consist of multiple lines of code.
+\python\ programs are stored as text files with the suffix~\textil{.py}, e.g., \textil{hello.py}.
+
+In the very moment we begin to create such files, two things happen:
+First, our code will immediately become much more complex.
+Second, our code can be reused, i.e., executed multiple times.
+It can be reused by us, now or in ten years, or shared with others.
+This changes the quality of programming entirely.
+Until now, the \python\ interpreter was basically a fancy calculator.
+Now our programs become tools to be used hundereds of times or building blocks, or bricks of giant architectures.
+
+Therefore, from the very start when we actually begin to write program files, it becomes important that we clearly document what we do and why.
+For this purpose, we will never just write code -- we will always write comments giving explanations of what our code does.
+From the very beginning we must train ourselves to proper discipline.%
+%
+\bestPractice{comments}{%
+Comments help to explain what the code in programs does and are a very important part of the \emph{documentation} of code. %
+Comments begin with a \pythonilIdx{\#} character, after which all text is ignored by the \python\ interpreter until the end of the current line. %
+Comments can either occupy a complete line or we insert two spaces after the last code character in the line and then start the comment~\cite{PEP8}.%
+}%
+%
+So we now learn two things together:
+Using variable assignment and commenting our code.
+Because variable assignment is the most fundamental step in writing programs and because programs without comments are \emph{wrong}.
+By the way, this is how we do it in this book:
+We learn new programming concepts, but try to always intersperse important best practices.%
 %
 \hsection{A Simple Example of Variable Assignment and Comments in the Code}%
 \gitLoadAndExecPython{variables:assignment}{}{variables}{assignment.py}{}%
@@ -96,18 +128,9 @@ The output of the program \textil{assignment.py} in the \ubuntu\ \pgls{terminal}
 \label{fig:variables:assignment}%
 \end{figure}%
 %
-With this, we can now store intermediate results.
-This allows us, for the first time, two write programs that perform computations in multiple steps and that consist of multiple lines of code.%
-%
-\bestPractice{comments}{%
-Comments help to explain what the code in programs does and are a very important part of the \emph{documentation} of code. %
-Comments begin with a \pythonilIdx{\#} character, after which all text is ignored by the \python\ interpreter until the end of the current line. %
-Comments can either occupy a complete line or we insert two spaces after the last code character in the line and then start the comment~\cite{PEP8}.%
-}%
-%
-\cref{lst:variables:assignment} shows the source code of such a commented program.
+So let's get to the subject of variable assignments with some examples.
+\Cref{lst:variables:assignment} shows the source code of our very first commented program.
 This program does not do anything useful, but it illustrates how variables can be used.
-
 It begins by assigning the \pythonilIdx{int} value~\pythonil{1} to a variable named~\pythonil{int_var}.
 We could have chosen any other name as well, as long as it does not contain spaces, e.g., \pythonil{my_value}, \pythonil{cow}, \pythonil{race_car}.
 But we chose \pythonil{int_var}.

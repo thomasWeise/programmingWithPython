@@ -280,11 +280,13 @@ This can be done much easier:
 We can simply write \pythonil{f"\{5\ + 4\ = \}"}, which, too is evaluated to \pythonil{"5 + 4 = 9"}
 The more complex \pythonil{f"\{23\ *\ sin(2\ -\ 5)\ =\ \}"} becomes \pythonil{"23\ *\ sin(2\ -\ 5)\ =\ -3.245760185376946"}.
 One cool feature of this kind of expression-to-string conversation is that you can add the other format specifiers we discussed earlier after the \pythonil{=}.
-For example, you could write \pythonil{f"\{23\ *\ sin(2\ -\ 5)\ =\ :.2f\}"} and then the \pythonil{.2f} format would be applied to the result of the expression, i.e., you would get \pythonil{"23 * sin(2 - 5) = -3.25"} as the result of the extrapolation.
-
+For example, you could write \pythonil{f"\{23\ *\ sin(2\ -\ 5)\ =\ :.2f\}"} and then the \pythonil{.2f} format would be applied to the result of the expression, i.e., you would get \pythonil{"23 * sin(2 - 5) = -3.25"} as the result of the extrapolation.%
+%
+\begin{sloppypar}%
 We can also convert our last example of the \pythonil{str}\nobreakdashes-function, \pythonil{str(1 < 5) + " is True and " + str(1 + 5) + " = 6."}, to an \pgls{fstring} and get \pythonil{f"\{1 < 5\} is True and \{1 + 5\} = 6."}.
-This not just looks nicer, but it is also faster.
-
+This not just looks nicer, but it is also faster.%
+\end{sloppypar}%
+%
 In the original example, \python\ needs to perform three string concatenation operations via the \pythonil{+}~operator.
 It first creates the result of \pythonil{str(1 < 5)}, which is a string.
 \pythonil{" is True and "} is also a string by definition.
