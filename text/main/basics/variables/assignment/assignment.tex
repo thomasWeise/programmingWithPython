@@ -37,7 +37,9 @@ Because variable assignment is the most fundamental step in writing programs and
 By the way, this is how we do it in this book:
 We learn new programming concepts, but try to always intersperse important best practices.%
 %
+%
 \hsection{A Simple Example of Variable Assignment and Comments in the Code}%
+%
 \gitLoadAndExecPython{variables:assignment}{}{variables}{assignment.py}{}%
 \listingPythonAndOutput{variables:assignment}{%
 A \python\ program showing some examples for variable assignments.}{}%
@@ -132,7 +134,7 @@ So let's get to the subject of variable assignments with some examples.
 \Cref{lst:variables:assignment} shows the source code of our very first commented program.
 This program does not do anything useful, but it illustrates how variables can be used.
 It begins by assigning the \pythonilIdx{int} value~\pythonil{1} to a variable named~\pythonil{int_var}.
-We could have chosen any other name as well, as long as it does not contain spaces, e.g., \pythonil{my_value}, \pythonil{cow}, \pythonil{race_car}.
+We could have chosen any other name for the variable as well, e.g., \pythonil{my_value}, \pythonil{cow}, \pythonil{race_car}, as long as it does not contain special characters like spaces or line breaks.
 But we chose \pythonil{int_var}.
 The \pythonilIdx{=} assigns the value~\pythonil{1} to \pythonil{int_value}.
 As \cref{fig:variable:assignment1} illustrates, the value~\pythonil{1} will now be stored somewhere in memory and \pythonil{int_var} is a name that points to this memory location.%
@@ -140,33 +142,34 @@ As \cref{fig:variable:assignment1} illustrates, the value~\pythonil{1} will now 
 \begin{sloppypar}%
 We can use \pythonil{int_var} just like any other value.
 For example, we can compute \pythonil{2 + int_var} and pass the result to the \pythonilIdx{print} function.
-This will then print \pythonil{3} to the \pgls{stdout} of our program.
+This will then print the text~\textil{3} to the \pgls{stdout} of our program.
 We can also use \pythonil{int_var} in \pglspl{fstring}\pythonIdx{f-string}\pythonIdx{str!f} about which we learned back in \cref{sec:fstrings}.
-\pythonil{f"int_var has value \{int_var\}."} will render to \pythonil{"int_var has value 1."}.%
+\pythonil{f"int_var has value \{int_var\}."} will be \glslink{strinterpolation}{interpolated} to \pythonil{"int_var has value 1."}.%
 \end{sloppypar}%
 %
 Variables are called \emph{variables} and not \emph{constants} because we can change their value.
 Hence, we can update \pythonil{int_var} and give it a new value.
 For example, we can do \pythonil{int_var = (3 * int_var ) + 1}.
-As sketched in \cref{fig:variable:assignment2}, this will update \pythonil{int_var} to now hold the result of the computation \pythonil{(3 * int_var) + 1}.
+This will update \pythonil{int_var} to now hold the result of the computation \pythonil{(3 * int_var) + 1}.
 In this computation, the current (old) value of \pythonil{int_var} is used.
 It therefore corresponds to computing \pythonil{(3 * 1) + 1}, which equals~\pythonil{4}.
-This value is stored somewhere in memory and \pythonil{int_var} points to it.
-Doing \pythonil{print(f"int_var is now \{int_var\}.")} will print \textil{int_var is now 4.} to the \pgls{stdout}.
+This value is stored somewhere in memory and \pythonil{int_var} points to it, as sketched in \cref{fig:variable:assignment2}.
 The value \pythonil{1} is now no longer referenced.
 Eventually, the \python\ interpreter could free the corresponding memory to use it for something else.
+Doing \pythonil{print(f"int_var is now \{int_var\}.")} will print \textil{int_var is now 4.} to the \pgls{stdout}.
 
 Ofcourse, we can have multiple variables.
 The command \pythonil{float_var = 3.5} creates a variable named \pythonil{float_var}.
 It also allocates a piece of memory, writes the floating point value \pythonil{3.5} into it, and lets \pythonil{float_var} point to that piece of memory, as illustrated in \cref{fig:variable:assignment3}.
 We can use this variable in an \pgls{fstring}\pythonIdx{f-string}\pythonIdx{str!f} as well:
-\pythonil{print(f"float_var has value \{float_var\}.")} is interpolated to \pythonil{"float_var has value 3.5."}.%
+\pythonil{print(f"float_var has value \{float_var\}.")} is \glslink{strinterpolation}{interpolated} to \pythonil{"float_var has value 3.5."}.%
 %
 \begin{sloppypar}%
 In a final step, we create a third variables with the name \pythonil{new_var} by computing \pythonil{new_var = float_var * int_var}.
-The result is \pythonil{3.5 * 4}, i.e., \pythonil{14.0}, \pythonilIdx{float} value.
+The result is \pythonil{3.5 * 4}, i.e., the \pythonilIdx{float} value~\pythonil{14.0}.
 \cref{fig:variable:assignment3} illustrates this variable assignment step.
-Finally, \pythonil{print(f"new_var = \{new_var\}." )} then prints \textil{new_var = 14.0.}.%
+Finally, \pythonil{print(f"new_var = \{new_var\}." )} then prints \textil{new_var = 14.0.}.
+(Do you remember a method, to get this output even more easily?)%
 \end{sloppypar}%
 %
 This first program is stored in a file named~\textil{assignment.py}.
@@ -178,7 +181,7 @@ Alternatively, you can open the program file in \pycharm\ \pgls{ide}, as sketche
 You would then right-click on the file \textil{assignment.py} in the project tree view.
 In the popup-menu that opens, you would left-click on \menu{Run `assignment'} as shown in \cref{fig:assignmentPyCharm2}.
 As a shortcut, you can also simply press~\keys{\ctrl+\shift+F10}.
-Either way, \pycharm\ will run the program and the output appears in \cref{fig:assignmentPyCharm}.
+Either way, \pycharm\ will run the program and the output appears in \cref{fig:assignmentPyCharm3}.
 As you see, the full \acrfull{stdout} of the complete program given in \cref{exec:variables:assignment} is identical to what we get from the manual execution in either the \pgls{terminal} or \pycharm.
 
 We are not completely done yet, though.
@@ -193,7 +196,15 @@ This seems like a strange thing to introduce right at the beginning when learnin
 Matter of fact, we now have seen some best practices on styling our code, e.g., \cref{bp:variableNames,bp:longstrDoubleQuote,bp:comments}, and many more such best practices will follow.
 Before continuing further, let us therefore revisit the deeper meaning behind them.
 Why is it important to style our code in a consistent way?
-Why can't we just write things down in any way that pleases us?%
+Why can't we just write things down in any way that pleases us?
+
+Well, because following best practices is nothing that can be done \inQuotes{later.}
+You will never have the time to revisit and improve the style of your old code.
+It is also nothing that you can just switch over to.
+If you have learned doing a certain thing in a certain way, it will always be hard to switch over to a different way.
+If an apprentice in a kitchen is not taught to wash their hands before beginning to prepare meals, then they will not simply begin doing that consistently after being told to do it once after they join a new restaurant.
+Following style guides and best practices is a habit.
+And we need to nurture this habit right from the start.%
 %
 \bestPractice{codeStyle}{%
 Regardless which programming language you are using, it is important to write code and scripts in a consistent style, to use a consistent naming scheme for all things that can be named, and to follow the generally established best practices and norms for that language.%
@@ -245,8 +256,8 @@ But we can never really write it down.
 
 Well, we I say \inQuotes{we can compute it}, then the question \inQuotes{How?} immediately arises.
 One particularly ingenious answer was given by the Chinese mathematician LIU Hui~(刘徽) somewhere in the third century~AD~\cite{OR2003LH} in his commentary to the famous Chinese mathematics book \emph{Jiu Zhang Suanshu}~(九章算术)~\cite{OR2003LH,SCL1999TNCOTMACAC,S1998LHATFGAOCM,D2010AALHOCAS,C2002LFLHADWTDM}.
-In \cref{fig:liuHuiCircle}, we show how~\numberPi, i.e., the ratio of the circumference and the diameter of a circle can be approximated by inscribing regular~$e$\nobreakdashes-gons into a circle.
-The corners of the $e$\nobreakdashes-gons lie on the circle.
+In \cref{fig:liuHuiCircle}, we show how~\numberPi, i.e., the ratio of the circumference and the diameter of a circle can be approximated.
+The idea of LIU Hui~(刘徽) was to inscribe regular~$e$\nobreakdashes-gons with an increasing number~$e$ of edges into a circlem such that the corners of the $e$\nobreakdashes-gons lie on the circle.
 
 We start with a hexagon~($e=6$) where the radius~\liuhuir\ is equal to the radius of the circle.
 All the $e$~edges~\liuhuiss\ of this hexagon then have length~\liuhuir\ as well.
@@ -324,7 +335,7 @@ The output of the program \programUrl{variables:pi_liu_hui} in the \ubuntu\ \pgl
 \includegraphics[width=0.7\linewidth]{\currentDir/liuHuiPiTerminal}%
 }%
 %
-\caption{Running the program \programUrl{variables:pi_liu_hui} from \cref{lst:variables:assignment} in \pycharm~(\cref{fig:assignmentPyCharm1,fig:assignmentPyCharm2,fig:assignmentPyCharm3}) or the \ubuntu\ \pgls{terminal}~(\cref{fig:assignmentTerminal}).}%
+\caption{Running the program \programUrl{variables:pi_liu_hui} from \cref{lst:variables:assignment} in \pycharm~(\cref{fig:liuHuiPiPyCharm1,fig:liuHuiPiPyCharm2,fig:liuHuiPiPyCharm3}) or the \ubuntu\ \pgls{terminal}~(\cref{fig:assignmentTerminal}).}%
 \label{fig:variables:liuHuiPi}%
 \end{figure}%
 %
