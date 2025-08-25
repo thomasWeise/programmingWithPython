@@ -224,7 +224,7 @@ The most important style guide for the \python\ programming language is PEP8:~\c
 \FloatBarrier%
 \endhsection%
 %
-\hsection{LIU Hui's Method and the Approximation of~$\numberPi$}%
+\hsection{LIU Hui's Method for the Approximation of~$\numberPi$}%
 \label{sec:approximatePiLiuHui}%
 %
 \begin{figure}%
@@ -248,16 +248,16 @@ The most important style guide for the \python\ programming language is PEP8:~\c
 \def\liuhuistf{\ensuremath{{\color{liuhui-s24-color}s_{24}}}}%
 %
 Let us now come to a more serious example.
-I am not good at mathematics, but I really like mathematics anyway, so we will go with a mathematics example: approximating~\numberPi.
+I am not good at mathematics, but I still really like mathematics anyway, so we will go with a mathematics example: approximating~\numberPi.
 The number~\numberPi\ is the ratio of the circumference of a circle and its diameter.
 A we already mentioned before in \cref{sec:float}, it is transcendental, a never-ending and never-repeating sequence of digits.
 We can compute it to a certain precision, e.g., as the \pythonilIdx{float} constant \pythonilIdx{pi} with value \pythonil{3.141592653589793}.
 But we can never really write it down.
 
-Well, we I say \inQuotes{we can compute it}, then the question \inQuotes{How?} immediately arises.
-One particularly ingenious answer was given by the Chinese mathematician LIU Hui~(刘徽) somewhere in the third century~AD~\cite{OR2003LH} in his commentary to the famous Chinese mathematics book \emph{Jiu Zhang Suanshu}~(九章算术)~\cite{OR2003LH,SCL1999TNCOTMACAC,S1998LHATFGAOCM,D2010AALHOCAS,C2002LFLHADWTDM}.
-In \cref{fig:liuHuiCircle}, we show how~\numberPi, i.e., the ratio of the circumference and the diameter of a circle can be approximated.
-The idea of LIU Hui~(刘徽) was to inscribe regular~$e$\nobreakdashes-gons with an increasing number~$e$ of edges into a circlem such that the corners of the $e$\nobreakdashes-gons lie on the circle.
+Well, when I say \inQuotes{we can compute it}, then the question \inQuotes{How?} immediately arises.
+One particularly ingenious answer was given by the Chinese mathematician LIU Hui~(刘徽) somewhere in the third century~\pgls{CE}~\cite{OR2003LH,Y2024COACMMLHFHTIOMACE} in his commentary to the famous Chinese mathematics book \emph{Jiu Zhang Suanshu}~(九章算术)~\cite{OR2003LH,SCL1999TNCOTMACAC,S1998LHATFGAOCM,D2010AALHOCAS,C2002LFLHADWTDM}.
+In \cref{fig:liuHuiCircle}, we show how~\numberPi\ can be approximated based on the idea of LIU Hui~(刘徽):
+By inscribing regular~$e$\nobreakdashes-gons with an increasing number~$e$ of edges into a circlem such that the corners of the $e$\nobreakdashes-gons lie on the circle.
 
 We start with a hexagon~($e=6$) where the radius~\liuhuir\ is equal to the radius of the circle.
 All the $e$~edges~\liuhuiss\ of this hexagon then have length~\liuhuir\ as well.
