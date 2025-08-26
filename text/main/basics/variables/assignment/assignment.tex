@@ -174,8 +174,11 @@ Finally, \pythonil{print(f"new_var = \{new_var\}." )} then prints \textil{new_va
 %
 This first program is stored in a file named~\textil{assignment.py}.
 To execute it, you have two choices:
-You can either open a \pgls{terminal} and enter the folder where the program is stored.
-Then you would execute the command~\bashil{python3 assignment.py} to run the \python\ interpreter in the terminal, as illustrated in \cref{fig:assignmentTerminal}~(for the case of \ubuntu\ \linux).
+You can do this in the \pgls{terminal} or using \pycharm.
+
+Under \ubuntu\ \linux, you open the \pgls{terminal} by pressing \ubuntuTerminal, under \microsoftWindows\ you instead \windowsTerminal.
+Then you enter the folder where the program \textil{assignment.py} is stored using the command~\bashil{cd}.
+Then you would execute the command~\bashil{python3 assignment.py} to run the \python\ interpreter, as illustrated in \cref{fig:assignmentTerminal}.
 
 Alternatively, you can open the program file in \pycharm\ \pgls{ide}, as sketched in \cref{fig:assignmentPyCharm1}.
 You would then right-click on the file \textil{assignment.py} in the project tree view.
@@ -252,19 +255,24 @@ I am not good at mathematics, but I still really like mathematics anyway, so we 
 The number~\numberPi\ is the ratio of the circumference of a circle and its diameter.
 A we already mentioned before in \cref{sec:float}, it is transcendental, a never-ending and never-repeating sequence of digits.
 We can compute it to a certain precision, e.g., as the \pythonilIdx{float} constant \pythonilIdx{pi} with value \pythonil{3.141592653589793}.
-But we can never really write it down.
+But we can never really write it down in its entirety.
 
 Well, when I say \inQuotes{we can compute it}, then the question \inQuotes{How?} immediately arises.
 One particularly ingenious answer was given by the Chinese mathematician LIU Hui~(刘徽) somewhere in the third century~\pgls{CE}~\cite{OR2003LH,Y2024COACMMLHFHTIOMACE} in his commentary to the famous Chinese mathematics book \emph{Jiu Zhang Suanshu}~(九章算术)~\cite{OR2003LH,SCL1999TNCOTMACAC,S1998LHATFGAOCM,D2010AALHOCAS,C2002LFLHADWTDM}.
 In \cref{fig:liuHuiCircle}, we show how~\numberPi\ can be approximated based on the idea of LIU Hui~(刘徽):
-By inscribing regular~$e$\nobreakdashes-gons with an increasing number~$e$ of edges into a circlem such that the corners of the $e$\nobreakdashes-gons lie on the circle.
+By inscribing regular~$e$\nobreakdashes-gons with an increasing number~$e$ of edges into a circle such that the corners of the $e$\nobreakdashes-gons lie on the circle.
 
 We start with a hexagon~($e=6$) where the radius~\liuhuir\ is equal to the radius of the circle.
-All the $e$~edges~\liuhuiss\ of this hexagon then have length~\liuhuir\ as well.
+Since it is a regular hexagon, it can be divided into six triangles.
+These are isosceles triangle, since two sides of each triangle have length~\liuhuir, since two of its edges are on the cirlce and the third edge is the circle center.
+The apex angle between these two eges is~$60^{\circ}$, as $360^{\circ}/6=60^{\circ}$.
+Therefore, the triangles are equilateral, meaning that the third side also has length~\liuhuir.
+
+This means that all the $e$~edges~\liuhuiss\ of this hexagon then have length~\liuhuir\ as well.
 It is easy to see that the circumference of the hexagon is~$U=e*\liuhuiss=6*\liuhuir$.
 The diameter of the circle is~$D=2\liuhuir$.
 Assuming that the circumference of the hexagon is an approximation of the circumference of the circle, we could approximate~\numberPi\ as $\numberPi\approx\frac{U}{D}$.
-For $e=6$~edges, this gives us $\pi_6=\frac{6\liuhuir}{2\liuhuir}=3$.
+For $e=6$~edges, this gives us $\numberPi_6=\frac{6\liuhuir}{2\liuhuir}=3$.
 
 Now this is a very coarse approximation of~\numberPi.
 We can get closer to the actual ratio if we would use more edges, i.e., higher values of~$e$.
@@ -279,14 +287,15 @@ Here, the new side length~\liuhuist\ is the hypotenuse of a right-angled triangl
 To get the height~\liuhuiy, we can use that~$\liuhuir=\liuhuix+\liuhuiy$ and the fact that there is a second right-angled triangle here, namely the one with base~\liuhuix, height~$\frac{\liuhuiss}{2}$, and hypotenuse~\liuhuir.
 This gives us $\liuhuix^2+\left(\frac{\liuhuiss}{2}\right)^2=\liuhuir^2$.
 Let's make things easier by choosing~$\liuhuir=1$.
+
 We get $\liuhuix^2=1-\left(\frac{\liuhuiss}{2}\right)^2=1-\frac{\liuhuiss^2}{4}$ and, hence, $\liuhuiy=1-\sqrt{1-\frac{\liuhuiss^2}{4}}$.
 With this we can move on to $\liuhuist^2=\liuhuiy^2+\left(\frac{\liuhuiss}{2}\right)^2$, which we can resolve to $\liuhuist^2=\left(1-\sqrt{1-\frac{\liuhuiss^2}{4}}\right)^2+\frac{\liuhuiss^2}{4}$.
 Using $(a-b)^2=a^2-2ab+b^2$ and applying it to the first term, we get $\liuhuist^2=1-2\sqrt{1-\frac{\liuhuiss^2}{4}}+\left(1-\frac{\liuhuiss^2}{4}\right)+\frac{\liuhuiss^2}{4}$.
 This then gives us $\liuhuist^2=2-2\sqrt{1-\frac{\liuhuiss^2}{4}}-\frac{\liuhuiss^2}{4}+\frac{\liuhuiss^2}{4}$, which we can further refine to $\liuhuist^2=2-2\sqrt{1-\frac{\liuhuiss^2}{4}}$.
-We can pull th~$2$ from outside the root into the root by multiplying everything inside by $2^2=4$ and get $\liuhuist^2=2-\sqrt{4-\liuhuiss^2}$.
+We can pull the~$2$ from outside the root into the root by multiplying everything inside by $2^2=4$ and get $\liuhuist^2=2-\sqrt{4-\liuhuiss^2}$.
 Thus, we have the really elegant $\liuhuist=\sqrt{2-\sqrt{4-\liuhuiss^2}}$.
 
-As new approximation of~$\pi_{12}$, we now have $\frac{12*\liuhuist}{2\liuhuir}=6*\liuhuist=6\sqrt{2-\sqrt{4-\liuhuiss^2}}=6\sqrt{2-\sqrt{4-1}}=6\sqrt{2-\sqrt{3}}\approx 3.105828539$.
+As new approximation of~$\numberPi_{12}$, we now have $\frac{12*\liuhuist}{2\liuhuir}=6*\liuhuist=6\sqrt{2-\sqrt{4-\liuhuiss^2}}=6\sqrt{2-\sqrt{4-1}}=6\sqrt{2-\sqrt{3}}\approx 3.105828539$.
 This is already quite nice.
 We can actually repeat this step to get to~\liuhuistf.
 And we could continue this process by again doubling the number the edges.
@@ -294,7 +303,7 @@ Repeating the above calculations and observing \cref{fig:liuHuiCircle}, we get t
 %
 \begin{align}%
 s_{2e} &= \sqrt{2-\sqrt{4-s_e^2}}\label{eq:liuhui:sidelength}\\%
-\pi_{2e} &= \frac{e}{2} s_{2e}\label{eq:liuhui:approx}%
+\numberPi_{2e} &= \frac{e}{2} s_{2e}\label{eq:liuhui:approx}%
 \end{align}%
 %
 \gitLoadAndExecPython{variables:pi_liu_hui}{}{variables}{pi_liu_hui.py}{}%
@@ -335,28 +344,60 @@ The output of the program \programUrl{variables:pi_liu_hui} in the \ubuntu\ \pgl
 \includegraphics[width=0.7\linewidth]{\currentDir/liuHuiPiTerminal}%
 }%
 %
-\caption{Running the program \programUrl{variables:pi_liu_hui} from \cref{lst:variables:assignment} in \pycharm~(\cref{fig:liuHuiPiPyCharm1,fig:liuHuiPiPyCharm2,fig:liuHuiPiPyCharm3}) or the \ubuntu\ \pgls{terminal}~(\cref{fig:assignmentTerminal}).}%
+\caption{Running the program \programUrl{variables:pi_liu_hui} from \cref{lst:variables:assignment} in \pycharm~(\cref{fig:liuHuiPiPyCharm1,fig:liuHuiPiPyCharm2,fig:liuHuiPiPyCharm3}) or the \ubuntu\ \pgls{terminal}~(\cref{fig:liuHuiPiTerminal}).}%
 \label{fig:variables:liuHuiPi}%
 \end{figure}%
 %
 Now that we have learned some programming, we do no longer need to type the numbers and computation steps into a calculator.
-Instead, we can simply write them into a program, as illustrated in \cref{lst:variables:pi_liu_hui}.
-We begin by setting the number of edges \pythonil{e = 6} and the side length to \pythonil{s = 1}, still choosing~$\liuhuir=1$.
+We also do not need to use \python\ as calculator.
+Instead, we can enter all the commands needed for the computation into a program file.
+We will call it~\textil{pi_liu_hui.py}, as illustrated in \cref{lst:variables:pi_liu_hui}.
+
+We begin by setting the initial number of edges \pythonil{e = 6} and the initial side length of the $e$\nobreakdashes-gon to \pythonil{s = 1}, because we still keep with the choice of~$\liuhuir=1$.
 In each iteration of the approximation, we simply set \pythonil{e *= 2}\pythonIdx{*=}, which is equivalent to \pythonil{e = e * 2}, to double the number of edges.
 We compute \pythonil{s = sqrt(2 - sqrt(4 - (s ** 2)))}\pythonIdx{sqrt} having imported\pythonIdx{import} the \pythonilIdx{sqrt} function from the \pythonilIdx{math} module.
 We print the approximated value of~\numberPi\ as \pythonil{e * s / 2}.
-Notice how elegantly we use the unicode characters~$\pi$ and~$\approx$ via the escapes~\pythonil{\\u03c0} and \pythonil{\\u2248}\pythonIdx{\textbackslash{u}}, respectively, from back in~\cref{sec:unicodeChars} (and how nicely it indeed prints the greek character~$\pi$ in the \pgls{stdout} in \cref{exec:variables:pi_liu_hui}).
+Notice how elegantly we use the \pgls{unicode} characters~$\pi$ and~$\approx$ via the \pglspl{escapeSequence}~\pythonil{\\u03c0} and \pythonil{\\u2248}\pythonIdx{\textbackslash{u}}, respectively, from back in~\cref{sec:unicodeChars} (and how nicely it indeed prints the greek character~$\pi$ in the \pgls{stdout} in \cref{exec:variables:pi_liu_hui}).
 Either way, since \cref{eq:liuhui:sidelength,eq:liuhui:approx} are always the same, we can simply copy-paste the lines of code for updating~\pythonil{s}, \pythonil{e}, and printing the approximated value of~\numberPi\ several times.
 
 \Cref{exec:variables:pi_liu_hui} shows the \acrfull{stdout} produced by this program.
 Indeed, each new approximation comes closer to~\numberPi.
 For 192~edges, we get the approximation~\pythonil{3.1414524722853443}.
 Given that the constant~\pythonilIdx{pi} from the \pythonilIdx{math} module is \pythonil{3.141592653589793}, we find that the first four digits are correct and that the number is only off by only 0.0045\%!
+
 For your convenience, we also showed the results when executing the program in \pycharm\ or the \ubuntu\ \pgls{terminal} in \cref{fig:variables:liuHuiPi}.
-They are obviously identical.
+To open a \pgls{terminal} under \ubuntu\ \linux, you would press~\ubuntuTerminal, whereas under \microsoftWindows, you~\windowsTerminal.
+With the command \bashil{cd}, you would enter the directory where our program \textil{pi_liu_hui.py} is located.
+You would then type in \bashil{python3 pi_liu_hui.py} and hit~\keys{\enter}.
+As you can see in \cref{fig:liuHuiPiTerminal}, you will get the same output as given in \cref{exec:variables:pi_liu_hui}.
+
+Alternatively, if you are using \pycharm, you can open the program file \programUrl{variables:pi_liu_hui} as shown in \cref{fig:liuHuiPiPyCharm1}.
+You can right-click on this program in the project tree view and, in the pop-up menu that appears, left-click on \menu{Run `pi\_liu\_hui'}, as sketched in \cref{fig:liuHuiPiPyCharm2}.
+You can instead also press \keys{\ctrl+\shift+F10} in the editor window.
+Eithre way, the program will be executed and its output appears~(see~\cref{fig:liuHuiPiPyCharm3}).
+And again it is identical to what we have shown in \cref{exec:variables:pi_liu_hui}.
 Therefore, in the future, we will only very sporadically add such screenshots.
 Instead, we will usually only print code and output pairs like~\cref{lst:variables:pi_liu_hui,exec:variables:pi_liu_hui}.%
 %
+\endhsection%
+%
+\hsection{Summary}%
+%
+We now have learned how we can store values in variables.
+We also have learned that we can then use the variables instead of the values.
+We further have learned that we can assign new values to variables and do so multiple times.
+
+This means that we can now, for the first time, create meaningful programs consisting of multiple lines of code.
+Programs, in which the intermediate results computed by one line of code are transmitted and used in a later line of code.
+This is a huge jump.
+
+Now our code can become much more complex.
+This means that we must now begin to consider issues such as code quality.
+We need to follow style guides to make the code readable.
+We need to write comments into our code, so that we~(and others) can later understand what we were thinking when writing the programs.
+
+But most importantly:
+We can already do some cool stuff!%
 \endhsection%
 %
 \FloatBarrier%
