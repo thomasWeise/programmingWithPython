@@ -5,27 +5,30 @@
 A \python\ program assigning multiple values to multiple variables and using the same method to swap variable values.}{}%
 %
 Let us return to the topic of variables and assignments.
-In \python, we can assign values to multiple variables at once.
+In \python, we can assign values to multiple variables at once~(ofcourse, always exactly one value to one variable).
 In this case, we separate both the variable names and the values with commas.
-The first line (\pythonil{a, b = 5, 10}\pythonIdx{=!multiple}\pythonIdx{,}) in \cref{lst:variables:multi_and_swap} assigns the values~\pythonil{5} and~\pythonil{10}, respectively, to the variables~\pythonil{a} and~\pythonil{b}, respectively.
+The first line~\pythonil{a, b = 5, 10}\pythonIdx{=!multiple}\pythonIdx{,} in \cref{lst:variables:multi_and_swap} is equivalent to the two lines~\pythonil{a = 5} and~\pythonil{b = 10}.
+It assigns the value~\pythonil{5} to the variable~\pythonil{a} and the value~\pythonil{10} to the variable~\pythonil{b}.
 After this assignment step, \pythonil{a == 5} and \pythonil{b == 10} holds.
-\pythonil{print(f"a={a}, b={b}")} therefore prints \textit{a=5, b=10}.
+\pythonil{print(f\" \{a = \}, \{b = \}\")} therefore prints \textit{a = 5, b = 10}.
 
 This method can also be used to \emph{swap} the values of two variables\pythonIdx{=!swap}\pythonIdx{swap}.
-Writing \pythonil{a, b = b, a} looks a bit strange but it basically means \inQuotes{the \emph{new} value of \pythonil{a} will be the \emph{present} value of \pythonil{b} and the \emph{new} value of \pythonil{b} will be the \emph{present} value of \pythonil{a}.}
-The line is therefore basically equivalent to first storing~\pythonil{a} in a temporary variable~\pythonil{t}, then overwriting \pythonil{a} with \pythonil{b}, and finally copying the value of \pythonil{t} to \pythonil{t}.
-But it accomplishes this in single line of code instead of three.
-\pythonil{print(f"a={a}, b={b}")} thus now prints \textit{a=10, b=5}.%
+Writing \pythonil{a, b = b, a} looks a bit strange but it basically means \inQuotes{the \emph{new} value of~\pythonil{a} will be the \emph{present} value of~\pythonil{b} and the \emph{new} value of~\pythonil{b} will be the \emph{present} value of~\pythonil{a}.}
+The line is therefore basically equivalent zu \pythonil{t = a}, \pythonil{a = b}, and \pythonil{b = t}.
+Without the double-assignment, we would first have to store the value of~\pythonil{a} in some temporary variable~\pythonil{t}, then overwrite \pythonil{a} with \pythonil{b}, and finally we would copy the value of \pythonil{t} to \pythonil{b}.
+But with the double-assignment, we can accomplishes this in single line of code instead of three.
+And we do not need a temporary variable either.
+\pythonil{print(f\" \{a = \}, \{b = \}\")} thus now prints \textit{a=10, b=5}.%
 %
 \bestPractice{swap}{Swapping of variable values can best be done with a multi-assignment statement, e.g., \pythonil{a, b = b, a}\pythonIdx{=!swap}\pythonIdx{swap}.}%
 %
 The same concept of multiple assignments works for arbitrarily many variables.
 \pythonil{z, y, x = 1, 2, 3} assigns, respectively, \pythonil{1} to \pythonil{z}, \pythonil{2} to \pythonil{y}, and \pythonil{3} to \pythonil{x}.
-\pythonil{print(f"x={x}, y={y}, z={z}")} thus yields \textil{x=3, y=2, z=1}.
+\pythonil{print(f\"\{x = \}, \{y = \}, \{z = \}\")} thus yields \textil{x = 3, y = 2, z = 1}.
 
 We can also swap multiple values.
 \pythonil{x, y, z = z, y, x} assigns the present value of \pythonil{z} to become the new value of \pythonil{x}, the present value of \pythonil{y} to also be the new value of \pythonil{y}, and the present value of \pythonil{x} to become the new value of \pythonil{z}.
-\pythonil{print(f"x={x}, y={y}, z={z}")} now gives us \textil{x=1, y=2, z=3}.
+\pythonil{print(f\"\{x = \}, \{y = \}, \{z = \}\")} now gives us \textil{x = 1, y = 2, z = 3}.
 %
 \FloatBarrier%
 \endhsection%

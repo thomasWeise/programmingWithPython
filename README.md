@@ -37,6 +37,7 @@ Die Slides zum Kurs in deutscher Sprache können unter <https://thomasweise.gith
 12. [`None`](https://thomasweise.github.io/programmingWithPythonSlidesDE/12_none.pdf)
 13. [Variablen: Wertzuweisung](https://thomasweise.github.io/programmingWithPythonSlidesDE/13_variablen_wertzuweisung.pdf)
 14. [Fehler im Kode mit Exceptions und IDE finden](https://thomasweise.github.io/programmingWithPythonSlidesDE/14_fehler_im_kode_mit_exceptions_und_ide_finden.pdf)
+15. [Variablentypen und Type Hints](https://thomasweise.github.io/programmingWithPythonSlidesDE/15_variablentypen_und_type_hints.pdf)
 
 ### 2.3. The Slides in English
 The slides for the course are available at <https://thomasweise.github.io/programmingWithPythonSlides> and also listed below.
@@ -71,6 +72,7 @@ The list of files not under the CC&nbsp;BY&#8209;NC&#8209;SA&nbsp;4.0 license bu
     - text/main/introduction/pythonLogo.pdf
     - text/main/introduction/pythonLogo.svg
 + all screenshots from websites
++ The illustration of LIU Hui (刘徽) in file "text/main/basics/variables/assignment/liu_hui.jpg" is from Wenqi Ying (应雯棋), editor. Commemoration of Ancient Chinese Mathematical Master Liu Hui for his Timeless Influence on Mathematics and Civilizational Exchange. [Issue 48 of CAST Newsletter](https://english.cast.org.cn/cms_files/filemanager/1941250207/attach/202412/8f23655a82364d19ad7874eb37b23035.pdf). China, Beijing (中国北京市): 中国科学技术协会 (China Association for Science and Technology, CAST), 2024. Permission was granted to include it in this material, but the copyright remains with CAST.
 
 You can download its newest version of the course material from <https://thomasweise.github.io/databases>.
 This version may change since this course and book both are work in progress.

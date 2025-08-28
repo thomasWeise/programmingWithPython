@@ -217,7 +217,7 @@ The internal tables could be represented as lists.
 Differently from lists, new elements are not added at the end.
 Instead, they would be more like lists of a fixed length where new elements are placed at specific indices where they can be found again.
 These hash tables~\cite{K1998SAS,CLRS2009ITA,SKS2019DSC} are very fast.
-They have an element-wise access/update time complexity of~\bigOb{1}~\cite{H2025PM:PBOTTCODDSIPP33,B2023T,N2022CCSFPO}.
+They have an element-wise access/update time complexity of~\bigOb{1}~\cite{H2025PM:PBOTTCODDSIPP33,PSF:TPW:TC,N2022CCSFPO}.
 As you know, lists can be indexed by integers.
 Since we also want to be able to use objects that are \emph{not} integers as keys, too, we need a way to \inQuotes{translate} these objects to integers.
 That is what \dunder{hash} is supposed to do.

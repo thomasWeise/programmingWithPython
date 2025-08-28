@@ -12,6 +12,7 @@ The list of files not under the CC&nbsp;BY&#8209;NC&#8209;SA&nbsp;4.0 license bu
     - text/main/introduction/pythonLogo.pdf
     - text/main/introduction/pythonLogo.svg
 + all screenshots from websites
++ The illustration of LIU Hui (刘徽) in file "text/main/basics/variables/assignment/liu_hui.jpg" is from Wenqi Ying (应雯棋), editor. Commemoration of Ancient Chinese Mathematical Master Liu Hui for his Timeless Influence on Mathematics and Civilizational Exchange. [Issue 48 of CAST Newsletter](https://english.cast.org.cn/cms_files/filemanager/1941250207/attach/202412/8f23655a82364d19ad7874eb37b23035.pdf). China, Beijing (中国北京市): 中国科学技术协会 (China Association for Science and Technology, CAST), 2024. Permission was granted to include it in this material, but the copyright remains with CAST.
 
 
 ## creative commons

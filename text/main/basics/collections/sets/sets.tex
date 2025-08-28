@@ -46,7 +46,7 @@ Plus lists are ordered and indexable.
 So what is the advantage of sets?
 Sets are fast.
 In \python, sets are implemented based on the concept of hash tables and thus inherit the computational performance of these datastructures~\cite{K1998SAS,CLRS2009ITA,SKS2019DSC}.
-The operation for checking whether one object is contained in a set can be done in \bigOb{1} in average, whereas lists need \bigOb{n} in average, with $n$~being the list length~\cite{H2025PM:PBOTTCODDSIPP33,B2023T,N2022CCSFPO}.
+The operation for checking whether one object is contained in a set can be done in \bigOb{1} in average, whereas lists need \bigOb{n} in average, with $n$~being the list length~\cite{H2025PM:PBOTTCODDSIPP33,PSF:TPW:TC,N2022CCSFPO}.
 This means that checking whether an element is contained in a set costs approximately a constant number of CPU cycles, whereas doing the same for a list takes a number of cycles roughly linear in the length of the list.
 Lists thus can be preferred if we either only have very few elements to check or if we need to access elements using integer indices.
 If we have more than just very few elements and/or need to perform set operations such as those discussed in the following text, sets are the way to go.%
