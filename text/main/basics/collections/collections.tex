@@ -2,15 +2,15 @@
 \label{sec:collections}%
 %
 We already learned about simple datatypes, like integer and floating point numbers, strings, and Boolean values.
-We also learned how we can use variables to store instances (objects) of such datatypes.
+We also learned how we can use a variable to store one instance (object) of such a datatype.
 However, in many cases, we do not just want to store a single object.
 Often, we want to store and process \emph{collections} of objects~\cite{PSF:P3D:TPSL:BIT,PSF:P3D:TPLR:DM,PSF:P3D:TPSL:CAABCFC}.
 \python\ offers us four basic types of collections:
 
 The first one, \emph{lists}, are mutable sequences of objects.
-We can create a list \pythonil{my_list} composed of the three strings \pythonil{"a"}, \pythonil{"b"}, and~\pythonil{"c"} by writing \pythonil{my_list = ["a", "b", "c"]}.
+We can create a list variable~\pythonil{my_list} composed of the three strings~\pythonil{"ax"}, \pythonil{"by"}, and~\pythonil{"cz"} by writing~\pythonil{my_list = ["ax", "by", "cz"]}.
 Like the characters in strings, we can access the elements of lists using square brackets.
-For instance, \pythonil{my_list[0]} would return the first element of \pythonil{my_list}, namely~\pythonil{"a"}.
+For instance, \pythonil{my_list[0]} would return the first element of \pythonil{my_list}, namely~\pythonil{"ax"}.
 In \cref{sec:lists} we learn more about lists and we also get to know a new static code analysis tool that can help us to detect programming issues.
 
 The second type of collections is formed by \emph{tuples}.
@@ -37,6 +37,7 @@ They are discussed in \cref{sec:dictionaries}.%
 %
 %
 \hinput{lists}{lists.tex}%
+\hinput{ruff}{ruff.tex}%
 \hinput{tuples}{tuples.tex}%
 \hinput{sets}{sets.tex}%
 \hinput{dictionaries}{dictionaries.tex}%

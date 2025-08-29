@@ -17,7 +17,7 @@
 \pythonil{a is d}&\pythonil{True}\\%
 \end{tabular}%
 %
-\caption{A illustration of the concepts of equality (\pythonilIdx{==}) and identity (\pythonilIdx{is}) from the perspective of variables.}%
+\caption{A illustration of the concepts of equality~(\pythonilIdx{==}) and identity~(\pythonilIdx{is}) from the perspective of variables.}%
 \label{fig:variables:equalityAndIdentity}%
 \end{figure}%
 %
@@ -37,8 +37,15 @@ These two concepts -- equality and identity -- must be distinguished.
 
 And this can be done rather easily.
 Imagine that you buy a green jacket, let's call it~$A$.
-Then you buy the exactly same jacket again, for a second time, and call the second jacket~$B$.
-Now~$A$ and~$B$ are equal, but they are still two different objects.%
+On the next day, you buy another green jacket, which looks exactly like the first one.
+You call the second jacket~$B$.
+Now~$A$ and~$B$ are equal, but they are still two distinct objects.
+Therefore, it holds that \pythonil{A == B}\pythonIdx{==} but \emph{not} \pythonil{A is B}~(i.e., it holds that \pythonil{A is not B}\pythonIdx{is not})
+$A$~and~$B$ are two names for two distinct but equal objects.
+Then again, you can put jacket~$A$ into your wardrobe and when you take it out tomorrow, start calling it~$C$.
+Then $A$ and $C$ would be two names that refer to very same jacket, to identical objects.
+Now both \pythonil{A == C}\pythonIdx{==} and \pythonil{A is B}\pythonIdx{is} are \pythonil{True}.%
+%
 %
 \begin{sloppypar}%
 \Cref{fig:variables:equalityAndIdentity} illlustrates this issue.
@@ -70,7 +77,7 @@ First-time readers are welcome to skip over the rest of this subsection.%
 }%
 %
 A slightly more involved example of the issue of object equality and identity is given in \cref{lst:variables:identity_2}.
-You see, when the \python\ interpreter parses the program code file, it will allocate the memory and store the values of constants and literals.
+You see, when the \python\ interpreter parses the program code file, it will allocate the memory and store the values of constants and \pglspl{literal}.
 \cref{lst:variables:identity_2}, we declare \pythonil{a = "Hello World!"} and then \pythonil{b = "Hello World!"}.
 In other words, \pythonil{a} and \pythonil{b} will receive the same value.
 As the output in \cref{exec:variables:identity_2} shows, the \python\ interpreter is clever enough not to store this value twice in memory.
@@ -100,6 +107,13 @@ Of course, \pythonil{g == h} is \pythonil{True}.
 However, \pythonil{g is h} is \pythonil{False}.
 Because this integer value is too large to be cached and a new object is generated.%
 %
+\hsection{Summary}%
+We can distinguish \emph{equality} and \emph{identity}.
+Equality is tested with the operator~\pythonilIdx{==} and inequality is tested with operator~\pythonilIdx{"!=}.
+Identity is tested with operator~\pythonilIdx{is} and un-identity with operator~\pythonilIdx{is not}.
+Two distinct objects can either be equal or unequal, but never identical.
+Two identical objects are always equal, i.e., \pythonil{A is B}$\Rightarrow$\pythonil{A == B}.%
+\endhsection%
 \FloatBarrier%
 \endhsection%
 %

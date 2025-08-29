@@ -1412,10 +1412,10 @@ Since we do not care about exceptions here, we just write this to safe space, ho
 All we want is to write the element end string.
 We then always return~\pythonil{False}, which basically tells the \python~interpreter:
 \emph{\inQuotes{If any exception occurred inside the \pythonilIdx{with} statement, please raise this exception again after we are finished with~\pythonilIdx{\_\_exit\_\_}\pythonIdx{dunder!\_\_exit\_\_}.}}
-The proper \pgls{typeHint} for this is \pythonil{Literal[False]}\pythonIdx{Literal}\pythonIdx{typing!Literal}.%
+The proper \pgls{typeHint} for this is \pgls{literal} is \pythonil{Literal[False]}\pythonIdx{Literal}\pythonIdx{typing!Literal}.%
 %
 \bestPractice{returnLiteralTypeHint}{%
-If a parameter of a function can take on only some special constant values~\pythonil{X}, say certain integers or strings, the proper \pgls{typeHint} is \pythonil{Literal[X]}\pythonIdx{Literal}\pythonIdx{typing!Literal}~\cite{PEP586}. %
+If a parameter of a function can take on only some special constant values~\pythonil{X}, say certain integer or string \pglspl{literal}, the proper \pgls{typeHint} is \pythonil{Literal[X]}\pythonIdx{Literal}\pythonIdx{typing!Literal}~\cite{PSF:STWP:L,PEP586}. %
 The same holds if your function always returns the same, simple constant(s)~\pythonil{X}.%
 }%
 %

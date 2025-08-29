@@ -1,5 +1,46 @@
 \hsection{Summary}%
 %
+\begin{table}%
+%
+\caption{Some properties of the four basic collection datatypes of \python, namely~\pythonil{list}, \pythonil{tuple}, \pythonil{set}, and~\pythonil{dict}.}%
+\label{tbl:collectionProperties}%
+%
+\centering%
+\resizebox{0.99\linewidth}{!}{\begin{tabular}{rcccc}%
+\hline%
+&\pythonil{list[A]}&\pythonil{tuple[B, C, ...]}&\pythonil{set[D]}&\pythonil{dict[E, F]}\\%
+\hline%
+%
+\pgls{literal}&\pythonil{[a1, a2, ...]}&\pythonil{(b, c, ...)}&\pythonil{\{d1, d2, ...\}}&\pythonil{\{e1: f1, e2: f2, ...\}}\\%
+%
+empty \glslink{literal}{Literal}&\pythonil{[]}&\pythonil{()}&\redNo~/~\pythonil{set()}&\pythonil{\{\}}\\%
+%
+copy other collection~\pythonil{x}&\pythonil{list(x)}&\pythonil{tuple(x)}&\pythonil{set(x)}&\pythonil{dict(x)}~(\pythonil{x} is \pythonil{dict})\\%
+%
+ordered&\greenYes&\greenYes&\redNo&\greenYes~(insertion sequence)\\%
+%
+collection is mutable&\greenYes&\redNo&\greenYes&\greenYes\\%
+%
+mutable values OK&\greenYes&\redNo&\redNo&\pythonil{E}:~\redNo; \pythonil{F}:~\greenYes\\%
+%
+all elements of same datatype&\greenYes&\redNo&\greenYes&\greenYes\\%
+%
+indexing via~\pythonil{[i]}&\greenYes~(\pythonil{i} is \pythonil{int})&\greenYes~(\pythonil{i} is \pythonil{int})&\redNo&\greenYes~(\pythonil{i} is \pythonil{E})\\%
+%
+element repetition&\greenYes&\greenYes&\redNo&\pythonil{E}:~\redNo; \pythonil{F}:~\greenYes\\%
+%
+add element in&\bigOb{1}&\redNo&\bigOb{1}&\bigOb{1}\\%
+%
+\pythonil{in}/\pythonil{not in}&\bigOb{n}&\bigOb{n}&\bigOb{1}&\bigOb{1}\\%
+%
+delete element in&\bigOb{n}&\redNo&\bigOb{1}&\bigOb{1}\\%
+%
+Overhead&low&low&some&some\\%
+\hline%
+\end{tabular}}%
+%
+\end{table}%
+%
 If you have managed to fight your way through the book until this point, then you can already do quite a few things.
 You can use the computer like a fancy calculator by evaluating numerical expressions, which you learned in
 \cref{sec:simplyDataTypesAndOperations}.
@@ -9,6 +50,7 @@ You learned about mutable and immutable sequences of values, namely lists and tu
 You also learned that \python\ offers you the mathematical notion of sets as well as dictionaries, which are key-value mappings.
 You now have the basic knowledge of the most commonly used datatypes in \python.
 You know operations to manipulate and query them.
+\Cref{tbl:collectionProperties} summarizes some of the features of these collection datatypes.
 
 However, when learning about these structures, you may have felt some eerie awkwardness.
 Something did not feel right.

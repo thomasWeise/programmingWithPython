@@ -15,7 +15,7 @@ Matter of fact, many objects in \python\ support iteration.
 
 Vice versa, we can also create container datatypes from sequences of items.
 For example, the datatypes \pythonilIdx{list}, \pythonilIdx{tuple}, \pythonilIdx{set}, and \pythonilIdx{dict} can also be used like functions that take a sequence of items as parameter and create in instance of the corresponding datatype.
-In \cref{sec:lists:basicFunctions}, we learned that \pythonil{[1, 2, 2, 3]} creates a list with the specified contents.
+In \cref{sec:lists}, we learned that \pythonil{[1, 2, 2, 3]} creates a list with the specified contents.
 Passing this list to the \pythonilIdx{set} function/datatype, i.e., writing \pythonil{set([1, 2, 2, 3])} will create the set \pythonil{\{1, 2, 3\}}.
 We also learned that we modify several datastructures in place by combining them with other containers.
 Invoking \pythonil{l.extend(\{1, 2, 3\})}\pythonIdx{list!extend}\pythonIdx{extend} will append the elements~\pythonil{1}, \pythonil{2}, and \pythonil{3} to a list~\pythonil{l}, for example.
@@ -101,9 +101,9 @@ Because of this, the \pythonil{for y in x}-type of loops can be applied to any \
 \hsection{List Comprehension}%
 \label{sec:listComprehension}%
 %
-We can create a list by writing it down as a literal, e.g., \pythonil{[1, 2, 3, 4, 5]} creates a list\pythonIdx{list} containing the first five natural numbers.
+We can create a list by writing it down as a \pgls{literal}, e.g., \pythonil{[1, 2, 3, 4, 5]} creates a list\pythonIdx{list} containing the first five natural numbers.
 This is very handy, but can also become cumbersome if we either have many elements or want to transform them.
-Needing to write a literal in the same way that creates a list with the first one hundred natural numbers may be somewhat annoying.
+Needing to write a \pgls{literal} in the same way that creates a list with the first one hundred natural numbers may be somewhat annoying.
 If we want to create a list with the logarithms of first five natural numbers, writing \pythonil{[log(1), log(2), log(3), log(4), log(5)]}\pythonIdx{log} looks clunky as well.
 Luckily, \python\ offers the much more convenient syntax of list comprehension\pythonIdx{list!comprehension}\pythonIdx{comprehension!list}~\cite{PEP202}:%
 %

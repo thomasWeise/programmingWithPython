@@ -1,12 +1,6 @@
 \hsection{Lists}%
 \label{sec:lists}%
 %
-A \pythonilIdx{list} is a mutable sequence of objects which can be accessed via their index~\cite{PSF:P3D:TPLR:S}.
-They work very similar to the strings we already discussed in \cref{sec:str}, but instead of characters, they can contain any kind of objects and they can be modified.%
-%
-\hsection{Basic Functionality and Examples}%
-\label{sec:lists:basicFunctions}%
-%
 \gitLoadAndExecPython{lists:lists_1}{}{collections}{lists_1.py}{}%
 \listingPythonAndOutput{lists:lists_1}{%
 A first example for using lists in \python:~creating, indexing, printing of and appending elements and other lists to lists.}{}%
@@ -19,6 +13,9 @@ A second example of using lists in \python: inserting and deleting elements, sor
 \listingPythonAndOutput{lists:lists_3}{%
 A third example of using lists in \python: slicing, adding, and multiplying lists.}{}%
 %
+A \pythonilIdx{list} is a mutable sequence of objects which can be accessed via their index~\cite{PSF:P3D:TPLR:S}.
+They work very similar to the strings we already discussed in \cref{sec:str}, but instead of (only) characters, they can contain any kind of objects and they can be modified.
+
 In \cref{lst:lists:lists_1}, we provide some first examples for using lists.
 A list can be defined by simply writing its contents, separated by~\pythonilIdx{,} inside square brackets~\pythonil{[...]}\pythonIdx{[\idxdots]}.
 \pythonil{["apple", "pear", "orange"]} creates a list with three elements, namely the strings \pythonil{"apple"}, \pythonil{"pear"}, and~\pythonil{"orange"}.
@@ -117,134 +114,30 @@ If a third index~\pythonil{k} is provided, the it is the step length.
 If~\pythonil{i} is omitted, i.e., if \pythonil{:j:k} is provided, then \pythonil{i=0} is assumed.
 If~\pythonil{j} is omitted, i.e., if \pythonil{i::k} is provided, then \pythonil{j=len(l)} is assumed.
 
-If you have a list \pythonil{l4 = [5, 6, 7, 5, 6, 7, 5, 6, 7]}, then the slice~\pythonil{l4[2:-2]} will return a new list which contains all the elements of~\pythonil{l4} starting from index~\pythonil{2} and up to (excluding) the second-to-last element.
-The slice~\pythonil{l4[1::2]} starts at index~\pythonil{1}, continues until the end of the list, and adds every second element.
+If you have a list \pythonil{lst4 = [5, 6, 7, 5, 6, 7, 5, 6, 7]}, then the slice~\pythonil{lst4[2:-2]} will return a new list which contains all the elements of~\pythonil{lst4} starting from index~\pythonil{2} and up to (excluding) the second-to-last element.
+The slice~\pythonil{lst4[1::2]} starts at index~\pythonil{1}, continues until the end of the list, and adds every second element.
 This results in~\pythonil{[6, 5, 7, 6]}.
-As final example, consider the slice~\pythonil{l4[-1:3:-2]}.
+As final example, consider the slice~\pythonil{lst4[-1:3:-2]}.
 It will begin creating the new list at the last element.
 The step-length is~\pythonil{-2}, so it will move backwards and add every second element to the new list.
 It stops adding elements before reaching index~\pythonil{3}.
-Therefore, the result will be the new list~\pythonil{l7 = [7, 5, 6]}.
+Therefore, the result will be the new list~\pythonil{lst7 = [7, 5, 6]}.
 
 Notice that the slices\pythonIdx{slice} we create are independent copies of ranges of the original lists.
-The list~\pythonil{l7} is a slice from the list~\pythonil{l4}.
-If we modify it, e.g., set \pythonil{l7[1] = 12}, then we set the second element of~\pythonil{l7} to~\pythonil{12}.
-\pythonil{l7}~becomes~\pythonil{[7, 12, 6]}.
-Now, the second element of~\pythonil{l7} originally is the seventh element of~\pythonil{l4}, namely the \pythonil{5} located at index~\pythonil{6}, which is equivalent to index~\pythonil{-3}.
+The list~\pythonil{lst7} is a slice from the list~\pythonil{lst4}.
+If we modify it, e.g., set \pythonil{lst7[1] = 12}, then we set the second element of~\pythonil{lst7} to~\pythonil{12}.
+\pythonil{lst7}~becomes~\pythonil{[7, 12, 6]}.
+Now, the second element of~\pythonil{lst7} originally is the seventh element of~\pythonil{lst4}, namely the \pythonil{5} located at index~\pythonil{6}, which is equivalent to index~\pythonil{-3}.
 You may wonder whether this element now also has changed.
 It did not.
-\pythonil{l4} remains unchanged by any operation on the independent copied slice~\pythonil{l7}.
+\pythonil{lst4} remains unchanged by any operation on the independent copied slice~\pythonil{lst7}.
 
 An interesting functionality is also list unpacking\pythonIdx{list!unpacking}\pythonIdx{unpacking}.
-In \cref{sec:strBasicOperations}, the list~\pythonil{l2} contains the three elements~\pythonil{[5, 6, 7]}.
+In \cref{sec:strBasicOperations}, the list~\pythonil{lst2} contains the three elements~\pythonil{[5, 6, 7]}.
 If we know the number of elements in the list in our program, then we can assign them to exactly the same number of variables.
-\pythonil{a, b, c = l2} creates and assigns values to three variables \pythonil{a=5}, \pythonil{b=6}, and \pythonil{c=7} by unpacking the list~\pythonil{l2}.%
+\pythonil{a, b, c = lst2} creates and assigns values to three variables \pythonil{a=5}, \pythonil{b=6}, and \pythonil{c=7} by unpacking the list~\pythonil{lst2}.
+Of course, this only works if list~\pythonil{lst2} has exactly length~3.%
 %
 \FloatBarrier%
-\endhsection%
-%
-\hsection{An Example of Errors and a new Tool}%
-\label{sec:listExampleForErrorsAndRuff}%
-%
-\gitLoadAndExecPython{lists:lists_error}{}{collections}{lists_error.py}{}%
-\listingPythonAndOutput{lists:lists_error}{%
-A program processing lists which exhibits some subtle errors and inefficiencies.}{}%
-%
-Now, in the previous chapter, we learned that static code analysis tools can help us to discover subtle problems in our programs.
-Obviously, when dealing with more complex datastructures like lists, there are also more potential problems, more mistakes that one could make.
-Let us look at the very short example \cref{lst:lists:lists_error}.
-The program consists of only two lines, \pythonil{my_list: list[str] = list([1, 2, 3])} and \pythonil{print(my_list)}.
-It does not have any \emph{error} in the strict sense.
-We can execute it just fine and it will produce the output \textil{[1, 2, 3]} as shown in \cref{exec:lists:lists_error}.
-
-\gitExec{exec:lists:lists_error:mypy}{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh collections lists_error.py}%
-\listingToolOutput{lists:lists_error:mypy}{%
-The results of static type checking with \mypy\ of the program given in \cref{lst:lists:lists_error}.}
-
-However, upon closer inspection, we discover some issues.
-In a first step, we would apply \mypy~(as~\cref{ut:mypy}) to check for problems with the types of variables.
-And indeed, \cref{exec:lists:lists_error:mypy} shows us \emph{three} errors!
-We defined \pythonil{my_list} as a list of strings by using the \pgls{typeHint} \pythonil{list[str]}.
-However, we then set its value to be a list of three integer numbers (hence, three errors).
-As promised in the title of this section, we will also use another tool to analyze this program:~\ruff.
-
-\begin{figure}%
-\centering%
-\includegraphics[width=0.7\linewidth]{\currentDir/pipInstallRuff}%
-\caption{Installing \ruff\ in a \ubuntu\ \pgls{terminal} via \pip~(see \cref{sec:pipAndVenv} for a discussion of how packages can be installed).}%
-\label{fig:pipInstallRuff}%
-\end{figure}%
-%
-\FloatBarrier%
-%
-\usefulTool{ruff}{%
-\ruff\ is a very fast \python\ \pgls{linter} that checks the code for all kinds of problems, ranging from formatting and style issues over missing documentation to performance problems and potential errors~\cite{M2022RAEFPLACFWIR}. %
-It can be installed via \bashil{pip install ruff} as shown in \cref{fig:pipInstallRuff} on \cpageref{fig:pipInstallRuff}. %
-You can then apply \ruff\ using the command \bashil{ruff check fileToScan.py}. %
-We provide a script for using \ruff\ with a reasonable default configuration in \cref{lst:bash:ruff} on \cpageref{lst:bash:ruff}.%
-}%
-%
-\gitExec{exec:lists:lists_error:ruff}{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh collections lists_error.py}%
-\listingToolOutput{lists:lists_error:ruff}{%
-The results of linting with \ruff\ of the program given in \cref{lst:lists:lists_error}. (We used the script given in \cref{lst:bash:ruff} on \cpageref{lst:bash:ruff} to apply \ruff.)}%
-%
-Let us apply \ruff\ to the program \textil{lists_error.py} given in \cref{lst:lists:lists_error}, which produces the output \cref{exec:lists:lists_error:ruff}.
-\ruff\ finds two errors in this file:
-First, it complains that any python file should start with multi-line string specifying the purpose of the file.
-The use of such \pglspl{docstring} makes it easier for other programmers to understand what is done by which file in projects that are composed of multiple \python\ scripts.%
-%
-\bestPractice{module:docstrings}{
-Each \python\ file should start with a string describing its purpose~\cite{PEP257}. %
-This can either be a single line, like a headline, or a longer text. %
-In the second case, the first line must be a headline, followed by an empty line, followed by the rest of the text. %
-Either way, it must be a string delimited by~\pythonil{"""..."""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl\idxdots\textquotedbl\textquotedbl\textquotedbl}~\cite{PEP257,PEP8}.%
-\pythonIdx{str!doc}%
-}%
-%
-Additionally, \ruff\ finds that writing \pythonil{list([1, 2, 3])} is actually useless waste of speed and memory:
-It basically creates a list via \pythonil{[1, 2, 3]} and then immediately makes a copy of it via the \pythonilIdx{list} function wrapped around the list specification.
-We can leave this outer call to \pythonil{list} away.
-
-\gitLoadAndExecPython{lists:lists_fixed}{}{collections}{lists_fixed.py}{}%
-\listingPythonAndOutput{lists:lists_fixed}{%
-The corrected version of~\cref{lst:lists:lists_error}, taking into account the information given by \mypy\ in \cref{exec:lists:lists_error:mypy} and \ruff\ in \cref{exec:lists:lists_error:ruff}.}{}%
-%
-%
-In \cref{lst:lists:lists_fixed} we implement the three recommendations from the two tools.
-We change the \pgls{typeHint} of the list to \pythonil{list[int]}, which solves the type confusion that \mypy\ discovered.
-We remove the useless copying of the list as \ruff\ recommended.
-Finally, we add a proper \pgls{docstring} at the top of the file, in which we even document the changes we applied.
-The output \cref{exec:lists:lists_fixed} of the new program remains the same.
-But now, both tools are satisfied, as shown in \cref{exec:lists:lists_fixed:mypy,exec:lists:lists_fixed:ruff}.
-And our program is much clearer and faster.%
-%
-\bestPractice{manyCodeAnalysisTools}{%
-Use many static code analysis tools and use them always. %
-They can discover a wide variety of issues, problems, or potential improvements. %
-They can help you to keep your code clean and to enforce a good programming style. %
-Do not just apply them, but also \emph{implement} their suggestions where possible.%
-}%
-%
-\FloatBarrier%
-%
-\gitExec{exec:lists:lists_fixed:mypy}{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh collections lists_fixed.py}%
-\listingToolOutput{lists:lists_fixed:mypy}{%
-The results of static type checking with \mypy\ of the program given in \cref{lst:lists:lists_fixed}.}%
-%
-\gitExec{exec:lists:lists_fixed:ruff}{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh collections lists_fixed.py}%
-\listingToolOutput{lists:lists_fixed:ruff}{%
-The results of static type checking with \ruff\ of the program given in \cref{lst:lists:lists_fixed}.}
-
-Well, this was only a two-line program.
-But ask yourself:
-Did you spot the incorrect \pgls{typeHint} when you read the program?
-Did you see that we actually created a list and then copied it instead of using it directly?
-(The \pgls{docstring} I give you, no chance of seeing that as we did not mention it before.)
-Imagine that your job would be to work on a program with thousands of lines that was developed by a colleague.
-Wouldn't you love it if that colleague had thoroughly documented and type-hinted and checked their code?
-Be that colleague.%
-%
-\FloatBarrier%
-\endhsection%
 \endhsection%
 %

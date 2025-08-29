@@ -11,14 +11,14 @@ Indeed, we have already used it before, even in our very first example program b
 \label{sec:strBasicOperations}%
 %
 \gitEvalPython{str_indexing}{}{simple_datatypes/str_indexing.py}%
-\listingBox{exec:str_indexing}{Specifying string literals and indexing its characters.}{,style=python_console_style}%
+\listingBox{exec:str_indexing}{Specifying string \pglspl{literal} and indexing its characters.}{,style=python_console_style}%
 %
-As \cref{exec:str_indexing} shows, there are two basic ways to specify a text string literal\pythonIdx{str!literal}:
+As \cref{exec:str_indexing} shows, there are two basic ways to specify a text string \pgls{literal}\pythonIdx{str!literal}:
 Either enclosed by double quotes, e.g., \pythonil{"Hello World!"}\pythonIdx{\textquotedbl\idxdots\textquotedbl} or enclosed by single quotes, e.g., \pythonil{'Hello World!'}\pythonIdx{\textquotesingle\idxdots\textquotesingle}.
 The quotation marks are only used to delimit the strings, i.e., to tell \python\ where the string begins or ends.
 They are not themselves part of the string.%
 %
-\bestPractice{strDoubleQuote}{When defining a string literal, the double-quotation mark variant~(\pythonil{"..."}\pythonIdx{\textquotedbl\idxdots\textquotedbl}) may be preferred over the single-quotation mark variant~(\pythonil{'...'}\pythonIdx{\textquotesingle}).~(The \citetitle{PEP8}~\cite{PEP8} does not give a recommendation, but maybe for consistency with the~\citetitle{PEP257}~\cite{PEP257}, see also~\cref{bp:longstrDoubleQuote}.)}%
+\bestPractice{strDoubleQuote}{When defining a string \pgls{literal}, the double-quotation mark variant~(\pythonil{"..."}\pythonIdx{\textquotedbl\idxdots\textquotedbl}) may be preferred over the single-quotation mark variant~(\pythonil{'...'}\pythonIdx{\textquotesingle}).~(The \citetitle{PEP8}~\cite{PEP8} does not give a recommendation, but maybe for consistency with the~\citetitle{PEP257}~\cite{PEP257}, see also~\cref{bp:longstrDoubleQuote}.)}%
 %
 One basic operation is string concatenation\pythonIdx{str!concatenation}\pythonIdx{str!+}\pythonIdx{+}:
 \pythonil{"Hello" + ' ' + "World"}\pythonIdx{\textquotedbl\idxdots\textquotedbl}\pythonIdx{\textquotesingle\idxdots\textquotesingle} concatenates the three strings \pythonil{"Hello"}, \pythonil{" "}, and \pythonil{"World"}.
@@ -407,7 +407,7 @@ In such strings, you can insert linebreaks by hitting \keys{\enter} completely n
 You can use the \pglspl{escapeSequence} from the previous section as well.
 The main use case are \pglspl{docstring}, which we will discuss later, see, e.g., \cref{bp:module:docstrings}.%
 %
-\bestPractice{longstrDoubleQuote}{When defining a multi-line string literal, the double-quotation mark variant~(\pythonil{"""..."""})\pythonIdx{\textquotedbl\textquotedbl\textquotedbl\idxdots\textquotedbl\textquotedbl\textquotedbl} is preferred over the single-quotation mark variant~(\pythonil{'''...'''}\pythonIdx{\textquotesingle\textquotesingle\textquotesingle})~\cite{PEP257,PEP8}.}%
+\bestPractice{longstrDoubleQuote}{When defining a multi-line string \pgls{literal}, the double-quotation mark variant~(\pythonil{"""..."""})\pythonIdx{\textquotedbl\textquotedbl\textquotedbl\idxdots\textquotedbl\textquotedbl\textquotedbl} is preferred over the single-quotation mark variant~(\pythonil{'''...'''}\pythonIdx{\textquotesingle\textquotesingle\textquotesingle})~\cite{PEP257,PEP8}.}%
 %
 \cref{exec:str_multiline} shows what happens if we print such a multi-line string.
 We first create the string by writing the three lines \textil{This is a multi-line string.}, \textil{I can hit enter to begin a new line.}, and \textil{This linebreak is then part of the string.}.

@@ -36,8 +36,15 @@ Die Slides zum Kurs in deutscher Sprache können unter <https://thomasweise.gith
 11. [Der Datentyp `str`](https://thomasweise.github.io/programmingWithPythonSlidesDE/11_str.pdf)
 12. [`None`](https://thomasweise.github.io/programmingWithPythonSlidesDE/12_none.pdf)
 13. [Variablen: Wertzuweisung](https://thomasweise.github.io/programmingWithPythonSlidesDE/13_variablen_wertzuweisung.pdf)
-14. [Fehler im Kode mit Exceptions und IDE finden](https://thomasweise.github.io/programmingWithPythonSlidesDE/14_fehler_im_kode_mit_exceptions_und_ide_finden.pdf)
-15. [Variablentypen und Type Hints](https://thomasweise.github.io/programmingWithPythonSlidesDE/15_variablentypen_und_type_hints.pdf)
+14. [Zwischenspiel: Fehler im Kode mit Exceptions und IDE finden](https://thomasweise.github.io/programmingWithPythonSlidesDE/14_fehler_im_kode_mit_exceptions_und_ide_finden.pdf)
+15. [Variablen: Typen und Type Hints](https://thomasweise.github.io/programmingWithPythonSlidesDE/15_variablen_typen_und_type_hints.pdf)
+16. [Gleichheit und Identität](https://thomasweise.github.io/programmingWithPythonSlidesDE/16_gleichheit_und_identität.pdf)
+17. [Listen](https://thomasweise.github.io/programmingWithPythonSlidesDE/17_listen.pdf)
+18. [Zwischenspiel: Der Linter Ruff](https://thomasweise.github.io/programmingWithPythonSlidesDE/18_ruff.pdf)
+19. [Tuples](https://thomasweise.github.io/programmingWithPythonSlidesDE/19_tuples.pdf)
+20. [Mengen](https://thomasweise.github.io/programmingWithPythonSlidesDE/20_mengen.pdf)
+21. [Dictionaries oder Hash Maps](https://thomasweise.github.io/programmingWithPythonSlidesDE/21_dictionaries.pdf)
+
 
 ### 2.3. The Slides in English
 The slides for the course are available at <https://thomasweise.github.io/programmingWithPythonSlides> and also listed below.

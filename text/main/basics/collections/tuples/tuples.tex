@@ -17,6 +17,10 @@ A third example of using tuples in \python:~testing the immutability property.}%
 \listingToolOutput{tuples:tuples_3:mypy}{%
 The results of static type checking with \mypy\ of the program given in \cref{lst:tuples:tuples_3}.}%
 %
+\gitExec{exec:tuples:tuples_3:ruff}{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh collections tuples_3.py}%
+\listingToolOutput{tuples:tuples_3:ruff}{%
+The results of the \ruff\ \pgls{linter} applied to the program given in \cref{lst:tuples:tuples_3}.}%
+%
 \pythonIdx{tuple}%
 Tuples are very similar to lists, with three differences:
 First, they are immutable.
@@ -29,7 +33,7 @@ Since they cannot be changed, it will always be clear which element of which typ
 Three, tuples are defined using parentheses instead of square brackets, i.e., with~\pythonil{(...)}\pythonIdx{(\idxdots)}.%
 %
 \bestPractice{listOrTuple}{%
-When you need to use an indexable sequence of objects, use a list if you intent to modify this sequence. %
+When you need to use an indexable sequence of objects, use a list only if you intent to modify this sequence. %
 If you do not intent to change the sequence, use a tuple.}%
 %
 \begin{sloppypar}%
@@ -60,7 +64,7 @@ We quickly test only the former by asking \pythonil{'pear' in fruits}, which eva
 The \pythonilIdx{index}\pythonIdx{tuple!index}, too, is available and \pythonil{fruits.index('apple')} returns~\pythonil{0} because \pythonil{"apple"} is the very first element of~\pythonil{fruits}.
 %
 \begin{sloppypar}%
-In \cref{lst:tuples:tuples_2} we explore tuples containing elements of multiple types.
+In \cref{lst:tuples:tuples_2} we explore tuples containing elements of multiple different types.
 The \pgls{typeHint} \pythonil{tuple[str, int, float]} states that we want to define a tuple where the first element is a string, the second element is an integer number, and the third element is a floating point number.
 The line \pythonil{mixed: tuple[str, int, float] = ("apple", 12, 1e25)} stores such a tuple in the variable~\pythonil{mixed}.
 The first element of the tuple is the string~\pythonil{"apple"}.
@@ -84,11 +88,12 @@ As last element, we again define a tuple~\pythonil{("pear", -2, 3.3)}.
 \Cref{exec:tuples:tuples_2} shows that we can print this list of tuples just like any other list (using an~\pgls{fstring}).%
 \end{sloppypar}%
 %
-There is an order defined on tuples.
+There is an order defined on tuples~(and lists, too), meaning that they support the all six comparison operators \pythonilIdx{<}, \pythonilIdx{<=}, \pythonilIdx{==}, \pythonilIdx{>=}, \pythonilIdx{>}, and~\pythonil{!=}\pythonIdx{"!=}.
 Two tuples~\pythonil{x} and~\pythonil{y} are compared elementwise lexicographically.
 If the first element of~\pythonil{x} is less than the first element of~\pythonil{y}, then~\pythonil{x < y}.
 If the first element of~\pythonil{x} is greater than the first element of~\pythonil{y}, then~\pythonil{x > y}.
-If the first elements of both tuples are the same, the comparison continues at the second element, and so on.
+If the first elements of both tuples are equal, the comparison continues at the second element, if both tuples have at least length~2~(otherwise, the shorter tuple is considered as smaller).
+And so on.
 This means that we can sort our list of tuples by writing~\pythonil{tuples.sort()}\pythonIdx{list!sort}.
 As a result, the tuple with the string \pythonil{"apples"} remains at the first position.
 All other tuples have \pythonil{"pear"} as first element and thus are \inQuotes{greater.}
@@ -110,7 +115,13 @@ We can access this list via~\pythonil{mt[1]}.
 While the tuple cannot be changed, this list can!
 \pythonil{mt[1].append(2)} will append the number~\pythonil{2} to the list, which now is~\pythonil{[2, 2]}.
 Printing \pythonil{f"mt == {mt}"} therefore yields~\textil{mt == (1, [2, 2])}.
-
+%
+\bestPractice{noModifiableObjectInATuple}{%
+Only put immutable objects into tuples. %
+Mutable objects inside tuples makes the tuples modifiable as well, while other programmers may assume that they are immutable. %
+Violating this assumption can lead to strange errors down the line.%
+}%
+%
 What we are never permitted to do is to change the contents of the tuple itself.
 Trying to do \pythonil{mt[1] = [3, 4]} will raise a~\pythonilIdx{TypeError}.
 This is an exception which, unless properly caught and handled, will terminate the program immediately.
@@ -121,13 +132,10 @@ This would help the programmer to find the problem.
 
 Had the programmer used \mypy\ to check the code before running it, however, they would have found the error already.
 The output of \mypy\ given in \cref{exec:tuples:tuples_3:mypy} shows us that a tuple is an \emph{Unsupported target for indexed assignment}.
-And indeed it is.%
-%
-\bestPractice{noModifiableObjectInATuple}{%
-Only put immutable objects into tuples. %
-Mutable objects inside tuples makes the tuples modifiable as well, while other programmers may assume that they are immutable. %
-This can lead to strange errors down the line.%
-}%
+And indeed it is.
+\ruff, however, at the time of this writing, does not spot the error~(\cref{exec:tuples:tuples_3:ruff}).
+This is because it is a type-related error and \ruff\ does not actually check for those.
+It is always useful to check our code with multiple tools.%
 %
 In summary, tuples are like lists, just immutable and they are semantically conceptualized to contain objects of different types.
 Careful with immutability, though, as it can only be guaranteed if the tuple itself consists of only immutable objects.%
