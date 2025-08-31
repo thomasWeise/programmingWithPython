@@ -1,6 +1,6 @@
 \hsection{Conditional Statements}%
 %
-Conditional statements allow us to execute a piece of code if a certain Boolean expression evaluates to~\pythonilIdx{True}.
+Conditional statements allow us to execute a piece of code \emph{only} if a certain Boolean expression evaluates to~\pythonilIdx{True}.
 This allows us to let the program make choices, to do one thing in one situation and another thing in a different situation.
 Conditionals are therefore the most fundamental control flow statement.%
 %
@@ -18,53 +18,55 @@ The syntax for this in \python\ is very simple:%
 \listingPythonAndOutput{conditionals:if}{%
 An example of using the \pythonilIdx{if} statement.}{}%
 %
-The first line begins with \pythonilIdx{if}~statement, followed by a Boolean expression, followed by a colon~(\pythonilIdx{:}).
+The first line begins with \pythonilIdx{if}, which is followed by a Boolean expression, followed by a colon~(\pythonilIdx{:}).
 If -- and only if -- the Boolean expression evaluates to~\pythonilIdx{True}, then the \emph{indented} block of statements below the \pythonil{if} are executed.
 Notice that each of these conditionally executed statements is indented by four spaces compared to the~\pythonil{if}.
 After the body block of the \pythonilIdx{if}~statement, the normal program code resumes without additional indentation.
 The statements that are not indented anymore will be executed regardless of the outcome of the Boolean expression.%
 %
-\bestPractice{indentation}{Blocks are indented by four spaces.}%
+\bestPractice{indentation}{Blocks are indented by four spaces~\cite{PEP8}.}%
 %
 Let's use this construct to check whether a year is a leap year.
 According to the Gregorian calendar, a year~$y$ is a leap year if $y$~is divisible by~4 but not by~100; or if it is divisible by~400~\cite{EOEBEB:LR}.
 \cref{lst:conditionals:if} implements this rule.
 We begin by storing the year that we want to investigate in the integer variable \pythonil{year}.
-But how can we check the condition?%
-%
-\begin{sloppypar}%
+But how can we check the condition?
+
 From \cref{sec:int} you may remember the modulo division operator~\pythonilIdx{\%}:
 Applying it to two values \pythonil{a} and \pythonil{b}, it will return the remainder of the division~\pythonil{a // b}\pythonIdx{//}.
 If the remainder is~0, then \pythonil{a} can be divided by \pythonil{b} evenly.
 For example, \pythonil{10 \% 5 == 0} whereas \pythonil{10 \% 6 == 4} and \pythonil{10 \% 3 == 1}.
 So to check whether \pythonil{year} can be divided by~4, we just need to check whether \pythonil{(year \% 4) == 0}.
 Furthermore, \pythonil{year} should not be divisible by~100, so we also check \pythonil{(year \% 100) != 0}, i.e., whether the remainder of the division of \pythonil{year} by~100 is \emph{not}~0.
-Well, if that turns out to be \pythonilIdx{False}, the year could still be a leap year is it was divisible by~400.
+We now have to combine both conditions with an~\pythonilIdx{and}.
+We write~\pythonil{((year \% 4) == 0) and ((year \% 100) != 0)}.
+This way, the result is only \pythonil{True} if both conditions are \pythonil{True}, i.e., if the year is divisible by~4 but not by~100.
+We use parentheses so that it is easy to see how the Boolean expression is structured.
+
+\begin{sloppypar}%
+Well, if that combined condition turns out to be \pythonilIdx{False}, the year could still be a leap year is it was divisible by~400.
 So the final condition to be checked is \pythonil{(year \% 400) == 0}.
-Now we piece all of this together using the logical \pythonilIdx{and} and \pythonilIdx{or} operators and get the condition \pythonil{(((year \% 4) == 0) and ((year \% 100) != 0)) or ((year \% 400) == 0)}.
+We add this condition with the \pythonil{or}~operator, because it is sufficient that either our original expression \emph{or} the divisible-by-400-check are \pythonil{True} for the overall condition to be met.
+We obtain the expression \pythonil{(((year \% 4) == 0) and ((year \% 100) != 0)) or ((year \% 400) == 0)}.
+Again, we use parentheses to neatly group the sub-expressions for readability.%
 \end{sloppypar}%
 %
 All what is left to do is put an~\pythonilIdx{if} in front of the condition and a~\pythonilIdx{:} after it, and we got the conditional check.
 If it evaluates to \pythonil{True}, we will print~\pythonil{f"\{year\} is a leap year."}\pythonIdx{print}.
+For this purpose, we need to indent the \pythonilIdx{print} command with four spaces.
+
 We copy this code twice and check the years \pythonil{2024} (the year when I began writing this book) and \pythonil{1900} (some other year).
 Notice that the second~\pythonilIdx{if} starts at the same level of indentation of the first~\pythonilIdx{if}.
 This means that it is executed regardless of the outcome of the first conditional.
 After all of this code, we print the text \textil{End of year checking.} to the console.
 This last line of code is again not indented and therefore will be executed regardless of the two conditional statements before it.
-The output of our program given in \cref{exec:conditionals:if} confirms that 2024 is indeed a leap year, while 1900 was not.%
+The output of our program given in \cref{exec:conditionals:if} confirms that 2024 was indeed a leap year, while 1900 was not.%
 %
 \FloatBarrier%
 \endhsection%
 %
 \hsection{The \texttt{if}\dots\texttt{else} Statement}%
 %
-\gitLoadAndExecPython{conditionals:if_else}{}{conditionals}{if_else_example.py}{}%
-\listingPythonAndOutput{conditionals:if_else}{%
-An example of using the \pythonil{if ... else}\pythonIdx{if{\idxdots}else} statement.}{}%
-%
-\gitLoadAndExecPython{conditionals:if_else_nested}{}{conditionals}{if_else_nested.py}{}%
-\listingPythonAndOutput{conditionals:if_else_nested}{%
-An example of using nested \pythonil{if ... else}\pythonIdx{if{\idxdots}else!nested} statements.}{}%
 %
 The ability to perform some action if a given expression evaluates to \pythonil{True} is already nice.
 However, often we want to perform some action if the expression evaluates to \pythonil{True} and another action otherwise.
@@ -75,34 +77,57 @@ So we are offered a better alternative: the \pythonil{if ... else}\pythonIdx{if{
 %
 \pythonSyntax{syntax/if_else.py}%
 %
+\FloatBarrier%
+%
+\gitLoadAndExecPython{conditionals:if_else}{}{conditionals}{if_else_example.py}{}%
+\listingPythonAndOutput{conditionals:if_else}{%
+An example of using the \pythonil{if ... else}\pythonIdx{if{\idxdots}else} statement.}{}%
+%
+\gitLoadAndExecPython{conditionals:if_else_nested}{}{conditionals}{if_else_nested.py}{}%
+\listingPythonAndOutput{conditionals:if_else_nested}{%
+An example of using nested \pythonil{if ... else}\pythonIdx{if{\idxdots}else!nested} statements.}{}%
+%
 The statement begins like a normal \pythonilIdx{if}~statement:
 \pythonil{if}, followed by a Boolean expression, followed by a colon~(\pythonilIdx{:}) marks the condition.
 The following block -- where each statement is indented by four spaces -- is executed only if the Boolean expression evaluates to~\pythonilIdx{True}.
-Then, the \pythonilIdx{else} line follows.
-Notice that it is at the same indentation level as the original~\pythonil{if}.
+Then, the \pythonilIdx{else:} line follows.
+Notice that it is not indented.
+It is at the same indentation level as the original~\pythonil{if}.
 All the statements in the following block are again indented by four spaces.
 They are only executed if the Boolean expression used in the \pythonilIdx{if}~line evaluated to~\pythonilIdx{False}.
+After this code, un-indented instructions can follow, which would then be executed regardless of which branch of the alternative was chosen.
+
 This now allows us to, for example, print one text if a year is a leap year and print another text otherwise.
-In \cref{lst:conditionals:if_else} we show exactly this functionality, together with the fact that there can be multiple statements both in the \pythonilIdx{if} and the \pythonilIdx{else} block.
+In \cref{lst:conditionals:if_else} we show exactly this functionality.
+We modify our leap year check program to also print text if the year is not a leap year.
+For this purpose, we use the new \pythonil{else}\nobreakdashes-branch.
+Additionally, we also show that there can be multiple statements both in the \pythonilIdx{if} and the \pythonilIdx{else} block.
 
-Well, if there can be multiple statements in these blocks and \pythonilIdx{if} and \pythonil{if...else}\pythonIdx{if{\idxdots}else} are also both \emph{statements}, then can we nest them?
-Can we place an \pythonilIdx{if}~statement inside the body of another \pythonilIdx{if}~statement?
+We can place multiple statements in the branches of both the \pythonilIdx{if} and \pythonil{if...else}\pythonIdx{if{\idxdots}else} statements.
+Actually, the \pythonil{if} and \pythonil{if...else} are {\dots} also \emph{statements}.
+Does this mean that we can nest them?
+In other words, can we place an \pythonilIdx{if}~statement inside the body of another \pythonilIdx{if}~statement?
 
-Yes, we can, and we explore this in \cref{lst:conditionals:if_else_nested}.
-Here, we have three numbers~\pythonil{a}, \pythonil{b}, and~\pythonil{c}.
+Yes, we can, and we explore this in our program \textil{if_else_nested.py} given in \cref{lst:conditionals:if_else_nested}.
+Here, we have three numbers stored in variables~\pythonil{a}, \pythonil{b}, and~\pythonil{c}.
 We want to know the maximum, i.e., the largest number stored in either~\pythonil{a}, \pythonil{b}, or~\pythonil{c}.
 For this purpose, we first check if \pythonil{a > b}\pythonIdx{>}.
 If this is \pythonilIdx{True}, then \pythonil{b} cannot contain the largest number and it must be stored in either \pythonil{a} or \pythonil{c}.
+
 Therefore, inside the body of that first \pythonilIdx{if}~statement, we only have to check if \pythonil{a > c}.
 Notice how this second~\pythonilIdx{if} and its whole associated \pythonilIdx{else} and body are indented by another four spaces compared to the outer~\pythonilIdx{if}.
-If this turns out to be~\pythonilIdx{True}, we print the \pgls{fstring} \pythonil{f"\{a\} is the greatest number."}.
+If \pythonil{a > c} turns out to be~\pythonilIdx{True}, we print the \pgls{fstring} \pythonil{f"\{a\} is the greatest number."}.
 If this is \pythonilIdx{False}, then it could either be that \pythonil{a < c} or that \pythonil{a == c}.
 Either way, printing the \pgls{fstring} \pythonil{f"\{c\} is the greatest number."} will yield the correct result.
+
 Now we need to return to the outer~\pythonilIdx{if} and tackle its alternative branch, the \pythonilIdx{else} part.
 What happens if \pythonil{a > b} did not evaluate to~\pythonilIdx{True}?
-Well, this case, either \pythonil{b > a} or \pythonil{b == a}, which means that it is sufficient to compare \pythonil{b} with \pythonil{c} to get the result.
+Well, this case, either \pythonil{b > a} or \pythonil{b == a}.
+It thus is sufficient to compare \pythonil{b} with \pythonil{c} to get the result.
 Therefore, we again indent a new \pythonilIdx{if}, this time with the condition \pythonil{b > c}.
-If that one is \pythonilIdx{True}, then the largest value is equal to the one stored in~\pythonil{b} and we can print \pythonil{f"\{b\} is the greatest number."}.
+If that one is \pythonilIdx{True}, then the largest value is equal to the one stored in~\pythonil{b}.
+We can print \pythonil{f"\{b\} is the greatest number."}.
+
 If that was \pythonilIdx{False}, we come to the \pythonilIdx{else} branch.
 Here, we know that \pythonil{b >= a} and that either \pythonil{c > b} or \pythonil{c >= b}.
 Therefore, we again print the \pgls{fstring} \pythonil{f"\{c\} is the greatest number."}.
@@ -117,6 +142,19 @@ The minimum is obtained using~\pythonil{min(a, b, c)}.%
 %
 \hsection{The \texttt{if}\dots\texttt{elif}\dots\texttt{else} Statement}%
 %
+In some cases, we need to query a sequence of alternatives in such a way that the first \pythonilIdx{else}~block would contain the next~\pythonil{if} and only that~\pythonil{if}.
+Then its \pythonil{else}~block would contain another~\pythonil{if} and only that~\pythonil{if}.
+Then its \pythonil{else}~block would contain another~\pythonil{if} and only that~\pythonil{if}, and so on.
+Everytime we nest a conditional statement into another one we have to add four spaces of indentation.
+In the above situation, this would quickly fill the horizontal of our screens and look rather ugly.
+Therefore, the \pythonilIdx{elif}~statement has been developed, which can replace an \pythonil{else} containing just another \pythonil{if}.
+The syntax of a combined \pythonil{if ... elif} is quite easy:
+Instead of the \pythonil{else} containing the indented \pythonil{if}, we simply write \pythonil{elif} followed by the conditional expression that we would have used with the~\pythonil{if}.%
+%
+\pythonSyntax{syntax/if_elif_else.py}%
+%
+\FloatBarrier%
+%
 \gitLoadAndExecPython{conditionals:if_elif}{}{conditionals}{if_elif_example.py}{}%
 \listingPythonAndOutput{conditionals:if_elif}{%
 An example of using the \pythonil{if ... elif}\pythonIdx{if{\idxdots}elif{\idxdots}else} statement.}{}%
@@ -129,14 +167,6 @@ The results of linting with \ruff\ of the program given in \cref{lst:conditional
 \listingPythonAndOutput{conditionals:if_elif_nested}{%
 An example of using the nested \pythonil{if ... elif}\pythonIdx{if{\idxdots}elif{\idxdots}else!nested} statement based on the recommendations of the \ruff\ \pgls{linter} applied to \cref{lst:conditionals:if_else_nested}.}{}%
 %
-%
-In some cases, we need to query a sequence of alternatives in such a way that \pythonilIdx{else}~blocks would be nested over \pythonilIdx{else}~blocks over \pythonilIdx{else}~blocks, and so on.
-Since everytime we nest a conditional statement into another one we have to add four spaces of indentation, this would quickly fill the horizontal of our screens and look rather ugly.
-Therefore, the \pythonilIdx{elif} statement has been developed, which can replace an \pythonil{else} containing just another \pythonil{if}.
-The syntax of a combined \pythonil{if ... elif} looks like this:%
-%
-\pythonSyntax{syntax/if_elif_else.py}%
-%
 Notice that we can use arbitrarily many \pythonils{elif}\pythonIdx{elif} and, optionally, one~\pythonilIdx{else}.
 Only if the condition of the \pythonilIdx{if} evaluates to~\pythonilIdx{False}, the condition of the first~\pythonilIdx{elif} is checked.
 Only if both the conditions of the \pythonilIdx{if} and the first \pythonilIdx{elif} returned \pythonilIdx{False}, the condition of the second \pythonilIdx{elif} is checked.
@@ -147,29 +177,36 @@ Only if all the conditions of the \pythonilIdx{if} and all \pythonils{elif} were
 We use this syntax to classify a person's current phase of life by their age in \cref{lst:conditionals:if_elif}.
 First, we define the \pythonil{age} as an integer variable and pick a value, say~42.
 We want to fill a string in the variable \pythonil{phase} that describes the current phase of life of that person.
+
 Initially, nothing is filled in, so we set \pythonil{phase = None}.
-(We used the \pgls{typeHint} \pythonil{str | None} to specify that the variable can either be a string or \pythonil{None}~\cite{PEP604}.)
+We used the \pgls{typeHint} \pythonil{str | None} to specify that the variable can either be a string or \pythonil{None}~\cite{PEP604}.
+
 Anyway, we start with the first conditional and write \pythonil{if age <= 3}.
-If this evaluates to \pythonilIdx{True}, we want to set \pythonil{phase = "infancy"}, meaning that the person is a child in the earliest phase of life.
-If this is \pythonilIdx{True}, the complete nested \pythonil{if...elif...else} block ends and no other conditions are checked.
+If this evaluates to \pythonilIdx{True}, then we set \pythonil{phase = "infancy"}.
+This means that the person is a child in the earliest phase of life.
+In this case, the complete nested \pythonil{if...elif...else} block ends and no other conditions are checked.
+
 If this is not the case, i.e., if \pythonil{age <= 3} evaluates to~\pythonil{False}, i.e., if \pythonil{age > 3}, the next condition is checked.
 Instead of writing \pythonilIdx{else} followed by another (indented) \pythonilIdx{if}, we can just write \pythonil{elif age <= 6} (without additional indentation).
-The \pythonilIdx{elif} basically functions as the \pythonilIdx{else} followed by an (indented) \pythonil{if}.
-It checks whether the person's age is less than or equal to~6 (after it is already clear that \pythonil{age <= 3} is~\pythonil{False}).
+The \pythonilIdx{elif} basically functions as the \pythonilIdx{else} followed by an (indented)~\pythonil{if}.
+In our case, this next wone checks whether the person's age is less than or equal to~6~(after it is already clear that \pythonil{age <= 3} is~\pythonil{False}).
 If \pythonil{age <= 6} holds, we call the life phase \pythonil{"early childhood"}.
-If this is \pythonilIdx{True}, the complete nested \pythonil{if...elif...else} block ends and no other conditions are checked.
+If this is \pythonilIdx{True}, the, again, the complete nested \pythonil{if...elif...else} block ends and no other conditions are checked.
+
 If this is not the case, i.e., if \pythonil{age <= 6} evaluates to~\pythonilIdx{False}, we move on to the next~\pythonilIdx{elif}.
-Only then, \pythonil{elif age <= 8} is executed and if its condition evaluates to~\pythonilIdx{True}, we refer to the lift phase as \pythonil{"middle childhood"}.
+Only then, \pythonil{elif age <= 8} is executed and if its condition evaluates to~\pythonilIdx{True}, we refer to the life phase as \pythonil{"middle childhood"} and are done with the \pythonil{if...elif...else}.
 If \pythonil{age <= 8} does not hold, we move to the next~\pythonilIdx{elif}.
 And so on.
+
 If even \pythonil{age < 80}, the condition of the last~\pythonilIdx{elif}, is~\pythonilIdx{False}, the \pythonilIdx{else} block is executed.
 It will set \pythonil{phase = "late adulthood"}.
-Finally, our program prints the life phase using an \pgls{fstring}.
+Finally, our program \pythonils{print} the life phase using an \pgls{fstring}.
 
 Now, if you followed the book so far, you have noticed that I am promoting using static code analysis tools.
 For example, we introduced \ruff\ in \cref{ut:ruff} back in \cref{sec:listExampleForErrorsAndRuff}.
 Of course, we should apply such tools to all of our code.
-If we apply \ruff\ to \cref{lst:conditionals:if_else_nested}, it will produce the output shown in \cref{exec:conditionals:if_else_nested:ruff}.
+We now apply \ruff\ to our program \textil{if_else_nested.py} given \cref{lst:conditionals:if_else_nested}.
+It produces the output shown in \cref{exec:conditionals:if_else_nested:ruff}.
 This is an example of how a \pgls{linter} can help us to improve the code quality and make our programs more compact.
 
 If we implement its recommendation, we obtain \cref{lst:conditionals:if_elif_nested}.
@@ -177,12 +214,12 @@ We can compact the \pythonil{else ... if} branch into an \pythonilIdx{elif} stat
 This program achieves in 15 lines for what \cref{lst:conditionals:if_else_nested} needs~16, and it is easier to read, too.
 (In this program, I left the additional example of the \pythonil{min} and \pythonil{max} function away.)%
 %
-\bestPractice{elifOverElseIf}{Prefer \pythonilIdx{elif} over nested \pythonil{else ... if} constructs.}%
+\bestPractice{elifOverElseIf}{Prefer \pythonilIdx{elif} over nested \pythonil{else ... if} constructs~\cite{M2022RAEFPLACFWIR}.}%
 %
 \FloatBarrier%
 \endhsection%
 %
-\hsection{The Inline \texttt{if}\dots\texttt{else} Statement}%
+\hsection{The Inline Ternary \texttt{if}\dots\texttt{else} Statement}%
 \label{sec:inlineIfThenElse}%
 %
 \gitLoadAndExecPython{conditionals:if_else_could_be_inline}{}{conditionals}{if_else_could_be_inline.py}{}%
@@ -194,28 +231,36 @@ See \cref{lst:conditionals:inline_if_else} for the more compact inlined variant.
 \listingToolOutput{conditionals:if_else_could_be_inline:ruff}{%
 The results of linting with \ruff\ of the program given in \cref{lst:conditionals:if_else_could_be_inline}.}%
 %
-\gitLoadAndExecPython{conditionals:inline_if_else}{}{conditionals}{inline_if_else.py}{}%
-\listingPythonAndOutput{conditionals:inline_if_else}{%
-An example of using the inline \pythonil{if ... else}\pythonIdx{if{\idxdots}else!inline} expression to shorten \cref{lst:conditionals:if_else_could_be_inline}, which incorporates the suggestion by \ruff\ in \cref{exec:conditionals:if_else_could_be_inline:ruff}.}{}%
-%
-A very common use case of \pythonil{if...else}~statements is to assign values to variables.
+A very common use case of \pythonil{if...else}~statements is to conditionally assign values to variables.
 In \cref{lst:conditionals:if_else_could_be_inline} we display such a situation.
 We want to write some code that tells us whether a number is large or small and positive or negative.
-For this purpose, we first store the number in an integer variable \pythonil{number}.
+For this purpose, we assume that the number is stored in an integer variable \pythonil{number}.
 As example, we choose the value~\pythonil{100}.
 For the sake of this example, let's assume that a \pythonil{number} whose absolute value~$|\pythonil{number}|$ is less than ten should be small.
+
 The absolute value of a number in \python\ can be computed using the function~\pythonilIdx{abs}.
-Hence, we can build the condition \pythonil{if abs(number) < 10:} and store the string \pythonil{"small"} in the variable \pythonil{size} if the condition evaluates to \pythonil{True} and, otherwise, store \pythonil{"large"} in~\pythonil{size}.
+Hence, we can build the condition \pythonil{if abs(number) < 10:}.
+We store the string \pythonil{"small"} in the variable \pythonil{size} if the condition evaluates to \pythonil{True}.
+Otherwise, we store \pythonil{"large"} in~\pythonil{size}.
 Similarly, we can define the string variable \pythonil{sign}.
-We store \pythonil{"negative"} in \pythonil{sign} if \pythonil{number < 0}, \pythonil{"positive"} if \pythonil{number > 0}, and \pythonil{"unsigned"} otherwise.
-Finally, we can print the result of these conditions using an \pgls{fstring}.
+We store \pythonil{"negative"} in \pythonil{sign} if \pythonil{number < 0}, \pythonil{"positive"} if \pythonil{number > 0}, and \pythonil{"unsigned"} otherwise, i.e., if \pythonil{number == 0}.
+Finally, we can \pythonilIdx{print} the result of these conditions using an \pgls{fstring}.
 
 Now you notice that in the \pythonil{if...else} statement, all we did was to assign values to the same variable~\pythonil{size}.
 Likewise, in the \pythonil{if...elif...else} statement, each branch \emph{only} assigned one value to the same variable~\pythonil{sign}.
-\python\ offers us a more compact syntax for this, and \ruff\ can again give us some idea about that in \cref{exec:conditionals:if_else_could_be_inline:ruff}:
-The inline \pythonil{if...then...else} statement, which has the following syntax:%
+There are many cases where we use an alternative \emph{only} to decide which value should be stored in a certain variable.
+In languages like \pgls{C} and \pgls{Java}, you have a ternary operator looking like \textil{condition ? valueIfTrue : valueIfFalse} as shorthand in such situations.
+\python, too, offers us a compact syntax for this, and \ruff\ can again give us some idea about that in \cref{exec:conditionals:if_else_could_be_inline:ruff}:
+The inline ternary \pythonil{if...else} statement~\cite{PEP308}, which has the following syntax:%
 %
 \pythonSyntax{syntax/if_else_inline.py}%
+%
+\FloatBarrier%
+%
+%
+\gitLoadAndExecPython{conditionals:inline_if_else}{}{conditionals}{inline_if_else.py}{}%
+\listingPythonAndOutput{conditionals:inline_if_else}{%
+An example of using the inline \pythonil{if ... else}\pythonIdx{if{\idxdots}else!inline} expression to shorten \cref{lst:conditionals:if_else_could_be_inline}, which incorporates the suggestion by \ruff\ in \cref{exec:conditionals:if_else_could_be_inline:ruff}.}{}%
 %
 In the first variant, the value \pythonil{valueA} will be assigned to \pythonil{variable} if \pythonil{conditionForUsingValueA} evaluates to \pythonil{True}.
 Otherwise, \pythonil{valueB} is assigned.
@@ -223,7 +268,7 @@ This statement can again arbitrarily nested, as we show in the second variant:
 Here, again, value \pythonil{valueA} will be assigned to \pythonil{variable} if \pythonil{conditionForUsingValueA} evaluates to \pythonil{True}.
 Otherwise, \pythonil{valueB} is used if \pythonil{conditionForUsingValueB} evaluates to \pythonil{True} and, again otherwise, \pythonil{valueC} is used.%
 %
-\bestPractice{inlineIfThenElse}{When your \pythonil{if...then...else} statement only assigns values to variables, use the inline variant discussed in \cref{sec:inlineIfThenElse}, as it is more compact.}%
+\bestPractice{inlineIfThenElse}{If your \pythonil{if...else} statement is only used to decide which value to assign to a variable, use the inline ternary variant discussed in \cref{sec:inlineIfThenElse}, as it is more compact~\cite{M2022RAEFPLACFWIR}.}%
 %
 We apply this syntax to refine \cref{lst:conditionals:if_else_could_be_inline} and obtain the much more compact \cref{lst:conditionals:inline_if_else}.
 Both programs are equivalent, but the second one only has~13 instead of 22~lines of code.
@@ -234,10 +279,11 @@ Notice again how a \pgls{linter} can help us to refine and compactify our code.%
 \hsection{Summary}%
 With the statements we discussed in this section, you are now able to create a program that makes decisions based on data.
 Before this, we could only perform straightforward computations and calculate the results of simple functions.
-Now our variables can receive the result of a function~$A$ if the input meets a condition~$B$ and otherwise the result of a function~$C$.
+Now our variables can receive the result of a function~${\mathcal{A}}$ if the input meets a condition~$B$ and otherwise the result of a function~${\mathcal{C}}$.
 This is already quite nice.
 For example, we can now implement and hard-code decision trees~\cite{RN2022AIAMA,SSBD2014UMLFTTA} and \cref{lst:conditionals:if_elif} is basically an example of that.
-Still, the instructions in our programs are still executed in the sequence in which we wrote them down.
+With alternatives, we can basically \inQuotes{jump over} instructions.
+Still, with the exceptions that we can now omit steps, the instructions in our programs are still executed in the sequence in which we wrote them down.
 While our control flow can now branch, it cannot perform anything more fancy and advanced {\dots} like looping back upon itself\dots%
 \endhsection%
 %
