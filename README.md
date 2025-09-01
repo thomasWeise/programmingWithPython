@@ -41,10 +41,11 @@ Die Slides zum Kurs in deutscher Sprache können unter <https://thomasweise.gith
 16. [Gleichheit und Identität](https://thomasweise.github.io/programmingWithPythonSlidesDE/16_gleichheit_und_identität.pdf)
 17. [Listen](https://thomasweise.github.io/programmingWithPythonSlidesDE/17_listen.pdf)
 18. [Zwischenspiel: Der Linter Ruff](https://thomasweise.github.io/programmingWithPythonSlidesDE/18_ruff.pdf)
-19. [Tuples](https://thomasweise.github.io/programmingWithPythonSlidesDE/19_tuples.pdf)
+19. [Tupels](https://thomasweise.github.io/programmingWithPythonSlidesDE/19_tupels.pdf)
 20. [Mengen](https://thomasweise.github.io/programmingWithPythonSlidesDE/20_mengen.pdf)
 21. [Dictionaries bzw. Hash Maps](https://thomasweise.github.io/programmingWithPythonSlidesDE/21_dictionaries.pdf)
 22. [Alternativen mit `if`](https://thomasweise.github.io/programmingWithPythonSlidesDE/22_alternativen_mit_if.pdf)
+23. [Schleifen mit `for`](https://thomasweise.github.io/programmingWithPythonSlidesDE/23_schleifen_mit_for.pdf)
 
 
 ### 2.3. The Slides in English
