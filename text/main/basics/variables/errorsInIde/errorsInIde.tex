@@ -9,7 +9,7 @@ A variant of \cref{lst:variables:assignment} with an error:~\pythonil{int_var} i
 \centering%
 %
 \subfloat[][%
-We run the program \textil{assignment_wrong.py} given in \cref{lst:variables:assignment_wrong} in the \pycharm\ \pgls{ide} by clicking on the \pycharmRun\ button or by pressing~\keys{\shift+F10}.%
+We run the program \programUrl{variables:assignment_wrong} given in \cref{lst:variables:assignment_wrong} in the \pycharm\ \pgls{ide} by clicking on the \pycharmRun\ button or by pressing~\keys{\shift+F10}.%
 \label{fig:errorsInIde01runProgram}%
 ]{\tightbox{\includegraphics[width=0.9\linewidth]{\currentDir/errorsInIde01runProgram}}}%
 %
@@ -19,7 +19,7 @@ We run the program \textil{assignment_wrong.py} given in \cref{lst:variables:ass
 The output in the run window is the same as given in \cref{exec:variables:assignment_wrong}. %
 It is the \emph{first} way to find out what went wrong. %
 It tells us what went wrong and even suggests how to fix it:~\emph{\pythonilIdx{NameError}: name \inSQuotes{\pythonil{intvar}} is not defined. Did you mean: \inSQuotes{\pythonil{int_var}}?} %
-It also tells us the exact file and line where the error occurred, namely in line~12 of file \textil{assignment_wrong.py}.%
+It also tells us the exact file and line where the error occurred, namely in line~12 of file \programUrl{variables:assignment_wrong}.%
 \label{fig:errorsInIde02exception}%
 ]{\tightbox{\includegraphics[width=0.9\linewidth]{\currentDir/errorsInIde02exception}}}%
 %
@@ -115,12 +115,12 @@ In some simple cases like typos, however, our \pgls{ide} can already point us to
 %
 %
 \hsection{Finding the Error by using the Program Output and Exceptions}%
-In \cref{lst:variables:assignment_wrong}, we prepared program \textil{assignment_wrong.py}, a variant of \textil{assignment.py}~(\cref{lst:variables:assignment}) with an error.
+In \cref{lst:variables:assignment_wrong}, we prepared program \programUrl{variables:assignment_wrong}, a variant of \programUrl{variables:assignment}~(\cref{lst:variables:assignment}) with an error.
 For the sake of the example, let us assume that the programmer made a typo in line~12 of the program:
 They misspelled \pythonil{int_var} as \pythonil{intvar}.
 Executing the program with the error leads to the output given in \cref{exec:variables:assignment_wrong}.
 
-We can also open the program \textil{assignment_wrong.py} given in the \pycharm\ \pgls{ide}.
+We can also open the program \programUrl{variables:assignment_wrong} given in the \pycharm\ \pgls{ide}.
 We execute this program manually by clicking on the \pycharmRun\ button or by pressing~\keys{\shift+F10} in \cref{fig:errorsInIde01runProgram}.
 As you can see, the output in the run window is the same as given in \cref{exec:variables:assignment_wrong}~(\cref{fig:errorsInIde02exception}).
 
@@ -133,7 +133,7 @@ It simply does not exist.
 
 The \python\ interpreter then checks whether some similar name exists.
 It found that there is a variable named \pythonil{int_var}.
-Even more, it also tells us the exact file and line where the error occurred, namely in line~12 of file \textil{assignment_wrong.py}!
+Even more, it also tells us the exact file and line where the error occurred, namely in line~12 of file \programUrl{variables:assignment_wrong}!
 With this information, we have a good chance of finding the mistake.
 
 The so-called \pythonilIdx{Exception} \pgls{stackTrace} that it prints to \pgls{stderr} thus not just tells us that there was an error.

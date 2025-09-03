@@ -96,7 +96,7 @@ Variables are basically names that point to objects which are located somewhere 
 \centering%
 %
 \subfloat[][%
-The file \textil{assignment.py} opened in \pycharm.%
+The file \programUrl{variables:assignment} opened in \pycharm.%
 \label{fig:assignmentPyCharm1}%
 ]{%
 \tightbox{\includegraphics[width=0.49\linewidth]{\currentDir/assignmentPyCharm1}}%
@@ -104,7 +104,7 @@ The file \textil{assignment.py} opened in \pycharm.%
 \hfill%
 %
 \subfloat[][%
-Left-clicking on \menu{Run `assignment'} in the pop-up menu after right-clicking on \textil{assignment.py}, or directly pressing \keys{\ctrl+\shift+F10}, to run the program.%
+Left-clicking on \menu{Run `assignment'} in the pop-up menu after right-clicking on \programUrl{variables:assignment}, or directly pressing \keys{\ctrl+\shift+F10}, to run the program.%
 \label{fig:assignmentPyCharm2}%
 ]{%
 \tightbox{\includegraphics[width=0.49\linewidth]{\currentDir/assignmentPyCharm2}}%
@@ -112,7 +112,7 @@ Left-clicking on \menu{Run `assignment'} in the pop-up menu after right-clicking
 \\%
 %
 \subfloat[][%
-The output of the program \textil{assignment.py} in \pycharm.%
+The output of the program \programUrl{variables:assignment} in \pycharm.%
 \label{fig:assignmentPyCharm3}%
 ]{%
 \tightbox{\includegraphics[width=0.7\linewidth]{\currentDir/assignmentPyCharm3}}%
@@ -120,13 +120,13 @@ The output of the program \textil{assignment.py} in \pycharm.%
 \\%
 %
 \subfloat[][%
-The output of the program \textil{assignment.py} in the \ubuntu\ \pgls{terminal} (which you can open via~\ubuntuTerminal).%
+The output of the program \programUrl{variables:assignment} in the \ubuntu\ \pgls{terminal} (which you can open via~\ubuntuTerminal).%
 \label{fig:assignmentTerminal}%
 ]{%
 \includegraphics[width=0.7\linewidth]{\currentDir/assignmentTerminal}%
 }%
 %
-\caption{Running the program \textil{assignment.py} from \cref{lst:variables:assignment} in \pycharm~(\cref{fig:assignmentPyCharm1,fig:assignmentPyCharm2,fig:assignmentPyCharm3}) or the \ubuntu\ \pgls{terminal}~(\cref{fig:assignmentTerminal}).}%
+\caption{Running the program \programUrl{variables:assignment} from \cref{lst:variables:assignment} in \pycharm~(\cref{fig:assignmentPyCharm1,fig:assignmentPyCharm2,fig:assignmentPyCharm3}) or the \ubuntu\ \pgls{terminal}~(\cref{fig:assignmentTerminal}).}%
 \label{fig:variables:assignment}%
 \end{figure}%
 %
@@ -172,18 +172,18 @@ Finally, \pythonil{print(f"new_var = \{new_var\}." )} then prints \textil{new_va
 (Do you remember a method, to get this output even more easily?)%
 \end{sloppypar}%
 %
-This first program is stored in a file named~\textil{assignment.py}.
+This first program is stored in a file named~\programUrl{variables:assignment}.
 To execute it, you have two choices:
 You can do this in the \pgls{terminal} or using \pycharm.%
 %
 \begin{sloppypar}%
 Under \ubuntu\ \linux, you open the \pgls{terminal} by pressing \ubuntuTerminal, under \microsoftWindows\ you instead \windowsTerminal.
-Then you enter the folder where the program \textil{assignment.py} is stored using the command~\bashil{cd}.
+Then you enter the folder where the program \programUrl{variables:assignment} is stored using the command~\bashil{cd}.
 Then you would execute the command~\bashil{python3 assignment.py} to run the \python\ interpreter, as illustrated in \cref{fig:assignmentTerminal}.%
 \end{sloppypar}%
 %
 Alternatively, you can open the program file in \pycharm\ \pgls{ide}, as sketched in \cref{fig:assignmentPyCharm1}.
-You would then right-click on the file \textil{assignment.py} in the project tree view.
+You would then right-click on the file \programUrl{variables:assignment} in the project tree view.
 In the popup-menu that opens, you would left-click on \menu{Run `assignment'} as shown in \cref{fig:assignmentPyCharm2}.
 As a shortcut, you can also simply press~\keys{\ctrl+\shift+F10}.
 Either way, \pycharm\ will run the program and the output appears in \cref{fig:assignmentPyCharm3}.
@@ -361,7 +361,7 @@ The output of the program \programUrl{variables:pi_liu_hui} in the \ubuntu\ \pgl
 Now that we have learned some programming, we do no longer need to type the numbers and computation steps into a calculator.
 We also do not need to use \python\ as calculator.
 Instead, we can enter all the commands needed for the computation into a program file.
-We will call it~\textil{pi_liu_hui.py}, as illustrated in \cref{lst:variables:pi_liu_hui}.
+We will call it~\programUrl{variables:pi_liu_hui}, as illustrated in \cref{lst:variables:pi_liu_hui}.
 
 We begin by setting the initial number of edges \pythonil{e = 6} and the initial side length of the $e$\nobreakdashes-gon to \pythonil{s = 1}, because we still keep with the choice of~$\liuhuir=1$.
 In each iteration of the approximation, we simply set \pythonil{e *= 2}\pythonIdx{*=}, which is equivalent to \pythonil{e = e * 2}, to double the number of edges.
@@ -377,7 +377,7 @@ Given that the constant~\pythonilIdx{pi} from the \pythonilIdx{math} module is \
 
 For your convenience, we also showed the results when executing the program in \pycharm\ or the \ubuntu\ \pgls{terminal} in \cref{fig:variables:liuHuiPi}.
 To open a \pgls{terminal} under \ubuntu\ \linux, you would press~\ubuntuTerminal, whereas under \microsoftWindows, you~\windowsTerminal.
-With the command \bashil{cd}, you would enter the directory where our program \textil{pi_liu_hui.py} is located.
+With the command \bashil{cd}, you would enter the directory where our program \programUrl{variables:pi_liu_hui} is located.
 You would then type in \bashil{python3 pi_liu_hui.py} and hit~\keys{\enter}.
 As you can see in \cref{fig:liuHuiPiTerminal}, you will get the same output as given in \cref{exec:variables:pi_liu_hui}.
 

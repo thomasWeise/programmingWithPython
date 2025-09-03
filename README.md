@@ -41,11 +41,13 @@ Die Slides zum Kurs in deutscher Sprache können unter <https://thomasweise.gith
 16. [Gleichheit und Identität](https://thomasweise.github.io/programmingWithPythonSlidesDE/16_gleichheit_und_identität.pdf)
 17. [Listen](https://thomasweise.github.io/programmingWithPythonSlidesDE/17_listen.pdf)
 18. [Zwischenspiel: Der Linter Ruff](https://thomasweise.github.io/programmingWithPythonSlidesDE/18_ruff.pdf)
-19. [Tupels](https://thomasweise.github.io/programmingWithPythonSlidesDE/19_tupels.pdf)
+19. [Tupel](https://thomasweise.github.io/programmingWithPythonSlidesDE/19_tupel.pdf)
 20. [Mengen](https://thomasweise.github.io/programmingWithPythonSlidesDE/20_mengen.pdf)
 21. [Dictionaries bzw. Hash Maps](https://thomasweise.github.io/programmingWithPythonSlidesDE/21_dictionaries.pdf)
 22. [Alternativen mit `if`](https://thomasweise.github.io/programmingWithPythonSlidesDE/22_alternativen_mit_if.pdf)
 23. [Schleifen mit `for`](https://thomasweise.github.io/programmingWithPythonSlidesDE/23_schleifen_mit_for.pdf)
+24. [`enumerate` und Zwischenspiel: Pylint](https://thomasweise.github.io/programmingWithPythonSlidesDE/24_enumerate_und_pylint.pdf)
+25. [Schleifen mit `while`](https://thomasweise.github.io/programmingWithPythonSlidesDE/25_schleifen_mit_while.pdf)
 
 
 ### 2.3. The Slides in English
@@ -82,6 +84,7 @@ The list of files not under the CC&nbsp;BY&#8209;NC&#8209;SA&nbsp;4.0 license bu
     - text/main/introduction/pythonLogo.svg
 + all screenshots from websites
 + The illustration of LIU Hui (刘徽) in file "text/main/basics/variables/assignment/liu_hui.jpg" is from Wenqi Ying (应雯棋), editor. Commemoration of Ancient Chinese Mathematical Master Liu Hui for his Timeless Influence on Mathematics and Civilizational Exchange. [Issue 48 of CAST Newsletter](https://english.cast.org.cn/cms_files/filemanager/1941250207/attach/202412/8f23655a82364d19ad7874eb37b23035.pdf). China, Beijing (中国北京市): 中国科学技术协会 (China Association for Science and Technology, CAST), 2024. Permission was granted to include it in this material, but the copyright remains with CAST.
++ The illustration of Hero(n) of Alexandria in file "text/main/controlFlow/loops/heronOfAlexandria.jpg" is taken from the article "[The Ancient Greek Who Invented the World's First Steam Turbine](https://greekreporter.com/2023/12/13/ancient-greek-world-first-steam-turbine)", where its caption states *Heron of Alexandria. Codex of Saint Gregory Nazianzenos. Greek manuscript of the ninth century. Public Domain*.
 
 You can download its newest version of the course material from <https://thomasweise.github.io/databases>.
 This version may change since this course and book both are work in progress.

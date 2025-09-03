@@ -30,7 +30,7 @@ But how does it work in \python?
 How can we deal with the fact that we cannot represent arbitrary fractional numbers exactly even in typical everyday cases like~\numberPi\ and~\numberE?
 How can we deal with the situation that real numbers exist as big as~$10^{300}$ and as small as~$10^{-300}$?
 With \pythonilIdx{float}, \python\ offers us one type for fractional numbers.
-This datatype represents numbers usually in the same internal structure as \pythonils{double} in the \pgls{C}~programming language~\cite{PSF:P3D:TPSL:NTIFC} -- it is based on the 64~bit IEEE~Standard 754 floating point number layout~\cite{IEEE2019ISFFPA,H1997IS7FPN}.
+This datatype represents numbers usually in the same internal structure as \pythonils{double} in the \pgls{C}~programming language~\cite{PSF:P3D:TPSL:NTIFC} -- it is based on the 64~bit IEEE~Standard 754 floating point number layout~\cite{IEEE2019ISFFPA,H1997IS7FPN,G1991WECSSKAFPA}.
 The idea behind this standard is exactly to be able to represent both very large numbers, like~$10^{300}$ and very small numbers, like~$10^{-300}$, while accepting that we cannot exactly represent~$10^{300}+10^{-300}$.
 In order to achieve this, the 64~bits are divided into three pieces, as illustrated in \cref{fig:floatIEEEStructure}.
 %
@@ -61,6 +61,7 @@ But more about this later.%
 \end{sloppypar}%
 %
 Luckily, you will never really need to know these exact information in your day-to-day programming work.
+There also exist many different formats of floating point numbers, using different numbers of bits for significand and exponent~\cite{IEEE2019ISFFPA,G1991WECSSKAFPA}.
 The important thing to remember is:
 Floating point numbers~(\pythonils{float}) can represent a wide range of different values.
 Their range is large but still limited.
@@ -425,7 +426,7 @@ Or \emph{not a number}\pythonIdx{Not a Number}.
 Or \pythonilIdx{nan}, which stands for, well, Not a Number\pythonIdx{Not a Number}.
 
 \pythonilIdx{nan} means that the result of a computation is neither a finite number or infinite.
-It is the result of shenanigans such as \pythonil{inf - inf} or \pythonil{inf / inf} or \pythonil{0 * inf}.
+It is the result of shenanigans such as \pythonil{inf - inf} or \pythonil{inf / inf} or \pythonil{0 * inf}~\cite{G1991WECSSKAFPA}.
 A \pythonilIdx{nan} value anywhere in a computation infects the result of the computation to also become \pythonilIdx{nan}.
 \pythonil{nan + 1} remains \pythonilIdx{nan} and so does \pythonil{nan + inf}.
 

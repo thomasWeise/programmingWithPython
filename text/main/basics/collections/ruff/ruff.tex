@@ -11,7 +11,7 @@ The results of static type checking with \mypy\ of the program given in \cref{ls
 %
 Recently, we learned that static code analysis tools can help us to discover subtle problems in our programs.
 Obviously, when dealing with more complex datastructures like lists, there are also more potential problems, more mistakes that one could make.
-Let us look at the very short example program \textil{lists_error.py} in \cref{lst:lists:lists_error}.
+Let us look at the very short example program \programUrl{lists:lists_error} in \cref{lst:lists:lists_error}.
 The program consists of only two lines, \pythonil{my_list: list[str] = list([1, 2, 3])} and \pythonil{print(my_list)}.
 It does not have any \emph{error} in the strict sense.
 We can execute it just fine and it will produce the output \textil{[1, 2, 3]} as shown in \cref{exec:lists:lists_error}.
@@ -48,7 +48,7 @@ We provide a script for using \ruff\ with a reasonable default configuration in 
 \listingToolOutput{lists:lists_error:ruff}{%
 The results of linting with \ruff\ of the program given in \cref{lst:lists:lists_error}. (We used the script given in \cref{lst:bash:ruff} on \cpageref{lst:bash:ruff} to apply \ruff.)}%
 %
-Let us apply \ruff\ to the program \textil{lists_error.py} given in \cref{lst:lists:lists_error}.
+Let us apply \ruff\ to the program \programUrl{lists:lists_error} given in \cref{lst:lists:lists_error}.
 This can be done by executing the command \bashil{ruff check myfile.py}, where \textil{myfile.py} is the file to be checked~(you can also specify a directory).
 \ruff\ has many additional parameters, which are explained at~\cite{PSF:TPPIP:R,M2022RAEFPLACFWIR}.
 For example, if we want to analyze our code with respect to version~3.12 of \python, we would specify the command line argument~\textil{--target-version py312}.

@@ -208,7 +208,7 @@ This module is basically a collection of mathematical functions.
 Since we have implemented several mathematical functions by ourselves, let us put some of them in a module as well.
 
 In \cref{lst:functions:my_math} we do just that.
-We create the \python\ file \textil{my_math.py} and place two functions into it:
+We create the \python\ file \programUrl{functions:my_math} and place two functions into it:
 The function \pythonil{factorial} from \cref{lst:functions:def_factorial} and a new function called \pythonil{sqrt}.
 The \pythonil{sqrt} function basically encapsulates our code from back in \cref{lst:loops:while_loop_sqrt}, where we implemented the Heron's Method to compute the square root, as a function.
 Now, \pythonil{number}, the input of this algorithm, comes in as a parameter.%
@@ -228,7 +228,7 @@ A program using the functions \pythonil{sqrt} and \pythonil{factorial} from the 
 %
 \begin{sloppypar}%
 \Cref{lst:functions:use_my_math} is where we use them:
-We write a program, i.e., another \python\ file, named \textil{use_my_math.py}.
+We write a program, i.e., another \python\ file, named \programUrl{functions:use_my_math}.
 In this file, we want to use our two functions \pythonil{factorial} and \pythonil{sqrt} from the module \pythonil{my_math}.
 For this purpose, we have to tell the \python\ interpreter where it can find these two functions.
 We do this by writing \pythonil{from my_math import factorial, sqrt}\pythonIdx{from}\pythonIdx{import}\pythonIdx{module}.
@@ -239,10 +239,10 @@ There is a module \pythonil{my_math} from which we want to import, i.e., make av
 Now, the \python\ interpreter knows a lot of modules.
 Several modules ship with any \python\ installation, like \pythonilIdx{math}.
 Others are installed via a package manager like \pgls{pip}~\cite{PSF:P3D:IPM} (we will eventually discuss this later).
-The \pythonil{my_math} module is found because it is in the same directory as the program \textil{use_my_math}.
+The \pythonil{my_math} module is found because it is in the same directory as the program \programUrl{functions:use_my_math}.
 
-If we had placed the \textil{my_math.py} file into a sub-directory named \textil{math_pack} instead, then we would import our functions from \textil{math_pack.my_math} instead, where \textil{math_pack} would be called a~\emph{package}.
-Of course, we could also create another level of directories, say we could have directory \textil{utils}, containing directory \textil{math_pack}, containing our file \pythonil{my_math.py}.
+If we had placed the \programUrl{functions:my_math} file into a sub-directory named \textil{math_pack} instead, then we would import our functions from \textil{math_pack.my_math} instead, where \textil{math_pack} would be called a~\emph{package}.
+Of course, we could also create another level of directories, say we could have directory \textil{utils}, containing directory \textil{math_pack}, containing our file \programUrl{functions:my_math}.
 In this case, we would import our functions like \pythonil{from utils.math_pack.my_math import}\dots.
 The names of package and modul are separated by a~\pythonilIdx{.} when importing from them.
 This allows us to nicely and hierarchically structure our projects into modules and packages for different purposes.
@@ -321,7 +321,7 @@ A small \pgls{unitTest} suite for \cref{lst:functions:my_math}.}%
 The output of the \pglspl{unitTest} in \cref{lst:functions:test_my_math}: While the test of \pythonil{factorial} succeeds, our \pythonil{sqrt} function fails for input~\pythonil{0.0}.}%
 
 In \cref{lst:functions:test_my_math} we do just that.
-We create a file \textil{test_my_math.py} and into this file, we want to put the code for testing our module~\textil{my_math}.
+We create a file \programUrl{functions:test_my_math} and into this file, we want to put the code for testing our module~\textil{my_math}.
 This testing code is defined in form of functions.
 The names of these functions must start with \textil{test_}.
 
@@ -434,7 +434,7 @@ Initially, we set \pythonil{guess = 1.0}.
 In the first iteration of the loop in \pythonil{sqrt}, \pythonil{guess = 0.5 * (guess + number / guess)} makes \pythonil{guess} become \pythonil{inf}.
 However, in the second iteration, we have \pythonil{number / guess} becoming \pythonil{inf / inf} which yields~\pythonil{nan}.
 From now on, all calculations yields \pythonil{nan}.
-Since \pythonil{nan != nan} is \pythonil{True}, the loop never ends.%
+Since \pythonil{nan != nan} is \pythonil{True}, the loop never ends~\cite{G1991WECSSKAFPA}.%
 \end{sloppypar}%
 %
 \gitLoadPython{functions:my_math_3}{}{functions/my_math_3.py}{}%

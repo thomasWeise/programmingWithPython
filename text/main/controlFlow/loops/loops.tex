@@ -24,7 +24,7 @@ Everything that follows after that are devices to make the life of programmers e
 \hsection{The \texttt{for} Loop Statement}%
 %
 \pythonIdx{loop!for}%
-The most basic such sequence in \python\ may be the \pythonilIdx{for}~loop, which has the following pattern:%
+The most basic such sequence in \python\ may be the \pythonilIdx{for}~loop, which has the following pattern\cite{PSF:P3D:TPT:MCFT}:%
 %
 \pythonSyntax{syntax/for_loop.py}%
 \FloatBarrier%
@@ -96,12 +96,12 @@ If we would not call it that, then another programmer seeing our code~(or a stat
 Always remember that \inQuotes{real} code could be much more complicated, and any semantic hint we can include to convey our intentions will be helpful.
 
 With these new tools at hand, we can revisit our program \cref{lst:variables:pi_liu_hui} for approximating~\numberPi\ from back in \cref{sec:approximatePiLiuHui}.
-In the original program \textil{pi_liu_hui.py}, we executed the same code five times.
+In the original program \programUrl{variables:pi_liu}, we executed the same code five times.
 We always doubled the number~\pythonil{e} of edges by doing~\pythonil{e *= 2}.
 Then we updated the sidelength~\pythonil{s} of the regular \pythonil{e}\nobreakdashes-gon.
 Finally, we printed the approximation of \numberPi\ as \pythonil{e * s / 2}.
 Instead of copying the code several times, we can just as well put it inside a loop.
-This reduces the lines of code from over~25 to about~10 in program \textil{for_loop_pi_liu_hui.py} given in \cref{lst:loops:for_loop_pi_liu_hui}.
+This reduces the lines of code from over~25 to about~10 in program \programUrl{loops:for_loop_pi_liu_hui} given in \cref{lst:loops:for_loop_pi_liu_hui}.
 The outputs in \cref{exec:variables:pi_liu_hui,exec:loops:for_loop_pi_liu_hui} are exactly the same.%
 %
 \FloatBarrier%
@@ -351,12 +351,16 @@ We will also see how the \pythonilIdx{for}~keyword can be used to construct sequ
 \FloatBarrier%
 \endhsection%
 %
-\hsection{Enumerating over Sequences when needing Indices~(and Pylint)}%
+\hsection{\texttt{enumerate} and Interlude:~Pylint}%
 \label{sec:enumOverSequences}%
 %
-\gitLoadAndExecPython{loops:for_loop_no_enumerate}{}{loops}{for_loop_no_enumerate.py}{}%
-\listingPythonAndOutput{loops:for_loop_no_enumerate}{%
-Enumerating over the index-value pairs of a list (inefficiently).}{}%
+\gitLoadAndExecPython{loops:for_loop_no_enumerate_1}{}{loops}{for_loop_no_enumerate_1.py}{}%
+\listingPythonAndOutput{loops:for_loop_no_enumerate_1}{%
+Enumerating over the index-value pairs of a list (inefficiently) by using the index as loop variable and directly indexing the container.}{}%
+%
+\gitLoadAndExecPython{loops:for_loop_no_enumerate_2}{}{loops}{for_loop_no_enumerate_2.py}{}%
+\listingPythonAndOutput{loops:for_loop_no_enumerate_2}{%
+Enumerating over the index-value pairs of a list (inefficiently) by iterating over the container and manually maintaining the current index in a variable.}{}%
 %
 Assume that we have a list \pythonil{data} of integer values~\pythonil{v}.
 If we want to iterate over all the values~\pythonil{v} in~\pythonil{data}, then \pythonil{for v in data} would do the trick.
@@ -368,13 +372,19 @@ As first option, we can iterate over \pythonil{data} by accessing the elements b
 In this case, we would use a \pythonilIdx{range} that goes from~\pythonil{0} to \pythonil{len(data) - 1}\pythonIdx{len}\pythonIdx{list!len}.
 The head of the loop now looks like this:~\pythonil{for i in range(len(data))}.
 The data values~\pythonil{v} are then accessed via~\pythonil{data[i]}.
-This is illustrated in \cref{lst:loops:for_loop_no_enumerate}.
+This is illustrated in \cref{lst:loops:for_loop_no_enumerate_1}.
 
 The drawback of this method is that it will \emph{only} work for \pythonilsIdx{list} and \pythonilsIdx{tuple}.
 Among the collection datastructures discussed so far, only \pythonilsIdx{list} and \pythonilsIdx{tuple} are directly indexable.
-Therefore, the second option to achieve our goal would be to use an additional integer variable~\pythonil{i} which we would initialize as \pythonil{i: int = 0} before the loop.
- We would then increment it as~\pythonil{i += 1} at the bottom of the loop body, where \pythonil{i += 1} is equivalent to \pythonil{i = i + 1}\pythonIdx{+=}\pythonIdx{+}.
+However, as we have seen, we can iterate over all of them.
+Therefore, the second option to achieve our goal would be to just \inQuotes{normally} iterate over the container.
+Of course, then we do not know the index of the current element.
+Well, nothing can stop us from using an additional integer variable~\pythonil{i} and maintain its proper value by ourselves.
+We would initialize it as \pythonil{i: int = 0} before the loop.
+We would then increment it as~\pythonil{i += 1} at the bottom of the loop body.
+Of course, \pythonil{i += 1} is equivalent to \pythonil{i = i + 1}\pythonIdx{+=}\pythonIdx{+}.
 This would work with all collection classes.
+This is illustrated in \cref{lst:loops:for_loop_no_enumerate_2}.
 
 Both options are a bit iffy, as they introduce more and less readable additional code.
 There is a third option, though.
@@ -394,25 +404,67 @@ You can then apply \pylint\ using the command \bashil{pylint fileToScan.py}. %
 We provide a script for using \pylint\ with a reasonable default configuration in \cref{lst:bash:pylint} on \cpageref{lst:bash:pylint}.%
 }%
 %
-\gitExec{exec:loops:for_loop_no_enumerate:pylint}{\programmingWithPythonCodeRepo}{.}{_scripts_/pylint.sh loops for_loop_no_enumerate.py}%
-\listingToolOutput{loops:for_loop_no_enumerate:pylint}{%
-The results of static code analysis using the \pylint\ \pgls{linter} for the program given in \cref{lst:loops:for_loop_no_enumerate}.}%
+\gitExec{exec:loops:for_loop_no_enumerate_1:ruff}{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh loops for_loop_no_enumerate_1.py}%
+\gitExec{exec:loops:for_loop_no_enumerate_2:ruff}{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh loops for_loop_no_enumerate_2.py}%
+%
+\gitExec{exec:loops:for_loop_no_enumerate_1:pylint}{\programmingWithPythonCodeRepo}{.}{_scripts_/pylint.sh loops for_loop_no_enumerate_1.py}%
+\gitExec{exec:loops:for_loop_no_enumerate_2:pylint}{\programmingWithPythonCodeRepo}{.}{_scripts_/pylint.sh loops for_loop_no_enumerate_2.py}%
+%
+\listingToolOutput{loops:for_loop_no_enumerate_1:pylint}{%
+The results of static code analysis using the \pylint\ \pgls{linter} for the program \programUrl{loops:for_loop_no_enumerate_1} given in \cref{lst:loops:for_loop_no_enumerate_1}.}%
+%
+\listingToolOutput{loops:for_loop_no_enumerate_1:ruff}{%
+The results of static code analysis using the \ruff\ \pgls{linter} for the program \programUrl{loops:for_loop_no_enumerate_1} given in \cref{lst:loops:for_loop_no_enumerate_1}.}%
+%
+\listingToolOutput{loops:for_loop_no_enumerate_2:pylint}{%
+The results of static code analysis using the \pylint\ \pgls{linter} for the program \programUrl{loops:for_loop_no_enumerate_2} given in \cref{lst:loops:for_loop_no_enumerate_2}.}%
+%
+\listingToolOutput{loops:for_loop_no_enumerate_2:ruff}{%
+The results of static code analysis using the \ruff\ \pgls{linter} for the program \programUrl{loops:for_loop_no_enumerate_2} given in \cref{lst:loops:for_loop_no_enumerate_2}.}%
 %
 \gitLoadAndExecPython{loops:for_loop_enumerate}{}{loops}{for_loop_enumerate.py}{}%
 \listingPythonAndOutput{loops:for_loop_enumerate}{%
 Enumerating over the index-value pairs of a list using the \pythonilIdx{enumerate} function.}{}%
 %
-In \cref{exec:loops:for_loop_no_enumerate:pylint}, \pylint\ suggest that we should iterate over the list \pythonil{data} using the \pythonilIdx{enumerate} function.
-\pythonilIdx{enumerate} accepts a collection as parameter and creates a sequence of index-value tuples.
-Since we can unpack such tuples while iterating over this sequence (see \cref{lst:loops:for_loop_sequence})\pythonIdx{tuple!unpacking}\pythonIdx{unpacking}, the head of our loop now takes on the form \pythonil{for i, v in enumerate(data)}.
-Notice that the index~\pythonil{i} comes first and the value~\pythonil{v} comes second in this unpacked-tuple-based enumeration.
-This is implemented in \cref{lst:loops:for_loop_enumerate}.
-And it would work exactly the same, regardless whether \pythonil{data} was a list, set, tuple, or dictionary.
+We first install \pylint~cite{PC2024PL}.
+We therefore open a \pgls{terminal} by either pressing \ubuntuTerminal\ under \ubuntu\ \linux\ or \ubuntuTerminal\ or under \microsoftWindows\ via \windowsTerminal.
+We then type in \bashil{pip install pylint}\pythonIdx{pip} and hit \keys{\enter}~drücken.~(Normally, we would do that in a \pgls{virtualEnvironment}, which we discuss later in \cref{sec:pipAndVenv}.)
+Anyway, \pylint\ gets installed.
 
-Now, above we used the \pylint\ \pgls{linter} to discover that we could improve our code by using this concept.
-At the time of this writing, \ruff\ and \mypy\ did not find this potential improvement.
-Maybe their future versions will.
-Regardless, it becomes clear that using more static analysis tools is always a good idea, as stated back in \cref{bp:manyCodeAnalysisTools}.%
+We can apply it a file \textil{fileToScan.py} by typing \bashil{pylint fileToScan.py} in a \pgls{terminal}~(\textil{fileToScan.py} can also be a directory).
+Like with \ruff, in the context of this book, we will disable some \pgls{linter} rules for \pylint, too.
+This can be done by adding the parameter \textil{--disable=...} with the rules to be deactivated.
+The list of rules that \pylint\ applies when analyzing a file can be found at~\cite{PC2024PL}.
+
+Let us now apply both our new \pgls{linter} \pylint\ as well as \ruff, which we ave already used, to the two ideas for enumerating over the data and indices of collections.
+We first analyze \programUrl{loops:for_loop_no_enumerate_1}, the program where we let the index variable iterate and use it to access the data elements.
+In \cref{exec:loops:for_loop_no_enumerate_1:pylint}, \pylint\ suggest that we should iterate over the list \pythonil{data} using the \pythonilIdx{enumerate} function, whereas \ruff, at the time of this writing, has no issue with this approach~(see \cref{exec:loops:for_loop_no_enumerate_1:ruff}).
+Now we analyze \programUrl{loops:for_loop_no_enumerate_2}, where we iterate over the elements of the container and manually maintain an index variable~\pythonil{i}.
+Interestingly, this time \ruff\ suggests us to~\inQuotes{Use \inSQuotes{\pythonil{enumerate()}} for index variable \inSQuotes{\pythonil{i}} in \inSQuotes{\pythonil{for}} loop}, as shown in \cref{exec:loops:for_loop_no_enumerate_2:ruff}.
+\pylint, on the other hand, does not discover any problem with \programUrl{loops:for_loop_no_enumerate_2}.
+
+Our two \pglspl{linter} have discovered the same issue, just with different programs.
+They independently propose using a function called \pythonilIdx{enumerate} to solve the problem of iterating over collections and knowing the index of the current element.
+But what is \pythonilIdx{enumerate}?
+
+\pythonilIdx{enumerate} accepts a collection as parameter and creates a sequence of index-value tuples~\cite{PEP279}.
+We can unpack such tuples while iterating over this sequence~(see \cref{lst:loops:for_loop_sequence}).
+Therefore, when using \pythonilIdx{enumerate}, we can change the head of our loop to the form \pythonil{for i, v in enumerate(data)}.
+Notice that the index~\pythonil{i} comes first and the value~\pythonil{v} comes second in this unpacked-tuple-based enumeration.
+This is implemented in program \programUrl{loops:for_loop_enumerate} given as \cref{lst:loops:for_loop_enumerate}.
+And it would work exactly the same, regardless whether \pythonil{data} was a \pythonilIdx{list}, \pythonilIdx{set}, \pythonilIdx{tuple}, or \pythonilIdx{dict}ionary.
+
+We also confirmed \cref{bp:manyCodeAnalysisTools}:
+It makes sense to use several different tools for static code analysis.
+Each tool has its own strengths.
+Some, like \mypy, can discover problems with typing.
+Others, like \ruff\ and \pylint, can make suggestions on how to improve our code.
+But even if two tools have the same \inQuotes{area of expertice,} they may still discover different issues.
+Had we implemented \programUrl{loops:for_loop_no_enumerate_1} and only used \ruff, at least at the time of this writing, we would not have found that we could use \pythonilIdx{enumerate} to solve the problem more efficiently.
+Vice versa, if our solution idea had been \programUrl{loops:for_loop_no_enumerate_2} and only used \pylint, then at the time of this writing, we, too, would not have arrived at the more efficient version \programUrl{loops:for_loop_enumerate.py}.
+Thus, indeed, it is important to understand and use the tools that surround our programming language.
+And not just one.
+Keep learning and adding new tools to your tool belt.%
 %
 \FloatBarrier%
 \endhsection%
@@ -420,11 +472,25 @@ Regardless, it becomes clear that using more static analysis tools is always a g
 \hsection{The \texttt{while} Loop}%
 \label{sec:whileLoop}%
 %
+\begin{figure}%
+\centering%
+\tightbox{\includegraphics[width=0.5\linewidth]{\currentDir/heronOfAlexandria}}%
+\caption{Heron of Alexandria. %
+Codex of Saint Gregory Nazianzenos. Greek manuscript of the ninth century~\pgls{CE}. %
+Public Domain. %
+Source:~\cite{GR:TAGWITWFST}.%
+}%
+\label{fig:heronOfAlexandria}%
+\end{figure}%
+%
 Old clay tablets show that the Babylonians were able to approximate~$\sqrt{2}$ maybe as far back as 4000~years ago~\cite{FR1998SRAIOBMY7IC,S2011NA:NA}.
-The mathematician Hero(n) of Alexandria, who lived in the first century~\pgls{CE}, specified an abstract algorithm for computing the square root of numbers which, today, is known as Heron's Method~\cite{S2011NA:NA,K2009BMOCTSRJBOFTAOCC}.
+The mathematician Hero(n) of Alexandria lived in the first century~\pgls{CE}.
+He specified an abstract algorithm for computing the square root of numbers which, today, is known as Heron's Method~\cite{S2011NA:NA,K2009BMOCTSRJBOFTAOCC}.
+This famous researcher, illustrated in \cref{fig:heronOfAlexandria}, was also a famous engineer who invented a steam engine~\cite{GR:TAGWITWFST} and a formula for the computation of the area of a triangle~\cite{L2020RWECSSKAFPA}.
 
-Given a number~$a$ and aiming to find the square root~$\sqrt{a}$ of~$a$, this algorithm starts with a guess~$x_0$, let's say~$x_0=1$.
-In each iteration~$i$, it will compute a new guess as follows~\cite{S2011NA:NA,K2009BMOCTSRJBOFTAOCC}:%
+Let's say that we want to find the square root~$\sqrt{a}$ of a given~$a$.
+Then, this algorithm starts with a guess~$x_0$, let's say~$x_0=1$.
+In each iteration, it will compute a new guess~$x_{i+1}$ based on the current approximation~$x_i$ as follows~\cite{S2011NA:NA,K2009BMOCTSRJBOFTAOCC}:%
 %
 \begin{equation}%
 x_{i+1}=\frac{1}{2}\left(x_i+\frac{a}{x_i}\right)%
@@ -437,13 +503,16 @@ If $x_i$ was too small, i.e., $x_i<\sqrt{a}$, then $\frac{a}{x_i}>\sqrt{a}>x_i$.
 By computing the average of~$x_i$ and~$\frac{a}{x_i}$ as the next guess, we hope to approach~$\sqrt{a}$.
 If $x_i=\sqrt{a}$, then $\frac{a}{x_i}=\sqrt{a}$ by definition and~$x_{i+1}=x_i$.
 Showing that this actually works and that the error gets smaller over time is more complicated~\cite{S2011NA:NA}.
+But luckily, we do not need to do that here.
+Let's simply trust the two thousand year old genius Heron.
 
 If we want to implement this algorithm, we will naturally need a loop of some sort.
-Clearly, we perform the same computation again and again.
+Clearly, we perform the same computation multiple times.
+We will evaluate \cref{eq:heronGuessUpdate} again and again.
 However, a \pythonil{for}~loop will not do:
-We do not know the number of steps that we will need in advance.
-Of course, we could try to pick a very very huge number and then \pythonil{break} the loop when the guesses converg {\dots} but that is just ugly.
-The \pythonilIdx{while} comes to rescue:%
+We do not know in advance the number of steps that we will need until~$x_i = x_{i+1}$.
+Of course, we could try to pick a very very huge number and then \pythonil{break} the loop when the guesses converge {\dots} but that is just ugly.
+The \pythonilIdx{while} comes to rescue\cite{PSF:P3D:TPT:MCFT}:%
 %
 \pythonSyntax{syntax/while_loop.py}%
 \FloatBarrier%
@@ -452,36 +521,72 @@ The \pythonilIdx{while} comes to rescue:%
 \listingPythonAndOutput{loops:while_loop_sqrt}{%
 We compute the square root of a number using Heron's Method~\cite{S2011NA:NA,K2009BMOCTSRJBOFTAOCC} implemented as py \pythonilIdx{while} loop.}{}%
 %
-In the \pythonilIdx{while} loop, the body is executed as long as a Boolean expression in the head of the loop evaluates to~\pythonilIdx{True}.
-We now use this new construct to implement Heron's Method in \cref{lst:loops:while_loop_sqrt} and use it to compute the square roots of~0.5, 2, and~3.
+Like the \pythonil{for}~loop, the \pythonilIdx{while}~loop has a head and a body.
+The head consists of a \pythonil{while}, followed by a loop condition \pythonil{booleanExpression} and a colon~\pythonil{:}.
+The loop body is again just a code block indented with four spaces.
+Every time \emph{before} the loop body is executed, the loop condition \pythonil{booleanExpression} is evaluated.
+If and only if it yields~\pythonil{True}, the loop body is executed.
+Only in this case, the next iteration begins by again checking the loop condition, and so on.
+If the loop condition does not yield~\pythonil{True}, the loop is immediately terminated.
+In other words, the body of the loop is executed as long as a Boolean expression in the head of the loop evaluates to~\pythonilIdx{True}.
+
+We now use this new construct to implement Heron's Method as program \programUrl{lst:loops:while_loop_sqrt} in \cref{lst:loops:while_loop_sqrt} and use it to compute the square roots of~0.5, 2, and~3.
 
 We begin the program with an outer \pythonil{for} loop that iterates a variable~\pythonil{number} over the \pythonil{float} values \pythonil{0.5}, \pythonil{2.0}, and~\pythonil{3.0}.
 We want to apply the algorithm to each of these values.
-We use two variables~\pythonil{guess} be the current guess of what $\sqrt{\pythonil{number}}$ could be and \pythonil{old_guess} be the previous guess.
+We use two variables~\pythonil{guess} and \pythonil{old_guess}.
+\pythonil{guess} will be the current guess of what $\sqrt{\pythonil{number}}$ could be.
+\pythonil{old_guess} will be the previous approximation, which we need to remember in order to decide when to stop.
 
 We initialize \pythonil{guess} with \pythonil{1.0} and \pythonil{old_guess} with a different value, say~\pythonil{0.0}.
-Our \pythonilIdx{while} loop should keep iterating as long as~\pythonil{guess != old_guess}.
-Of course, if we could represent real numbers at infinite precision, we would never reach \pythonil{guess == old_guess} for any \pythonil{number} with an irrational square root.
-However, the \pythonil{float} datatype has limited precision (see \cref{sec:howFloatingPointNumbersWork}).
-Therefore, at least in our examples, \pythonil{guess != old_guess} indeed eventually becomes~\pythonilIdx{False}.%
+Our \pythonilIdx{while} loop should keep iterating as long as~\pythonil{guess != old_guess} and update the approximation of the square root in each step.
+
+The loop condition here deserves some discussion, because it is both quite interesting and quite important.
+Let us think about it for a bit.
+First, it is clear that if we could actually represent the real numbers \realNumbers\ at infinite precision, we would never reach \pythonil{guess == old_guess} for any \pythonil{number} with an irrational square root.
+Therefore, for irrational roots, our algorithm would never terminate.
+However, the \pythonil{float} datatype has limited precision~(see \cref{sec:howFloatingPointNumbersWork}).
+
+We work with limited precision and thus eventually reach a point where we won't be able to further improve the approximation precision of the square root.
+So looping while \pythonil{guess != old_guess} should work and we should eventually reach a situation where \pythonil{guess == old_guess}.
+But this very imperfection can come and bite us when comparing floating point numbers from an unexpected direction.%
+%
+\bestPractice{noFloatEqual}{%
+Due to the limited precision of floating point numbers, comparing the result of a floating point computation with another value using the strict \pythonil{==} or \pythonil{!=} operators is discouraged~\cite{L2020RWECSSKAFPA,PEP485}. %
+It may lead to unanticipated results. %
+For example \pythonil{(0.1 + 0.2) == 0.3} gives \pythonil{False}. %
+Using functions like \pythonilIdx{isclose} from the \pythonilIdx{math} module that test whether two values are approximately the same based on their relative and absolute difference can be a~(somewhat~\cite{G1991WECSSKAFPA}) safer choice~\cite{PEP485}.%
+}%
+%
+Now, if the direct comparison of floating point numbers for equality can cause us trouble in an \pythonil{if}, it will probably not surprise you that it may cause even worse problems in a \pythonil{while}:%
 %
 \bestPractice{noFloatEqualAsCondition}{%
-Do not use (un)equality comparisons of \pythonils{float} as loop termination criteria, as they may lead to endless loops. %
-There can always be inputs that cause endless oscillations between values or the appearance of \pythonilIdx{nan} values (see \cref{sec:float:special}).%
+As a corollary of \cref{bp:noFloatEqual}: %
+Do not use strict equality or inequality comparisons of \pythonils{float} as loop termination criteria~\cite{L2020RWECSSKAFPA}, as they quite likely lead to endless loops that never terminate. %
+There can always be inputs that cause endless oscillations between values or the appearance of \pythonilIdx{nan} values~(see \cref{sec:float:special}). %
+The former issue can again be made somewhat less likely by using methods like the function \pythonilIdx{isclose} from the \pythonilIdx{math} module that checks whether two numbers approximately equal based on their relative and absolute difference~\cite{PEP485}.%
 }%
 %
-The only reason why we did it here is that it looks nice and is easy to read as a functional and yet brief example of a \pythonilIdx{while} loop.\footnote{%
-To enforce that no oscillation between two neighboring \pythonil{float} values could occur, one could use the condition \pythonil{abs(old_guess - guess) / max(old_guess, guess) >= 1e-15} instead. %
-This makes the loop stop when the relative difference between \pythonil{guess} and \pythonil{old_guess} becomes less than~$10^-{15}$.%
-}%
-Anyway, the loop condition necessitates us to store some value different from~\pythonil{1.0} in \pythonil{old_guess} initially (and we picked~\pythonil{0.0}).
-In the loop, first the current guess becomes the old guess via \pythonil{old_guess = guess}.
-Then we update the guess as specified in \cref{eq:heronGuessUpdate}, by setting \pythonil{guess = 0.5 * (guess + number / guess)}.
-
-Finally, we print the result of the computation, and for the sake of comparison, we also print the output of the \pythonilIdx{sqrt} function of the \pythonilIdx{math} module.
+So we do not use \pythonil{guess != old_guess} as loop criterion.
+We import the function \pythonilIdx{isclose} from the module \pythonilIdx{math}.
+Then we write \pythonil{not isclose(guess, old_guess)} instead of \pythonil{guess != old_guess}.
+The function \pythonilIdx{isclose} will consider \pythonil{guess} and \pythonil{old_guess} to be equal if their relative difference is less than one part in a billion~\cite{PEP485}.
+Our loop will thus terminate once the current and the last guess are quite close to each other.%
+%
+\begin{sloppypar}%
+The inside of the loop is quite easy.
+First, the current guess is stored as the old guess via \pythonil{old_guess = guess}.
+Then we update the guess as specified in \cref{eq:heronGuessUpdate}.
+We set \pythonil{guess = 0.5 * (guess + number / guess)}.
+That's it.
+We have implemented Heron's method.%
+\end{sloppypar}%
+%
+Finally, we print the result of the computation.
+For the sake of comparison, we also print the output of the \pythonilIdx{sqrt} function of the \pythonilIdx{math} module.
 As you can see, our algorithm delivers almost the same result.
 It works quite well, at very high precision.
-Also, notice how we used the Unicode escape method from \cref{sec:unicodeChars} to represent the characters~$\sqrt{\cdot}$ and~$\approx$ as \textil{\\u221A} and \textil{\\u2248} to get them printed on the console.%
+Also, notice how we used \pgls{unicode} \pglspl{escapeSequence} from \cref{sec:unicodeChars} to represent the characters~$\sqrt{\cdot}$ and~$\approx$ as \textil{\\u221A} and \textil{\\u2248} to get them neatly printed on the console.%
 %
 \FloatBarrier%
 \endhsection%
@@ -491,12 +596,19 @@ Also, notice how we used the Unicode escape method from \cref{sec:unicodeChars} 
 \label{sec:loopElse}%
 %
 Now, you have learned before that we can leave a loop body immediately by calling the~\pythonilIdx{break} statement.
-Let's say that we want to perform a certain action \emph{after} the loop if the loop has completed normally, i.e., if \pythonilIdx{break} was not invoked.
-We can do this by declaring a Boolean variable denoting whether the loop has completed normally before the loop and initializing it with \pythonil{True}.
-If we invoke \pythonilIdx{break}, then we would first set this variable to \pythonil{False}.
-After the loop, we could place an \pythonil{if} to check if the variable is still \pythonil{True} and then execute the action.
+Let's say that we want to perform a certain action~$\mathcal{A}$ \emph{after} the loop \emph{if and ony if} the loop has completed normally.
+In other words, we want to perform an action~$\mathcal{A}$ if \pythonilIdx{break} was not invoked and the loop condition has led to a normal termination.\footnote{%
+Of course, except \pythonil{break}, there are also other things that can prevent the action from being performed, including the invocation of \pythonilIdx{return} or raising an \pythonilIdx{Exception} in the loop\dots\ {\dots}but that's not the point here.%
+}
+
+We can do this by declaring a Boolean variable~\pythonil{ok} denoting whether the loop has completed normally before the loop and initializing it with \pythonil{ok = True}.
+If we invoke \pythonilIdx{break}, then we would first set this variable~\pythonil{ok} to \pythonil{False}.
+After the loop, we could place an \pythonil{if} to check if the variable~\pythonil{ok} is still \pythonil{True} and then execute the action~$\mathcal{A}$.
+
 This is totally fine, but \python\ offers us a much less verbose method:
-Using the \pythonilIdx{else} statement at the bottom of the loop, which works for both \pythonilIdx{for} and \pythonilIdx{while} loops:%
+Using the \pythonilIdx{else} statement at the bottom of the loop.
+The body of the \pythonil{else} will only be executed if the loop has terminated normally, i.e., based on its loop condition.
+This works for both \pythonilIdx{for} and \pythonilIdx{while} loops\cite{PSF:P3D:TPT:MCFT}.%
 %
 \pythonSyntax{syntax/for_loop_else.py}%
 \pythonSyntax{syntax/while_loop_else.py}%
@@ -506,36 +618,43 @@ Using the \pythonilIdx{else} statement at the bottom of the loop, which works fo
 We implement binary search~\cite{K1998SAS,H2024POIC:BS,B1999PP} using a \pythonilIdx{while} loop with a \pythonilIdx{break} statement.}{}%
 %
 We now use this construct to implement a binary search~\cite{K1998SAS,H2024POIC:BS,B1999PP}.
-Binary search works is an algorithm that finds the index of an element in a \emph{sorted} sequence \pythonil{data} of values.
+Binary search is an algorithm that finds the index of an element in a \emph{sorted} sequence \pythonil{data} of values.
+
 The core concept of binary search is that we consider a segment~$S$ of the list in which the element~$E$ we search may be contained.
 In each step of the algorithm, we want to reduce the size of this segment by ruling out the \emph{half} in which~$E$ cannot be.
-We do this looking at the element~$M$ right in the middle.
+We do this looking at the element~$M$ right in the middle of~$S$.
 Now, the whole sequence~\pythonil{data} and, hence, also the segment~$S$, are sorted.
-If~$M$ is bigger than~$E$, then $E$ must be in the lower half, i.e., in the sub-segment from the start of~$S$ to right before~$M$.
-If~$M$ is smaller than~$E$, then $E$ must be in the upper half, i.e., in the sub-segment starting right after~$M$ and reaching until the end of~$S$.
-Otherwise, we must have found the element.
+If~$M$ is bigger than~$E$, then $E$ can only be in the first, lower half, i.e., in the sub-segment from the start of~$S$ to right before~$M$.
+If~$M$ is smaller than~$E$, then $E$ can only be in the second, upper half, i.e., in the sub-segment starting right after~$M$ and reaching until the end of~$S$.
+Otherwise, i.e., if~$E=M$, we have found the element.
+Of course, if we did not yet find~$E$ bit the selected half of $S$ is empty because $S$ only had one or two elements left in it {\dots} then $E$ is not in $S$ and, hence, not in \pythonil{data}.
+
 This means in one step we have effectively halved the size of~$S$.
-If~$n=\pythonil{len(data)}$, then we can do this at most $\log_2 n$~times and the time complexity of binary search is in~\bigOb{\log n}~\cite{K1998SAS,H2024POIC:BS,B1999PP}.%
+If~$n=\pythonil{len(data)}$, then we can do this halfing at most $\log_2 n$~times and the time complexity of binary search is in~\bigOb{\log n}~\cite{K1998SAS,H2024POIC:BS,B1999PP}.%
 %
 \begin{sloppypar}%
 In~\cref{lst:loops:while_loop_search}, we want to find the indices of some characters in the alphabetically sorted string~\pythonil{data = "abdfjlmoqsuvwyz"}.
-Of course, there is the \pythonilIdx{find}\pythonIdx{str!find} method that can do this, but we want to take advantage of the fact that the characters in \pythonil{data} are sorted.
-We search for the six characters~\pythonil{"a"}, \pythonil{"c"}, \pythonil{"o"}, \pythonil{"p"}, \pythonil{"w"}, and~\pythonil{"z"}.
-Four of them are in \pythonil{data}, but \pythonil{"c"} and \pythonil{"p"} are not.
-To search them anyway, we let a variable \pythonil{search} iterate over the list \pythonil{["a", "c", "o", "p", "w", "z"]}.%
+Of course, there is the string method \pythonilIdx{find}\pythonIdx{str!find} that can do this.
+This method would linearly search through the string.
+We, however, want to take advantage of the fact that the characters in \pythonil{data} are sorted and use binary search.%
 \end{sloppypar}%
 %
+We search for the six characters~\pythonil{"a"}, \pythonil{"c"}, \pythonil{"o"}, \pythonil{"p"}, \pythonil{"w"}, and~\pythonil{"z"}.
+Four of them are in \pythonil{data}, but \pythonil{"c"} and \pythonil{"p"} are not.
+We search them anyway.
+We let a variable \pythonil{search} iterate over the list \pythonil{["a", "c", "o", "p", "w", "z"]} in an outer loop.
+
 Now in the inner loop, we implement the binary search.
 This search will maintain and update two indices \pythonil{lower} and \pythonil{upper}.
-\pythonil{lower} is the inclusive lower end of the segment in which \pythonil{search} could be contained.
+\pythonil{lower} is the inclusive lower end of the segment~$S$ in which \pythonil{search} could be contained.
 It is therefore initialized with~\pythonil{0}.
-\pythonil{upper} is the exclusive upper end of the segment in which \pythonil{search} could be contained.
+\pythonil{upper} is the exclusive upper end of the segment~$S$ in which \pythonil{search} could be contained.
 We initialize it with \pythonil{len(data)}; as it is \emph{exclusive}, it will be 1 bigger than the largest valid index \pythonil{len(data) - 1}.
-Our segment is not empty, i.e., contains at least one element, as long as \pythonil{lower < upper}.
+Our segment~$S$ is not empty, i.e., contains at least one element, as long as \pythonil{lower < upper}.
 This is therefore the loop condition of the inner loop.
 
 Inside the binary search loop, we first compute the mid index as \pythonil{mid = (lower + upper) // 2}\footnote{%
-Interestingly, this works only because \python~3 has integers of infinite range (see \cref{sec:int}). %
+Interestingly, this works only because \python~3 has integers of infinite range~(see \cref{sec:int}). %
 In programming languages like \pgls{C} or \pgls{Java} where integer types have limited ranges, we need to do \pythonil{mid = lower + (upper - lower) // 2}~\cite{H2024POIC:BS}.%
 }.
 We obtain the value \pythonil{mid_str} as the single character at that index via \pythonil{mid_str = data[mid]}.
@@ -557,8 +676,15 @@ Now, there is the possibility that we cannot find \pythonil{search} in \pythonil
 In this case, we will never print the output and also not leave the loop with \pythonilIdx{break}.
 In each iteration that does not end with \pythonilIdx{break}, we will either increase \pythonil{lower} or decrease \pythonil{upper}.
 Thus, eventually \pythonil{lower < upper} will become \pythonil{False}.
-This is when the \pythonilIdx{else} statement at the bottom of the loop is executed.
-Then and only then we print that we did not find the string.%
+This means that the loop terminates normally, because of its loop condition becoming~\pythonil{False}.
+Then and only then the body of \pythonilIdx{else} statement at the bottom of the loop is executed.
+Then and only then we print that we did not find the string \pythonil{search}.
+
+As you can see from the output in \cref{exec:loops:while_loop_search}, our binary search indeed works.
+It finds the strings that it was supposed to find.
+When an element was contained in the searched sequence, it correctly pointed that out.
+Wow.
+We now can implement some real fancy algorithms.%
 \endhsection%
 %
 \hsection{Summary}%
@@ -575,7 +701,11 @@ And we can repeatedly perform actions via \pythonil{for} and \pythonil{while}.
 Our examples also have become more elaborate and interesting.
 We can now approximate~\numberPi\ with arbitrarily many steps of the approach of LIU Hui~(刘徽).
 We can implement Heron's Method to compute the square root of a number and we perform binary search over arbitarily large (sorted) data.
+
 We can do quite a lot!
+These are \emph{real} algorithms.
+This is no longer child's play.
+Slowly, we are moving towards some serious coding.
 
 What we cannot yet do is to have a block of code that we want to re-use in \emph{different} places.%
 \endhsection%

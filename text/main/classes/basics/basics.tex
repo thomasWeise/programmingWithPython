@@ -87,7 +87,7 @@ If I am accessing the x\nobreakdashes-coordinate of a point, it should be absolu
 
 Such clear semantics can be achieved with \pythoniles{class}\pythonIdx{class} in \python.
 In \cref{lst:classes:point}, you can find exactly this example.
-We create the \pythonil{class Point}\pythonIdx{class} inside a \python\ file \textil{point.py}.
+We create the \pythonil{class Point}\pythonIdx{class} inside a \python\ file \programUrl{classes:point}.
 This is done relatively easily:
 All we have to do is to begin a block with, well, \pythonil{class Point:}.
 Inside this block, we will place all the \emph{methods} of the \pythonilIdx{class}.
@@ -342,7 +342,7 @@ An implementation of the second-order \citeauthor{K1965PFRORTE}-\citeauthor{B196
 \listingPythonAndOutput{classes:kahan_user}{%
 Some use cases of our \citeauthor{K1965PFRORTE}-summation class from \cref{lst:classes:kahan_sum} and a comparison with \python's \pythonilIdx{sum} and the function~\pythonilIdx{fsum} from the \pythonilIdx{math} module.}{}%
 
-Luckily, in the 1960s, \citeauthor{K1965PFRORTE}~\cite{K1965PFRORTE} and \citeauthor{B1968NSIMA}~\cite{B1968NSIMA} had an idea how to fix that:
+Luckily, in the 1960s, \citeauthor{K1965PFRORTE}~\cite{K1965PFRORTE} and \citeauthor{B1968NSIMA}~\cite{B1968NSIMA} had an idea how to fix that~\cite{G1991WECSSKAFPA,L2020RWECSSKAFPA}:
 We add numbers up in a \pythonil{sum} variable and carry with us a variable~\pythonil{cs} where we remember how far off this sum is.
 Imagine again that we want to compute \pythonil{1e18 + 1 - 1e18}.
 How could we do that to arrive at the result~1?

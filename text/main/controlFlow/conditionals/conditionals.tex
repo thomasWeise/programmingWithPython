@@ -8,7 +8,7 @@ Conditionals are therefore the most fundamental control flow statement.%
 %
 A conditional statement is basically a piece of program code which will execute a set of instructions if a condition is met.
 The condition is provided as the kind of Boolean expressions that we already discussed back in \cref{sec:bool}.
-The syntax for this in \python\ is very simple:%
+The syntax for this in \python\ is very simple\cite{PSF:P3D:TPT:MCFT}:%
 %
 \pythonSyntax{syntax/if.py}%
 %
@@ -73,7 +73,7 @@ However, often we want to perform some action if the expression evaluates to \py
 Well, we could already do this.
 We could write the same \pythonil{if} statment twice, but in the second one we would just wrap \pythonil{not (...)}\pythonIdx{not} around the condition.
 This seems to be quite verbose and verbosity leads to confusion.
-So we are offered a better alternative: the \pythonil{if ... else}\pythonIdx{if{\idxdots}else} statement, which looks like this:%
+So we are offered a better alternative: the \pythonil{if ... else}\pythonIdx{if{\idxdots}else} statement, which looks like this\cite{PSF:P3D:TPT:MCFT}:%
 %
 \pythonSyntax{syntax/if_else.py}%
 %
@@ -108,7 +108,7 @@ Actually, the \pythonil{if} and \pythonil{if...else} are {\dots} also \emph{stat
 Does this mean that we can nest them?
 In other words, can we place an \pythonilIdx{if}~statement inside the body of another \pythonilIdx{if}~statement?
 
-Yes, we can, and we explore this in our program \textil{if_else_nested.py} given in \cref{lst:conditionals:if_else_nested}.
+Yes, we can, and we explore this in our program \programUrl{conditionals:if_else_nested} given in \cref{lst:conditionals:if_else_nested}.
 Here, we have three numbers stored in variables~\pythonil{a}, \pythonil{b}, and~\pythonil{c}.
 We want to know the maximum, i.e., the largest number stored in either~\pythonil{a}, \pythonil{b}, or~\pythonil{c}.
 For this purpose, we first check if \pythonil{a > b}\pythonIdx{>}.
@@ -148,7 +148,7 @@ Then its \pythonil{else}~block would contain another~\pythonil{if} and only that
 Everytime we nest a conditional statement into another one we have to add four spaces of indentation.
 In the above situation, this would quickly fill the horizontal of our screens and look rather ugly.
 Therefore, the \pythonilIdx{elif}~statement has been developed, which can replace an \pythonil{else} containing just another \pythonil{if}.
-The syntax of a combined \pythonil{if ... elif} is quite easy:
+The syntax of a combined \pythonil{if ... elif} is quite easy\cite{PSF:P3D:TPT:MCFT}:
 Instead of the \pythonil{else} containing the indented \pythonil{if}, we simply write \pythonil{elif} followed by the conditional expression that we would have used with the~\pythonil{if}.%
 %
 \pythonSyntax{syntax/if_elif_else.py}%
@@ -205,7 +205,7 @@ Finally, our program \pythonils{print} the life phase using an \pgls{fstring}.
 Now, if you followed the book so far, you have noticed that I am promoting using static code analysis tools.
 For example, we introduced \ruff\ in \cref{ut:ruff} back in \cref{sec:listExampleForErrorsAndRuff}.
 Of course, we should apply such tools to all of our code.
-We now apply \ruff\ to our program \textil{if_else_nested.py} given \cref{lst:conditionals:if_else_nested}.
+We now apply \ruff\ to our program \programUrl{conditionals:if_else_nested} given \cref{lst:conditionals:if_else_nested}.
 It produces the output shown in \cref{exec:conditionals:if_else_nested:ruff}.
 This is an example of how a \pgls{linter} can help us to improve the code quality and make our programs more compact.
 

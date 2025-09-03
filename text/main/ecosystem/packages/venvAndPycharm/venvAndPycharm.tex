@@ -14,7 +14,7 @@ We click~\menu{Create}.%
 \floatSep%
 %
 \subfloat[][%
-Since I selected the folder where the other files (\textil{requirements.txt}, \textil{numpy_user.py}, \dots) are already located, \pycharm\ asks whether this is OK. %
+Since I selected the folder where the other files (\textil{requirements.txt}, \programUrl{packages:numpy_user}, \dots) are already located, \pycharm\ asks whether this is OK. %
 We select \menu{Create from Existing Sources} if asked.%
 \label{fig:venvPycharm2}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/venvPycharm2}}}%
@@ -44,7 +44,7 @@ It contains the one line \textil{numpy==1.26.4}, which means that our project re
 \centering%
 %
 \subfloat[][%
-We now click on \textil{numpy_user.py} and get informed that required \pglspl{package} are missing. %
+We now click on \programUrl{packages:numpy_user} and get informed that required \pglspl{package} are missing. %
 We can install them into our project's \pgls{virtualEnvironment} by clicking \menu{Install requirement}. %
 Notice:~This question could also have popped up when we opened \textil{requirements.txt}, in which case we would have installed the requirements then.%
 \label{fig:venvPycharm5}%
@@ -60,7 +60,7 @@ We get informed that the required packages were successfully installed.%
 \floatRowSep%
 %
 \subfloat[][%
-We right-click on \textil{numpy_user.py} and click on~\menu{Run \inSQuotes{numpy\_user.py}}.%
+We right-click on \programUrl{packages:numpy_user} and click on~\menu{Run \inSQuotes{numpy\_user.py}}.%
 \label{fig:venvPycharm7}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/venvPycharm7}}}%
 %
@@ -101,7 +101,7 @@ Notice that you could as well create an empty project and copy the files there.
 We click on \textil{requirements.txt} and it opens in~\cref{fig:venvPycharm4}.
 Indeed, the file prescribes a single requirement, \numpy\ in version~1.26.4.
 
-When we click on the file \textil{numpy_user.py} to open it in~\cref{fig:venvPycharm5}, we notice a yellow bar at the top of the file's contents.
+When we click on the file \programUrl{packages:numpy_user} to open it in~\cref{fig:venvPycharm5}, we notice a yellow bar at the top of the file's contents.
 This bar tells us that the required package \numpy\ is missing.
 It offers us the two choices to either \menu{Install requirement} or to \menu{Ignore requirement}.
 We select the first option and click it.
@@ -115,7 +115,7 @@ At the time of this writing, \numpy\ is already out at version~2.2.1, which woul
 So this confirms that, indeed, our \textil{requirements.txt} is used.
 We also can see that the red underline under \pythonilIdx{numpy} that was present in \cref{fig:venvPycharm5} is now gone in \cref{fig:venvPycharm6}, because now the package and corresponding modules can be loaded without error.
 
-As final check that everything went well we run our program \textil{numpy_user.py} in \cref{fig:venvPycharm7}.
+As final check that everything went well we run our program \programUrl{packages:numpy_user} in \cref{fig:venvPycharm7}.
 We right-click the file in three view on the left-hand side of the window.
 A popup menu appears, in which we click on \menu{Run \inSQuotes{numpy\_user.py}}.
 We could just as well have pressed \keys{\ctrl+\shift+F10}.
