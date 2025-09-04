@@ -14,6 +14,7 @@ The list of files not under the CC&nbsp;BY&#8209;NC&#8209;SA&nbsp;4.0 license bu
 + all screenshots from websites
 + The illustration of LIU Hui (刘徽) in file "text/main/basics/variables/assignment/liu_hui.jpg" is from Wenqi Ying (应雯棋), editor. Commemoration of Ancient Chinese Mathematical Master Liu Hui for his Timeless Influence on Mathematics and Civilizational Exchange. [Issue 48 of CAST Newsletter](https://english.cast.org.cn/cms_files/filemanager/1941250207/attach/202412/8f23655a82364d19ad7874eb37b23035.pdf). China, Beijing (中国北京市): 中国科学技术协会 (China Association for Science and Technology, CAST), 2024. Permission was granted to include it in this material, but the copyright remains with CAST.
 + The illustration of Hero(n) of Alexandria in file "text/main/controlFlow/loops/heronOfAlexandria.jpg" is taken from the article "[The Ancient Greek Who Invented the World's First Steam Turbine](https://greekreporter.com/2023/12/13/ancient-greek-world-first-steam-turbine)", where its caption states *Heron of Alexandria. Codex of Saint Gregory Nazianzenos. Greek manuscript of the ninth century. Public Domain*.
++ The illustration of Euclid of Alexandria in "text/main/controlFlow/functions/euclidOfAlexandria" [attributed](https://www.antike-griechische.de/Euklid.pdf) to the painter Charles Paul Landon (1760-1826). Source:~[Vikidia](https://fr.vikidia.org/wiki/Cat%C3%A9gorie:Image_Euclide), where it is noted as *domaine public,* i.e., as in the Public Domain.
 
 
 ## creative commons
