@@ -158,7 +158,8 @@ Since this error is of arithmetic nature, we will raise an~\pythonilIdx{Arithmet
 Our \pgls{docstring} therefore contains the line \textil{:raises ArithmeticError: if `number` is not finite or less than `0.0`}.
 Any other programmer using our code therefore can easily see what kind of \pythonilsIdx{Exception} our code could raise.
 
-In the new \pythonil{sqrt} implementation \cref{lst:exceptions:sqrt_raise} we first check whether either \pythonil{not isfinite(number)}\pythonIdx{isfinite} or \pythonil{number < 0.0} holds.
+We develop a new \pythonil{sqrt} implementation in file \programUrl{exceptions:sqrt_raise} given as \cref{lst:exceptions:sqrt_raise}.
+We first check whether either \pythonil{not isfinite(number)}\pythonIdx{isfinite} or \pythonil{number < 0.0} holds.
 The \pythonilIdx{isfinite} function is offered by the \pythonilIdx{math} module and returns \pythonil{True} if its argument is either \pythonilIdx{inf}, \pythonilIdx{-inf}, or~\pythonilIdx{nan}.
 The complete expression becomes \pythonil{True} if the input of the function is not finite or negative.
 We thus check whether the output of the \pythonil{sqrt} function would not be a finite number.
@@ -170,7 +171,7 @@ We can pass a string as parameter to this function, and we here chose to pass in
 This line of code will force the control flow to immediately exit our \pythonil{sqrt} function.
 The \pythonilIdx{Exception} object \inQuotes{raises} up until it is either caught (which we discuss later) or the process itself is terminated.
 
-The latter can be observed in \cref{lst:exceptions:use_sqrt_raise}.
+The latter can be observed in program \programUrl{exceptions:use_sqrt_raise} shown as \cref{lst:exceptions:use_sqrt_raise}.
 In the program, we iteratively apply our new \pythonil{sqrt} function to the values inside a \pythonil{tuple} using a \pythonilIdx{for}~loop.
 We write the results of these computations to the \pgls{stdout} using \pgls{fstring} and \pythonil{print}.\footnote{%
 The \pythonil{flush=True} parameter passed to \pythonilIdx{print}\pythonIdx{print!flush} forces the output to be immediately written and not cached. %

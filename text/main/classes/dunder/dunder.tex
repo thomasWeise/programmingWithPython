@@ -38,7 +38,7 @@ Otherwise, it returns the default representation, which is the type name and ID 
 %
 \end{itemize}%
 %
-These two functions are compared in \cref{lst:dunder:str_vs_repr}.
+These two functions are compared in program \programUrl{dunder:str_vs_repr} given as \cref{lst:dunder:str_vs_repr}.
 Here, we first create an integer variable \pythonil{the_int} with value \pythonil{123}.
 Both \pythonil{str(the_int)} and \pythonil{repr(the_int)} are \pythonil{"123"}.
 This is to be expected, since this is all the information that is needed to completely recreate this value and, at the same time, it is also the most concise way to present the value.
@@ -85,12 +85,12 @@ This would also work with the string representations that we printed for our lis
 Investigating string representations and equality for the class~\pythonil{Point}.}{}%
 %
 Let us now move a bit backwards and revisit a previous example we created by ourselves.
-In \cref{sec:immutableClassPoints2D}, we created the class \pythonil{Point} for representing points in the two-dimensional Euclidean plane~(see \cref{lst:classes:point}).
+In \cref{sec:immutableClassPoints2D} presenting file \programUrl{immutableClassPoints2D}, we created the class \pythonil{Point} for representing points in the two-dimensional Euclidean plane~(see \cref{lst:classes:point}).
 This class turned out to be quite useful when we went on to implement classes for different two-dimensional geometric shapes.
 Here, we already implemented one dunder method, the initializer~\dunder{init}.
 Let us play with this class a bit more.
 
-In \cref{lst:dunder:point_user_2}, we create three instances of this class.
+In \cref{lst:dunder:point_user_2} showing program \programUrl{dunder:point_user_2}, we create three instances of this class.
 \pythonil{p1}~represents the coordinates~$(3,5)$, \pythonil{p2}~stores~$(7, 8)$, and~\pythonil{p3}~has the same coordinates as~\pythonil{p1}.
 In this program, we first print the \pythonil{str} and \pythonil{repr} results for~\pythonil{p1}.
 We immediately find them very unsatisfying.
@@ -138,7 +138,7 @@ Our \pythonil{Point} class, extended with the \dunder{str}, \dunder{repr}, and \
 \listingPythonAndOutput{dunder:point_with_dunder_user}{%
 The same program exploring string representations and equality as shown in \cref{lst:dunder:point_user_2}, but this time using our new \pythonil{Point} class from \cref{lst:dunder:point_with_dunder}.}{}%
 
-In order to fix all of the problems discussed above, we implement the three dunder methods \dunder{str}, \dunder{repr}, and \dunder{eq} for our \pythonil{Point} class in \cref{lst:dunder:point_with_dunder}.
+In order to fix all of the problems discussed above, we implement the three dunder methods \dunder{str}, \dunder{repr}, and \dunder{eq} for our \pythonil{Point} class in file \programUrl{dunder:point_with_dunder} shown as \cref{lst:dunder:point_with_dunder}.
 The concise string representation returned by \dunder{str} will just be the point coordinates in parentheses.
 This offers all the information needed at a glance, but it could be mistaken with a tuple as string.
 Therefore, the canonical string representation produced by \dunder{repr} will return a string of the shape~\pythonil{"Point(x, y)"}.
@@ -161,7 +161,7 @@ Returning \pythonilIdx{NotImplemented} will give us the same result in compariso
 However, it keeps an avenue open for other programmers to design new classes which support comparison with our \pythonil{Point} instances in a consistent way.
 When we implement the \dunder{eq} method like this, the proper \pgls{typeHint} for the return value is \pythonil{bool | NotImplementedType}\pythonIdx{NotImplementedType}.
 
-\Cref{lst:dunder:point_with_dunder_user} is the same as \cref{lst:dunder:point_user_2}, but now uses this new variant of our class \pythonil{Point}.
+Program \programUrl{dunder:point_with_dunder_user} given as \cref{lst:dunder:point_with_dunder_user} is the same as \cref{lst:dunder:point_user_2}, but now uses this new variant of our class \pythonil{Point}.
 As you can see in \cref{exec:dunder:point_with_dunder_user}, its output now matches much better to what one would expect.%
 %
 \FloatBarrier%
@@ -256,7 +256,7 @@ Otherwise, it could be that \pythonil{"123" in s} is \pythonil{True} for the str
 That would make no sense at all.
 
 With that out of the way, we can now make our \pythonil{Point} class hashable.
-In \cref{lst:dunder:point_with_hash}, we modify the \pythonil{Point} class from \cref{lst:dunder:point_with_dunder}.
+In \cref{lst:dunder:point_with_hash} outlining file \programUrl{dunder:point_with_hash}, we modify the \pythonil{Point} class from \cref{lst:dunder:point_with_dunder}.
 We retain the implementation of~\dunder{eq} and add the method~\dunder{hash}.%
 %
 \cquotation{PSF:P3D:TPLR:OH}{{\dots}The \pythonil{\_\_hash\_\_()}\pythonIdx{\_\_hash\_\_}\pythonIdx{dunder!\_\_hash\_\_} method should return an integer. %
@@ -313,7 +313,7 @@ Therefore, we can indeed implement \dunder{hash} with a single line of code in~\
 And I will later find another example on how the debugger can be used to spot errors in code.%
 %
 \begin{sloppypar}%
-We use our new variant of the \pythonil{Point} class in~\cref{lst:dunder:point_with_hash_user}.
+We use our new variant of the \pythonil{Point} class in~\cref{lst:dunder:point_with_hash_user} with program \programUrl{dunder:point_with_hash_user}.
 We again first create three points~\pythonil{p1 = Point(3, 5)}, \pythonil{p2 = Point(7, 8)} and \pythonil{p3 = Point(3, 5.0)}.
 \pythonil{p1 == p2} is \pythonil{False}, while \pythonil{p1 == p3} is \pythonil{True}, despite the \pythonil{y}\nobreakdashes-coordinate of \pythonil{p1} is an~\pythonil{int} and the one of~\pythonil{p2} is a~\pythonil{float}~(but with the same value).
 When we create the set~\pythonil{points} as~\pythonil{\{p1, p2, p3\}}, it will have the size~2.
@@ -1211,7 +1211,7 @@ The (successful) output of \pytest\ executing the \pglspl{doctest} for our \pyth
 But let's get back to what we actually wanted to do:
 We wanted to compute the square roots of numbers at insane precision.
 For this, we can now revisit \cref{lst:functions:my_math}.
-In \cref{lst:dunder:fraction_sqrt}, we just copy the code of the \pythonil{sqrt} function from this file.
+In \cref{lst:dunder:fraction_sqrt} with file \programUrl{dunder:fraction_sqrt}, we just copy the code of the \pythonil{sqrt} function from this file.
 We will basically replace all \pythonils{float} in this code with \pythonils{Fraction}.%
 %
 \begin{sloppypar}%

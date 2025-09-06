@@ -16,7 +16,7 @@ A third example of using lists in \python: slicing, adding, and multiplying list
 A \pythonilIdx{list} is a mutable sequence of objects which can be accessed via their index~\cite{PSF:P3D:TPLR:S}.
 They work very similar to the strings we already discussed in \cref{sec:str}, but instead of (only) characters, they can contain any kind of objects and they can be modified.
 
-In \cref{lst:lists:lists_1}, we provide some first examples for using lists.
+With program \programUrl{lists:lists_1} in \cref{lst:lists:lists_1}, we provide some first examples for using lists.
 A list can be defined by simply writing its contents, separated by~\pythonilIdx{,} inside square brackets~\pythonil{[...]}\pythonIdx{[\idxdots]}.
 \pythonil{["apple", "pear", "orange"]} creates a list with three elements, namely the strings \pythonil{"apple"}, \pythonil{"pear"}, and~\pythonil{"orange"}.
 If we want to store a list in a variable, then we can use the \pgls{typeHint}~\pythonil{list[elementType]}\pythonIdx{list!type hint} where \pythonil{elementType} is to be replaced with the type of the list elements~\cite{PEP585}.
@@ -58,7 +58,7 @@ Finally, elements can also be deleted from the list by their index.
 \pythonIdx{del}\pythonIdx{list!del}\pythonil{del food[1]} deletes the second element from the list~\pythonil{food}.
 The second element is \pythonil{pear} and if we print \pythonil{food} again, it has indeed disappeared.
 
-In \cref{lst:lists:lists_2}, we illustrate some more operations on lists.
+In program \programUrl{lists:lists_2} in \cref{lst:lists:lists_2}, we illustrate some more operations on lists.
 We begin again by creating a list, this time of numbers: \pythonil{numbers: list[int] = [1, 7, 56, 2, 4]} creates (and type-hints) a list of five integers.
 If we want to know whether an element is included in a list, we can use the \pythonilIdx{in}~operator\pythonIdx{list!in}.
 \pythonil{7 in numbers} returns \pythonil{True} if \pythonil{7} is located somewhere inside the list~\pythonil{numbers} and \pythonil{False} otherwise.
@@ -96,7 +96,7 @@ Now, both \pythonil{cpy == numbers}\pythonIdx{==} and \pythonil{cpy is numbers}\
 By the way, in the same manner as \pythonilIdx{not in} is the opposite of the \pythonil{in}~operator, \pythonilIdx{not is} is the opposite of~\pythonilIdx{is}:
 \pythonil{cpy is not numbers} yields \pythonil{True} because \pythonil{cpy} is not the same object as \pythonil{numbers}.
 
-In \cref{lst:lists:lists_3}, we continue our journey through the magical land of \python\ \pythonils{list}.
+Program \programUrl{lists:lists_3} given in \cref{lst:lists:lists_3} continues our journey through the magical land of \python\ \pythonils{list}.
 You can add two lists~\pythonil{a} and~\pythonil{b} using \pythonilIdx{+}\pythonIdx{list!+}, i.e., do \pythonil{c = a + b}.
 The result is a new list which contains all elements of the first list~\pythonil{a} followed by all the elements from the second list~\pythonil{b}.
 Therefore, the expression \pythonil{[1, 2, 3, 4] + [5, 6, 7]} results in \pythonil{[1, 2, 3, 4, 5, 6, 7]}.

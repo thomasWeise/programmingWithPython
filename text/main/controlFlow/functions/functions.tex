@@ -193,7 +193,7 @@ Matter of fact, by choosing the module-based update, we do not even need to assu
 Because if~$b>a$, then~$a \bmod b=a$ and we would just switch~$a$ and~$b$ in the first step.
 If~$a=b$, then~$a \bmod b=0$ and we would immediately terminate after the first step and return~$a$ as the greatest common divisor.
 
-This algorithm is implemented in \cref{lst:functions:def_gcd} as function~\pythonil{gcd}.
+This algorithm is implemented in file \programUrl{functions:def_gcd} given in \cref{lst:functions:def_gcd} as function~\pythonil{gcd}.
 Our new function \pythonil{gcd} has two integer parameters, \pythonil{a} and~\pythonil{b}.
 It returns another~\pythonil{int}.
 Notice the proper \pglspl{typeHint} in the function header.
@@ -702,9 +702,11 @@ Indeed, we may have only realized this issue once we began thinking about testin
 Well, even if you did realize all these problems long before me, the issue stands:
 We can benefit tremendously from tests.%
 %
+\FloatBarrier%
 \endhsection%
 %
 \hsection{Function Arguments: Default Values, Passing them by Name, and Constructing them}%
+\FloatBarrier%
 %
 \gitLoadPython{functions:normal_pdf}{}{functions/normal_pdf.py}{}%
 \listingPython{functions:normal_pdf}{%
@@ -714,60 +716,88 @@ Implementing the probability density function~(PDF) of the normal distribution a
 \listingPythonAndOutput{functions:use_normal_pdf}{%
 Using the PDF of the normal distribution implemented in \cref{lst:functions:normal_pdf}.}{}%
 %
-After the brief introduction into \pglspl{unitTest}, let us now come to a lighter topic: passing arguments to functions.%
-We have already seen examples for this.
-Our \pythonil{gcd} function from back in \cref{lst:functions:def_gcd} has two parameters \pythonil{a} and \pythonil{b} and we can invoke it by writing the values of these parameters in parentheses.
+After the discussion of \pglspl{unitTest}, let us now come to a lighter topic: passing arguments to functions.
+We have already seen many examples for this.
+Our \pythonil{gcd} function from back in \cref{lst:functions:def_gcd} has two parameters \pythonil{a} and \pythonil{b}.
+We can invoke this function by writing the values of these parameters in parentheses after the function name.
 \pythonil{gcd(12, 4)} will invoke \pythonil{gcd} and assign \pythonil{12} to \pythonil{a} and \pythonil{4} to \pythonil{b}.
+What else can we do with parameters?
 
 We can also let parameters have so-called \emph{default values}.\pythonIdx{function!parameter!default value}\pythonIdx{function!argument!default}
-If a parameter has a default value, then we can either specify the value of the parameter when calling the function \emph{or} we can simply omit it, i.e., not assign a value to it.
+If a parameter has a default value, then specifying a value for the parameter when calling the function becomes optional.
+Wee can specify the value of the parameter \emph{or} we can simply omit it, i.e., not assign a value to it.
 In the latter case, the parameter will then have the default value.
 From inside the function, this looks the same as if we passed in the default value.
 
-As a simple example, let us implement the probability density function~(PDF) of the normal distribution.
+As a simple example, let us implement the \pgls{mathPDF} of the normal distribution~\cite{AS1972HOMFWFGAMT,EHP2000SD,W2007HBOSDFE}.
 You may remember from high school math that this function, let's call it~$f$, defined as%
 %
 \begin{equation}%
-f(x, \mu, \sigma) = \frac{1}{\sqrt{2\numberPi\sigma^2}} e^{\frac{-(x-\mu)^2}{2\sigma^2}}%
+f(x, \mu, \sigma) = \frac{1}{\sqrt{2\numberPi\sigma^2}} \numberE^{\frac{-(x-\mu)^2}{2\sigma^2}}%
 \label{eq:normalDistributionPdf}%
 \end{equation}%
 %
 \begin{figure}%
 \centering%
 \includegraphics[width=0.65\linewidth]{\currentDir/normalDistPdf}%
-\caption{A sketch of the probability density function of the normal distribution given in \cref{eq:normalDistributionPdf}.}%
+\caption{A sketch of the \pgls{mathPDF} of the normal distribution given in \cref{eq:normalDistributionPdf}.}%
 \label{fig:normalDistPdf}%
 \end{figure}%
 %
-Here, $\mu$~is the arithmetic mean, i.e., the expected value, of the distribution and $\sigma$~is its standard deviation~(making $\sigma^2$~its variance).
-$x$~is the variable of this function.
-This function describes typical bell-shaped curve of the normal distribution as sketched in \cref{fig:normalDistPdf}.
+Here, $\mu$~is the expected value of the distribution and $\sigma$~is its standard deviation~(making $\sigma^2$~its variance).
+$x$~is, so to say, the input value of this function.
+It represents a value that a normally-distributed random variable could take on.
+This function~$f$ describes typical bell-shaped curve of the normal distribution as sketched in \cref{fig:normalDistPdf}.
 Implementing this function as a, well, function in \python\ is straightforward.
-\Cref{lst:functions:normal_pdf}\pythonIdx{pi}\pythonIdx{exp}\pythonIdx{sqrt} offers the function \pythonil{pdf} with three parameters: \pythonil{x}, \pythonil{mu}, and~\pythonil{sigma}, which represent~$x$, $\mu$, and~$\sigma$.%
+The \python\ file \programUrl{functions:normal_pdf} in \cref{lst:functions:normal_pdf}\pythonIdx{pi}\pythonIdx{exp}\pythonIdx{sqrt} offers the function \pythonil{pdf} with three parameters:~\pythonil{x}, \pythonil{mu}, and~\pythonil{sigma}, which represent~$x$, $\mu$, and~$\sigma$, respectively.%
 %
 \begin{sloppypar}\pythonIdx{function!call}%%
-Now, the two parameters~$\mu$ and~$\sigma$ of~$f$ (respectively~\pythonil{mu} and~\pythonil{sigma} of~\pythonil{pdf}) represent the general normal distribution.
-The \emph{standard} normal distribution has $\mu=0$ and $\sigma=1$, i.e., is centered around the mean~$0$ and has a standard deviation (and variance) of~$1$.
+Now, with the two parameters~$\mu$ and~$\sigma$ of~$f$~(respectively~\pythonil{mu} and~\pythonil{sigma} of~\pythonil{pdf}), we can represent the general normal distribution.
+The \emph{standard} normal distribution has~$\mu=0$ and~$\sigma=1$, i.e., is centered around the mean~$0$ and has a standard deviation~(and variance) of~$1$.
+Very often, we want to compute the \pythonil{pdf} for the standard normal distribution.
 We therefore define the \emph{default} values for \pythonil{mu} to be~\pythonil{0.0} and for \pythonil{sigma} to be~\pythonil{1.0}.
 This is done directly in the header of the function.
-Instead of writing \pythonil{x: float, mu: float, sigma: float}, we write \pythonil{x: float, mu: float = 0.0, sigma: float = 1.0}.%
+Instead of writing \pythonil{x: float, mu: float, sigma: float}, we just have to write \pythonil{x: float, mu: float = 0.0, sigma: float = 1.0}.%
 \end{sloppypar}%
 %
-In \cref{lst:functions:use_normal_pdf}, we import our new \pythonil{pdf} function and use it inside a program.
+Nothing changes regarding how the parameters are used inside the function.
+We just use them completely normally, like any other parameter.
+The function body does not know where their values come from.
+
+In order to implement the \pgls{mathPDF} of the normal distribution, we first need to import the functions~\pythonilIdx{exp} and~\pythonilIdx{sqrt} from the module~\pythonilIdx{math} as well as the constant~\pythonilIdx{pi}.
+Here, \pythonil{exp(x)} computes~$\numberE^{\pythonil{x}}$.
+The term~$2\sigma^2$ appears twice in \cref{eq:normalDistributionPdf}, once under the square root in the first fraction and once in the fraction used in the exponent.
+So we compute it once and store it in a variable~\pythonil{s2}.
+This simplifies the equation to~$[\numberE^{-(x-\mu)^2 / \pythonil{s2}}]/[\sqrt{\numberPi*\pythonil{s2}}]$.
+Notice how the power operator~\pythonil{a ** 2}\pythonIdx{**} is equivalent to~$\pythonil{a}^2$.
+
+In program \programUrl{functions:use_normal_pdf} given in \cref{lst:functions:use_normal_pdf}, we import and use our new \pythonil{pdf} function.
 When calling \pythonil{pdf}, we can omit the values of the parameters with default values, in which case they will take on their default values.
-For example, invoking \pythonil{pdf(0.0)} if equivalent to calling~\pythonil{pdf(0.0, 0.0, 1.0)}.
+For example, invoking \pythonil{pdf(0.0)} is equivalent to calling~\pythonil{pdf(0.0, 0.0, 1.0)}.
 We also can specify some of the parameters with default values while omitting others.
 For instance, the function call \pythonil{pdf(2.0, 3.0)} is the same as \pythonil{pdf(2.0, 3.0, 1.0)}.
-Obviously, we must always specify the first parameter~(\pythonil{x}), because it has no default value.%
+Obviously, we must always specify the first parameter~(\pythonil{x}), because it has no default value.
+
+Default values do not need to be \pglspl{literal}.
+They can also be the results of expressions, such as~\pythonil{sqrt(2.0)}.
+However, they are only evaluated exactly once, when the function is defined~\cite{H2025PM:MDA}.
+Then they are stored in the function header and reused whenever needed.
+This has an interesting implication:
+What if the default value for a function argument is mutable, say, a \pythonil{list} or \pythonil{set}?
+Well, they never should be.
+Because that could lead to awful problems~\cite{H2025PM:MDA}.
 %
 \bestPractice{defaultValues}{%
 \pythonIdx{function!parameter!default value}\pythonIdx{function!argument!default}%
-Default parameter values must always be immutable.}%
+Default parameter values must always be immutable~\cite{H2025PM:MDA}.}%
 %
-The default value of a function must always be immutable.
+The default value of a function argument must always be immutable.
 If you would pass in, e.g., a \pythonil{list}, then the function could modify the list and the next call to this function would then receive this modified list.
 Even worse, if the function was to return the list, it could be modified outside of the function.
 The behavior of such code could become arbitrarily hard to debug.
+
+In cases where a parameter is of a mutable type and we require a default value for it, we could instead use \pythonilIdx{None}.
+Inside the function body, we could then check for \pythonilIdx{None} and implement appropriate behavior.
 
 Back to business.\pythonIdx{function!parameter!by name}\pythonIdx{function!argument!by name}
 What would we do if we want to specify the value of the parameter \pythonil{sigma} of our function, but leave \pythonil{mu} at its default value?

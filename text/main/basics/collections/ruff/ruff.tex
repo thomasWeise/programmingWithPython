@@ -46,7 +46,7 @@ We provide a script for using \ruff\ with a reasonable default configuration in 
 %
 \gitExec{exec:lists:lists_error:ruff}{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh collections lists_error.py}%
 \listingToolOutput{lists:lists_error:ruff}{%
-The results of linting with \ruff\ of the program given in \cref{lst:lists:lists_error}. (We used the script given in \cref{lst:bash:ruff} on \cpageref{lst:bash:ruff} to apply \ruff.)}%
+The results of linting with \ruff\ of the program \programUrl{lists:lists_error} given in \cref{lst:lists:lists_error}. (We used the script given in \cref{lst:bash:ruff} on \cpageref{lst:bash:ruff} to apply \ruff.)}%
 %
 Let us apply \ruff\ to the program \programUrl{lists:lists_error} given in \cref{lst:lists:lists_error}.
 This can be done by executing the command \bashil{ruff check myfile.py}, where \textil{myfile.py} is the file to be checked~(you can also specify a directory).
@@ -83,7 +83,7 @@ We can leave this outer call to \pythonil{list} away.
 The corrected version of~\cref{lst:lists:lists_error}, taking into account the information given by \mypy\ in \cref{exec:lists:lists_error:mypy} and \ruff\ in \cref{exec:lists:lists_error:ruff}.}{}%
 %
 %
-In \cref{lst:lists:lists_fixed} we implement the three recommendations from the two tools.
+In \cref{lst:lists:lists_fixed} we implement the three recommendations from the two tools as program \programUrl{lists:lists_fixed}.
 We change the \pgls{typeHint} of the list to \pythonil{list[int]}, which solves the type confusion that \mypy\ discovered.
 We remove the useless copying of the list as \ruff\ recommended.
 Finally, we add a proper \pgls{docstring} at the top of the file, in which we even document the changes we applied.

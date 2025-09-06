@@ -15,11 +15,11 @@ A third example of using tuples in \python:~testing the immutability property.}%
 %
 \gitExec{exec:tuples:tuples_3:mypy}{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh collections tuples_3.py}%
 \listingToolOutput{tuples:tuples_3:mypy}{%
-The results of static type checking with \mypy\ of the program given in \cref{lst:tuples:tuples_3}.}%
+The results of static type checking with \mypy\ of the program \programUrl{tuples:tuples_3} given in \cref{lst:tuples:tuples_3}.}%
 %
 \gitExec{exec:tuples:tuples_3:ruff}{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh collections tuples_3.py}%
 \listingToolOutput{tuples:tuples_3:ruff}{%
-The results of the \ruff\ \pgls{linter} applied to the program given in \cref{lst:tuples:tuples_3}.}%
+The results of the \ruff\ \pgls{linter} applied to the program \programUrl{tuples:tuples_3} given in \cref{lst:tuples:tuples_3}.}%
 %
 \pythonIdx{tuple}%
 Tuples are very similar to lists, with three differences:
@@ -64,7 +64,7 @@ We quickly test only the former by asking \pythonil{'pear' in fruits}, which eva
 The \pythonilIdx{index}\pythonIdx{tuple!index}, too, is available and \pythonil{fruits.index('apple')} returns~\pythonil{0} because \pythonil{"apple"} is the very first element of~\pythonil{fruits}.
 %
 \begin{sloppypar}%
-In \cref{lst:tuples:tuples_2} we explore tuples containing elements of multiple different types.
+With program \programUrl{tuples:tuples_2} in \cref{lst:tuples:tuples_2}, we explore tuples containing elements of multiple different types.
 The \pgls{typeHint} \pythonil{tuple[str, int, float]} states that we want to define a tuple where the first element is a string, the second element is an integer number, and the third element is a floating point number.
 The line \pythonil{mixed: tuple[str, int, float] = ("apple", 12, 1e25)} stores such a tuple in the variable~\pythonil{mixed}.
 The first element of the tuple is the string~\pythonil{"apple"}.

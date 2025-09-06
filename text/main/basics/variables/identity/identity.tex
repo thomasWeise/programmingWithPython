@@ -61,7 +61,7 @@ However, \pythonil{a is b} would be \pythonil{False}, because they still referen
 If I would declare a variable \pythonil{d = a}, then \pythonil{d} would point to exactly the same \pythonil{float} object as~\pythonil{a}.
 Now, both \pythonil{a == b} and \pythonil{a is b} are \pythonil{True}.
 
-A simple example of the difference between equality and identity is given in \cref{lst:variables:identity_1}.
+A simple example of the difference between equality and identity is given in program \programUrl{variables:identity_1} as \cref{lst:variables:identity_1}.
 Here, we declare a \pythonil{float} variable and store in it the value of~$\sqrt{2}$ (as exactly as it can be represented by a \python\ \pythonil{float}, that is), which just so happens to be \pythonil{1.4142135623730951}.
 We then import the function \pythonilIdx{sqrt} from the \pythonilIdx{math} module and compute~\pythonil{sqrt(2.0)}.
 We store the result of this in a second variable, namely \pythonil{sqrt_2_computed}.
@@ -76,7 +76,7 @@ In the rest of this subsection, we discuss (albeit superficially) how objects ar
 First-time readers are welcome to skip over the rest of this subsection.%
 }%
 %
-A slightly more involved example of the issue of object equality and identity is given in \cref{lst:variables:identity_2}.
+A slightly more involved example of the issue of object equality and identity is given in program \programUrl{variables:identity_2} as \cref{lst:variables:identity_2}.
 You see, when the \python\ interpreter parses the program code file, it will allocate the memory and store the values of constants and \pglspl{literal}.
 \cref{lst:variables:identity_2}, we declare \pythonil{a = "Hello World!"} and then \pythonil{b = "Hello World!"}.
 In other words, \pythonil{a} and \pythonil{b} will receive the same value.

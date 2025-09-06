@@ -28,7 +28,7 @@ The statements that are not indented anymore will be executed regardless of the 
 %
 Let's use this construct to check whether a year is a leap year.
 According to the Gregorian calendar, a year~$y$ is a leap year if $y$~is divisible by~4 but not by~100; or if it is divisible by~400~\cite{EOEBEB:LR}.
-\cref{lst:conditionals:if} implements this rule.
+Program \programUrl{conditionals:if} in \cref{lst:conditionals:if} implements this rule.
 We begin by storing the year that we want to investigate in the integer variable \pythonil{year}.
 But how can we check the condition?
 
@@ -98,7 +98,7 @@ They are only executed if the Boolean expression used in the \pythonilIdx{if}~li
 After this code, un-indented instructions can follow, which would then be executed regardless of which branch of the alternative was chosen.
 
 This now allows us to, for example, print one text if a year is a leap year and print another text otherwise.
-In \cref{lst:conditionals:if_else} we show exactly this functionality.
+In \cref{lst:conditionals:if_else} we show exactly this functionality with program \programUrl{conditionals:if_else}.
 We modify our leap year check program to also print text if the year is not a leap year.
 For this purpose, we use the new \pythonil{else}\nobreakdashes-branch.
 Additionally, we also show that there can be multiple statements both in the \pythonilIdx{if} and the \pythonilIdx{else} block.

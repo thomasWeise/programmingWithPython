@@ -86,7 +86,7 @@ The operations for the points should only accept instances of this data structur
 If I am accessing the x\nobreakdashes-coordinate of a point, it should be absolutely clear from the semantics and names involved that this is, indeed, the x\nobreakdashes-coordinate and not something else, not just the first number of a \pythonil{tuple} of two numbers.
 
 Such clear semantics can be achieved with \pythoniles{class}\pythonIdx{class} in \python.
-In \cref{lst:classes:point}, you can find exactly this example.
+In \cref{lst:classes:point}, you can find exactly this example as file \programUrl{classes:point}.
 We create the \pythonil{class Point}\pythonIdx{class} inside a \python\ file \programUrl{classes:point}.
 This is done relatively easily:
 All we have to do is to begin a block with, well, \pythonil{class Point:}.
@@ -203,7 +203,7 @@ We could now go on and add more methods that do reasonable computations with ins
 For now, this simple example will suffice.
 Let us instead take a look on how one would use our new class.
 
-In \cref{lst:classes:point_user}, we begin by creating one instance of~\pythonil{Point} and store it in a variable~\pythonil{p1}.
+In program \programUrl{classes:point_user} given as \cref{lst:classes:point_user}, we begin by creating one instance of~\pythonil{Point} and store it in a variable~\pythonil{p1}.
 Since~\pythonil{p1} is supposed to reference an instance of~\pythonil{Point}, its \pgls{typeHint} should denote this.
 Here we can use \pythonil{Point} just like any other datatype.
 We write \pythonil{p1: Point = Point(3, 5)}.
@@ -384,7 +384,7 @@ There exists a variety of different implementations of this so-called \citeautho
 \Citeauthor{N1974REVZSES}, for example, came up with a tweak to improve the precision in \citeyear{N1974REVZSES} in the case that the running sum is smaller than the numbers we add~\cite{N1974REVZSES}.
 \Citeauthor{K2006AGKBSA}~\cite{K2006AGKBSA} then improved the precision further by, basically, maintaining an error sum for the error sum, i.e., created a second degree error sum (and more).
 This most advanced and accurate algorithm is given in \cref{algo:kahanSum}.
-And we are now going to implement this in \cref{lst:classes:kahan_sum}.
+And we are now going to implement this in file \programUrl{classes:kahan_sum} given as \cref{lst:classes:kahan_sum}.
 
 What we have learned so far allows us to already implement proper and useful algorithms.
 This no longer is child's play, this is the real deal.
@@ -435,7 +435,7 @@ We now can place the last line of the algorithm that returns the final result of
 And we are done.
 We now have translated a non-trivial mathematical algorithm into a piece of \python\ code.
 
-In \cref{lst:classes:kahan_user}, we now use our new \pythonil{KahanSum} class to sum up some numbers.
+In program \programUrl{classes:kahan_user} given as \cref{lst:classes:kahan_user}, we now use our new \pythonil{KahanSum} class to sum up some numbers.
 We compare its result with the built-in function~\pythonilIdx{sum} and the exact summation function~\pythonilIdx{fsum} from the \pythonilIdx{math} module.
 We find that all three summation can correctly add up \pythonil{[1e-15, 1e-14, 1e-13, 1e-16, 1e-12]} to~\pythonil{1.1111e-12}.
 \pythonilIdx{sum} returns \pythonil{0.0} for the sum of~\pythonil{[1e+18, 1, -1e+18]} as well as for~\pythonil{[1e+36, 1e+18, 1, -1e+36, -1e+18]}.

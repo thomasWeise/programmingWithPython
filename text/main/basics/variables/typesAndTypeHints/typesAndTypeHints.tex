@@ -9,7 +9,7 @@ An example of the types of variables.}{}%
 A variable is basically a name pointing to an object.
 Each object has a type and we already learned about several of these datatypes~(\pythonil{int}, \pythonil{bool}, \pythonil{str}, \dots) in \cref{sec:simplyDataTypesAndOperations}.
 We can obtain the type of an object stored in variable \pythonil{var} by invoking \pythonil{type(var)}\pythonIdx{type}.
-\Cref{lst:variables:types} shows a program that does just that and the output of that program is given in \cref{lst:variables:types}.
+\Cref{lst:variables:types} shows a program \programUrl{variables:types} that does just that and the output of that program is given in \cref{exec:variables:types}.
 It is obvious that the type of a variable that holds an integer value is~\pythonilIdx{int}, the type of a variable that holds a floating point number is~\pythonilIdx{float}, and so on.
 There really is not much to say about that.%
 \endhsection%
@@ -64,7 +64,7 @@ Well.
 At first glance.
 However, there are also problems.
 
-Let's take a look at \cref{lst:variables:types_wrong}.
+Let's take a look at program \programUrl{variables:types_wrong} given as \cref{lst:variables:types_wrong}.
 We declare a variable named \pythonil{int_var} and store the integer~\pythonil{8} in it.
 Then we update \pythonil{int_var} by computing \pythonil{int_var = int_var / 3}.
 Back in \cref{sec:int}, you learned that the \pythonilIdx{//} operator performs an integer division with an \pythonil{int} result, whereas the division using the \pythonilIdx{/} operator always returns a \pythonil{float}~\cite{PEP238}.
@@ -283,7 +283,7 @@ The \python\ intereter ignores \pglspl{typeHint}.
 It does not care whether we violate them or not in our code.
 However, if we type-check them with \mypy, we get two different results, namely \cref{exec:variables:variable_types_wrong_hints_1:mypy,exec:variables:variable_types_wrong_hints_2:mypy}, respectively.
 
-In \cref{lst:variables:types_wrong_hints_1}, we annotate \pythonil{int_var} as an integer variable by writing \pythonil{int_var: int}.
+In program \programUrl{variables:types_wrong_hints_1} given as \cref{lst:variables:types_wrong_hints_1}, we annotate \pythonil{int_var} as an integer variable by writing \pythonil{int_var: int}.
 While the name of the variable already indicates that we want it to hold integers, we now have formally specified this intention.
 The \mypy\ type checker tells is in \cref{exec:variables:variable_types_wrong_hints_1:mypy} basically the same as it stated in \cref{exec:variables:variable_types_wrong:mypy}, namely that assigning a \pythonil{float} to this variable is wrong.
 
@@ -294,7 +294,7 @@ Thus annotating the variable only with \pythonil{: float} would have been suffic
 However, since \pythonil{int} is actually \emph{not} a subclass of \pythonil{float} in \python, this can be confusing. %
 Writing \pythonil{int | float} gives me the opportunity to introduce the \pythonil{|}~operator {\dots} so this is how we do it.%
 }
-This annotation is used in \cref{lst:variables:types_wrong_hints_2}.
+This annotation is used in program \programUrl{variables:types_wrong_hints_2} in \cref{lst:variables:types_wrong_hints_2}.
 A side-effect of using this type is that, when writing this code, its author would have realized that the name \pythonil{int_var} would not be an appropriate name.
 They would probably have used something like \pythonil{my_var} instead.
 Applying \mypy\ to this program yields the output \cref{exec:variables:variable_types_wrong_hints_2:mypy}, which indicates that everything is OK.

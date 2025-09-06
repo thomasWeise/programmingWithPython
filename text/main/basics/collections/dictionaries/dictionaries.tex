@@ -12,7 +12,7 @@ The concept of dictionary is also known as hash table or hash map in other langu
 Sets and dictionaries in \python\ are implemented using similar datastructures~\cite{PSF:TPW:TC}, namely hash tables~\cite{K1998SAS,CLRS2009ITA,SKS2019DSC}, and thus exhibit similar performance.%
 %
 \begin{sloppypar}%
-\cref{lst:dicts:dicts_1} shows some examples of how we can use dictionaries.
+\Cref{lst:dicts:dicts_1} shows program \programUrl{dicts:dicts_1} with some examples of how we can use dictionaries.
 A dictionary can be created again using the \pythonil{\{...\}}\pythonIdx{\textbraceleft\idxdots\textbraceright!dict} syntax, however, this time, we place comma-separated \pythonil{key-value} pairs within the curly braces.
 The \pglspl{typeHint} for dictionaries\pythonIdx{dict!type hint} is \pythonil{dict[keyType][valueType]}, where \pythonil{keyType} is the type for the keys and \pythonil{valueType} is the type for the values~\cite{PEP585}.
 The line \pythonil{num_str: dict[int, str] = \{2: "two", 1: "one", 3: "three", 4: "four"\}} therefore creates a new dictionary and stores it in the variable \pythonil{num_str}.
