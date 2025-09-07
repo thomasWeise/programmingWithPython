@@ -797,44 +797,74 @@ Even worse, if the function was to return the list, it could be modified outside
 The behavior of such code could become arbitrarily hard to debug.
 
 In cases where a parameter is of a mutable type and we require a default value for it, we could instead use \pythonilIdx{None}.
-Inside the function body, we could then check for \pythonilIdx{None} and implement appropriate behavior.
-
-Back to business.\pythonIdx{function!parameter!by name}\pythonIdx{function!argument!by name}
-What would we do if we want to specify the value of the parameter \pythonil{sigma} of our function, but leave \pythonil{mu} at its default value?
+Inside the function body, we could then check for \pythonilIdx{None} and implement appropriate behavior.%
+%
+\begin{sloppypar}%
+Let's circle back to passing arguments to functions.
+Assume that we have a function \pythonil{def g(x: int, y: int)}.
+Normally, we would call it like~\pythonil{g(1, 2)}, in which case the function body sees \pythonil{x == 1} and \pythonil{y == 2}.
+However, you can also pass in arguments very much in the same way that you use to assign a variable, in the form~\pythonil{parameterName=value}.
+We could write \pythonil{g(x = 1, y = 2)} or, if we feel naughty, \pythonil{g(y = 2, x = 1)}.
+Both variants will be equivalent to our original function call.
+All we did is to explicitly write the names of the parameters when providing their values.%
+\end{sloppypar}%
+%
+\pythonIdx{function!parameter!by name}\pythonIdx{function!argument!by name}%
+We now revisit our \pythonil{pdf} function defined in file \programUrl{functions:normal_pdf} and used in \programUrl{functions:use_normal_pdf}, given in \cref{lst:functions:normal_pdf,lst:functions:use_normal_pdf}, respectively.
+The function \pythonil{pdf} has a parameter \pythonil{x} without default value, followed by a parameter \pythonil{mu} with default value, which, in turn, is followed by a parameter \pythonil{sigma} with default value.
+What would we do if we want to specify the value of the parameter \pythonil{sigma} of our function, but leave \pythonil{mu} at its default value?%
+%
+\begin{sloppypar}%
 We can do this by passing in values by parameter name:
 \pythonil{pdf(-2.0, sigma=3.0)}~passes in \pythonil{-2.0} for~\pythonil{x} and \pythonil{3.0} for~\pythonil{sigma}.
-It does not specify any value for~\pythonil{mu}, leaving it at its default value, which renders the call equivalent to~\pythonil{pdf(-2.0, 0.0, 3.0)}.
+It does not specify any value for~\pythonil{mu}, leaving it at its default value.
+This renders the call equivalent to~\pythonil{pdf(-2.0, 0.0, 3.0)}.
 This passing in of arguments by specifying \pythonil{parameterName=value} also allows us to specify the arguments in arbitrary order.
 \pythonil{pdf(mu=8.0, x=0.0, sigma=1.5)} is an example of this.
 Don't do such things, though.%
-%
-\begin{sloppypar}%
-\Cref{lst:functions:use_normal_pdf} provides also another interesting way to call a function in \python.
-As we have established by now, the parameters of a function have names.
-If we write something like \pythonil{mu=8.0, x=0.0, sigma=1.5} to assign arguments, this looks very similar to the way we created dictionary constants back in \cref{sec:dictionaries} and \cref{lst:dicts:dicts_1}.
-Calling \pythonil{pdf(-2.0, sigma=3.0)} is equivalent to writing~\pythonil{pdf(x=-2.0, sigma=3.0)}.%
 \end{sloppypar}%
 %
+\begin{sloppypar}%
+\Cref{lst:functions:use_normal_pdf} illustrates also another interesting way to call a function in \python.
+As we have established by now, the parameters of a function have names.
+We can write something like \pythonil{pdf(mu=8.0, x=0.0, sigma=1.5)} to assign arguments.
+Calling \pythonil{pdf(-2.0, sigma=3.0)} is equivalent to writing~\pythonil{pdf(x=-2.0, sigma=3.0)}.
+Passing arguments to a function basically means to a assign values to keys~(the parameters).
+This is at least a little bit similar to the creation of a dictionary \pglspl{literal}.%
+\end{sloppypar}%
+%
+In fact, \python\ allows us to also construct the arguments for a function call in a collection.
 We can create a dictionary with the values \pythonil{\{"x": -2.0, "sigma": 3.0\}}.
-Let's call this dictionary~\pythonil{args_dict}.
-Can we now somehow pass in these values to~\pythonil{pdf}?
-We indeed can:
+Let's store this dictionary in variable~\pythonil{args_dict}.
+Can we now somehow pass in the key-value pairs from \pythonil{args_dict} as parameter-argument pairs to~\pythonil{pdf}?
+
+Indeed, we can.
 We just have to write~\pythonil{pdf(**args_dict)}.\pythonIdx{**!function parameter}\pythonIdx{function!parameter!**}\pythonIdx{function!argument!**}\pythonIdx{function!argument!keyword}\pythonIdx{dict}
 Doing this will unpack the dictionary \pythonil{args_dict} and pass all the values under their assigned names in as arguments to their corresponding parameters.
 \pythonil{pdf(**args_dict)} is thus equivalent to~\pythonil{pdf(x=-2.0, sigma=3.0)}.
-Two things are to notice here:
-First, the double~\pythonil{*}\pythonIdx{*!function parameter}\pythonIdx{function!argument!*}\pythonIdx{function!parameter!*} (called %
-wildcard\pythonIdx{wildcard}\pythonIdx{function!argument!wildcard}\pythonIdx{function!parameter!wildcard}, %
-star\pythonIdx{star}\pythonIdx{function!argument!star}\pythonIdx{function!parameter!star}, or %
-asterisk\pythonIdx{asterisk}\pythonIdx{function!argument!asterisk}\pythonIdx{function!parameter!asterisk}) %
-\emph{before} the dictionary, i.e., the~\pythonil{**}\pythonIdx{**!function parameter} is telling \python\ to unpack the dictionary this way.
-Second, default argument values still apply here, i.e., \pythonil{mu} will have value~\pythonil{0.0} in this function call.
 
-Similarly, maybe we do not care about the parameter names but want pass them in by position, as we have always done in the past.
+Two things are to notice here:
+First, the double~\pythonil{*}\pythonIdx{*!function parameter}\pythonIdx{function!argument!*}\pythonIdx{function!parameter!*}.
+The \pythonil{*} here is often called %
+wildcard\pythonIdx{wildcard}\pythonIdx{function!argument!wildcard}\pythonIdx{function!parameter!wildcard}, %
+star\pythonIdx{star}\pythonIdx{function!argument!star}\pythonIdx{function!parameter!star} or %
+asterisk\pythonIdx{asterisk}\pythonIdx{function!argument!asterisk}\pythonIdx{function!parameter!asterisk}. %
+The double-wildcard \pythonil{**} is written \emph{before} the dictionary.
+The~\pythonil{**}\pythonIdx{**!function parameter} is telling \python\ to unpack the dictionary this way.
+Second, default argument values still apply here.
+We did not specify a value for~\pythonil{mu}.
+This means that \pythonil{mu} will have value~\pythonil{0.0} in this function call.
+
+Maybe we do not want to pass in the arguments by parameter names but simply by position.
+Actually, we have always done it like this in the past.
 Then, we can construct a sequence, e.g., a \pythonilIdx{list} or \pythonilIdx{tuple} with the parameter values.
 Of course, \pythonilsIdx{list} and \pythonilsIdx{tuple} do not store key-value relationships, only values at positions.
 We could create a tuple~\pythonil{args_tuple} with the value~\pythonil{(-2.0, 7.0, 3.0)}.
-Then, invoking \pythonil{pdf(*args_tuple)} will basically fill in the three values in their into the parameters, i.e., will be equivalent to~\pythonil{pdf(-2.0, 7.0, 3.0)}.
+
+Then, we  invoke \pythonil{pdf} like this:~\pythonil{pdf(*args_tuple)}.
+This will basically fill in the (three) values from the \pythonil{tuple} one by one into the parameter slots of the function.
+In other words, this is equivalent to writing~\pythonil{pdf(-2.0, 7.0, 3.0)}.
+
 This time, only a single wildcard~\pythonil{*}\pythonIdx{*!function parameter}\pythonIdx{function!argument!*}\pythonIdx{function!parameter!*} is placed before~\pythonil{args_tuple}.
 We can also pass the parameters in by \inQuotes{unpacking} a list.
 In our example \cref{lst:functions:use_normal_pdf}, we create the list \pythonil{args_list = [2.0, 3.0]}.
@@ -845,7 +875,7 @@ At first glance, the use of all of the above is not entirely clear.
 What do we need default parameter values for?
 Well, in some cases, you may want to enable a user to \inQuotes{customize} your functions.
 A typical example is the \href{https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html}{\pythonilIdx{plot} method} of the \pythonilIdx{Axes} object provided by popular \matplotlib\ library.
-You will normally provide a sequence of x-\ and y\nobreakdashes-coordinates to this function it will draw a line which goes through all the points specified this way.
+You will normally provide sequences of x-\ and y\nobreakdashes-coordinates to this function it will draw a line which goes through all the points specified this way.
 However, you can also optionally specify a color for the line, markers to be painted at the points, line dash style, a label, colors and sizes for the markers, a z\nobreakdashes-order to be used if multiple lines are drawn, and so on, and so on.
 The use of default arguments allows the function call to be relatively simple in most cases, while still allowing the user to do more complex formatting if need be.
 
@@ -853,10 +883,18 @@ From this example, we can also directly extrapolate a use case for building the 
 Imagine that you write an own function that uses one of the plotting methods of \matplotlib.
 Let's say that your function does a plot call where it provides ten parameter values.
 However, you have one special case where you need to provide one more parameter, maybe a line dash style that you otherwise do not need to provide.
-Then, you could have some \pythonil{if} in your code that branches to do the ten-parameter-call in one case and the eleven-parameter-call in the other.
+Then, you could have some \pythonil{if ... else} in your code that branches to do the ten-parameter-call in one case and the eleven-parameter-call in the other.
 This means that a rather complex function call appears twice in a very similar manner.
-If you instead construct the parameters in a dictionary and in the \pythonil{if} branch just add the eleventh parameter if need be, your code will become much simpler.%
-%
+If you instead construct a dictionary with the ten parameters.
+In the \pythonil{if} branch just add the eleventh parameter if need be.
+We now only need a single function call using the double-wildcard method.
+The code will become much simpler.
+The difference between the two cases will also be much more obvious.
+We have reduced the potential for errors significantly.
+
+With the default parameter values and function calls via \pythonil{*} and \pythonil{**}, we learned two more aspects that make it easier for us to work with functions in \python.
+With the default values, we can now design more versatile function-based \pglspl{API} that allow the user of our function to provide values for some parameters, while leaving others at reasonable default settings.
+By constructing arguments in collections, we can create code that is easier to read when we deal with functions with many arguments that may be called slightly differently depending on the situation.%
 \FloatBarrier%
 \endhsection%
 %

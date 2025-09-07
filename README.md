@@ -51,6 +51,7 @@ Die Slides zum Kurs in deutscher Sprache können unter <https://thomasweise.gith
 26. [Funktionen definieren und aufrufen](https://thomasweise.github.io/programmingWithPythonSlidesDE/26_funktionen_definieren_und_aufrufen.pdf)
 27. [Funktionen in Modulen](https://thomasweise.github.io/programmingWithPythonSlidesDE/27_funktionen_in_modulen.pdf)
 28. [Zwischenspiel: Unit Tests](https://thomasweise.github.io/programmingWithPythonSlidesDE/28_unit_tests.pdf)
+29. [Funktionsargumente](https://thomasweise.github.io/programmingWithPythonSlidesDE/29_funktionsargumente.pdf)
 
 
 ### 2.3. The Slides in English
