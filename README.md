@@ -52,6 +52,9 @@ Die Slides zum Kurs in deutscher Sprache können unter <https://thomasweise.gith
 27. [Funktionen in Modulen](https://thomasweise.github.io/programmingWithPythonSlidesDE/27_funktionen_in_modulen.pdf)
 28. [Zwischenspiel: Unit Tests](https://thomasweise.github.io/programmingWithPythonSlidesDE/28_unit_tests.pdf)
 29. [Funktionsargumente](https://thomasweise.github.io/programmingWithPythonSlidesDE/29_funktionsargumente.pdf)
+30. [Funktionen als Parameter, `Callable`s und `lambda`s](https://thomasweise.github.io/programmingWithPythonSlidesDE/30_callables_und_lambdas.pdf)
+31. [Ausnahmen auslösen](https://thomasweise.github.io/programmingWithPythonSlidesDE/31_ausnahmen_auslösen.pdf)
+32. [Ausnahmen verarbeiten](https://thomasweise.github.io/programmingWithPythonSlidesDE/32_ausnahmen_verarbeiten.pdf)
 
 
 ### 2.3. The Slides in English

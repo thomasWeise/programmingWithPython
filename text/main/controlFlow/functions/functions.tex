@@ -683,7 +683,7 @@ In particular, \sqlite\ strives to be:\par\relax[\dots]\par\relax%
 \textbf{Reliable}.
 There are over 600~lines of test code for every line of code in \sqlite~\cite{HWACIS:HO2023WKUOS}.
 Tests cover 100\% of branches in the library.
-The test suite is extremely diverse, including fuzz tests, boundary value tests, regression tests, and tests that simulate operating system crashes, power losses, I/O~errors, and out-of-memory errors.
+The test suite is extremely diverse, including fuzz tests, boundary value tests, regression tests, and tests that simulate operating system crashes, power losses, \pgls{inOut}~errors, and out-of-memory errors.
 Due to its reliability, \sqlite\ is often used in mission-critical applications such as flight software~\cite{HWACIS:HO2024HSIT}%
 }%
 %
@@ -898,14 +898,17 @@ By constructing arguments in collections, we can create code that is easier to r
 \FloatBarrier%
 \endhsection%
 %
-\hsection{Functions as Parameters or Variables, \texttt{Callable}, and \texttt{lambda}s}%
+\hsection{Functions as Parameters, \texttt{Callable}s, and \texttt{lambda}s}%
 \label{sec:functionsAsVarsAndLambdas}%
 %
-We have just learned that we can basically construct a function call by placing the parameter values into collection objects and then invoke the function by \inQuotes{unpacking} the collection using either \pythonil{*} (for position-based parameters) or \pythonil{**} (for dictionaries).
+We have learned how to define and call functions.
+We learned how functions can return their results.
+We learned how to test functions.
+And we just learned that we can basically construct a function call by placing the parameter values into collection objects and then invoke the function by \inQuotes{unpacking} the collection using either~\pythonil{*}~(for position-based parameters) or~\pythonil{**}~(for dictionaries).
 But there is one more interesting thing that we can do with functions.
-You see, in \python, all things are objects.
+You see, in \python, all things are objects~\cite{H2025PM:EIAO,PSF:P3D:TPLR:DM}.
 References to objects can be stored by variables or passed in as function arguments.
-Functions are objects too.
+Functions are objects too~\cite{H2025PM:EIAO}.
 This means that we can also store functions in variables or pass them as argument to other functions!
 
 At first glance, this sounds awfully odd.
@@ -914,70 +917,93 @@ At second glance, there are a wide variety of situations where we would actually
 Having done so many mathematics-based examples in this book, let's pick one such situation arising in maths.
 
 In high school, you have learned about integration and differentiation.
-A \emph{definite integral} is the formal calculation of the area under a function, using infinitesimal stripes of the region.
-The second fundamental theorem of calculus states:
-Given a function~$f(x)$ which is continuous over the real interval~$[a,b]$ and its antiderivative~$F(x)$, the definite integral $\int_a^b f(x)\,dx = F(b)-F(a)$ (where antiderivative means that~$F'=f$).
+A \emph{definite integral} is the formal calculation of the area under a function over a certain range along the \pgls{xAxis}.
+It uses \pgls{infinitesimal}~\cite{EOWM2025MWAMTD:I,KS2013LITFTMIATFFBTRAB} stripes over the region to do so.
+
+The second\footnote{%
+Depending on the source, sometimes this is also called the first fundamental theorem of calculus~\cite{W2024MAWWR:SFTOC}.%
+} %
+fundamental theorem of calculus states~\cite{W2024MAWWR:SFTOC,A1991C:1:PFATSFTOC}:
+Given a function~$f(x)$ which is continuous over the real interval~$[a,b]$ and its antiderivative~$F(x)$, the definite integral $\int_a^b f(x)\,dx = F(b)-F(a)$~(where antiderivative means that~$F'=f$).
 In other words, if we want to get the area beneath~$f(x)$ over the interval~$[a,b]$, we would first obtain the antiderivative and then simply calculate~$F(b)-F(a)$.
-Obtaining the antiderivative involves pen and paper symbolic maths.
+
+Obtaining the antiderivative involves pen-and-paper symbolic maths.
 We cannot really program such maths at this stage in this book as an example.
-But we can go back to the original definition of the definite integral, namely that it equals the area beneath the function obtained by using infinitesimal (read:~immeasurably small) strips of the region.
+But we can go back to the original definition of the definite integral, namely that it equals the area beneath the function over the interval~$[a,b]$.
+This area can obtained by using \pgls{infinitesimal}~(read:~immeasurably small) strips of the region.
 
 While we cannot really use \inQuotes{immeasurably small} strips, we could use \inQuotes{fairly small} ones to approximate the right result.
-If we have a function~$f(x)$, which would obviously be a parameter of our program, as well as the interval limits~$a$ and~$b$, we could divide the range~$[a,b]$ into~$n$ strips.
-For each strip, we could approximate the area beneath~$f(x)$, add up the~$n$ areas, and have a rough approximation of the total area.
-$n$~could be another parameter for our integration approach:
-The larger~$n$, the smaller will the strips get, the more accurate should our estimate become (and the longer it will take to get it).%
+Let's say that we have a function~$f(x)$ as a parameter of our program.
+We would also have the interval limits~$a$ and~$b$ as parameters.
+Then we could divide the range~$[a,b]$ into $n$~strips.
+For each strip, we could approximate the area beneath~$f(x)$.
+Then we add up the $n$~areas, and have a rough approximation of the total area.
+$n$~could be another parameter for our integration approach.
+The larger~$n$, the smaller will the strips get, the more accurate should our estimate become~(and the longer it will take to get it).%
 %
 \begin{figure}%
 \centering%
 \includegraphics[width=0.65\linewidth]{\currentDir/normalDistPdfInteg}%
-\caption{A sketch of the trapezoid method for approximating definite integrals.}%
+\caption{A sketch of the composite trapezoid method for approximating definite integrals.}%
 \label{fig:normalDistPdfInteg}%
 \end{figure}%
 %
 \gitLoadAndExecPython{functions:integral}{}{functions}{integral.py}{}%
 \listingPythonAndOutput{functions:integral}{%
-Using the trapezoid method to numerically approximate definite integrals, as sketched in \cref{fig:normalDistPdfInteg}.}{}%
+Using the composite trapezoid method to numerically approximate definite integrals, as sketched in \cref{fig:normalDistPdfInteg}.}{}%
 
-The trapezoid method is one very simple implementation of this idea~\cite{E2013AITNMAA}.
+This brings us to the question how we can do this, in particular, how to approximate the area of one such strip.
+The composite trapezoid method is one very simple implementation of this idea~\cite{S2021ITNM:NIATROTTR,E2013AITNMAA,A1991AITNA}.
 As illustrated in \cref{fig:normalDistPdfInteg}, it treats the strips as right trapezoids.
 The baseline of the trapezoid is a piece of the \pgls{xAxis} with length~$h=(b-a)/n$.
 Clearly, $n*h=b-a$ and thus, $n$~trapezoids of equal base length form the range of the \pgls{xAxis} under~$f(x)$.
 The baseline first trapezoid starts right at~$x=a$ and extends to~$x=a+h$.
 The second trapezoid starts at~$x=a+h$ and extends to~$x=a+2h$.
 The last trapezoid starts at~$x=a+(n-1)h$ and extends to~$x=a+nh=b$.
-Each trapezoid has two sides meeting with its baseline in right angles.
+Each trapezoid has two parallel sides meeting with its baseline in right angles.
 The length of these sides are the values of~$f(x)$ at the corresponding x\nobreakdashes-coordinate.
 The area of the $i$\nobreakdashes-th trapezoid is thus~$h[f(a+(i-1)h)+f(a+ih)]/2$.
 Summing up the $n$~areas yields an approximation of the definite integral, as sketched in \cref{fig:normalDistPdfInteg}.
 
 Each value~$f(a+ih)$ except for $i=0$ and $i=n$ appears twice in the sum and each time is halved.
 Instead of computing these values twice, dividing them by two, and then adding them, we can simply compute them only once.
-Our implementation \pythonil{integrate} of this approach, given in \cref{lst:functions:integral}, does exactly that.
 
-The interesting part of our \pythonil{integrate} method, however, is not the approximation of the integral.
-It is the header.
+We want to implement this method as a function \pythonil{integrate}.
+Obviously, \pythonil{integrate} has the parameters \pythonil{a} and \pythonil{b} denoting the limits of the interval to integrate over.
+We allow them to be either \pythonil{int} or \pythonils{float}, denoted by the \pgls{typeHint} \pythonil{float | int}.
+Let's give them the default values \pythonil{0.0} and \pythonil{1.0}, respectively.
+Then there is the parameter \pythonil{n}, an \pythonil{int}, denoting the number of trapzes we need to construct.
+A good default value for it may be \pythonil{100}.
+But we need another parameter, namely the function \pythonil{f} that we want to integrate.
+How can we specify this parameter?
+
+The answer is given as program \programUrl{functions:integral} shown in \cref{lst:functions:integral}.
+The most interesting part of our \pythonil{integrate} function is its header.
 More precisely, it is the first parameter:~\pythonil{f: Callable[[float], float | int]}\pythonIdx{Callable}\pythonIdx{typing}.
 \pythonilIdx{Callable} is the \pgls{typeHint} for anything that can be called, i.e., functions~\cite{PSF:P3D:TPSL:ACO}.
-Like the \pgls{typeHint} for lists and tuples, it can be parameterized following the scheme~\cite{PEP612}:%
+Like the \pglspl{typeHint} for lists and tuples, it can be parameterized following a scheme with square braces~\cite{PEP612}:%
 %
 \pythonSyntax{syntax/callable.py}%
 %
-In other words, inside the \pythonil{Callable[...]}, we first provide the list of parameter types, then a comma~\pythonil{,} followed by the return type.
-\pythonil{f: Callable[[float], float | int]} thus states that our function expects, as first parameter, \emph{another function}~\pythonil{f}.
+Inside the \pythonil{Callable[...]}, we first provide the list of types of the parameters of function, again in square brackets.
+Then follows a comma~\pythonil{,} and then follows the return type.
+The \pythonil{f: Callable[[float], float | int]} in our listing thus states that our function \pythonil{integrate} expects, as first parameter, \emph{another function}~\pythonil{f}.
 \pythonil{f}~must accept one parameter of type~\pythonil{float}.
-Its return type is \pythonil{float | int}, i.e., it should return either a~\pythonil{float} or~\pythonil{int}\pythonIdx{\textbar!type hints}~\cite{PEP604}.
+The return type of~\pythonil{f} is \pythonil{float | int}, i.e., it should return either a~\pythonil{float} or an~\pythonil{int}\pythonIdx{\textbar!type hints}~\cite{PEP604}.
 Notice that the type \pythonilIdx{Callable} is provided by the module~\pythonilIdx{typing}\footnote{%
 \cite{PSF:P3D:TPSL:ACO}~states that this import is now deprecated and we should use \pythonil{collections.abc.Callable}\pythonIdx{collections.abc} instead. %
 In the past, this created some errors for me, so for now we stick with using~\pythonilIdx{typing}.}, %
-so we need to import it first if we want to use it.%
-%
-\begin{sloppypar}%
-Additionally, our \pythonil{integrate} function accepts two parameters~\pythonil{a} and~\pythonil{b} which must be of type~\pythonil{float | int}, i.e., can either be an \pythonil{float} or \pythonil{int}.
-Their default values are~\pythonil{0.0} and~\pythonil{1.0}, meaning that we will integrate over~$[0,1]$ if they are not specified.
-As final parameter, we expect an integer~\pythonil{n}, by default~\pythonil{100}, which corresponds to the number of trapezoids that we shall use for the approximation.%
-\end{sloppypar}%
-%
+so we need to import it first if we want to use it.
+
+The actual implementation of \pythonil{integrate} is straightforward.
+Inside the function, we add up the different trapezes as shown in the simplified equation in \cref{fig:normalDistPdfInteg}.
+Only the values of \pythonil{f} at the interval ends \pythonil{a} and \pythonil{b} need to be halved in the sum.
+We therefore initialize the sum \pythonil{result} as \pythonil{0.5 * (f (a) + f(b))}.
+We compute the trapez base length~\pythonil{h} as~\pythonil{(b - a) / n}.
+Then we iterate counter~\pythonil{i} from \pythonil{1} to \pythonil{n - 1} and add \pythonil{f(a + h * i)} to \pythonil{result} in each step.
+Finally, we return need to multiply this with the trapez base length~\pythonil{h} to get the approximation of the area under the curve.
+We thus return \pythonil{result * h}.
+
 Let's now test how well our trapezoid-based integration works.
 First, let's compute the definite integral~$\int_0^1 1\,dx$.
 For this purpose, we need to pass the function~$f(x)=1$ as the~\pythonil{f} parameter of~\pythonil{integrate}.
@@ -989,13 +1015,21 @@ where the \pythonil{_}\pythonIdx{\_} indicates that we are actually going to ign
 We could then invoke~\pythonil{integrate(const_1)}.
 
 However, there also is a more compact way to specify functions that we are only going to use once:
-The so-called \pythonilsIdx{lambda}~\cite{PSF:P3D:TPLR:L}, which have the structure%
+The so-called \pythonilsIdx{lambda}~\cite{PSF:P3D:TPLR:L}, nameless functions defined inline, which have the structure%
 %
 \pythonSyntax{syntax/lambda.py}%
 %
+This inline function definition begins with the keyword \pythonilIdx{lambda}.
+Then, the names of the parameters follow~(if any), separated by commas~\pythonil{,}.
+Then there is a colon~\pythonil{:}, after which an expression computing the return value of the inline function follows.
+The special thing about \pythonils{lambda} is, that their body only consists of this single expression.
+They are basically a single line of code with the only purpose to compute a return value.
 Due to the \pythonilIdx{:} in the notation, we cannot annotate \pythonilsIdx{lambda} with \pglspl{typeHint}.
 As a \pythonil{lambda} expression is very small and only used once, this does not pose a serious problem.
-Either way, since we need one parameter for our 1-returning-function and since we do not care about the value of this parameter, we can simply write:%
+
+We now need to define a function returning the constant~\pythonil{1} as \pythonilIdx{lambda}.
+This function must accept one parameter, because otherwise we cannot plug it into \pythonil{integrate}.
+Since we do not care about the value of this parameter, we can simply write:%
 %
 \pythonSyntax{syntax/lambda_as_arg.py}%
 %
@@ -1003,44 +1037,47 @@ Either way, since we need one parameter for our 1-returning-function and since w
 This is clearly the case for a function that ignores its parameter and always returns~\pythonil{1.0}.
 So we pass this expression into our \pythonil{integrate} function as value of the parameter~\pythonil{f}.
 
-Obviously, the area under the constant function~$1$ over the range~$[0,1]$ is also~$1$.
+Obviously, the area under the constant function~$f(x)=1$ over the range~$[0,1]$ is also~$1$.
+Our function \pythonil{integrate} thus has passed a first sanity test.
 Using \pythonil{n=7} trapezoids, we get exactly this result.
-In the output of our program, we write~\inlinelistingbox{$\int$\lstinline[style=text_style]$1dx|0,1$} where the~\textil{|0,1} denotes the limits~$[0,1]$ of the interval over which we integrate (and we use the unicode escape \pythonil{"\\u222b"} to represent the~$\int$~character in the \pglspl{fstring}).
+In the output of our program, we write~\inlinelistingbox{$\int$\lstinline[style=text_style]$1dx|0,1$} where the~\textil{|0,1} denotes the limits~$[0,1]$ of the interval over which we integrate.
+We use the \pgls{unicode} \pgls{escapeSequence} \pythonil{"\\u222b"} to represent the~$\int$~character in the \pglspl{fstring}.
 
 Having passed this simple sanity test, let's try to compute the beneath under the function~$g(x)=x^2-2$ over the interval~$[-1,1]$, i.e.,~$\int_{-1}^1 x^2-2\,dx$.
 The antiderivative of~$g(x)$ is~$G(x)=\frac{1}{3}x^3-2x+c$ and $G(1)-G(-1)=[\frac{1}{3}-2]-[-\frac{1}{3}+2]=\frac{2}{3}-4=-3\frac{1}{3}=-3.\overline{3}$.
-We pass the function~$g(x)$ as \pythonil{lambda} expression into our \pythonil{integrate} function by writing~\pythonil{lambda x: x*x - 2}.
+We pass the function~$g(x)$ as \pythonilIdx{lambda} expression into our \pythonil{integrate} function by writing~\pythonil{lambda x: x*x - 2}.
 We also need to specify a value for the parameter~\pythonil{a}, namely~\pythonil{-1}.
-Using the default value of \pythonil{n=100} steps, our method returns~\pythonil{-3.3332}, which is fairly close to~$-3.\overline{3}$.
+Using the default value of \pythonil{n=100} steps, our function returns~\pythonil{-3.3332}, which is fairly close to~$-3.\overline{3}$.
 
-Let us now integrate the sinus function over the interval~$[0,\numberPi]$.
+We now integrate the sine function over the interval~$[0,\numberPi]$.
 We can import~\pythonilIdx{sin} from the \pythonilIdx{math}~module and pass it into our function for~\pythonil{f}.
 We also need to specify \pythonil{b = pi}\pythonIdx{pi}, which we, too, have imported from~\pythonilIdx{math}.
 This time, we use \pythonil{n = 200} trapezoids to approximate the definite integral.
 The antiderivative of~$\sin x$ is~$-\cos x+c$, so the expected output would be~$[-\cos\pi]-[-\cos 0]=[-(-1)]-[-1]=2$.
 Indeed, our function delivers about~$1.99996$, which is, again, fairly close.
 
-Let us, as final example, also integrate the probability density function~(PDF) of the normal distribution.
+As final example, we also integrate the \pgls{mathPDF} of the normal distribution.
 We implemented this function and called it \pythonil{pdf} back in \cref{lst:functions:normal_pdf}, so we just need to \pythonilIdx{import} it from there.
 Notice that this function actually had three parameters, \pythonil{x}, \pythonil{mu}, and~\pythonil{sigma}.
 The latter two had the default values~\pythonil{mu = 0.0} and~\pythonil{sigma = 1.0}.
-If these values are used, the function computes the PDF of the \emph{standard} normal distribution.
+If these default values are used, the function computes the \pgls{mathPDF} of the \emph{standard} normal distribution.
 
 \gitExec{exec:functions:integral:mypy}{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh functions integral.py}%
 \listingToolOutput{functions:integral:mypy}{%
 The results of static type checking with \mypy\ of the program given in \cref{lst:functions:integral}.}
 
-Interestingly, although we demand that the function supplied to \pythonil{integrate} should only have one parameter, we can still pass in~\pythonil{pdf} due to its second and third parameter being optional.
-Even \mypy\ accepts this function as valid parameter, as its output (or better, the lack of it) in \cref{exec:functions:integral:mypy} suggests.
+Interestingly, although we demand that the function~\pythonil{f} supplied to \pythonil{integrate} should only have one parameter, we can still pass in~\pythonil{pdf} with its three parameters as~\pythonil{f}.
+This is possible because its second and third parameter are optional.
+Even \mypy\ accepts this function as valid parameter, as its output~(or better, the lack of it) in \cref{exec:functions:integral:mypy} suggests.
 
 The standard normal distribution has standard deviation~$\sigma=1$ and mean~$\mu=0$.
-If we integrate it over the interval~$[-1,1]$, we basically compute the probability that a standard normally distributed random variable~$X$ is drawn from the interval~$[\mu-\sigma,\mu+\sigma]$, i.e., from within one standard deviation from the mean.
-As you may still know from high school math, this probability is roughly~68.26\%.
-Similarly, the probability that such a random variable is sampled from within~$[-2,2]$, i.e., not more than two standard deviations away from the mean, is about~95.44\%.
+If we integrate it over the interval~$[-1,1]$, we basically compute the probability that a standard normally distributed random variable~${\mathcal{X}}$ is drawn from the interval~$[\mu-\sigma,\mu+\sigma]$, i.e., from within one standard deviation from the mean.
+As you may still know from high school math, this probability is roughly~68.26\%~\cite{AS1972HOMFWFGAMT,EHP2000SD,W2007HBOSDFE}.
+Similarly, the probability that such a random variable is sampled from within~$[-2,2]$, i.e., not more than two standard deviations away from the mean, is about~95.44\%~\cite{AS1972HOMFWFGAMT,EHP2000SD,W2007HBOSDFE}.
 The output of our little integrator function in \cref{exec:functions:integral} fits perfectly to this.
 
 As a final clarification, let us mention that trapezoid-based approximation of definite integrals is by no means the best approach.
-Others, like Simpson's rule, are much better~\cite{E2013AITNMAA}.
+Others methods, like Simpson's rule, may often provide better results~\cite{E2013AITNMAA}.
 Still, as an example of functions that work on other functions, it was suitable.%
 \FloatBarrier%
 \endhsection%
@@ -1067,9 +1104,10 @@ Third, functions allow us to reuse pieces of code in different locations.
 If we want to compute the definite integral of two different functions, we do not have to implement two routines for integration.
 We can make one and use it in two different locations.
 
-Fourth, if we have a code with clearly defined input and output that exists in isolation from other code, then we can \emph{test} this code in isolation as well.
+Fourth, if we have a function with clearly defined input parameters and output results, then we can \emph{test} this function in isolation.
 It may be extremely difficult to test a complete program.
 However, it may be rather straightforward to test a small function.
+
 \Pglspl{unitTest}, for example using the \pytest\ framework, allow us to do just that.
 It is also not hard to imagine that \pglspl{unitTest} can compound our trust into our code:
 In the previous sections, we developed a function~\pythonil{pdf} for computing the probability density function of the normal distribution and a function~\pythonil{integrate} for approximating definite integrals.
