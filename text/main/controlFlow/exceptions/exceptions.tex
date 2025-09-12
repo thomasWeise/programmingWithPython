@@ -141,7 +141,7 @@ Faulty input should always be signaled by errors conditions breaking the program
 \hsection{Raising Exceptions}%
 %
 Raising exceptions is very easy.
-\python\ offers us a variety of different types of exceptions, which we explore in more detail later in \cref{sec:builtInExceptions}.
+\python\ offers us a variety of different types of exceptions.
 Some prominent examples are \pythonilIdx{ValueError}, which is used when a parameter has an incorrect value, and \pythonilIdx{TypeError}, which we use if a parameter has an illegal type.
 If you want to signal an error of a specific type, all you have to do is to write \pythonilIdx{raise}, followed by the exception type.
 If, additionally, you also want to provide an error message, then you can write provide this message as string in parentheses directly after the exception type name.%
@@ -345,9 +345,99 @@ Safe coding therefore always is a trade-off.%
 \FloatBarrier%
 \endhsection%
 %
+%
+%
+\hsection{Built-in Exceptions}%
+\label{sec:builtInExceptions}%
+%
+\begin{figure}%
+\centering%
+\renewcommand*\DTstylecomment{\relax}%
+\renewcommand*\DTstyle{\small}%
+%
+\dirtree{%
+.1 \pythonilIdx{BaseException}\DTcomment{the base \pythonilIdx{class} for all exceptions}.
+.2 \pythonilIdx{Exception}\DTcomment{situations where reasonable error handling should be possible}.
+.3 \pythonilIdx{ArithmeticError}\DTcomment{an arithmetic operation failed}.
+.4 \pythonilIdx{FloatingPointError}\DTcomment{not used by \python, but, e.g., \pgls{numpy} on invalid floating point operations}.
+.4 \pythonilIdx{OverflowError}\DTcomment{the result of an arithmetic operations is too large, see, e.g., \cref{sec:float:special}}.
+.4 \pythonilIdx{ZeroDivisionError}\DTcomment{a division by zero occurred, see, e.g., \cref{sec:unitTesting}}.
+.3 \pythonilIdx{AssertionError}\DTcomment{if an \pythonilIdx{assert} failed, see, e.g., \cref{sec:unitTesting}}.
+.3 \pythonilIdx{BufferError}\DTcomment{a buffer-related operation could not be performed}.
+.3 \pythonilIdx{EOFError}\DTcomment{the end of \pgls{stdin} was reached by \pythonilIdx{input} without reading data}.
+.3 \pythonilIdx{AttributeError}\DTcomment{when an attribute reference or assignment failed}.
+.3 \pythonilIdx{ImportError}\DTcomment{when an \pythonilIdx{import} statement fails}.
+.4 \pythonilIdx{ModuleNotFoundError}\DTcomment{a module cannot be loaded}.
+.3 \pythonilIdx{LookupError}\DTcomment{a key or index used on a dictionary or sequence was invalid}.
+.4 \pythonilIdx{IndexError}\DTcomment{a sequence index is out of range, see, e.g., \cref{sec:strBasicOperations}}.
+.4 \pythonilIdx{KeyError}\DTcomment{a dictionary key is not found, see, e.g., \cref{sec:dictionaries}}.
+.3 \pythonilIdx{MemoryError}\DTcomment{when we are out of memory}.
+.3 \pythonilIdx{NameError}\DTcomment{e.g., when reading an unassigned variable, see, e.g., \cref{lst:variables:assignment_wrong,lst:exceptions:try_multi_except}}.
+.4 \pythonilIdx{UnboundLocalError}\DTcomment{reference to a local method or function to which no value is bound}.
+.3 \pythonilIdx{OSError}\DTcomment{an operating system function failed}.
+.4 \pythonilIdx{BlockingIOError}\DTcomment{a blocking operation is applied to an object set for non-blocking operations}.
+.4 \pythonilIdx{ChildProcessError}\DTcomment{an operation on a child process failed}.
+.4 \pythonilIdx{ConnectionError}\DTcomment{a connection- or pipe-related error}.
+.5 \pythonilIdx{BrokenPipeError}\DTcomment{when trying to write into a pipe whose other end has been closed}.
+.5 \pythonilIdx{ConnectionAbortedError}\DTcomment{connection attempt aborted by peer}.
+.5 \pythonilIdx{ConnectionRefusedError}\DTcomment{connection refused by peer}.
+.5 \pythonilIdx{ConnectionResetError}\DTcomment{connection reset by peer}.
+.4 \pythonilIdx{FileExistsError}\DTcomment{trying to create a file that already exists}.
+.4 \pythonilIdx{FileNotFoundError}\DTcomment{trying to access a file or directory that does not exist}.
+.4 \pythonilIdx{IsADirectoryError}\DTcomment{trying to do a file operation with a directory}.
+.4 \pythonilIdx{NotADirectoryError}\DTcomment{trying to apply a directory operation to a file}.
+.4 \pythonilIdx{PermissionError}\DTcomment{trying to perform an operation without the necessary access rights}.
+.4 \pythonilIdx{ProcessLookupError}\DTcomment{trying to access a process that does not exist}.
+.4 \pythonilIdx{TimeoutError}\DTcomment{an operation timed out}.
+.3 \pythonilIdx{ReferenceError}\DTcomment{a weakly-referenced object is accessed after being garbage collected}.
+.3 \pythonilIdx{RuntimeError}\DTcomment{an error that does not fall into the other categories}.
+.4 \pythonilIdx{NotImplementedError}\DTcomment{a method is not yet implement, but will be later, see, e.g., \cref{sec:inheritance}}.
+.4 \pythonilIdx{PythonFinalizationError}\DTcomment{an operation is blocked during interpreter shutdown}.
+.4 \pythonilIdx{RecursionError}\DTcomment{the maximum recursion depth of functions is reached}.
+.3 \pythonilIdx{StopAsyncIteration}\DTcomment{signals the end of an asynchronous iteration; not an error}.
+.3 \pythonilIdx{StopIteration}\DTcomment{signals the end of an iteration; not an error, see \cref{sec:iterable}}.
+.3 \pythonilIdx{SyntaxError}\DTcomment{an malformed \python\ file}.
+.4 \pythonilIdx{IndentationError}\DTcomment{incorrectly indented code}.
+.5 \pythonilIdx{TabError}\DTcomment{inconsistent use of tabs and spaces}.
+.3 \pythonilIdx{SystemError}\DTcomment{an internal error of the interpreter}.
+.3 \pythonilIdx{TypeError}\DTcomment{some parameter was of a wrong type or \pythonilIdx{None}, see, e.g., \cref{sec:tuples}}.
+.3 \pythonilIdx{ValueError}\DTcomment{a parameter has the right type but an inappropriate value, see, e.g., \cref{lst:exceptions:try_except_str_index}}.
+.4 \pythonilIdx{UnicodeError}\DTcomment{an error when dealing with \pgls{unicode} text}.
+.5 \pythonilIdx{UnicodeDecodeError}\DTcomment{an error occurred when decoding \pgls{unicode} text}.
+.5 \pythonilIdx{UnicodeEncodeError}\DTcomment{an error occurred when encoding \pgls{unicode} text}.
+.5 \pythonilIdx{UnicodeTranslateError}\DTcomment{an error occurred when translating \pgls{unicode} text}.
+.2 \pythonilIdx{GeneratorExit}\DTcomment{when a \pythonilIdx{Generator} or coroutine terminate; not an error}.
+.2 \pythonilIdx{KeyboardInterrupt}\DTcomment{when the user hits \keys{\ctrl+C}}.
+.2 \pythonilIdx{SystemExit}\DTcomment{raised by \pythonilIdx{exit}; not an error}.
+}%
+%
+\caption{An overview of the hierarchy of \pythonilsIdx{Exception} in \python~\cite{PSF:P3D:TPSL:BIE}.}%
+\label{fig:pythonExceptions}%
+\end{figure}%
+%
+A wide variety of things may go wrong during the execution of a computer program.
+We have already explored a lot of different potential errors, ranging from using an invalid index when accessing a list to dividing a number by zero.
+In \python, \pythonilsIdx{Exception} are raised\pythonIdx{raise} in such a situation.
+An \pythonilIdx{Exception} disrupts the normal control flow and propagates upwards until a corresponding \pythonilIdx{except} clause is reached.
+Obviously, we cannot just treat every possible error condition in the same way.
+
+Running out of memory is a completely different situation than trying to read from a non-existing file.
+Therefore, different types of exceptions are raised:
+The former problem causes a \pythonilIdx{MemoryError} while the latter raises an \pythonilIdx{FileNotFoundError}.
+The hierarchy of the different problem types is illustrated in \cref{fig:pythonExceptions}~\cite{PSF:P3D:TPSL:BIE}.
+Some exceptions are special cases of other exceptions.
+For example \pythonilsIdx{ArithmeticError} denote general errors during an arithmetic computation, whereas \pythonilsIdx{OverflowError} mark such computation errors that cause a value to become too large for representation.
+Therefore, each \pythonilIdx{OverflowError} is also an \pythonilIdx{ArithmeticError}.
+
+While these exceptions can be caused by errors during the operations that \python\ provide, we can also raise them by ourselves.
+Of course, the documentation of the \python\ functions tells us which exceptions they could raise.
+And so should the \pglspl{docstring} of our own code as well as the library functions that we rely on.%
+\FloatBarrier%
+\endhsection%
+%
 \hsection{Handling Exceptions}%
 %
-We have just learned how we can raise exceptions in order to signal errors.
+We have learned how we can raise exceptions in order to signal errors.
 So far, the exceptions that we raised caused our processes to print an error message to the \pgls{stderr} and then to terminate.
 Of course, we do not want that all possible unexpected error conditions will immediately terminate our process.
 
@@ -439,7 +529,7 @@ The \pythonilIdx{except} block is not to be used to just catch any exception, to
 %
 \gitLoadAndExecPythonAndErrors{exceptions:try_multi_except}{}{exceptions}{try_multi_except.py}{}%
 \listingPythonAndError{exceptions:try_multi_except}{%
-The handling of multiple errors, namely \pythonilIdx{ZeroDivisionError} and \pythonilIdx{ArithmeticError}, as well as what happens if a variable remains unassigned due to an error (a \pythonilIdx{NameError} is raised).}%
+The handling of multiple errors, namely \pythonilIdx{ZeroDivisionError} and \pythonilIdx{ArithmeticError}, as well as what happens if a variable remains unassigned due to an error~(a \pythonilIdx{NameError} is raised).}%
 %
 In \cref{lst:exceptions:try_multi_except}, we revisit our new \pythonil{sqrt} function.
 This function will \pythonilIdx{raise} an \pythonilIdx{ArithmeticError} if its argument is non-finite or negative.
@@ -816,34 +906,111 @@ Finally, we can also write robust code that makes sure that resources are proper
 \endhsection%
 %
 %
-\hsection{Testing Exceptions}%
+\hsection{Interlude:~Testing for Exceptions}%
 \label{sec:testingExceptions}%
 %
-\gitLoadPython{exceptions:test_sqrt_raise}{}{exceptions/test_sqrt_raise.py}{}%
-\listingPython{exceptions:test_sqrt_raise}{%
-A \pgls{unitTest} checking that our new variant of the \pythonil{sqrt} function given in \cref{lst:exceptions:sqrt_raise} properly raises an \pythonilIdx{ArithmeticError} if its input is non-finite or negative.}%
-%
-\gitExec{exec:exceptions:test_sqrt_raise:pytest}{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest.sh exceptions test_sqrt_raise.py}%
-\listingToolOutput{exceptions:test_sqrt_raise:pytest}{%
-The output of the \pglspl{unitTest} in \cref{lst:exceptions:test_sqrt_raise}: %
-The \pythonilsIdx{ArithmeticError} are correctly raised.}%
-%
-
-Back in \cref{sec:unitTesting}, we introduced the concept of \pglspl{unitTest} and show how the tool \pytest\ can be used to test our functions.
+Back in \cref{sec:unitTesting}, we introduced the concept of \pglspl{unitTest}.
+Together, we explored how the tool \pytest\ can be used to test our functions.
 We stated in \cref{bp:unitTestCoverage} that we should cover all the branches of the control flow inside a function with \pglspl{unitTest}.
-One kind of branch that is often overlooked are \pythonilsIdx{Exception} and extension handling~\cite{LRBP2021AEHTPIOSL}.
+One kind of branch that is often overlooked are \pythonilsIdx{Exception} and exception handling~\cite{LRBP2021AEHTPIOSL}.
 
-If our function is supposed to \pythonilIdx{raise} a certain exception in some cases, then we should have a \pgls{unitTest} that checks if this \pythonilsIdx{Exception} is actually raised as it should be.
+If our function is supposed to \pythonilIdx{raise} a certain exception under some conditions, then we should have a \pgls{unitTest} that checks if this \pythonilsIdx{Exception} is actually raised as it should be.
 Now, any exception raised by a \pgls{unitTest} will cause the test to fail.
 This seems to contradict our goal to intentionally raise the exceptions.
 Luckily, \pytest\ offers us a device for this.
 
-Let us expand our \cref{lst:functions:test_my_math_2} for testing the \pythonil{sqrt} function to now also test for \pythonilsIdx{ArithmeticError}.
-The \pythonilIdx{pytest} module offers a so-called context manager~\cite{PSF:P3D:TPSL:CUFWSC} named \pythonilIdx{raises}.
-If we want to check whether a function indeed raises a certain exception of type \pythonil{ExpectedExceptionType} for a given input, then we can wrap the corresponding function call into \pythonil{with raises(ExpectedExceptionType):}.
-This is block tells the \pytest\ system that, in the following, indented, block, we expect that a certain exception must be raised.
+The \pythonilIdx{pytest} module offers a context manager~\cite{PSF:P3D:TPSL:CUFWSC} named \pythonilIdx{raises}\pythonIdx{pytest!raises}.
+We just learned how we can use such context managers via the \pythonilIdx{with}-statement.
+If we want to check whether a function indeed raises a certain exception of type \pythonil{ExceptionType} for a given input, then we can wrap the corresponding function call into \pythonil{with raises(ExceptionType):}.
+This is block tells \pytest\ that in the following indented block an exception of type \pythonil{ExceptionType} must be raised.
 If such an exception is not raised, the test fails.
-If it is raised, the text succeeds.
+If it is raised, the test succeeds.
+
+We also have learned that we can provide a error message as parameter when we raise an exception.
+The \pythonilIdx{raises}\pythonIdx{pytest!raises} context manager also allows us to compare the string representation of the exception~(which is usually equivalent to that error message) to a certain \pgls{regex}.
+We therefore provide the \pgls{regex} as parameter \pythonil{match}.
+Then, the \pgls{unitTest} will fail either if no exception of type \pythonil{ExceptionType} is raised \emph{or} if such an exception is raised, but its error message does not match the \pgls{regex} in \pythonil{match}.%
+%
+\pythonSyntax{syntax/pytest_raises.py}%
+\FloatBarrier%
+%
+\gitLoadPython{exceptions:test_sqrt_raise_2}{}{exceptions/test_sqrt_raise_2.py}{}%
+\listingPython{exceptions:test_sqrt_raise_2}{%
+A \pgls{unitTest} checking that our new variant of the \pythonil{sqrt} function given in \programUrl{exceptions:sqrt_raise_2} in \cref{lst:exceptions:sqrt_raise_2} properly raises an \pythonilIdx{ArithmeticError} if its input is non-finite or negative and a \pythonilIdx{TypeError} if the input type does not fit.}%
+%
+\gitExec{exec:exceptions:test_sqrt_raise_2:pytest}{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest.sh exceptions test_sqrt_raise_2.py}%
+\listingToolOutput{exceptions:test_sqrt_raise_2:pytest}{%
+The output of the \pglspl{unitTest} in \cref{lst:exceptions:test_sqrt_raise_2}: %
+The \pythonilsIdx{ArithmeticError} and \pythonilsIdx{TypeError} are correctly raised.}%
+%
+But what is a \pgls{regex}?
+\Pglspl{regex} offer a simple programming language for specifying text patterns that can be compared with strings.
+\Pglspl{regex} are supported by a very wide range of tools and programming languages.
+We cannot really discuss them here in-depth, but only provide some very very few examples.
+In the simplest case, a \pgls{regex} can be a normal string, like~\pythonil{\"hello\"}.
+When this string is matched against another string stored in variable~\pythonil{x}, then it matches only if \pythonil{x} is exactly equal to \pythonil{\"hello\"} and does not match otherwise.
+
+However, there are some special characters that make \pglspl{regex} more powerful.
+For example, the dot~\textil{.} stands for any character.
+The \pgls{regex} \pythonil{\"h.llo\"} would match to \pythonil{\"hello\"}, \pythonil{\"hallo\"}, and \pythonil{\"hXllo\"}, or \pythonil{\"h llo\"}.
+The star~(\textil{*}) says that the sub-pattern right in front of it can appear zero, one, or multiple times.
+In the simplest case, the sub-pattern is a single character.
+The \pgls{regex} \pythonil{\"he*llo\"} matches to \pythonil{\"hllo\"}, \pythonil{\"hello\"}, \pythonil{\"heello\"}, \pythonil{\"heeello\"}, and so on.
+The \pgls{regex} \pythonil{\"h.*llo\"} matches to \pythonil{\"hllo\"}, \pythonil{\"hello\"}, \pythonil{\"hallo\"}, \pythonil{\"heeeXYZeeeello\"}, and so on.
+
+There are many more patterns that we can form with \pglspl{regex} and there are also more special characters that we can use for that.
+However, for now, we will leave it at that.
+Feel free to explore~\cite{IEEE1993ISFITPOSIPP2SAU,PSF:P3D:PH:REH,N2018RQSRUAURE,N2019AITRE,PSF:P3D:TPSL:RREO} for more information.
+Still, I think that you can already see how using \pglspl{regex} to check whether error messages confirm to a certain structure is a very natural idea.
+
+Let us expand our \cref{lst:functions:test_my_math_3} for testing the \pythonil{sqrt} function.
+This time, we want to test the last variant of our \pythonil{sqrt} function developed as  \programUrl{exceptions:sqrt_raise_2} in \cref{lst:exceptions:sqrt_raise_2}.
+This function was an improved variant of our original \pythonil{sqrt} implementation.
+It will raise a \pythonilIdx{TypeError} if its argument is not a~\pythonil{float} with a fixed string as error message.
+It will raise an \pythonilIdx{ArithmeticError} if its argument is either negative or not a finite number and its error message will contain the offending value.
+Of course, we need to be sure that it actually does that.
+Therefore, we now want to also test for these \pythonilsIdx{ArithmeticError} and \pythonilsIdx{TypeError}.
+
+In program \programUrl{exceptions:test_sqrt_raise_2} given in \cref{lst:exceptions:test_sqrt_raise_2}, we implement a more comprehensive set of \pglspl{unitTest}.
+In the first test function, \pythonil{test_sqrt}, we perform the same tests for \inQuotes{normal} arguments as back in \cref{lst:functions:test_my_math_3}.
+Of course, we still have to test that our function behaves as expected for valid arguments.
+
+In the second test function, \pythonil{test_sqrt_raises_arithmetic_error}, we check arguments that are floating point numbers but have illegal values.
+In a \pythonil{for}-loop, we let a variable~\pythonil{number} iterate over the values \pythonil{[-1.0, inf, -inf, nan]}.
+The first value is negative and the others are not finite.
+The sanity check \pythonil{(not isfinite(number)) or (number < 0.0)} inside our function should therefore catch these values, unless we made an error and it somehow does not do what we thing it should be doing.
+Thus, all of these values should cause our \pythonil{sqrt} function to raise an \pythonilIdx{ArithmeticError}.
+The error message stored in this exception would then be constructed using the \pgls{fstring} \pythonil{f\"sqrt(\{number\}) is not permitted."}.
+
+Inside the loop in the test function, we wrap the actual function calls into a \pythonilIdx{with} block using the \pythonilIdx{raises} context manager.
+Here, we specify the expected exception class to be \pythonilIdx{ArithmeticError}.
+As pattern to match the string representation, i.e., error message, of the exception against, we provide \pythonil{\"sqrt.* is not permitted.\"}.
+%
+\begin{sloppypar}%
+In summary, this requires that \emph{each} \pythonil{sqrt}-call in the loop must raise an \pythonilIdx{ArithmeticError}.
+The error message stored in the exception object should begin with \textil{sqrt} and end with \textil{ is not permitted.}.
+In between these two string fragments, an arbitrary number of arbitrary characters can be contained.
+In other words, \pythonil{\"sqrt.* is not permitted.\"} would match against \pythonil{\"sqrt is not permitted.\"}, \pythonil{\"sqrt(1) is not permitted.\"}, \pythonil{\"sqrt(inf) is not permitted.\"}, but not \pythonil{\"sqrt is wrong.\"}.
+Even if only for one value of \pythonil{number} no such exception is raised, the test will fail.%
+\end{sloppypar}%
+%
+\begin{sloppypar}%
+Finally, in our test function \pythonil{test_sqrt_raises_type_error}, we check for \pythonilsIdx{TypeError} being raised.
+We use exactly the same pattern as in the previous test function.
+In a \pythonil{for}-loop, we let a variable~\pythonil{number} iterate over the values \pythonil{[True, "x", None]}.
+Obviously, none of these values are of type \pythonil{float}.
+The check \pythonil{isinstance(number, float)} should prevent these values from entering the actual computation.
+Unless, of course, we misunderstood how \pythonilIdx{isinstance} works.
+If our function \pythonil{sqrt} works as we think it should, it should raise an \pythonilIdx{TypeError} with the error message \pythonil{\"number must be float!\"}.
+We therefore place these function calls into a \pythonilIdx{with} block with context manager \pythonil{raises(TypeError, match=\"number must be float!\")}.
+\end{sloppypar}%
+%
+We now run \pytest\ as usual.
+As you can see in the output given as \cref{exec:exceptions:test_sqrt_raise_2:pytest}, all three tests pass.
+This means that our \pythonil{sqrt} function returns the expected results for normal computations.
+It also means that it raises an \pythonilIdx{ArithmeticError} with the appropriate message for floating point values that we do not permit.
+And it also means that it does raise a \pythonilIdx{TypeError} with appropriate message if we pass in arguments that are not floating point numbers.
+We can be confident that our implementation is correct.
 
 \gitLoadPython{exceptions:test_sqrt}{}{exceptions/test_sqrt.py}{}%
 \listingPython{exceptions:test_sqrt}{%
@@ -855,57 +1022,52 @@ The output of the \pglspl{unitTest} in \cref{lst:exceptions:test_sqrt}: %
 No error was raised in it, so the first test fails. %
 The error message in the second test does not fit, so it fails as well.}%
 %
-In particular, we can provide the exception class as well as a \pgls{regex} via the parameter~\pythonil{match} to \pythonilIdx{raises}.
-If the block does not raise an exception of the expected type, the test fails.
-If it does raise a corresponding exception, then it will be converted to a string.
-The string is then matched against the \pgls{regex} and if it indeed matches, the test succeeds.
-If it does not match, then the test fails.%
-%
-\begin{sloppypar}%
-But what is a \pgls{regex}?
-We will learn this later as well, in a part of the book that is not yet written.
-For now, let's say that a \pgls{regex} is a string pattern that can be compared with another string.
-For example, the \pythonil{"sqrt.* is not permitted."} that we use in \cref{lst:exceptions:test_sqrt_raise} is such a \pgls{regex}.
-All the \inQuotes{normal} characters in this string must match exactly gainst characters in the text it is compared against.
-The only thing that makes it different from a normal string is the \textil{.*} that it contains.
-The dot~(\textil{.}) can be replaced with any other character and the star~(\textil{*}) says that arbitrarily many such arbitrary characters are allowed.
-\pythonil{"sqrt.* is not permitted."} would thus match against \pythonil{"sqrt is not permitted."}, \pythonil{"sqrt(1) is not permitted."}, \pythonil{"sqrt(inf) is not permitted."}, but not \pythonil{"sqrt is wrong."}.
-Therefore, our produced error message must follow this pattern for the test to work.
-And, as you can find in the \pytest\ output in \cref{exec:exceptions:test_sqrt_raise:pytest}, for the values \pythonil{v in [-1.0, inf, -inf, nan]}, no error is reported.
-For these values, our \pythonil{sqrt} function does indeed raise\pythonIdx{raise} the expected \pythonilsIdx{Exception}, with the expected error messages.
-The \pgls{unitTest} succeeds.%
-\end{sloppypar}%
-%
-In \cref{lst:exceptions:test_sqrt}, we write a similar test.
+We now want to test a few more aspects of the \pythonilIdx{raises} context manager offered by module \pythonilIdx{pytest}.
+We do this in \cref{lst:exceptions:test_sqrt} presenting file \programUrl{exceptions:test_sqrt}.
 This time, we use basically the original version of our \pythonil{sqrt} function which does not by itself raise any exception.
-This function is directly implemented in the listing, in the same way as we did in \cref{lst:functions:my_math_2}, and again called \pythonil{sqrt}.
-We also write two \pglspl{unitTest} into the new file \programUrl{exceptions:test_sqrt}.
-Both are intentionally designed to show what happens if either an expected exception is not raised~(\pythonil{test_sqrt_1}) or if its error message does not match the \pythonil{match} argument~(\pythonil{test_sqrt_2}).%
-%
-\begin{sloppypar}%
-\pythonil{test_sqrt_1} simply feeds the value \pythonil{-1.0} to \pythonil{sqrt}.
+This \pythonil{sqrt} function is directly copied into the file together with four unit tests, purely for the sake of simplicity.
+
+The test \pythonil{test_raises_arithmetic_error_1} simply feeds the value \pythonil{-1.0} to \pythonil{sqrt}.
 It expects that an \pythonilIdx{ArithmeticError} should be raised.
 It does not provide a specific \pythonil{match} \pgls{regex} against which the error message should be compared.
-The output in \cref{exec:exceptions:test_sqrt:pytest} shows us that this test fails.
-If the code inside the \pythonil{with raises(ArithmeticError):} does not actually raise\pythonIdx{raise} an \pythonil{ArithmeticError}, the test fails.%
-\end{sloppypar}%
+The output of \pytest\ given in \cref{exec:exceptions:test_sqrt:pytest} shows us that this test fails.
+The reason is that the old implementation \pythonil{sqrt} simply returns~\pythonil{-1} for negative arguments.
+It does not raise any error explicitly.
+Since the function call inside the \pythonil{with raises(ArithmeticError):} does not actually raise\pythonIdx{raise} an \pythonil{ArithmeticError}, the test fails.
+
+In the second test case, \pythonil{test_raises_overflow_error}, we invoke \pythonil{sqrt(10 ** 320)}.
+We place it into a \pythonilIdx{with} block using context manager \pythonil{raises(OverflowError, match=\"int too large.*\")}.
+This means that we expect that the the code should raise an \pythonilIdx{OverflowError}.
+The exception object needs to hold a message that starts with \textil{int too large} and after that can contain arbitrary additional text.
+
+This indeed happens:
+The code in the function does floating point arithmetic.
+If we pass in an integer, it will, at some point, be converted to a \pythonil{float}.
+However, a very large integer like~$10^{320}$ is too big to be converted, as we just recently saw in \cref{sec:tryFinally}.
+This failure results in an \pythonilIdx{OverflowError}.
+The error message stored in that exception object also matches to the text pattern we provide.
+So this second test will pass.%
 %
 \begin{sloppypar}%
-The second test case, \pythonil{test_sqrt_2}, is a bit more interesting.
-It specifies \pythonil{with raises(ArithmeticError, match="sqrt.* is not permitted.")}, just like the tests in \cref{lst:exceptions:test_sqrt_raise} for the \pythonil{sqrt} function that does raise \pythonilsIdx{ArithmeticError}.
-No we do know that our original \pythonil{sqrt} from \cref{lst:functions:my_math_2} does not raise such errors \dots\ by itself.
-However, we try to compute \pythonil{sqrt(10 ** 320)}.
-This very large integer values will eventually be converted to a \pythonil{float} inside our function.
-This will fail, because it is too large, as we just discussed back in \cref{sec:tryFinally}.
-This failure results in an \pythonilIdx{OverflowError}.
-\pythonilsIdx{OverflowError} are a special case of \pythonilIdx{ArithmeticError} (see later in \cref{fig:pythonExceptions}).
-So indeed, this does fulfill our testing requirement:
-If an \pythonilsIdx{OverflowError} is also a \pythonilIdx{ArithmeticError}, so the right type of exception was raised.
-However, its error message will not fit to our \pythonil{match} argument.
-Therefore, the \pgls{unitTest} still fails.
-The output of \cref{exec:exceptions:test_sqrt:pytest} explains this clearly.%
+Then, in test \pythonil{test_raises_arithmetic_error_2}, we wrap the exact same function call into a \pythonil{with raises(ArithmeticError):}.
+We just confirmed that \pythonil{sqrt(10 ** 320)} will raise an \pythonilIdx{OverflowError}.
+Yet, this test passes.
+The reason is that an \pythonilIdx{OverflowError} is a \emph{special case} of \pythonilIdx{ArithmeticError}.
+We here did not even require a specific error message, as we did not specify the \pythonil{match} argument.
+Therefore, the tests asks for an \pythonilIdx{ArithmeticError}, sees a special case of that, and is happy.
+The third test thus also passes.%
 \end{sloppypar}%
 %
+In the fourth test, \pythonil{test_raises_arithmetic_error_3}, we again use \pythonil{sqrt(10 ** 320)}.
+This time, specify the context manager \pythonil{with raises(ArithmeticError, match=\"sqrt.* is not permitted.\")}.
+This is just the same condition that we had back in \cref{lst:exceptions:test_sqrt_raise_2} when we tested our \pythonil{sqrt} function that \emph{does} explicitly raise \pythonilsIdx{ArithmeticError}.
+Of course, the \pythonil{sqrt} function we are testing here does no such thing.
+Still, \pythonil{sqrt(10 ** 320)} does raise an \pythonilIdx{OverflowError}.
+We know that \pythonilsIdx{OverflowError} are also special \pythonilsIdx{ArithmeticError}.
+However, we also do know that the error message they contain most certainly does not fit to our required \pythonil{match} \pgls{regex} \pythonil{\"sqrt.* is not permitted.\"}.
+Therefore, this \pgls{unitTest} fails.
+The output of \cref{exec:exceptions:test_sqrt:pytest} explains this clearly.
+
 With \pytest, we can now therefore\pythonIdx{pytest}:%
 %
 \begin{enumerate}%
@@ -923,7 +1085,7 @@ We do this by using the \pythonil{with raises(...)}\pythonIdx{raises} statement.
 \end{enumerate}%
 %
 This allows us to cover both the expected and correct use of our function with tests as well as unexpected incorrect uses.
-We can then be confident that our code is unlikely to cause harm, neither due to bugs created by ourselves nor due to accidental misuse by other programmers due to misunderstandings (which would immediately signaled to them by \pythonilsIdx{Exception}).
+We can then be confident that our code is unlikely to cause harm, neither due to bugs created by ourselves nor due to accidental misuse by other programmers due to misunderstandings~(which would immediately signaled to them by \pythonilsIdx{Exception}).
 Notice that good \pglspl{unitTest} go hand in hand with good documentation in \pglspl{docstring}, because good \pglspl{docstring} reduce the chance of such misunderstandings.%
 %
 \bestPractice{testAll}{%
@@ -932,91 +1094,6 @@ The latter case should raise\pythonIdx{raise} \pythonilsIdx{Exception}, which we
 }%
 %
 \FloatBarrier%
-\endhsection%
-%
-\hsection{Built-in Exceptions}%
-\label{sec:builtInExceptions}%
-%
-\begin{figure}%
-\centering%
-\renewcommand*\DTstylecomment{\relax}%
-\renewcommand*\DTstyle{\small}%
-%
-\dirtree{%
-.1 \pythonilIdx{BaseException}\DTcomment{the base \pythonilIdx{class} for all exceptions}.
-.2 \pythonilIdx{Exception}\DTcomment{situations where reasonable error handling should be possible}.
-.3 \pythonilIdx{ArithmeticError}\DTcomment{an arithmetic operation failed}.
-.4 \pythonilIdx{FloatingPointError}\DTcomment{not used by \python, but, e.g., \pgls{numpy} on invalid floating point operations}.
-.4 \pythonilIdx{OverflowError}\DTcomment{the result of an arithmetic operations is too large, see, e.g., \cref{sec:float:special}}.
-.4 \pythonilIdx{ZeroDivisionError}\DTcomment{a division by zero occurred, see, e.g., \cref{sec:unitTesting}}.
-.3 \pythonilIdx{AssertionError}\DTcomment{if an \pythonilIdx{assert} failed, see, e.g., \cref{sec:unitTesting}}.
-.3 \pythonilIdx{BufferError}\DTcomment{a buffer-related operation could not be performed}.
-.3 \pythonilIdx{EOFError}\DTcomment{the end of \pgls{stdin} was reached by \pythonilIdx{input} without reading data}.
-.3 \pythonilIdx{AttributeError}\DTcomment{when an attribute reference or assignment failed}.
-.3 \pythonilIdx{ImportError}\DTcomment{when an \pythonilIdx{import} statement fails}.
-.4 \pythonilIdx{ModuleNotFoundError}\DTcomment{a module cannot be loaded}.
-.3 \pythonilIdx{LookupError}\DTcomment{a key or index used on a dictionary or sequence was invalid}.
-.4 \pythonilIdx{IndexError}\DTcomment{a sequence index is out of range, see, e.g., \cref{sec:strBasicOperations}}.
-.4 \pythonilIdx{KeyError}\DTcomment{a dictionary key is not found, see, e.g., \cref{sec:dictionaries}}.
-.3 \pythonilIdx{MemoryError}\DTcomment{when we are out of memory}.
-.3 \pythonilIdx{NameError}\DTcomment{e.g., when reading an unassigned variable, see, e.g., \cref{lst:variables:assignment_wrong,lst:exceptions:try_multi_except}}.
-.4 \pythonilIdx{UnboundLocalError}\DTcomment{reference to a local method or function to which no value is bound}.
-.3 \pythonilIdx{OSError}\DTcomment{an operating system function failed}.
-.4 \pythonilIdx{BlockingIOError}\DTcomment{a blocking operation is applied to an object set for non-blocking operations}.
-.4 \pythonilIdx{ChildProcessError}\DTcomment{an operation on a child process failed}.
-.4 \pythonilIdx{ConnectionError}\DTcomment{a connection- or pipe-related error}.
-.5 \pythonilIdx{BrokenPipeError}\DTcomment{when trying to write into a pipe whose other end has been closed}.
-.5 \pythonilIdx{ConnectionAbortedError}\DTcomment{connection attempt aborted by peer}.
-.5 \pythonilIdx{ConnectionRefusedError}\DTcomment{connection refused by peer}.
-.5 \pythonilIdx{ConnectionResetError}\DTcomment{connection reset by peer}.
-.4 \pythonilIdx{FileExistsError}\DTcomment{trying to create a file that already exists}.
-.4 \pythonilIdx{FileNotFoundError}\DTcomment{trying to access a file or directory that does not exist}.
-.4 \pythonilIdx{IsADirectoryError}\DTcomment{trying to do a file operation with a directory}.
-.4 \pythonilIdx{NotADirectoryError}\DTcomment{trying to apply a directory operation to a file}.
-.4 \pythonilIdx{PermissionError}\DTcomment{trying to perform an operation without the necessary access rights}.
-.4 \pythonilIdx{ProcessLookupError}\DTcomment{trying to access a process that does not exist}.
-.4 \pythonilIdx{TimeoutError}\DTcomment{an operation timed out}.
-.3 \pythonilIdx{ReferenceError}\DTcomment{a weakly-referenced object is accessed after being garbage collected}.
-.3 \pythonilIdx{RuntimeError}\DTcomment{an error that does not fall into the other categories}.
-.4 \pythonilIdx{NotImplementedError}\DTcomment{a method is not yet implement, but will be later, see, e.g., \cref{sec:inheritance}}.
-.4 \pythonilIdx{PythonFinalizationError}\DTcomment{an operation is blocked during interpreter shutdown}.
-.4 \pythonilIdx{RecursionError}\DTcomment{the maximum recursion depth of functions is reached}.
-.3 \pythonilIdx{StopAsyncIteration}\DTcomment{signals the end of an asynchronous iteration; not an error}.
-.3 \pythonilIdx{StopIteration}\DTcomment{signals the end of an iteration; not an error, see \cref{sec:iterable}}.
-.3 \pythonilIdx{SyntaxError}\DTcomment{an malformed \python\ file}.
-.4 \pythonilIdx{IndentationError}\DTcomment{incorrectly indented code}.
-.5 \pythonilIdx{TabError}\DTcomment{inconsistent use of tabs and spaces}.
-.3 \pythonilIdx{SystemError}\DTcomment{an internal error of the interpreter}.
-.3 \pythonilIdx{TypeError}\DTcomment{some parameter was of a wrong type or \pythonilIdx{None}, see, e.g., \cref{sec:tuples}}.
-.3 \pythonilIdx{ValueError}\DTcomment{a parameter has the right type but an inappropriate value, see, e.g., \cref{lst:exceptions:try_except_str_index}}.
-.4 \pythonilIdx{UnicodeError}\DTcomment{an error when dealing with \pgls{unicode} text}.
-.5 \pythonilIdx{UnicodeDecodeError}\DTcomment{an error occurred when decoding \pgls{unicode} text}.
-.5 \pythonilIdx{UnicodeEncodeError}\DTcomment{an error occurred when encoding \pgls{unicode} text}.
-.5 \pythonilIdx{UnicodeTranslateError}\DTcomment{an error occurred when translating \pgls{unicode} text}.
-.2 \pythonilIdx{GeneratorExit}\DTcomment{when a \pythonilIdx{Generate} or coroutine terminate; not an error}.
-.2 \pythonilIdx{KeyboardInterrupt}\DTcomment{when the user hits \keys{\ctrl+C}}.
-.2 \pythonilIdx{SystemExit}\DTcomment{raised by \pythonilIdx{exit}; not an error}.
-}%
-%
-\caption{An overview of the hierarchy of \pythonilsIdx{Exception} in \python~\cite{PSF:P3D:TPSL:BIE}.}%
-\label{fig:pythonExceptions}%
-\end{figure}%
-%
-A wide variety of things may go wrong during the execution of a computer program.
-We have already explored a lot of different potential errors, ranging from using an invalid index when accessing a list to dividing a number by zero.
-In \python, \pythonilsIdx{Exception} are raised\pythonIdx{raise} in such a situation.
-An \pythonilIdx{Exception} disrupts the normal control flow and propagates upwards until a corresponding \pythonilIdx{except} clause is reached.
-Obviously, we cannot just treat every possible error condition in the same way.
-
-Running out of memory is a completely different situation than trying to read from a non-existing file.
-Therefore, different types of exceptions are raised:
-The former problem causes a \pythonilIdx{MemoryError} while the later raises an \pythonilIdx{FileNotFoundError}.
-The hierarchy of the different problem types is illustrated in \cref{fig:pythonExceptions}~\cite{PSF:P3D:TPSL:BIE}.
-There, you can also see why an \pythonilIdx{except} block catching \pythonilsIdx{ArithmeticError} would also catch an \pythonilsIdx{OverflowError}, because the latter is a special case of the former.
-
-Depending on the operations that your code tries to perform, you would wrap it into \pythonilIdx{except} blocks for the errors from this list that you could reasonably expect to be able to recover from.
-Of course, the documentation of the \python\ functions that you use will tell you which exceptions it could raise.
-And so should the \pglspl{docstring} of your own code as well as library functions you rely on.%
 \endhsection%
 %
 \hsection{Summary}%
@@ -1049,6 +1126,7 @@ It would have saved you two weeks and lots of grief.
 Of course, there are also situations where it is possible to gracefully recover from an error.
 For example, maybe our program is trying to delete a file that already has been deleted.
 The operation would fail, but that does not do any harm.
+We should notify the user, but we do not need to crash our application.
 For these scenarios, the \pythonilIdx{except} blocks exist.
 They allow us to catch errors which we can reasonably expect and that are no show stoppers.
 

@@ -383,9 +383,9 @@ If you want to include a horizontal tabulator in a string, the \pgls{escapeSeque
 \pythonil{print("The horizontal tab is like a bigger space: '\\t'.")} yields \inlinelistingbox{\texttt{The~horizontal~tab~is~like~a~bigger~space:~'~~~~'.}}.
 
 Finally, a backslash can also escape an actual newline in your string\pythonIdx{str!escaping}\pythonIdx{escaping}.
-If you have a string that is too long to write on a single line but you do not want to have a linebreak inside the actual string, you can simply put a backslash, hit \keys{\enter}, and continue the typing the string.
+If you have a string that is too long to write on a single line but you do not want to have a linebreak inside the actual string, you can simply put a backslash, hit \keys{\return}, and continue the typing the string.
 The linebreak will then be ignored entirely.
-Therefore, if you print~\pythonil{print("Hello\\}, hit \keys{\enter}, and then continue to write \pythonil{World!")}, this produces the output~\textil{HelloWorld!}.
+Therefore, if you print~\pythonil{print("Hello\\}, hit \keys{\return}, and then continue to write \pythonil{World!")}, this produces the output~\textil{HelloWorld!}.
 
 \Pglspl{escapeSequence} allow us to write arbitrary text in strings.
 We already learned the sequences \inQuotes{\textbraceleft\textbraceleft}\pythonIdx{\textbraceleft\textbraceleft} and \inQuotes{\textbraceright\textbraceright}\pythonIdx{\textbraceright\textbraceright} that were designed for \pglspl{fstring} only.
@@ -403,7 +403,7 @@ The backslash-based \pgls{escapeSequence} we discussed in this section work for 
 Before we discussed that strings in \python\ are delimited either by \pythonil{"}\pythonIdx{\textquotedbl\idxdots\textquotedbl} or \pythonil{'}\pythonIdx{\textquotesingle\idxdots\textquotesingle} on each side.
 However, we can actually delimit them also delimit them with \emph{three quotation marks} on each side, i.e., with either \pythonil{"""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl\idxdots\textquotedbl\textquotedbl\textquotedbl} or \pythonil{'''}\pythonIdx{\textquotesingle\textquotesingle\textquotesingle\idxdots\textquotesingle\textquotesingle\textquotesingle}.
 Such string delimiters are used for multi-line strings.
-In such strings, you can insert linebreaks by hitting \keys{\enter} completely normally.
+In such strings, you can insert linebreaks by hitting \keys{\return} completely normally.
 You can use the \pglspl{escapeSequence} from the previous section as well.
 The main use case are \pglspl{docstring}, which we will discuss later, see, e.g., \cref{bp:module:docstrings}.%
 %
