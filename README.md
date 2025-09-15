@@ -55,6 +55,9 @@ Die Slides zum Kurs in deutscher Sprache können unter <https://thomasweise.gith
 30. [Funktionen als Parameter, `Callable`s und `lambda`s](https://thomasweise.github.io/programmingWithPythonSlidesDE/30_callables_und_lambdas.pdf)
 31. [Ausnahmen auslösen](https://thomasweise.github.io/programmingWithPythonSlidesDE/31_ausnahmen_auslösen.pdf)
 32. [Ausnahmen verarbeiten](https://thomasweise.github.io/programmingWithPythonSlidesDE/32_ausnahmen_verarbeiten.pdf)
+33. [Zwischenspiel: Testen auf Ausnahmen](https://thomasweise.github.io/programmingWithPythonSlidesDE/33_testen_auf_ausnahmen.pdf)
+34. [Iteration](https://thomasweise.github.io/programmingWithPythonSlidesDE/34_iteration.pdf)
+35. [List Comprehension](https://thomasweise.github.io/programmingWithPythonSlidesDE/35_list_comprehension.pdf)
 
 
 ### 2.3. The Slides in English
