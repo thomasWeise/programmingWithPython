@@ -7,17 +7,17 @@ We can also iterate over the characters in a string in the same way.
 These are all datastructures whose complete content exists in memory at any given time.
 In \python, we can also iterate over sequences where the items that are constructed at the time when they are actually needed.
 A good example for this is the \pythonilIdx{range} datatype.
-We can iterate over all the 1'000'000'000 \pythonil{int} elements of \pythonil{range(1_000_000_000)} in a loop.
+We can iterate over all the 1\decSep000\decSep000\decSep000\decSep000 \pythonil{int} elements of \pythonil{range(100_000_000_000_000)} in a loop.
 These many integers do not all exist in memory at the same time.
-Instead, they are provided one-by-one as needed.
-From the perspective of a programmer, we can iterate over a \pythonilIdx{range} and a \pythonilIdx{list} in exactly the same way.
+Instead, they are allocated and provided one-by-one as needed.
+From the perspective of a programmer, we can iterate over \pythonilsIdx{range} and \pythonilsIdx{list} in exactly the same way.
 Matter of fact, many objects in \python\ support iteration.
 
-Vice versa, we can also create container datatypes from sequences of items.
-For example, the datatypes \pythonilIdx{list}, \pythonilIdx{tuple}, \pythonilIdx{set}, and \pythonilIdx{dict} can also be used like functions that take a sequence of items as parameter and create in instance of the corresponding datatype.
-In \cref{sec:lists}, we learned that \pythonil{[1, 2, 2, 3]} creates a list with the specified contents.
+Vice versa, we can also create instances of collection datatypes from sequences of items.
+For example, the datatypes \pythonilIdx{list}, \pythonilIdx{tuple}, \pythonilIdx{set}, and \pythonilIdx{dict} can also be used like functions that take a sequence of items as parameter and create an instance of the corresponding datatype.
+In \cref{sec:lists}, we learned that \pythonil{[1, 2, 2, 3]} is a list \pgls{literal} with the specified contents.
 Passing this list to the \pythonilIdx{set} function/datatype, i.e., writing \pythonil{set([1, 2, 2, 3])} will create the set \pythonil{\{1, 2, 3\}}.
-We also learned that we modify several datastructures in place by combining them with other containers.
+We also learned that collection datastructures often have methods that allow us to modify in place by passing in other collections as arguments.
 Invoking \pythonil{l.extend(\{1, 2, 3\})}\pythonIdx{list!extend}\pythonIdx{extend} will append the elements~\pythonil{1}, \pythonil{2}, and \pythonil{3} to a list~\pythonil{l}, for example.
 
 \begin{figure}%
@@ -27,33 +27,42 @@ Invoking \pythonil{l.extend(\{1, 2, 3\})}\pythonIdx{list!extend}\pythonIdx{exten
 \label{fig:iteration}%
 \end{figure}%
 
-Much later -- in a chapter that I have not yet written -- we learn that we also can iterate over the contents of a file.
 You will very often encounter situations where you transform, process, or create sequences of data elements.
 As sketched in \cref{fig:iteration}, there are many different manifestations of the concepts of \emph{iterating} over objects that are \emph{iterable} in \python.
-In this chapter, we will investigate those that we did not yet already discuss in \cref{sec:enumOverSequences,sec:collections}.
+
+The most primitive concept is the \pythonilIdx{Iterator}~\cite{PEP234}.
+This is an object that represents one visitation of a sequence of items.
+If you have an \pythonilIdx{Iterator} object~\pythonil{u}, then you can get the next item from the sequence it represents by calling \pythonil{next(u)}.
+If there is no next element, this will raise an \pythonil{StopIteration}.
+Such iterators are single-use, one-pass objects.
+A \pythonil{for} loop, for example, will consume elements from an \pythonilIdx{Iterator} until the \pythonil{StopIteration} is raised.
+\pythonilIdx{Generator} functions and expressions are special \pythonilsIdx{Iterator} allowing us more control and a simpler syntax for defining element sequences, respectively.
+
+Many datastructures like collections allow us to visit their elements as often as we wish.
+They are instances of the \pythonilIdx{Iterable} interface.
+We can invoke \pythonil{iter(coll)} on a collection \pythonil{coll} implementing this \pythonilIdx{Iterable} iterface and will get an \pythonilIdx{Iterator}.
+Whenever we iterate over a list, a new \pythonilIdx{Iterator} is created this way.
+
+We can also create collections like lists, sets, and dictionaries via so-called \emph{comprehension}, which basically means to write a \pythonil{for} loop \emph{into} the corresponding literal.
+In this chapter, we will investigate all of these concepts beyond what we did not yet already discuss in \cref{sec:enumOverSequences,sec:collections}.%
 %
 \hsection{\texttt{Iterable}s and \texttt{Iterator}s}%
 \label{sec:iterable}%
 %
-\begin{figure}%
-\centering%
+\gitEvalPython{iteration:list_iteration}{}{iteration/list_iteration.py}%
+\listingBox{exec:iteration:list_iteration}{Manually iterating over a \pythonilIdx{list}.}{,style=python_console_style}%
 %
-\subfloat[][%
-Manually iterating over a \pythonilIdx{list}.%
-\label{fig:iterateOverListAndRange:list}%
-]{\includegraphics[width=0.7\linewidth]{\currentDir/listIterConsole}}%
+\gitLoadAndExecPython{iteration:set_iteration}{}{iteration}{set_iteration.py}{}%
+\gitExecPython{iteration:set_iteration_2}{}{iteration}{set_iteration.py}%
 %
-\\[12pt]%
+\listingPythonAndOutput{iteration:set_iteration}{%
+Iterating over a set and the result: %
+Every time we run the program, the output is likely to be different.%
+Compare \cref{exec:iteration:set_iteration} and \cref{exec:iteration:set_iteration_2} and you will see that they are (probably) different.}{}%
+\listingBox{exec:iteration:set_iteration_2}{Execuring program \programUrl{iteration:set_iteration} a second time. This time, the output should be different from \cref{exec:iteration:set_iteration}.}{,style=text_style}%
 %
-\subfloat[][%
-Manually iterating over a \pythonilIdx{range}.%
-\label{fig:iterateOverListAndRange:range}%
-]{\includegraphics[width=0.7\linewidth]{\currentDir/rangeIterConsole}}%
-%
-%
-\caption{Manually iterating over a \pythonilIdx{list} and a \pythonilIdx{range} in the \python~console.}%
-\label{fig:iterateOverListAndRange}%
-\end{figure}%
+\gitEvalPython{iteration:range_iteration}{}{iteration/range_iteration.py}%
+\listingBox{exec:iteration:range_iteration}{Manually iterating over a \pythonilIdx{range}, in exactly the same way that we used in \cref{lst:exec:iteration:list_iteration}.}{,style=python_console_style}%
 %
 \begin{sloppypar}%
 Any object that allows us to access its elements one-by-one, i.e., \emph{iteratively} is an instance of \pythonilIdx{typing.Iterable}\pythonIdx{Iterable}.
@@ -61,40 +70,71 @@ The actual iteration over the contents is then done by an \pythonilIdx{typing.It
 This distinction is necessary because we want to allow some objects to be iterated over multiple times.%
 \end{sloppypar}%
 %
-Let's say you have the list \pythonil{x = ["a", "b", "c"]}, as in \cref{fig:iterateOverListAndRange:list}.
-We can use this list~\pythonil{x} in a \pythonil{for xi in x}-kind of loop arbitrarily often.
-\pythonil{x} is an instance of \pythonilIdx{list} and every list is also an~\pythonilIdx{Iterable}\pythonIdx{typing.Iterable}.
-Every time we do loop over \pythonil{x}, an \pythonilIdx{Iterator} instance is created internally by (doing something like) invoking~\pythonil{y = iter(x)}\pythonIdx{iter}.
-In principle, this \pythonilIdx{Iterator} object only has to remember its current position in the list, allowing us to query the next item by invoking~\pythonil{next(y)}\pythonIdx{next}.
+Let's say you have the list \pythonil{x = ["a", "b", "c"]}, as in \cref{exec:iteration:list_iteration}.
+We can use this list~\pythonil{x} in \pythonil{for xi in x}-kind of loops arbitrarily often.
+We use \pythonil{x} in two different such \pythonil{for} loops.
+\pythonil{x} is an instance of \pythonilIdx{list} and every list is also an instance
+of~\pythonilIdx{Iterable}\pythonIdx{typing.Iterable}.
+We show this by first importing the type \pythonilIdx{Iterable} from package \pythonilIdx{typing}.
+As we already learned, the operator \pythonil{isinstance(obj, tpe)} returns \pythonil{True} if object \pythonil{obj} is an instance of type \pythonil{tpe}.
+\pythonil{isinstance(x, Iterable)}\pythonIdx{isinstance} is therefore \pythonil{True}, because the list~\pythonil{x} can be iterated over.
+
+Every time we do loop over \pythonil{x}, an \pythonilIdx{Iterator} instance is created internally by~(doing something like)~invoking~\pythonil{u = iter(x)}\pythonIdx{iter}.
+To verify whether \pythonil{u} really is an instance of the ominous type \pythonilIdx{Iterator}, we first import this type from the package \pythonilIdx{typing}.
+Then we invoke \pythonil{isinstance(u, Iterator)}\pythonIdx{isinstance}, which returns \pythonil{True}.
+More precisely, the actual type of \pythonil{u} is \pythonil{list_iterator}\pythonIdx{list\_iterator}, which is a special implementation of \pythonilIdx{Iterator}.
+You see, if we want to represent one step-by-step pass over the sequence~\pythonil{x}, then all we have to store in an object~\pythonil{u} is a reference to the list~\pythonil{x} we are iterating over as well as the current position, i.e., the index of the current element, in the iteration sequence.
+\pythonil{list_iterator}\pythonIdx{list\_iterator}, does exactly that internally.
+
+Every time a loop needs to advance to the next element~\pythonil{xi} in the sequence represented by \pythonil{u}, it does~(something like)~\pythonil{xi = next(u)}.
+This will then yield the element at the current iteration index and advance the index by one.
 The \pythonilIdx{for}-loop basically does this internally.
+
 However, we can also do it \inQuotes{by hand.}
-In \cref{fig:iterateOverListAndRange:list}, we perform \pythonil{u = iter(x)} and \pythonil{v = iter(x)}.
-This creates two independent \pythonilsIdx{Iterator}, which we can use to step over the list separately.
-Invoking \pythonil{next(u)}\pythonIdx{next} will yield the first element of the list~\pythonil{x}, namely~\pythonil{"a"}.
-Calling \pythonil{next(u)}\pythonIdx{next} again gives us the second element, that is~\pythonil{"b"}.
-If we now call \pythonil{next(v)}\pythonIdx{next}, i.e., apply~\pythonilIdx{next} to the second, independent \pythonilIdx{Iterator}, we again obtain the first element~(\pythonil{"a"}).
+In \cref{exec:iteration:list_iteration}, we perform \pythonil{u = iter(x)} and \pythonil{v = iter(x)}.
+This creates two independent \pythonilsIdx{Iterator}, i.e., two independent instances of \pythonil{list_iterator}\pythonIdx{list\_iterator},, which we can use to step over the list separately.
+Each of them remembers a reference to list \pythonil{x} as well as its own iteration index.
+Invoking \pythonil{next(u)}\pythonIdx{next} will yield the first element of the list~\pythonil{x}, namely~\pythonil{\"a\"}.
+Calling \pythonil{next(u)}\pythonIdx{next} again gives us the second element, that is~\pythonil{\"b\"}.
+If we now call \pythonil{next(v)}\pythonIdx{next}, i.e., apply~\pythonilIdx{next} to the second, independent \pythonilIdx{Iterator}, we again obtain the first element~(\pythonil{\"a\"}).
 
-This shows us why there is a distinction between \pythonilIdx{Iterable} and \pythonilIdx{Iterator}.
-The former is the object that holds or can generate the data sequence.
-The latter marks one independent iteration over that sequence.
+This again shows us why there is a distinction between the two \pglspl{API} \pythonilIdx{Iterable} and \pythonilIdx{Iterator}.
+The former is interface that objects need to support it they holds or can generate a data sequence that can iteratively be visited.
+The latter is provided by one independent iteration over such sequence.
 
-The third invocation of \pythonil{next(u)}\pythonIdx{next} gives us~\pythonil{"c"}, the third and last element of~\pythonil{x}.
+The third invocation of \pythonil{next(u)}\pythonIdx{next} gives us~\pythonil{\"c\"}, the third and last element of~\pythonil{x}.
 If we now call \pythonil{next(u)}\pythonIdx{next} a fourth time, something interesting happens:
 A \pythonilIdx{StopIteration} is raised\pythonIdx{raise}.
-This is not an error in the strict sense.
+Different from the exceptions that we already learned about, this is not an error at all.
 This instead is how the end of an iteration sequence is signaled.
 A \pythonilIdx{for}~loop will, for instance, stop when it encounters this exception.
+If \pythonil{next(u)}\pythonIdx{next} is the way to get the next element from \pythonilIdx{Iterator}~\pythonil{u}, then there must also be some way to signal that the end of the sequence is reached.
+Returning \pythonil{None} would not work, because a sequence may actually contain that value.
+Therefore, the designers of \python\ simply chose to use the exception mechanism for this.
 
-This approach to iterate over collections by first creating an iterator using the \pythonilIdx{iter} function and then applying \pythonilIdx{next} to that iterator works for \pythonilsIdx{list} and \pythonilsIdx{tuple} alike.
+This approach to iterate over collections~\pythonil{col} by first creating an iterator~\pythonil{it} using the \pythonilIdx{iter} function as \pythonil{it = iter(col)} and then applying \pythonilIdx{next} to that iterator like \pythonil{next(it)} works for \pythonilsIdx{list} and \pythonilsIdx{tuple} alike.
 It also works for \pythonilsIdx{set}, but be aware that the order in which the elements of a \pythonilIdx{set} are presented is not defined.
 Back in \cref{bp:setsUnordered} we already clarified that \pythonilsIdx{set} are unordered data structures.
-Interestingly, we can also iterate over \pythonilsIdx{dict} like this.
+We explore this with program \programUrl{iteration:set_iteration} in \cref{lst:iteration:set_iteration}, which we execute twice, giving us the different outputs \cref{exec:iteration:set_iteration,exec:iteration:set_iteration_2}.
+Interestingly, we can also iterate over \pythonilsIdx{dict}.
 This iteration \emph{only} returns the dictionary keys however.
 If we need the values or the key-value pairs of a dictionary~\pythonil{d}, then we have to iterate over \pythonil{d.values()}\pythonIdx{values}\pythonIdx{dict.values} or \pythonil{d.items()}\pythonIdx{items}\pythonIdx{dict.items}, respectively.
 
-\Cref{fig:iterateOverListAndRange:range} shows us that even \pythonilsIdx{range} have the exactly same behavior as \pythonilsIdx{list} with respect to iteration.
-And they should, of course, like every other object implementing the~\pythonilIdx{Iterable} functionality.
+\Cref{exec:iteration:range_iteration} shows us that even \pythonilsIdx{range} have the exactly same behavior as \pythonilsIdx{list} with respect to iteration.
+And they should, of course, like every other object that implements the~\pythonilIdx{Iterable} functionality.
 Because of this, the \pythonil{for y in x}-type of loops can be applied to any \pythonilIdx{Iterable} or \pythonilIdx{Iterator} instance~\pythonil{x}.%
+A \pythonilIdx{range} is basically a collection.
+Different from the other collection types we know, its elements are not all explicitly created and stored.
+Instead, they are created on the fly by the \pythonil{Iterator} objects that return them.
+In our example, we construct a range~\pythonil{x} of the three number~0 to~2.
+We then explore and iterate over it in exactly the same way we applied in \cref{exec:iteration:range_iteration}.
+The only differences are that we now output numbers instead of strings and that the type of the iterator is \pythonil{range_iterator}\pythonIdx{range\_iterator}.
+
+With this, we now know the how \pythonil{for} loops in \python\ actually work.
+They create an iterator over a sequence and then consume the elements of this iterator, each time executing the loop body, until hitting a \pythonilIdx{StopIteration} exception.
+All collection classes in \python\ that offer a sequential view on their data therefore support the \pythonilIdx{Iterable}/\pythonilIdx{Iterator}-\pgls{API}~\cite{PEP234}.
+Due to this \pgls{API} structure, it is not even necessary to hold all the elements of a collection in memory at any point in time, as long as we can compute them as need.
+An example for this is are \pythonilsIdx{range}, which provide us with \pythonil{int}-sequences with arbitrarily many numbers that are create~(and discarded) one-by-one during the iteration.%
 %
 \endhsection%
 %
