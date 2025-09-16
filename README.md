@@ -58,6 +58,9 @@ Die Slides zum Kurs in deutscher Sprache können unter <https://thomasweise.gith
 33. [Zwischenspiel: Testen auf Ausnahmen](https://thomasweise.github.io/programmingWithPythonSlidesDE/33_testen_auf_ausnahmen.pdf)
 34. [Iteration](https://thomasweise.github.io/programmingWithPythonSlidesDE/34_iteration.pdf)
 35. [List Comprehension](https://thomasweise.github.io/programmingWithPythonSlidesDE/35_list_comprehension.pdf)
+36. [Zwischenspiel: doctests](https://thomasweise.github.io/programmingWithPythonSlidesDE/36_doctests.pdf)
+37. [Set und Dictionary Comprehension](https://thomasweise.github.io/programmingWithPythonSlidesDE/37_set_und_dictionary_comprehension.pdf)
+38. [Generator-Ausdrücke](https://thomasweise.github.io/programmingWithPythonSlidesDE/38_generator_ausdrücke.pdf)
 
 
 ### 2.3. The Slides in English

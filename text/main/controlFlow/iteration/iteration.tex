@@ -30,20 +30,26 @@ Invoking \pythonil{l.extend(\{1, 2, 3\})}\pythonIdx{list!extend}\pythonIdx{exten
 You will very often encounter situations where you transform, process, or create sequences of data elements.
 As sketched in \cref{fig:iteration}, there are many different manifestations of the concepts of \emph{iterating} over objects that are \emph{iterable} in \python.
 
-The most primitive concept is the \pythonilIdx{Iterator}~\cite{PEP234}.
+The most primitive concept is the \pythonilIdx{Iterator}~\cite{PEP234,PSF:P3D:TPSL:BIT:IT,PSF:P3D:G:I2}.
 This is an object that represents one visitation of a sequence of items.
 If you have an \pythonilIdx{Iterator} object~\pythonil{u}, then you can get the next item from the sequence it represents by calling \pythonil{next(u)}.
 If there is no next element, this will raise an \pythonil{StopIteration}.
 Such iterators are single-use, one-pass objects.
 A \pythonil{for} loop, for example, will consume elements from an \pythonilIdx{Iterator} until the \pythonil{StopIteration} is raised.
-\pythonilIdx{Generator} functions and expressions are special \pythonilsIdx{Iterator} allowing us more control and a simpler syntax for defining element sequences, respectively.
+\pythonilIdx{Generator} expressions and functions are special \pythonilsIdx{Iterator} allowing us more control and a simpler syntax for defining element sequences, respectively.
 
 Many datastructures like collections allow us to visit their elements as often as we wish.
 They are instances of the \pythonilIdx{Iterable} interface.
-We can invoke \pythonil{iter(coll)} on a collection \pythonil{coll} implementing this \pythonilIdx{Iterable} iterface and will get an \pythonilIdx{Iterator}.
+We can invoke \pythonil{iter(coll)} on a collection \pythonil{coll} implementing this \pythonilIdx{Iterable}~\cite{PSF:P3D:G:I1} iterface and will get an \pythonilIdx{Iterator}.
 Whenever we iterate over a list, a new \pythonilIdx{Iterator} is created this way.
 
-We can also create collections like lists, sets, and dictionaries via so-called \emph{comprehension}, which basically means to write a \pythonil{for} loop \emph{into} the corresponding literal.
+As a side note, the operator \pythonilIdx{iter} can also be applied to an \pythonilIdx{Iterator}, not just to an \pythonilIdx{Iterable}~\cite{PSF:P3D:TPSL:BIT:IT}.
+If applied to an \pythonilIdx{Iterator}, it returns the iterator itself~\cite{PSF:P3D:G:I2}.
+Hence, all \pglspl{API} that require an \pythonilIdx{Iterable} as parameter and \emph{use it only once} can also accept an \pythonilIdx{Iterator}.
+
+Finally, we can also create collections like lists, sets, and dictionaries via so-called \emph{comprehension}.
+A~comprehension basically means writing a \pythonil{for} loop \emph{into} the corresponding collection literal.
+It is a more compact and more efficient syntax to construct collections.
 In this chapter, we will investigate all of these concepts beyond what we did not yet already discuss in \cref{sec:enumOverSequences,sec:collections}.%
 %
 \hsection{\texttt{Iterable}s and \texttt{Iterator}s}%
@@ -66,7 +72,7 @@ Compare \cref{exec:iteration:set_iteration} and \cref{exec:iteration:set_iterati
 %
 \begin{sloppypar}%
 Any object that allows us to access its elements one-by-one, i.e., \emph{iteratively} is an instance of \pythonilIdx{typing.Iterable}\pythonIdx{Iterable}.
-The actual iteration over the contents is then done by an \pythonilIdx{typing.Iterator}\pythonIdx{Iterator}~\cite{PEP234}.
+The actual iteration over the contents is then done by an \pythonilIdx{typing.Iterator}\pythonIdx{Iterator}~\cite{PEP234,PSF:P3D:TPSL:BIT:IT,PSF:P3D:G:I2}.
 This distinction is necessary because we want to allow some objects to be iterated over multiple times.%
 \end{sloppypar}%
 %
@@ -74,7 +80,7 @@ Let's say you have the list \pythonil{x = ["a", "b", "c"]}, as in \cref{exec:ite
 We can use this list~\pythonil{x} in \pythonil{for xi in x}-kind of loops arbitrarily often.
 We use \pythonil{x} in two different such \pythonil{for} loops.
 \pythonil{x} is an instance of \pythonilIdx{list} and every list is also an instance
-of~\pythonilIdx{Iterable}\pythonIdx{typing.Iterable}.
+of~\pythonilIdx{Iterable}\pythonIdx{typing.Iterable}~\cite{PSF:P3D:G:I1}.
 We show this by first importing the type \pythonilIdx{Iterable} from package \pythonilIdx{typing}.
 As we already learned, the operator \pythonil{isinstance(obj, tpe)} returns \pythonil{True} if object \pythonil{obj} is an instance of type \pythonil{tpe}.
 \pythonil{isinstance(x, Iterable)}\pythonIdx{isinstance} is therefore \pythonil{True}, because the list~\pythonil{x} can be iterated over.
@@ -285,7 +291,7 @@ Notice, however, that there might be effects such as caching that could corrupt 
 %
 So we do just that.
 \pythonilIdx{repeat} gives us a list with measured runtimes.
-The \pythonilIdx{min} function accepts a sequence of elements and returns the smallest one.
+The \pythonilIdx{min} function accepts a sequence of elements and returns the smallest one~\cite{PSF:P3D:TPSL:BIF}.
 Thus, we print the result of \pythonilIdx{min} applied to the list returned by \pythonilIdx{repeat}.
 We format the output to be in milliseconds and rounded to three digits, to be a bit more readable.
 The result can be seen in \cref{exec:iteration:list_of_numbers_append}.
@@ -318,6 +324,7 @@ Comprehension can also be applied to some other collection types.%
 \endhsection%
 %
 \hsection{Interlude: doctests}%
+\FloatBarrier%
 \gitLoadPython{iteration:list_flatten_iterables}{}{iteration/list_flatten_iterables.py}{}%
 \listingPython{iteration:list_flatten_iterables}{%
 A function that flattens \pythonilsIdx{list} and other \pythonilsIdx{Iterable} using list comprehension.}%
@@ -328,9 +335,32 @@ The output of \pytest\ executing the \pglspl{doctest} for the examples for list 
 The test succeeded. %
 We used the test execution script given in \cref{lst:bash:pytest_doctest}.}%
 %
-As last example for list comprehension, let us consider the following scenario:
-Let's say that you have several different lists.
-You want to create a new list that contains all the elements of each of these existing lists.
+We already learned that \pglspl{unitTest} are part of all software development processes reasonable and of all reasonable \pgls{continuousIntegration} pipelines.
+If we think about it, we realize that \pglspl{unitTest} are also part of the documentation of a software.
+The \pglspl{docstring} of a function tells us what the function basically does, what parameters it expectes, and gives information about the exceptions it may raise.
+
+This is complemented by the \pglspl{unitTest}, which present us very similar information, but in a more comprehensive way.
+From a \pglspl{unitTest}, we can actually see what output we expect for some selected inputs of a function.
+The \pglspl{docstring} of a \pythonil{sqrt} function may tell us that it computes the square root of a number.
+The \pglspl{unitTest} show us that it returns \pythonil{2.0} if the input is \pythonil{4} and \pythonil{3.0} for \pythonil{9}.
+The \pglspl{docstring} may tell us that it raises an \pythonilIdx{ArithmeticError} if the input is a negative number.
+The \pglspl{unitTest} shows us that it raises a \pythonilIdx{ArithmeticError} with message \emph{\inQuotes{Invalid input -1.}} if we pass in a \pythonil{-1}.
+
+It is easy to see that both \pglspl{docstring} and \pglspl{unitTest} complement each other.
+Would it not be nice if we could place some of the \pgls{unitTest} information directly into the \pgls{docstring}?
+For instance, that \pythonil{sqrt(16)} yields \pythonil{4.0} as result may be something that could neatly fit on a single line.
+It would be a very nice example for everybody reading the documentation of our function.
+Of course, we would not write \emph{all} the \pglspl{unitTest} into the \pglspl{docstring}, because we usually have many test cases which would become hard to read.
+But a certain amount of selected tests would probably be quite helpful for the reader.
+
+Well, nothing stops us from just writing this down.
+However, in an ideal case, \pytest\ would also pick up these test cases from the \pglspl{docstring} and then actually execute and check them.
+Indeed, this perfect synthesis of documentation and testing is possible, with so-called \pglspl{doctest}~\cite{PSF:P3D:TPSL:DTIPE}.
+
+We explore this idea by using one last example for list comprehension.
+Consider the following scenario:
+Let's say that you have several lists.
+You want to create a single new list that contains all the elements of each of these existing lists.
 In \cref{lst:iteration:list_flatten_iterables}, we implement a function~\pythonil{flatten} that achieves an even more general variant of this task:
 You can pass in an \pythonilIdx{Iterable} of other \pythonilsIdx{Iterable}.
 Since \pythonilsIdx{lists} are \pythonilsIdx{Iterable}, this allows you to pass in a \pythonilIdx{list} of \pythonilsIdx{lists}.
@@ -338,11 +368,11 @@ But you could also pass a \pythonilIdx{tuple} of \pythonilsIdx{set} if you want.
 The return value of \pythonil{flatten} is a \pythonilIdx{list} containing the elements of all of the \inQuotes{inner} \pythonilsIdx{Iterable}.%
 %
 \begin{sloppypar}%
-\pythonil{flatten} creates this list from its parameter~\pythonil{iterables} by simply returning \pythonil{[value for subiterable in iterables for value in subiterable]}.
+\pythonil{flatten} creates this list from its parameter~\pythonil{iterables} by simply returning the list comprehension expression \pythonil{[value for subiterable in iterables for value in subiterable]}.
 The variable \pythonil{subiterable} iterates over \pythonil{iterables}, i.e., becomes one of the, e.g., sub-list, at a time.
 Then, \pythonil{value} iterates over the elements of \pythonil{subiterable}.
 Thus, it iteratively takes on each of the values in each of the sub-list.
-Since we return a \pythonilIdx{list} with all of these values, we effectively flatten the list.
+Since we return a \pythonilIdx{list} with all of these values, we effectively flatten the list-of-lists.
 It may be a bit confusing that the inner \pythonilIdx{for}-loop here is actually the outer \pythonilIdx{for}-loop and vice-versa, but we experienced this already when we computed \pythonil{[f"\{m\}\{n\}" for m in "abc" for n in "xy"]}. in an earlier example.%
 \end{sloppypar}%
 %
@@ -351,43 +381,51 @@ This time, we do something else:
 We present \pglspl{doctest} for \pythonil{flatten}.
 
 \usefulTool{doctest}{%
-A \pgls{doctest} is a \pgls{unitTest} written directly into the \pgls{docstring} of a function or module. %
-We therefore insert small snippets of \python\ code and their expected output. %
+A \pgls{doctest} is a \pgls{unitTest} written directly into the \pgls{docstring} of a function, class, or module. %
+We therefore insert small a snippet of \python\ code followed by its expected output. %
 The first line of such codes is prefixed py~\pythonil{>>>}\pythonIdx{>\strut>\strut>}. %
 If a statement needs multiple lines, any following line is prefixed by~\pythonil{...}\pythonIdx{\idxdots}. %
 After the snippet, the expected output is written. %
-The \pglspl{doctest} can be by modules like \pythonilIdx{doctest}~\cite{PSF:P3D:TPSL:DTIPE} or tools such as \pytest~\cite{KPDT2024PD:HTRD}~(\cref{ut:pytest}). %
+The \pglspl{doctest} can be performed by modules like \pythonilIdx{doctest}~\cite{PSF:P3D:TPSL:DTIPE} or tools such as \pytest~\cite{KPDT2024PD:HTRD}~(\cref{ut:pytest}). %
 They collect the code, run it, and compare its output to the expected output in the \pgls{docstring}. %
 If they do not match, the tests fail. %
 We use \pytest\ in this book, with the default configuration given in \cref{lst:bash:pytest_doctest}.%
 }
 %
-Using \pglspl{doctest} has a very unique advantage:
+Using \pglspl{doctest} has another very unique advantage:
 It allows us to include examples of how our code should be used directly into the \pglspl{docstring}.
 And these examples can directly serve as \pglspl{unitTest}!
 Let's read the \pglspl{docstring} of our \pythonil{flatten} function in \cref{lst:iteration:list_flatten_iterables}.
 
 The first \pgls{doctest} tells us that if we invoke \pythonil{flatten([[1, 2, 3], [4, 5, 6]])}, we can expect the output \pythonil{[1, 2, 3, 4, 5, 6]}.
 In other words, our function will flatten the list of two lists into a single list.
+The function constructed one flat list of six elements from the list containing two lists with three elements each.
 Then, we see that \pythonil{flatten([[1, 2, 3], [], [4, 5, 6]])} should produce \pythonil{[1, 2, 3, 4, 5, 6]} as well.
 The single empty list in the list-of-lists disappears, because it has no elements.
 
 \pythonil{flatten} can only reduce two list levels to one.
-Passing a list-of-lists-of-lists to \pythonil{flatten} as in the third test~(\pythonil{flatten([[[1], [2], [3]], [], [[4], [5], [6]]])}) will only remove one list level.
+We pass a list-of-lists-of-lists to \pythonil{flatten} as in the third test~(\pythonil{flatten([[[1], [2], [3]], [], [[4], [5], [6]]])}).
+Our function will only remove one list level.
 It results in a list-of-lists~(\pythonil{[[1], [2], [3], [4], [5], [6]]}).%
 %
 \begin{sloppypar}%
 Since \pythonil{flatten} works with \pythonilsIdx{Iterable}, it also accepts mixed input.
 The final \pgls{doctest} symbolizes this as follows:
-For \pythonil{flatten(([1, 2, 3], (4, 5, 6), {"a": 7, "b": 8}))}, we get \pythonil{[1, 2, 3, 4, 5, 6, 'a', 'b']} as the result.
+For \pythonil{flatten(([1, 2, 3], (4, 5, 6), \{\"a\": 7, \"b\": 8\}))}, we get \pythonil{[1, 2, 3, 4, 5, 6, 'a', 'b']} as the result.
+Notice that only the dictionary keys appear.
+As we discussed, applying \pythonilIdx{iter} to a \pythonilIdx{dict} yields an \pythonilIdx{Iterator} over only the keys.
+Since \pythonilIdx{for} loops do this implicitly, the keys are what appears in our flat list.%
 \end{sloppypar}%
 %
 As you can see, the documentation in form of examples also explains what output we should expect.
-We now execute \pytest\ with the additional option \textil{--doctest-modules}.
+We now execute \pytest\ with the additional option \bashil{--doctest-modules}.
+The full command line includes, again, the timeout of ten seconds via \bashil{--timeout=10}.
+We also use two arguments~(\bashil{--no-header} and \bashil{--tb=short}) to shorten the output so that it is looks good as a listing in this book -- which is something you would probably not care about when out there in the wild.
+Either way, \bashil{pytest --doctest-modules fileOrDirToTest} would also do the trick on your computer, where \bashil{fileOrDirToTest} obviously is to be replaced with the file or directory of files that you want to test.
 The output in \cref{exec:iteration:list_flatten_iterables:doctest} shows that our function indeed fulfills the requirements imposed by its \pglspl{doctest}.%
 %
 \bestPractice{doctest}{%
-Where ever possible, the \pglspl{docstring} of functions and modules should contain \pglspl{doctest}. %
+Where ever possible, the \pglspl{docstring} of functions, classes, and modules should contain \pglspl{doctest}. %
 This provides \pglspl{unitTest} as well as examples as how the code should be used. %
 Since \pglspl{doctest} are usually brief, they are a quick and elegant way to complement more comprehensive \pglspl{unitTest} in separate files (see \cref{bp:functionUnitTest}).%
 }%
@@ -400,27 +438,39 @@ We do this later in \cref{sec:dunder:debugging}.%
 %
 \hsection{Set Comprehension}%
 %
+We already learned about list comprehension.
+It is a very elegant and powerful tool to create, well, lists.
+Wouldn't it be strange if such a tool would \emph{only} be available for lists?
+What about the other collection types?
+Well, it is also availabe for sets and dictionaries.
+We now look at the former and afterwards will consider the latter.
+
 Set comprehension works very much the same as list comprehension.
-The corresponding syntax is as follows:%
+The corresponding syntax is as follows and only differs in the fact that curly braces are used instead of square brackets:%
 %
 \pythonSyntax{syntax/set_comprehension.py}%
+\FloatBarrier%
 %
 \gitLoadAndExecPython{iteration:simple_set_comprehension}{}{iteration}{simple_set_comprehension.py}{}%
 \listingPythonAndOutput{iteration:simple_set_comprehension}{%
 Some simple examples for set comprehension\pythonIdx{set!comprehension}\pythonIdx{comprehension!set}.}{}%
 %
-In \cref{lst:iteration:simple_set_comprehension}, we provide some simple examples for set comprehension\pythonIdx{set!comprehension}\pythonIdx{comprehension!set} and in \cref{exec:iteration:simple_set_comprehension} you can find the output of the program.
+In program \programUrl{iteration:simple_set_comprehension} given as \cref{lst:iteration:simple_set_comprehension}, we provide some simple examples for set comprehension\pythonIdx{set!comprehension}\pythonIdx{comprehension!set}.
+In \cref{exec:iteration:simple_set_comprehension} you can find the output of the program.
 First, we create a set with the results of the \pythonilIdx{isqrt} function from the \pythonilIdx{math} module.
 This function computes the integer part of a square root, i.e., $\pythonil{isqrt(i)}=\left\lfloor\sqrt{\pythonil{i}}\right\rfloor$.
 We want to create the set with all results of this function for the values~\pythonil{i} from~0 to~99.
-We first do this by starting with an empty set~\pythonil{roots_1} and then iteratively append the values by calling \pythonil{roots_1.add}\pythonIdx{set!add} in a \pythonilIdx{for}-loop.
+
+We test two methods for creating such a set.
+We first do this by starting with an empty set~\pythonil{roots_1}.
+Then we iteratively append the \pythonilIdx{isqrt}-values by calling \pythonil{roots_1.add}\pythonIdx{set!add} in a \pythonilIdx{for}-loop.
 The constructed set contains, obviously, the values~0 to~9.
 Each value is contained a single time, because this is how sets work.%
 %
 \begin{sloppypar}%
 We now create the same set using set comprehension\pythonIdx{set!comprehension}\pythonIdx{comprehension!set}.
 The set \pythonil{roots_2} created by evaluating \pythonil{\{isqrt(j) for j in range(100)\}} is exactly the same as \pythonil{roots_1}.
-Set comprehension works exactly like list comprehension, and our first examples are also almost the same.%
+Set comprehension works exactly like list comprehension, and our first examples are also quite similar.%
 \end{sloppypar}%
 %
 Let us now try do something more interesting:
@@ -428,21 +478,29 @@ We want to create the set \pythonil{primes} of the prime numbers~\cite{W2024MAWW
 We already created a beautiful program doing this efficiently in \cref{lst:loops:for_loop_sequence_primes}.
 This time, we will use set comprehension\pythonIdx{set!comprehension}\pythonIdx{comprehension!set}.
 
-We first compute the set of numbers that are \emph{not} prime.
+We first compute the set~\pythonil{not_primes} of numbers that are \emph{not} prime.
 For this purpose, we let a variable~\pythonil{k} iterate from~\pythonil{2} to~\pythonil{99}.
-For each value of~\pythonil{k}, a second variable~\pythonil{m} iterates from~\pythonil{2} to~\pythonil{k - 1}.
+For each value of~\pythonil{k}, a second variable~\pythonil{m} iterates from~\pythonil{2} to~\pythonil{isqrt(k)}.
 For every single one of the resulting \pythonil{k}\nobreakdashes-\pythonil{m} combinations, we will add the value of~\pythonil{k} to the set \emph{if} the condition \pythonil{k \% m == 0} is met.
 In other words, every single time we find a number~\pythonil{m} that can divide~\pythonil{k} without remainder, we will insert~\pythonil{k} into the set.
 If we would be doing a list comprehension, this would yield a huge list where many values of~\pythonil{k} appear repeatedly.
+For example, 96 would appear five times, because it is divisible by 2, 3, 4, 6, and~8, all of which are smaller than~$9=\left\lfloor\sqrt{96}\right\rfloor$.
 However, we are doing set comprehension, so each value can occur at most once.%
 %
 \begin{sloppypar}%
 This extremely computationally inefficient gives us the set~\pythonil{not_primes}.
-If a number can be divided by another one which is larger than~1 and smaller than the number itself, then it can obviously not be a prime number.
+If a number can be divided by another one which is larger than~1 and smaller than the number itself, then the number can obviously not be a prime number.
 Having the numbers which are not primes, we can now use a second set comprehension to get the numbers which are primes.
 \pythonil{\{n for n in range(2, 100) if n not in not_primes\}}\pythonIdx{not in} lets a variable~\pythonil{n} again iterate from~2 to~99.
 It includes each value of~\pythonil{n} in the set to be constructed if \pythonil{n} is not in the set \pythonil{not_primes}.
-Indeed, this yields the set of prime numbers correctly (but does in a very inefficient way).%
+Indeed, this yields the set of prime numbers correctly~(but does in a very inefficient way).%
+\end{sloppypar}%
+%
+\begin{sloppypar}%
+As a small refresher of our knowledge, let us remember the set operations from back in \cref{sec:sets} and that we can create sets by passing sequences to the \pythonilIdx{set} function.
+First, we could do \pythonil{set(range(2, 100))}, which yields the set of all integer numbers from~\intRange{2}{99}.
+If we then invoke \pythonil{set(range(2, 100)).difference(not_primes)}\pythonIdx{difference}\pythonIdx{set!difference}, we get the set of all of those numbers except the numbers that already appear in \pythonil{not_primes}.
+With this expression, we could thus achieve the same result, if, at least, we already have constructed the set~\pythonil{not_primes}.%
 \end{sloppypar}%
 %
 \FloatBarrier%
@@ -457,6 +515,8 @@ Both of them use curly braces, but in dictionary comprehension\pythonIdx{dict!co
 Dictionary comprehension has the following syntax:%
 %
 \pythonSyntax{syntax/dict_comprehension.py}%
+%
+\FloatBarrier%
 %
 \gitLoadAndExecPython{iteration:simple_dict_comprehension}{}{iteration}{simple_dict_comprehension.py}{}%
 \listingPythonAndOutput{iteration:simple_dict_comprehension}{%
@@ -476,22 +536,26 @@ We can shorten this loop into a single dictionary comprehension\pythonIdx{dict!c
 
 Let us now try something more fancy.
 We want to create a dictionary~\pythonil{maxdiv} that holds the largest divisor~$m$ for each number~$k$ from the range~\intRange{2}{20} with~$m<k$.
-We can apply the same (very inefficient) principle that we used in \cref{lst:iteration:simple_set_comprehension} when constructing the set of none-prime numbers.
+We can apply the same~(very inefficient) principle that we used in \cref{lst:iteration:simple_set_comprehension} when constructing the set of none-prime numbers.
 First, of course, we need to let the variable~\pythonil{k} iterate over~\pythonil{range(21)}\pythonIdx{range}, i.e., let~\pythonil{k} take on the values~\pythonil{0}, \pythonil{1}, \pythonil{2}, \dots, \pythonil{19}, \pythonil{20}.
 Now we let a second variable~\pythonil{m} iterate over~\pythonil{range(1, k)}\pythonIdx{range}, meaning that~\pythonil{m} takes on the values~\pythonil{1}, \pythonil{2}, \dots, \pythonil{k - 1}.
 We store the association \pythonil{k: m} in the dictionary if the condition~\pythonil{k \% m == 0} is met, i.e., if~\pythonil{m} divides~\pythonil{k} without remainder.
 
 For most~\pythonil{k}, condition will be met be several~\pythonil{m}.
 However, a dictionary allows each key to appear at most once.
-In the dictionary comprehension\pythonIdx{dict!comprehension}\pythonIdx{comprehension!dict}, the last~\pythonil{m} value that meets the condition prevails.
+In the dictionary comprehension\pythonIdx{dict!comprehension}\pythonIdx{comprehension!dict}, the last assignment prevails.
+This means that the last~\pythonil{m} value that meets the condition is stored for each~\pythonil{k}.
 Since \pythonil{m} iterates over strictly increasing values, this will be the largest divisor.
 Nevertheless, this is the reason why this computation is wildly inefficient {\dots} but it makes for a nice example.
 
 Notice that, different from our prime-number-set example, where \pythonil{m} started at \pythonil{2}, it here \pythonil{m} starts at~\pythonil{1}.
-For any prime number~$k$, the largest divisor~$m<k$ is then correctly~$1$.
-For~$1$, no such divisor exists, so~$1$ does not appear in the dictionary~\pythonil{maxdiv}.
-Finally, \pythonil{maxdiv} is printed and indeed contains the largest divisors for the numbers~$k\leq20$.%
-%
+For any prime number~$k'$, the largest divisor~$m<k'$ is then correctly~$1$.
+For~$1$, no such divisor exists, so~$1$ does not appear as key in the dictionary~\pythonil{maxdiv}.
+Finally, \pythonil{maxdiv} is printed and indeed contains the largest divisors for the numbers~$k\leq20$.
+
+With set and dictionary comprehension, we now expanded the nice properties of list comprehension to these two datastructures.
+Both have a very simple syntax, which is very similar to list comprehension.
+They are quite useful for writing neat and tidy code.%
 \FloatBarrier%
 \endhsection%
 %
@@ -504,29 +568,36 @@ A list can be extended by adding elements to it, but it will always be managed a
 It cannot exist in memory partially, but always as a whole.
 And typically, this is what we want:
 We want a datastructure that can store the elements and that lets us access them in an efficient way.
+Tuples, sets, and dictionaries are other manifestations of this concept.
+All of them hold all their elements in memory.
 
 However, this is not the right solution for all tasks.
 Let's say you have a sequence of elements and you just want to add them all up.
-The \pythonilIdx{sum} function does exactly this.
-It accepts an \pythonilIdx{Iterator} as input.
+The \pythonilIdx{sum} function does exactly this~\cite{PSF:P3D:TPSL:BIF}.
+It accepts an \pythonilIdx{Iterable} as input~\cite{PSF:P3D:TPSL:BIF}.
 It repeatedly invokes~\pythonilIdx{next} to get its elements and adds them in a running sum.
 \pythonil{sum([i ** 2 for i in range(100)])} adds up the squares of the values~\pythonil{i} for~$\pythonil{i}\in\intRange{0}{99}$.
 The list comprehension therefore first creates a \pythonilIdx{list} holding all these square values.
 This \pythonilIdx{list} is passed to \pythonilIdx{sum}, which then iterates over it and computes, well, the sum of the values.
 
 This looks fine, but it has one drawback, namely the creation of the complete list in memory.
-Actually, all that we (or the \pythonilIdx{sum} function) need to do is to access the elements one-by-one.
+Actually, all that we~(or the \pythonilIdx{sum} function) need to do is to access the elements one-by-one.
 We need to do this only exactly once.
 There is no need to keep all the elements in memory.
 Matter of fact, all we really want is to repetitively invoke~\pythonilIdx{next} on an \pythonilIdx{Iterator}, as we discussed in \cref{sec:iterable}.
 This is how \pythonilIdx{sum} is implemented.
 It does not require the complete \pythonilIdx{list} to exist in memory.
-All it requires is that the elements be provided via the \pythonilIdx{next} function of the \pythonilIdx{Iterator} it receives as input.
+All it requires is an \pythonilIdx{Iterable} as argument to which it will apply \pythonilIdx{iter}, yielding an \pythonilIdx{Iterator}.
+Then it applies \pythonilIdx{next} to the \pythonilIdx{Iterable} to get the elements, which it then adds up.
+At no point it requires all elements to co-exist at the same time in memory.
 
-To allow us to create \inQuotes{lazy} sequences that return their elements as needed (instead of keeping them all in memory all the time), generator expressions exist~\cite{PEP289}.
-The syntax for generator expressions is basically the same as for list expressions, except that we use parenthesis instead of square brackets:%
+To allow us to create \inQuotes{lazy} sequences that create and return their elements as needed~(instead of keeping them all in memory all the time), generator expressions exist~\cite{PEP289}.
+The syntax for generator expressions is basically the same as for list comprehension, except that we use parenthesis instead of square brackets.
+There is one special case, though.
+If we pass a generator expression as function parameter to a function \pythonil{my_func}, then we can leave the parentheses away.%
 %
-\pythonSyntax{syntax/generator_comprehension.py}%
+\pythonSyntax{syntax/generator_expression.py}%
+\FloatBarrier%
 %
 \gitLoadAndExecPython{iteration:generator_expressions_next_1}{}{iteration}{generator_expressions_next_1.py}{}%
 \listingPythonAndOutput{iteration:generator_expressions_next_1}{%
@@ -536,7 +607,7 @@ First, let us investigate how generator expressions work internally.
 In \cref{lst:iteration:generator_expressions_next_1}, we create the generator expression \pythonil{(i ** 2 for i in range(1_000_000_000))}.
 If this was a list comprehension, it would try to fit one billion integer values into our memory.
 But since it is a generator expression, it will create the next value~\pythonil{i} and compute~\pythonil{i ** 2} only when they are actually needed.
-The proper \pgls{typeHint} for generator expressions is \pythonil{Generator[type, None, None]}, where \pythonil{type} is the type of elements (here~\pythonil{int}) and \pythonilIdx{Generator} is imported from the \pythonilIdx{typing} module.
+The proper \pgls{typeHint} for generator expressions is \pythonil{Generator[type, None, None]}, where \pythonil{type} is the type of elements~(here~\pythonil{int}) and \pythonilIdx{Generator} is imported from the \pythonilIdx{typing} module.
 Anyway, we store the generator expression into a variable \pythonil{gen}.
 As the output shows, the \pythonilIdx{type} of \pythonil{gen} is \pythonil{<class 'generator'>}, not \pythonilIdx{list} and neither~\pythonilIdx{tuple}.
 We can obtain the first element of the sequence, \pythonil{0}, by invoking \pythonil{next(gen)}\pythonIdx{next}.
