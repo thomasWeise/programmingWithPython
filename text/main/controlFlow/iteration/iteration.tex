@@ -68,7 +68,7 @@ Compare \cref{exec:iteration:set_iteration} and \cref{exec:iteration:set_iterati
 \listingBox{exec:iteration:set_iteration_2}{Execuring program \programUrl{iteration:set_iteration} a second time. This time, the output should be different from \cref{exec:iteration:set_iteration}.}{,style=text_style}%
 %
 \gitEvalPython{iteration:range_iteration}{}{iteration/range_iteration.py}%
-\listingBox{exec:iteration:range_iteration}{Manually iterating over a \pythonilIdx{range}, in exactly the same way that we used in \cref{lst:exec:iteration:list_iteration}.}{,style=python_console_style}%
+\listingBox{exec:iteration:range_iteration}{Manually iterating over a \pythonilIdx{range}, in exactly the same way that we used in \cref{exec:iteration:list_iteration}.}{,style=python_console_style}%
 %
 \begin{sloppypar}%
 Any object that allows us to access its elements one-by-one, i.e., \emph{iteratively} is an instance of \pythonilIdx{typing.Iterable}\pythonIdx{Iterable}.
@@ -94,7 +94,7 @@ You see, if we want to represent one step-by-step pass over the sequence~\python
 
 Every time a loop needs to advance to the next element~\pythonil{xi} in the sequence represented by \pythonil{u}, it does~(something like)~\pythonil{xi = next(u)}.
 This will then yield the element at the current iteration index and advance the index by one.
-The \pythonilIdx{for}-loop basically does this internally.
+The \pythonilIdx{for}~loop basically does this internally.
 
 However, we can also do it \inQuotes{by hand.}
 In \cref{exec:iteration:list_iteration}, we perform \pythonil{u = iter(x)} and \pythonil{v = iter(x)}.
@@ -373,7 +373,7 @@ The variable \pythonil{subiterable} iterates over \pythonil{iterables}, i.e., be
 Then, \pythonil{value} iterates over the elements of \pythonil{subiterable}.
 Thus, it iteratively takes on each of the values in each of the sub-list.
 Since we return a \pythonilIdx{list} with all of these values, we effectively flatten the list-of-lists.
-It may be a bit confusing that the inner \pythonilIdx{for}-loop here is actually the outer \pythonilIdx{for}-loop and vice-versa, but we experienced this already when we computed \pythonil{[f"\{m\}\{n\}" for m in "abc" for n in "xy"]}. in an earlier example.%
+It may be a bit confusing that the inner \pythonilIdx{for}~loop here is actually the outer \pythonilIdx{for}~loop and vice-versa, but we experienced this already when we computed \pythonil{[f"\{m\}\{n\}" for m in "abc" for n in "xy"]}. in an earlier example.%
 \end{sloppypar}%
 %
 Normally, we would also provide some code that actually executes \pythonil{flatten} and present its output.
@@ -463,7 +463,7 @@ We want to create the set with all results of this function for the values~\pyth
 
 We test two methods for creating such a set.
 We first do this by starting with an empty set~\pythonil{roots_1}.
-Then we iteratively append the \pythonilIdx{isqrt}-values by calling \pythonil{roots_1.add}\pythonIdx{set!add} in a \pythonilIdx{for}-loop.
+Then we iteratively append the \pythonilIdx{isqrt}-values by calling \pythonil{roots_1.add}\pythonIdx{set!add} in a \pythonilIdx{for}~loop.
 The constructed set contains, obviously, the values~0 to~9.
 Each value is contained a single time, because this is how sets work.%
 %
@@ -602,51 +602,94 @@ If we pass a generator expression as function parameter to a function \pythonil{
 \gitLoadAndExecPython{iteration:generator_expressions_next_1}{}{iteration}{generator_expressions_next_1.py}{}%
 \listingPythonAndOutput{iteration:generator_expressions_next_1}{%
 An investigation of how generator expressions work\pythonIdx{Generator} by using the \pythonilIdx{next} function.}{}%
+\afterpage{\afterpage{\clearpage}}%
 %
-First, let us investigate how generator expressions work internally.
-In \cref{lst:iteration:generator_expressions_next_1}, we create the generator expression \pythonil{(i ** 2 for i in range(1_000_000_000))}.
-If this was a list comprehension, it would try to fit one billion integer values into our memory.
-But since it is a generator expression, it will create the next value~\pythonil{i} and compute~\pythonil{i ** 2} only when they are actually needed.
-The proper \pgls{typeHint} for generator expressions is \pythonil{Generator[type, None, None]}, where \pythonil{type} is the type of elements~(here~\pythonil{int}) and \pythonilIdx{Generator} is imported from the \pythonilIdx{typing} module.
-Anyway, we store the generator expression into a variable \pythonil{gen}.
-As the output shows, the \pythonilIdx{type} of \pythonil{gen} is \pythonil{<class 'generator'>}, not \pythonilIdx{list} and neither~\pythonilIdx{tuple}.
-We can obtain the first element of the sequence, \pythonil{0}, by invoking \pythonil{next(gen)}\pythonIdx{next}.
-The second invocation of \pythonil{next(gen)}\pythonIdx{next} yields~\pythonil{1} and the third call to \pythonil{next(gen)}\pythonIdx{next} gives us~\pythonil{4}.
-Finally, as expected, \pythonil{next(gen)}\pythonIdx{next} again returns~\pythonil{9}.
-In our example program, we stop here.
-This means that the 999\decSep999\decSep996 elements are never created.
-
 \gitLoadAndExecPythonAndErrors{iteration:generator_expressions_next_2}{}{iteration}{generator_expressions_next_2.py}{}%
 \listingPythonAndError{iteration:generator_expressions_next_2}{%
 An investigation of the lazy evaluation in generator expressions\pythonIdx{Generator} by using the \pythonilIdx{next} function.}%
-\afterpage{\clearpage}%
 %
-To better understand this, let us try to construct a generator expression which explicitly tells us when an element is created.
-For this, we first create the function \pythonil{as_str} in \cref{lst:iteration:generator_expressions_next_2},.
+Notice that, based on what we learned about list, set, and dictionary comprehension, one might mistake this syntax as tuple comprehension.
+However, generators are something very different, as we will see.
+Tuple comprehension does not exist in \python.%
+%
+\begin{sloppypar}%
+First, let us investigate a bit how generator expressions work internally.
+In program \programUrl{iteration:generator_expressions_next_1} given as \cref{lst:iteration:generator_expressions_next_1}, we create the generator expression \pythonil{(i ** 2 for i in range(1_000_000_000))}.
+If this was a list comprehension, it would try to fit one billion integer values into our memory.
+But since it is a generator expression, it exists in memory only as the piece of code in the parentheses.
+This code will create the next value~\pythonil{i} and compute~\pythonil{i ** 2} only when they are actually needed.
+The proper \pgls{typeHint} for such generator expressions is \pythonil{Generator[etype, None, None]}, where \pythonil{etype} is the type of elements, which here is \pythonil{int}.
+\pythonilIdx{Generator} is imported from the \pythonilIdx{typing} module.%
+\end{sloppypar}%
+%
+We store the generator expression into a variable \pythonil{gen}.
+We then print the contents of~\pythonil{gen}.
+If \pythonil{gen} was a \pythonil{tuple}, this would print a huge string consisting of all billion square numbers.
+However, instead it just tells us the object type of \pythonil{gen} and its location in memory.
+Since the generator expression is just a piece of code in memory, there really is not much that \python\ can print for us here.
+As the next line of output shows, the \pythonilIdx{type} of \pythonil{gen} is \pythonil{<class 'generator'>}, not \pythonilIdx{list} and neither~\pythonilIdx{tuple}.
+
+We then confirm that generator expressions are a special case of \pythonilsIdx{Iterator} using the \pythonilIdx{isinstance} operator.
+And it is an iterator that can be used only \emph{once}.
+We can see this if we apply the \pythonilIdx{iter} operator to it.
+This operator returns to us the same object, \pythonil{gen}, i.e., \pythonil{iter(gen) is gen} is \pythonil{True}.
+We can create arbitrarily many different iterators for lists or sets, each of them being an independent, different object that has its own state information.
+However, \pythonil{iter(gen)} yields \pythonil{gen} itself and thus cannot independently advanced.
+
+And iterating over \pythonil{gen} is what we will do.
+We can obtain the first element of the sequence, \pythonil{0}, by invoking \pythonil{next(gen)}\pythonIdx{next}.
+The second invocation of \pythonil{next(gen)}\pythonIdx{next} yields~\pythonil{1}.
+The third call to \pythonil{next(gen)}\pythonIdx{next} gives us~\pythonil{4}.
+Then \pythonil{next(gen)}\pythonIdx{next} returns~\pythonil{9}.
+Finally, as expected, \pythonil{next(gen)}\pythonIdx{next} yields~\pythonil{16}.
+In our example program, we stop here.
+This means that the 999\decSep999\decSep995 elements are never created.
+
+To better understand this lazy evaluation behavior, we write a second example program named \programUrl{iteration:generator_expressions_next_2} here printed as \cref{lst:iteration:generator_expressions_next_2}.
+We now want to construct a generator expression which explicitly tells us exactly when an element is created.
+For this, we first create the function \pythonil{as_str}.
 \pythonil{as_str} accepts an integer parameter \pythonil{a} as input.
-It immediately writes \pythonil{f"input is \{a\}"} to the \pgls{stdout}.
-This means that whenever \pythonil{as_str} is called, we will immediately see some output.
-Then, it returns simply the string representation of~\pythonil{a}, i.e., \pythonil{str(a)}\pythonIdx{str}.
+We want to know when exactly this function is invoked, so we add a so-called side effect.
+When it is invoked, the function immediately writes \pythonil{f\"as_str(\{a\})\"} to the \pgls{stdout}.
+It also passes \pythonil{flush=True} to \pythonilIdx{print}\pythonIdx{print!flush}, which forces all buffered output to be written, i.e., we really \emph{really} immediately get to see that our function was called.
+This means that whenever \pythonil{as_str} is called, we will immediately know.
+Then, the function simply returns simply the string representation of~\pythonil{a}, i.e., \pythonil{str(a)}\pythonIdx{str}.
 
 Let us first use this function in a list comprehension \pythonil{lst = [as_str(j) for j in range(3)]}.
-The list comprehension creates the entire list.
+The list comprehension creates the entire list right away.
 This means in the moment this line of code is executed and \pythonil{lst} is created, our function~\pythonil{as_str} will be invoked three times, with \pythonil{a = 0}, \pythonil{a = 1}, and \pythonil{a = 2}.
-We can see that this happens when the list is created, because all the \pythonil{as_str}-output happens before the \pythonil{print("list created")} completes.
-In the next line, we print the value of \pythonil{next(iter(lst))}\pythonIdx{next}\pythonIdx{lst}.
-This creates an \pythonilIdx{Iterator} over \pythonil{lst} (via~\pythonilIdx{iter}) and returns its first element (via~\pythonil{next}).
-The corresponding output appears after the output written by our \pythonil{as_str} function.
-This shows that the \pythonilIdx{list} has indeed be created in its entirety before we began processing it in the next line.%
+We can see that this happens when the list is created, because all the \pythonil{as_str}-output happens before the \pythonil{print("list created")} in the next line completes.
+
+In the following line, we print the value of \pythonil{next(iter(lst))}\pythonIdx{next}\pythonIdx{lst}.
+Here, \pythonIdx{iter}\pythonil{iter(lst))} creates an \pythonilIdx{Iterator} over \pythonil{lst}.
+The \pythonilIdx{next} operator then returns the first element of this iterator.
+As you can see, the corresponding text appears in \pgls{stdout}.
+The function \pythonil{as_str} is not invoked again at this stage.
+Of course not, because it was already used when the list was created.
+This shows that the \pythonilIdx{list} has indeed be created in its entirety before we began processing it in the next lines.%
 %
 \begin{sloppypar}%
 What happens if the use \pythonil{as_str} in a generator expression instead?
-We set \pythonil{gen = (as_str(j) for j in range(3))} -- and nothing happens.
+We do this by setting \pythonil{gen = (as_str(j) for j in range(3))}, with the proper \pgls{typeHint}, of course.
+When this line of code is executed, and nothing happens.
+This is because the generator expression is just a piece of code in memory at this stage.
 The next line, \pythonil{print("generator created")} prints its output.
-Obviously, \pythonil{as_str} has not yet been invoked.%
+Obviously, \pythonil{as_str} has not yet been invoked.
+We did not yet pull any element out of the sequence, so the generator expression is just sitting peacefully in memory.%
 \end{sloppypar}%
 %
 We now iteratively query \pythonil{gen} with \pythonilIdx{next}.
-Indeed, the first time we do this, \textil{input is 0} appears in \pgls{stdout} before the result of the interpolated \pgls{fstring} \pythonil{f"next(gen): \{next(gen)\}"} is printed.
-When we query \pythonil{next(gen)} again in the next line, \textil{input is 1} appears, and so on.
+Indeed, the first time we do this, \textil{as_str(0)} appears in \pgls{stdout} \emph{before} the result of the interpolated \pgls{fstring} \pythonil{f\"next(gen): \{next(gen)\}\"} is printed.
+This is because the element to be returned by \pythonilIdx{next} first must be created.
+The generator experession therefore invokes \pythonil{as_str(0)}.
+At this point, \pythonil{\"as_str(0)\"} is written to the \pgls{stdout}~(and all output buffers are flushed).
+Then, the string \pythonil{\"0\"} is returned to the calling code, which, in this case, is the \pgls{strinterpolation}.
+The \pgls{fstring} is interpolated to \pythonil{\"next(gen): \'0\'\}\"} and printed.
+It thus appears in the output \emph{after} \pythonil{\"as_str(0)\"}.
+
+Notice that \pythonil{as_str} was invoked only once.
+The other elements in the sequence are not yet generated at this stage.
+When we query \pythonil{next(gen)} again in the next line, \textil{as_str(1)} appears, and so on.
 Clearly the elements of the generator expression are indeed created when needed.
 This is called \emph{lazy} evaluation.
 No memory is wasted during this process, as only one element exists in memory at a time.
@@ -654,7 +697,12 @@ No memory is wasted during this process, as only one element exists in memory at
 Eventually, after the third \pythonil{next(gen)} call, the \pythonil{range(3)} is exhausted.
 Calling \pythonil{next(gen)} a fourth time leads to a \pythonilIdx{StopIteration} exception being raised.
 This is not an error, but signals the end of the iteration.
-We can iterate over a generator expression only a single time, because this \pythonilIdx{StopIteration} getting raised.%
+We can iterate over a generator expression only a single time.
+
+Therefore, generator expressions cannot be used if we need to iterate over a sequence multiple times.
+They also do not work when we want to access elements in a random order, for example, via indices.
+In such cases, the collection datastructures are the better choice.
+However, in several use cases, generator expressions excel:%
 %
 \bestPractice{generatorExpression}{%
 Generator expressions shall be preferred over list comprehension if the sequence of items only needs to be processed once. %
@@ -676,36 +724,43 @@ Notice that we do not need to write \pythonil{sum((generator expression...))} bu
 The result of the summation is 333\decSep332\decSep833\decSep333\decSep500\decSep000.
 
 We now want to find the largest and smallest value that~$\sin{k}$ takes on for any~$k\in\intRange{-99}{99}$.
-We write the generator expression \pythonil{(sin(k) for k in range(-100, 100))} and pass it to \pythonilIdx{max} to get the maximum value as well as to \pythonilIdx{min} to get the minimum value of the sequence.
+We use the generator expression \pythonil{(sin(k) for k in range(-100, 100))}.
+We have to write it twice:
+once to pass it to \pythonilIdx{max} in order to get the maximum value, and once to pass it to \pythonilIdx{min} to get the minimum value of the sequence.
 Again it is not necessary to write double-parentheses.%
 %
 \begin{sloppypar}%
-As next example, we first create a list \pythonil{words} of, well, words \pythonil{["hello", "how", "are", "you"]}.
+As next example, we first create a list \pythonil{words} of, well, words \pythonil{[\"hello\", \"how\", \"are\", \"you\"]}.
 We want to know if \emph{all} words in the list contain the letter~\inQuotes{e}.
-The generator expression \pythonil{"e" in word for word in words} evaluates \pythonil{"e" in word} for every \pythonil{word} in the list~\pythonil{words}.
-It would produce the sequence \pythonil{True}, \pythonil{False}, \pythonil{True}, and \pythonil{False}.
-We pass it to the function \pythonilIdx{all}, which returns~\pythonil{True} if and only if all the elements in the sequence that it receives as argument are \pythonil{True}.
+The generator expression \pythonil{\"e\" in word for word in words} evaluates \pythonil{\"e\" in word} for every \pythonil{word} in the list~\pythonil{words}.
+It would produce the sequence \pythonil{True}, \pythonil{False}, \pythonil{True}, and \pythonil{False}.%
+\end{sloppypar}%
+%
+The function \pythonilIdx{all} returns~\pythonil{True} if and only if all the elements in the sequence that it receives as argument are \pythonil{True}.
 Otherwise it returns~\pythonil{False}.
+We pass our generator expression as argument to \pythonilIdx{all}.
 It will obviously return~\pythonil{False} here as well.
 The interesting thing is that \pythonilIdx{all} can stop calling \pythonilIdx{next} on our generator as soon as it hits the first~\pythonil{False}.
-In other words, our generator will never evaluate \pythonil{"e" in "are"}, because \pythonil{"e" in "how"} is already~\pythonil{False} and it is clear, at this point, that \pythonilIdx{all} must return~\pythonilIdx{False} regardless of the rest of sequence.
+In other words, our generator expression will never evaluate \pythonil{\"e\" in \"are\"}, because \pythonil{\"e\" in \"how\"} is already~\pythonil{False}.
+It is clear, at this point, that \pythonilIdx{all} must return~\pythonilIdx{False} regardless of the rest of sequence and so it will do just that immediately.
+
 If we had used list comprehension, all the words would have been checked and the corresponding \pythonil{bool} values would have been stored in a~\pythonil{list}.
-Using the generator expression, we only generated a part of the data (and stored it nowhere).%
-\end{sloppypar}%
-%
-\begin{sloppypar}%
+Using the generator expression, we only generated the part of the data that was actually used, one item at a time, and stored it nowhere.
+
 A complement to the \pythonilIdx{all} function is the \pythonilIdx{any}~function.
-We now want to know whether the letter~\inQuotes{w} appears in any of the words.
-For this, we write the generator expression \pythonil{("w" in word for word in words)}.
-If evaluates \pythonil{"w" in word} for every \pythonil{word} in the list~\pythonil{words}.
-We pass this generator expression to the function~\pythonilIdx{any}.
-\pythonilIdx{any} returns \pythonilIdx{True} if at least one of the elements of its argument sequence also is~\pythonil{True}.
+\pythonilIdx{any}~returns \pythonilIdx{True} if at least one of the elements of its argument sequence also is~\pythonil{True}.
 It returns~\pythonil{False} if \emph{all} of the elements in the argument sequence are also~\pythonilIdx{False}.
-We immediately see that \pythonil{"w" in "how"} is~\pythonil{True}, so the result of \pythonilIdx{any} will also be~\pythonilIdx{True}.
+
+We now want to know whether the letter~\inQuotes{w} appears in any of the words.
+For this, we write the generator expression \pythonil{(\"w\" in word for word in words)}.
+If evaluates \pythonil{\"w\" in word} for every \pythonil{word} in the list~\pythonil{words}.
+We pass this generator expression to the function~\pythonilIdx{any}.
+
+We immediately see that \pythonil{\"w\" in \"how\"} is~\pythonil{True}.
+Thus, the result of \pythonilIdx{any} will also be~\pythonilIdx{True}.
 And again, the evaluation of the sequence can stop at the point that the first~\pythonil{True} value is reached.
-Lazy evaluation here again reduces both the runtime and memory footprint.%
-\end{sloppypar}%
-%
+Lazy evaluation here again reduces both the runtime and memory footprint.
+
 \gitLoadAndExecPython{iteration:generator_expressions_loops}{}{iteration}{generator_expressions_loops.py}{}%
 \listingPythonAndOutput{iteration:generator_expressions_loops}{%
 The behavior of generator expressions in \pythonilIdx{for}~loops\pythonIdx{Generator}.}{}%
@@ -713,57 +768,84 @@ The behavior of generator expressions in \pythonilIdx{for}~loops\pythonIdx{Gener
 We said before that \python\ \pythonilIdx{for}~loops actually work on \pythonilsIdx{Iterator}.
 Every \pythonilIdx{Generator} is also an \pythonilIdx{Iterator}.
 Therefore, we can of course also iterate over generator expressions using a \pythonilIdx{for}~loop.
-This is illustrated in \cref{lst:iteration:generator_expressions_loops}.
+This is illustrated in \programUrl{iteration:generator_expressions_loops} illustrated as \cref{lst:iteration:generator_expressions_loops}.
 
-We create a generator \pythonil{gen} which creates the tuples~$(n,\sin{n})$ for all~$n\in\intRange{0}{1'000'000'000}$ by writing \pythonil{((n, sin(n)) for n in range(1_000_000_000))}.
-For some reason, we want to find the first~$n$ for which~$\sin{n} < -0.99999$.
-We therefore iterate over this generator~\pythonil{gen} and directly unpack the tuples, in the same way we did back in \cref{sec:loopsOverSequences} when looping over collections.
-The variable~\pythonil{o} gets the original value of~\pythonil{n}, which is stored in the first tuple elements, and the variable~\pythonil{p} will take on~$\sin{\pythonil{n}}$.
+Here, we create a generator expression \pythonil{gen} which creates the tuples of the form~$(n,\sin{n})$ for all~$n\in\intRange{0}{1\decSep000\decSep000\decSep000}$.
+This is done by writing \pythonil{((n, sin(n)) for n in range(1_000_000_000))}.
+Assume that for some reason, we want to find the first~$n\in\naturalNumbersZ$ for which~$\sin{n} < -0.99999$.
+We therefore iterate over this generator expression~\pythonil{gen}.
+We directly unpack the tuples it delivers in the same way we did back in \cref{sec:loopsOverSequences} when looping over collections.
+
+The variable~\pythonil{o} gets the original value of~\pythonil{n}, which is stored in the first tuple elements, and the variable~\pythonil{p} will take on~$\sin{\pythonil{o}}$.
 We place the conditional \pythonil{if p < -0.99999} to check for the number we want to find.
 If the expression \pythonil{p < -0.99999} evaluates to \pythonil{True}, we print the discovered values and leave the loop via~\pythonilIdx{break}.
-The output \textil{sin(11)=-0.9999902065507035} tells us that only 12~loop steps were done (as $n$ starts with~0).
-Using a generator here was not just more memory efficient than using a list, it also was faster (because it did not need to compute all the values).
+
+If the \pythonilIdx{for}~loop is never terminated with a \pythonilIdx{break}, then the condition for \pythonilIdx{else} after the loop body is fulfilled.
+In this case, we print a message that we never found the value we were looking for.
+
+The output \textil{sin(11)=-0.9999902065507035} tells us that we did, however, indeed find a natural number fulfilling our condition.
+We also know that only 12~loop steps were done~(as~$n$ starts with~0).
+
+Using a generator expression here was not just more memory efficient than using a list, it also was faster, because it did not need to compute all the values.
 Well, of course, we would not have needed any generator or datastructure in the first place.
-We could have just iterated over the \pythonilIdx{range} directly, which would have been even more efficient {\dots} but then we could not have used this as an example.%
-%
+We could have just iterated over the \pythonilIdx{range} directly, which would have been even more efficient {\dots} but then we could not have used this as an example.
+
 \gitLoadAndExecPython{iteration:generator_expressions_to_collection}{}{iteration}{generator_expressions_to_collection.py}{}%
 \listingPythonAndOutput{iteration:generator_expressions_to_collection}{%
 Using generator expressions when creating collection datastructures\pythonIdx{Generator}\pythonIdx{list}\pythonIdx{dict}.}{}%
-%
-\begin{sloppypar}%
-Finally, generator expressions can also be passed to the constructors of collection datastructures or other functions that create such datastructures.
-Assume that we are processing numbers stored in a \pgls{CSV} format.
-Often, the rows of text files with tabular or matrix data are in this format.
-In \cref{lst:iteration:generator_expressions_to_collection}, we first define a string \pythonil{csv_text} with the value~\pythonil{"22,56,33,67,43,33,12"}.
-Invoking \pythonil{csv_text.split(",")}\pythonIdx{split}\pythonIdx{str!split} will split the string into a list of single strings based on the delimiter~\pythonil{","}.
-This will thus yield \pythonil{["22", "56", "33", "67", "43", "33", "12"]}.
-We can use this list in a generator expression.
-For example, \pythonil{(int(i) for i in csv_text.split(","))} is a generator that converts the strings in the list into integers.
-Passing this generator to the \pythonilIdx{list} constructor, i.e., calling \pythonil{list(int(i) for i in csv_text.split(","))} will create a list with the contents of the generator.
-This also works exactly the same when passing it to the~\pythonilIdx{tuple} or~\pythonilIdx{set} constructors which then create a \pythonilIdx{tuple} or a \pythonilIdx{set}, respectively.
-Notice, however, that the constructed set only contains each element at most once, i.e., duplicates are removed.%
-\end{sloppypar}%
-%
-We can also pass a generator to the \pythonilIdx{sorted} function mentioned back in \cref{sec:sets}.
-This function takes a sequence and returns a sorted list with the same contents.
-Dictionaries can be created from sequences of \pythonilsIdx{tuple}.
-The first element of each tuple is used as key and the second one as value.
-We pass a generator that returns the tuples~\pythonil{(i, int(i))} for each~\pythonil{i} in \pythonil{csv_text.split(",")} to~\pythonilIdx{dict}.
-The keys of the new dictionary are thus the original strings and the values are their integer representation.
-Notice that this dictionary also does not contain duplicates.
-
-If we apply the trusty tool \ruff\ to \cref{lst:iteration:generator_expressions_to_collection}, it tells us that using generators to create lists, sets, and dictionaries is unnecessary, since we could use the corresponding comprehension instead.
-There is no tuple comprehension, though, and also passing the generator expression to the \pythonilIdx{sorted} function is without better alternative.%
 %
 \gitExec{exec:iteration:generator_expressions_to_collection:ruff}{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh iteration generator_expressions_to_collection.py}%
 \listingToolOutput{iteration:generator_expressions_to_collection:ruff}{%
 The output of \ruff\ for collection creation-expressions in \cref{lst:iteration:generator_expressions_to_collection}: %
 Passing generators to \pythonilIdx{list}, \pythonilIdx{set}, or \pythonilIdx{dict} constructors could be replaced by list-, set-, or dictionary comprehension.}%
 %
+Of course, generator expressions can also be passed to the constructors of collection datastructures or other functions that create such datastructures.
+Assume that we are processing numbers stored in a \pgls{CSV} format.
+Often, the rows of text files with tabular or matrix data are in this format.
+Here, ever line of text corresponds to a row of data elements.
+The single data elements in a row are usually separated by commas~(\inQuotes{,}).
+
+In program \programUrl{iteration:generator_expressions_to_collection} given as \cref{lst:iteration:generator_expressions_to_collection}, we first define a string \pythonil{csv_text} with the value~\pythonil{\"22,56,33,67,43,33,12\"}.
+It thus holds one row of \pgls{CSV} data.
+
+Invoking \pythonil{csv_text.split(\",\")}\pythonIdx{split}\pythonIdx{str!split} will split the string into a list of single strings based on the delimiter~\pythonil{\",\"}.
+This will thus yield the list \pythonil{[\"22\", \"56\", \"33\", \"67\", \"43\", \"33\", \"12\"]}.
+
+We can use this list in a generator expression.
+For example, \pythonil{(int(i) for i in csv_text.split(\",\"))} is a generator expression that converts the strings in the list into integers.
+Passing this generator expression to the \pythonilIdx{list} constructor, i.e., calling \pythonil{list(int(i) for i in csv_text.split(\",\"))}, will create a list with all the elements generated by the experession.
+
+This also works exactly the same when passing it to the~\pythonilIdx{tuple} or~\pythonilIdx{set} constructors which then create a \pythonilIdx{tuple} or a \pythonilIdx{set}, respectively.
+Notice, however, that the constructed set only contains each element at most once, i.e., duplicates are removed.
+We can also pass a generator expression to the \pythonilIdx{sorted} function mentioned back in \cref{sec:sets}.
+This function takes a sequence and returns a sorted list with the same contents.
+
+Dictionaries can be created from sequences of \pythonilsIdx{tuple}.
+The first element of each tuple is used as key and the second one as value.
+We pass a generator expression that returns the tuples~\pythonil{(i, int(i))} for each~\pythonil{i} in \pythonil{csv_text.split(\",\")} to~\pythonilIdx{dict}.
+The keys of the new dictionary are thus the original strings in our \pgls{CSV} data and the values are their integer representation.
+Notice that this dictionary also does not contain duplicate keys.
+
+We now apply the trusty tool \ruff\ to \programUrl{iteration:generator_expressions_to_collection}.
+It tells us that using generator expressions to create lists, sets, and dictionaries is unnecessary.
+We could use the corresponding comprehension instead directly.
+And it is right.
+There is no tuple comprehension, though, so using a generator expression in \pythonil{tuple(...)} is OK.
+The same holds for passing the generator expression to the \pythonil{sorted} function.
+
+With this, we have reached the end of our discussion of generator expressions.
+We have learned that we can use them as an efficient source of data.
+Different from collection datastructures, they do not hold all of their elements in memory at once.
+They instead offer us sequences that are lazily evaluated, i.e., their elements are computed and returned when querried.
+This is much more efficient in cases where we only need to access the data elements one-by-one.
+It is double-efficient when we maybe want to abort the iteration over the data earlier.
+In that case, only the data elements until this point are generated, saving both memory and runtime.%
+%
 \FloatBarrier%
 \endhsection%
 %
 \hsection{Generator Functions}%
+\FloatBarrier%
 %
 \gitLoadAndExecPythonAndErrors{iteration:simple_generator_function_1}{}{iteration}{simple_generator_function_1.py}{}%
 \listingPythonAndError{iteration:simple_generator_function_1}{%
@@ -889,14 +971,14 @@ An example for the function \pythonilIdx{map}.}{}%
 Another important utility function when dealing with sequences is the function~\pythonilIdx{map}.
 We explore its use in \cref{lst:iteration:map}.
 Back in \cref{lst:iteration:generator_expressions_to_collection}, we used a generator expression to process data that we exracted from a \pgls{CSV}-formatted string.
-Instead of doing \pythonil{int(s) for s in csv_text.split(",")} we can simply write \pythonil{map(int, csv_text.split(",")}.
+Instead of doing \pythonil{int(s) for s in csv_text.split(\",\")} we can simply write \pythonil{map(int, csv_text.split(\",\")}.
 The first argument to \pythonilIdx{map} is a function that should be applied all of the elements in the sequence passed in as its second argument.
 The result of \pythonilIdx{map} is a new sequence with the return values of this function.
-In \cref{lst:iteration:map}, we map the string \pythonil{csv_text} split at all~\pythonil{","} to \pythonilsIdx{int} and then \pythonilIdx{filter} the sequence to retain only values greater than~20.
+In \cref{lst:iteration:map}, we map the string \pythonil{csv_text} split at all~\pythonil{\",\"} to \pythonilsIdx{int} and then \pythonilIdx{filter} the sequence to retain only values greater than~20.
 We can conveniently iterate over the resulting filtered and mapped sequence using a~\pythonilIdx{for}~loop.
 
 How about we now obtain all the unique squares of the values in the \pgls{CSV} data, i.e., we discard all duplicate squares.
-First, we again use \pythonilIdx{split}\pythonIdx{str!split} to divide the text into chunks based on the separator~\pythonil{","}.
+First, we again use \pythonilIdx{split}\pythonIdx{str!split} to divide the text into chunks based on the separator~\pythonil{\",\"}.
 Then we map these chunks to integers and return their squares using the \pythonilIdx{map}~function, but this provide a~\pythonilIdx{lambda} that does the transformation.
 Now we want to retain only the unique values.
 This can be done by passing the resulting \pythonilIdx{Iterator} into the \pythonilIdx{set} constructor.
@@ -904,7 +986,7 @@ A set, by definition, only contains unique values.
 In the resulting output in \cref{exec:iteration:map}, we can see that \textil{9}~indeed only appears once and so does~\textil{144}.
 
 Finally, the \pythonilIdx{map} function also plays nicely together with aggregating functions like~\pythonilIdx{sum}, \pythonilIdx{min}, or~\pythonilIdx{max}.
-In the final example for \pythonilIdx{map}, we have a list of words~\pythonil{words} and want to know the length of the longest word.
+In the final example for \pythonilIdx{map}, we have a list~\pythonil{words} of words and want to know the length of the longest word.
 We can first map each word to its length via~\pythonil{map(len, words)}.
 This produces an \pythonilIdx{Iterator} of word lengths, which we can directly pass to~\pythonilIdx{max}.
 
@@ -923,7 +1005,7 @@ The output of \pytest\ executing the \pglspl{doctest} for the \pythonilIdx{zip} 
 \begin{sloppypar}%
 As last example for sequence processing we play a bit with the \pythonilIdx{zip} function.
 This function accepts several \pythonilsIdx{Iterables} as argument and returns a new \pythonilIdx{Iterator} which steps through all of input iterables in synch, returning tuples of with one value of each of them.
-For example, \pythonil{zip([1, 2, 3], ["a", "b", "c"])} returns an \pythonilIdx{Iterator} that produces the the sequence~\pythonil{(1, "a")}, \pythonil{(2, "b")}, and \pythonil{(3, "c")}.
+For example, \pythonil{zip([1, 2, 3], [\"a\", \"b\", \"c\"])} returns an \pythonilIdx{Iterator} that produces the the sequence~\pythonil{(1, \"a\")}, \pythonil{(2, \"b\")}, and \pythonil{(3, \"c\")}.
 Sometimes, the input \pythonilsIdx{Iterable} may be of different length.
 To make sure that such an error is properly reported with a~\pythonilIdx{ValueError}, we must always supply the named argument~\pythonil{strict=True}~\cite{PEP618}.%
 \end{sloppypar}%

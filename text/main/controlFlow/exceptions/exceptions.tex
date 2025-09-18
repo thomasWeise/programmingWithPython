@@ -220,8 +220,8 @@ If it is not caught, the process itself is terminated.
 This process termination can be observed in program \programUrl{exceptions:use_sqrt_raise} shown as \cref{lst:exceptions:use_sqrt_raise}.
 In the program, we iteratively apply our new \pythonil{sqrt} function to the values inside a \pythonil{tuple} using a \pythonilIdx{for}~loop.
 We write the results of these computations to the \glsFull{stdout} using \pgls{fstring} and \pythonil{print}.
-We here use the optional parameter \pythonilIdx{flush} of \pythonilIdx{print}, which has the default value~\pythonil{False}.
-We set it to \pythonil{flush=True}, though, which forces that the output of \pythonilIdx{print} is directly and immediately written to the \pgls{stdout} and not cached.
+We here use the optional parameter \pythonilIdx{flush}\pythonIdx{print!flush} of \pythonilIdx{print}, which has the default value~\pythonil{False}.
+We set it to \pythonil{flush=True}\pythonIdx{print!flush}, though, which forces that the output of \pythonilIdx{print} is directly and immediately written to the \pgls{stdout} and not cached.
 This is useful in this special example to prevent mix-ups between the \pgls{stdout} stream receiving the normal output of the program and the \glsFull{stderr} stream where error messages appear.
 Both streams are captured and presented in \cref{exec:exceptions:use_sqrt_raise} and the order of the text could otherwise get mixed up.
 
@@ -976,7 +976,7 @@ In the first test function, \pythonil{test_sqrt}, we perform the same tests for 
 Of course, we still have to test that our function behaves as expected for valid arguments.
 
 In the second test function, \pythonil{test_sqrt_raises_arithmetic_error}, we check arguments that are floating point numbers but have illegal values.
-In a \pythonil{for}-loop, we let a variable~\pythonil{number} iterate over the values \pythonil{[-1.0, inf, -inf, nan]}.
+In a \pythonil{for}~loop, we let a variable~\pythonil{number} iterate over the values \pythonil{[-1.0, inf, -inf, nan]}.
 The first value is negative and the others are not finite.
 The sanity check \pythonil{(not isfinite(number)) or (number < 0.0)} inside our function should therefore catch these values, unless we made an error and it somehow does not do what we thing it should be doing.
 Thus, all of these values should cause our \pythonil{sqrt} function to raise an \pythonilIdx{ArithmeticError}.
@@ -997,7 +997,7 @@ Even if only for one value of \pythonil{number} no such exception is raised, the
 \begin{sloppypar}%
 Finally, in our test function \pythonil{test_sqrt_raises_type_error}, we check for \pythonilsIdx{TypeError} being raised.
 We use exactly the same pattern as in the previous test function.
-In a \pythonil{for}-loop, we let a variable~\pythonil{number} iterate over the values \pythonil{[True, "x", None]}.
+In a \pythonil{for}~loop, we let a variable~\pythonil{number} iterate over the values \pythonil{[True, "x", None]}.
 Obviously, none of these values are of type \pythonil{float}.
 The check \pythonil{isinstance(number, float)} should prevent these values from entering the actual computation.
 Unless, of course, we misunderstood how \pythonilIdx{isinstance} works.
