@@ -847,39 +847,54 @@ In that case, only the data elements until this point are generated, saving both
 \hsection{Generator Functions}%
 \FloatBarrier%
 %
-\gitLoadAndExecPythonAndErrors{iteration:simple_generator_function_1}{}{iteration}{simple_generator_function_1.py}{}%
-\listingPythonAndError{iteration:simple_generator_function_1}{%
+\gitLoadAndExecPythonAndErrors{iteration:simple_generator_function}{}{iteration}{simple_generator_function.py}{}%
+\listingPythonAndError{iteration:simple_generator_function}{%
 A very simple generator function yielding the numbers~1, 2, and~3\pythonIdx{Generator}.}%
 %
-\gitLoadAndExecPython{iteration:simple_generator_function_2}{}{iteration}{simple_generator_function_2.py}{}%
-\listingPythonAndOutput{iteration:simple_generator_function_2}{%
+\begin{figure}%
+\centering%
+\includegraphics[width=0.33333\linewidth]{\currentDir/fibonacci}%
+\caption{%
+Leonardo Pisano / Fibonnaci. Sculpture by Bertel Thorvaldsen, 1834/1838. %
+Source:~Thorvaldsens Museum exhibit~\href{https://kataloget.thorvaldsensmuseum.dk/A187}{A187}, photographer Jakob Faurvig, under the Creative Commons Zero~(\href{https://creativecommons.org/publicdomain/zero/1.0}{CC0}) license.%
+}%
+\label{fig:fibonacci}%
+\end{figure}%
+%
+\gitLoadAndExecPython{iteration:fibonacci_generator}{}{iteration}{fibonacci_generator.py}{}%
+\listingPythonAndOutput{iteration:fibonacci_generator}{%
 A generator function yielding the infinite sequence of Fibonacci numbers\pythonIdx{Generator}~\cite{W2024MAWWR:FN,S2022FLAATIMEOLPBOC}.}{}%
 %
 \gitLoadPython{iteration:prime_generator}{}{iteration/prime_generator.py}{}%
 \listingPython{iteration:prime_generator}{%
 A generator function yielding the infinite sequence of prime numbers\pythonIdx{Generator}~\cite{W2024MAWWR:PN,CP2005PNACP,R1994PNACMFF}.}%
 %
+\gitExec{exec:iteration:prime_generator:doctest}{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest_doctest.sh iteration prime_generator.py}%
+\listingToolOutput{iteration:prime_generator:doctest}{%
+The output of \pytest\ executing the \pglspl{doctest} for the prime number generator function given as \programUrl{lst:iteration:prime_generator} in \cref{lst:iteration:prime_generator}: %
+The test succeeded.}%
+%
 The final element in \cref{fig:iteration} that we did not yet discuss are \emph{generator functions}~\cite{PEP255}.
-From the perspective of the user of a generator function, it is a function that returns an \pythonilIdx{Iterator} of values.
+From the perspective of the user of a generator function, it is a function behaves like an \pythonilIdx{Iterator} of values.
 We can process the sequence of values provided by this \pythonilIdx{Iterator} in exactly the same ways already discussed.
 We can iterate over it using a \pythonilIdx{for}~loop.
 We can use it a comprehension or pass it to the constructor of a collection, if we want to.
 
-From the perspective of the implementor, however, it looks more like a function that can return values several times.
+From the perspective of the implementor, however, a generator function looks more like a function that can return values several times.
 Instead of using the \pythonilIdx{return} keyword, this is achieved by using the \pythonilIdx{yield} keyword.
 Each element of the sequence that we generate is produced by returning it via~\pythonilIdx{yield}.
-This has the feel of a function that can return a value, which is then processed by some outside code, and then the function resumes to return more values.
+This feels like we can define a function that can return a value, which is then processed by some outside code, and then the function \emph{resumes} to return more values.
 
 Since this sounds quite confusing, let's begin by looking at a very simple example.
-In \cref{lst:iteration:simple_generator_function_1}, we create a generator which should produce only the values~1, 2, and~3.
+In \cref{lst:iteration:simple_generator_function}, we create a generator which should produce only the values~1, 2, and~3.
 It is implemented as a function~\pythonil{generator_123}, which is declared with~\pythonilIdx{def} like any normal \python\ function.
-The return type is annotated as \pythonil{Generator[int, None, None]}, meaning that this is a generator function which produces~\pythonil{int} values.
+The return type is annotated with \pgls{typeHint} \pythonil{Generator[int, None, None]}, meaning that this is a generator function which produces~\pythonil{int} values.
 The function body consists only of the three statements \pythonil{yield 1}, \pythonil{yield 2}, and \pythonil{yield 3}\pythonIdx{yield}.
 
 We can use the \pythonilIdx{Generator} returned by this function to populate a \pythonilIdx{list}:
 \pythonil{list(generator_123())} results in the list~\pythonil{[1, 2, 3]}.
-Of course we can also iterate over the~\pythonilIdx{Generator} like over any normal~\pythonilIdx{Iterator}.
-We first set \pythonil{gen = generator_123()}.
+Of course we can also manually iterate over the~\pythonilIdx{Generator} in exactly the same way we could iterator over any normal~\pythonilIdx{Iterator}.
+We therefore set \pythonil{gen = generator_123()}.
 The first time we invoke \pythonil{next(gen)}\pythonIdx{next}, it returns~\pythonil{1}.
 The second time we invoke \pythonil{next(gen)}\pythonIdx{next}, it returns~\pythonil{2}.
 The third time we invoke \pythonil{next(gen)}\pythonIdx{next}, it returns~\pythonil{3}.
@@ -887,40 +902,90 @@ The fourth call to \pythonil{next(gen)}\pythonIdx{next} raises\pythonIdx{raise} 
 This indicates that the end of the sequence is reached.
 Indeed, we queried the generator function's result exactly like a normal~\pythonilIdx{Iterator}.
 
-The interesting thing is that the function code is really disrupted by every \pythonilIdx{yield} and resumed when \pythonilIdx{next} is called (unless the sequence was finished, that is).
+The interesting thing is that the function code is really disrupted by every \pythonilIdx{yield}.
+The value returned via \pythonilIdx{yield} is then received by the outside code, which do whatever it likes with it.
+The function is resumed after the \pythonilIdx{yield} only when \pythonilIdx{next} is called.
+When the control flow reaches the end of the function, the sequence ends as well.
 This becomes visible when we create a generator function that returns an infinite sequence.
 
-In \cref{lst:iteration:simple_generator_function_2}, we implement a generator function producing the Fibonacci numbers~\cite{W2024MAWWR:FN,S2022FLAATIMEOLPBOC}.
-These numbers follow the sequence~$F_n=F_{n-1} + F_{n-2}$ where~$F_0=0$ and~$F_1=1$.
-We therefore define the function \pythonil{fibonacci}, which is annotated to return a \pythonilIdx{Generator}.
-It begins by setting~$\pythonil{i}=F_0=0$ and~$\pythonil{j}=F_1=1$.
-In a \pythonilIdx{while} loop which will never stop (as the loop condition is imply set to~\pythonil{True}), it always yields~\pythonil{i}\pythonIdx{yield}.
-Then, assign \pythonil{i} and \pythonil{j} to \pythonil{j} and \pythonil{i + j}, respectively.
-This stores the old value of~\pythonil{j} in~\pythonil{i}.
-It also stores the sum of the old \pythonil{i} and \pythonil{j} values in~\pythonil{j}.
-In the next loop iteration, \pythonilIdx{yield} will then produce the next Fibonacci number.
+Fibonacci, illustrated in \cref{fig:fibonacci}, was a medieval Italian mathematician who lived in the 12th and 13th century~\pgls{CE}~\cite{EOEBEB:F}.
+He wrote the book \emph{Liber Abaci}~\cite{S2022FLAATIMEOLPBOC}, which introduced Arabic numbers to Europe.
+He is also known for the Fibonacci number sequence, which follow the sequence~$F_n=F_{n-1} + F_{n-2}$ where~$F_0=0$ and~$F_1=1$~\cite{W2024MAWWR:FN,S2022FLAATIMEOLPBOC}.
 
-We can now loop over the \pythonilIdx{Generator} returned by \pythonil{fibonacci()} in a normal \pythonilIdx{for}~loop.
-This would result in an endless loop, unless we insert some termination condition.
-In our loop, we print the Fibonacci numbers~\pythonil{a} we get, but stop the iteration via~\pythonilIdx{break} once~\pythonil{a > 300}.
+We want to iterate over this sequence.
+The therefore define the function \pythonil{fibonacci}, which is annotated to return a \pythonilIdx{Generator}.
+It begins by setting~$\pythonil{i}=F_0=0$ and~$\pythonil{j}=F_1=1$.
+It then begins a \pythonilIdx{while} loop which will never stop, as the loop condition is imply set to~\pythonil{True}.
+In this loop, it always yields~\pythonil{i}\pythonIdx{yield}.
+
+This means that the current function execution will be interrupted.
+The value of \pythonil{i} is provided to the outside code which iterates over our sequence.
+After that code invokes \pythonilIdx{next}, the function resumes.
+Then, it assigns \pythonil{j} and \pythonil{i + j} to \pythonil{i} and \pythonil{j}, respectively.
+This stores the old value of~\pythonil{j} in~\pythonil{i}.
+This also stores the sum of the old \pythonil{i} and \pythonil{j} values in~\pythonil{j}.
+In the next loop iteration, \pythonil{yield i} will then produce the next Fibonacci number.
+
+We can now loop over the \pythonilIdx{Generator} returned by \pythonil{fibonacci()} with a normal \pythonilIdx{for}~loop.
+This would result in an endless loop, unless we insert some additional termination condition.
+In our loop, we print the Fibonacci numbers~\pythonil{a} we get.
+However, we stop the iteration via~\pythonilIdx{break} once~\pythonil{a > 30}.
 
 It should be mentioned that doing something like \pythonil{list(fibonacci())} would be a very bad idea.
 It would attempt to produce an infinitely large list, which would lead to an \pythonilIdx{MemoryError}.
 
-As final example for generator functions, let us wrap our code for enumerating prime numbers~\cite{W2024MAWWR:PN,CP2005PNACP,R1994PNACMFF} from back in \cref{sec:loopsOverSequences} into a generator function in \cref{lst:iteration:prime_generator}.
-We used nested \pythonilIdx{for}~loop to produce the prime numbers in \cref{lst:loops:for_loop_sequence_primes}, where the outer loop would iterate at most to~199.
-We do not need such limit anymore, as we can assume that whoever will call our prime number enumeration code will stop iterating whenever they have seen sufficiently many primes.
-A \pythonil{while True} loop therefore will be more appropriate.
-We also do not need to produce a list, so we do not need to store the only even prime number~(2) anywhere.
-Instead, we just \pythonil{yield 2}\pythonIdx{yield} at the beginning of our generator and move on.
-The last difference between the old and new code is that, once we confirm a number to be prime, we do not just add it to the list~\pythonilIdx{found} of odd primes, we also need to \pythonilIdx{yield} it.
+As final example for generator functions, let us wrap our code for enumerating prime numbers~\cite{W2024MAWWR:PN,CP2005PNACP,R1994PNACMFF} from back in \cref{sec:loopsOverSequences} into a generator function.
+We do this in \programUrl{iteration:prime_generator} given as \cref{lst:iteration:prime_generator}.
+Back in \cref{lst:loops:for_loop_sequence_primes}, when we produced prime numbers for the last time, we used nested \pythonilIdx{for}~loops.
+Back then, the outer loop would iterate at most to~199.
 
-We demonstrate how our generator works with a \pgls{doctest}.
+Now we do not need such limit anymore.
+We simply assume that whoever will call our prime number enumeration code will stop iterating whenever they have seen sufficiently many primes.
+A \pythonil{while True} loop therefore will be more appropriate.
+We also do not need to produce a list, so we do not need to store the only even prime number~2 anywhere.
+Instead, we just \pythonil{yield 2}\pythonIdx{yield} at the beginning of our generator and move on.
+The last important difference between the old and new code is that, once we confirm a number to be prime, we do not just append it to the list~\pythonilIdx{found} of odd primes, we also need to \pythonilIdx{yield} it.
+
+Apart from this, the function works pretty much the same as last time.
+We iterate over the odd numbers \pythonil{candidate} that could be a prime number.
+For each \pythonil{candidate}, we test all previously identified prime numbers~\pythonil{check}~(except~2, of course), whether they can divide \pythonil{candidate} with a remainder of zero.
+The first time we encounter such a number, we know that \pythonil{candidate} cannot be a prime number.
+If no number \pythonil{check} exists that is a divisor of \pythonil{candidate}, then \pythonil{candidate} is prime.%
+%
+\begin{sloppypar}%
+We only need to test values of \pythonil{check} that are less or equal to \pythonil{isqrt(candidate)}, i.e., $\leq\left\lfloor\sqrt{\pythonil{candidate}}\right\rfloor$.
+Numbers larger than that do not need to be tested.
+They would have resulted in a quotient smaller than \pythonil{check} that would have already been tested.
+In summary, our function will find one prime after the other and \pythonil{yield} it.%
+\end{sloppypar}%
+%
+Every time we \pythonilIdx{yield} a value, our function is interrupted.
+The first time, this happens when we \pythonil{yield 2}.
+Then, it happens in each iteration of the main loop that discovers a prime number.
+Every time our function is interrupted like this, the corresponding value is returned to the outside code iterating over our sequence.
+While implementing the function, we have no idea what that code does, well, except that it will apply \pythonilIdx{next} to the generator{\dots}
+But we also do not need to know what it does.
+All we care is that, if it invokes \pythonilIdx{next}, our function will continue with the instruction following right after the \pythonilIdx{yield} and run until it hits the next \pythonilIdx{yield}.
+
+We demonstrate how our generator function works with a \pgls{doctest}.
 The test begins by instantiating the \pythonilIdx{Generator} as \pythonil{gen = primes()}.
 The first \pythonil{next(gen)}\pythonIdx{next} call is supposed to return~\pythonil{2}.
 The second such call shall return~\pythonil{3}, the third one~\pythonil{5}, the fourth one~\pythonil{7}.
 The fifth and last \pythonil{next(gen)}\pythonIdx{next} invocation in the \pgls{doctest} should return~\pythonil{11}.
 You can use \pytest\ by yourself to check whether the code works as expected\dots%
+Well, OK, I tell you:
+It does, as shown in \cref{exec:iteration:prime_generator:doctest}.
+
+From the perspective of a user, a generator function works like a generator expression, which, in turn, works like an iterator.
+Compared to generator expressions, generator functions are much more powerful.
+We can package arbitrarily complex code into such a function.
+This code can have one or multiple points where it returns results to the outside caller.
+
+A normal function can have arbitrarily many \pythonilIdx{return} statements.
+However, the execution of a normal function is completed and ends when the first \pythonilIdx{return} is executed.
+A generator function can have arbitrarily many \pythonilIdx{yield} statements.
+Each statement returns a value to the outside caller.
+However, the generator function can continue until either its end is reached or until the outside user stops iterating over the sequence it presents.%
 \FloatBarrier%
 \endhsection%
 %

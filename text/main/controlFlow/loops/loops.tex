@@ -336,8 +336,15 @@ As a minor tweak, we leave~2 away from this list at the beginning and instead in
 This way, we avoid the useless check whether an odd number \pythonil{candidate} can be divided by~2.
 
 Anyway, the outer loop will step-by-step add prime numbers to \pythonil{primes}.
-For each value of the loop variable \pythonil{candidate}, \pythonil{primes} will contain all prime numbers which are smaller than \pythonil{candidate}~(except 2).
-Of course, we only need to check those values of \pythonil{check} which are less than or equal to \pythonil{isqrt(candidate)}\pythonIdx{isqrt}.
+For each value of the loop variable \pythonil{candidate}, \pythonil{primes} will contain all prime numbers which are smaller than \pythonil{candidate}~(except 2, that is).
+
+We only need to check those values of \pythonil{check} which are less than or equal to \pythonil{isqrt(candidate)}\pythonIdx{isqrt}.
+This is because if \pythonil{check} was greater than $\sqrt{\pythonil{candidate}}$, the division would yield a quotient~$q$ less than \pythonil{check}.
+If this quotient~$q$ would be a prime number, then this means that we already tested it before.
+If it was not a prime number, then it means that~$q$ would be divisible by another number~$r$.
+Since $r$ would necessarily be less than~$q$, it would also be less than~\pythonil{check}, and hence, we would have tested it before if it was prime.
+If it was not prime, then the argument applies recursively until we eventually hit a prime number.
+
 Therefore, we store this value in a new variable \pythonil{limit} to avoid re-computing it in the inner loop.
 The \pythonilIdx{break} statement lets us exit the inner loop as soon as we hit this~\pythonil{limit}.
 After the main loop completes, we insert~2 at index~0 into \pythonil{primes}.
