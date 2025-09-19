@@ -62,6 +62,7 @@ Die Slides zum Kurs in deutscher Sprache können unter <https://thomasweise.gith
 37. [Set und Dictionary Comprehension](https://thomasweise.github.io/programmingWithPythonSlidesDE/37_set_und_dictionary_comprehension.pdf)
 38. [Generator-Ausdrücke](https://thomasweise.github.io/programmingWithPythonSlidesDE/38_generator_ausdrücke.pdf)
 39. [Generator-Funktionen](https://thomasweise.github.io/programmingWithPythonSlidesDE/39_generator_funktionen.pdf)
+40. [Operationen für Iteratoren](https://thomasweise.github.io/programmingWithPythonSlidesDE/40_operationen_für_iteratoren.pdf)
 
 
 ### 2.3. The Slides in English
