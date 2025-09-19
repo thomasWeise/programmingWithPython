@@ -985,6 +985,7 @@ Like the \pglspl{typeHint} for lists and tuples, it can be parameterized followi
 %
 \pythonSyntax{syntax/callable.py}%
 %
+\begin{sloppypar}%
 Inside the \pythonil{Callable[...]}, we first provide the list of types of the parameters of function, again in square brackets.
 Then follows a comma~\pythonil{,} and then follows the return type.
 The \pythonil{f: Callable[[float], float | int]} in our listing thus states that our function \pythonil{integrate} expects, as first parameter, \emph{another function}~\pythonil{f}.
@@ -993,8 +994,9 @@ The return type of~\pythonil{f} is \pythonil{float | int}, i.e., it should retur
 Notice that the type \pythonilIdx{Callable} is provided by the module~\pythonilIdx{typing}\footnote{%
 \cite{PSF:P3D:TPSL:ACO}~states that this import is now deprecated and we should use \pythonil{collections.abc.Callable}\pythonIdx{collections.abc} instead. %
 In the past, this created some errors for me, so for now we stick with using~\pythonilIdx{typing}.}, %
-so we need to import it first if we want to use it.
-
+so we need to import it first if we want to use it.%
+\end{sloppypar}%
+%
 The actual implementation of \pythonil{integrate} is straightforward.
 Inside the function, we add up the different trapezes as shown in the simplified equation in \cref{fig:normalDistPdfInteg}.
 Only the values of \pythonil{f} at the interval ends \pythonil{a} and \pythonil{b} need to be halved in the sum.

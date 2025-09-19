@@ -802,14 +802,16 @@ Anyway, if opening the text file succeeds, we now have a variable~\pythonil{stre
 We must make sure to definitely close this so-called text stream again, regardless what happens from now on.
 We know that this can be done with a \pythonilIdx{try}-\pythonilIdx{finally} statement.
 We simply put \pythonil{stream_out.close()}\pythonIdx{close}\pythonIdx{IO!close} into the \pythonilIdx{finally}~block.
-It will thus definitely be called and we thus ensure that \pythonil{stream_out} will be closed.
-
+It will thus definitely be called and we thus ensure that \pythonil{stream_out} will be closed.%
+%
+\begin{sloppypar}%
 Into the \pythonilIdx{try}~block, we put \pythonil{stream_out.write("Hello world!")}.
 This line will write the string~\pythonil{"Hello world!"} to the file.
 This could, of course, fail.
 Maybe our hard disk does not have enough space left to store this string.
-But even if it fails, the \pythonilIdx{finally} block will make sure to close the file.
-
+But even if it fails, the \pythonilIdx{finally} block will make sure to close the file.%
+\end{sloppypar}%
+%
 So after the block, the file is closed.
 We could now open it in a text editor and would find in there the text that we had written.
 Instead, we want to use code to read the text again right away.

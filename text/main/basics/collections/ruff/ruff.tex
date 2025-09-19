@@ -9,13 +9,15 @@ A program processing lists which exhibits some subtle errors and inefficiencies.
 \listingToolOutput{lists:lists_error:mypy}{%
 The results of static type checking with \mypy\ of the program given in \cref{lst:lists:lists_error}.}%
 %
+\begin{sloppypar}%
 Recently, we learned that static code analysis tools can help us to discover subtle problems in our programs.
 Obviously, when dealing with more complex datastructures like lists, there are also more potential problems, more mistakes that one could make.
 Let us look at the very short example program \programUrl{lists:lists_error} in \cref{lst:lists:lists_error}.
 The program consists of only two lines, \pythonil{my_list: list[str] = list([1, 2, 3])} and \pythonil{print(my_list)}.
 It does not have any \emph{error} in the strict sense.
-We can execute it just fine and it will produce the output \textil{[1, 2, 3]} as shown in \cref{exec:lists:lists_error}.
-
+We can execute it just fine and it will produce the output \textil{[1, 2, 3]} as shown in \cref{exec:lists:lists_error}.%
+\end{sloppypar}%
+%
 However, upon closer inspection, we discover some issues.
 In a first step, we would apply \mypy~(as~\cref{ut:mypy}) to check for problems with the types of variables.
 And indeed, \cref{exec:lists:lists_error:mypy} shows us \emph{three} errors!
@@ -83,14 +85,16 @@ We can leave this outer call to \pythonil{list} away.
 The corrected version of~\cref{lst:lists:lists_error}, taking into account the information given by \mypy\ in \cref{exec:lists:lists_error:mypy} and \ruff\ in \cref{exec:lists:lists_error:ruff}.}{}%
 %
 %
+\begin{sloppypar}%
 In \cref{lst:lists:lists_fixed} we implement the three recommendations from the two tools as program \programUrl{lists:lists_fixed}.
 We change the \pgls{typeHint} of the list to \pythonil{list[int]}, which solves the type confusion that \mypy\ discovered.
 We remove the useless copying of the list as \ruff\ recommended.
 Finally, we add a proper \pgls{docstring} at the top of the file, in which we even document the changes we applied.
 The output \cref{exec:lists:lists_fixed} of the new program remains the same.
 But now, both tools are satisfied, as shown in \cref{exec:lists:lists_fixed:mypy,exec:lists:lists_fixed:ruff}.
-And our program is much clearer and faster.
-
+And our program is much clearer and faster.%
+\end{sloppypar}%
+%
 \gitExec{exec:lists:lists_fixed:mypy}{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh collections lists_fixed.py}%
 \listingToolOutput{lists:lists_fixed:mypy}{%
 The results of static type checking with \mypy\ of the program given in \cref{lst:lists:lists_fixed}.}%
