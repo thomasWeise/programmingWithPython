@@ -1,57 +1,112 @@
 \hsection{Basics of Classes}%
 %
-We learned about simple datatypes in \cref{sec:simplyDataTypesAndOperations} and about collections in \cref{sec:collections}.
+We learned about simple datatypes in \cref{sec:simplyDataTypesAndOperations}.
+We then also got to know different kinds of collections, i.e., datatypes that can hold multiple elements, in \cref{sec:collections}.
 However, in many situations, we deal with data that cannot satisfyingly represented by either of them alone.
-Often, datatypes and the operations on them form a semantic unit.
+Many datatypes are compound structures of different elements that are semantically related to each other.
+For example, a the elements of a list or tuple are related only in the sense that they appear in the same collection.
+If we look at a \emph{date} however, then there is a much more meaningful relationship between its components \emph{day}, \pythonil{month}, and \pythonil{year}.
+Such datatypes and the operations on them also often form a semantic unit.
 
 Imagine, for example, you would like to implement mathematical operations for complex numbers.\footnote{%
-\python\ already offers the datatype \pythonilIdx{complex}, but for the sake of the example, assume it does not.}
-Of course, you could represent complex numbers as \pythonil{tuple[float, float]}, but this comes with several drawbacks.
+\python\ already offers the datatype \pythonilIdx{complex} for this purpose, but for the sake of the example, assume it does not.}
+Of course, you could represent complex numbers as \pythonil{tuple[float, float]}.
+This, however, comes with several drawbacks.
+
 On one hand, not \emph{every} tuple of two \pythonils{float} is to be understood as a complex number.
 So just from the \pgls{signature} of your functions, i.e., just based on its parameters and return types, it is not immediately clear that your functions are for complex numbers.
 All we can directly see is that they are for tuples of two \pythonils{float}.
+
 On the other hand, the two parts of a complex numbers, the real part and the imaginary part, have two distinct and different meanings.
 It would not immediately be clear whether the first number of the tuple is the real or the imaginary part.
 Indeed, we could also represent complex numbers in polar form, in which case the two tuple elements would have yet different meanings.
-Also, the standard textual representation of tuples of two \pythonils{float} would be something like~\pythonil{"(3.0, 4.0)"}, whereas we would probably prefer something like~\pythonil{"3+4i"}.
+Also, the standard textual representation of tuples of two \pythonils{float} would be something like~\pythonil{"(3.0, 4.0)"}, whereas we would probably prefer something like~\pythonil{"3+4i"} for complex numbers.
 
-The first important use-cases of \pythoniles{class} in \python\ is that they offer us a way to define a data structure together with the operations for it as one semantic unit.
-This allows us to define a \pythonil{class} for complex numbers which has attributes with the name \pythonil{real_part} and \pythonil{imaginary_part}.
-We can define operators that work with instances of this \pythonil{class}, making it immediately clear how and when they are to be used-
+The first important use-cases of \pythoniles{class} in \python\ is that they offer us a way to define a data structure together with the operations for it as one semantic unit~\cite{PSF:P3D:TPT:C}.
+This allows us to define a \pythonil{class} for complex numbers which has attributes with the names \pythonil{real_part} and \pythonil{imaginary_part}.
+We can define operators like addition and subtraction that work with instances of this \pythonil{class}, making it immediately clear how and when they are to be used.
 And this \pythonil{class} can then have default textual representations of our liking.
 
-A second situation where ability to define functions and we have learned so far hits a limit arises with \pglspl{API}.
+A second situation where ability to define functions and we have learned so far hits a limit arises with \pglspl{API} that have different implementations.
 Let us be ambitious and imagine that you wanted to create a versatile system that can produce documents.
-On the output side, you want to support different formats, say LibreOffice~\cite{DF2024LTDF,GL2012LTSOOSSCBAFACSOL}, Microsoft~Word~\cite{MS2024MW,DR2019STFAWAUMW}, and Adobe~\pgls{formatPDF}~\cite{A2024WDPM,A2008P3DMPDFP1P1}.
-On the input side, you would like to provide the user with a uniform way to create documents, to add text paragraphs, to insert graphics, to set the font of texts, and so on.
+On the output side, you want to support different formats, say \libreoffice~\cite{DF2024LTDF,GL2012LTSOOSSCBAFACSOL}, \microsoftWord~\cite{MS2024MW,DR2019STFAWAUMW}, and Adobe~\pgls{formatPDF}~\cite{A2024WDPM,A2008P3DMPDFP1P1}.
+On the input side, you would like to provide the user/programmer with a uniform way to create documents.
+
 This input side \pgls{API} should be the same for all output formats.
 It would not just consist of a single function, but several groups of functions.
-There could even be nested hierarchies of operations that you would like to support, e.g., the ability to divide a text into chapters which can be divided into paragraphs which can be divided into runs of text with different fonts.
+There could even be nested hierarchies of operations that you would like to support, e.g., the add chapters, paragraphs, and maybe runs of text in different fonts.
 Obviously, these operations will be implemented differently for the different output formats.
-We could try to solve this by making different modules with functions of the same \pglspl{signature} for the different output formats.
-But this would be a huge hassle, in particular since there would be no way to define a central blueprint of \inQuotes{how the \pgls{API} looks like.}
+
+We could try to solve this by making different modules for different output formats.
+Each modul could contain functions of the same name and \pglspl{signature}, realizing the required behaviors.
+But this would be a huge hassle.
+The bibbest problem would be that there would be no way to define a central blueprint of \inQuotes{how the \pgls{API} looks like.}
 It can easily lead to inconsistencies during the software life cycle.
 If we slightly change the \pgls{signature} of one function, we need to implement this in all of the modules.
-There also is no way that a tool like \ruff\ could tell is if some module is no longer synchronized due to the lack of a central blueprint.
+There also is no way that a \pgls{linter} like \ruff\ could tell is if some module is no longer synchronized due to the lack of a central blueprint.
 
-Classes offer us the necessary abstraction:
+Classes offer us the necessary abstraction.
 We could specify a base class \pythonil{Document} for document objects that provides methods for the necessary operations, from adding text to aligning figures.
 These operations could just \pythonilIdx{raise} a \pythonilIdx{NotImplementedError}.
 Then, for each output format, we could derive a new subclass from this base class with the actual implementation of the methods.
 The code on the user side could treat all these different document types the same, because all of them would be instances of \pythonil{Document} with the same operations.
-The implementation-specific stuff would all be invisible to the user, exactly as it should be.
+The format-specific stuff would all be invisible to the user, exactly as it should be.
+\Pglspl{linter} then can also tell us if one certain implementation of the subclass does not correctly adher to the \pgls{API} defined in the base class.
 So the second important use case for classes are that they offer us a very nice abstraction for defining and implementing \pglspl{API}.
 
-Classes therefore can solve two important problems where the basic datatypes and plain functions we learned about are not sufficient:
+Classes therefore can solve two important problems where the basic datatypes, collections, and plain functions we learned about are not sufficient:
 First, they allow us to semantically and clearly group data and operations together.
-Second, they offer us a simple way to group several operators under one \pgls{API}, which then -- transparently to the user -- can be implemented in different ways.
+Second, they offer us a simple way to group several operations into one \pgls{API}, which then -- transparently to the user -- can be implemented in different ways.
 In this chapter, we discuss \pythoniles{class} in \python.
-Syntactly, \pythoniles{classes} follow the general blueprint below:%
+Syntactly, \pythoniles{classes} follow the general blueprint below~\cite{PSF:P3D:TPT:C}.%
 %
 \pythonSyntax{syntax/class_init_method.py}%
+\FloatBarrier%
+%
+Classes are datatypes that combine data elements with the code working on them~\cite{PSF:P3D:TPT:C}.
+A class is basically a blueprint or a concept, whereas objects are the concrete instances of the classes.
+For example \pythonil{int} is basically a class of integer numbers, whereas \pythonil{5} is an instance of this class.
+
+Classes are declared with the keyword \pythonil{class} followed by the class name, followed by a colon~(\inQuotes{:}).
+The class body is then indented by four spaces.
+It contains everything that belongs to the class, including the documentation, methods, and attributes.
+The first item after the class declaration is usually the \pgls{docstring} of the class.
+It can be a single descriptive line or a multi-line documentation, in which case it begins with a single summary line, followed by an empty line, followed by the comprehensive documentation text.
 %
 \bestPractice{className}{\sloppy%
-Class names should follow the CapWords convention (often also called camel case), i.e., look like \pythonil{MyClass} or \pythonil{UniversityDepartment} (not \pythonil{my_class} or \pythonil{university_department})~\cite{PEP8}.}%
+Class names should follow the CapWords convention~(often also called \emph{camel case}), i.e., look like \pythonil{MyClass} or \pythonil{UniversityDepartment} (not \pythonil{my_class} or \pythonil{university_department})~\cite{PEP8}.}%
+%
+A class can have a initializer method \dunder{init}.
+This special method can take arbitrarily many parameters, but never returns a value.
+It is annotated with \pglspl{typeHint} and with a \pgls{docstring} like a normal function.
+Only the special parameter \pythonilIdx{self} is not annotated.
+
+The initializer \dunder{init} is used to declare all of the classes'~(non-inherited) instance attributes by assigning them their initial values.
+We also provide attribute \pglspl{typeHint} in this step.
+In all methods of the class, the current object/instance of the class is referenced by the name~\pythonilIdx{self}.
+If we access an attribute or a method of a class, we always use the prefix~\pythonil{self.}.
+We therefore always declare \pythonilIdx{self} as the first parameter of every method.
+Thus, a line like \pythonil{self.x: int = 5} in \dunder{init}, creates the instance attribute \pythonil{x}, type-hints it as integer, and assigns to it the initial value~5.
+We can put a short comment describing the meaning of the attribute in the line \emph{before} its declaration.
+This comment will always have a colon right after the hash, i.e. always begins with \pythonil{\#: }\cite{SD2024SIDFD:DCAD}.
+For example, writing \pythonil{\#: This is the x-coordinate.} in the line before the declaration of an attribute \pythonil{self.x} would annotate this attribute with documentation stating that it is, well, an \glslink{xAxis}{x}-coordinate.
+
+Classes can have arbitrarily many methods.
+A method is a function that works on or with the attributes of a class instance.
+Each such method has as first parameter \pythonilIdx{self}, denoting the object instance of the class the method works on.
+A method can have arbitrarily many other parameters and, if you want, also a return value.
+All parameters except \pythonil{self} are of course annotated with \pglspl{typeHint}.
+Methods also have \pglspl{docstring}, like normal functions.
+In the method, we can access the both the attributes and methods of the instance again via the \pythonil{self.}-prefix.
+
+After defining the class, we can now instantiate it.
+For this, we use the class name like a normal function.
+We need to provide arguments, i.e., values, for all parameters of \dunder{init} except \pythonilIdx{self}.
+We can use objects of this class like normal values, and, e.g., store them in variables.
+We can also use the class name as a \pgls{typeHint}, because it represents a normal type.
+
+So much about the general structure of \pythoniles{class}.
+Now, without further ado, let's explore this structure with some examples.%
 %
 \hsection{A Simple Immutable Class for Points in the Two-Dimensional Euclidean Plane}%
 \label{sec:immutableClassPoints2D}%
@@ -62,7 +117,7 @@ A class for representing points in the two-dimensional Euclidean plane}%
 %
 \gitLoadAndExecPython{classes:point_user}{}{classes}{point_user.py}{}%
 \listingPythonAndOutput{classes:point_user}{%
-An example of using our new \pythonil{class Point} from \cref{lst:classes:point}.}{}%
+An example of using our new class \pythonil{Point} from \cref{lst:classes:point}.}{}%
 %
 We begin directly with an example.
 Assume that we want to write a program that processes points in the two-dimensional Euclidean plane.
@@ -82,24 +137,25 @@ Of course, the results would probably not make any sense.
 Yet, such situations may arise from misunderstandings or lack of documentation.
 
 In the ideal case, if I am working with points in the two-dimensional Euclidean plane, then I have a data structure that clearly and unambiguously is designed for such points and such points only.
-The operations for the points should only accept instances of this data structure as input (and raise\pythonIdx{raise} exceptions\pythonIdx{Exception} if fed something else as arguments).
+The operations for the points should only accept instances of this data structure as input~(and raise\pythonIdx{raise} exceptions\pythonIdx{Exception} if fed something else as arguments).
 If I am accessing the x\nobreakdashes-coordinate of a point, it should be absolutely clear from the semantics and names involved that this is, indeed, the x\nobreakdashes-coordinate and not something else, not just the first number of a \pythonil{tuple} of two numbers.
 
 Such clear semantics can be achieved with \pythoniles{class}\pythonIdx{class} in \python.
 In \cref{lst:classes:point}, you can find exactly this example as file \programUrl{classes:point}.
-We create the \pythonil{class Point}\pythonIdx{class} inside a \python\ file \programUrl{classes:point}.
-This is done relatively easily:
-All we have to do is to begin a block with, well, \pythonil{class Point:}.
-Inside this block, we will place all the \emph{methods} of the \pythonilIdx{class}.
-Methods are like functions, but their first parameter is always called \pythonilIdx{self} and always is an instance of the class, i.e., an object.
-Either way, all these methods go into the class block.
-Of course, first, we always place a \pgls{docstring}.%
+We create the class \pythonil{Point}\pythonIdx{class} by writing \pythonil{class Point:}.
+We then create the class body, which we indent by four spaces.
+Of course the first thing we place in the class body is always a \pgls{docstring}.%
 %
 \bestPractice{classDocString}{%
 At the beginning of a \pythonilIdx{class}, a \pgls{docstring} is placed which describes what the class is good for. %
-This \pgls{docstring} and include \pglspl{doctest} to demonstrate the class usage, or such \pglspl{doctest} can be placed in the \pgls{docstring} of the module.%
+This \pgls{docstring} can include \pglspl{doctest} to demonstrate the class usage. %
+Such \pglspl{doctest} can also be placed in the \pgls{docstring} of the module.%
 }%
 %
+Afterwards, we will place all the \emph{methods} of the \pythonilIdx{class} in the class body.
+Methods are like functions, but their first parameter is always called \pythonilIdx{self} and always is an instance of the class, i.e., an object.
+Either way, all these methods go into the class block.
+
 Our class \pythonil{Point} will have two attributes, \pythonil{x} and~\pythonil{y}.
 A attribute is a variable that every single instance of the class has.
 We later want to be able to create one instance of \pythonil{Point} with the x\nobreakdashes-coordinate~5 and the y\nobreakdashes-coordinate~10 and then another instance with the x\nobreakdashes-coordinate~2 and the y\nobreakdashes-coordinate~7.
@@ -107,44 +163,49 @@ So each instance of \pythonil{Point} needs to have these two attributes.
 
 Therefore, \pythonil{Point} needs a initializer, i.e., a special method that creates and initializes these attributes.
 This method is called~\dunder{init}.
-As said, every method of a class must have a parameter~\pythonilIdx{self}, which is the instance of the class (the object) upon which the method is called.
+As said, every method of a class must have a parameter~\pythonilIdx{self}, which is the instance of the class~(the object) upon which the method is called.
 The initializer \dunder{init} is a special method, so it also has this parameter~\pythonilIdx{self}.
-Additionally, we demand that two parameters~\pythonil{x} and~\pythonil{y} be passed in when we create an instance of~\pythonil{Point}.
+Additionally, we demand that values for the two parameters~\pythonil{x} and~\pythonil{y} be passed in when we create an instance of~\pythonil{Point}.
 We allow the values to be either \pythonils{int} or \pythonils{float}.
 
 Inside every method of a class, the attributes of objects are accessed via the parameter~\pythonilIdx{self}.
 We can read the attribute~\pythonil{x} of an object inside a method of the class by writing~\pythonil{self.x}.
 Here, \pythonil{self.x} can be used just like a normal local variable.
 We can store the value~\pythonil{a} in a (mutable) attribute~\pythonil{x} of the current object in a method of the class by writing~\pythonil{self.x = a}.
-This value will then remain the same until it is changed, even after the execution of the method is completed.%
+This value will then remain the same until it is changed in exactly that way, even after the execution of the method is completed.%
 %
 \bestPractice{attributes}{%
 Object attributes must only be created inside the initializer~\dunder{init}. %
-An initial value must immediately be assigned to each attribute.%
+There, an initial value must immediately be assigned to each attribute.%
 }
 %
 We only want to allow \pythonils{Point} that have finite coordinates.
 As explained in the \cref{sec:exceptions} on \pythonilsIdx{Exception}, it is better to immediately signal errors if we encounter invalid data.
 So we want to sort out non-finite coordinates right when someone attempts to create the \pythonil{Point} object.
 Thus, the first thing we do in the initializer is to use the \pythonilIdx{isfinite} function from the \pythonilIdx{math} module.
-If either \pythonil{x} or \pythonil{y} is not finite, then we raise\pythonIdx{raise} a \pythonilIdx{ValueError}.
-Otherwise, we set \pythonil{self.x: Final[int | float] = x} and \pythonil{self.y: Final[int | float] = y}.\footnote{%
+If either \pythonil{x} or \pythonil{y} is not finite, then we raise\pythonIdx{raise} a \pythonilIdx{ValueError}.\footnote{%
 Strictly speaking, it could also make sense to check whether \pythonil{x} and \pythonil{y} are indeed either \pythonil{int} or \pythonil{float}. %
 For example, we could check if \pythonil{isinstance(x, int | float)}\pythonIdx{isinstance} and this is \pythonil{False}, raise\pythonIdx{raise} a~\pythonilIdx{TypeError}. %
 However, that would make the example overly long, so I am not doing this here.%
 }
+
+Otherwise, we set \pythonil{self.x: Final[int | float] = x} and \pythonil{self.y: Final[int | float] = y}.
 These lines create the attributes \pythonil{self.x} and \pythonil{self.y} of the object which was passed in via the parameter~\pythonil{self}.
-Additionally, the \pgls{typeHint} \pythonilIdx{Final} from the \pythonilIdx{typing} module annotates a variable as immutable~\cite{PEP591}.
+The \pgls{typeHint} \pythonilIdx{Final} from the \pythonilIdx{typing} module annotates a variable or attribute as immutable~\cite{PEP591}.
 In other words, we do not allow the coordinates of our \pythonils{Point} to change after object creation.%
 %
 \bestPractice{attributeTypeHint}{%
-Every attribute of an object must be annotated with a \pgls{typeHint} and a documentation comment when created in the initializer~\dunder{init}~\cite{LM2024WTMD}. %
-\pglspl{typeHint} work as with normal variables.}%
+Every attribute of an object must be annotated with a \pgls{typeHint} when created in the initializer~\dunder{init}~\cite{LM2024WTMD}. %
+Here, \pglspl{typeHint} work exactly like with normal variables.}%
 %
 \bestPractice{attributeFinal}{%
-The \pgls{typeHint} \pythonilIdx{Final}\pythonIdx{typing!Final} marks an attribute as immutable. %
-All attributes that you do not intend to change should be annotated with~\pythonilIdx{Final}\pythonIdx{typing!Final}.%
+The \pgls{typeHint} \pythonilIdx{Final}\pythonIdx{typing!Final} marks a variable or attribute as immutable. %
+All attributes that you do not intend to change should be annotated with~\pythonilIdx{Final}\pythonIdx{typing!Final}. %
+Notice that this is a \pgls{typeHint}, i.e., it will not be enforced by the \python\ interpreter~\cite{PEP591} and malicious code can \emph{still} change the attribute value. %
+Type checkers like \mypy\ can detect such incorrect changes, though, and issue warnings.%
 }%
+%
+We will explore this issue a bit later in detail.%
 %
 \bestPractice{attributeDocstring}{%
 An attribute is documented in the line \emph{above} the attribute initialization by writing a \emph{comment} starting with \pythonilIdx{\#: }, which explains the meaning of the attribute~\cite{SD2024SIDFD:DCAD}. %
@@ -153,17 +214,17 @@ An attribute is documented in the line \emph{above} the attribute initialization
 %
 After properly defining our initializer, we can now do something like~\pythonil{p = Point(1, 2)}.
 This creates a new object as an instance of our \pythonilIdx{class} \pythonil{Point}.
-Therefore, first, the necessary memory is allocated.
+Therefore, first, the necessary memory for~\pythonil{p} is allocated.
 Then, the initializer is invoked as~\pythonil{\_\_init\_\_(p, 1, 2)}.
-As a result, \pythonil{p} now refers to a \pythonil{Point}~object.
+After the initializer is completed, the object is stored in the varible, i.e., \pythonil{p} now refers to a \pythonil{Point}~object.
 The attribute \pythonil{p.x} has the value~\pythonil{1} and \pythonil{p.y} has value~\pythonil{2}.
 
 From the knowledge that \pythonil{p} is an instance of \pythonil{Point}, we can immediately see that \pythonil{p.x} and \pythonil{p.y} are its x-\ and y\nobreakdashes-coordinate, respectively.
 There is no way to mistake the meaning of these variables.
-Of course, our \pglspl{docstring} with \pglspl{doctest} and \pglspl{typeHint} further help the reader to understand their meaning.
+Of course, our \pglspl{docstring} with \pglspl{doctest} and the \pglspl{typeHint} further help the reader to understand their meaning.
 
 Having a new class for points in the two-dimensional plane is already nice.
-But \pythoniles{class} also allow us to define operations on such points in form of methods.
+But such a \pythonil{class} also allows us to define operations on points in form of methods.
 As an example, we implement a method \pythonil{distance} that computes the distance between two points.
 You would have a point~\pythonil{p1} and invoke \pythonil{p1.distance(p2)} to compute the distance to another point~\pythonil{p2}.
 The computation itself will follow \cref{eq:euclideanDistance} from our recent endeavor to operations on iterations in \cref{sec:operationsOnIterators}.
@@ -175,20 +236,21 @@ Inside a method of an object, \pythonilIdx{self} always refers to the object its
 Therefore, \pythonil{self.x}~is the x\nobreakdashes-coordinate of the current object and \pythonil{self.y}~is its~y\nobreakdashes-coordinate.
 \pythonil{p.x}~is the x\nobreakdashes-coordinate of the point~\pythonil{p} that was passed in as actual parameter of the method, and \pythonil{p.y}~is its y\nobreakdashes-coordinate.
 Notice that the \pgls{docstring} not just explains how this method is used, but also provides a simple example in form of a~\pgls{doctest}.
-If you compute \pythonil{Point(1, 1).distance(Point(4, 4))}, then the expected result is something like~4.243.%
+If you compute \pythonil{Point(1, 1).distance(Point(4, 4))}, then the expected result is something like~4.243{\dots}%
 %
 \begin{sloppypar}%
 In this \pgls{doctest} -- \pythonil{Point(1, 1).distance(Point(4, 4))} -- we only provided a single parameter to the method~\pythonil{distance}.
 When calling the method~\pythonil{distance}, we never need to provide a value of the parameter~\pythonilIdx{self} directly.
 Instead, it will be provided indirectly:
 If we have two points~\pythonil{p1} and~\pythonil{p2} and invoke~\pythonil{p1.distance(p2)}, then~\pythonil{self = p1} will be set automatically.
-Hence, even though we declared our method as~\pythonil{def distance(self, p: "Point") -> float}, which looks as if we need to provide two parameters~(\pythonilIdx{self} and~\pythonil{p}), we only need to provide one, namely~\pythonil{p}.%
+Hence, even though we declared our method as~\pythonil{def distance(self, p: \"Point\") -> float}, which looks as if we need to provide two parameters~(\pythonilIdx{self} and~\pythonil{p}), we only need to provide one, namely~\pythonil{p}.%
 \end{sloppypar}%
 %
 Reading this again, we notice that the parameter~\pythonil{p} is annotated with a very strange \pgls{typeHint}:
-One would expect that we would annotate it with~\pythonil{Point}, instead it is annotated with the string~\pythonil{"Point"}.
-This has the simple reason that the complete class \pythonil{Point} is only defined \emph{after}, well, the complete definition of class~\pythonil{Point} and, therefore, not yet available as type \emph{inside} its definition.
-Using the string here is therefore just a crutch with no real other effect.
+One would expect that we would annotate it with~\pythonil{Point}, instead it is annotated with the string~\pythonil{\"Point\"}.
+This has the simple reason that the complete class \pythonil{Point} is only defined \emph{after}, well, the complete definition of class~\pythonil{Point}.
+Therefore, \pythonil{Point} is not yet available as type \emph{inside} its definition.
+Using the string~\pythonil{\"Point\"} here is therefore just a crutch with no real other effect.
 %
 %
 \bestPractice{methodDocstring}{%
@@ -201,66 +263,151 @@ When using a class~\pythonil{C} as \pgls{typeHint} \emph{inside} the definition 
 %
 We could now go on and add more methods that do reasonable computations with instances of~\pythonil{Point}.
 For now, this simple example will suffice.
-Let us instead take a look on how one would use our new class.
+Let us instead take a look on how one would use our new class with program \programUrl{classes:point_user} given as \cref{lst:classes:point_user}.
 
-In program \programUrl{classes:point_user} given as \cref{lst:classes:point_user}, we begin by creating one instance of~\pythonil{Point} and store it in a variable~\pythonil{p1}.
+Before we can do anything, we need to import our class \pythonil{Point}.
+Class \pythonil{Point} is defined in file \programUrl{classes:point}.
+The file name without the \textil{.py} is the module name~(\pythonil{point}) from where we can import the class.
+Hence, we write \pythonil{from point import Point}.
+
+We now can create one instance of~\pythonil{Point} and store it in a variable~\pythonil{p1}.
 Since~\pythonil{p1} is supposed to reference an instance of~\pythonil{Point}, its \pgls{typeHint} should denote this.
 Here we can use \pythonil{Point} just like any other datatype.
 We write \pythonil{p1: Point = Point(3, 5)}.
-The resulting new instance of \pythonil{Point} should have its attribute~\pythonil{x} set to~\pythonil{3} and its attribute~\pythonil{y} set to~\pythonil{5}.
+The initializer \dunder{init} is automatically invoked when we write~\pythonil{Point(3, 5)}.
+The two arguments that we pass in will be provided to it as values for parameters~\pythonil{x} and~\pythonil{y}, respectively.
+The first parameter, \pythonilIdx{self}, of \dunder{init} will be a newly allocated and yet un-initialized instance of \pythonil{Point}.
+
+After \dunder{init} completes, the resulting new instance of \pythonil{Point} that we get should have its attribute~\pythonil{x} set to~\pythonil{3} and its attribute~\pythonil{y} set to~\pythonil{5}.
 We can access them via~\pythonil{p1.x} and~\pythonil{p1.y}.
 Of course we can also use them in an \pgls{fstring}.
+We find that \pythonil{f\"\{p1.x = \}, \{p1.y = \}\"} will be \glslink{strinterpolation}{interpolated} to \pythonil{\"p1.x = 3, p1.y = 5\"}.
 
-We can check if an object~\pythonil{o} is an instance of our class \pythonil{Point} by writing~\pythonil{isinstance(o, Point)}.
-For \pythonil{p1}, this returns~\pythonil{True}.
+The type of \pythonil{p1} is \pythonil{Point}.
+The class \pythonil{Point} is defined in file \programUrl{classes:point}.
+This file name is interpreted as module name~\pythonil{point}.
+Hence, the full name of the type is \pythonil{point.Point}.
+And it is a \pythonilIdx{class}.
+Hence, printing \pythonil{type(p1)}\pythonIdx{type} yields \textil{<class \'point.Point\'>}.
+
+We can check if an object~\pythonil{o} is an instance of our class \pythonil{Point} by writing~\pythonil{isinstance(o, Point)}\pythonIdx{isinstance}.
+For \pythonil{p1}, this returns~\pythonil{True}, as one would expect.
+As a test, we check whether \pythonil{isinstance(5, Point)}, which returns \pythonil{False} for similarly obvious reasons.
+\pythonil{isinstance(p1, int)} is \pythonil{False}, too.
 
 We now create a second instance, \pythonil{p2}, of the class \pythonil{Point}.
-We assign \pythonil{7} to \pythonil{p2.x} and \pythonil{8} to \pythonil{p2.y} via the \dunder{init} initializer, which is automatically invoked when we write~\pythonil{Point(7, 8)}.
+We this time, just for fun, pass the arguments by parameter name, i.e., write \pythonil{x=8} and \pythonil{y=7}.
+These arguments will then again be passed to \dunder{init}.
+This assigns \pythonil{7} to \pythonil{p2.x} and \pythonil{8} to \pythonil{p2.y}.
 We can again print the values of these attributes using an \pgls{fstring}.
-While \pythonil{isinstance(p2, Point)} is again \pythonil{True}, \pythonil{isinstance(5, Point)} returns \pythonil{False}.
 
+The \pythonilIdx{type} of \pythonil{p2} is again the \pythonilIdx{class} \pythonil{point.Point}.
+Our objects can be used with the \pythonilIdx{is}~operator, which checks for object identity.
+\pythonil{p1}~is the same object as itself, which means that \pythonil{p1 is p1}\pythonIdx{is} yields~\pythonil{True}.
 While being instances of the same class, \pythonil{p1} and \pythonil{p2} are different objects.
-Therefore, \pythonil{p1 is p2} yields~\pythonil{False}.%
+Therefore, \pythonil{p1 is p2}\pythonIdx{is} yields~\pythonil{False}.
 %
 \begin{sloppypar}%
 We can now also use our method \pythonil{distance}.
 \pythonil{p1.distance(p2)}, i.e., the distance from~\pythonil{p1} to~\pythonil{p2}, is the same as \pythonil{p2.distance(p1)}, i.e., the distance from~\pythonil{p2} to~\pythonil{p1}.
-Both are equal to~5, because~$\sqrt{(7 - 3)^2+ (8 - 5)^2}=\sqrt{4^2 + 3^2}=\sqrt{25}=5$.%
+Both are equal to~5, because~$\sqrt{(7 - 3)^2 + (8 - 5)^2}=\sqrt{4^2 + 3^2}=\sqrt{25}=5$.%
 \end{sloppypar}%
 %
 \pythonil{Point} can indeed be used like any other datatype that we discussed before.
-For example, we can have lists of instances of \pythonil{Point}~(and the appropriate \pgls{typeHint} would then by \pythonil{list[Point]}).
+For example, we can have lists of instances of \pythonils{Point}.
+The appropriate \pgls{typeHint} for such a list would be \pythonil{list[Point]}.
 We can even create such a list with list comprehension\pythonIdx{list!comprehension}\pythonIdx{comprehension!list}, exactly as we learned back in \cref{sec:listComprehension}.
-And we can then process this list by writing a generator expression which transforms the points to strings, just as we discussed in \cref{sec:generatorExpressions}.
-The expression generates a sequence of strings of the form \textil{"(x, y)"}, which are then concatenated by the \pythonilIdx{join}\pythonIdx{str!join} method of the string~\pythonil{", "}~(see \cref{sec:loopsOverSequences}).
+
+We can then process this list by writing a generator expression which transforms the points to strings, just as we discussed in \cref{sec:generatorExpressions}.
+The expression interpolates the \pgls{fstring} \pythonil{f\"(\{p.x\}, \{p.y\})\"} for each \pythonil{Point} \pythonil{p} in our list \pythonil{point_list}.
+This means that a sequence of strings of the form \textil{\"(x, y)\"} is created.
+These are then concatenated by the \pythonilIdx{join}\pythonIdx{str!join} method of the string~\pythonil{\", \"}~(see \cref{sec:loopsOverSequences}).
 The result can be seen at the bottom of \cref{exec:classes:point_user}.
 
-The objects of our \pythonil{Point} class are \emph{immutable}, i.e., once created, the attributes cannot be changed anymore.\footnote{%
-Well, in \python, \pglspl{typeHint} are just hints and not enforced by the interpreter~\cite{PEP591}. %
-So the x\nobreakdashes-~and y\nobreakdashes-attributes of instances of \pythonil{Point} can actually be changed. %
+\pythonil{Point} is a datatype like any other datatype.
+Actually, it is the very first datatype in \python\ that we have created.
+This is quite cool, if you think about it.
+The programming language has datatypes like \pythonil{str} or \pythonil{list}.
+Now we are now able to extend the programming language with our own datatypes, that make sense in our own scenarios.
+
+The objects of our \pythonil{Point} class are \emph{immutable}.
+Once created, the attributes cannot be changed anymore, at least not without violating the language rules.
+The thing that (should) stop anyone from changing them is the \pythonilIdx{Final} \pgls{typeHint}.
+As said before, in \python, \pglspl{typeHint} are just hints and not enforced by the interpreter~\cite{PEP591}.
+Thus, the attributes \pythonil{x} and \pythonil{y} of instances of \pythonil{Point} can actually be changed.
 However, tools like \mypy\ will detect such mistakes and report them~\cite{PEP591}.%
-}
-The x\nobreakdashes-~and y\nobreakdashes-attributes are initialized by the \pythonil{\_\_init\_\_} initializer.
-They are marked with the \pgls{typeHint} \pythonilIdx{Final} and thus changing them is an error.
-In many cases, making objects immutable is a good design pattern.%
+
+\gitLoadAndExecPython{classes:point_user_wrong}{}{classes}{point_user_wrong.py}{}%
+\listingPythonAndOutput{classes:point_user_wrong}{%
+An example program that uses our new class \pythonil{Point} incorrectly: %
+We violate the \pythonilIdx{Final} annotation of attribute~\pythonil{x} by overwriting it.}{}%
+%
+\begin{figure}%
+\centering%
+\tightbox{\includegraphics[width=0.7\linewidth]{\currentDir/finalViolatedPycharm}}%
+\caption{%
+We open our program \programUrl{classes:point_user_wrong} from \cref{lst:classes:point_user_wrong} that uses the class \pythonil{Point} incorrectly in \pycharm. %
+If we hover the mouse over the yellow mark in the line that violates the \pythonilIdx{Final} annotation, \pycharm\ informs us that doing that is wrong.}%
+\label{fig:finalViolatedPycharm}%
+\end{figure}%
+%
+\gitExec{exec:classes:point_user_wrong:mypy}{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh classes point_user_wrong.py}%
+\listingToolOutput{classes:point_user_wrong:mypy}{%
+The result of applying \mypy\ to the program \programUrl{classes:point_user_wrong} from \cref{lst:classes:point_user_wrong} that violates the \pythonilIdx{Final} annotation of the attributes of our class \pythonil{Point}. %
+\mypy\ reports the issue.}%
+
+Program \programUrl{classes:point_user_wrong} explores this problem in \cref{lst:classes:point_user_wrong}.
+After creating the \pythonil{Point} object~\pythonil{p1} exactly as in our first example, it frivolously sets \pythonil{p1.x = 5}.
+The \pythonilIdx{Final} \pgls{typeHint} tells us explicitly that this should not be done.
+However, as the output in \cref{exec:classes:point_user_wrong} shows, we can do it anyway.
+
+That this is not a good idea becomes already clear when we open our program in \pycharm.
+\Cref{fig:finalViolatedPycharm} illustrates that \pycharm\ highlights the violating line of code with a yellow mark.
+Hovering the mouse over this note tells us in no uncertain terms that we are doing something that should be forbidden.
+\mypy\ gives us a similar warning in \cref{exec:classes:point_user_wrong:mypy}.
+
+The attributes \pythonil{x} and \pythonil{y} are initialized by \dunder{init}.
+There, they are also marked with the \pgls{typeHint} \pythonilIdx{Final} and thus changing them is an error.
+But why did we do that?
+Why did we start this topic so early when delving into classes?
+Because in many cases, making objects immutable is a good design pattern.%
 %
 \cquotation{B2008EJ}{%
-Classes should be immutable unless there’s a very good reason to make them mutable{\dots}.
+Classes should be immutable unless there's a very good reason to make them mutable{\dots}.
 If a class cannot be made immutable, limit its mutability as much as possible.%
 }%
 %
 \begin{definition}[Immutable]%
-After their creation, the attributes of \emph{immutable} objects cannot be modified anymore.%
+After their initialization, the attributes of \emph{immutable} objects cannot be modified anymore.%
 \end{definition}%
 %
-Creating classes whose instances are immutable has several benefits:
+Creating classes whose instances are immutable has several benefits, e.g.:
 Code gets easier to understand, because we do not need to think about whether, when, or how an object changes (because it cannot).
-The elements of sets and the keys of dictionaries in \python, for example, must be immutable objects because they store objects based on their hash codes which, in turn, are based on the attributes of these objects.
+The elements of sets and the keys of dictionaries in \python, for example, must be immutable objects because these collection store objects based on their hash codes which, in turn, are based on the attributes of these objects.
 If the attributes would change, so would the hash codes, which means that the objects could no longer be found.
-This is particularly useful in parallel programming, where mutable shared state could lead to complex bugs and race conditions.
+Immutable objects are especially useful in parallel programming, where mutable shared state could lead to complex bugs and race conditions.
 
 Still, there also are many cases where we want to create objects whose attributes can change.
-We will explore one of them in the next section.%
+We will explore one of them in the next section.
+
+But before we do that, let's summarize what we have learned and practically played with so far:
+By defining our own classes, we can create our own data structures.
+We can use classes just like any other datatype.
+
+Classes can have their own variables, which are called attributes.
+They also can have associated functions, which are called methods.
+The methods access the attributes to compute stuff.
+Each class can have arbitrarily many attributes and methods.
+
+A special method is the initializer \dunder{init}.
+It is called automatically when we create a new instance of the class.
+Here, all the attributes of a class instance created and receive their initial value.
+
+Of course, we use \pglspl{typeHint} and \pglspl{docstring} as well as \pglspl{doctest} also with classes.
+For example, ee can mark attributes as immutable with the \pythonilIdx{Final} \pgls{typeHint}.
+Sadly, \python\ does not strictly enforce that, i.e., we can technically still change \pythonilIdx{Final} attributes.
+This, however, is a sin that luckily is detected by tools like \mypy\ and even \pglspl{ide} like \pycharm.
+Marking attributes as immutable is still a good idea, because it prevents many possible bugs.%
 \FloatBarrier%
 \endhsection%
 %
