@@ -64,6 +64,7 @@ Die Slides zum Kurs in deutscher Sprache können unter <https://thomasweise.gith
 39. [Generator-Funktionen](https://thomasweise.github.io/programmingWithPythonSlidesDE/39_generator_funktionen.pdf)
 40. [Operationen für Iteratoren](https://thomasweise.github.io/programmingWithPythonSlidesDE/40_operationen_für_iteratoren.pdf)
 41. [Klassen: Grundlagen](https://thomasweise.github.io/programmingWithPythonSlidesDE/41_klassen_grundlagen.pdf)
+42. [Klassen: Kapselung](https://thomasweise.github.io/programmingWithPythonSlidesDE/42_klassen_kapselung.pdf)
 
 
 ### 2.3. The Slides in English

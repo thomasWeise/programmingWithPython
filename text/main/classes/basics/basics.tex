@@ -108,7 +108,7 @@ We can also use the class name as a \pgls{typeHint}, because it represents a nor
 So much about the general structure of \pythoniles{class}.
 Now, without further ado, let's explore this structure with some examples.%
 %
-\hsection{A Simple Immutable Class for Points in the Two-Dimensional Euclidean Plane}%
+\hsection{Design Principle: Immutable Classes}%
 \label{sec:immutableClassPoints2D}%
 %
 \gitLoadPython{classes:point}{}{classes/point.py}{}%
@@ -411,64 +411,179 @@ Marking attributes as immutable is still a good idea, because it prevents many p
 \FloatBarrier%
 \endhsection%
 %
-\hsection{Encapsulation and Accurately Adding Floating Point Numbers}%
+\hsection{Design Principle: Encapsulation}%
 \FloatBarrier%
 %
-We now want to implement our first maybe actually useful piece of code, something that can be used in a real productive system.\footnote{%
-Yes, we did implement the method of LIU Hui~(刘徽) for approximating~\numberPi\ and Heron's Method for approximating the square root. %
-These implementations were not more accurate than the constant and function \python\ already has built in. %
-But they are nice, though, I did enjoy doing them.}
-To do such a cool thing, let us first revisit the limitations of the datatype \pythonil{float} from way back in \cref{sec:float}. %
+\gitEvalPython{classes:adding_floats_error}{}{classes/adding_floats_error.py}%
+\listingBox{exec:classes:adding_floats_error}{%
+Computations with \pythonil{float} that hit the digit limit, which explored back in \cref{sec:howFloatingPointNumbersWork}.}{,style=python_console_style}%
 %
-\begin{figure}%
-\centering%
-\includegraphics[width=0.7\linewidth]{\currentDir/addingFloatsError}%
-\caption{Errors occurring when adding floating point numbers due to the limited precision of the datatype~\pythonilIdx{float}.}%
-\label{fig:addingFloatsError}%
-\end{figure}%
-%
-We learned that the datatype \pythonilIdx{float} can represent numbers accurately to about fifteen to sixteen digits.
-This is illustrated in \cref{fig:addingFloatsError}:
+We often want our objects to be immutable.
+This obviously cannot always be the case.
+There also are many situations, where we need objects whose state can change.
+Then the question is \emph{How should the state of an object be changed?}
+The vast majority of our classes will have more than one instance attributes.
+All the attributes of an object together make up its state and form a semantic unit.
+
+If an object has multiple attributes, these attributes may be inter-related and their values depent on each other.
+We would not want that somebody can change the attributes willy-nilly.
+Often we want to design mutable objects such that the values of their mutable attributes can only be accessed via methods.
+The methods and attributes of a class from a semantic unit, too.
+The methods are written by the same programmer(s) who designed the attributes.
+These programmers know exactly how the attributes can be changed in a consistent and meaningful way.
+
+We now explore exactly such a secario.
+We have a class whose attributes are tightly inter-related, such that it would not make any sense to allow a user to change them separately.
+Instead, we implement methods that can change the attributes in a consistent way and query information from the object.
+Of course, being the math nerds we are, we will do this on the example of a mathematical algorithm.
+
+We already implemented some interesting mathematical algorithms.
+We implemented the method of LIU Hui~(刘徽) for approximating~\numberPi\ in \cref{sec:approximatePiLiuHui}, Heron's Method for approximating the square root in \cref{sec:whileLoop}, and Euclid's algorithm for the greatest common divisor in \cref{sec:definingFunctions}.
+All of these algorithms you likely have seen in high school.
+Let's now implement an algorithm that you probably never heard about:
+A practical method that tries to mitigate the limitations of the datatype \pythonil{float}, that we discussed way back in \cref{sec:float}.
+
+We learned that the datatype \pythonilIdx{float} can represent numbers accurately to about 15 to 16 digits.
+This is illustrated in \cref{exec:classes:adding_floats_error}:
 If we add~\pythonil{1} to~$10^{15}=\pythonil{1e15}$, the correct result is~\pythonil{1000000000000001.0}.
-However, if we add~\pythonil{1} to~$10^{16}=\pythonil{1e16}$, the result is still~\pythonil{1e16}.
-It is not possible to represent the number~$1+10^{16}$ correctly with the 64~bit double precision floating point numbers that \python\ offers~\cite{PSF:P3D:TPT:FPAIAL}.
+As you can count, there are 16 digits before the decimal dot, two~\pythonils{1} and 14~\pythonils{0}.
+Consequenly, adding~\pythonil{1} to~$10^{16}=\pythonil{1e16}$ would require 17~digits.
+This exceeds the capacity of our \pythonils{float}.
+Hence, the least-significant digit just \inQuotes{falls off.}
+The result of \pythonil{1e16 + 1} computed mit \pythonils{float} is still~\pythonil{1e16}.
+It is not possible to represent the number~$1+10^{16}$ exactly with the 64~bit double precision floating point numbers that \python\ offers~\cite{PSF:P3D:TPT:FPAIAL,IEEE2019ISFFPA,H1997IS7FPN}.
+
 Usually, that itself is totally fine:
-There are few application in \inQuotes{everyday programming} where we really need more than fifteen digits of precision.
+There are only very few application were we really need more than 15 digits of precision.
+Still, let's continue this example for a bit.
+What happens if we try to compute~$10^{18}+1$ and then subtract~$10^{18}$ from this sum?
+Obviously, in an ideal world, the result should be~\pythonil{1.0}.
+While \pythonil{1e16 + 1} would be \pythonil{10_000_000_000_000_001.0} which does not fit in a \pythonil{float}, \pythonil{1.0}~is a number that we can correctly and accurately represent as a~\pythonilIdx{float}.
+The actual result of this computation in \python, however, is~\pythonil{0.0}.
+The reason is that the result of the intermediate computation of \pythonil{1e18 + 1 == 1e18} and then \pythonil{1e18 - 1e18 == 0}.
 
-However, what happens if we try to compute~$10^{18}+1$ and then subtract~$10^{18}$ from this sum?
-Obviously, the result should be~1, a number that we can correctly and accurately represent as a~\pythonilIdx{float}.
-The actual result of this computation in \python\ is~0.
-The reason is that \pythonil{1e18+1 == 1e18} and \pythonil{1e18 - 1e18 == 0}.
-
-Similarly, computing \pythonil{1e18 + 1 + 1e36 - 1e36 - 1e18} yields~\pythonil{-1e18}, while the correct result would again be~\pythonil{1}.
+Similarly, computing \pythonil{1e18 + 1 + 1e36 - 1e36 - 1e18} yields~\pythonil{-1e18}, while the \inQuotes{correct} result would again be~\pythonil{1.0}.
 The reason is that first, \pythonil{1e18 + 1 == 1e18} is computed.
-Then \pythonil{1e18 + 1e36} yields~\pythonil{1e36}, from which we subtract~\pythonil{1e36} and get~\pythonil{0}.
+Then \pythonil{1e18 + 1e36} yields~\pythonil{1e36}, from which we subtract~\pythonil{1e36} and get~\pythonil{0.0}.
 The final subtraction of~\pythonil{1e18} then results in~\pythonil{1e-18}.
 If we had infinite precision, the first step would instead yield~$10^{18}+1=1\decSep000\decSep000\decSep000\decSep000\decSep000\decSep001$
 Adding \pythonil{1e36} to this number should then yield~$1000\decSep000\decSep000\decSep000\decSep000\decSep001\decSep000\decSep000\decSep000\decSep000\decSep000\decSep001$.
-Subtracting~\pythonil{1e36} from this humongous number would bring us back to~$10^{18}+1$ and the final subtraction of~\pythonil{1e18} would give us~\pythonil{1}.
-It is easy to see why this does not work out, because the designers of the floating point number arithmetic unit in CPUs had to choose some limited number of bits per \pythonil{float} and concluded that fifteen digits are reasonable whereas 36~are probably never actually needed.
+Subtracting~\pythonil{1e36} from this humongous number would bring us back to~$10^{18}+1$ and the final subtraction of~\pythonil{1e18} would give us~\pythonil{1.0}.
+It is easy to see why this does not work out.
+The designers of the floating point number arithmetic unit in CPUs had to choose some limited number of bits per \pythonil{float}.
+They concluded that 52~bits of \pgls{significand} giving us $52/\log_2 10\approx 15.7$~digits are reasonable and neatly fit into a 8~bytes of memory.
+On the other hand, 36~digits, requiring a \pgls{significand} of $36\log_2 10\approx 120$~bits, would make the datatype much bigger and are probably never actually needed.
 Well, never, unless you try to add up large and small numbers.
 
+The interesting question that we may ask after reviewing the example is:
+\emph{Is there a way to more accurately add large and small numbers?}
+Of course, we can never represent \pythonil{1e16 + 1} exactly as \pythonil{float}.
+However, we want to be able to represent the final result of a sum at least as accurately as possible.
+For example, we want a way to compute the sum \pythonil{(1e18 + 1) + -1e18} such that the result is \pythonil{1.0}.
+Is this possible?
+
+Luckily, in the 1960s, \citeauthor{K1965PFRORTE}~\cite{K1965PFRORTE} and \citeauthor{B1968NSIMA}~\cite{B1968NSIMA} had an idea how to extend the precision of additions~\cite{G1991WECSSKAFPA,L2020RWECSSKAFPA}:
+We add numbers up in a \pythonil{sum} variable and carry with us a variable~\pythonil{cs} where we remember how far off this sum is.
+Imagine again that we want to compute \pythonil{1e18 + 1 - 1e18}.
+How could we do that to arrive at the result~\pythonil{1.0}?
+By following this simple algorithm that maintains the overall sum of the numbers in a variable~\pythonil{sum} and keeps track of an error term in a variable~\pythonil{cs}:%
+%
+\begin{enumerate}%
+%
+\item We start with \pythonil{sum = 0} and \pythonil{cs = 0}.%
+%
+\item For each number to add to the sum, we perform the following steps:%
+\begin{enumerate}%
+%
+\item We first compute \pythonil{t = sum + value}. %
+\pythonil{t}~thus is the sum as precisely as a \pythonil{float} can represent it.
+%
+\item We then calculate~\pythonil{error = (sum - t) + value}. %
+Since \pythonil{t = sum + value}, we could assume that \pythonil{error} should be~\pythonil{0.0}, because it looks as if it effectively is~\pythonil{(sum - (sum + value)) + value}. %
+However, some digits could have been \inQuotes{lost} when computing \pythonil{sum + value}.
+They will re-appear in \pythonil{error}.%
+%
+\item We then set \pythonil{sum = t}.%
+%
+\item We accumulate the errors in~\pythonil{cs}, i.e., set~\pythonil{cs += error}.%
+%
+\end{enumerate}%
+%
+\item The final result of the summation is then \pythonil{sum + cs}.
+\end{enumerate}%
+%
+In the example \pythonil{1e18 + 1 - 1e18}, we have three numbers that we want to sum up.
+Let's follow through with this simple algorithm above.%
+%
+\begin{enumerate}%
+\item We start with \pythonil{sum = 0} and \pythonil{cs = 0}.%
+%
+\item The first number that we want to add to the sum is \pythonil{1e18}.%
+\begin{enumerate}%
+\item In the first step, we have to compute~\pythonil{t = sum + value}, i.e., \pythonil{t = 0 + 1e18}, meaning that~\pythonil{t = 1e18}.%
+%
+\item Then, \pythonil{error = (sum - t) + value} becomes \pythonil{error = (0 - 1e18) + 1e18}, which gives us~\pythonil{error = 0.0}.%
+\item We set~\pythonil{sum = t}, also \pythonil{sum = 1e18}.%
+\item \pythonil{cs}, which was~\pythonil{0}, becomes \pythonil{0 + 0.0}, which means that it now is~\pythonil{cs = 0.0}.%
+\end{enumerate}%
+%
+\item The second number that we want to add to the sum is \pythonil{1}.%
+\begin{enumerate}%
+%
+\item We compute~\pythonil{t = sum + value}. %
+Now this mean~\pythonil{t = 1e18 + 1} and this results in~\pythonil{t = 1e18}. %
+The~\pythonil{1} is lost.%
+%
+\item Well, almost: %
+\pythonil{error = (sum - t) + value} becomes \pythonil{error = (1e18 - 1e18) + 1}, i.e., \pythonil{error = 1.0}.%
+%
+\item After this step, \pythonil{sum = 1e18}.%
+%
+\item And \pythonil{cs = 0 + 1.0} becomes~\pythonil{1.0}.%
+\end{enumerate}%
+%
+\item We now subtract~\pythonil{1e18} from the sum, which is equivalent to adding~\pythonil{-1e18}.%
+%
+\begin{enumerate}%
+\item This means that we first compute~\pythonil{t = sum + value}, i.e., \pythonil{t = 1e18 + -1e18}, which leads us to~\pythonil{t = 0.0}.%
+%
+\item For the error term, we get \pythonil{error = (1e18 - 0.0) + -1e18}, which leads to~\pythonil{error = 0.0}.%
+%
+\item We now got~\pythonil{sum = 0.0}.%
+%
+\item And~\pythonil{cs = 1.0 + 0.0}, which still means that~\pythonil{cs = 1.0}.%
+\end{enumerate}%
+%
+\item The final result will be~\pythonil{sum + cs} and this indeed gives us~\pythonil{0.0 + 1.0}, i.e., \pythonil{1.0}!
+%
+\end{enumerate}%
+%
+Although we cannot represent the intermediate results of the addition exactly, we still got the right result.
+With the \citeauthor{K1965PFRORTE}-Sum, we can compute the correct result of \pythonil{1e18 + 1 - 1e18}, namely~\pythonil{1.0}.
+The trick was to keep track of the total error in the variable~\pythonil{cs}.
+The price thus is that we needed additional variables and needed to update them in each step.%
+%
+\FloatBarrier%
+%
 \insertAlgorithm{kahanSum}{%
-The second-order \citeauthor{K1965PFRORTE}-\citeauthor{B1968NSIMA}-\citeauthor{N1974REVZSES} summation algorithm~\cite{B1968NSIMA,K1965PFRORTE,N1974REVZSES,K2006AGKBSA} over an array~\aVar{x} as defined by~\citeauthor{K2006AGKBSA} in~\cite{K2006AGKBSA}.}{%
+The second-order \citeauthor{K1965PFRORTE}-\citeauthor{B1968NSIMA}-\citeauthor{N1974REVZSES} summation algorithm~\cite{B1968NSIMA,K1965PFRORTE,N1974REVZSES,K2006AGKBSA} over an array~\aVar{x} of $n$~numbers as defined by~\citeauthor{K2006AGKBSA} in~\cite{K2006AGKBSA}.}{%
 %
 \aAssign{\aVar{sum}}{0}\aSep%
 \aAssign{\aVar{cs}}{0}\aSep%
-\aAssign{\aVar{ccs}}{0}\;%
+\aAssign{\aVar{ccs}}{0}\algoCmtEndline{Initialze sum, 1st order- and 2nd order error.}%
 %
-\For(\comment*[f]{For each number to add.}){$\aVar{i} \in \intRange{0}{n-1}$}{%
-\aAssign{\aVar{t}}{\aVar{sum}+\aArrayIndex{\aVar{x}}{\aVar{i}}}\comment*{Compute the sum and (below) the first-order error term~\cite{B1968NSIMA,K1965PFRORTE}.}%
-\lIf(\comment*[f]{the tweak by \citeauthor{N1974REVZSES}~\cite{N1974REVZSES}}){$|\aVar{sum}|\geq|\aArrayIndex{\aVar{x}}{\aVar{i}}|$}{%
+\For(\algoCmtInline{For each of the $n$ numbers to add.}){$\aVar{i} \in \intRange{0}{n-1}$}{%
+\aAssign{\aVar{t}}{\aVar{sum}+\aArrayIndex{\aVar{x}}{\aVar{i}}}\algoCmtEndline{Compute the sum and (below) the first-order error term~\cite{B1968NSIMA,K1965PFRORTE}.}%
+\lIf(\algoCmtInline{the tweak by \citeauthor{N1974REVZSES}~\cite{N1974REVZSES}}){$|\aVar{sum}|\geq|\aArrayIndex{\aVar{x}}{\aVar{i}}|$}{%
 \aAssign{\aVar{c}}{(\aVar{sum}-\aVar{t})+\aArrayIndex{\aVar{x}}{\aVar{i}}}%
 }\lElse{%
 \aAssign{\aVar{c}}{(\aArrayIndex{\aVar{x}}{\aVar{i}}-\aVar{t})+\aVar{sum}}%
 }%
 %
-\aAssign{\aVar{sum}}{\aVar{t}}\;%
-\aAssign{\aVar{t}}{\aVar{cs}+\aVar{c}}\comment*{The second-order error summation by~\citeauthor{K2006AGKBSA}~\cite{K2006AGKBSA} begins.}%
+\aAssign{\aVar{sum}}{\aVar{t}}\algoCmtEndline{The overall sum is updated.}%
+\aAssign{\aVar{t}}{\aVar{cs}+\aVar{c}}\algoCmtEndline{The second-order error summation by~\citeauthor{K2006AGKBSA}~\cite{K2006AGKBSA} begins.}%
 %
-\lIf(\comment*[f]{the tweak by \citeauthor{N1974REVZSES}~\cite{N1974REVZSES} again}){$|\aVar{cs}|\geq|\aVar{c}|$}{%
+\lIf(\algoCmtInline{the tweak by \citeauthor{N1974REVZSES}~\cite{N1974REVZSES} again}){$|\aVar{cs}|\geq|\aVar{c}|$}{%
 \aAssign{\aVar{cc}}{(\aVar{cs}-\aVar{t})+\aVar{c}}%
 }\lElse{%
 \aAssign{\aVar{c}}{(\aVar{c}-\aVar{t})+\aVar{cs}}%
@@ -480,154 +595,266 @@ The second-order \citeauthor{K1965PFRORTE}-\citeauthor{B1968NSIMA}-\citeauthor{N
 \Return{$\aVar{sum}+\aVar{cs}+\aVar{ccs}$}%
 }% end for
 }% end algorithm
+
+There exists a variety of different implementations of this so-called \citeauthor{K1965PFRORTE}-Sum or \citeauthor{K1965PFRORTE}-\citeauthor{B1968NSIMA}-Sum.
+\Citeauthor{N1974REVZSES}, for example, came up with a tweak to improve the precision in \citeyear{N1974REVZSES} in the case that the running sum is smaller than the numbers we add~\cite{N1974REVZSES}.
+\Citeauthor{K2006AGKBSA}~\cite{K2006AGKBSA} then improved the precision further by, basically, maintaining an error sum for the error sum, i.e., created a second degree error sum~(and more).
+This more advanced and accurate algorithm is given in \cref{algo:kahanSum}.
+
+It is not really necessary to discuss the details of the algorithm.
+It basically is a more advanced version of the simple \citeauthor{K1965PFRORTE}-Sum we already tried out above.
+I intentionally choose this more advanced and scary looking variant of the algorithm.
+Because I want to make an important point here:
+Yes, sometimes algorithms look complicated and scary.
+But if we follow the definition properly, we still can implement them.
+Even if we may not understand everything perfectly at the beginning.
+
+While implementing the algorithm, while writing down its components and mapping them to primitives of the programming language, we may be able to understand it better.
+Actually, we can even use our implementation to understand things better.
+We could let our code print intermediate results for an example chosen by us.
+Then we would be able to trace its steps and observe its behavior.
+Or we could even step over our code using the \pgls{debugger}~(see later in \cref{sec:dunder:debugging}).
+If we have a clear algorithm specification, we can translate it to \python.
+And we can learn something from that.
+
+And we are now going to implement this algorithm in file \programUrl{classes:kahan_sum} given as \cref{lst:classes:kahan_sum}.
+The question is how should we implement this algorithm?
+We could, for example, implement it as a function, maybe taking an \pythonilIdx{Iterable} \pythonil{x} with the numbers to add up as parameter.
+It is defined like that in \cref{algo:kahanSum}, after all.
+
+\begin{figure}%
+\centering%
+\includegraphics[width=0.85\linewidth]{\currentDir/kahanAlgorithmToClass}%
+\caption{A transformation of the \citeauthor{K1965PFRORTE}-\citeauthor{B1968NSIMA}-\citeauthor{N1974REVZSES} summation algorithm specified in \cref{algo:kahanSum} to a \python\ class design. %
+All state variables of the algorithm become attributes of the class. %
+The initialization step setting the variables to their starting values is placed into the initializer \dunder{init}. %
+The part of the algorithm body that adds numbers to the sum becomes method~\pythonil{add}. %
+The final step returning the total sum can be performed at any time by querying method~\pythonil{result}.%
+}%
+\label{fig:kahanAlgorithmToClass}%
+\afterpage{\clearpage}%
+\end{figure}%
 %
 \gitLoadPython{classes:kahan_sum}{}{classes/kahan_sum.py}{}%
 \listingPython{classes:kahan_sum}{%
 An implementation of the second-order \citeauthor{K1965PFRORTE}-\citeauthor{B1968NSIMA}-\citeauthor{N1974REVZSES} summation algorithm given in \cref{algo:kahanSum}.}%
 %
+\gitExec{exec:classes:kahan_sum:doctest}{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest_doctest.sh classes kahan_sum.py}%
+\listingToolOutput{classes:kahan_sum:doctest}{%
+The output of \pytest\ executing the \pglspl{doctest} for our \pythonil{KahanSum} class in module \programUrl{classes:kahan_sum}: The test succeds without error.}%
+%
 \gitLoadAndExecPython{classes:kahan_user}{}{classes}{kahan_user.py}{}%
 \listingPythonAndOutput{classes:kahan_user}{%
 Some use cases of our \citeauthor{K1965PFRORTE}-summation class from \cref{lst:classes:kahan_sum} and a comparison with \python's \pythonilIdx{sum} and the function~\pythonilIdx{fsum} from the \pythonilIdx{math} module.}{}%
 
-Luckily, in the 1960s, \citeauthor{K1965PFRORTE}~\cite{K1965PFRORTE} and \citeauthor{B1968NSIMA}~\cite{B1968NSIMA} had an idea how to fix that~\cite{G1991WECSSKAFPA,L2020RWECSSKAFPA}:
-We add numbers up in a \pythonil{sum} variable and carry with us a variable~\pythonil{cs} where we remember how far off this sum is.
-Imagine again that we want to compute \pythonil{1e18 + 1 - 1e18}.
-How could we do that to arrive at the result~1?
+However, we decide to do something else:
+We want to implement it as a class \pythonil{KahanSum} that supports the creating of running sums.
+It should be possible to iteratively add values to the sum and to query the current total.
+Such a design is presented in \cref{fig:kahanAlgorithmToClass}.
 
-We start with \pythonil{sum = 0} and \pythonil{cs = 0}.
-For every number~\pythonil{value} that we want to add, we first compute \pythonil{t = sum + value}.
-\pythonil{t}~thus is the sum as precisely as a \pythonil{float} can represent it.
-We then calculate~\pythonil{error = (sum - t) + value}.
-Since \pythonil{t = sum + value}, we would assume that \pythonil{error} should be~0, because effectively, it is~\pythonil{(sum - (sum + value)) + value}.
-However, some digits could have been \inQuotes{lost} when computing \pythonil{sum + value}.
-We then set \pythonil{sum = t} and accumulate the errors in~\pythonil{cs}, i.e., set~\pythonil{cs += error}.
+A class has attributes and methods, right?
+To figure out how we can map \cref{algo:kahanSum} to that, let's look at it more closely.
+It begins by initializing the state variables \aVar{sum}, \aVar{cs}, and \aVar{ccs}.
+These state variables should clearly be attributes of the objects.
+In this case, their initialization would happen in the initializer \dunder{init}.
+This is where we will put the code corresponding to this very first setup step of the algorithm.
+And it is fairly easy to do that.
 
-Back to the example \pythonil{1e18 + 1 - 1e18}.
-Obviously, in the first step, we get~\pythonil{t = sum + value}, i.e., \pythonil{0 + 1e18}, meaning that~\pythonil{t = 1e18}.
-\pythonil{error = (sum - t) + value} becomes \pythonil{error = (0 - 1e18) + 1e18} which gives us~\pythonil{0.0}.
-We thus then set~\pythonil{sum = 1e18} and \pythonil{cs}, which was~\pythonil{0}, becomes \pythonil{0 + 0}, which still is~\pythonil{0}.%
-%
-\begin{sloppypar}%
-The second step is more interesting:
-We compute~\pythonil{t = sum + value}, but now this mean~\pythonil{t = 1e18 + 1} and this results in~\pythonil{t = 1e18}.
-The~\pythonil{1} is lost.
-Well, almost:
-\pythonil{error = (sum - t) + value} becomes \pythonil{error = (1e18 - 1e18) + 1}, i.e., \pythonil{error = 1}.
-So after this step, \pythonil{sum = 1e18} and \pythonil{cs = 0 + 1} becomes~\pythonil{1}.%
-\end{sloppypar}%
-%
-\begin{sloppypar}%
-We now subtract~\pythonil{1e18}, which is equivalent to adding~\pythonil{-1e18}.
-This means that we first compute~\pythonil{t = sum + value}, i.e., \pythonil{t = 1e18 + -1e18}, i.e., \pythonil{t = 0}.
-For the error term, we get \pythonil{error = (1e18 - 0) + -1e18}, which is~\pythonil{0}.
-We now got~\pythonil{sum = 0} and~\pythonil{cs = 1 + 0}, which still means that~\pythonil{cs = 1}.%
-\end{sloppypar}%
-%
-The final result will be~\pythonil{sum + cs} and this indeed gives us~\pythonil{0 + 1}, i.e., \pythonil{1}!
-Although we could not represent the intermediate results of the addition exactly, we still got the right result.
-The trick was to keep track of the total error in the variable~\pythonil{cs}.
+The loop in \cref{algo:kahanSum} adds one number~\aArrayIndex{\aVar{x}}{\aVar{i}} to the internal running sum at a time.
+We want to implement a method \pythonil{add} that does exactly that.
+It is supposed to add one new number to the internal sum and to update the first-\ and second-order error terms.
+This method could then, too, be called in a loop.
+The parameter \pythonil{value} of that method then takes the place of the loop variable~\aArrayIndex{\aVar{x}}{\aVar{i}}.
+We can now add new numbers to this sum by invoking \pythonil{add}.
 
-There exists a variety of different implementations of this so-called \citeauthor{K1965PFRORTE}-sum or \citeauthor{K1965PFRORTE}-\citeauthor{B1968NSIMA}-sum.
-\Citeauthor{N1974REVZSES}, for example, came up with a tweak to improve the precision in \citeyear{N1974REVZSES} in the case that the running sum is smaller than the numbers we add~\cite{N1974REVZSES}.
-\Citeauthor{K2006AGKBSA}~\cite{K2006AGKBSA} then improved the precision further by, basically, maintaining an error sum for the error sum, i.e., created a second degree error sum (and more).
-This most advanced and accurate algorithm is given in \cref{algo:kahanSum}.
-And we are now going to implement this in file \programUrl{classes:kahan_sum} given as \cref{lst:classes:kahan_sum}.
+After the end of the loop, at the very end of the algorithm, the final result is computed by adding the sum variable~\aVar{sum} to the first-\ and second-order error terms~\aVar{cs} and~\aVar{ccs}.
+We want to put the code computing the final result, the error-corrected sum, into a method \pythonil{result}.
+Actually, when we look more closely at the algorithm, we realize that there is no reason why the result should be \emph{final}.
+No state variable is changed during its computation.
+If we wanted, we could query \pythonil{result} and then continue adding numbers and then query \pythonil{result} again.
+This makes this a \emph{running} sum.
 
-What we have learned so far allows us to already implement proper and useful algorithms.
-This no longer is child's play, this is the real deal.
+What we did not yet discuss are the attributes of this class.
+As you can see, we should have attributes for the total sum~\aVar{sum}, the first-order error term~\aVar{cs}, and the second-order error term~\aVar{ccs}.
+The values of these attributes clearly change during summation, so they won't be \pythonil{Final}.
+They represent the \emph{internal} state of our sum.
+They are meaningless for any outside code.
+Most likely, nobody but us, who write this code, can understand their meaning.
 
-We now create a class\pythonIdx{class} whose instances each maintain one such running sum.
-The running sum will initially be~0.
-With a method~\pythonil{add} we can add one number to it.
-The method~\pythonil{result} should return the current result of the sum.
-We prefer using such a class over making a function that simply sums up a sequence because it allows for a much greater flexibility.
-We can use instances of our class to sum up sequences, but we can also use them to sum up numbers in any other way that pleases us.
-
-The attributes of our class should be \emph{hidden}.
-As we have discussed before, we will have a current running sum value~\pythonil{sum} and the error sum value~\pythonil{cs}.
-Since we implement \cref{algo:kahanSum}, we also need the second-order error sum term~\pythonil{ccs}.
-Now these values only make sense \inQuotes{inside} our object's logic.
-Different from the attributes~\pythonil{x} and~\pythonil{y} of our~\pythonil{Point} class, the user (another programmer) has no business accessing the internal state of our sum.
-Instead, the user should interact with our object only via the methods~\pythonil{add} and~\pythonil{result}.%
+Therefore, nobody should be able to see their values or even change them.
+Because there is no reason for that.
+The attributes of our class should be \emph{\inQuotes{hidden}}.
+Different from the attributes~\pythonil{x} and~\pythonil{y} of our~\pythonil{Point} class, the user~(another programmer) has no business accessing the (internal) state of our sum.
+Instead, the user should interact with our objects only via the methods~\pythonil{add} and~\pythonil{result}.%
 %
 \begin{definition}[Encapsulation]%
-\emph{Encapsulation} means that all the attributes of an object can only be accessed by methods. %
-It is impossible to access them directly or to modify them in any other way. %
+\emph{Encapsulation} means that all the attributes of an object can only be accessed its methods. %
+Under complete encapsulation, it is impossible to read or to modify the attributes of an object in any way other than using the methods of an object. %
 Encapsulation therefore allows the programmer to ensure that the state of an object can only be modified in a consistent and correct way.%
 \end{definition}%
 %
-This is going to be the interface for our new class~\pythonil{KahanSum}, which, in turn, is based on~\cite{K2006AGKBSA}.
-
-In the initializer~\dunder{init}, we create the three attributes~\pythonil{__sum}, \pythonil{__cs}, and \pythonil{__ccs} and initialize them to~\pythonil{0}.
-These names are directly taken from \cref{algo:kahanSum}.
-Notice the double leading underscores in front of the names.%
+We want to encapsulate our objects completely.
+We create the three attributes~\pythonil{__sum}, \pythonil{__cs}, and \pythonil{__ccs}.
+These names are directly taken from the variable names in \cref{algo:kahanSum}, but notice the double leading underscores in front of the names.%
 %
 \bestPractice{doubleUnderscore}{%
-Names of attributes and attributes that start with a double leading underscore~(\pythonilIdx{\_\_}) are to be treated as \emph{private} methods and attributes. %
+Names of attributes and methods that start with a double leading underscore~(\pythonilIdx{\_\_}) are to be treated as \emph{private}~\cite{PSF:P3D:TPLR:PNM,PSF:P3D:TPT:C:PV}. %
 They should not be accessed or modified from outside the class. %
-All internal attributes and methods of a class that should not be exposed to the outside therefore should be named following this convention~(with two leading underscores).%
+All internal attributes and methods of a class that should not be exposed to the outside therefore should be named following this convention~(with two leading underscores). %
+\python\ applies some internal name mangling to make such attributes harder to access from outside the class\cite{PEP8}
 }%
 %
-With that out of the way, a new instance of \pythonil{KahanSum} will start with all of its three summation variables initialized to~\pythonil{0}.
-Let us now implement the \pythonil{add} method, which corresponds to the body of the loop in \cref{algo:kahanSum}.
+In other words, nobody should access our attributes \pythonil{__sum}, \pythonil{__cs}, or \pythonil{__ccs} from the outside.
+Everybody should only use our methods to access the state of our \pythonils{KahanSum}.
+Sadly, like all such things, \python\ does \emph{not} enforce this{\dots}
+{\dots}This naming convention is thus not an absolute protection.
+It is only a very clear hint to other programmers to not touch these attributes.
+
+We could implement the algorithm as a simple function applied to an \pythonil{Iterable} of numbers.
+That would have been the most natural way to implement it.
+However, we chose the class design because it allows for a much greater flexibility.
+We can, of course, still use instances of our class to sum up sequences.
+However, we can also use them to sum up numbers in any other way that pleases us.
+We can query intermediate sums.
+Or we can use multiple \pythonils{KahanSum} at the same time.
+For example, if we have a stream of data, we could use two instances of \pythonil{KahanSum} to add up the data values~(in the first instance) as well as their squares~(in the second instance), which may come in handy when computing a \glslink{sampleVar}{sample variance}.
+
+With that out of the way, we can begin the actual implementation.
+A new instance of \pythonil{KahanSum} will start with all of its three summation attributes initialized to~\pythonil{0}, which is done in the initializer \dunder{init}.
+We first implement the \pythonil{add} method, which corresponds to the body of the loop in \cref{algo:kahanSum}.
 Looking at the algorithm, in each iteration, a value~\aArrayIndex{\aVar{x}}{\aVar{i}} is coming in and should be added to the sum.
-Our \pythonil{add} method therefore gets the parameter~\pythonil{value} which we want to add.
-And then, we just have to write down the loop body \cref{algo:kahanSum}.
+Our \pythonil{add} method therefore has the parameter~\pythonil{value}, with the value that we want to add to the sum.
+Then we just have to write down the loop body from \cref{algo:kahanSum} into \pythonil{add}.
 We replace~\aVar{sum}, \aVar{cs}, \aVar{ccs}, and~\aArrayIndex{\aVar{x}}{\aVar{i}} with \pythonil{self.__sum}, \pythonil{self.__cs}, \pythonil{self.__ccs}, and~\pythonil{value}, respectively.
 We write the conditional for the tweak by \citeauthor{N1974REVZSES}~\cite{N1974REVZSES} as an inline \pythonil{if...else}~statement~(see \cref{sec:inlineIfThenElse}).
 For computing the absolute value~$|a|$ of a number~$a$, we can use \python's \pythonilIdx{abs}~function.
+For the sake of simplicity, we can let
 And that's already it.
+There is nothing in the loop body of \cref{algo:kahanSum} that we cannot write down almost directly as \python\ code.
 
 We now can place the last line of the algorithm that returns the final result of the summation into the new method~\pythonil{result}.
+Obviously, it will again access the attributes \pythonil{self.__sum}, \pythonil{self.__cs}, and \pythonil{self.__ccs} in place of \aVar{sum}, \aVar{cs}, and \aVar{ccs}, respectively.
+But that's it.
 And we are done.
-We now have translated a non-trivial mathematical algorithm into a piece of \python\ code.
+We now have translated a relatively intricate mathematical algorithm into a piece of \python\ code.
+We packaged a monolithic algorithm into a \pgls{API} that can iteratively be invoked.
+
+But does it also work?
+First, we add some \pgls{doctest} to the \pgls{docstring} the module.
+This \pgls{doctest} computes the sum of \pythonil{1e18 + 1 + 1e36 - 1e36 - 1e18}, which was our example from back in \cref{exec:classes:adding_floats_error}.
+There, we saw that writing the sum down like this will yield~\pythonil{0.0}.
+We know that the correct result should be~\pythonil{1.0}, though.
+Using our \pythonil{KahanSum} class to add the elements \pythonil{[1e18, 1, 1e36, -1e36, -1e18]}, however, is \emph{supposed} to yield this correct result.
+As we can see in \cref{exec:classes:kahan_sum:doctest}, it does exactly that.
 
 In program \programUrl{classes:kahan_user} given as \cref{lst:classes:kahan_user}, we now use our new \pythonil{KahanSum} class to sum up some numbers.
 We compare its result with the built-in function~\pythonilIdx{sum} and the exact summation function~\pythonilIdx{fsum} from the \pythonilIdx{math} module.
-We find that all three summation can correctly add up \pythonil{[1e-15, 1e-14, 1e-13, 1e-16, 1e-12]} to~\pythonil{1.1111e-12}.
+We find that all three summation algorithms can correctly add up \pythonil{[1e-15, 1e-14, 1e-13, 1e-16, 1e-12]} to~\pythonil{1.1111e-12}.
 \pythonilIdx{sum} returns \pythonil{0.0} for the sum of~\pythonil{[1e+18, 1, -1e+18]} as well as for~\pythonil{[1e+36, 1e+18, 1, -1e+36, -1e+18]}.
 \pythonil{KahanSum} and \pythonilIdx{fsum} both correctly compute~\pythonil{1.0} for both cases.
-Sadly, if we throw in even larger numbers and compute the sum over~\pythonil{[1e+36, 1e+72, 1e+18, -1e+36, -1e+72, 1, -1e+18]}, our \pythonil{KahanSum} returns~\pythonil{0.0} instead of the correct result~\pythonil{1.0}.
+If we include even larger numbers and compute the sum over~\pythonil{[1e+36, 1e+72, 1e+18, -1e+36, -1e+72, 1, -1e+18]}, our \pythonil{KahanSum} returns~\pythonil{0.0} instead of the correct result~\pythonil{1.0}.
 \pythonilIdx{fsum} indeed computes the correct result, whereas~\pythonilIdx{sum} is way off and returns~\pythonil{-1e18}.
 Finally, we add up~\pythonil{[1, -1e-16, 1e-16, 1e-16]}.
-All three methods return~\pythonil{1.0}, while the exact result would be~$1+10^{-16}$, which, however, cannot be represented with the datatype~\pythonil{float}.%
-\afterpage{\clearpage}
+All three methods return~\pythonil{1.0}, while the exact result would be~$1+10^{-16}$.
+This number, however, cannot be represented with the datatype~\pythonil{float}.
+Therefore, the results are right.
 
-So it seems that \pythonilIdx{fsum} gives us the most exact result, while our \pythonil{KahanSum} object is better than the built-in~\pythonilIdx{sum}.
-The reason for this is in the implementation of~\pythonilIdx{fsum}.
-It uses the algorithm by \citeauthor{S1997APFPAAFRGP}~\cite{S1997APFPAAFRGP,H2005BFPSATFPPR} which dynamically allocates a list of helper variables to obtain a provably exact sum~(within the range of~\pythonil{float}).
-Our \pythonilIdx{KahanSum}, however, uses only three variables for the whole summation process.
+We find that \pythonilIdx{fsum} gives us the most precise result.
+Our \pythonil{KahanSum} object is better than the built-in~\pythonilIdx{sum}.
+This leads to two questions:%
+%
+\begin{enumerate}%
+\item Why can our \pythonil{KahanSum} not always give us the exact results?%
+\item How is \pythonil{fsum} better?%
+\end{enumerate}%
+%
+The answer to the first question is fairly simple:
+If you use only a single summation variable, as \pythonil{sum} does, then you can be precise to about 15 to 16~digits and lose all decimals beyond that.
+If you have one summation variable and a first-order error term \pythonil{cs}, then you basically gain about another 15~or 16~digits for representing intermediate results more precisely.
+With the second-order error term~\pythonil{ccs}, we can mantain an intermediate result with 45 to 48~digits.
+This allows us to add \pythonil{1} to \pythonil{1e36} and then subtract \pythonil{1e36} again to get~\pythonil{1}.
+But if we try to add \pythonil{1e72}, then we will clearly exceed this 48~digit window and the~\pythonil{1} gets lost.
+So with our \pythonil{KahanSum} with two error terms, we can have intermediate results of maybe up to 48~digits.
+
+The second question is \emph{What does \pythonilIdx{fsum} do differently?}
+Actually, not very much.
+It is based on the algorithm by \citeauthor{S1997APFPAAFRGP}~\cite{S1997APFPAAFRGP,H2005BFPSATFPPR}, which dynamically allocates a list of helper variables to obtain a provably exact sum~(within the result range of~\pythonil{float}).
+It basically is a dynamic version of the \citeauthor{K1965PFRORTE} Sum, which uses more error term variables as needed and also drops them when they are no longer needed.
+The general principle is the same, just that a list of values replaces \pythonil{cs} and \pythonil{ccs}.
+
+Our \pythonilIdx{KahanSum} uses exactly three variables for the whole summation process.
 It does not dynamically allocate more memory.
-Also, the number of steps it performs are constant for each addition, whereas the algorithm by \citeauthor{S1997APFPAAFRGP} needs to do a number of steps that depends on the current length of its internal datastructure.
-Thus, \pythonil{KahanSum} is indeed a very nice compromise solution, which offers higher precision than normal summing but retains the same memory and time complexity.
+As the result, the number of steps it performs are constant for each addition.
+The algorithm by \citeauthor{S1997APFPAAFRGP} implemented as \pythonilIdx{fsum} performs a variable number of steps that depends on the current length of its internal datastructure.
+Thus, \pythonil{KahanSum} is indeed a very nice compromise solution, which offers higher precision than normal summing but retains the same constant memory and time complexity.
 
 Another advantage of our \pythonil{KahanSum} over the function \pythonilIdx{fsum} is that we can use it in a more versatile fashion.
 We do not need to have all values ready in an \pythonilIdx{Iterable}.
 If we had a generator of a sequence of values and wanted to compute the sum of the values themselves as well as the sum of their squares, we could simply use two instances \pythonil{KahanSum} while iterating over the sequence.
-With \pythonilIdx{fsum}, we would need to iterate over the sequence twice, which may not be practical if the sequence is generated from some outside source and was too long to just store it in memory.%
+With \pythonilIdx{fsum}, we would need to iterate over the sequence twice.
+This may not be practical if the sequence is generated from some outside source and was too long to just store it in memory.%
 %
 \endhsection%
 %
 \hsection{Summary}%
-Classes allow us to solve two problems in programming.
-First, we can semantically group data and the operations on the data together.
-Second, we can create define an interface, i.e., an \pgls{API}, that consists of multiple operations and implement it in different ways.
-For the first case, we have seen two examples in this section.
+Classes allow us to solve two problems in programming.%
+%
+\begin{enumerate}%
+\item Wan semantically group data and the operations on the data together.%
+\item We can define interfaces, i.e., \pglspl{API}, that consist of multiple operations. %
+We can then create different realizations of the iterface that implement these operations in different ways.%
+\end{enumerate}%
+%
+So far, we focussed on the first concept.
+For this, we have seen two examples in this section.
 
+We also learned about two very fundamental principles of how classes can be designed.%
+\begin{enumerate}%
+\item We can created immutable classes as containers for fixed information and whose attributes that does not change. %
+Our \pythonil{Point} class is an example of that.%
+%
+\item We can also created encapsulated classes, which are classes where all access to attributes is only possible via methods of the class. %
+This ensures that all state change is consistent and correct. %
+The \pythonil{KahanSum} class is an example of that.%
+\end{enumerate}%
+%
+Most classes that either actually store data or realize some behavior can be implemented in one of these two styles.
+Of course, there can also by hybrid designs, e.g., classes where some attributes are \pythonil{Final} and can never change and thus are made readable for outside code without the detour over methods, while some other attributes can only be accessed and changed via methods.
+
+Let us revisit the two example scenarios that we discussed so far.
 Instances of our \pythonil{Point} class store a pair of coordinates in the two-dimensional Euclidean plane.
 The operation \pythonil{distance} is inseparably linked to this data structure.
-When developing it, we also learned that it is generally a good idea to make objects \emph{immutable}.
-If the attributes of an object are set only during its initialization (in the \dunder{init} method) and never change, then there can never be any confusion about their value.
-It cannot happen that one part of our program has a reference to a \pythonil{Point} variable and \inQuotes{thinks} that it's coordinates are~$(0,1)$, but some other code changed the coordinates to something else.
+When developing it, we also learned that the first design principle mentioned above, mking objects \emph{immutable}, is a good idea.
+Here, the values of the attributes of an object are set only during its initialization~(in the \dunder{init} method) and never change.
+Then there can never be any confusion about the values of the attributes.
+It cannot happen that one part of our process has a reference to a \pythonil{Point} variable and \inQuotes{thinks} that it's coordinates are~$(0,1)$, but some other code changed the coordinates to something else.
 This cannot happen precisely because the values of the coordinates in instances of~\pythonil{Point} can never change.
 
 If the attributes need to change, then it is often a good idea to \emph{encapsulate} them.
-Encapsulation means that the attributes of an object can only be changed via methods of the object.
+Encapsulation means that the attributes of an object can only be read or changed via methods of the object.
 Our \pythonil{KahanSum} class is an example of this.
 This class allows us to add numbers more accurately by internally keeping track of errors resulting from normal summation.
-The user never gets to see these internal attributes and also can never modify them directly.
+The user never gets to see these internal attributes and thus also can never modify them directly.
 Instead, they are changed by passing new numbers to the \pythonil{add}~method.
 Via the method~\pythonil{result}, the user can get a consistent view of the state of the summation without getting confused about its internal state.
+
+Now, \python\ is a very lenient language.
+It is very hands-off in terms what is permitted and what not.
+For example, you know that \pglspl{typeHint} are only hints for tools and programmers.
+The \python interpreter basically does not care about them.
+It is possible to do something like \pythonil{a: str = 5}.
+This leniency also concerns both design principles above.
+
+Attributes and variables are made \inQuotes{immutable} by annotating them with the \pgls{typeHint} \pythonilIdx{Final}.
+Since this, again, is only a \pgls{typeHint}, it is just information for the programmer and for tools.
+The \python\ interpreter ignores it.
+We can do \pythonil{a: Final[int] = 5} and then \pythonil{a = 6} without punishment.
+Similarly, marking attributes as private by using names starting with a double underscore~(\pythonilIdx{\_\_}) does not actually make them private.
+The \python\ interpreter applies some name mangling~\cite{PEP8} to make them harder to access, but a crafty programmer can still read and write them.
+Tools like \mypy, however, will also spot such misconduct.
+
+\python\ places the responsibility into our hands to properly adher to standards and coding rules.
+But it does not enforce such behavior.
 
 In the next section, we will see how inheritance of classes in \python\ can be used to implement \pglspl{API}, which is the second big use-case of classes.%
 \endhsection%
