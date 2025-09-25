@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4.2.2
         with:
           submodules: true
-      - uses: xu-cheng/texlive-action@d9f893f837a29f066e3c70080540976b47263721
+      - uses: xu-cheng/texlive-action@475ab07999e9709e524c3708488c8c170d3a6611
         with:
           scheme: full
           run: |
