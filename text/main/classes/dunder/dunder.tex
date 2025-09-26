@@ -188,27 +188,36 @@ Our \pythonil{Point} class, extended with the \dunder{eq} and \dunder{hash} dund
 \listingPythonAndOutput{dunder:point_with_hash_user}{%
 Using the new \pythonil{Point} class from \cref{lst:dunder:point_with_hash} in sets and dictionaries.}{}%
 %
-Our \pythonil{Point} objects are immutable and just consist of two numerical coordinates.
-Maybe there could be an application where someone would like to use them as keys for a dictionary or would like to construct a set of points.
-For this to be possible, two things are needed:%
+Our \pythonil{Point} objects are immutable.
+They just consist of two numerical coordinates.
+Maybe there could be an application where someone would like to use them as keys for a dictionary.
+Or maybe somebody would like to construct a set of points.
+For this to be possible, three things are needed:%
 %
-\begin{itemize}%
+\begin{enumerate}%
 %
-\item A dunder method \dunder{eq} that compares two \pythonils{Point} for equality. %
+\item Instances of \pythonil{Point} must be immutable. %
+This is true already. %
+I just wanted to say it again.%
+%
+\item There must be a dunder method \dunder{eq} that compares an instance of \pythonils{Point} for equality with other objects. %
 This, we already have done in \cref{lst:dunder:point_with_dunder}.%
 %
-\item A dunder method \dunder{hash} that returns the hash value of a \pythonil{Point} in form of an~\pythonil{int}.%
+\item The dunder method \dunder{hash} must be implemented that returns the hash value of a \pythonil{Point} in form of an~\pythonil{int}. %
+This one is still missing.%
 %
-\end{itemize}%
+\end{enumerate}%
 %
-For these two methods, it must hold that~\cite{PSF:P3D:TPLR:OH}%
+If we can fulfill these criteria, \pythonils{Point} can be elements of sets or keys in dictionaries.
+So we only have to implement one more method, namely \dunder{hash}.
+For the two dunder methods \dunder{eq} and \dunder{hash]}, it must hold that~\cite{PSF:P3D:TPLR:DM:H}%
 %
 \begin{equation}%
 \pythonil{a.\_\_eq\_\_(b)} \Rightarrow \pythonil{a.\_\_hash\_\_()} = \pythonil{b.\_\_hash\_\_()}%
 \label{eq:eqAndHash1}%
 \end{equation}%
 %
-This is equivalent~\cite{PSF:P3D:TPSL:BIE,PSF:P3D:TPLR:OH} to:%
+This is equivalent~\cite{PSF:P3D:TPSL:BIE,PSF:P3D:TPLR:DM:H} to:%
 %
 \begin{equation}%
 \pythonil{a == b} \Rightarrow \pythonil{hash(a)} = \pythonil{hash(b)}%
@@ -220,31 +229,40 @@ What is a hash value?
 Why is an integer hash value needed?
 Why does the equality of two objects require them to have the same hash value?
 
-Dictionaries in \python\ (and \pgls{Java}) internally use tables, where key-value relationships are stored~\cite{G2020PHTUTH,L2011PDI}.
+Dictionaries in \python~(and \pgls{Java}) internally use tables, where key-value relationships are stored~\cite{G2020PHTUTH,L2011PDI}.
 Sets are basically the same, but only store the keys.
-The internal tables could be represented as lists.
+The internal tables could be represented as linear lists.
 Differently from lists, new elements are not added at the end.
 Instead, they would be more like lists of a fixed length where new elements are placed at specific indices where they can be found again.
 These hash tables~\cite{K1998SAS,CLRS2009ITA,SKS2019DSC} are very fast.
-They have an element-wise access/update time complexity of~\bigOb{1}~\cite{H2025PM:PBOTTCODDSIPP33,PSF:TPW:TC,N2022CCSFPO}.
-As you know, lists can be indexed by integers.
+They have an element-wise read, search, and update time complexity of~\bigOb{1}~\cite{H2025PM:PBOTTCODDSIPP33,PSF:TPW:TC,N2022CCSFPO}.
+An element in a list~\pythonil{l} can be searched in \bigOb{\pythonil{len(l)}} instead, i.e., finding one paricular element is much slower.
+
+As said, you can imagine that a hash table uses something like a list as backing store.
+How can we turn a list~\pythonil{l} with search complexity \bigOb{\pythonil{len(l)}} into a hash table with search complexity~\bigOb{1}?
+For now, let's imagine that we want to store only integers and that our list is much larger than the number of elements that we want to store.
+We use a list of \pythonil{int | None} values and it is filled initially with only \pythonil{None}.
+If we want to store an integer~\pythonil{i}, we would compute the \pgls{modulodiv} \pythonil{i \% len(l)} an just place it at that index.
+If we want to check whether an integer~\pythonil{j} is in the list, we again compute \pythonil{j \% len(l)} and check whether it is equal to the element at that index~(using \dunder{eq}).
+Both operations, insertion and search, now work in~\bigOb{1}.
+Of course, this is a very coarse simplification~\cite{G2020PHTUTH,L2011PDI}.
+There could be two different integers with the same result for \pythonil{i \% len(l)}, for example.
+Dictionaries and sets need to handle such collisions.
+They also need to grow if they begin to fill up, and so on.
+But that's the basic idea.
+
 Since we also want to be able to use objects that are \emph{not} integers as keys, too, we need a way to \inQuotes{translate} these objects to integers.
 That is what \dunder{hash} is supposed to do.
+It does not have to be a bijective mapping, i.e., it only needs to go in the direction of \pythonil{int} but not back.
+It does not have to be injective, i.e., some different objects can have the same hash code.
+However, it should ideally be as injective as possible, i.e., the fewer objects have the same hash code, the better.
+The dictionary/set implementation is then responsible for translating these integer hash codes into valid indices into its internal table.
 
-Luckily, \dunder{hash} does not need to compute a valid index into such a table.
-That would indeed not be possible:
-The \dunder{hash} method of an object~\pythonil{a} cannot know the length of the internal table underlying a dictionary or set where the object~\pythonil{a} will be stored.
-Instead, all it needs to do is to return one integer value that represents~\pythonil{a}.
-The dictionary/set implementation is then responsible for translating this integer into a valid index into its internal table.
-It can use \pgls{modulodiv} for this.
-It will also do lots of other things, e.g., taking care of collisions, i.e., cases where two different objects have the same hashes (or different hashes that end up mapping to the same index)~\cite{G2020PHTUTH,L2011PDI}.
-None of this is important here.
-
-What is important is that the hash values are needed to find the objects in the dictionaries and set.
+So the hash values are needed to find the objects in the dictionaries and sets.
 We want to know whether the object~\pythonil{a} is \pythonilIdx{in} the set~\pythonil{s}?
 Then the set~\pythonil{s} uses \pythonil{hash(a)}\pythonIdx{hash} which invokes~\pythonil{a.__hash__()}\pythonIdx{\_\_hash\_\_} to get the hash value of~\pythonil{a}.\footnote{%
 This works the same way in which \pythonil{repr(a)} would invoke \pythonil{a.__repr__()} if it is defined.}
-It translates the hash value to an index.
+Then \pythonil{s} translates the hash value to an index.
 It checks its internal table whether there is an object~\pythonil{b} at that index with~\pythonil{b == a}.
 If yes, then, well, \pythonil{a} is in the set~\pythonil{s}, i.e., \pythonil{a in s} yields~\pythonil{True}.
 If not, then not.
@@ -252,34 +270,31 @@ As said, the reality is more complex, because of potentially occurring collision
 
 Anyway, if we want to add an object to the set~\pythonil{s}:
 Then again the index is computed via the hash value and if the object is not already there, it is placed there.
-Dictionaries work the same, just use key-value relationships, where the hash values of the keys are computed to find the right places in the internal tables.
-The details are (for the third time), unimportant here -- but you can read them in these very interesting sources here~\cite{G2020PHTUTH,L2011PDI}.
+Dictionaries work the same, but instead store key-value pairs, where the hash values of the keys are computed to find the right places in the internal tables.
+You can read about the details in these very interesting sources here~\cite{G2020PHTUTH,L2011PDI}.
 
 It is already clear, however, that calling \dunder{hash} twice for the same object~\pythonil{a} must return the same value.
 Since this hash value is used to find the place in the table where the object should be, this must never change.
-This is also why dictionary (and set) keys must be immutable~(see~\cref{bp:dictKeys,bp:setsImmutable}).
+This is also why dictionary~(and set) keys must be immutable~(see~\cref{bp:dictKeys,bp:setsImmutable}).
 
 It is also clear that two objects~\pythonil{a} and~\pythonil{b} that are \emph{equal} must also have the same hash value.
 If two objects are equal, it should be that $\pythonil{a in s}=\pythonil{b in s}$.
-Otherwise, it could be that \pythonil{"123" in s} is \pythonil{True} for the string constant~\pythonil{"123"}, but if we read the string~\pythonil{"123"} from a file, \pythonil{"123" in s} could return~\pythonil{False}.
+Otherwise, it could be that \pythonil{\"123\" in s} is \pythonil{True} for the string \pgls{literal}~\pythonil{\"123\"}, but \pythonil{False} for \pythonil{str(123) in s}.
 That would make no sense at all.
 
-With that out of the way, we can now make our \pythonil{Point} class hashable.
-In \cref{lst:dunder:point_with_hash} outlining file \programUrl{dunder:point_with_hash}, we modify the \pythonil{Point} class from \cref{lst:dunder:point_with_dunder}.
-We retain the implementation of~\dunder{eq} and add the method~\dunder{hash}.%
-%
-\cquotation{PSF:P3D:TPLR:OH}{{\dots}The \pythonil{\_\_hash\_\_()}\pythonIdx{\_\_hash\_\_}\pythonIdx{dunder!\_\_hash\_\_} method should return an integer. %
+Overall, the following issues need to be considered when making objects \inQuotes{hashable.}
+\cquotation{PSF:P3D:TPLR:DM:H}{{\dots}The \pythonil{\_\_hash\_\_()}\pythonIdx{\_\_hash\_\_}\pythonIdx{dunder!\_\_hash\_\_} method should return an integer. %
 The only required property is that objects which compare equal have the same hash value; %
 it is advised to mix together the hash values of the components of the object that also play a part in comparison of objects by packing them into a \pythonil{tuple} and hashing the tuple.}%
 %
 \bestPractice{hash}{%
-For implementing \dunder{eq} and \dunder{hash}, the following rules hold~\cite{PSF:P3D:TPLR:OH}:%
+For implementing \dunder{eq} and \dunder{hash}, the following rules hold~\cite{PSF:P3D:TPLR:DM:H}:%
 \sloppy%
 \begin{itemize}\sloppy%
 %
 \item Only immutable classes are allowed to implement \dunder{hash}, i.e., only classes where all attributes have the \pythonilIdx{Final} \pgls{typeHint} and are only assigned on the initialize~\dunder{init}.%
 %
-\item The result of \pythonil{a.\_\_hash\_\_()} must never change (since \pythonil{a} must never change either).%
+\item The result of \pythonil{a.\_\_hash\_\_()} must never change~(since \pythonil{a} must never change either).%
 %
 \item If a class does not define \dunder{eq}, it cannot implement \dunder{hash} either.%
 %
@@ -287,55 +302,81 @@ For implementing \dunder{eq} and \dunder{hash}, the following rules hold~\cite{P
 %
 \item Only instances of a class that implements both \dunder{eq} and \dunder{hash} can be used as keys in dictionaries or sets.%
 %
-\item Then, the results of \dunder{eq} and \dunder{hash} must be computed using the exactly same attributes. %
-In other words, the attributes of an object~\pythonil{a} that determine the results of~\pythonil{a.\_\_eq\_\_(...)} must be exactly the same as those determining the results of~\pythonil{a.\_\_hash\_\_(...)}. %
+\item The results of \dunder{eq} and \dunder{hash} must be computed using the exactly same attributes. %
+In other words, the attributes of an object~\pythonil{a} that determine the results of~\pythonil{a.\_\_eq\_\_(...)} must be exactly the same as those determining the results of~\pythonil{a.\_\_hash\_\_()}.%
 %
-\item It is best to compute \pythonil{a.\_\_hash\_\_(...)} by simply putting all of these attributes into a \pythonil{tuple} and then passing this \pythonil{tuple} to \pythonilIdx{hash}.%
+\item It is best to compute \pythonil{a.\_\_hash\_\_()} by simply putting all of these attributes into a \pythonil{tuple} and then passing this \pythonil{tuple} to \pythonilIdx{hash}.%
 %
 \item Two objects that are equal must have the same hash value, i.e., \cref{eq:eqAndHash1,eq:eqAndHash2} must hold.%
 \end{itemize}%
 \fussy%
 }%
 %
-That sounds complicated, but is actually very easy.
+With that out of the way, we can now make our \pythonil{Point} class hashable.
+In \cref{lst:dunder:point_with_hash} outlining file \programUrl{dunder:point_with_hash}, we modify the \pythonil{Point} class from \cref{lst:dunder:point_with_dunder}.
+We retain the implementation of~\dunder{eq}.
+All we have to do is to add the method~\dunder{hash}.
+
 The only attributes that play a role in our \dunder{eq} method are the two coordinates of the point, \pythonil{self.x} and~\pythonil{self.y}.
 So the result~\dunder{hash} should simply be~\pythonil{hash((self.x, self.y))}\pythonIdx{hash}.
 The double-parentheses are because this basically means \pythonil{t = (self.x, self.y)} and then computing~\pythonil{hash(t)}.%
 %
 \begin{sloppypar}%
-One may be a bit scared regarding integers and floats.
+When we were writing this, we suddenly get startled.
 We permitted the coordinates of our points to be either \pythonils{int} or \pythonils{float}.
-Since \pythonil{5.0 == 5} holds, we could feel anxious whether \pythonil{hash(5.0) == hash(5)}\pythonIdx{hash} would also hold.
-If \emph{not}, then something like \pythonil{hash((5.0, 3)) != hash((5, 3))} could happen, which could lead to~\pythonil{Point(5.0, 3).\_\_hash\_\_() != Point(5, 3).\_\_hash\_\_()} while \pythonil{Point(5.0, 3).\_\_eq\_\_(Point(5, 3))} is~\pythonil{True}.
-This would then violate~\cref{bp:hash}.%
+As we know, \pythonil{5.0 == 5} is \pythonil{True}.
+Therefore, \pythonil{Point(5.0, 3).\_\_eq\_\_(Point(5, 3))} is also~\pythonil{True}.
+But is \pythonil{hash((5.0, 3))} really the same as \pythonil{hash((5, 3))}?
+Or, in simpler terms, does \pythonil{hash(5.0) == hash(5)} really hold?%
 \end{sloppypar}%
 %
-If that would happen, we could create sets that contain equal elements multiple times.
+If not, then we could violate the contract of \dunder{hash} and \dunder{eq} from~\cref{bp:hash} in a very subtle and unexpected way.
+\pythonil{Point(5.0, 3)} would be equal to \pythonil{Point(5, 3)}, but their hash codes would differ.
+If we have a set~\pythonil{s} of points and store \pythonil{Point(5.0, 3)} in this set, then the outcome of the query \pythonil{Point(5, 3) in s} could either be \pythonil{True} or \pythonil{False}.
+If the layout of the internal table -- whose size depends on all previous insertions and deletions -- is such that the different hash codes of both objects are transformed to the same index, then the outcome would be \pythonil{True}.
+In the much more likely case that they don't, the outcome is \pythonil{False}.
+
+Thus, if \pythonil{hash(5.0) != hash(5)} was true, then our implementation could yield programs that behave unexpectedly differently, in rare situations, which we might not be able to deterministically reproduce.
+That's the one of the worst kinds of bugs we can imagine.
+At the same time, we could create sets that contain equal elements multiple times.
 Which, in turn, would violate the definition of sets.
-That would be a very counter-intuitive bug in our code.
-Actually, I secretly planned to use this as a very tricky example for learning how to use the debugger{\dots}
+No wonder that \python\ is rather strict with the rules imposed on \dunder{hash} and \dunder{eq}{\dots}
+
 Alas, the developers of \python\ have already solved this:%
 %
-\cquotation{PSF:P3D:TPSL:BIF}{Numeric values that compare equal have the same \pythonilIdx{hash} value (even if they are of different types, as is the case for~\pythonil{1} and~\pythonil{1.0}).}%
+\cquotation{PSF:P3D:TPSL:BIF}{Numeric values that compare equal have the same \pythonilIdx{hash} value~(even if they are of different types, as is the case for~\pythonil{1} and~\pythonil{1.0}).}%
 %
 Therefore, we can indeed implement \dunder{hash} with a single line of code in~\cref{sec:hashDunder}.
-And I will later find another example on how the debugger can be used to spot errors in code.%
-%
-\begin{sloppypar}%
 We use our new variant of the \pythonil{Point} class in~\cref{lst:dunder:point_with_hash_user} with program \programUrl{dunder:point_with_hash_user}.
-We again first create three points~\pythonil{p1 = Point(3, 5)}, \pythonil{p2 = Point(7, 8)} and \pythonil{p3 = Point(3, 5.0)}.
-\pythonil{p1 == p2} is \pythonil{False}, while \pythonil{p1 == p3} is \pythonil{True}, despite the \pythonil{y}\nobreakdashes-coordinate of \pythonil{p1} is an~\pythonil{int} and the one of~\pythonil{p2} is a~\pythonil{float}~(but with the same value).
-When we create the set~\pythonil{points} as~\pythonil{\{p1, p2, p3\}}, it will have the size~2.
+
+We again first create three points \pythonil{p1 = Point(3, 5)}, \pythonil{p2 = Point(7, 8)}, and \pythonil{p3 = Point(3, 5.0)}.
+\pythonil{p1 == p2} is \pythonil{False}, while \pythonil{p1 == p3} is \pythonil{True}, despite the fact that the \pythonil{y}\nobreakdashes-coordinate of \pythonil{p1} is an~\pythonil{int} and the one of~\pythonil{p2} is a~\pythonil{float}~(but with the same value).
+
+Then we create the set~\pythonil{points} as~\pythonil{\{p1, p2, p3\}}.
+It has the size~2.
 Since \pythonil{p1 == p3}, only one of these two objects is stored in the set.
-However, \pythonil{p1 in points}, \pythonil{p2 in points}, and~\pythonil{p3 in points} are all~\pythonil{True}.
-This is because \pythonil{p1} and \pythonil{p3} also have the same hash value.%
-\end{sloppypar}%
-%
+However, \pythonil{p1 in points}, \pythonil{p2 in points}, and \pythonil{p3 in points} are all~\pythonil{True}.
+This is because \pythonil{p1} and \pythonil{p3} are equal and also have the same hash value.
+
 If we create a new point~\pythonil{p4} with coordinates equal to those of~\pythonil{p2}, then \pythonil{p4 in points} will also hold.
-However, a point~\pythonil{p5} whose coordinates are different from those of~\pythonil{p1} and~\pythonil{p2} will not be an element of~\pythonil{points}, i.e., \pythonil{p5 in points} would be~\pythonil{False}.
+However, a point~\pythonil{p5} whose coordinates are different from those of~\pythonil{p1} and~\pythonil{p2} will not be an element of \pythonil{points}, i.e., \pythonil{p5 in points} would be~\pythonil{False}.
 
 Now we can also use the instances of our class~\pythonil{Point} as keys for a dictionary~\pythonil{point_vals}.
-The same dictionary operations as discussed way back in~\cref{sec:dictionaries} can be used without problems.%
+The same dictionary operations as discussed way back in~\cref{sec:dictionaries} can be used without problems.
+We associate value \pythonil{\"A\"} with key~\pythonil{p1} and \pythonil{\"B\"} with key~\pythonil{p2}.
+We then insert another key-value mapping by storing \pythonil{\"C\"} under key \pythonil{Point(7, 9)}.
+This new key-value pair also appears in the dictionary as expected.
+When we store the value \pythonil{\"D\"} under key \pythonil{Point(3.0, 5.0)}, then this overwrites the value \pythonil{\"A\"} stored under \pythonil{p1}, because \pythonil{p1} is \pythonil{Point(3, 5)}.
+Querying \pythonil{point_vals[p1]} now yields \pythonil{\"D\"}.
+
+The subject of making objects hashable is not something that we encounter very often.
+But it is a topic that shows that working with dunder methods requires special care.
+We should really understand what we are doing.
+Otherwise, we could create very hard to understand errors.
+We could implement \dunder{eq} and  \dunder{ne} by accident such that  \pythonil{x == y} is no longer the opposite of \pythonil{x != y}.
+Or we could implement \dunder{eq} and \dunder{hash} such that sets are no longer set{\dots}
+Such bugs would be very hard to detect.
+So we always have to read the documentation thoroughly.%
 %
 \FloatBarrier%
 \endhsection%

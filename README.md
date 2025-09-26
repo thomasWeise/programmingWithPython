@@ -66,6 +66,7 @@ Die Slides zum Kurs in deutscher Sprache können unter <https://thomasweise.gith
 41. [Klassen: Grundlagen](https://thomasweise.github.io/programmingWithPythonSlidesDE/41_klassen_grundlagen.pdf)
 42. [Klassen: Kapselung](https://thomasweise.github.io/programmingWithPythonSlidesDE/42_klassen_kapselung.pdf)
 44. [Klassen/Dunder: `__str__`, `__repr__`, und `__eq__`](https://thomasweise.github.io/programmingWithPythonSlidesDE/44_klassen_dunder_str_rep_eq.pdf)
+45. [Klassen/Dunder: `__hash__`](https://thomasweise.github.io/programmingWithPythonSlidesDE/45_klassen_dunder_hash.pdf)
 
 
 ### 2.3. The Slides in English
