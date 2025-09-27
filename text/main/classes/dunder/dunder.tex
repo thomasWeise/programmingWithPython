@@ -612,10 +612,11 @@ In \cref{sec:functionsInModules}, we then poured this code into a function.
 If we revisit this function \pythonil{sqrt} in \cref{lst:functions:my_math}, we notice that it computes the square root using only comparison, addition, multiplication, and division.
 We do have these operations available for \pythonils{Fraction}!
 This would mean that we could now compute the square root of a number to an arbitrary precision.
-We could compute $\sqrt{2}$~accurate to 700~digits!
+Well, we will need to introduce some sort of stopping criterion, but given that{\dots}
+{\dots}We could compute $\sqrt{2}$~accurate to 700~digits!
 
 Except, so far, we do not have anything that would print these digits.
-Our \pythonil{\_\_str\_\_} method returns fractions like \pythonil{a/b}.
+Our \dunder{str} method returns fractions as text of the form~\pythonil{\"a/b\"}.
 Had we computed a fraction that approximates~$\sqrt{2}$ to some precision, this could maybe be printed as~$\frac{6369051672525773}{4503599627370496}$.
 Instead, we want it to print as~1.4142135623730951.
 So we first need to implement a method \pythonil{decimal_str}, which translates a \pythonil{Fraction} to such a decimal string.
@@ -626,17 +627,19 @@ We will set it to 100 by default.
 \listingPython{dunder:fraction_decimal_str_err:part_6}{%
 Part~6 of the \pythonil{Fraction} class: Adding a \pythonil{decimal_str} conversion method.}%
 
-In \cref{lst:dunder:fraction_decimal_str_err:part_6} we present the part of our class \pythonil{Fraction} that contains the code converting the fraction to a decimal string.
+In file \programUrl{dunder:fraction_decimal_str_err:part_6}, we implement a new variant of our class \pythonil{Fraction}.
+In \cref{lst:dunder:fraction_decimal_str_err:part_6}, we show an excerpt of this file, presenting the part of our class \pythonil{Fraction} that contains the code converting the fraction to a decimal string.
 Like all of our code in \pythonil{Fraction}, it takes the straightforward and probably inefficient route.
 The idea is simply to first cut-off the integer part of the fraction and then to produce the fractional digits one-by-one.
 
-We begin our function \pythonil{decimal_str} by first copying the \pgls{numerator} into a variable~\pythonil{a}.
+We begin our method \pythonil{decimal_str} by first copying the \pgls{numerator} into a variable~\pythonil{a}.
 If \pythonil{a == 0}, then the whole fraction is~0 and we can directly return~\pythonil{"0"}.
 Otherwise, we check if the fraction is negative.
-The Boolean variable \pythonil{negative} is set to \pythonil{True} if \pythonil{a < 0} and to \pythonil{negative} otherwise.
-We then make sure that \pythonil{a} is positive by computing~\pythonil{abs(a)}.
+The Boolean variable \pythonil{negative} is set to \pythonil{True} if \pythonil{a < 0} and to \pythonil{False} otherwise.
+We then make sure that \pythonil{a} is positive by setting it to~\pythonil{abs(a)}.
 Then we also copy the \pgls{denominator} into a variable~\pythonil{b}.
-We will not change the local variable~\pythonil{b} in our function, so we mark it with the \pgls{typeHint}~\pythonilIdx{Final}.%
+
+We will not change the local variables \pythonil{negative} and~\pythonil{b} in our method, so we mark them both with the \pgls{typeHint}~\pythonilIdx{Final}.%
 %
 \bestPractice{varFinal}{%
 Every time you declare a variable that you do not intend to change, mark it with the \pgls{typeHint}~\pythonilIdx{Final}~\cite{PEP591}. %
@@ -644,19 +647,21 @@ On one hand, this conveys the intention \inQuotes{this does not change} to anybo
 On the other hand, if you do accidentally change it later, tools like \mypy\ can notify you about this error in your code.%
 }%
 %
-We now want to fill a list~\pythonil{digits} with the digits representing the fraction in a \pythonil{while}~loop.
+In a \pythonil{while}~loop, we now fill a list~\pythonil{digits} with the digits representing the fraction.
+The loop will continue until either \pythonil{a == 0} or our list \pythonil{digits} contains \pythonil{max_frac} decimals.
 Let us assume that our fraction is~$-\frac{179}{16}$.
 Then \pythonil{negative == True}, \pythonil{a = 179}, and \pythonil{b = 16}.
 In the loop body, we append the result of the integer division of \pythonil{a} by~\pythonil{b}, i.e., \pythonil{a // b}, to the list~\pythonil{digits}.
 In the first iteration, this gives us \pythonil{179 // 16}.
-So the first \inQuotes{digit} we add to \pythonil{digits} is~\pythonil{11}.
+So the first \inQuotes{digit} we append to \pythonil{digits} is~\pythonil{11}.
 This is the integer part of our fraction and this is the only time that a digit larger than~9 can appear.
 We now update \pythonil{a} to \pythonil{10 * (a \% b)}.
-\pythonilIdx{\%} is the \pgls{modulodiv}, so \pythonil{a \% b} gives us the remainder of the division of~179 by~16, namely~3.
+\pythonilIdx{\%} is the \pgls{modulodiv}.
+Thus, \pythonil{a \% b} gives us the remainder of the division of~179 by~16, namely~3.
 Thus, we get~\pythonil{a = 30}.
 
 In the second iteration, \pythonil{a // b}, i.e., \pythonil{30 // 16}, gives us the next digit~\pythonil{1}.
-Now, \pythonil{10 * (a \% b)} gives us~140 as the new value of~\pythonil{a}.
+Now, \pythonil{10 * (a \% b)} becomes~140 as the new value of~\pythonil{a}.
 This then gives \pythonil{140 // 16}, namely~8, as the third digit and \pythonil{a} is updated to \pythonil{10 * (a \% b)}, which is~120.
 At the beginning of the fourth iteration, \pythonil{a = 120} (while \pythonil{b = 16} remains unchanged).
 The fourth value appended to \pythonil{digits} therefore is \pythonil{120 // 16 == 7}.
@@ -670,59 +675,64 @@ At this point, \pythonil{digits == [11, 1, 8, 7, 5]}.
 This is also right, because $\frac{179}{16}=11.1875$.
 
 Notice that there are two conditions which can make the loop stop:
-It stops if we can represent the fraction completely and exhaustively as decimal string, which was the case in our example.
-It also stop if we reach the maximum number of fractional digits, i.e., if \pythonil{len(digits)} exceeds \pythonil{max_frac}.
+It stops if we can represent the fraction completely and exhaustively as decimal string with no more than the specified number \pythonil{max_frac} of digits.
+This was the case in our example.
+The loop also stop if we reach the maximum number of fractional digits, i.e., if \pythonil{len(digits)} exceeds \pythonil{max_frac}.
 
-For example, if I want to represent~$\frac{10006}{10000}=1.0006$ with only \emph{3} fractional digits.
+But this can also cause problems.
+For example, what happens if I want to represent~$\frac{10006}{10000}=1.0006$ with only \emph{3} fractional digits.
 After the loop, the list \pythonil{digits} would be \pythonil{[1, 0, 0, 0]}.
 At this stage, we would have \pythonil{a = 60000} and \pythonil{b = 10000}.
 The 6 at the end of the \pgls{numerator} is a bit annoying:
 If we represent this fraction with three digits, it should be~1.001, not the~1.000 corresponding to our \pythonil{digits} list.
-All we need to do to fix this is to check whether the next digit that we would not append to \pythonil{digits} would be greater or equal to~5.
-If so, we increment the last digit by~1.\footnote{This is an error, as we will later see.}
-To introduce this rounding behavior, we insert an \pythonil{if (a // b) >= 5} which does \pythonil{digits[-1] += 1} if its condition is met.
 
-We now have a representation of the fraction as a list of decimals.
+Well, all we need to do to fix this is to check whether the next digit that we would not append to \pythonil{digits} would be greater or equal to~5.
+If so, we increment the last digit in \pythonil{digits} by~1.
+(This idea will later turn out to be an error\dots)
+Anyway, to introduce this rounding behavior, we insert an \pythonil{if (a // b) >= 5} which does \pythonil{digits[-1] += 1} if its condition is met.
+
+We now have a representation of the fraction as a list of digits.
 All we need to do is to convert these to a string and return them to the user.
 
 First, we check if we need to insert a decimal dot~(\inQuotes{.}).
 If we only have a single digit, then our fraction is an integer number and we can return it as such.
 Thus, \pythonil{if len(digits) <= 1}, we convert the single digit to a string (after re-inserting the sign).
 
-Otherwise, we need to have a~\inQuotes{.} after the first number in \pythonil{digits}.
+Otherwise, we need to have a decimal dot~\inQuotes{.} after the first number in \pythonil{digits}.
 We can use \pythonil{digits.insert(1, ".")} to place it there\pythonIdx{list!insert}.
 In our original example of~$\frac{-179}{16}$, we first had \pythonil{digits == [11, 1, 8, 7, 5]}.
 After this step, we get \pythonil{digits == [11, ".", 1, 8, 7, 5]}.
 
-If the fraction was \pythonil{negative}, we place a minus sign before the string, via \pythonil{digits.insert(0, "-")}\pythonIdx{list!insert}.
+If the fraction was \pythonil{negative}, we place a minus sign before the list contents, via \pythonil{digits.insert(0, "-")}\pythonIdx{list!insert}.
 In our example, this means that we get \pythonil{digits == ["-", 11, ".", 1, 8, 7, 5]}.
 
 All what remains is translate all the integers to strings and to concatenate the result.
 A single line of code takes care of that:~\pythonil{"".join(map(str, digits))}.
-\pythonilIdx{map} returns a generator that applies the \pythonilIdx{str} function to all the elements in \pythonil{digits}.
+\pythonilIdx{map} returns an \pythonilIdx{Iterator} that returns the results of the \pythonilIdx{str} function applied to all the elements in \pythonil{digits} one by one.
 \pythonilIdx{str} applied to a string just returns the string itself.
 Applied to an integer, it converts it to a string.
 
-The method \pythonil{join} of a string concatenates all elements of the sequence it receives as parameter and places the string itself as separator.
-For example, \pythonil{"X".join(["a", "b", "c"])} would yield~\pythonil{"aXbXc"}.
-We use the empty string for joining, so for our example, we finally return~\pythonil{-11.1875}.
+The method \pythonilIdx{join}\pythonIdx{str!join} of a string concatenates all elements of the \pythonilIdx{Iterable} it receives as parameter and places the string itself as separator.
+For example, \pythonil{\"X\".join([\"a\", \"b\", \"c\"])} would yield~\pythonil{\"aXbXc\"}.
+We use the empty string for joining, so for our example, we finally return~\pythonil{\"-11.1875\"}.
 
 After finishing the implementation of \pythonil{decimal_str}, what remains to do is to test it.
-We do this by adding several standard and corner cases.
+This can be done by placing some \pglspl{doctest} into the \pgls{docstring} of the method.
+As test cases, we choose several normal situations as well as several corner cases.
 We first test that integer numbers are correctly represented.
 It is clear that \pythonil{Fraction(124, 2).decimal_str()} should yield~\pythonil{"62"}.
-Then we check a simple fraction that can exactly be translated:~\pythonil{Fraction(1, 2).decimal_str()} should result in~\pythonil{0.5}.
+Then we check a simple fraction that can exactly be translated:~\pythonil{Fraction(1, 2).decimal_str()} should result in~\pythonil{\"0.5\"}.
 
 \gitExec{exec:dunder:fraction_decimal_str_err:doctest}{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest_doctest.sh dunder fraction_decimal_str_err.py}%
 \listingToolOutput{dunder:fraction_decimal_str_err:doctest}{%
 The output of \pytest\ executing the \pglspl{doctest} for our \pythonil{Fraction} class with the \pythonil{decimal_str} method from \cref{lst:dunder:fraction_decimal_str_err:part_6}: It fails!}
 
 As fraction that cannot be exactly written down as finite decimal string, we choose~$\frac{1}{3}$.
-$\frac{1}{3}$ to ten digits should yield~\pythonil{"0.3333333333"}.
+$\frac{1}{3}$ to ten digits after the dot should yield~\pythonil{\"0.3333333333\"}.
 As example for negative fractions and also as an example for fractions with multiple leading zeros, we use~$\frac{-101001}{100000000}$.
 This should give us~\pythonil{"-0.00101001"}.
 
-As test for rounding off the last digit, we expect that \pythonil{Fraction(1235, 1000).decimal_str(2)} should yield~\pythonil{1.24}.
+As test for rounding off the last digit, we expect that \pythonil{Fraction(1235, 1000).decimal_str(2)} should yield~\pythonil{\"1.24\"}.
 This number would have three fractional digits, but we only want two.
 Since the third digit would be a~5, the rounding should should occur.
 Instead of \pythonil{"1.235"} or \pythonil{"1.23"}, we would expect to see~\pythonil{"1.24"}.
@@ -730,10 +740,11 @@ Instead of \pythonil{"1.235"} or \pythonil{"1.23"}, we would expect to see~\pyth
 
 Computing \pythonil{Fraction(91995, 100000).decimal_str(3)} means rounding 0.91995 to three decimals.
 The last digit, a 5, would be cut off.
-This means that we need to round-up, which would make the second-to-last 9 to also be rounded up, causing the next 9 to toggle as well.
+This means that we need to round-up, which would make the second-to-last digit~(9) to also be rounded up, causing the next 9 to toggle as well.
 The 1 would then be rounded up to a 2 and we should get~\pythonil{"0.92"}.
 A similar thing should happen when we evaluate \pythonil{Fraction(99995, 100000).decimal_str(4)}:
-Rounding 0.9995 to four digits will round-up the 5, which will cause all the 9s to toggle, finally resulting in a~\pythonil{"1"}.
+Rounding 0.9995 to four digits will round-up the 5, which will cause all the 9s to be rounded up, too.
+We finally should get result~\pythonil{\"1\"}.
 
 In \cref{exec:dunder:fraction_decimal_str_err:doctest}, we find the results of the \pglspl{doctest} ran with \pytest.
 Interestingly, they fail!
@@ -779,7 +790,7 @@ Left-clicking on the second failed test in the small window shows us the test ou
 
 We want to investigate this very strange error.
 First, let us repeat the \pglspl{doctest} by also executing them inside \pycharm\ in \cref{fig:dunder:doctests}.
-We open our source file and scroll to our function \pythonil{decimal_str}.
+We open our source file \programUrl{dunder:fraction_decimal_str_err:part_6} and scroll to our method \pythonil{decimal_str}.
 With a right mouse click, a context menu is opened.
 Here, we then left-click on \menu{Run \inSQuotes{Doctest decimal\_str}}~(\cref{fig:dunder:doctests1}).
 
@@ -802,8 +813,9 @@ The question arises:
 What can we do?
 
 If we want to find where things go wrong, it would be very useful if we could somehow execute our program step-by-step.
-When I explained how \pythonil{decimal_str} works, I used~$\frac{-179}{16}$ as an example and explained what the program would do.
-Would it not be nice if we could actually step-by-step execute the program for the test and see what it \emph{actually} does?
+When I explained how \pythonil{decimal_str} works, I used~$\frac{-179}{16}$ as an example and explained what the method would do.
+Would it not be nice if we could actually step-by-step execute the program for the test?
+Then we could see what it \emph{actually} does?
 Luckily, we can do that!
 With a tool called \debugger\ which ships with \python\ and \pycharm.%
 %
@@ -867,30 +879,32 @@ Clicking on the variable \pythonil{self} reveals that we are in the first test c
 %
 In \pycharm, we can apply the \debugger\ to a complete program, but also to \pglspl{doctest}.
 This is what we will do in \cref{fig:dunder:debugA}.
-First, we again open our program code in \pycharm\ and locate our function \pythonil{decimal_str}~(\cref{fig:dunder:debug01}).
+First, we again open our file \programUrl{dunder:fraction_decimal_str_err:part_6} in \pycharm\ and locate our function \pythonil{decimal_str}~(\cref{fig:dunder:debug01}).
 
-On the left side of our code file, there is a column with the line numbers.
+On the left side of our code window, there is a column with the line numbers.
 We can left-click on a line to place a \pgls{breakpoint} there.
 A \pgls{breakpoint} is a mark in the \pgls{ide} at which we later want the program execution to pause.
-We want our program to pause right at the beginning of \pythonil{decimal_str}, so be place the \pgls{breakpoint} there~(\cref{fig:dunder:debug02}).
+We want our program to pause right at the beginning of \pythonil{decimal_str}.
+Therefore, we place the \pgls{breakpoint} there~(\cref{fig:dunder:debug02}).
 The \pgls{breakpoint} is shown as a red ball over the line number.
 
 In order to begin the debugging process, we again open the context menu by right-clicking into the \pgls{doctest}.
 This time, instead of \emph{running} the \pgls{doctest}, we click \menu{Debug \inSQuotes{Doctest decimal\_str}}~(\cref{fig:dunder:debug03}).
-The \pglspl{doctest} will now be executed, but instead of running them completely, the \pgls{debugger} kicks in:
+The \pglspl{doctest} will now be executed.
+Instead of running them completely, the \pgls{debugger} kicks in:
 The execution is paused at exactly our \pgls{breakpoint}.
 This line of code is \emph{not yet executed}, but marked in blue~(\cref{fig:dunder:debug04}).
 
 Before we continue, we look at the bottom of our \pycharm\ window.
 There is a row with a \menu{Debug} register.
-We can right-click the top of this row and drag it upwards.
+We can activate it with the right mouse button on the top of this row and then drag it upwards.
 Now we get a division of our window that contains the debug information.
 Most importantly, in the register \menu{Threads \& Variables}, we can see the values of all local variables at the current point in execution~(\cref{fig:dunder:debug05}).
 
-We see that \pythonil{max_frac} has the value \pythonil{100}.
+We see that \pythonil{max_frac} has the (default) value \pythonil{100}.
 When clicking on the variable \pythonil{self}, we see that the \pgls{numerator}~\pythonil{a} of the current fraction has value~\pythonil{62}, while the \pgls{denominator}~\pythonil{b} is~\pythonil{1}.
 This is exactly what we expect:
-Our first test case was \pythonil{Fraction(124, 2).decimal_str()}, so the normalized fraction is indeed~$\frac{62}{1}$.%
+Our first test case was \pythonil{Fraction(124, 2).decimal_str()}, so the normalized fraction is indeed~$\frac{62}{1}$~(\cref{fig:dunder:debug06}).%
 %
 \clearpage%
 \begin{figure}%
@@ -944,17 +958,28 @@ We again press~\keys{F9}.%
 \label{fig:dunder:debugB}%
 \end{figure}%
 
-This test case is already successful, so we are not interested in it.
-Among the symbols in \menu{Debug} register, we click \pycharmDebuggerResume, which will let the program continue its execution~(\cref{fig:dunder:debug07}).
+We know that this test case will be completed successfully.
+We thus are not interested in it.
+We click on the \pycharmDebuggerResume\ symbol in \menu{Debug} register, which will let the program continue its execution~(\cref{fig:dunder:debug07}).
 Alternatively, we can hit \keys{F9}, which has the same effect.
-The execution of the \pglspl{doctest} is resumed, but again pauses at our \pgls{breakpoint}~(\cref{fig:dunder:debug08}).
+
+The execution of the \pglspl{doctest} is resumed.
+It again pauses at our \pgls{breakpoint}~(\cref{fig:dunder:debug08}).
 This time, we can see that we have arrived at the beginning of the second \pgls{doctest} case with \pythonil{Fraction(1, 2)}.
-We again continue by clicking \pycharmDebuggerResume\ or pressing~\keys{F9}.
+This test case, too, is not interesting.
+So we again either click \pycharmDebuggerResume\ or press~\keys{F9} to resume execution.
+
 This takes us to the beginning of the third \pgls{doctest} case, where the fraction is~$\frac{1}{3}$ and \pythonil{max_frac} is~\pythonil{10}~(\cref{fig:dunder:debug09}).
+As we already know, this test case is again one that will succeed.
+It will not give us any useful information.
 We can skip it as well by pressing~\keys{F9}.
-The next time we reach the \pgls{breakpoint} is for the fourth \pgls{doctest} case, $\frac{-101001}{100000000}$~(\cref{fig:dunder:debug10}), which we skip, too.
-When the debugger arrives at the fifth test case, \pythonil{Fraction(1235, 1000)}, we find that this fraction has been normalized correctly to~$\frac{247}{200}$.
+
+The next time we reach the \pgls{breakpoint} is for the fourth \pgls{doctest} case, $\frac{-101001}{100000000}$~(\cref{fig:dunder:debug10}).
+We skip that one as well.
+
+When the \debugger\ arrives at the fifth test case, \pythonil{Fraction(1235, 1000)}, we find that this fraction has been normalized correctly to~$\frac{247}{200}$.
 Nonetheless, we can skip this test case via \keys{F9}, too, because we know that it will succeed~(\cref{fig:dunder:debug11}).
+
 This takes us to the last successful \pgls{doctest} case, \pythonil{Fraction(99995, 100000)}, which corresponds to~$\frac{19999}{20000}$ in \cref{fig:dunder:debug12}.
 After skipping it by pressing~\pycharmDebuggerResume, we will finally arrive at the cases that did fail and which we hence want to investigate step-by-step.
 
@@ -1015,10 +1040,10 @@ We press \keys{F8} to continue.%
 %
 \begin{sloppypar}%
 \Cref{fig:dunder:debug13} shows that we now arrived at the beginning of the failing \pgls{doctest} case \pythonil{Fraction(91995, 100000).decimal_str(3)}.
-The fraction~$\frac{91995}{100000}$ got normalized to~$\frac{18399}{20000}$ in the initializer~\pythonil{\_\_init\_\_}.
+The fraction~$\frac{91995}{100000}$ got normalized to~$\frac{18399}{20000}$ in the initializer~\dunder{init}.
 The parameter \pythonil{max_frac} of \pythonil{decimal_str} has the value~\pythonil{3}, as we can see in the \menu{Threads \& Variables} window.
 We now want to execute the \pythonil{decimal_str} method step-by-step.
-Right now, the \pgls{debugger} has paused the execution right at the very first line of this function.
+Right now, the \pgls{debugger} has paused the execution right at the very first line of this method.
 This line has not yet been executed.%
 \end{sloppypar}%
 %
@@ -1035,7 +1060,7 @@ We execute it by pressing~\keys{F8}.
 
 The local variable \pythonil{negative} is created.
 Since \pythonil{a < 0} is \pythonil{False}, \pythonil{negative} is \pythonil{False}, too.
-The next line of code is marked and we press~\pycharmDebuggerStepOver\ to execute it~(\cref{fig:dunder:debug17}).
+The next line of code is marked and we press~\pycharmDebuggerStepOver\ to execute it with~\keys{F8}~(\cref{fig:dunder:debug17}).
 
 \pythonil{a = abs(a)} has no effect, since \pythonil{a} is already positive.
 We press \keys{F8} to continue~(\cref{fig:dunder:debug18}).
@@ -1108,7 +1133,7 @@ We press \keys{F8}, which will cause the condition of the loop being checked.
 
 In \cref{fig:dunder:debug21}, we find that now the first line of the loop's body is marked.
 This means that \pythonil{a != 0} and \pythonil{len(digits) <= max_frac} are both~\pythonil{True}.
-And they should be, since \pythonil{a} is \pythonil{18399}, \pythonil{len(digits)} if~0, and \pythonil{max_frac} is~3.
+And they should be, since \pythonil{a} is \pythonil{18399}, \pythonil{len(digits)} is~0, and \pythonil{max_frac} is~3.
 We press the \pycharmDebuggerStepOver~button to execute the first line of the loop body.
 
 \pythonil{digits.append(a // b)} will append the value \pythonil{18399 // 20000} to the list~\pythonil{digits}.
@@ -1119,9 +1144,7 @@ Now, \pythonil{a = 10 * (a \% b)} is executed.
 Since \pythonil{18399 \% 20000} is still \pythonil{18399}, \pythonil{a} becomes \pythonil{183990} in \cref{fig:dunder:debug23}.
 The head of the loop is now marked again.
 We press the \pycharmDebuggerStepOver~button to let execute it.
-
-In \cref{fig:dunder:debug24}, we again hit \keys{F8}.
-The loop condition is still met, so the first line in the loop body is marked again.
+In \cref{fig:dunder:debug24}, the loop condition is still met, so the first line in the loop body is marked again.
 
 \begin{figure}%
 \ContinuedFloat%
@@ -1220,24 +1243,26 @@ Because we did not consider that rounding up could cause the next~9 to become a 
 In \cref{fig:dunder:debug25,fig:dunder:debug26,fig:dunder:debug27,fig:dunder:debug29,fig:dunder:debug30,fig:dunder:debug31,fig:dunder:debug32} we work our way through the loop in the same way, by pressing \keys{F8} repeatedly.
 First, \pythonil{9} gets appended to \pythonil{digits}, then \pythonil{a} gets updated to \pythonil{39900}.
 In the following iteration, \pythonil{1} gets appended to \pythonil{digits}, then \pythonil{a} gets updated to \pythonil{199000}.
-Then, \pythonil{9} gets appended to \pythonil{digits} and \pythonil{a} gets updated to \pythonil{190000}.
+In the loop iteration after that, \pythonil{9} gets appended to \pythonil{digits} and \pythonil{a} gets updated to \pythonil{190000}.
 
+So far, everything looks right.
 At this stage, \pythonil{digits} has become~\pythonil{[0, 9, 1, 9]}.
 Since \pythonil{max_frac} is \pythonil{3}, \pythonil{len(digits) <= max_frac} is no longer~\pythonil{True}.
 In \cref{fig:dunder:debug32}, we have arrived back at the head of the loop.
-When we hit \keys{F8}, the loop condition is evaluated again, but this time it evaluates to~\pythonil{False}.
-The loop terminates and the cursor is placed on the next line of code after the loop.
+When we hit \keys{F8}, the loop condition is evaluated again.
+This time it evaluates to~\pythonil{False}.
+The loop terminates and the mark is placed on the next line of code after the loop in~\cref{fig:dunder:debug33}.
 
 If we look at what was computed so far, we find that everything is exactly as it should be.
 We want to translate the fraction~$\frac{91995}{100000}$ to a decimal string with three fractional digits.
-So far, we got the digits~0, 9, 1, and~9.
+So far, we got the digits~0, 9, 1, and~9 in~\cref{fig:dunder:debug34}.
 
 The next line of code, \pythonil{if (a // b) >= 5}, is supposed to check whether we should round up the last digit.
 Since \pythonil{a} is \pythonil{190000} and \pythonil{b} is still \pythonil{20000}, \pythonil{a // b} is~\pythonil{9}.
 So the condition should be met.
-In \cref{fig:dunder:debug32}, we press the \pycharmDebuggerStepOver~button to find it out.
+We press the \pycharmDebuggerStepOver~button to find it out.
 
-A look at \cref{fig:dunder:debug35} reveals the bug in our code:
+A look at \cref{fig:dunder:debug35} reveals the bug, i.e., the error in our code:
 In order to round up, we incremented the last number in our list~\pythonil{digits}.
 \pythonil{digits} was~\pythonil{[0, 9, 1, 9]}.
 So it is~\pythonil{[0, 9, 1, 10]}.
@@ -1246,6 +1271,7 @@ The strange trailing zeros in our output were not separate digits.
 They were the zeros of a ten.
 We did not consider that, when rounding up, we do not just have simple cases like~1.25 which we can round to~1.3 by only incrementing one digit.
 We can have cases like~0.9999, which rounds up to~1, even if we want three fractional digits of precision.
+Our code does not do this.
 We can stop the debugging here and go back to our code.%
 \clearpage%
 %
@@ -1289,38 +1315,52 @@ But let's get back to what we actually wanted to do:
 We wanted to compute the square roots of numbers at insane precision.
 For this, we can now revisit \cref{lst:functions:my_math}.
 In \cref{lst:dunder:fraction_sqrt} with file \programUrl{dunder:fraction_sqrt}, we just copy the code of the \pythonil{sqrt} function from this file.
+Then we apply some necessary changes.
 We will basically replace all \pythonils{float} in this code with \pythonils{Fraction}.%
 %
 \begin{sloppypar}%
-The function's signature changes from~\pythonil{def sqrt(number: float) -> float} to \pythonil{def sqrt(number: Fraction) -> Fraction}.
-Well, we know that the square roots of some numbers like~$\sqrt{2}$ are irrational, i.e., we cannot represent the exactly with an instance of~\pythonil{Fraction}.
-In the original code, due to the limited range of~\pythonils{float}, this is not a problem and the function will eventually stop (when all of the 15 to 16 digits of precision are exhausted).
-However, using \pythonil{Fraction}, the same code could loop forever, trying to find better and better approximations.
-So we need to limit the iterations with an additional parameter \pythonil{max_steps: int = 10} limiting the number of cycles for our loop.
-You will later see that this default value of only permitting ten steps is already quite sufficient to get very nice approximations.%
+The function's \pgls{signature} changes from~\pythonil{def sqrt(number: float) -> float} to \pythonil{def sqrt(number: Fraction) -> Fraction}.
+Well, we know that the square roots of some numbers like~$\sqrt{2}$ are irrational.
+This means that we cannot represent the exactly with an instance of~\pythonil{Fraction}.%
 \end{sloppypar}%
 %
-In \cref{lst:dunder:fraction_sqrt}, we replace numbers like~\pythonil{0.0}, \pythonil{0.5} and~\pythonil{1.0} with our constants~\pythonil{ZERO}, \pythonil{ONE_HALF}, and~\pythonil{ONE}.
+In the original code, this is not a problem.
+Due to the limited range of~\pythonils{float}, the function will eventually stop.
+This happens when all of the 15 to 16 digits of precision are exhausted.
+
+However, using \pythonil{Fraction}, the same code could loop forever.
+We have a precision limited only by the memory of the computer.
+So the function could forever try to find better and better approximations.
+
+Thus we need to limit the number iterations with an additional parameter.
+Thus, we add the parameter \pythonil{max_steps: int = 10}.
+You will later see that this default value of only permitting ten steps is already quite sufficient to get very nice approximations.
+
+In \cref{lst:dunder:fraction_sqrt}, we replace the numbers~\pythonil{0.0}, \pythonil{0.5}, and~\pythonil{1.0} with our constants~\pythonil{ZERO}, \pythonil{ONE_HALF}, and~\pythonil{ONE}.
 We need to do this because our mathematical dunder methods only work with other instances of~\pythonil{Fraction}.
-We could have easily implemented them to also support woring with instances of~\pythonil{int} or~\pythonil{float}, but did not do it (again for the sake of brevity).
+We could have easily implemented them to also support working with instances of~\pythonil{int} or~\pythonil{float}.
+We did not do that because otherwise, our example code would have been much longer.
 Either way, all the numerical constants in \cref{lst:dunder:fraction_sqrt} are now instances of~\pythonil{Fraction}.
 
-Our new function begins with an initial check whether the input number is negative and, if so, raises an~\pythonilIdx{ArithmeticError}.
-Then it has basically the same loop and body as our original variant in~\cref{lst:functions:my_math}.
-The only difference is that we decrease~\pythonil{max_steps} in each iteration and \pythonil{break} out the loop once it reaches~\pythonil{0}.%
+Our new \pythonil{sqrt} function begins with an initial check whether the input number is negative.
+If so, raises an~\pythonilIdx{ArithmeticError}.
+After that, it has almost the same loop and body as our original variant in~\cref{lst:functions:my_math}.
+The only difference is that we decrement \pythonil{max_steps} by~1 in each iteration.
+We \pythonil{break} out the loop once it reaches~\pythonil{0}.%
 %
 \begin{sloppypar}%
 We, of course, add \pglspl{doctest} to our function.
 For example, we test the expression \pythonil{sqrt(Fraction(2, 1)).decimal_str(750)}.
 This computes~$\sqrt{\frac{2}{1}}=\sqrt{2}$ by performing ten steps of Heron's algorithm.
-Then it translates to a decimal string with \emph{750 fractional digits}.
+Then it translates the result to a decimal string with \emph{750 fractional digits}.
 We take the correct value from~\cite{S2024DEOSRO2,NB1997TSROTT1MD}.
-This means unless our function provides this number of digits correctly \emph{after only ten steps}, the \pgls{doctest} will fail.%
+Unless our function provides this number of digits correctly \emph{after only ten steps}, the \pgls{doctest} will fail!%
 \end{sloppypar}%
 %
 The second \pgls{doctest} is simply to check whether~$\sqrt{4}$ renders as~2 when converted to a decimal string.
-Of course, we just approximate the square root through several steps, so the value of the fraction might not actually be~2.
-However, when rendered to 100~digits of precision, it should return~\pythonil{"2"}.
+Of course, we just approximate the square root through several steps.
+Thus, the value of the fraction might not actually be~2.
+However, when rendered to 100~decimals of precision, it should return~\pythonil{"2"}.
 
 Finally, we want to compute the golden ratio~\numberGoldenRatio~\cite{EOEBEB:GR,EHF2008EEOGTGOJLH11FEEEELIEILHIATBG11EAPWMETBFR,S2024DEOGRPOT}, which equals~$\frac{1+\sqrt{5}}{2}$.
 We can write this as \pythonil{ONE_HALF * (ONE + sqrt(Fraction(5, 1)))}.
@@ -1330,7 +1370,18 @@ The results of the \pglspl{doctest} executed by \pytest\ can be seen in \cref{ex
 They all pass.
 All we did was implementing primary school math into a class in \python, together with an algorithm which is almost 2000~years old.
 And with \emph{ten steps} of that algorithm, we got approximations of~$\sqrt{2}$ as well as~\numberGoldenRatio\ that were accurate to \emph{several hundreds of digits}.
-Isn't that cool?%
+Isn't that cool?
+
+In this section, we have learned how to use the \debugger.
+The \debugger\ is one of the most important tools in the tool belt of a programmer.
+The inner workings of code always become clear when going through it step-by-step.
+We can set \pglspl{breakpoint} and let a process run until it hits them.
+Then we can observe the values of variables.
+We can execute every line of code separately.
+We can see which variables change.
+We can follow the control flow as it moves through the branches of alternatives and as it iterates through loops.
+If our code has an error, i.e., a bug, then using the \debugger\ may be the first step to finding it.
+I guess that's why it's called \debugger.
 %
 \FloatBarrier%
 \endhsection%
