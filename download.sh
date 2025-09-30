@@ -14,94 +14,26 @@ echo "$(date +'%0Y-%0m-%0d %0R:%0S'): The current directory is '$curDir'."
 scriptDir="$(realpath "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/bookbase/scripts")"
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): The script directory is '$scriptDir'."
 
-downloadScript="$(realpath "$scriptDir/download.sh")"
-echo "$(date +'%0Y-%0m-%0d %0R:%0S'): The download script directory is 'downloadScript'."
+download="$(realpath "$scriptDir/downloadMulti.sh")"
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): The download script directory is '$download'."
 
 downloadDir="programmingWithPython_$(date +"%Y%m%d")"
-echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We will use the download directory 'downloadDir'."
+echo "$(date +'%0Y-%0m-%0d %0R:%0S'): We will use the download directory '$downloadDir'."
 mkdir -p "$downloadDir"
 cd "$downloadDir"
 
+"$download" "programmingWithPython" "programmingWithPython.pdf"
 
+mkdir slidesDE
+cd slidesDE
 
-mkdir "original"
-mkdir "filtered"
+"$download" "programmingWithPythonSlidesDE" "01_organisation.pdf" "02_einleitung.pdf" "03_python_installieren.pdf" "04_pycharm_installieren.pdf" "05_programme_erstellen_und_ausführen.pdf" "06_beispiele_herunterladen.pdf" "07_int.pdf" "08_float.pdf" "09_dokumentation.pdf" "10_bool.pdf" "11_str.pdf" "12_none.pdf" "13_variablen_wertzuweisung.pdf" "14_fehler_im_kode_mit_exceptions_und_ide_finden.pdf" "15_variablen_typen_und_type_hints.pdf" "16_gleichheit_und_identität.pdf" "17_listen.pdf" "18_ruff.pdf" "19_tupel.pdf" "20_mengen.pdf" "21_dictionaries.pdf" "22_alternativen_mit_if.pdf" "23_schleifen_mit_for.pdf" "24_enumerate_und_pylint.pdf" "25_schleifen_mit_while.pdf" "26_funktionen_definieren_und_aufrufen.pdf" "27_funktionen_in_modulen.pdf" "28_unit_tests.pdf" "29_funktionsargumente.pdf" "30_callables_und_lambdas.pdf" "31_ausnahmen_auslösen.pdf" "32_ausnahmen_verarbeiten.pdf" "33_testen_auf_ausnahmen.pdf" "34_iteration.pdf" "35_list_comprehension.pdf" "36_doctests.pdf" "37_set_und_dictionary_comprehension.pdf" "38_generator_ausdrücke.pdf" "39_generator_funktionen.pdf"
 
+"$download" "programmingWithPythonSlidesDE2" "40_operationen_für_iteratoren.pdf" "41_klassen_grundlagen.pdf" "42_klassen_kapselung.pdf" "43_klassen_vererbung.pdf" "44_klassen_dunder_str_rep_eq.pdf" "45_klassen_dunder_hash.pdf" "46_klassen_dunder_math.pdf" "47_debugger.pdf"
 
-download () {
-  url="https://thomasweise.github.io/$1/$2"
-  echo "Now downloading '$url'."
-  download.sh "$url"
-  cp "$2" "original/"
-  echo "Finished downloading '$url', now canonicalizing."
-  filterPdfExact.sh "$2"
-  mv "$2" "filtered/"
-  rm "${2%%.*}.original.pdf"
-  echo "Finished."
-}
-
-
-download "programmingWithPython" "programmingWithPython.pdf"
-
-download "programmingWithPythonSlidesDE" "01_organisation.pdf"
-
-download "programmingWithPythonSlidesDE" "02_einleitung.pdf"
-
-download "programmingWithPythonSlidesDE" "03_python_installieren.pdf"
-
-download "programmingWithPythonSlidesDE" "04_pycharm_installieren.pdf"
-
-download "programmingWithPythonSlidesDE" "05_programme_erstellen_und_ausführen.pdf"
-
-download "programmingWithPythonSlidesDE" "06_beispiele_herunterladen.pdf"
-
-download "programmingWithPythonSlidesDE" "07_int.pdf"
-
-download "programmingWithPythonSlidesDE" "08_float.pdf"
-
-download "programmingWithPythonSlidesDE" "09_dokumentation.pdf"
-
-download "programmingWithPythonSlidesDE" "10_bool.pdf"
-
-download "programmingWithPythonSlidesDE" "11_str.pdf"
-
-download "programmingWithPythonSlidesDE" "12_none.pdf"
-
-download "programmingWithPythonSlidesDE" "13_variablen_wertzuweisung.pdf"
-
-download "programmingWithPythonSlidesDE" "14_fehler_im_kode_mit_exceptions_und_ide_finden.pdf"
-
-download "programmingWithPythonSlidesDE" "15_variablen_typen_und_type_hints.pdf"
-
-download "programmingWithPythonSlidesDE" "16_gleichheit_und_identität.pdf"
-
-download "programmingWithPythonSlidesDE" "17_listen.pdf"
-
-download "programmingWithPythonSlidesDE" "18_ruff.pdf"
-
-download "programmingWithPythonSlidesDE" "19_tupel.pdf"
-
-download "programmingWithPythonSlidesDE" "20_mengen.pdf"
-
-download "programmingWithPythonSlidesDE" "21_dictionaries.pdf"
-
-download "programmingWithPythonSlidesDE" "22_alternativen_mit_if.pdf"
-
-download "programmingWithPythonSlidesDE" "23_schleifen_mit_for.pdf"
-
-download "programmingWithPythonSlidesDE" "24_enumerate_und_pylint.pdf"
-
-download "programmingWithPythonSlidesDE" "25_schleifen_mit_while.pdf"
-
-download "programmingWithPythonSlidesDE" "26_funktionen_definieren_und_aufrufen.pdf"
-
-download "programmingWithPythonSlidesDE" "27_funktionen_in_modulen.pdf"
-
-download "programmingWithPythonSlidesDE" "28_unit_tests.pdf"
-
-download "programmingWithPythonSlidesDE" "29_funktionsargumente.pdf"
-
-cd "$curDir"
-xzCompress.sh "$downloadDir"
+cd ..
+git clone --depth 1 https://github.com/thomasWeise/programmingWithPythonCode
+mv programmingWithPythonCode examples
+rm -rf examples/.git
 
 echo "$(date +'%0Y-%0m-%0d %0R:%0S'): Done with the download script."
