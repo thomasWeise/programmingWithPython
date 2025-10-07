@@ -441,15 +441,17 @@ Anyway, \pylint\ gets installed.
 We can apply it a file \textil{fileToScan.py} by typing \bashil{pylint fileToScan.py} in a \pgls{terminal}~(\textil{fileToScan.py} can also be a directory).
 Like with \ruff, in the context of this book, we will disable some \pgls{linter} rules for \pylint, too.
 This can be done by adding the parameter \textil{--disable=...} with the rules to be deactivated.
-The list of rules that \pylint\ applies when analyzing a file can be found at~\cite{PC2024PL}.
-
+The list of rules that \pylint\ applies when analyzing a file can be found at~\cite{PC2024PL}.%
+%
+\begin{sloppypar}%
 Let us now apply both our new \pgls{linter} \pylint\ as well as \ruff, which we ave already used, to the two ideas for enumerating over the data and indices of collections.
 We first analyze \programUrl{loops:for_loop_no_enumerate_1}, the program where we let the index variable iterate and use it to access the data elements.
 In \cref{exec:loops:for_loop_no_enumerate_1:pylint}, \pylint\ suggest that we should iterate over the list \pythonil{data} using the \pythonilIdx{enumerate} function, whereas \ruff, at the time of this writing, has no issue with this approach~(see \cref{exec:loops:for_loop_no_enumerate_1:ruff}).
 Now we analyze \programUrl{loops:for_loop_no_enumerate_2}, where we iterate over the elements of the container and manually maintain an index variable~\pythonil{i}.
 Interestingly, this time \ruff\ suggests us to~\inQuotes{Use \inSQuotes{\pythonil{enumerate()}} for index variable \inSQuotes{\pythonil{i}} in \inSQuotes{\pythonil{for}} loop}, as shown in \cref{exec:loops:for_loop_no_enumerate_2:ruff}.
-\pylint, on the other hand, does not discover any problem with \programUrl{loops:for_loop_no_enumerate_2}.
-
+\pylint, on the other hand, does not discover any problem with \programUrl{loops:for_loop_no_enumerate_2}.%
+\end{sloppypar}%
+%
 Our two \pglspl{linter} have discovered the same issue, just with different programs.
 They independently propose using a function called \pythonilIdx{enumerate} to solve the problem of iterating over collections and knowing the index of the current element.
 But what is \pythonilIdx{enumerate}?

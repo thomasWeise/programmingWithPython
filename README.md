@@ -110,7 +110,7 @@ The list of files not under the CC&nbsp;BY&#8209;NC&#8209;SA&nbsp;4.0 license bu
 + The illustration of Euclid of Alexandria in "text/main/controlFlow/functions/euclidOfAlexandria" [attributed](https://www.antike-griechische.de/Euklid.pdf) to the painter Charles Paul Landon (1760-1826). Source:~[Vikidia](https://fr.vikidia.org/wiki/Cat%C3%A9gorie:Image_Euclide), where it is noted as *domaine public,* i.e., as in the Public Domain.
 + The illustration of Leonardo Pisano / Fibonnaci in file "text/main/controlFlow/iteration/fibonacci.jpg" shows a Sculpture by Bertel Thorvaldsen, 1834/1838 and is sourced from the Thorvaldsens Museum exhibit~[A187](https://kataloget.thorvaldsensmuseum.dk/A187) photographed by Jakob Faurvig, and is published under the Creative Commons Zero&nbsp;([CC0](https://creativecommons.org/publicdomain/zero/1.0)) license.
 
-You can download its newest version of the course material from <https://thomasweise.github.io/databases>.
+You can download its newest version of the course material from <https://thomasweise.github.io/programmingWithPython>.
 This version may change since this course and book both are work in progress.
 You can cite this book as follows:
 
