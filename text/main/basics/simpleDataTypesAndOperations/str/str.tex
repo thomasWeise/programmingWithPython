@@ -340,11 +340,19 @@ Via the dunder method \dunder{bool}, see later in \cref{sec:dunderMethodsOvervie
 that yields~\pythonilIdx{False} or has a length and that length is zero\footnote{%
 Via the dunder method \dunder{len}, see later in \cref{sec:dunderMethodsOverview}.}.
 Other objects that have a truth value of \pythonilIdx{False} are numeric types which are zero, such as \pythonil{0} and \pythonil{0.0} as well as empty collections~(which we learn about a bit later in \cref{sec:collections}) or the empty string.
+
+Strings by themselves do not support an explicit conversation to the type \pythonil{bool}.
+The function \pythonil{bool} thus has to figure out the truth value by itself.
+However, strings do have a length, as we already learned.
+You can get the length via the \pythonilIdx{len} function.
 Now, \pythonil{\"False\"} is not an empty string.
 It has a length greater than~0.
-Therefore, it has truth value \pythonilIdx{True}, meaning that \pythonil{bool(\"False\")}\pythonIdx{bool({\textquotedbl}False{\textquotedbl})} actually yields \pythonilIdx{True}!
+\pythonil{len(\"False\")} gives us~5.
+Therefore, \pythonil{\"False\"} has truth value \pythonilIdx{True}, meaning that \pythonil{bool(\"False\")}\pythonIdx{bool({\textquotedbl}False{\textquotedbl})} actually yields \pythonilIdx{True}!
+
 The empty string, on the other hand, has lengh zero.
 Therefore, it has a truth value of \pythonilIdx{False}, i.e., \pythonil{bool(\"\")}\pythonIdx{bool(\textquotedbl\textquotedbl)} gives us \pythonilIdx{False}.
+Any other string, for example \pythonil{\"blabla\"} is also none-empty and thus has truth value \pythonil{True}.
 
 It should be noted that these conversion functions also work with other datatypes.
 For example, \pythonil{float(0)} converts the integer~\pythonil{0} to the \pythonil{float} value~\pythonil{0.0} and \pythonilIdx{bool(0)} gives us \pythonilIdx{False}.
