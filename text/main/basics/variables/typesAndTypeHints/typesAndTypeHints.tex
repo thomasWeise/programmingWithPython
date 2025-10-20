@@ -165,6 +165,7 @@ The \mypy\ tool will be installed as illustrated in \cref{fig:pipInstallMypy}.%
 We can now apply the tool to the program \programUrl{variables:types_wrong} from \cref{lst:variables:types_wrong}.
 All we have to do is invoke it in the terminal, giving the program to be checked as argument as well as some additional parameters.
 In \cref{exec:variables:variable_types_wrong:mypy}, we invoke \bashil{mypy variable_types_wrong.py --no-strict-optional --check-untyped-defs}, where \programUrl{variables:types_wrong} is the (very fitting) name of the program to check.
+(In some setups, this does not work, and we have to write \bashil{python3 -m mypy variable_types_wrong.py} instead of  \bashil{mypy variable_types_wrong.py}.)
 Indeed, \mypy\ tells us that something dodgy is going on in the fourth line of that program, i.e., \pythonil{int_var = int_var / 3}.
 It will fail with an \pgls{exitCode} of~\bashil{1}.
 Programs usually return~\bashil{0} as \pgls{exitCode} if everything went well and some non-zero value if something went wrong.

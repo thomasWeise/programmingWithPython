@@ -62,7 +62,7 @@ In this listing, we try to create a dictionary~(see \cref{sec:dictionaries}) whe
 We use four \pythonilIdx{for}~loops to fill this dictionary with data.
 In each of these first four \pythonilIdx{for}~loops, we use \pythonil{i} as the loop variable.
 
-When iterating over the \pythonil{range(5)} in the first loop, \pythonil{i} will hold the value \pythonil{0} in the first iteration (=~execution of the loop body).
+When iterating over the \pythonil{range(5)} in the first loop, \pythonil{i} will hold the value \pythonil{0} in the first iteration~(=~execution of the loop body).
 The loop body \pythonil{squares[i] = i * i} will thus effectively be \pythonil{squares[0] = 0} and thus store the value~\pythonil{0} under key~\pythonil{0} into the dictionary \pythonil{squares}.
 In the second iteration, \pythonil{i} will hold the value~\pythonil{1}.
 Then, the body \pythonil{squares[i] = i * i} will effectively be \pythonil{squares[1] = 1}.
@@ -204,9 +204,9 @@ We therefore \pythonilIdx{import} this function at the top of our program.%
 %
 \begin{sloppypar}%
 We can therefore iterate a second, inner loop variable \pythonil{check} over \pythonil{range(3, isqrt(candidate) + 1, 2)}\pythonIdx{range}\pythonIdx{isqrt}.
-If \pythonil{candidate <= 3}, then this loop will never be executed because no number \pythonil{check} with $3\leq\pythonil{check}<\pythonil{candidate}$ exists.
+If \pythonil{candidate <= 8}, then this loop will never be executed because no number \pythonil{check} with $3\leq\pythonil{check}<\pythonil{isqrt(candidate)}$ exists.
 Then, \pythonil{is_prime} will remain \pythonil{True} and we will append \pythonil{candidate} to \pythonil{primes} further down the outer loop body.
-If \pythonil{candidate > 3}, then \pythonil{check} will go from~\pythonil{3} bis~$\left\lfloor\sqrt{\pythonil{candidate}}\right\rfloor$.%
+If \pythonil{candidate > 8}, then the loop is actually entered and \pythonil{check} will go from~\pythonil{3} to~$\left\lfloor\sqrt{\pythonil{candidate}}\right\rfloor$.%
 \end{sloppypar}%
 %
 In the body of our inner loop, we try to find out whether \pythonil{check} is an integer divisor of \pythonil{candidate}.
