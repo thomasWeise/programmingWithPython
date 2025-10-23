@@ -23,6 +23,7 @@ mkdir -p "$downloadDir"
 cd "$downloadDir"
 
 "$download" "programmingWithPython" "programmingWithPython.pdf"
+"$download" "programmingWithPythonQuestions" "programmingWithPythonQuestions.pdf"
 
 mkdir slidesDE
 cd slidesDE

@@ -17,10 +17,20 @@ So we discuss these aspects while working our way through the principles of prog
 ## 2. Resources
 The website with up-to-date information about the course is <https://thomasweise.github.io/programmingWithPython>.
 
+
 ### 2.1. The Book
 The book itself can be downloaded as pdf at <https://thomasweise.github.io/programmingWithPython/programmingWithPython.pdf>.
 
-### 2.2. Die Slides in Deutsch &mdash; The Slides in German Language
+
+### 2.2. Questions and Exercises / Fragen und Übungen
+At <https://thomasweise.github.io/programmingWithPythonQuestions/programmingWithPythonQuestions.pdf>, we provide a list of questions and exercises that you can use to test your knowledge on Python.
+The questions are both in English and German language.
+
+Bei <https://thomasweise.github.io/programmingWithPythonQuestions/programmingWithPythonQuestions.pdf> stellen wir eine Liste von Fragen und Übungen zur Verfügung, die Sie verwenden können, um Ihre Python-Fähigkeiten zu testen.
+Die Fragen sind sowohl in Englisch als auch in Deutsch geschrieben.
+
+
+### 2.3. Die Slides in Deutsch &mdash; The Slides in German Language
 Die Slides zum Kurs in deutscher Sprache können unter <https://thomasweise.github.io/programmingWithPythonSlidesDE> gefunden werden und sind hier aufgelistet:
 
 1. [Organisation](https://thomasweise.github.io/programmingWithPythonSlidesDE/01_organisation.pdf)
@@ -72,19 +82,19 @@ Die Slides zum Kurs in deutscher Sprache können unter <https://thomasweise.gith
 47. [Zwischenspiel: Debugger](https://thomasweise.github.io/programmingWithPythonSlidesDE2/47_debugger.pdf)
 
 
-### 2.3. The Slides in English
+### 2.4. The Slides in English
 The slides for the course are available at <https://thomasweise.github.io/programmingWithPythonSlides> and also listed below.
 Since the course is taught in German language at present, these slides will remain incomplete indefinitely.
 
 1. [Introduction](https://thomasweise.github.io/programmingWithPythonSlides/01_introduction.pdf)
 2. [Getting Started](https://thomasweise.github.io/programmingWithPythonSlides/02_getting_started.pdf)
 
-### 2.4. The Example Python Programs 
+### 2.5. The Example Python Programs 
 Our course offers a lot of examples.
 You can find all of them in the repository <https://github.com/thomasWeise/programmingWithPythonCode>.
 
 
-### 2.5. LaTeX Sources, Graphics, Bibliography, etc.
+### 2.6. LaTeX Sources, Graphics, Bibliography, etc.
 Both the book and the slides are written in LaTeX.
 You can find their sources in <https://github.com/thomasWeise/programmingWithPython> and <https://github.com/thomasWeise/programmingWithPythonSlides>, respectively.
 You may use these files under the licensing terms provided below.
