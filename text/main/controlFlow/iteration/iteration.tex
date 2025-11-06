@@ -268,7 +268,7 @@ To measure the runtime of this function, we first \pythonilIdx{import} the funct
 We tell \pythonilIdx{repeat} to call our function \pythonil{create_by_append} one time~(\pythonil{number=1}) and measure the consumed runtime.
 It will return the runtime in seconds and stored as a \pythonil{float}.
 However, factors like those mentioned above, scheduling by the operating system, maybe garbage collection by the \python\ iterpreter, and so on, a single measurement would not be very reliable~\cite{P2002AI}.
-We thus instruct \pythonilIdx{repeat} function to take 90 such measurements~(argument \pythonil{repeat=90}).
+We thus instruct \pythonilIdx{repeat} function to take 50 such measurements~(argument \pythonil{repeat=50}).
 All of the measured runtimes are then return as a \pythonil{list[float]}.
 The documentation of \pythonilIdx{timeit}~\cite{PSF:P3D:TPSL:TMETOSCS} says:%
 %
