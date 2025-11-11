@@ -456,11 +456,11 @@ It is not possible to represent the number~$1+10^{16}$ exactly with the 64~bit d
 Usually, that itself is totally fine:
 There are only very few application were we really need more than 15 digits of precision.
 Still, let's continue this example for a bit.
-What happens if we try to compute~$10^{18}+1$ and then subtract~$10^{18}$ from this sum?
+What happens if we try to compute~$10^{16}+1$ and then subtract~$10^{16}$ from this sum?
 Obviously, in an ideal world, the result should be~\pythonil{1.0}.
 While \pythonil{1e16 + 1} would be \pythonil{10_000_000_000_000_001.0} which does not fit in a \pythonil{float}, \pythonil{1.0}~is a number that we can correctly and accurately represent as a~\pythonilIdx{float}.
 The actual result of this computation in \python, however, is~\pythonil{0.0}.
-The reason is that the result of the intermediate computation of \pythonil{1e18 + 1 == 1e18} and then \pythonil{1e18 - 1e18 == 0}.
+The reason is that the result of the intermediate computation of \pythonil{1e16 + 1 == 1e16} and then \pythonil{1e16 - 1e16 == 0}.
 
 Similarly, computing \pythonil{1e18 + 1 + 1e36 - 1e36 - 1e18} yields~\pythonil{-1e18}, while the \inQuotes{correct} result would again be~\pythonil{1.0}.
 The reason is that first, \pythonil{1e18 + 1 == 1e18} is computed.
