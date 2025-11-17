@@ -82,7 +82,14 @@ Die Slides zum Kurs in deutscher Sprache können unter <https://thomasweise.gith
 47. [Zwischenspiel: Debugger](https://thomasweise.github.io/programmingWithPythonSlidesDE2/47_debugger.pdf)
 
 
-### 2.4. The Slides in English
+### 2.4. Complete Packages / Komplettpaket
+
+The following complete packages are available:
+
+- [`2025.11.17`](https://github.com/thomasWeise/programmingWithPython/releases/download/2025.11.17/programmingWithPython_2025_11_17.tar.xz) provides the end state of the book, slides (in German), questions, and example sources after the lecture period in Winter Semester 2025 at Hefei University (合肥大学).
+
+
+### 2.5. The Slides in English
 The slides for the course are available at <https://thomasweise.github.io/programmingWithPythonSlides> and also listed below.
 Since the course is taught in German language at present, these slides will remain incomplete indefinitely.
 
