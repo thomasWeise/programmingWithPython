@@ -12,7 +12,7 @@ set -o errexit   # set -e : exit the script if any statement returns a non-true 
 hasOutput=false  # Do we have some output and need a separator?
 
 # Make sure that all packages are installed.
-packages=("pytest" "pytest-timeout" "mypy" "ruff" "pylint" "moptipy")
+packages=("pytest" "pytest-timeout" "mypy" "ruff" "pylint")
 python3 -m pip install --require-virtualenv "${packages[@]}" 1>/dev/null 2>&1
 
 # Check the versions of the tools and packages.
