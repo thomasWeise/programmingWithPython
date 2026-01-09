@@ -11,17 +11,14 @@ set -o errexit   # set -e : exit the script if any statement returns a non-true 
 
 hasOutput=false  # Do we have some output and need a separator?
 
-# Check the versions of the tools and packages.
-for pack in "pytest" "pytest-timeout" "mypy" "ruff" "pylint"; do
-  version="$(python3 -m pip show "$pack" 2>/dev/null || true)"
-  if [ -z "$version" ]; then
-    # pytest or the plugin is not installed, so we install it now.
-    # We do this silently, without printing any information...
-    python3 -m pip install --require-virtualenv "$pack" 1>/dev/null 2>&1
-    version="$(python3 -m pip show "$pack" 2>/dev/null)"
-  fi
+# Make sure that all packages are installed.
+packages=("pytest" "pytest-timeout" "mypy" "ruff" "pylint" "moptipy")
+python3 -m pip install --require-virtualenv "${packages[@]}" 1>/dev/null 2>&1
 
+# Check the versions of the tools and packages.
+for pack in "${packages[@]}"; do
   # For each tool or plugin, we get the version separately.
+  version="$(python3 -m pip show "$pack" 2>/dev/null || true)"
   version="$(grep Version: <<< "$version")"
   version="$(sed -n 's/.*Version:\s*\([.0-9]*\)/\1/p' <<< "$version")"
   if [ -n "$version" ]; then  # ... and we concatenate them
