@@ -2,7 +2,7 @@
 
 ## 1. Introduction
 
-*"Programming with Python"* is both a book and a course held at [Hefei University](http://www.hfuu.edu.cn/english/) ([合肥大学](http://www.hfuu.edu.cn/)).
+*"Programming with Python"* is both a book and a course (Python程序设计) held at [Hefei University](http://www.hfuu.edu.cn/english/) ([合肥大学](http://www.hfuu.edu.cn/)).
 We here provide all the resources of this course.
 
 The goal of the course and book is to teach undergraduate and graduate students how to program with the Python programming language.
