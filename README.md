@@ -1,8 +1,11 @@
+[![build](https://github.com/thomasWeise/programmingWithPython/actions/workflows/build.yaml/badge.svg)](https://github.com/thomasWeise/programmingWithPython/actions/workflows/build.yml)
+[![https://thomasweise.github.io](https://shields.io/badge/home-thomasweise.github.io-009000)](https://thomasweise.github.io)
+
 # Programming with Python
 
 ## 1. Introduction
 
-*"Programming with Python"* is both a book and a course (Python程序设计) held at [Hefei University](http://www.hfuu.edu.cn/english/) ([合肥大学](http://www.hfuu.edu.cn/)).
+*"Programming with Python"* is both a book and a course (Python程序设计) held at [Hefei University](http://www.hfuu.edu.cn/english) ([合肥大学](http://www.hfuu.edu.cn/)).
 We here provide all the resources of this course.
 
 The goal of the course and book is to teach undergraduate and graduate students how to program with the Python programming language.
@@ -143,9 +146,9 @@ It is under the GNU GENERAL PUBLIC LICENSE Version 2, June 1991 and the copyrigh
 
 ## 4. Contact
 If you have any questions or suggestions, please contact
-Prof. Dr. Thomas Weise (汤卫思教授)
+Prof.&nbsp;Dr.&nbsp;[Thomas Weise](https://thomasweise.github.io) (汤卫思教授)
 at the Institute of Applied Optimization (应用优化研究所, IAO)
 of the School of Artificial Intelligence and Big Data ([人工智能与大数据学院](http://www.hfuu.edu.cn/aibd))
-of [Hefei University](http://www.hfuu.edu.cn/english/) ([合肥大学](http://www.hfuu.edu.cn/)),
+of [Hefei University](http://www.hfuu.edu.cn/english) ([合肥大学](http://www.hfuu.edu.cn)),
 in Hefei, Anhui, China (中国安徽省合肥市)
 via email to [tweise@hfuu.edu.cn](mailto:tweise@hfuu.edu.cn) with CC to [tweise@ustc.edu.cn](mailto:tweise@ustc.edu.cn).
