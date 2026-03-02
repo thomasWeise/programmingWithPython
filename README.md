@@ -1,7 +1,7 @@
 [![build](https://github.com/thomasWeise/programmingWithPython/actions/workflows/build.yaml/badge.svg)](https://github.com/thomasWeise/programmingWithPython/actions/workflows/build.yml)
 [![https://thomasweise.github.io](https://shields.io/badge/home-thomasweise.github.io-009000)](https://thomasweise.github.io)
 
-# Programming with Python
+# Programming with Python&nbsp;(Python程序设计)
 
 ## 1. Introduction
 
@@ -29,12 +29,12 @@ The book itself can be downloaded as pdf at <https://thomasweise.github.io/progr
 At <https://thomasweise.github.io/programmingWithPythonQuestions/programmingWithPythonQuestions.pdf>, we provide a list of questions and exercises that you can use to test your knowledge on Python.
 The questions are both in English and German language.
 
-Bei <https://thomasweise.github.io/programmingWithPythonQuestions/programmingWithPythonQuestions.pdf> stellen wir eine Liste von Fragen und Übungen zur Verfügung, die Sie verwenden können, um Ihre Python-Fähigkeiten zu testen.
+Unter <https://thomasweise.github.io/programmingWithPythonQuestions/programmingWithPythonQuestions.pdf> stellen wir eine Liste von Fragen und Übungen zur Verfügung, die Sie verwenden können, um Ihre Python-Fähigkeiten zu testen.
 Die Fragen sind sowohl in Englisch als auch in Deutsch geschrieben.
 
 
 ### 2.3. Die Slides in Deutsch &mdash; The Slides in German Language
-Die Slides zum Kurs in deutscher Sprache können unter <https://thomasweise.github.io/programmingWithPythonSlidesDE> gefunden werden und sind hier aufgelistet:
+Hier finden Sie die Slides zum Kurs in deutscher Sprache:
 
 1. [Organisation](https://thomasweise.github.io/programmingWithPythonSlidesDE/01_organisation.pdf)
 2. [Einleitung](https://thomasweise.github.io/programmingWithPythonSlidesDE/02_einleitung.pdf)
@@ -89,7 +89,7 @@ Die Slides zum Kurs in deutscher Sprache können unter <https://thomasweise.gith
 
 The following complete packages are available:
 
-- [`2025.11.17`](https://github.com/thomasWeise/programmingWithPython/releases/download/2025.11.17/programmingWithPython_2025_11_17.tar.xz) provides the end state of the book, slides (in German), questions, and example sources after the lecture period in Winter Semester 2025 at Hefei University (合肥大学).
+- [`2025.11.17`](https://github.com/thomasWeise/programmingWithPython/releases/download/2025.11.17/programmingWithPython_2025_11_17.tar.xz) provides the end state of the book, slides&nbsp;(in German language), questions, and example sources after the lecture period in Winter Semester&nbsp;2025&nbsp;(2025-2026学年 第一学期) at Hefei University&nbsp;(合肥大学).
 
 
 ### 2.5. The Slides in English
@@ -98,6 +98,7 @@ Since the course is taught in German language at present, these slides will rema
 
 1. [Introduction](https://thomasweise.github.io/programmingWithPythonSlides/01_introduction.pdf)
 2. [Getting Started](https://thomasweise.github.io/programmingWithPythonSlides/02_getting_started.pdf)
+
 
 ### 2.5. The Example Python Programs 
 Our course offers a lot of examples.
@@ -112,7 +113,7 @@ You may use these files under the licensing terms provided below.
 
 ## 3. License
 This repository contains two types of material:
-Materials that I (Thomas Weise) have created by myself and such that have been created by others.
+Materials that I&nbsp;([Thomas Weise](https://thomasweise.github.io)) have created by myself and such that have been created by others.
 
 The vast majority of the material is teaching material created by me (Thomas Weise).
 This and only this material is released under the Attribution-NonCommercial-ShareAlike 4.0 International license (CC&nbsp;BY&#8209;NC&#8209;SA&nbsp;4.0), see [http://creativecommons.org/licenses/by-nc-sa/4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/) for a summary.
