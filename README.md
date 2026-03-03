@@ -89,7 +89,8 @@ Hier finden Sie die Slides zum Kurs in deutscher Sprache:
 
 The following complete packages are available:
 
-- [`2025.11.17`](https://github.com/thomasWeise/programmingWithPython/releases/download/2025.11.17/programmingWithPython_2025_11_17.tar.xz) provides the end state of the book, slides&nbsp;(in German language), questions, and example sources after the lecture period in Winter Semester&nbsp;2025&nbsp;(2025-2026学年 第一学期) at Hefei University&nbsp;(合肥大学).
+- [`2026.03.04`](https://github.com/thomasWeise/programmingWithPython/releases/download/2026.03.04/programmingWithPython_2026_03_04.tar.xz) provides the beginning state of the book, slides&nbsp;(in German language), questions, and example sources *before* the lecture period in Summer Semester&nbsp;2026&nbsp;(2025-2026学年 第二学期) at Hefei University&nbsp;(合肥大学).
+- [`2025.11.17`](https://github.com/thomasWeise/programmingWithPython/releases/download/2025.11.17/programmingWithPython_2025_11_17.tar.xz) provides the end state of the book, slides&nbsp;(in German language), questions, and example sources *after* the lecture period in Winter Semester&nbsp;2025/2026&nbsp;(2025-2026学年 第一学期) at Hefei University&nbsp;(合肥大学).
 
 
 ### 2.5. The Slides in English
