@@ -34,6 +34,24 @@ The expression \pythonil{6 > 6}\pythonIdx{>} gives us \pythonilIdx{False}, but \
 While \pythonil{5 > 6}\pythonIdx{>} is not \pythonilIdx{True}, \pythonil{6 > 5}\pythonIdx{>} is.
 It is also possible to compare floating point numbers with integers and vice versa.
 \pythonil{5.5 == 5}\pythonIdx{==} is \pythonilIdx{False}, while \pythonil{5.0 == 5} is \pythonilIdx{True}.
+%
+\gitEvalPython{bool_comparisons_int_float}{}{simple_datatypes/bool_comparisons_int_float.py}%
+\listingBox{exec:bool_comparisons_int_float}{Comparing integer and floating point numbers.}{,style=python_console_style,literate={0}{0\-}1 {1}{1\-}1 {2}{2\-}1 {3}{3\-}1 {4}{4\-}1 {5}{5\-}1 {6}{6\-}1 {7}{7\-}1 {8}{8\-}1 {9}{9\-}1,breakatwhitespace=false,breaklines=true}%
+
+When comparing an integer with a floating point number, one might expect that one is converted to another.
+This, interestingly, does not seem to be the case.
+In \cref{exec:bool_comparisons_int_float}, we can see that \python\ handles comparisons of integers and floating point numbers more subtle.
+The comparisons work for small integers and floats without issue.
+If the numbers get larger, we first run in the issue with limited precision of the \pythonilIdx{float} datatype.
+It cannot store more than 15 or 16 decimal digits~(depending on the weather), and thus~\pythonil{1e300} is not actually~$10^{300}$ as one might expect.
+Instead only the first 16 zeros are there, the remaining digits can be considered as undefined, as their value depends on whatever results from the internal binary representation.
+
+We now try to compare~$10^{400}$ to~\pythonil{1e400}.
+Knowing the limits of \pythonilIdx{float}, we recall that writing~\pythonil{1e400} is essentially equivalent to writing~\pythonilIdx{inf}~(if that constant was imported from the \pythonil{math} module).
+The comparison yields~\pythonil{False}, as it should.
+To get there, however, neither is \pythonil{10 ** 400} converted to a \pythonil{float}, nor is \pythonil{1e400} converted to an~\pythonilIdx{int}.
+Both would net us an~\pythonilIdx{OverflowError}.
+Thus, we find that the \pythonilIdx{float} datatype does not \inQuotes{infect} comparisons and that \python\ is actually quite elegant here.
 
 Comparisons can also be chained:
 \pythonil{3 < 4 < 5 < 6} is \pythonilIdx{True}, because \pythonil{3 < 4} and \pythonil{4 < 5} and \pythonil{5 < 6}.
