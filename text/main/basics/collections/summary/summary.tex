@@ -21,7 +21,7 @@ ordered&\greenYes&\greenYes&\redNo&\greenYes~(insertion sequence)\\%
 %
 collection is mutable&\greenYes&\redNo&\greenYes&\greenYes\\%
 %
-mutable elements OK&\greenYes&\redNo&\redNo&\pythonil{E}:~\redNo; \pythonil{F}:~\greenYes\\%
+mutable elements OK&\greenYes&\greenYes / \redNo&\redNo&\pythonil{E}:~\redNo; \pythonil{F}:~\greenYes\\%
 %
 all elements of same datatype&\greenYes&\redNo&\greenYes&\greenYes\\%
 %
@@ -50,9 +50,35 @@ You learned about mutable and immutable sequences of values, namely lists and tu
 You also learned that \python\ offers you the mathematical notion of sets as well as dictionaries, which are key-value mappings.
 You now have the basic knowledge of the most commonly used datatypes in \python.
 You know operations to manipulate and query them.
-\Cref{tbl:collectionProperties} summarizes some of the features of these collection datatypes.
 
-However, when learning about these structures, you may have felt some eerie awkwardness.
+\Cref{tbl:collectionProperties} summarizes some of the features of these collection datatypes.
+All four basic collection datatypes can be type hinted.
+This is important to ensure that other programmers can clearly understand the meaning of our code and that tools like \mypy\ can better recognize dodgy statements and potential errors.
+Here, the collection type comes first followed by the element data type(s) in square brackets.
+
+We can create the collections using \pglspl{literal}, which allow us to directly specify their contents.
+Here, lists are defined using square brackets, tuples in parentheses, and dictionaries as well as sets with curly braces.
+If we leave the contents between the delimiters empty, this will allocate an empty container -- with the notable exception of sets.
+Empty sets must be created via \pythonil{set()}~(otherwise, an empty set would be indistinguishable from an empty dictionary).
+
+We can copy collections into lists, sets, tuples, or dictionaries by simply using the datatype name as function name to which we pass the collection.
+This way, we can create sets from lists or lists from tuples.
+For dictionaries, the collection passed to \pythonil{dict} should also be a dictionary.
+
+The elements in lists, tuples, and dictionaries can be accessed in an order, defined by collection (literal) definition and/or insertion and deletion sequence.
+With the exception of tuples, all collections are mutable.
+The keys of dictionaries and the elements of sets must be immutable.
+Their location in the storage backing these collection depends on their value.
+If we would store mutable objects and later change their value, the collection would not know that and then would be unable to find these objects, because now their value would no longer fit to their storage position.
+If we use tuples as constants, then obviously their elements should also be immutable.
+If we use tuples to package multiple return values of functions together, which we will learn much later, then these do not need to be immutable.
+
+Sets can contain each element at most once and each dictionary key can occur only once in a dictionary.
+The other collections can contain each element arbitrarily often~(and dictionary values can occur arbitrarily often as well).
+Adding elements can be done quickly by all immutable collections, but finding and deleting elements is fast only for sets and dictionaries.
+They pay for this with some additional overhead.
+
+Now, when learning about these structures, you may have felt some eerie awkwardness.
 Something did not feel right.
 If I can only construct a list step by step, then what is the advantage compared to just using many variables?
 The missing ingredient are control flow statements.

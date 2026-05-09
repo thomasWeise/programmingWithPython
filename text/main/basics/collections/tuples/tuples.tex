@@ -117,11 +117,22 @@ While the tuple cannot be changed, this list can!
 Printing \pythonil{f"mt == {mt}"} therefore yields~\textil{mt == (1, [2, 2])}.
 %
 \bestPractice{noModifiableObjectInATuple}{%
-Only put immutable objects into tuples. %
+Only put immutable objects into tuples if you want to use the tuples as immutable objects. %
 Mutable objects inside tuples makes the tuples modifiable as well, while other programmers may assume that they are immutable. %
 Violating this assumption can lead to strange errors down the line.%
 }%
 %
+While we should usually put only immutable objects into tuples, there is one notable exception:
+Later we will learn how to program functions~(in \cref{sec:functions}).
+Every function can return a single value as result, like, e.g., \pythonil{sin} or \pythonil{sqrt} do.
+Sometimes, if we want to return multiple values, we can return them in a tuple.
+This has the advantage that the value types are clear.
+Of course, in that case, these values do not need to be immutable.
+(Because functions may return lists and other mutable objects\dots)
+
+However, if we use tuples as collections of data, we often want to make sure that they can semantically be considered as constants.
+To achieve this, their values should ideally also be immutable.
+
 What we are never permitted to do is to change the contents of the tuple itself.
 Trying to do \pythonil{mt[1] = [3, 4]} will raise a~\pythonilIdx{TypeError}.
 This is an exception which, unless properly caught and handled, will terminate the program immediately.
