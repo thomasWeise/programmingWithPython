@@ -145,7 +145,7 @@ With this, the complete interface defined by the superclass\pythonIdx{class}~\py
 We also include comprehensive \pglspl{doctest} in our file, to immediately make sure that the methods work as advertised.
 
 In program \programUrl{classes:circle_user} given as \cref{lst:classes:circle_user}, we explore how this new class can be used.
-We create the instance \pythonil{circ} of \pythonil{Circle} by providing the \pythonil{point=Point(2, 3)} and \pythonil{radius=4}.
+We create the instance \pythonil{circ} of \pythonil{Circle} by providing the \pythonil{point=Point(2, 3)} and \pythonil{radius=5}.
 We confirm that these parameters are indeed reflected by the corresponding attributes.
 
 The operator \pythonil{isinstance(a, B)}\pythonIdx{isinstance} checks whether an object~\pythonil{a} is an instance of class~\pythonil{B}.
@@ -246,7 +246,7 @@ We raise an \pythonilIdx{ValueError} if so.
 
 We return all three points in the \pythonil{points}~method implementation.
 There is no better way for computing the perimeter than what \pythonil{Polygon} already provides, so we this time do not override~\pythonil{perimeter}.
-The area computation is implemented using the formula~$A=x_1(y_2-y_3)+x_2(y_3-y_1)+x_3(y_1-y_2)$ that you may remember from school maths.
+The area computation is implemented using the formula~$A=\tfrac{1}{2}\left(x_1(y_2-y_3)+x_2(y_3-y_1)+x_3(y_1-y_2)\right)$ that you may remember from school maths.
 
 Notice that both subclasses of \pythonil{Polygon} offer some \pglspl{doctest} in the \pglspl{docstring}.
 While I needed to keep the \pglspl{docstring} short to be able to fit the listings on pages, these \pglspl{doctest} still are instructive for the user.
