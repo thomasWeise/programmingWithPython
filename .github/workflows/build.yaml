@@ -9,10 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.2.2
+      - uses: actions/checkout@v7.0.1
         with:
           submodules: true
-      - uses: xu-cheng/texlive-action@475ab07999e9709e524c3708488c8c170d3a6611
+      - uses: xu-cheng/texlive-action@v3
         with:
           scheme: full
           run: |
@@ -20,7 +20,7 @@ jobs:
             ./make.sh
 # deploy to github pages
       - name: deploy documentation
-        uses: JamesIves/github-pages-deploy-action@94f3c658273cf92fb48ef99e5fbc02bd2dc642b2
+        uses: JamesIves/github-pages-deploy-action@v4.8.0
         with:
           branch: gh-pages
           folder: /home/runner/work/programmingWithPython/programmingWithPython/website/
