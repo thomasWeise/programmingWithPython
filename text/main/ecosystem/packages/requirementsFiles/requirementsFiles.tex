@@ -4,7 +4,7 @@
 %
 \gitLoad{lst:packages:requirementstxt}{\programmingWithPythonCodeRepo}{packages/requirements.txt}{}%
 \listingTxt{packages:requirementstxt}{%
-A requirements file demanding that version~\textil{1.26.4} of \numpy\ be installed.}%
+A requirements file demanding that version~\textil{2.5.2} of \numpy\ be installed.}%
 %
 \gitLoad{lst:packages:numpy_user_venv_req_sh}{\programmingWithPythonCodeRepo}{packages/numpy_user_venv_req.sh}{}%
 \gitExecBash{packages:numpy_user_venv_req_sh}{\programmingWithPythonCodeRepo}{packages}{numpy_user_venv_req.sh}
@@ -27,12 +27,12 @@ Each of their lines lists one \pgls{package} that is required, optionally with v
 \end{sloppypar}%
 %
 \Cref{lst:packages:requirementstxt} gives a trivial example of such a file.
-It contains the line \textil{numpy==1.26.4}.
-This means that \numpy\ of exactly the version~1.26.4 is required for our application.
-Had we written \textil{numpy>=1.26.4}, then a larger version of \numpy\ would also have been OK.
+It contains the line \textil{numpy==2.5.2}.
+This means that \numpy\ of exactly the version~2.5.2 is required for our application.
+Had we written \textil{numpy>=2.5.2}, then a larger version of \numpy\ would also have been OK.
 The other operators, \textil{>}, \textil{<}, and~\textil{<=} can be used as well and have their natural corresponding meaning.
-If we had wanted, we could have written \textil{matplotlib} in the second line of our \textil{requirements.txt} file, which would then have meant that, besides \numpy\ of version~\textil{1.26.4}, the package \matplotlib\ is needed as well.
-Writing only \textil{matplotlib} would be interpreted as \inQuotes{find the highest version of \matplotlib\ that is compatible with \numpy\ version~1.26.4.}
+If we had wanted, we could have written \textil{matplotlib} in the second line of our \textil{requirements.txt} file, which would then have meant that, besides \numpy\ of version~\textil{2.5.2}, the package \matplotlib\ is needed as well.
+Writing only \textil{matplotlib} would be interpreted as \inQuotes{find the highest version of \matplotlib\ that is compatible with \numpy\ version~2.5.2.}
 But we only need one package, \numpy, so our file just has a single line.
 
 In \cref{lst:packages:numpy_user_venv_req_sh}, we present a version of the script that we used to set up a virtual environment and run our two-line \numpy\ program under \ubuntu\ \linux~(see \cref{lst:packages:numpy_user_venv_req_sh}.)

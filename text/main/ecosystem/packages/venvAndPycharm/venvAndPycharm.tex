@@ -30,7 +30,7 @@ We double-click on this file.%
 \floatSep%
 %
 \subfloat[][%
-It contains the one line \textil{numpy==1.26.4}, which means that our project requires \numpy\ in version~1.26.4.%
+It contains the one line \textil{numpy==2.5.2}, which means that our project requires \numpy\ in version~2.5.2.%
 \label{fig:venvPycharm4}%
 ]{\tightbox{\includegraphics[width=0.48\linewidth]{\currentDir/venvPycharm4}}}%
 %
@@ -99,7 +99,7 @@ All the files that I placed into the folder are there and also a \textil{.venv} 
 Notice that you could as well create an empty project and copy the files there.
 
 We click on \textil{requirements.txt} and it opens in~\cref{fig:venvPycharm4}.
-Indeed, the file prescribes a single requirement, \numpy\ in version~1.26.4.
+Indeed, the file prescribes a single requirement, \numpy\ in version~2.5.2.
 
 When we click on the file \programUrl{packages:numpy_user} to open it in~\cref{fig:venvPycharm5}, we notice a yellow bar at the top of the file's contents.
 This bar tells us that the required package \numpy\ is missing.
@@ -110,7 +110,7 @@ I am not sure why it appears only now.
 Either way, we accept the choice to install the requirement.
 
 In \cref{fig:venvPycharm6}, we are informed that the installation was successful.
-The small overlay also tells us that \numpy\ was installed in version~1.26.4, as prescribed by the \textil{requirements.txt} file.
+The small overlay also tells us that \numpy\ was installed in version~2.5.2, as prescribed by the \textil{requirements.txt} file.
 At the time of this writing, \numpy\ is already out at version~2.2.1, which would have been used if we had just installed it without version specification.
 So this confirms that, indeed, our \textil{requirements.txt} is used.
 We also can see that the red underline under \pythonilIdx{numpy} that was present in \cref{fig:venvPycharm5} is now gone in \cref{fig:venvPycharm6}, because now the package and corresponding modules can be loaded without error.
