@@ -36,7 +36,7 @@ We do it here anyway, just for demonstration purposes, because you are already v
 This is a bit interesting, because \pythonil{nan == nan} would give us~\pythonil{False}, but then again, \pythonil{nan} means \inQuotes{undefined} and \pythonil{None} means \inQuotes{nothing.}%
 %
 \bestPractice{cmpWithNone}{%
-Comparisons to singletons like \pythonil{None} should always be done with \pythonil{is} or \pythonil{is not}, never the equality operators~\python{==} or~\pythonil{!=}~\cite{PEP8}.}%
+Comparisons to singletons like \pythonil{None} should always be done with \pythonil{is} or \pythonil{is not}, never the equality operators~\pythonil{==} or~\pythonil{!=}~\cite{PEP8}.}%
 %
 As stated above, the right way to compare values if \pythonil{None} may be involved is using the operator~\pythonilIdx{is}~\cite{PEP8}.
 \pythonilIdx{is}~is a bit similar to~\pythonilIdx{==}, but instead of comparing whether the contents of an object are the same, it compares whether two values reference the same object.
