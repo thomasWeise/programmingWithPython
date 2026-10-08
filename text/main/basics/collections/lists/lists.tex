@@ -3,7 +3,7 @@
 %
 \gitLoadAndExecPython{lists:lists_1}{}{collections}{lists_1.py}{}%
 \listingPythonAndOutput{lists:lists_1}{%
-A first example for using lists in \python:~creating, indexing, printing of and appending elements and other lists to lists.}{}%
+A first example of using lists in \python:~creating, indexing, printing of and appending elements and other lists to lists.}{}%
 %
 \gitLoadAndExecPython{lists:lists_2}{}{collections}{lists_2.py}{}%
 \listingPythonAndOutput{lists:lists_2}{%
@@ -117,7 +117,7 @@ If~\pythonil{j} is omitted, i.e., if \pythonil{i::k} is provided, then \pythonil
 If you have a list \pythonil{lst4 = [5, 6, 7, 5, 6, 7, 5, 6, 7]}, then the slice~\pythonil{lst4[2:-2]} will return a new list which contains all the elements of~\pythonil{lst4} starting from index~\pythonil{2} and up to (excluding) the second-to-last element.
 The slice~\pythonil{lst4[1::2]} starts at index~\pythonil{1}, continues until the end of the list, and adds every second element.
 This results in~\pythonil{[6, 5, 7, 6]}.
-As final example, consider the slice~\pythonil{lst4[-1:3:-2]}.
+As a final example, consider the slice~\pythonil{lst4[-1:3:-2]}.
 It will begin creating the new list at the last element.
 The step-length is~\pythonil{-2}, so it will move backwards and add every second element to the new list.
 It stops adding elements before reaching index~\pythonil{3}.

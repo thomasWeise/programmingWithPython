@@ -6,7 +6,7 @@ In \cref{sec:enumOverSequences}, we learned that we can iterate over collections
 We can also iterate over the characters in a string in the same way.
 These are all datastructures whose complete content exists in memory at any given time.
 In \python, we can also iterate over sequences where the items that are constructed at the time when they are actually needed.
-A good example for this is the \pythonilIdx{range} datatype.
+A good example of this is the \pythonilIdx{range} datatype.
 We can iterate over all the 1\decSep000\decSep000\decSep000\decSep000 \pythonil{int} elements of \pythonil{range(100_000_000_000_000)} in a loop.
 These many integers do not all exist in memory at the same time.
 Instead, they are allocated and provided one-by-one as needed.
@@ -140,7 +140,7 @@ With this, we now know the how \pythonil{for} loops in \python\ actually work.
 They create an iterator over a sequence and then consume the elements of this iterator, each time executing the loop body, until hitting a \pythonilIdx{StopIteration} exception.
 All collection classes in \python\ that offer a sequential view on their data therefore support the \pythonilIdx{Iterable}/\pythonilIdx{Iterator}-\pgls{API}~\cite{PEP234}.
 Due to this \pgls{API} structure, it is not even necessary to hold all the elements of a collection in memory at any point in time, as long as we can compute them as need.
-An example for this is are \pythonilsIdx{range}, which provide us with \pythonil{int}-sequences with arbitrarily many numbers that are create~(and discarded) one-by-one during the iteration.%
+An example of this is are \pythonilsIdx{range}, which provide us with \pythonil{int}-sequences with arbitrarily many numbers that are create~(and discarded) one-by-one during the iteration.%
 %
 \FloatBarrier%
 \endhsection%
@@ -357,7 +357,7 @@ Well, nothing stops us from just writing this down.
 However, in an ideal case, \pytest\ would also pick up these test cases from the \pglspl{docstring} and then actually execute and check them.
 Indeed, this perfect synthesis of documentation and testing is possible, with so-called \pglspl{doctest}~\cite{PSF:P3D:TPSL:DTIPE}.
 
-We explore this idea by using one last example for list comprehension.
+We explore this idea by using one last example of list comprehension.
 Consider the following scenario:
 Let's say that you have several lists.
 You want to create a single new list that contains all the elements of each of these existing lists.
@@ -934,7 +934,7 @@ However, we stop the iteration via~\pythonilIdx{break} once~\pythonil{a > 30}.
 It should be mentioned that doing something like \pythonil{list(fibonacci())} would be a very bad idea.
 It would attempt to produce an infinitely large list, which would lead to an \pythonilIdx{MemoryError}.
 
-As final example for generator functions, let us wrap our code for enumerating prime numbers~\cite{W2024MAWWR:PN,CP2005PNACP,R1994PNACMFF} from back in \cref{sec:loopsOverSequences} into a generator function.
+As the final example of generator functions, let us wrap our code for enumerating prime numbers~\cite{W2024MAWWR:PN,CP2005PNACP,R1994PNACMFF} from back in \cref{sec:loopsOverSequences} into a generator function.
 We do this in \programUrl{iteration:prime_generator} given as \cref{lst:iteration:prime_generator}.
 Back in \cref{lst:loops:for_loop_sequence_primes}, when we produced prime numbers for the last time, we used nested \pythonilIdx{for}~loops.
 Back then, the outer loop would iterate at most to~199.
@@ -994,7 +994,7 @@ However, the generator function can continue until either its end is reached or 
 %
 \gitLoadAndExecPython{iteration:filter_takewhile}{}{iteration}{filter_takewhile.py}{}%
 \listingPythonAndOutput{iteration:filter_takewhile}{%
-An example for \pythonilIdx{takewhile}\pythonIdx{itertools!takewhile} and \pythonilIdx{filter}.}{}%
+An example of \pythonilIdx{takewhile}\pythonIdx{itertools!takewhile} and \pythonilIdx{filter}.}{}%
 %
 Sequences play a very important role in \python\ programming.
 The fact that generator functions and the \pythonilIdx{yield} keyword were added to the language just to provide a natural way to construct complex sequences speaks for itself~\cite{PEP255}.
@@ -1033,7 +1033,7 @@ The smallest one is $1^2+1=2$ and the largest one is~$26^2+1=677$.
 
 \gitLoadAndExecPython{iteration:map}{}{iteration}{map.py}{}%
 \listingPythonAndOutput{iteration:map}{%
-An example for the function \pythonilIdx{map}.}{}%
+An example of the function \pythonilIdx{map}.}{}%
 %
 Another important utility function when dealing with sequences is the built-in function~\pythonilIdx{map}~\cite{PSF:P3D:TPSL:BIF}.
 We explore its use in \programUrl{iteration:map} given as \cref{lst:iteration:map}.
@@ -1058,7 +1058,7 @@ A set, by definition, only contains unique values.
 In the resulting output in \cref{exec:iteration:map}, we can see that \textil{9}~indeed only appears once and so does~\textil{144}.
 
 Finally, the \pythonilIdx{map} function also plays nicely together with aggregating functions like~\pythonilIdx{sum}, \pythonilIdx{min}, or~\pythonilIdx{max}.
-In the final example for \pythonilIdx{map}, we have a list~\pythonil{words} of words and want to know the length of the longest word.
+In the final example of \pythonilIdx{map}, we have a list~\pythonil{words} of words and want to know the length of the longest word.
 We can first map each word to its length via~\pythonil{map(len, words)}.
 This produces an \pythonilIdx{Iterator} of word lengths, which we can directly pass to~\pythonilIdx{max}.
 \pythonil{max}~will then iterate over this sequence and return the largest value it encountered.
@@ -1069,14 +1069,14 @@ This makes \pythonilIdx{map} an elegant and efficient approach to transforming s
 
 \gitLoadPython{iteration:zip}{}{iteration/zip.py}{}%
 \listingPython{iteration:zip}{%
-An example for the function \pythonilIdx{zip}.}%
+An example of the function \pythonilIdx{zip}.}%
 %
 \gitExec{exec:iteration:zip:doctest}{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest_doctest.sh iteration zip.py}%
 \listingToolOutput{iteration:zip:doctest}{%
 The output of \pytest\ executing the \pglspl{doctest} for the \pythonilIdx{zip} example from \cref{lst:iteration:zip}.}%
 %
 \begin{sloppypar}%
-As last example for sequence processing we play a bit with the \pythonilIdx{zip} function~\cite{PSF:P3D:TPSL:BIF}.
+As last example of sequence processing we play a bit with the \pythonilIdx{zip} function~\cite{PSF:P3D:TPSL:BIF}.
 This function accepts several \pythonilsIdx{Iterables} as arguments and returns a new \pythonilIdx{Iterator} which steps through all of input iterables in synch, returning tuples of with one value of each of them.
 For example, \pythonil{zip([1, 2, 3], [\"a\", \"b\", \"c\"])} returns an \pythonilIdx{Iterator} that produces the sequence~\pythonil{(1, \"a\")}, \pythonil{(2, \"b\")}, and \pythonil{(3, \"c\")}.
 Sometimes, the input \pythonilsIdx{Iterable} may be of different length.

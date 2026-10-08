@@ -729,7 +729,7 @@ The output of \pytest\ executing the \pglspl{doctest} for our \pythonil{Fraction
 
 As fraction that cannot be exactly written down as finite decimal string, we choose~$\frac{1}{3}$.
 $\frac{1}{3}$ to ten digits after the dot should yield~\pythonil{\"0.3333333333\"}.
-As example for negative fractions and also as an example for fractions with multiple leading zeros, we use~$\frac{-101001}{100000000}$.
+As example of negative fractions and also as an example of fractions with multiple leading zeros, we use~$\frac{-101001}{100000000}$.
 This should give us~\pythonil{"-0.00101001"}.
 
 As test for rounding off the last digit, we expect that \pythonil{Fraction(1235, 1000).decimal_str(2)} should yield~\pythonil{\"1.24\"}.
@@ -1585,7 +1585,7 @@ Our \python\ code basically mirrors the \pgls{XML} structure.
 The output of the program in \cref{exec:dunder:xml_user_print} looks very much like our example, with a slightly different indentation and line breaking.
 But this is permitted and acceptable under the \pgls{XML} standard~\cite{BPSMM2008EMLX1FE}.
 
-Instead of writing to the \pgls{stdout}, we can also recall our very first example for the \pythonilIdx{with} statement back in \cref{sec:withAndContextManagers}:
+Instead of writing to the \pgls{stdout}, we can also recall our very first example of the \pythonilIdx{with} statement back in \cref{sec:withAndContextManagers}:
 writing to and reading from a file.
 \Cref{lst:dunder:xml_user_file} is almost exactly the same as \cref{lst:dunder:xml_user_print}.
 The difference is that we now \pythonilIdx{open} a text output stream~\pythonil{stream_out} to a file~\textil{example.xml} and the stream's~\pythonilIdx{write}\pythonIdx{IO!write}~method as destination to our~\pgls{API}.

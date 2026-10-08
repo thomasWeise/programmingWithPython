@@ -137,7 +137,7 @@ In alphabet-based languages, we usually can distinguish between uppercase\python
 The method \pythonilIdx{lower} transforms all characters in a string to lowercase and \pythonilIdx{upper} translates them to uppercase instead.
 Thus \pythonil{"Hello World!".lower()} returns \pythonil{hello world!} whereas \pythonil{"Hello World!".upper()} yields \pythonil{"HELLO WORLD!"}.
 
-As final functions, we can check whether a string begins or ends with another, we can use \pythonilIdx{startswith} and \pythonilIdx{endswith}, respectively.
+As the final examples of string functions, we can use \pythonilIdx{startswith} and \pythonilIdx{endswith}, respectively, to check whether a string begins or ends with another.
 \pythonil{"Hello World!".startswith("hello")} is \pythonilIdx{False} whereas \pythonil{"Hello World!".startswith("Hello")} is \pythonilIdx{True}.
 \pythonil{"Hello World!".endswith("Hello")} is \pythonilIdx{False}, too, but \pythonil{"Hello World!".endswith("World!")} is \pythonilIdx{True}.
 
@@ -272,7 +272,7 @@ If you need \inQuotes{\textbraceright}, just write \inQuotes{\textbraceright\tex
 It will be interpreted as a single \inQuotes{\textbraceright}~brace.
 \pythonil{f"Single braces without expression: \{\{ and \}\}."} simply becomes \pythonil{"Single braces without expression: \{ and \}."}
 
-As final example, let us look at a very cool ability of \pglspl{fstring}\pythonIdx{f-string!=}.
+As the final example, let us look at a very cool ability of \pglspl{fstring}\pythonIdx{f-string!=}.
 Often, we want to print an expression together with its result~\cite{PSF:P3D:WNIP:WNIP38FSFSDEAD}.
 Earlier, we wrote \pythonil{f"\{5\}\ + \{4\}\ = \{5 + 4\}"} is evaluated to \pythonil{"5 + 4 = 9"}.
 What we actually wanted to print was the expression \pythonil{5 + 4} together with its result.

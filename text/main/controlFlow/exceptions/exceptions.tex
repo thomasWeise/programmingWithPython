@@ -689,7 +689,7 @@ In between the two blocks, we can optionally add \pythonilIdx{except} blocks to 
 %
 \gitLoadAndExecPythonAndErrors{exceptions:try_except_else_finally}{}{exceptions}{try_except_else_finally.py}{}%
 \listingPythonAndError{exceptions:try_except_else_finally}{%
-An example for the \pythonilIdx{try}-\pythonilIdx{except}-\pythonilIdx{else}-\pythonilIdx{finally} block.}%
+An example of the \pythonilIdx{try}-\pythonilIdx{except}-\pythonilIdx{else}-\pythonilIdx{finally} block.}%
 %
 \gitExec{exec:exceptions:try_except_else_finally:mypy}{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh exceptions try_except_else_finally.py}%
 \listingToolOutput{exceptions:try_except_else_finally:mypy}{%
@@ -706,7 +706,7 @@ In this case, the division result would not be printed because the \pythonilIdx{
 %
 We also attempt to catch a possible \pythonilIdx{TypeError}.
 Such an error would occur if the function is invoked by an argument that is neither an \pythonil{int} nor a \pythonil{float} and that does not support divison.
-This is a typical example for an error that we should \emph{not} attempt to catch.
+This is a typical example of an error that we should \emph{not} attempt to catch.
 This error could only appear if another programmer was using our function incorrectly.
 We only process this error here for the sake of the example and print an appropriate message in the \pythonilIdx{except} block.
 
