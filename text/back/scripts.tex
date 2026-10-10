@@ -33,6 +33,10 @@ So we put them here, at the end of the book, where they do not hurt anyone and w
 
 In the scripts, we install tools if they are not yet installed.
 We then apply the tools to whatever the parameters of the scripts state.
+We collect the \gls{stderr} and \gls{stdout} of the tools.
+Often, we remove empty lines and otherwise useless characters by piping this output through \bashil{sed}~(just to save space).
+This sanitized output appears then in the code listings.
+
 Now, in a real environment, a tool can either succeed or fail.
 A \pgls{unitTest} executed with \pytest\ will fail and exit with a non-zero exit code if the test, well, fails.
 A static code analysis tool like \ruff\ will fail with a non-zero exit code if it discovers any issue with the code.
