@@ -787,7 +787,7 @@ The general principle is the same, just that a list of values replaces \pythonil
 Our \pythonilIdx{KahanSum} uses exactly three variables for the whole summation process.
 It does not dynamically allocate more memory.
 As the result, the number of steps it performs are constant for each addition.
-The algorithm by \citeauthor{S1997APFPAAFRGP} implemented as \pythonilIdx{fsum} performs a variable number of steps that depends on the current length of its internal datastructure.
+The algorithm by \citeauthor{S1997APFPAAFRGP} implemented as \pythonilIdx{fsum} performs a variable number of steps that depends on the current length of its internal data structure.
 Thus, \pythonil{KahanSum} is indeed a very nice compromise solution, which offers higher precision than normal summing but retains the same constant memory and time complexity.
 
 Another advantage of our \pythonil{KahanSum} over the function \pythonilIdx{fsum} is that we can use it in a more versatile fashion.

@@ -4,7 +4,7 @@
 In \python, iterating over the items in a sequence is a central concept.
 In \cref{sec:enumOverSequences}, we learned that we can iterate over collections such as lists, tuples, dictionaries, and sets.
 We can also iterate over the characters in a string in the same way.
-These are all datastructures whose complete content exists in memory at any given time.
+These are all data structures whose complete content exists in memory at any given time.
 In \python, we can also iterate over sequences where the items that are constructed at the time when they are actually needed.
 A good example of this is the \pythonilIdx{range} datatype.
 We can iterate over all the 1\decSep000\decSep000\decSep000\decSep000 \pythonil{int} elements of \pythonil{range(100_000_000_000_000)} in a loop.
@@ -17,7 +17,7 @@ Vice versa, we can also create instances of collection datatypes from sequences 
 For example, the datatypes \pythonilIdx{list}, \pythonilIdx{tuple}, \pythonilIdx{set}, and \pythonilIdx{dict} can also be used like functions that take a sequence of items as parameter and create an instance of the corresponding datatype.
 In \cref{sec:lists}, we learned that \pythonil{[1, 2, 2, 3]} is a list \pgls{literal} with the specified contents.
 Passing this list to the \pythonilIdx{set} function/datatype, i.e., writing \pythonil{set([1, 2, 2, 3])} will create the set \pythonil{\{1, 2, 3\}}.
-We also learned that collection datastructures often have methods that allow us to modify in place by passing in other collections as arguments.
+We also learned that collection data structures often have methods that allow us to modify in place by passing in other collections as arguments.
 Invoking \pythonil{l.extend(\{1, 2, 3\})}\pythonIdx{list!extend}\pythonIdx{extend} will append the elements~\pythonil{1}, \pythonil{2}, and \pythonil{3} to a list~\pythonil{l}, for example.
 
 \begin{figure}%
@@ -38,7 +38,7 @@ Such iterators are single-use, one-pass objects.
 A \pythonil{for} loop, for example, will consume elements from an \pythonilIdx{Iterator} until the \pythonil{StopIteration} is raised.
 \pythonilIdx{Generator} expressions and functions are special \pythonilsIdx{Iterator} allowing us more control and a simpler syntax for defining element sequences, respectively.
 
-Many datastructures like collections allow us to visit their elements as often as we wish.
+Many data structures like collections allow us to visit their elements as often as we wish.
 They are instances of the \pythonilIdx{Iterable} interface.
 We can invoke \pythonil{iter(coll)} on a collection \pythonil{coll} implementing this \pythonilIdx{Iterable}~\cite{PSF:P3D:G:I1} iterface and will get an \pythonilIdx{Iterator}.
 Whenever we iterate over a list, a new \pythonilIdx{Iterator} is created this way.
@@ -161,11 +161,11 @@ Luckily, \python\ offers the much more convenient syntax of list comprehension\p
 %
 \gitLoadAndExecPython{iteration:simple_list_comprehension}{}{iteration}{simple_list_comprehension.py}{}%
 \listingPythonAndOutput{iteration:simple_list_comprehension}{%
-Some simple examples for list comprehension\pythonIdx{list!comprehension}\pythonIdx{comprehension!list}.}{}%
+Some simple examples of list comprehension\pythonIdx{list!comprehension}\pythonIdx{comprehension!list}.}{}%
 %
 \gitExec{exec:iteration:simple_list_comprehension:ruff}{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh iteration simple_list_comprehension.py}%
 \listingToolOutput{iteration:simple_list_comprehension:ruff}{%
-The output of \ruff\ for the examples for list comprehension in \cref{lst:iteration:simple_list_comprehension}: %
+The output of \ruff\ for the examples of list comprehension in \cref{lst:iteration:simple_list_comprehension}: %
 The \pythonilIdx{for}~loop constructing the list \textil{squares_1} can indeed by replaced by a list comprehension\pythonIdx{list!comprehension}\pythonIdx{comprehension!list}.}%
 %
 This syntax creates a new list whose contents are the results of applying a given \pythonil{expression} to the items~\pythonil{item} of a \pythonil{sequence}.
@@ -178,7 +178,7 @@ Optionally, we can select the elements that we want to have in the list by addin
 Interestingly, the sequence over which the list creation iterates can itself also be such a comprehension expression.
 It is totally fine to write \pythonil{[i * j for i in range(2) for j in range(2)]}, which yields \pythonil{[0, 0, 0, 1]} because both~\pythonil{i} and~\pythonil{j} will take on the values~\pythonil{0} and~\pythonil{1} independently of each other.
 
-In \cref{lst:iteration:simple_list_comprehension} we provide some examples for list comprehension.
+In \cref{lst:iteration:simple_list_comprehension} we provide some examples of list comprehension.
 First, we want to construct a list with the squares of the integer numbers from~0 to~10.
 Before learning about list comprehension, we would do this with a good old plain \pythonil{for} loop.
 We would start by initially creating an empty list~\pythonil{squares_1}.
@@ -331,7 +331,7 @@ A function that flattens \pythonilsIdx{list} and other \pythonilsIdx{Iterable} u
 %
 \gitExec{exec:iteration:list_flatten_iterables:doctest}{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest_doctest.sh iteration list_flatten_iterables.py}%
 \listingToolOutput{iteration:list_flatten_iterables:doctest}{%
-The output of \pytest\ executing the \pglspl{doctest} for the examples for list comprehension in \cref{lst:iteration:list_flatten_iterables}: %
+The output of \pytest\ executing the \pglspl{doctest} for the examples of list comprehension in \cref{lst:iteration:list_flatten_iterables}: %
 The test succeeded. %
 We used the test execution script given in \cref{lst:bash:pytest_doctest}.}%
 %
@@ -453,9 +453,9 @@ The corresponding syntax is as follows and only differs in the fact that curly b
 %
 \gitLoadAndExecPython{iteration:simple_set_comprehension}{}{iteration}{simple_set_comprehension.py}{}%
 \listingPythonAndOutput{iteration:simple_set_comprehension}{%
-Some simple examples for set comprehension\pythonIdx{set!comprehension}\pythonIdx{comprehension!set}.}{}%
+Some simple examples of set comprehension\pythonIdx{set!comprehension}\pythonIdx{comprehension!set}.}{}%
 %
-In program \programUrl{iteration:simple_set_comprehension} given as \cref{lst:iteration:simple_set_comprehension}, we provide some simple examples for set comprehension\pythonIdx{set!comprehension}\pythonIdx{comprehension!set}.
+In program \programUrl{iteration:simple_set_comprehension} given as \cref{lst:iteration:simple_set_comprehension}, we provide some simple examples of set comprehension\pythonIdx{set!comprehension}\pythonIdx{comprehension!set}.
 In \cref{exec:iteration:simple_set_comprehension} you can find the output of the program.
 First, we create a set with the results of the \pythonilIdx{isqrt} function from the \pythonilIdx{math} module.
 This function computes the integer part of a square root, i.e., $\pythonil{isqrt(i)}=\left\lfloor\sqrt{\pythonil{i}}\right\rfloor$.
@@ -520,11 +520,11 @@ Dictionary comprehension has the following syntax:%
 %
 \gitLoadAndExecPython{iteration:simple_dict_comprehension}{}{iteration}{simple_dict_comprehension.py}{}%
 \listingPythonAndOutput{iteration:simple_dict_comprehension}{%
-Some simple examples for set comprehension\pythonIdx{dict!comprehension}\pythonIdx{comprehension!dict}.}{}%
+Some simple examples of set comprehension\pythonIdx{dict!comprehension}\pythonIdx{comprehension!dict}.}{}%
 %
-In \cref{lst:iteration:simple_dict_comprehension} we provide some examples for dictionary comprehension.
+In \cref{lst:iteration:simple_dict_comprehension} we provide some examples of dictionary comprehension.
 We again start by \inQuotes{manually} creating a dictionary and then show how dictionary comprehension is much more concise.
-Similar to \cref{lst:iteration:simple_list_comprehension}, where we discussed list comprehension, we want to construct a datastructure with the squares of the numbers from~0 to~10.
+Similar to \cref{lst:iteration:simple_list_comprehension}, where we discussed list comprehension, we want to construct a data structure with the squares of the numbers from~0 to~10.
 This time, we use a dictionary and assign the squares~(as values) to the numbers~(the keys).
 
 We start with an empty dictionary~\pythonil{squares_1}.
@@ -553,7 +553,7 @@ For any prime number~$k'$, the largest divisor~$m<k'$ is then correctly~$1$.
 For~$1$, no such divisor exists, so~$1$ does not appear as key in the dictionary~\pythonil{maxdiv}.
 Finally, \pythonil{maxdiv} is printed and indeed contains the largest divisors for the numbers~$k\leq20$.
 
-With set and dictionary comprehension, we now expanded the nice properties of list comprehension to these two datastructures.
+With set and dictionary comprehension, we now expanded the nice properties of list comprehension to these two data structures.
 Both have a very simple syntax, which is very similar to list comprehension.
 They are quite useful for writing neat and tidy code.%
 \FloatBarrier%
@@ -563,11 +563,11 @@ They are quite useful for writing neat and tidy code.%
 \label{sec:generatorExpressions}%
 %
 List comprehension gives us the ability to elegantly solidify a sequence of data into an instance of~\pythonilIdx{list}.
-A list datastructure is basically one compact chunk of memory holding all the elements of the list.
+A list data structure is basically one compact chunk of memory holding all the elements of the list.
 A list can be extended by adding elements to it, but it will always be managed as such a continuous area of memory.
 It cannot exist in memory partially, but always as a whole.
 And typically, this is what we want:
-We want a datastructure that can store the elements and that lets us access them in an efficient way.
+We want a data structure that can store the elements and that lets us access them in an efficient way.
 Tuples, sets, and dictionaries are other manifestations of this concept.
 All of them hold all their elements in memory.
 
@@ -701,7 +701,7 @@ We can iterate over a generator expression only a single time.
 
 Therefore, generator expressions cannot be used if we need to iterate over a sequence multiple times.
 They also do not work when we want to access elements in a random order, for example, via indices.
-In such cases, the collection datastructures are the better choice.
+In such cases, the collection data structures are the better choice.
 However, in several use cases, generator expressions excel:%
 %
 \bestPractice{generatorExpression}{%
@@ -715,7 +715,7 @@ If the iteration over the elements can stop early, which can happen, e.g., when 
 The use of generator expressions in reducing functions, such as \pythonilIdx{sum}, \pythonilIdx{min}, \pythonilIdx{max}, \pythonilIdx{all}, and~\pythonilIdx{any}\pythonIdx{Generator}.}{}%
 %
 Generator expressions come in especially handy when we want to reduce or aggregate a sequence of data to a single number.
-\Cref{lst:iteration:generator_expressions_in_reduction} shows several examples for such computations.
+\Cref{lst:iteration:generator_expressions_in_reduction} shows several examples of such computations.
 
 First, we want to sum up the squares of all numbers from~0 to~999\decSep999.
 This was the example we mentioned at the beginning of this section.
@@ -787,19 +787,19 @@ The output \textil{sin(11)=-0.9999902065507035} tells us that we did, however, i
 We also know that only 12~loop steps were done~(as~$n$ starts with~0).
 
 Using a generator expression here was not just more memory efficient than using a list, it also was faster, because it did not need to compute all the values.
-Well, of course, we would not have needed any generator or datastructure in the first place.
+Well, of course, we would not have needed any generator or data structure in the first place.
 We could have just iterated over the \pythonilIdx{range} directly, which would have been even more efficient {\dots} but then we could not have used this as an example.
 
 \gitLoadAndExecPython{iteration:generator_expressions_to_collection}{}{iteration}{generator_expressions_to_collection.py}{}%
 \listingPythonAndOutput{iteration:generator_expressions_to_collection}{%
-Using generator expressions when creating collection datastructures\pythonIdx{Generator}\pythonIdx{list}\pythonIdx{dict}.}{}%
+Using generator expressions when creating collection data structures\pythonIdx{Generator}\pythonIdx{list}\pythonIdx{dict}.}{}%
 %
 \gitExec{exec:iteration:generator_expressions_to_collection:ruff}{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh iteration generator_expressions_to_collection.py}%
 \listingToolOutput{iteration:generator_expressions_to_collection:ruff}{%
 The output of \ruff\ for collection creation-expressions in \cref{lst:iteration:generator_expressions_to_collection}: %
 Passing generators to \pythonilIdx{list}, \pythonilIdx{set}, or \pythonilIdx{dict} constructors could be replaced by list-, set-, or dictionary comprehension.}%
 %
-Of course, generator expressions can also be passed to the constructors of collection datastructures or other functions that create such datastructures.
+Of course, generator expressions can also be passed to the constructors of collection data structures or other functions that create such data structures.
 Assume that we are processing numbers stored in a \pgls{CSV} format.
 Often, the rows of text files with tabular or matrix data are in this format.
 Here, ever line of text corresponds to a row of data elements.
@@ -835,7 +835,7 @@ The same holds for passing the generator expression to the \pythonil{sorted} fun
 
 With this, we have reached the end of our discussion of generator expressions.
 We have learned that we can use them as an efficient source of data.
-Different from collection datastructures, they do not hold all of their elements in memory at once.
+Different from collection data structures, they do not hold all of their elements in memory at once.
 They instead offer us sequences that are lazily evaluated, i.e., their elements are computed and returned when querried.
 This is much more efficient in cases where we only need to access the data elements one-by-one.
 It is double-efficient when we maybe want to abort the iteration over the data earlier.

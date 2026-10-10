@@ -185,7 +185,7 @@ It is a special case of~(and thus inherits from)~\pythonil{Shape}.
 \pythonil{Polygon} extends the interface of \pythonil{Shape} by offering the method~\pythonil{points}.
 This method returns an \pythonilIdx{Iterable}\pythonIdx{typing.Iterable} of instances of~\pythonil{Point}, which are the corner points of the polygon.
 Our goal here is to provide a base class for different types of \pythonils{Polygon}.
-We do not actually want to implement a datastructure for arbitrary polygons directly.
+We do not actually want to implement a data structure for arbitrary polygons directly.
 So the method \pythonil{points} raises\pythonIdx{raise} an \pythonil{NotImplementedError} and thus must be implemented by the subclasses that we will develop later.
 
 So we assume that non-abstract sublclasses of \pythonil{Polygon} will always implement method \pythonil{points} appropriately, to return the sequence of corner points of the polygon.

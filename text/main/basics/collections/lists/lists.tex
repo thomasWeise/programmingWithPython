@@ -14,16 +14,18 @@ A second example of using lists in \python: inserting and deleting elements, sor
 A third example of using lists in \python: slicing, adding, and multiplying lists.}{}%
 %
 A \pythonilIdx{list} is a mutable sequence of objects which can be accessed via their index~\cite{PSF:P3D:TPLR:S}.
-They work very similar to the strings we already discussed in \cref{sec:str}, but instead of (only) characters, they can contain any kind of objects and they can be modified.
-
-With program \programUrl{lists:lists_1} in \cref{lst:lists:lists_1}, we provide some first examples for using lists.
+They work very similar to the strings we already discussed in \cref{sec:str}, but instead of (only) characters, they can contain any kind of objects and they can be modified.%
+%
+\begin{sloppypar}%
+With program \programUrl{lists:lists_1} in \cref{lst:lists:lists_1}, we provide some first examples of using lists.
 A list can be defined by simply writing its contents, separated by~\pythonilIdx{,} inside square brackets~\pythonil{[...]}\pythonIdx{[\idxdots]}.
 \pythonil{["apple", "pear", "orange"]} creates a list with three elements, namely the strings \pythonil{"apple"}, \pythonil{"pear"}, and~\pythonil{"orange"}.
 If we want to store a list in a variable, then we can use the \pgls{typeHint}~\pythonil{list[elementType]}\pythonIdx{list!type hint} where \pythonil{elementType} is to be replaced with the type of the list elements~\cite{PEP585}.
 \pythonil{fruits: list[str] = ["apple", "pear", "orange"]} therefore creates the list \pythonil{fruits} with the contents listed above.
-It also tells any automated type checking tool and other programmers that we intent that only \pythonil{str} values should be stored inside the list.
-
-The length of a list is can be ob\pythonIdx{list!unpacking}\pythonIdx{unpacking}tained using the \pythonilIdx{len}\pythonIdx{list!len} function.
+It also tells any automated type checking tool and other programmers that we intend that only \pythonil{str} values should be stored inside the list.%
+\end{sloppypar}%
+%
+The length of a list can be obtained using the \pythonilIdx{len}\pythonIdx{list!len} function.
 \pythonil{len(fruits)} will therefore return the value~\pythonil{3}.
 We can use lists in \pglspl{fstring} just like any other datatype.
 The string representation of \pythonil{fruits} which then would be used is simply \pythonil{"['apple', 'pear', 'orange']"}.%
@@ -47,12 +49,10 @@ It contains all seven fruits and vegetables and its \pythonil{len(food)} is ther
 
 We can access the elements of a list by their index, again in the same way we access the characters in a string.
 \pythonil{food[0]} returns the first element of the list \pythonil{food}, which is \pythonil{"apple"}.
-\pythonil{food[1]} returns the second element of the list \pythonil{food}, which is \pythonil{"pear"}.
-And so on.
+\pythonil{food[1]} returns the second element of the list \pythonil{food}, which is \pythonil{"pear"}, and so on.
 We can also access the elements using the end of the list as reference:
 \pythonil{food[-1]} returns the last element of the list \pythonil{food}, which is \pythonil{"leek"}.
-\pythonil{food[-2]} returns the second-to-last element of the list \pythonil{food}, which is \pythonil{"potato"}.
-And so on.
+\pythonil{food[-2]} returns the second-to-last element of the list \pythonil{food}, which is \pythonil{"potato"}, and so on.
 
 Finally, elements can also be deleted from the list by their index.
 \pythonIdx{del}\pythonIdx{list!del}\pythonil{del food[1]} deletes the second element from the list~\pythonil{food}.
@@ -66,11 +66,11 @@ The \pythonilIdx{not in}\pythonIdx{list!not in} operator inquires the exact oppo
 \pythonil{2 not in numbers} becomes \pythonil{True} if \pythonil{2} is \emph{not} in the list~\pythonil{numbers} and is \pythonil{False} if it is in the list.
 If we want to know at which index a certain element in the list is located, we can use the \pythonilIdx{index}\pythonIdx{list!index} method.
 \pythonil{numbers.index(7)} will search where the number~\pythonil{7} is located inside~\pythonil{numbers}.
-Since it is the second elements and indices start at~0, it returns~\pythonil{1}.
-Similarly, \pythonil{numbers.index(7)} returns~\pythonil{3}, because \pythonil{numbers[3] == 2}.
+Since it is the second element and indices start at~0, it returns~\pythonil{1}.
+Similarly, \pythonil{numbers.index(2)} returns~\pythonil{3}, because \pythonil{numbers[3] == 2}.
 
-The \pythonilIdx{insert}\pythonIdx{list!insert} method allows us insert an element at a specific index.
-The elements which are currently at that or higher indices are moved up one slot.
+The \pythonilIdx{insert}\pythonIdx{list!insert} method allows us to insert an element at a specific index.
+The elements which are currently at that location or at higher indices are all shifted up one slot.
 \pythonil{numbers.insert(2, 12)} will insert the number~\pythonil{12} at index~\pythonil{2} into the list~\pythonil{numbers}.
 The element~\pythonil{56} which currently occupies this spot is moved to index~\pythonil{3}, which means that the~\pythonil{2} located at this place is moved to index~\pythonil{4}, which means that the value~\pythonil{4} which right now is stored in this location will move to index~\pythonil{5}.
 The list \pythonil{numbers} now looks like this: \pythonil{[1, 7, 12, 56, 2, 4]}.
@@ -78,10 +78,12 @@ The list \pythonil{numbers} now looks like this: \pythonil{[1, 7, 12, 56, 2, 4]}
 If we want to remove a specific element from the list without knowing its location, the \pythonilIdx{remove}\pythonIdx{list!remove} method will do the trick.
 \pythonil{numbers.remove(56)} searches through the list~\pythonil{numbers} for the element~\pythonil{56} and, once it finds it, deletes it.
 The list becomes~\pythonil{[1, 7, 12, 2, 4]}.
+Notice that \pythonilIdx{remove}\pythonIdx{list!remove} only deletes the single first occurrence of the element.
+If there had been two \pythonil{56}es in our list, only the first one would have been removed.
 
-We can sort a list inplace by using the~\pythonilIdx{sort}\pythonIdx{list!sort} method.
+We can sort a list in place by using the~\pythonilIdx{sort}\pythonIdx{list!sort} method.
 \pythonil{numbers.sort()} sorts the list~\pythonil{numbers}, which then becomes~\pythonil{[1, 2, 4, 7, 12]}.
-Similarly, we can reverse a list, i.e., make the last element become the first, the second-to-last element the second, and so on, by using the method~\pythonil{reverse}\pythonIdx{list!reverse}.
+Similarly, we can reverse a list, i.e., make the last element become the first, the second-to-last element the second, and so on, by using the method~\pythonil{numbers.reverse}\pythonIdx{reverse}\pythonIdx{list!reverse}.
 Reversing the list~\pythonil{numbers} after we sorted it will turn it into~\pythonil{[12, 7, 4, 2, 1]}.
 
 If we want to create a list copy of an existing sequence, we can just invoke the constructor~\pythonilIdx{list} directly.
@@ -102,6 +104,7 @@ The result is a new list which contains all elements of the first list~\pythonil
 Therefore, the expression \pythonil{[1, 2, 3, 4] + [5, 6, 7]} results in \pythonil{[1, 2, 3, 4, 5, 6, 7]}.
 Similarly, if you multiply a list by an integer~\pythonil{n}, you get a new list which equals the old list \pythonil{n}~times concatenated.
 \pythonil{[5, 6, 7] * 3}\pythonIdx{*!list}\pythonIdx{list!*} therefore yields \pythonil{[5, 6, 7, 5, 6, 7, 5, 6, 7]}.
+You would get the same result doing \pythonil{3 * [5, 6, 7]}.
 
 In \cref{sec:strBasicOperations}, we discussed string slicing.
 Lists can be sliced in pretty much the same way\pythonIdx{list!slicing}\pythonIdx{slicing}\pythonIdx{slice}~\cite{PSF:P3D:TPLR:S}.
@@ -109,7 +112,7 @@ When slicing a list~\pythonil{l} or a string, you can provide either two or thre
 If \pythonil{j < 0}, then it is replaced with~\pythonil{len(l) - j}\pythonIdx{len}.
 In both the two and three indices case, \pythonil{i} is the inclusive start index and \pythonil{j} is the exclusive end index, i.e., all elements with index~\pythonil{m} such that \pythonil{i <= m < j}.
 In other words, the slice will contain elements from~\pythonil{l} whose index is between~\pythonil{i} and~\pythonil{j}, including the element at index~\pythonil{i} but \emph{not} including the element at index~\pythonil{j}.
-If a third index~\pythonil{k} is provided, the it is the step length.
+If a third index~\pythonil{k} is provided, then it is the step length.
 \pythonil{l[i:j:k]} selects all items at indices~\pythonil{m} where \pythonil{m = i + n*k}, \pythonil{n >= 0} and \pythonil{i <= m < j}.
 If~\pythonil{i} is omitted, i.e., if \pythonil{:j:k} is provided, then \pythonil{i=0} is assumed.
 If~\pythonil{j} is omitted, i.e., if \pythonil{i::k} is provided, then \pythonil{j=len(l)} is assumed.

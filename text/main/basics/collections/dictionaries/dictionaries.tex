@@ -9,7 +9,7 @@ Dictionaries in \python\ are collections that store key-value pairs.
 The value associated with a given key is accessed via the \pythonil{[...]}\pythonIdx{[\idxdots]}-based indexing.
 The keys are unique and can be of an arbitrary type, as long as they are immutable.
 The concept of dictionary is also known as hash table or hash map in other languages or domains.
-Sets and dictionaries in \python\ are implemented using similar datastructures~\cite{PSF:TPW:TC}, namely hash tables~\cite{K1998SAS,CLRS2009ITA,SKS2019DSC}, and thus exhibit similar performance.%
+Sets and dictionaries in \python\ are implemented using similar data structures~\cite{PSF:TPW:TC}, namely hash tables~\cite{K1998SAS,CLRS2009ITA,SKS2019DSC}, and thus exhibit similar performance.%
 %
 \begin{sloppypar}%
 \Cref{lst:dicts:dicts_1} shows program \programUrl{dicts:dicts_1} with some examples of how we can use dictionaries.
@@ -35,7 +35,7 @@ Similarly, \pythonil{list(num_str.values())}\pythonIdx{values}\pythonIdx{dict.va
 Finally, \pythonil{num_str.items()}\pythonIdx{items}\pythonIdx{dict.items} returns the key-value pairs a sequence of tuples and wrapping this into a list yields \pythonil{[(2, "two"), (1, "one"), (3, "three"), (4, "four")]}.
 You may notice that all of these sequences have the same order of elements that was used when we created the dictionary.
 They key-value pair \pythonil{2: "two"} comes before \pythonil{1: "one"}.
-This is because dictionaries, different from sets, are ordered datastructures.
+This is because dictionaries, different from sets, are ordered data structures.
 Their elements appear in all sequenced versions always in the same order in which they were originally inserted into the dictionary~\cite{PSF:P3D:TPLR:DM:D}.%
 \end{sloppypar}%
 %
@@ -48,10 +48,10 @@ Oops, we noticed a typo:
 We wanted to add \pythonil{"five"}, not \pythonil{"fivv"}.
 \pythonil{num_str[5] = "five"} will overwrite this faulty assignment.
 All keys in a dictionary are unique, so there can only be one value associated with key~\pythonil{5}.
-This also means that dictionary keys must obeye the same requirement as set elements:%
+This also means that dictionary keys must obey the same requirement as set elements:%
 \end{sloppypar}%
 %
-\bestPractice{dictKeys}{Dictionary keys must be immutable.}%
+\bestPractice{dictKeys}{Dictionary keys must be immutable~(and hashable).}%
 %
 We can also delete key-value pairs.
 This is done by invoking \pythonil{del dict[key]}\pythonIdx{del}\pythonIdx{dict!del}, which deletes the key~\pythonil{key} and its associated value from the dictionary.

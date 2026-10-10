@@ -11,7 +11,7 @@ The results of static type checking with \mypy\ of the program given in \cref{ls
 %
 \begin{sloppypar}%
 Recently, we learned that static code analysis tools can help us to discover subtle problems in our programs.
-Obviously, when dealing with more complex datastructures like lists, there are also more potential problems, more mistakes that one could make.
+Obviously, when dealing with more complex data structures like lists, there are other potential problems, more mistakes that one could make.
 Let us look at the very short example program \programUrl{lists:lists_error} in \cref{lst:lists:lists_error}.
 The program consists of only two lines, \pythonil{my_list: list[str] = list([1, 2, 3])} and \pythonil{print(my_list)}.
 It does not have any \emph{error} in the strict sense.
@@ -25,9 +25,9 @@ We defined \pythonil{my_list} as a list of strings by using the \pgls{typeHint} 
 However, we then set its value to be a list of three integer numbers (hence, three errors).
 This is clearly wrong.
 
-But is this all what's wrong?
+But is this all that's wrong?
 \mypy~is a tool that looks for type-related errors and \emph{only} for type-related errors.
-But did we \emph{only} commit type-related errors?
+But did we commit \emph{only} type-related errors?
 Are there tools that help us to find \emph{other} errors?
 \Pglspl{linter} are tools for analyzing program code to identify bugs, problems, vulnerabilities, and inconsistent code styles~\cite{J1978LACPC,RJYKK2022CULTDVM}.
 As promised in the title of this section, we will also use another tool to analyze this program:~the \pgls{linter}~\ruff.
@@ -60,9 +60,9 @@ Check~\cite{M2022RAEFPLACFWIR} under \citeurl{M2022RAEFPLACFWIR} in the \emph{Ru
 Sometimes, we wish to ignore some rules which do not apply to our programming scenario.
 This can be done using the optional \textil{--ignore=...} argument.
 You can find the complete command that we used to execute \ruff\ in the top part of \cref{exec:lists:lists_error:ruff}.
-Because it is a bit long, you will probably want to create your own shell script for running \ruff\ to avoid always typing down this lengthy command.
+Because it is a bit long, you will probably want to create your own shell script for running \ruff\ to avoid always typing this lengthy command.
 
-At \ruff\ does not check for type-related errors at the time of this writing.
+As \ruff\ does not check for type-related errors at the time of this writing.
 But -- as you can see in \cref{exec:lists:lists_error:ruff} -- it does find two other issues with our program file:
 First, it complains that any python file should start with a string specifying the purpose of the file.
 The use of such \pglspl{docstring} makes it easier for other programmers to understand what is done by which file in projects that are composed of multiple \python\ scripts.%

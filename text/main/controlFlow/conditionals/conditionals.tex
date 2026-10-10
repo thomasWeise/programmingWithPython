@@ -170,8 +170,7 @@ An example of using the nested \pythonil{if ... elif}\pythonIdx{if{\idxdots}elif
 Notice that we can use arbitrarily many \pythonils{elif}\pythonIdx{elif} and, optionally, one~\pythonilIdx{else}.
 Only if the condition of the \pythonilIdx{if} evaluates to~\pythonilIdx{False}, the condition of the first~\pythonilIdx{elif} is checked.
 Only if both the conditions of the \pythonilIdx{if} and the first \pythonilIdx{elif} returned \pythonilIdx{False}, the condition of the second \pythonilIdx{elif} is checked.
-Only if both the conditions of the \pythonilIdx{if} and the first and second \pythonilIdx{elif} returned \pythonilIdx{False}, the condition of the third \pythonilIdx{elif} is checked.
-And so on.
+Only if both the conditions of the \pythonilIdx{if} and the first and second \pythonilIdx{elif} returned \pythonilIdx{False}, the condition of the third \pythonilIdx{elif} is checked, and so on.
 Only if all the conditions of the \pythonilIdx{if} and all \pythonils{elif} were \pythonil{False}, the body of the \pythonilIdx{else} is executed (if any).
 
 We use this syntax to classify a person's current phase of life by their age in \cref{lst:conditionals:if_elif}.
@@ -195,8 +194,7 @@ If this is \pythonilIdx{True}, the, again, the complete nested \pythonil{if...el
 
 If this is not the case, i.e., if \pythonil{age <= 6} evaluates to~\pythonilIdx{False}, we move on to the next~\pythonilIdx{elif}.
 Only then, \pythonil{elif age <= 8} is executed and if its condition evaluates to~\pythonilIdx{True}, we refer to the life phase as \pythonil{"middle childhood"} and are done with the \pythonil{if...elif...else}.
-If \pythonil{age <= 8} does not hold, we move to the next~\pythonilIdx{elif}.
-And so on.
+If \pythonil{age <= 8} does not hold, we move to the next~\pythonilIdx{elif}, and so on.
 
 If even \pythonil{age < 80}, the condition of the last~\pythonilIdx{elif}, is~\pythonilIdx{False}, the \pythonilIdx{else} block is executed.
 It will set \pythonil{phase = "late adulthood"}.

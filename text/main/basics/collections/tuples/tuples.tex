@@ -25,16 +25,21 @@ The results of the \ruff\ \pgls{linter} applied to the program \programUrl{tuple
 Tuples are very similar to lists, with three differences:
 First, they are immutable.
 You cannot add, delete, or change the elements of a tuple.
-Second, on a semantic level, lists are intended to hold objects of the same type.
-The \pgls{typeHint}~\pythonil{list[int]} indicates that we want something to be list of integer numbers.
+Second, tuples are defined using parentheses instead of square brackets, i.e., with~\pythonil{(...)}\pythonIdx{(\idxdots)}.
+
+Third, on a semantic level, lists are intended to hold objects of the same type, while tuples can contain elements of different types.
+The \pgls{typeHint}~\pythonil{list[int]} indicates that we want something to be a list of integer numbers.
 While the \python\ interpreter permits us to ignore this and still store arbitrary objects in that list, this would violate the idea behind lists.
-Tuples, on the other hand, are designed to contain elements of different types.
+Tuples, on the other hand, are designed to contain elements of different types.\footnote{%
+This is only true for tuples that are defined using a \pgls{typeHint} \emph{without} ellipsis~\pythonil{...}\pythonIdx{\idxdots}, but more about this later.%
+}
 Since they cannot be changed, it will always be clear which element of which type is at which location.
-Three, tuples are defined using parentheses instead of square brackets, i.e., with~\pythonil{(...)}\pythonIdx{(\idxdots)}.%
+%
 %
 \bestPractice{listOrTuple}{%
-When you need to use an indexable sequence of objects, use a list only if you intent to modify this sequence. %
-If you do not intent to change the sequence, use a tuple.}%
+When you need to use an indexable sequence of objects, use a \pythonilIdx{list} only if you intent to modify this sequence. %
+If you do not intend to change the sequence, use a \pythonilIdx{tuple}.}%
+%
 %
 \begin{sloppypar}%
 \Cref{lst:tuples:tuples_1} shows us some of the things we can do with tuples.
@@ -46,9 +51,11 @@ Notice that the tuple is defined using parentheses, whereas a list with the same
 \end{sloppypar}%
 %
 \begin{sloppypar}%
-If we are not sure about the actual number of elements that we will put in a tuple but know that they are all of the same type, we can use the ellipsis~\pythonilIdx{...} in the \pgls{typeHint}.
+If we are not sure about the actual number of elements that we will put in a tuple but know that they are all of the same type, we can use the ellipsis~\pythonil{...}\pythonIdx{\idxdots} in the \pgls{typeHint}.
 \pythonil{tuple[str, ...]} denotes a tuple that can receive an arbitrary amount of strings.\pythonIdx{tuple!type hint!...}
-The line \pythonil{veggies: tuple[str, ...] = ("onion", "potato", "leek", "garlic")} is therefore correct and defined a tuple~\pythonil{veggies} consisting of four strings.%
+The line \pythonil{veggies: tuple[str, ...] = ("onion", "potato", "leek", "garlic")} is therefore correct and defined a tuple~\pythonil{veggies} consisting of four strings.
+This makes sense especially if we convert a \pythonil{list[str]} to a tuple. %
+Notice that using the ellipsis~\pythonil{...}\pythonIdx{\idxdots} in the \pythonilIdx{tuple} \pgls{typeHint} is \emph{only} permitted for homogeneous tuples, i.e., tuples where all elements are of the same type~\cite{PEP483,PEP484}.%
 \end{sloppypar}%
 %
 The elements of tuples can be accessed using the normal square brackets, exactly like list elements.
@@ -88,12 +95,11 @@ As last element, we again define a tuple~\pythonil{("pear", -2, 3.3)}.
 \Cref{exec:tuples:tuples_2} shows that we can print this list of tuples just like any other list (using an~\pgls{fstring}).%
 \end{sloppypar}%
 %
-There is an order defined on tuples~(and lists, too), meaning that they support the all six comparison operators \pythonilIdx{<}, \pythonilIdx{<=}, \pythonilIdx{==}, \pythonilIdx{>=}, \pythonilIdx{>}, and~\pythonil{!=}\pythonIdx{"!=}.
+There is an order defined on tuples~(and lists, too), meaning that they support all six comparison operators \pythonilIdx{<}, \pythonilIdx{<=}, \pythonilIdx{==}, \pythonilIdx{>=}, \pythonilIdx{>}, and~\pythonil{!=}\pythonIdx{"!=}.
 Two tuples~\pythonil{x} and~\pythonil{y} are compared elementwise lexicographically.
 If the first element of~\pythonil{x} is less than the first element of~\pythonil{y}, then~\pythonil{x < y}.
 If the first element of~\pythonil{x} is greater than the first element of~\pythonil{y}, then~\pythonil{x > y}.
-If the first elements of both tuples are equal, the comparison continues at the second element, if both tuples have at least length~2~(otherwise, the shorter tuple is considered as smaller).
-And so on.
+If the first elements of both tuples are equal, the comparison continues at the second element, if both tuples have at least length~2~(otherwise, the shorter tuple is considered as smaller), and so on.
 This means that we can sort our list of tuples by writing~\pythonil{tuples.sort()}\pythonIdx{list!sort}.
 As a result, the tuple with the string \pythonil{"apples"} remains at the first position.
 All other tuples have \pythonil{"pear"} as first element and thus are \inQuotes{greater.}
@@ -103,7 +109,7 @@ Among these two tuples, the one with the smallest third element comes first.
 Finally, this example program shows us that we can unpack tuples just like lists\pythonIdx{tuple!unpacking}\pythonIdx{unpacking}.
 \pythonil{a, b, c = mixed} stores \pythonil{"apple"} in~\pythonil{a}, \pythonil{12} in~\pythonil{b}, and~\pythonil{1e25} in~\pythonil{c}.
 Interestingly, we can also create tuples the other way around.
-We can leave away the parentheses when creating tuples in cases where no confusion is possible.
+We can omit the parentheses when creating tuples in cases where no confusion is possible.
 \pythonil{mixed = "x", 4, 4.5} has the same effect as \pythonil{mixed = ("x", 4, 4.5)}.
 
 Let us finally explore the immutability of tuples in \cref{lst:tuples:tuples_2}.

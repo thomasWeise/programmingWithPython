@@ -1472,7 +1472,7 @@ As you will see in \cref{lst:dunder:xml_context:part_1,lst:dunder:xml_context:pa
 In \cref{lst:dunder:xml_context:part_1}, we begin by defining an internal constant \pythonil{_ESC}, which we use for \pgls{XML} escaping special characters in strings with \pgls{XML}~entities.
 For this purpose, we use the functions \pythonilIdx{maketrans}\pythonIdx{str!maketrans} and \pythonilIdx{translate}\pythonIdx{str!translate} of the class~\pythonilIdx{str}.
 The former accepts a dictionary where the keys are single characters and the corresponding values are strings with which these characters should be replaced.
-It creates some \python-internal datastructure which then can be passed to \pythonilIdx{translate}\pythonIdx{str!translate} to perform the replacement.
+It creates some \python-internal data structure which then can be passed to \pythonilIdx{translate}\pythonIdx{str!translate} to perform the replacement.
 For example, we could do~\pythonil{x = str.maketrans(\{"A": "XYZ"\})}.
 Then, \pythonil{"ABCBA".translate(x)} would yield~\pythonil{"XYZBCBXYZ"}.
 This is very useful to painlessly implement rudimentary support to escape special characters based on the \pgls{XML}~standard~\cite{BPSMM2008EMLX1FE}.
@@ -1765,7 +1765,7 @@ Much of the syntax of \python\ is governed via dunder methods.
 This also holds for convenient shorthands, like the \pythonil{[...]}\pythonIdx{[\idxdots]}~bracket access to elements or the \pythonilIdx{in} and \pythonilIdx{for}~keywords.
 Back in \cref{sec:collections}, we learned about the various basic collection classes that \python\ provides, ranging from dictionaries over sets to lists.
 Maybe we want to implement our own collection?
-It maybe could be a tree datastructure, for example.
+It maybe could be a tree data structure, for example.
 In this case, we would first like to support the \pythonilIdx{len}~function, which returns the number of elements stored in the collection, by implementing~\dunder{len}.
 We maybe also want to support the \pythonil{in}~keyword, allowing us to check whether an element~\pythonil{e} is in a collection~\pythonil{c} by writing~\pythonil{e in c}.
 This can be done by implementing~\dunder{contains}.

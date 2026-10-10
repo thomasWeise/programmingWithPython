@@ -82,7 +82,7 @@ Except for that, \pythonils{float} are pretty cool, though.%
 \listingBox{exec:float_arithmetics}{Basic arithmetic with floating point numbers in \python.}{,style=python_console_style}%
 %
 Floating point numbers in \python\ can be distinguished from \pythonils{int}\pythonIdx{int} by having a decimal dot in their text representation, i.e., \pythonil{5.0} is a \pythonilIdx{float} and \pythonil{5} is an \pythonilIdx{int}.
-Let us now look at some examples for the basic arithmetic operations available for \pythonils{float}\pythonIdx{float} in \cref{exec:float_arithmetics}.
+Let us now look at some examples of the basic arithmetic operations available for \pythonils{float}\pythonIdx{float} in \cref{exec:float_arithmetics}.
 
 We already learned that the division operator~\pythonilIdx{/} always yields a \pythonilIdx{float} result.
 Therefore \pythonil{6 / 3} yields \pythonil{2.0} instead of \pythonil{2}.
@@ -190,7 +190,7 @@ The reason why Banker's Rounding is preferred is that it is not biased in any di
 If $x.5$ is always rounded toward~$x+1$ and we have many numbers of the form $x.5$, then the average rounded result tends to be somewhat larger than the average of the unrounded numbers.
 Banker's Rounding avoids this problem by sometimes rounding numbers ending in~5 to larger and sometimes to smaller values.
 
-We find examples for the behavior of \pythonilIdx{round} in \cref{exec:float_rounding}.
+We find examples of the behavior of \pythonilIdx{round} in \cref{exec:float_rounding}.
 \pythonil{round(0.4)}~yields the integer~\pythonil{0}, as expected.
 \pythonil{round(0.5)}~returns~\pythonil{0} as well, which one may not expect -- but \pythonil{0}~is even and \pythonil{1}~would be odd.
 \pythonil{round(0.6)}~gives us the integer~\pythonil{1}.
@@ -278,7 +278,7 @@ It is only used for input and output of numbers.
 Internally, the numbers are still stored in exactly the IEEE~754~Standard format~\cite{IEEE2019ISFFPA,H1997IS7FPN}.
 This is very similar to the fact that we can enter integer numbers in hexadecimal, decimal, octal, or binary format -- but regardless of how we enter them, they are still stored in the \inQuotes{same} \pythonil{int} structure, which does not remember in which format the numbers were originally specified.
 
-In \cref{exec:float_scientific_notation} we provide some examples for this notation.
+In \cref{exec:float_scientific_notation} we provide some examples of this notation.
 When we write \pythonil{0.001} or \pythonil{0.0001} in a \python\ console, the output is still this same number.
 However, \pythonil{0.00009} is presented as \pythonil{9e-05}, which stands for~$9*10^{-5}$.%
 %

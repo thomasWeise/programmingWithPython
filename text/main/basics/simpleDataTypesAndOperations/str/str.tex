@@ -292,8 +292,8 @@ It first creates the result of \pythonil{str(1 < 5)}, which is a string.
 \pythonil{" is True and "} is also a string by definition.
 The two are concatenated, which results in a third string.
 Then \pythonil{str(1 + 5)} is evaluated, yielding the fourth string.
-The third string and this one are concatenated, resulting in a fifth string.
-And so on, resulting in the creation of seven separate string objects in total.
+The third string and this one are concatenated, resulting in a fifth string, and so on.
+This results in the creation of seven separate string objects in total.
 All of them need to be explicitly created, because this is what we demanded with the command.
 
 When using an \pgls{fstring}, there is no explicit need to create the intermediate concatenation results as objects.

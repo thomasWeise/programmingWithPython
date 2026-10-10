@@ -233,7 +233,7 @@ The output in \cref{exec:loops:for_loop_nested_primes} tells us that, after perf
 %
 \gitLoadAndExecPython{loops:for_loop_sequence}{}{loops}{for_loop_sequence.py}{}%
 \listingPythonAndOutput{loops:for_loop_sequence}{%
-An example iterating over the elements in different collection datastructures using \pythonilIdx{for} loops\pythonIdx{loop!for}.}{}%
+An example iterating over the elements in different collection data structures using \pythonilIdx{for} loops\pythonIdx{loop!for}.}{}%
 %
 When introducing the \pythonilIdx{for} loop\pythonIdx{for}\pythonIdx{loop!for}, we stated that it iterates over sequences of data.
 We learned that \pythonilsIdx{range} are the most basic such sequences.
@@ -273,7 +273,7 @@ As fourth and final example, we create a dictionary~\pythonil{dc}\pythonIdx{dict
 It contains only the two entries, namely~\pythonil{\{1.1: True, 2.5: False\}}.\pythonIdx{dict!iterate over}
 Now a dictionary is a bit special:
 It maps keys to values.
-When working with the whole dictionary datastructure~\pythonil{dc} as a collection, then we can access it in three ways:
+When working with the whole dictionary data structure~\pythonil{dc} as a collection, then we can access it in three ways:
 %
 \begin{enumerate}%
 %
@@ -318,7 +318,7 @@ Computing a list of all primes from \intRange{2}{200} using nested \pythonilIdx{
 Compared to \cref{lst:loops:for_loop_nested_primes}, this program is more efficient because it only tests primes as divisors.%
 }{}
 
-Let us now use this new ability to iterate over collection datastructures to improve upon our prime number enumeration program \cref{lst:loops:for_loop_nested_primes}.
+Let us now use this new ability to iterate over collection data structures to improve upon our prime number enumeration program \cref{lst:loops:for_loop_nested_primes}.
 Back when writing that program, we immediately stored \pythonil{2} as a prime into our list~\pythonil{primes}.
 We then only tried the odd numbers less than~200 as potential prime number \pythonils{candidate}.
 For each potential prime number \pythonil{candidate}, we tested all (odd) numbers~\pythonil{check} from \pythonil{range(3, isqrt(candidate) + 1, 2)}\pythonIdx{range} as possible divisors.
@@ -382,7 +382,7 @@ The data values~\pythonil{v} are then accessed via~\pythonil{data[i]}.
 This is illustrated in \cref{lst:loops:for_loop_no_enumerate_1}.
 
 The drawback of this method is that it will \emph{only} work for \pythonilsIdx{list} and \pythonilsIdx{tuple}.
-Among the collection datastructures discussed so far, only \pythonilsIdx{list} and \pythonilsIdx{tuple} are directly indexable.
+Among the collection data structures discussed so far, only \pythonilsIdx{list} and \pythonilsIdx{tuple} are directly indexable.
 However, as we have seen, we can iterate over all of them.
 Therefore, the second option to achieve our goal would be to just \inQuotes{normally} iterate over the container.
 Of course, then we do not know the index of the current element.
@@ -639,7 +639,7 @@ Otherwise, i.e., if~$E=M$, we have found the element.
 Of course, if we did not yet find~$E$ bit the selected half of $S$ is empty because $S$ only had one or two elements left in it {\dots} then $E$ is not in $S$ and, hence, not in \pythonil{data}.
 
 This means in one step we have effectively halved the size of~$S$.
-If~$n=\pythonil{len(data)}$, then we can do this halfing at most $\log_2 n$~times and the time complexity of binary search is in~\bigOb{\log n}~\cite{K1998SAS,H2024POIC:BS,B1999PP}.%
+If~$\scale=\pythonil{len(data)}$, then we can do this halfing at most $\log_2 \scale$~times and the time complexity of binary search is in~\bigOb{\log{\scale}}~\cite{K1998SAS,H2024POIC:BS,B1999PP}.%
 %
 \begin{sloppypar}%
 In~\cref{lst:loops:while_loop_search}, we want to find the indices of some characters in the alphabetically sorted string~\pythonil{data = "abdfjlmoqsuvwyz"}.
