@@ -208,7 +208,7 @@ With the \pgls{ide} and \mypy, we now have independent tools that can help us to
 The more such tools we have \emph{and actively use}, the more likely it is that we can produce error-free programs.
 %
 When reading the text, you may think:
-\emph{\inQuotes{\mypy\ is an additional software. %
+\emph{\inQuotes{\mypy\ is additional software. %
 If I want to use it, I need to install it and I will have to learn its command line parameters. %
 Everytime I do use it and apply it to some \python\ code, I need to open the \pgls{terminal}, go into the directory where my program code is located, run the \mypy\ program, and read the output. %
 This is, like, lots of work. %
@@ -224,7 +224,7 @@ A professional software engineer or programmer or, actually, any professional co
 In your professional life, you will learn dozens if not hundreds of tools on different \pglspl{OS}.
 The more tools you know, the easier it gets to learn and dig into other software if need be.
 Today, automated builds in \pgls{continuousIntegration}, for example, alone may involve more than a dozen programs.
-Being able to learning new tools and becoming proficient with them is thus an essential skill of a programmer.%
+Being able to learning new tools and become proficient with them is thus an essential skill of a programmer.%
 %
 \endhsection%
 %
@@ -243,7 +243,8 @@ Therefore, if the programmer would have wanted \pythonil{int_var} to strictly be
 If they wanted to store \pythonils{float} in it, they would have declared it as a \pythonil{float} variable.
 The compiler would have seen any malpractice right away.
 It could tell us that either line~4 is wrong or our initial assignment of an \pythonil{int} to the variable in line~1 would be converted to a~\pythonil{float}\footnote{%
-This is one exception that proves the rule in many strongly-typed languages: Integers can be intereped as floating point numbers where necessary.%
+This is one exception that proves the rule in many strongly-typed languages: %
+Integers can be interpreted as floating point numbers where necessary.%
 }.
 
 As already said, this is where the dynamic typing of \python\ comes back to bite us.
@@ -254,9 +255,9 @@ Imagine wading through thousands of lines of code to figure out what type a vari
 Realizing that dynamic typing can be a blessing but also a problem, \emph{optional} \pglspl{typeHint} were introduced into the \python\ language~\cite{PEP484,R2023PTHATCPBNI}.
 In other words, \python\ \emph{can} support static typing as well~\cite{PSF:STWP}.
 We can now declare the type of a variable \emph{if we want to do so}.
-This solves the above problem basically entirely and allows us to tell our intentions to type checking tools.
+This solves the above problem basically entirely and allows us to state our intentions to type checking tools.
 
-When we declare and assign a variable, \pythonil{my_var = 1} and want to define it as integer variable, for example, we simply write \pythonil{my_var: int = 1}.
+When we declare and assign a variable, \pythonil{my_var = 1} and want to define it as an integer variable, for example, we simply write \pythonil{my_var: int = 1}.
 Of course, a type checker will already see that \pythonil{my_var} should be an integer variable when we assign the integer~\pythonil{1} to it.
 However, by writing \pythonil{: int}\pythonIdx{:} after its name, we also clearly establish our intention.
 Then, \pythonil{my_var} is a variable in which only integers should be stored.
@@ -280,15 +281,15 @@ The results of static type checking the program \programUrl{variables:types_wron
 
 If the author of \cref{lst:variables:types_wrong} had used \pglspl{typeHint}, they could have written their program differently, as illustrated in \cref{lst:variables:types_wrong_hints_1,lst:variables:types_wrong_hints_2}.
 Both programs as well as the original one produce exactly the same output if we execute them with the \python\ interpreter.
-The \python\ intereter ignores \pglspl{typeHint}.
+The \python\ interpreter ignores \pglspl{typeHint}.
 It does not care whether we violate them or not in our code.
 However, if we type-check them with \mypy, we get two different results, namely \cref{exec:variables:variable_types_wrong_hints_1:mypy,exec:variables:variable_types_wrong_hints_2:mypy}, respectively.
 
 In program \programUrl{variables:types_wrong_hints_1} given as \cref{lst:variables:types_wrong_hints_1}, we annotate \pythonil{int_var} as an integer variable by writing \pythonil{int_var: int}.
 While the name of the variable already indicates that we want it to hold integers, we now have formally specified this intention.
-The \mypy\ type checker tells is in \cref{exec:variables:variable_types_wrong_hints_1:mypy} basically the same as it stated in \cref{exec:variables:variable_types_wrong:mypy}, namely that assigning a \pythonil{float} to this variable is wrong.
+The \mypy\ type checker tells us in \cref{exec:variables:variable_types_wrong_hints_1:mypy} basically the same as it stated in \cref{exec:variables:variable_types_wrong:mypy}, namely that assigning a \pythonil{float} to this variable is wrong.
 
-However, if the intention of the author wanted that the variable could hold either an \pythonil{int} or a \pythonil{float}, they could have annotated it with the \pgls{typeHint} \pythonil{int | float}.
+However, if the intent of the author was that the variable could hold either an \pythonil{int} or a \pythonil{float}, they could have annotated it with the \pgls{typeHint} \pythonil{int | float}.
 The \pythonil{|}\pythonIdx{\textbar!type hints} here is not the \inQuotes{bit-wise or} we learned back in \cref{sec:int:bitstrings}, but instead indicates that both \pythonils{int} and \pythonils{float} are acceptable values for a variable~\cite{PEP604}.\footnote{%
 Technically speaking, the \pgls{typeHint} specification in PEP~484~\cite{PEP484} allows all variables annotated with \pythonil{float} to also accept \pythonil{int} values in section \href{https://peps.python.org/pep-0484/\#the-numeric-tower}{The Numeric Tower}. %
 Thus annotating the variable only with \pythonil{: float} would have been sufficient. %
@@ -296,7 +297,7 @@ However, since \pythonil{int} is actually \emph{not} a subclass of \pythonil{flo
 Writing \pythonil{int | float} gives me the opportunity to introduce the \pythonil{|}~operator {\dots} so this is how we do it.%
 }
 This annotation is used in program \programUrl{variables:types_wrong_hints_2} in \cref{lst:variables:types_wrong_hints_2}.
-A side-effect of using this type is that, when writing this code, its author would have realized that the name \pythonil{int_var} would not be an appropriate name.
+A side effect of using this type is that, when writing this code, its author would have realized that the name \pythonil{int_var} would not be an appropriate name.
 They would probably have used something like \pythonil{my_var} instead.
 Applying \mypy\ to this program yields the output \cref{exec:variables:variable_types_wrong_hints_2:mypy}, which indicates that everything is OK.
 
@@ -311,7 +312,7 @@ And this comes at no cost at all when executing the program, because \pglspl{typ
 There are good reasons for always using \pglspl{typeHint}.
 While not specifying variable types is very convenient, it comes at a high cost:%
 %
-\cquotation{J2025TIFJ2JHPITPLOTY2}{\python's only serious drawbacks are~(and thus leaving room for competition) its lack of performance and \emph{that most errors occur run-time}.}%
+\cquotation{J2025TIFJ2JHPITPLOTY2}{\python's only serious drawbacks are~(and thus leaving room for competition) its lack of performance and \emph{that most errors occur [at] run-time}.}%
 %
 Type-related errors are one category of mistakes that will become visible only at runtime.
 At the same time, these are errors that can relatively easily be discovered during static code analysis.
@@ -347,7 +348,7 @@ Their advantage is that they allow us to find many (though by far not all) logic
 They make the code easier to read and easier to understand.
 Therefore, from my perspective, \cref{bp:typeHints} \emph{always} applies.
 
-You may ask why we emphasize that \pglspl{typeHint} are important and good for a programming language where they are originally not part of.
+You may ask why we emphasize that \pglspl{typeHint} are important and good for a programming language, which originally did not offer any such thing.
 We may look at the \python\ ecosystem at large to get an impression of what much more experienced developers think.
 First, there are several important tools, like the \psycopg~\cite{VDGE2022PPDAFP:ST}, the \postgresql\ \python\ adapter, that are fully annotated with \pglspl{typeHint} based on the PEP~484~\cite{PEP484} specification.
 Second, many other libraries use these annotations at least partially and/or try to ensure that code which is newly contributed to them is annotated, e.g., \matplotlib~\cite{HDFDM2012MVWP:CG}, \numpy~\cite{N2025N:TNT}, and \pandas~\cite{PD2025P:CTTCB}.
@@ -357,26 +358,26 @@ Interestingly, in the case of these examples, as reason it is given that using \
 The lesson we should learn from this is that%
 %
 \bestPractice{bp:typeHintsFromStart}{%
-It is important to integrate \pglspl{typeHint} from the very start at each project. %
+It is important to integrate \pglspl{typeHint} from the very start of each project. %
 The idea to first write code and later annotate it with \pglspl{typeHint} is wrong.%
 }%
 %
 Finally, it is worth noting that using static type-checkers can even have a positive influence on security aspects of your code, as you can learn in our \citetitle{databases} class~\cite{databases}.
-Injection attacks such as \pglspl{SQLi} have been an application security concern for decades.
+Injection attacks such as \glsFullpl{SQLi} have been an application security concern for decades.
 Such attacks can be prevented if the queries to \pglspl{db} are never dynamically constructed by the likes of \pglspl{fstring} but instead are always defined as string \pglspl{literal}.
 \python\ supports the type~\pythonilIdx{LiteralString} for string \pglspl{literal}~\cite{PEP675}.
 Implementations of the \python\ \db\ \pgls{API}, such as \psycopg~\cite{VDGE2022PPDAFP:ST}, can be annotated to only accept such strings.
 Hence, a type checker could detect and complain if you would try to dynamically construct queries, thus preventing \pglspl{SQLi} -- but only if you use it\dots
 At the time of this writing, \mypy\ does not yet support this functionality, though~\cite{ZDWVSLS2022I1SP6L,VDGE2022PPDAFP:ST}.
 Currently, the feature is still too new.
-We are at the beeding edge of software development.%
+We are at the bleeding edge of software development.%
 %
 \FloatBarrier%
 \endhsection%
 %
 \hsection{Summary}%
 \python\ is a strongly-\ and dynamically-typed programming language.
-This gives us much freedom do write code conveniently, but it also allows for a number of possible bugs in our code that is easier to avoid in statically-typed languages.
+This gives us much freedom to write code conveniently, but it also allows for a number of possible bugs in our code that is easier to avoid in statically-typed languages.
 What we want is to write clean, safe, and secure code.
 
 And in this section, you have learned two more building blocks to do just that, in the dynamically-typed environment of \python.

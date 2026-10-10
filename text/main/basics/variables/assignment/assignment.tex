@@ -1,7 +1,7 @@
 %
 \hsection{Defining and Assigning Variables}%
 %
-Like in mathematics, a variable in \python\ is basically a name with a value assigned to it.
+As in mathematics, a variable in \python\ is basically a name with a value assigned to it.
 You can define a variable and assign its value by writing \pythonil{name = value}.
 Here, \pythonil{name} is the name of the variable and \pythonil{value} be the value that we want to assign to that name.
 If we want to access the value that was stored, we can just use the \pythonil{name} instead.
@@ -10,7 +10,7 @@ Indeed, you have seen this before, when we used the variables~\pythonilIdx{pi}, 
 You can also change which value is stored under a given name by assigning another value to it, e.g., by doing~\pythonil{name = new_value}.
 
 With this, we can now store intermediate results and use them in later computation steps.
-This allows us, for the first time, two write programs that perform computations in multiple steps and that consist of multiple lines of code.
+This allows us, for the first time, to write programs that perform computations in multiple steps and that consist of multiple lines of code.
 \python\ programs are stored as text files with the suffix~\textil{.py}, e.g., \textil{hello.py}.
 
 In the very moment we begin to create such files, two things happen:
@@ -19,11 +19,12 @@ Second, our code can be reused, i.e., executed multiple times.
 It can be reused by us, now or in ten years, or shared with others.
 This changes the quality of programming entirely.
 Until now, the \python\ interpreter was basically a fancy calculator.
-Now our programs become tools to be used hundereds of times or building blocks, or bricks of giant architectures.
+Now our programs become tools that could be used hundreds of times.
+They also could become building blocks or bricks of giant architectures.
 
 Therefore, from the very start when we actually begin to write program files, it becomes important that we clearly document what we do and why.
 For this purpose, we will never just write code -- we will always write comments giving explanations of what our code does.
-From the very beginning we must train ourselves to proper discipline.%
+From the very beginning we must train ourselves to exercise proper discipline.%
 %
 \bestPractice{comments}{%
 Comments help to explain what the code in programs does and are a very important part of the \emph{documentation} of code. %
@@ -42,7 +43,7 @@ We learn new programming concepts, but try to always intersperse important best 
 %
 \gitLoadAndExecPython{variables:assignment}{}{variables}{assignment.py}{}%
 \listingPythonAndOutput{variables:assignment}{%
-A \python\ program showing some examples for variable assignments.}{}%
+A \python\ program showing some examples of variable assignments.}{}%
 %
 \begin{figure}[tb]%
 \centering%
@@ -165,7 +166,7 @@ We can use this variable in an \pgls{fstring}\pythonIdx{f-string}\pythonIdx{str!
 \pythonil{print(f"float_var has value \{float_var\}.")} is \glslink{strinterpolation}{interpolated} to \pythonil{"float_var has value 3.5."}.%
 %
 \begin{sloppypar}%
-In a final step, we create a third variables with the name \pythonil{new_var} by computing \pythonil{new_var = float_var * int_var}.
+In a final step, we create a third variable with the name \pythonil{new_var} by computing \pythonil{new_var = float_var * int_var}.
 The result is \pythonil{3.5 * 4}, i.e., the \pythonilIdx{float} value~\pythonil{14.0}.
 \cref{fig:variable:assignment3} illustrates this variable assignment step.
 Finally, \pythonil{print(f"new_var = \{new_var\}." )} then prints \textil{new_var = 14.0.}.
@@ -191,10 +192,11 @@ As you see, the full \acrfull{stdout} of the complete program given in \cref{exe
 
 We are not completely done yet, though.
 Notice that we wrote the names of variables in a certain style, in lowercase letters.
-This is the defactor standard way to name variables and functions in \python\ programming.%
+This is the \emph{de facto} standard way to name variables and functions in \python\ programming.%
 %
 \bestPractice{variableNames}{%
-Variable names should be lowercase, with words separated by underscores~\cite{PEP8}.%
+Variable names should be lowercase, with words separated by underscores~\cite{PEP8}. %
+This style is called \emph{snake case} or \emph{snake\_case}~\cite{ZZH2021AESOTUAEOISIP}.%
 }
 %
 This seems like a strange thing to introduce right at the beginning when learning programming.
@@ -229,7 +231,7 @@ The most important style guide for the \python\ programming language is PEP8:~\c
 \FloatBarrier%
 \endhsection%
 %
-\hsection{LIU Hui's Method for the Approximation of~$\numberPi$}%
+\hsection{LIU Hui's Method for the Approximation of~$\pi$}%
 \label{sec:approximatePiLiuHui}%
 %
 \begin{figure}%
@@ -357,6 +359,7 @@ The output of the program \programUrl{variables:pi_liu_hui} in the \ubuntu\ \pgl
 \caption{Running the program \programUrl{variables:pi_liu_hui} from \cref{lst:variables:assignment} in \pycharm~(\cref{fig:liuHuiPiPyCharm1,fig:liuHuiPiPyCharm2,fig:liuHuiPiPyCharm3}) or the \ubuntu\ \pgls{terminal}~(\cref{fig:liuHuiPiTerminal}).}%
 \label{fig:variables:liuHuiPi}%
 \end{figure}%
+\afterpage{\clearpage}%
 %
 Now that we have learned some programming, we do no longer need to type the numbers and computation steps into a calculator.
 We also do not need to use \python\ as calculator.
@@ -390,6 +393,30 @@ Therefore, in the future, we will only very sporadically add such screenshots.
 Instead, we will usually only print code and output pairs like~\cref{lst:variables:pi_liu_hui,exec:variables:pi_liu_hui}.%
 %
 \endhsection%
+%
+%
+\hsection{Variables can be modified}%
+\label{sec:variablesCanBeModified}%
+%
+At the beginning of this section, I wrote \emph{\inQuotes{{\dots}ou have seen this before, when we used the variables~\pythonilIdx{pi}, \pythonilIdx{e}, \pythonilIdx{inf}, and \pythonilIdx{nan} that we imported from the module~\pythonilIdx{math}.}}
+Now, this may sound kind of weird, because we would normally consider things like \numberPi\ or \numberE\ as \emph{constants} and not as variables.
+Calling them \emph{variables} sort of implies that we can change them, which would obviously not make any sense.
+
+While you cannot change the mathematical constant~\numberPi, the name \pythonilIdx{pi} in module~\pythonilIdx{math} itself just identifies a variable storing this constant.
+As the output \cref{exec:variables:variables_of_math} of the program given in \cref{lst:variables:variables_of_math} shows, we can actually change the values of these variables.
+As this could wreak havoc in any other code or library that also accesses and uses these constants, there seem to be few use cases for this skill outside of nefarious purposes.
+Still, I think knowing this counter-intuitive information may be an interesting complement to our basic programming knowledge.
+%
+\bestPractice{doNotChangeConstants}{Do never change the values of variables that are not supposed to be changed.}%
+%
+\gitLoadAndExecPython{variables:variables_of_math}{}{variables}{variables_of_math.py}{}%
+\listingPythonAndOutput{variables:variables_of_math}{%
+\pythonilIdx{inf}, \pythonilIdx{nan}, \pythonilIdx{pi}, and \pythonil{e} are actually \emph{variables} in the module \pythonilIdx{math}, so technically, we can change them. %
+This has no impact on how the other mathematical functions work. %
+But it may create all sorts of unpredictable effects in other code or libraries using these variables\dots%
+}{}%
+%
+\FloatBarrier\endhsection%
 %
 \hsection{Summary}%
 %

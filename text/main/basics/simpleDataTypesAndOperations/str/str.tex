@@ -23,7 +23,7 @@ They are not themselves part of the string.%
 One basic operation is string concatenation\pythonIdx{str!concatenation}\pythonIdx{str!+}\pythonIdx{+}:
 \pythonil{"Hello" + ' ' + "World"}\pythonIdx{\textquotedbl\idxdots\textquotedbl}\pythonIdx{\textquotesingle\idxdots\textquotesingle} concatenates the three strings \pythonil{"Hello"}, \pythonil{" "}, and \pythonil{"World"}.
 The result is \pythonil{"Hello World"}\pythonIdx{\textquotedbl\idxdots\textquotedbl}.
-Notice how the singe space character string is needed, because \pythonil{"Hello" + "World"} would just yield \pythonil{"HelloWorld"}.
+Notice how the single space character string is needed, because \pythonil{"Hello" + "World"} would just yield \pythonil{"HelloWorld"}.
 
 Strings are different from the other datatypes we have seen so far.
 They are \emph{sequences}\pythonIdx{Sequence}, meaning that they are linear arrays composed of elements.
@@ -272,7 +272,7 @@ If you need \inQuotes{\textbraceright}, just write \inQuotes{\textbraceright\tex
 It will be interpreted as a single \inQuotes{\textbraceright}~brace.
 \pythonil{f"Single braces without expression: \{\{ and \}\}."} simply becomes \pythonil{"Single braces without expression: \{ and \}."}
 
-As the final example, let us look at a very cool ability of \pglspl{fstring}\pythonIdx{f-string!=}.
+As the final example, let us look at a very cool feature of \pglspl{fstring}\pythonIdx{f-string!=}.
 Often, we want to print an expression together with its result~\cite{PSF:P3D:WNIP:WNIP38FSFSDEAD}.
 Earlier, we wrote \pythonil{f"\{5\}\ + \{4\}\ = \{5 + 4\}"} is evaluated to \pythonil{"5 + 4 = 9"}.
 What we actually wanted to print was the expression \pythonil{5 + 4} together with its result.
@@ -399,7 +399,7 @@ The \pgls{escapeSequence}~\inQuotes{\textbackslash\textbackslash}\pythonIdx{\tex
 Knowing these sequences, we can now try to \pythonil{print("\\"\\'\\\\")}.
 The result printed to the output then is~\textil{"'\\}.
 
-Another situation where \pglspl{escapeSequence} are nice is when we want to have strings that span over multiple lines\pythonIdx{str!escaping}\pythonIdx{escaping}.
+Another situation where \pglspl{escapeSequence} are nice is when we want to have strings that span multiple lines\pythonIdx{str!escaping}\pythonIdx{escaping}.
 The newline sequence \inQuotes{\textbackslash{n}}\pythonIdx{\textbackslash{n}} represents a \inQuotes{newline character} which causes the console to skip to the next line.
 \pythonil{print("Hello\\nWorld!")} will first print \textil{Hello}, then end the current line and begin a new line, and then print \textil{World!}.
 Notice that the newline character sequence \inQuotes{\textbackslash{n}} is used in \linux\ and similar systems, whereas \microsoftWindows\ uses \inQuotes{\textbackslash{r}\textbackslash{n}}\pythonIdx{\textbackslash{r}\textbackslash{n}}.
@@ -430,7 +430,7 @@ The backslash-based \pgls{escapeSequence} we discussed in this section work for 
 \listingBox{exec:str_multiline}{Examples of multi-line strings.}{,style=python_console_style}%
 %
 Before we discussed that strings in \python\ are delimited either by \pythonil{"}\pythonIdx{\textquotedbl\idxdots\textquotedbl} or \pythonil{'}\pythonIdx{\textquotesingle\idxdots\textquotesingle} on each side.
-However, we can actually delimit them also delimit them with \emph{three quotation marks} on each side, i.e., with either \pythonil{"""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl\idxdots\textquotedbl\textquotedbl\textquotedbl} or \pythonil{'''}\pythonIdx{\textquotesingle\textquotesingle\textquotesingle\idxdots\textquotesingle\textquotesingle\textquotesingle}.
+However, we can actually also delimit them with \emph{three quotation marks} on each side, i.e., with either \pythonil{"""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl\idxdots\textquotedbl\textquotedbl\textquotedbl} or \pythonil{'''}\pythonIdx{\textquotesingle\textquotesingle\textquotesingle\idxdots\textquotesingle\textquotesingle\textquotesingle}.
 Such string delimiters are used for multi-line strings.
 In such strings, you can insert linebreaks by hitting \keys{\return} completely normally.
 You can use the \pglspl{escapeSequence} from the previous section as well.

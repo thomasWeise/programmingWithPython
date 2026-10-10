@@ -16,7 +16,7 @@ This type has basically an unbounded range.
 The \python~3 interpreter will allocate as much memory as is needed to store the number you want.\footnote{%
 Ok, the range is not actually \emph{unbounded}, it is bounded by the amount of memory available on your computer{\dots} {\dots}but for all intents and purposes within this book, we can assume that~$\pythonilIdx{int}\equiv\integerNumbers$.}%
 %
-\hsection{Integer Arithmetics}%
+\hsection{Integer Arithmetic}%
 \label{sec:int:integerArithmetics}%
 Now, what can we do with integer numbers?
 We can add, subtract, multiply, divide, \glsdisp{modulodiv}{modulo divide}, and raise them to powers, for example.
@@ -80,7 +80,7 @@ For example, $2^7$~is expressed as \pythonil{2 ** 7}\pythonIdx{**!power} in \pyt
 
 In many programming languages such as \pgls{Java} and \pgls{C}, the largest integer type available off the shelf is 64~bits wide.
 If it is signed (can have negative values) like \pgls{Java}'s \pythonil{long}, it has range~\intRange{-2^{63}}{2^{63}-1}.
-An unsinged 64~bit integer type, such as \pythonil{unsigned long long} in \pgls{C}, would have range~\intRange{0}{2^{64}-1}.
+An unsigned 64~bit integer type, such as \pythonil{unsigned long long} in \pgls{C}, would have range~\intRange{0}{2^{64}-1}.
 In \python\, we can compute $2^{63}$~(\pythonil{2 ** 63}), namely 9\decSep223\decSep372\decSep036\decSep854\decSep775\decSep808, and
 $2^{64}$~(\pythonil{2 ** 64}), which is~18\decSep446\decSep744\decSep073\decSep709\decSep551\decSep616.
 These are very large numbers and the latter one would overflow the range of the standard integer types of \pgls{Java} and \pgls{C}.
@@ -94,7 +94,7 @@ However, the larger they get, the more memory they need and the longer it will t
 %
 \noviceHint{%
 You are encouraged to skip over this section.
-This section is about integers numbers from the perspective of bit strings and the bit string based operations that we can apply to them.
+This section is about integer numbers from the perspective of bit strings and the bit string based operations that we can apply to them.
 If you are learning programming, then this part is not important now.
 You can circle back to it later.}%
 %
@@ -139,7 +139,7 @@ This is confirmed by typing \pythonil{bin(25)}, which results in \pythonil{'0b11
 Finally, we can also shift bit strings to the left or right by $i$~places.
 The former corresponds to multiplying with~$2^i$, the latter is the same as an integer division by~$2^i$.
 Shifting \pythonil{22} by one bit position to the \emph{left} -- which is done by entering \pythonil{22 << 1}\pythonIdx{<\strut<} -- therefore results in~\pythonil{44}.
-We already know that \pythonil{bin(22)} is \pythonil{'0b10110'} and so it comes at no surprise that \pythonil{bin(44)} is \pythonil{'0b101100'} (notice the additional \pythonil{0} that appeared on the right hand side).
+We already know that \pythonil{bin(22)} is \pythonil{'0b10110'} and so it comes as no surprise that \pythonil{bin(44)} is \pythonil{'0b101100'} (notice the additional \pythonil{0} that appeared on the right hand side).
 Shifting \pythonil{22} by two bit positions to the \emph{right} -- which is done by entering \pythonil{22 >> 2}\pythonIdx{>\strut>} -- results in \pythonil{5}.
 The \pythonil{10} on the right hand side of the binary representation disappeared, as \pythonil{bin(5)} is \pythonil{'0b101'}.
 
@@ -158,7 +158,7 @@ It does not matter at all in which format an integer value is entered in the com
 These are just text formats to store numbers~(either in your program code, the interpreter, or the input of your program).
 These text formats get converted to \pythonil{int} structures which do not remember in any way how the numbers were originally entered.
 These formats only exist for input and output.
-Depending of your situation, you can use whatever format is most convenient in your situations.
+Depending on your situation, you can use whatever format is most convenient in your situations.
 
 With this, our excursion into binary maths ends and we now welcome back all first-time readers.%
 %

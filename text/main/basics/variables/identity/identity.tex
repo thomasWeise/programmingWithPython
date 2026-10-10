@@ -96,7 +96,7 @@ Some sources say that all integers between \pythonil{-5} and \pythonil{256} are 
 However, this is highly implementation and configuration specific and may be entirely different on your machine.%
 }
 It is obvious that we need small integer numbers again and again and again in our programs.
-Allocating a new objects whenever we use the values \pythonil{1} or \pythonil{0} would be wasteful.
+Allocating a new object whenever we use the values \pythonil{1} or \pythonil{0} would be wasteful.
 In \cref{lst:variables:identity_2}, we calculate the result of the computation \pythonil{f = (e * mul) // mul}, where \pythonil{e} is a variable with value~\pythonil{10} and \pythonil{mul} is a variable with value~\pythonil{5}.
 The result is obviously \pythonil{10} as well, i.e., a small integer.
 And it is identical to~\pythonil{e}, i.e., \pythonil{e is f} is \pythonil{True} -- despite begin the result of a computation including only variables.
@@ -108,7 +108,7 @@ However, \pythonil{g is h} is \pythonil{False}.
 Because this integer value is too large to be cached and a new object is generated.%
 %
 \hsection{Summary}%
-We can distinguish \emph{equality} and \emph{identity}.
+We can distinguish \emph{equality} from \emph{identity}.
 Equality is tested with the operator~\pythonilIdx{==} and inequality is tested with operator~\pythonilIdx{"!=}.
 Identity is tested with operator~\pythonilIdx{is} and un-identity with operator~\pythonilIdx{is not}.
 Two distinct objects can either be equal or unequal, but never identical.

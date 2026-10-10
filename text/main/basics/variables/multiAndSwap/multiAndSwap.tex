@@ -14,9 +14,9 @@ After this assignment step, \pythonil{a == 5} and \pythonil{b == 10} holds.
 
 This method can also be used to \emph{swap} the values of two variables\pythonIdx{=!swap}\pythonIdx{swap}.
 Writing \pythonil{a, b = b, a} looks a bit strange but it basically means \inQuotes{the \emph{new} value of~\pythonil{a} will be the \emph{present} value of~\pythonil{b} and the \emph{new} value of~\pythonil{b} will be the \emph{present} value of~\pythonil{a}.}
-The line is therefore basically equivalent zu \pythonil{t = a}, \pythonil{a = b}, and \pythonil{b = t}.
+The line is therefore basically equivalent to \pythonil{t = a}, \pythonil{a = b}, and \pythonil{b = t}.
 Without the double-assignment, we would first have to store the value of~\pythonil{a} in some temporary variable~\pythonil{t}, then overwrite \pythonil{a} with \pythonil{b}, and finally we would copy the value of \pythonil{t} to \pythonil{b}.
-But with the double-assignment, we can accomplishes this in single line of code instead of three.
+But with the double-assignment, we can accomplish this in a single line of code instead of three.
 And we do not need a temporary variable either.
 \pythonil{print(f\" \{a = \}, \{b = \}\")} thus now prints \textit{a=10, b=5}.%
 %

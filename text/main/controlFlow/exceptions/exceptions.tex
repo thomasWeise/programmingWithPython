@@ -571,7 +571,7 @@ Instead, the \pgls{stackTrace} and error information will be printed in \cref{ex
 \bestPractice{noAssignAfterRaise}{%
 Remember that, if an exception is raised, be aware that the control flow will immediately leave the current block. %
 The statement in which the exception was raised will not be completed but aborted right away. %
-Therefore, no variable assignments or other side-effects can take place anymore and it is possible that variables remain undefined. %
+Therefore, no variable assignments or other side effects can take place anymore and it is possible that variables remain undefined. %
 Remember this when accessing variables that are assigned in a \pythonil{try}-block.%
 }%
 %

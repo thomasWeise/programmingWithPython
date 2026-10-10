@@ -10,7 +10,7 @@ The two values of this type are fundamental for making decisions in a program, i
 \gitEvalPython{bool_comparisons}{}{simple_datatypes/bool_comparisons.py}%
 \listingBox{exec:bool_comparisons}{The results of basic comparisons are instances of \pythonilIdx{bool}.}{,style=python_console_style}%
 %
-In the sections on \pythonils{float}\pythonIdx{float} and \pythonils{int}\pythonIdx{int}, we learned how to do arithmetics with real and integer numbers.
+In the sections on \pythonils{float}\pythonIdx{float} and \pythonils{int}\pythonIdx{int}, we learned how to do arithmetic with real and integer numbers.
 You have learned these operations already in preschool.
 However, before you learn to calculate with numbers, you learned how to \emph{compare} them.
 If we compare two numbers, the result is either \pythonilIdx{True}, if the comparison works our positively, or \pythonilIdx{False}, if it does not.
@@ -42,9 +42,9 @@ When comparing an integer with a floating point number, one might expect that on
 This, interestingly, does not seem to be the case.
 In \cref{exec:bool_comparisons_int_float}, we can see that \python\ handles comparisons of integers and floating point numbers more subtle.
 The comparisons work for small integers and floats without issue.
-If the numbers get larger, we first run in the issue with limited precision of the \pythonilIdx{float} datatype.
-It cannot store more than 15 or 16 decimal digits~(depending on the weather), and thus~\pythonil{1e300} is not actually~$10^{300}$ as one might expect.
-Instead only the first 16 zeros are there, the remaining digits can be considered as undefined, as their value depends on whatever results from the internal binary representation.
+If the numbers get larger, we first run into the issue with limited precision of the \pythonilIdx{float} datatype.
+It cannot store more than~15 or~16 decimal digits~(depending on the weather), and thus~\pythonil{1e300} is not actually~$10^{300}$ as one might expect.
+Instead only the first 16~zeros are there, the remaining digits can be considered as undefined or garbage, as their value depends on whatever results from the internal binary representation.
 
 We now try to compare~$10^{400}$ to~\pythonil{1e400}.
 Knowing the limits of \pythonilIdx{float}, we recall that writing~\pythonil{1e400} is essentially equivalent to writing~\pythonilIdx{inf}~(if that constant was imported from the \pythonil{math} module).

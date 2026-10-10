@@ -74,7 +74,7 @@ The first item after the class declaration is usually the \pgls{docstring} of th
 It can be a single descriptive line or a multi-line documentation, in which case it begins with a single summary line, followed by an empty line, followed by the comprehensive documentation text.
 %
 \bestPractice{className}{\sloppy%
-Class names should follow the CapWords convention~(often also called \emph{camel case}), i.e., look like \pythonil{MyClass} or \pythonil{UniversityDepartment} (not \pythonil{my_class} or \pythonil{university_department})~\cite{PEP8}.}%
+Class names should follow the CapWords convention~(often also called \emph{camel case}~\cite{ZZH2021AESOTUAEOISIP}), i.e., look like \pythonil{MyClass} or \pythonil{UniversityDepartment} (not \pythonil{my_class} or \pythonil{university_department})~\cite{PEP8}.}%
 %
 A class can have a initializer method \dunder{init}.
 This special method can take arbitrarily many parameters, but never returns a value.
@@ -359,7 +359,9 @@ The result of applying \mypy\ to the program \programUrl{classes:point_user_wron
 Program \programUrl{classes:point_user_wrong} explores this problem in \cref{lst:classes:point_user_wrong}.
 After creating the \pythonil{Point} object~\pythonil{p1} exactly as in our first example, it frivolously sets \pythonil{p1.x = 5}.
 The \pythonilIdx{Final} \pgls{typeHint} tells us explicitly that this should not be done.
-However, as the output in \cref{exec:classes:point_user_wrong} shows, we can do it anyway.
+However, as the output in \cref{exec:classes:point_user_wrong} shows, we can do it anyway.\footnote{%
+Notice that we explored this ability back in \cref{sec:variablesCanBeModified}, where we changed the values of \pythonilIdx{pi}, \pythonilIdx{nan}, and \pythonilIdx{inf} from the \pythonilIdx{math}~module. %
+Indeed, these are also annotated with the \pythonilIdx{Final} \gls{typeHint} and it did not stop us back then either.}
 
 That this is not a good idea becomes already clear when we open our program in \pycharm.
 \Cref{fig:finalViolatedPycharm} illustrates that \pycharm\ highlights the violating line of code with a yellow mark.
