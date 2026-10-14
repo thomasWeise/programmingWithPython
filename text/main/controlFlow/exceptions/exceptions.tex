@@ -1039,7 +1039,7 @@ Since the function call inside the \pythonil{with raises(ArithmeticError):} does
 
 In the second test case, \pythonil{test_raises_overflow_error}, we invoke \pythonil{sqrt(10 ** 320)}.
 We place it into a \pythonilIdx{with} block using context manager \pythonil{raises(OverflowError, match=\"int too large.*\")}.
-This means that we expect that the the code should raise an \pythonilIdx{OverflowError}.
+This means that we expect that the code should raise an \pythonilIdx{OverflowError}.
 The exception object needs to hold a message that starts with \textil{int too large} and after that can contain arbitrary additional text.
 
 This indeed happens:

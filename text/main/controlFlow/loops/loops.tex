@@ -16,7 +16,7 @@ The \emph{Structured Program Theorem} states that any computable function can be
 %
 We already learned the first two elements of the control flow.
 And now we are going to learn the third one, namely~\emph{loops}.
-And after we learned it, we can, basically, perform \emph{any} computation that is possible on today's computers.
+And after we learn it, we can, basically, perform \emph{any} computation that is possible on today's computers.
 Everything that follows after that are devices to make the life of programmers easier.%
 %
 \pythonIdx{loop}%
@@ -169,7 +169,7 @@ A prime number~$p\in\naturalNumbersO$ is a positive integer~$p>1$, i.e., greater
 \end{definition}%
 %
 In our example program, we want to store all of these prime numbers~$p<200$ in the list\pythonIdx{list} \pythonil{primes}.
-We know that \pythonil{2} is a prime number and the only even one, so we directly initialize \pythonil{primes = [2]}, i.e., we set \pythonil{primes} to initially be a list only containing the integer~\pythonil{2}.
+We know that \pythonil{2} is a prime number and the only even one, so we directly initialize \pythonil{primes = [2]}, i.e., we set \pythonil{primes} to initially be a list containing only the integer~\pythonil{2}.
 This will allow us to later on only consider the odd numbers in the range \intRange{3}{199}.
 Just out of interest, we will count the total number of divisions that we need to perform until we have the full list of primes in the variable~\pythonil{n_divisions}.%
 %
@@ -269,7 +269,7 @@ Notice the \pythonil{!r} format specifier\pythonIdx{"!r}:
 It will print the \emph{representation} of the string~\pythonil{s}, which basically means to put quotation marks~(and to potentially use \pglspl{escapeSequence}\pythonIdx{str!escaping}\pythonIdx{escaping} for unprintable characters, see \cref{sec:str:escaping}).
 Thus, we will add \pythonil{"s = 'v'"}, \pythonil{"s = 'u'"}, and~\pythonil{"s = 'w'"} to \pythonil{txt} (in an arbitrary order).
 
-As fourth and final example, we create a dictionary~\pythonil{dc}\pythonIdx{dict} that maps floating point numbers to Boolean values.
+As a fourth and final example, we create a dictionary~\pythonil{dc}\pythonIdx{dict} that maps floating point numbers to Boolean values.
 It contains only the two entries, namely~\pythonil{\{1.1: True, 2.5: False\}}.\pythonIdx{dict!iterate over}
 Now a dictionary is a bit special:
 It maps keys to values.
@@ -302,7 +302,7 @@ All of them are again appended to our text list~\pythonil{txt}.%
 \end{sloppypar}%
 %
 After all of these loops, we have ended up with a list~\pythonil{txt} containing~16 strings.
-We want to combine all of them to a single string, using \pythonil{", "} as a separator.
+We want to combine all of them into a single string, using \pythonil{", "} as a separator.
 We could do this in another loop.
 However, \python\ offers us a much more efficient shorthand for this:
 The method \pythonilIdx{join}\pythonIdx{str!join} of the class~\pythonilIdx{str}.
@@ -332,7 +332,7 @@ Well{\dots} actually, we are constructing it already!
 \pythonil{primes}~contains all the prime numbers less than~\pythonil{candidate}.
 
 Therefore, in our new and more efficient program \cref{lst:loops:for_loop_sequence_primes}, we replace the head of the inner loop with~\pythonil{for check in primes:}.
-As a minor tweak, we leave~2 away from this list at the beginning and instead insert it at the end of the program.
+As a minor tweak, we omit~2 from this list at the beginning and instead insert it at the end of the program.
 This way, we avoid the useless check whether an odd number \pythonil{candidate} can be divided by~2.
 
 Anyway, the outer loop will step-by-step add prime numbers to \pythonil{primes}.
@@ -446,7 +446,7 @@ The list of rules that \pylint\ applies when analyzing a file can be found at~\c
 \begin{sloppypar}%
 Let us now apply both our new \pgls{linter} \pylint\ as well as \ruff, which we ave already used, to the two ideas for enumerating over the data and indices of collections.
 We first analyze \programUrl{loops:for_loop_no_enumerate_1}, the program where we let the index variable iterate and use it to access the data elements.
-In \cref{exec:loops:for_loop_no_enumerate_1:pylint}, \pylint\ suggest that we should iterate over the list \pythonil{data} using the \pythonilIdx{enumerate} function, whereas \ruff, at the time of this writing, has no issue with this approach~(see \cref{exec:loops:for_loop_no_enumerate_1:ruff}).
+In \cref{exec:loops:for_loop_no_enumerate_1:pylint}, \pylint\ suggests that we should iterate over the list \pythonil{data} using the \pythonilIdx{enumerate} function, whereas \ruff, at the time of this writing, has no issue with this approach~(see \cref{exec:loops:for_loop_no_enumerate_1:ruff}).
 Now we analyze \programUrl{loops:for_loop_no_enumerate_2}, where we iterate over the elements of the container and manually maintain an index variable~\pythonil{i}.
 Interestingly, this time \ruff\ suggests us to~\inQuotes{Use \inSQuotes{\pythonil{enumerate()}} for index variable \inSQuotes{\pythonil{i}} in \inSQuotes{\pythonil{for}} loop}, as shown in \cref{exec:loops:for_loop_no_enumerate_2:ruff}.
 \pylint, on the other hand, does not discover any problem with \programUrl{loops:for_loop_no_enumerate_2}.%
@@ -468,8 +468,8 @@ It makes sense to use several different tools for static code analysis.
 Each tool has its own strengths.
 Some, like \mypy, can discover problems with typing.
 Others, like \ruff\ and \pylint, can make suggestions on how to improve our code.
-But even if two tools have the same \inQuotes{area of expertice,} they may still discover different issues.
-Had we implemented \programUrl{loops:for_loop_no_enumerate_1} and only used \ruff, at least at the time of this writing, we would not have found that we could use \pythonilIdx{enumerate} to solve the problem more efficiently.
+But even if two tools have the same \inQuotes{area of expertise,} they may still discover different issues.
+Had we implemented \programUrl{loops:for_loop_no_enumerate_1} and only used \ruff, at least at the time of this writing, we would not have discovered that we could use \pythonilIdx{enumerate} to solve the problem more efficiently.
 Vice versa, if our solution idea had been \programUrl{loops:for_loop_no_enumerate_2} and only used \pylint, then at the time of this writing, we, too, would not have arrived at the more efficient version \programUrl{loops:for_loop_enumerate.py}.
 Thus, indeed, it is important to understand and use the tools that surround our programming language.
 And not just one.
@@ -521,7 +521,7 @@ We will evaluate \cref{eq:heronGuessUpdate} again and again.
 However, a \pythonil{for}~loop will not do:
 We do not know in advance the number of steps that we will need until~$x_i = x_{i+1}$.
 Of course, we could try to pick a very very huge number and then \pythonil{break} the loop when the guesses converge {\dots} but that is just ugly.
-The \pythonilIdx{while} comes to rescue\cite{PSF:P3D:TPT:MCFT}:%
+The \pythonilIdx{while} construct comes to the rescue\cite{PSF:P3D:TPT:MCFT}:%
 %
 \pythonSyntax{syntax/while_loop.py}%
 \FloatBarrier%
@@ -605,7 +605,7 @@ Also, notice how we used \pgls{unicode} \pglspl{escapeSequence} from \cref{sec:u
 \label{sec:loopElse}%
 %
 Now, you have learned before that we can leave a loop body immediately by calling the~\pythonilIdx{break} statement.
-Let's say that we want to perform a certain action~$\mathcal{A}$ \emph{after} the loop \emph{if and ony if} the loop has completed normally.
+Let's say that we want to perform a certain action~$\mathcal{A}$ \emph{after} the loop \emph{if and only if} the loop has completed normally.
 In other words, we want to perform an action~$\mathcal{A}$ if \pythonilIdx{break} was not invoked and the loop condition has led to a normal termination.\footnote{%
 Of course, except \pythonil{break}, there are also other things that can prevent the action from being performed, including the invocation of \pythonilIdx{return} or raising an \pythonilIdx{Exception} in the loop\dots\ {\dots}but that's not the point here.%
 }
@@ -639,7 +639,7 @@ Otherwise, i.e., if~$E=M$, we have found the element.
 Of course, if we did not yet find~$E$ bit the selected half of $S$ is empty because $S$ only had one or two elements left in it {\dots} then $E$ is not in $S$ and, hence, not in \pythonil{data}.
 
 This means in one step we have effectively halved the size of~$S$.
-If~$\scale=\pythonil{len(data)}$, then we can do this halfing at most $\log_2 \scale$~times and the time complexity of binary search is in~\bigOb{\log{\scale}}~\cite{K1998SAS,H2024POIC:BS,B1999PP}.%
+If~$\scale=\pythonil{len(data)}$, then we can do this halving at most $\log_2 \scale$~times and the time complexity of binary search is~\bigOb{\log{\scale}}~\cite{K1998SAS,H2024POIC:BS,B1999PP}.%
 %
 \begin{sloppypar}%
 In~\cref{lst:loops:while_loop_search}, we want to find the indices of some characters in the alphabetically sorted string~\pythonil{data = "abdfjlmoqsuvwyz"}.
@@ -699,7 +699,7 @@ We now can implement some real fancy algorithms.%
 \hsection{Summary}%
 With this, we depart from the subject of loops.
 We have learned two ways to execute code iteratively:
-The \pythonilIdx{for} loop iterates of sequences of objects, which can either be \pythonilsIdx{range} of numbers or arbitrary collections.
+The \pythonilIdx{for} loop iterates over sequences of objects, which can either be \pythonilsIdx{range} of numbers or arbitrary collections.
 The \pythonilIdx{while} loop permits us to specify an arbitrary Boolean expression as loop condition.
 In the bodies of both loops, we can jump to the next iteration at any time using the \pythonilIdx{continue} statement or we can exit the loops entirely using the \pythonil{break} statement.
 Finally, placing an \pythonilIdx{else} statement at the bottom of the loop allows us to execute some code when the loop completes regularly, i.e., not via~\pythonilIdx{break}.

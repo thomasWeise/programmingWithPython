@@ -669,7 +669,7 @@ The variable~\pythonil{a} is updated to the result of \pythonil{10 * (a \% b)}, 
 As last digit, we therefore add \pythonil{80 // 16}, which is~\pythonil{5}.
 This is the last digit, because \pythonil{80 \% 16} is~0.
 Therefore, \pythonil{a == 0} holds after the fifth iteration.
-This makes the first part of the the loop condition~(\pythonil{a != 0}) become \pythonil{False} and the loop terminates.
+This makes the first part of the loop condition~(\pythonil{a != 0}) become \pythonil{False} and the loop terminates.
 
 At this point, \pythonil{digits == [11, 1, 8, 7, 5]}.
 This is also right, because $\frac{179}{16}=11.1875$.
@@ -729,7 +729,7 @@ The output of \pytest\ executing the \pglspl{doctest} for our \pythonil{Fraction
 
 As fraction that cannot be exactly written down as finite decimal string, we choose~$\frac{1}{3}$.
 $\frac{1}{3}$ to ten digits after the dot should yield~\pythonil{\"0.3333333333\"}.
-As example of negative fractions and also as an example of fractions with multiple leading zeros, we use~$\frac{-101001}{100000000}$.
+As an example of negative fractions and also as an example of fractions with multiple leading zeros, we use~$\frac{-101001}{100000000}$.
 This should give us~\pythonil{"-0.00101001"}.
 
 As test for rounding off the last digit, we expect that \pythonil{Fraction(1235, 1000).decimal_str(2)} should yield~\pythonil{\"1.24\"}.
@@ -1390,7 +1390,7 @@ I guess that's why it's called \debugger.
 \label{sec:dunder:contextManager}%
 %
 In \cref{sec:withAndContextManagers}, we introduced the \pythonilIdx{with}~block, which is often used to ensure that resources are properly closed after using them.
-We used text files as example:
+We used text files as an example:
 A text file is opened in the head of \pythonilIdx{with} for writing using the \pythonilIdx{open} function.
 This function returns a stream to which we then can write strings of text in the body of the \pythonilIdx{with}~block.
 Then, after this body ends, the stream is closed automatically.
@@ -1406,7 +1406,7 @@ At this stage, it will not surprise you that these \inQuotes{special methods} ar
 These methods are \pythonilIdx{\_\_enter\_\_} and \pythonilIdx{\_\_exit\_\_}.
 Since \pythonilIdx{with}~blocks are nice syntactical sugar of the \python\ language, we will here play around with them a little bit.
 
-As example, let us create a simple API that allows us to write output in a subset of the \glsreset{XML}\pgls{XML} format~\cite{BPSMM2008EMLX1FE,K2019ITXJY,CH2013XFCAMLTMC}.
+As an example, let us create a simple API that allows us to write output in a subset of the \glsreset{XML}\pgls{XML} format~\cite{BPSMM2008EMLX1FE,K2019ITXJY,CH2013XFCAMLTMC}.
 \pgls{XML} is a format for data interchange which was predominant in distributed systems the~2000s.
 After that, it began to fade out.
 It got replaced~\cite{A2020XLATDOEOL}  by \pgls{JSON}~\cite{E2017SE4TJDIS,RFC8259} and \pgls{YAML}~\cite{DNMAASBE2021YAMLYV1,K2019ITXJY,CGTYB2022YFFDCAIE} in many applications.

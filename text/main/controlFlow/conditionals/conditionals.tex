@@ -7,7 +7,7 @@ Conditionals are therefore the most fundamental control flow statement.%
 \hsection{The \texttt{if} Statement}%
 %
 A conditional statement is basically a piece of program code which will execute a set of instructions if a condition is met.
-The condition is provided as the kind of Boolean expressions that we already discussed back in \cref{sec:bool}.
+The condition is provided as the kind of Boolean expression that we already discussed back in \cref{sec:bool}.
 The syntax for this in \python\ is very simple\cite{PSF:P3D:TPT:MCFT}:%
 %
 \pythonSyntax{syntax/if.py}%
@@ -44,18 +44,20 @@ This way, the result is only \pythonil{True} if both conditions are \pythonil{Tr
 We use parentheses so that it is easy to see how the Boolean expression is structured.
 
 \begin{sloppypar}%
-Well, if that combined condition turns out to be \pythonilIdx{False}, the year could still be a leap year is it was divisible by~400.
+Well, if that combined condition turns out to be \pythonilIdx{False}, the year could still be a leap year if it was divisible by~400.
 So the final condition to be checked is \pythonil{(year \% 400) == 0}.
 We add this condition with the \pythonil{or}~operator, because it is sufficient that either our original expression \emph{or} the divisible-by-400-check are \pythonil{True} for the overall condition to be met.
 We obtain the expression \pythonil{(((year \% 4) == 0) and ((year \% 100) != 0)) or ((year \% 400) == 0)}.
 Again, we use parentheses to neatly group the sub-expressions for readability.%
 \end{sloppypar}%
 %
-All what is left to do is put an~\pythonilIdx{if} in front of the condition and a~\pythonilIdx{:} after it, and we got the conditional check.
+All that is left to do is put an~\pythonilIdx{if} in front of the condition and a~\pythonilIdx{:} after it, and we have the conditional check.\footnote{%
+Unlike in programming languages like \gls{Java} or \gls{C}, parentheses are not needed around the conditions of \pythonilIdx{if}~statements in \python.%
+}
 If it evaluates to \pythonil{True}, we will print~\pythonil{f"\{year\} is a leap year."}\pythonIdx{print}.
 For this purpose, we need to indent the \pythonilIdx{print} command with four spaces.
 
-We copy this code twice and check the years \pythonil{2024} (the year when I began writing this book) and \pythonil{1900} (some other year).
+We copy this code twice and check the years \pythonil{2024}~(the year when I began writing this book) and \pythonil{1900}~(some other year).
 Notice that the second~\pythonilIdx{if} starts at the same level of indentation of the first~\pythonilIdx{if}.
 This means that it is executed regardless of the outcome of the first conditional.
 After all of this code, we print the text \textil{End of year checking.} to the console.
@@ -122,7 +124,7 @@ Either way, printing the \pgls{fstring} \pythonil{f"\{c\} is the greatest number
 
 Now we need to return to the outer~\pythonilIdx{if} and tackle its alternative branch, the \pythonilIdx{else} part.
 What happens if \pythonil{a > b} did not evaluate to~\pythonilIdx{True}?
-Well, this case, either \pythonil{b > a} or \pythonil{b == a}.
+Well, in this case, either \pythonil{b > a} or \pythonil{b == a}.
 It thus is sufficient to compare \pythonil{b} with \pythonil{c} to get the result.
 Therefore, we again indent a new \pythonilIdx{if}, this time with the condition \pythonil{b > c}.
 If that one is \pythonilIdx{True}, then the largest value is equal to the one stored in~\pythonil{b}.
@@ -133,10 +135,12 @@ Here, we know that \pythonil{b >= a} and that either \pythonil{c > b} or \python
 Therefore, we again print the \pgls{fstring} \pythonil{f"\{c\} is the greatest number."}.
 
 Just for fun, I included two more lines in \cref{lst:conditionals:if_else_nested} that show two useful functions we did not yet learn before:
-\pythonilIdx{max} and \pythonilIdx{min}.
+the built-in functions \pythonilIdx{max} and \pythonilIdx{min}.\footnote{%
+Like \pythonil{print}, these functions are always available and do not need to be imported.%
+}
 Both receive a sequence of values and return the largest and smallest value, respectively.
 Therefore, the same work as with our nested \pythonilIdx{if} can be achieved by computing~\pythonil{max(a, b, c)}.
-The minimum is obtained using~\pythonil{min(a, b, c)}.%
+The minimum is obtained using~\pythonil{min(a, b, c)}.
 \FloatBarrier%
 \endhsection%
 %
@@ -145,7 +149,7 @@ The minimum is obtained using~\pythonil{min(a, b, c)}.%
 In some cases, we need to query a sequence of alternatives in such a way that the first \pythonilIdx{else}~block would contain the next~\pythonil{if} and only that~\pythonil{if}.
 Then its \pythonil{else}~block would contain another~\pythonil{if} and only that~\pythonil{if}.
 Then its \pythonil{else}~block would contain another~\pythonil{if} and only that~\pythonil{if}, and so on.
-Everytime we nest a conditional statement into another one we have to add four spaces of indentation.
+Every time we nest a conditional statement into another one we have to add four spaces of indentation.
 In the above situation, this would quickly fill the horizontal of our screens and look rather ugly.
 Therefore, the \pythonilIdx{elif}~statement has been developed, which can replace an \pythonil{else} containing just another \pythonil{if}.
 The syntax of a combined \pythonil{if ... elif} is quite easy\cite{PSF:P3D:TPT:MCFT}:
@@ -188,7 +192,7 @@ In this case, the complete nested \pythonil{if...elif...else} block ends and no 
 If this is not the case, i.e., if \pythonil{age <= 3} evaluates to~\pythonil{False}, i.e., if \pythonil{age > 3}, the next condition is checked.
 Instead of writing \pythonilIdx{else} followed by another (indented) \pythonilIdx{if}, we can just write \pythonil{elif age <= 6} (without additional indentation).
 The \pythonilIdx{elif} basically functions as the \pythonilIdx{else} followed by an (indented)~\pythonil{if}.
-In our case, this next wone checks whether the person's age is less than or equal to~6~(after it is already clear that \pythonil{age <= 3} is~\pythonil{False}).
+In our case, this next one checks whether the person's age is less than or equal to~6~(after it is already clear that \pythonil{age <= 3} is~\pythonil{False}).
 If \pythonil{age <= 6} holds, we call the life phase \pythonil{"early childhood"}.
 If this is \pythonilIdx{True}, the, again, the complete nested \pythonil{if...elif...else} block ends and no other conditions are checked.
 
@@ -233,7 +237,7 @@ A very common use case of \pythonil{if...else}~statements is to conditionally as
 In \cref{lst:conditionals:if_else_could_be_inline} we display such a situation.
 We want to write some code that tells us whether a number is large or small and positive or negative.
 For this purpose, we assume that the number is stored in an integer variable \pythonil{number}.
-As example, we choose the value~\pythonil{100}.
+As an example, we choose the value~\pythonil{100}.
 For the sake of this example, let's assume that a \pythonil{number} whose absolute value~$|\pythonil{number}|$ is less than ten should be small.
 
 The absolute value of a number in \python\ can be computed using the function~\pythonilIdx{abs}.

@@ -2,7 +2,7 @@
 \label{sec:functions}%
 %
 Functions are blocks of code that can be invoked from anywhere else in a program.
-You already learned many functions, from the basic \pythonilIdx{print} routine that just prints the value of its parameter to the output to the \pythonilIdx{sqrt} function from the \pythonilIdx{math} module which computes the square root.
+You already learned many functions, from the basic \pythonilIdx{print} routine that just prints the value of its parameter to the \pythonilIdx{sqrt} function from the \pythonilIdx{math} module which computes the square root.
 Now you will learn how to make your own functions~\cite{PSF:P3D:TPT:MCFT}.%
 %
 \hsection{Defining and Calling Functions}%
@@ -20,12 +20,13 @@ The syntax for defining our own functions in \python\ is as follows:%
 %
 \pythonIdx{function!def}A function in \python\ is created by using the \pythonilIdx{def}\pythonIdx{function!def} keyword, followed by the name of the function.%
 %
-\bestPractice{functionNames}{Function names should be lower case, with underscores separating multiple words if need be~\cite{PEP8}.}%
+\bestPractice{functionNames}{Function names should be lower case, with underscores separating multiple words if need be~\cite{PEP8}. %
+This style is called \emph{snake case}~\cite{ZZH2021AESOTUAEOISIP}.}%
 %
 \pythonIdx{function!parameter}After the function name follows an opening and a closing parenthesis, i.e., \pythonil{(...)}\pythonIdx{(\idxdots)}.
 A function can have parameters through which we can pass values to it.
 In case of the \pythonil{print} function, this was the string to be printed.
-In case of the \pythonil{sqrt} function, this was the number to compute the quare root of.
+In case of the \pythonil{sqrt} function, this was the number to compute the square root of.
 Inside the function, these parameters act like variables.
 The values of these variables can be passed in when we call (invoke, execute) the function.
 The values thus stem from the code that calls the function.%
@@ -64,10 +65,10 @@ After the function header, indented by four spaces, follows the function body.%
 \bestPractice{functionBodyIndentation}{The body of a function is indented with four spaces.}%
 %
 \pythonIdx{function!body}The function body can be an arbitrary block of code, which may contain all the things we already learned.
-From \pythonil{if...else} over \pythonil{for} and \pythonil{while} loops to variable assignments can calls to other functions, all can be used.
+From \pythonil{if...else} over \pythonil{for} and \pythonil{while} loops to variable assignments and calls to other functions, all can be used.
 
 When a function is called, this code block is executed.
-When the end of the block is reached, the function automatically exists without returning any value.
+When the end of the block is reached, the function automatically exits without returning any value.
 At that point, the control flow resumes in the code that called the function, right after the function call.
 \pythonIdx{function!return}The function can also be exited at any point by using the \pythonilIdx{return} statement.
 If the function is supposed to return a value \pythonil{result}, then this is done via \pythonil{return result}.
@@ -85,10 +86,14 @@ An \emph{argument} is the actual value given for a function parameter when the f
 \end{definition}%
 %
 \pythonIdx{function!docstring}\pythonIdx{str!doc!function}%
-Between the header of a function and its body, we always need to place a so-called \pgls{docstring}, which is a multi-line string~(see \cref{sec:multiLineStrings}).
+Between the header of a function and its body, we always place a so-called \pgls{docstring}, which is a multi-line string~(see \cref{sec:multiLineStrings}).\footnote{%
+Technically, you are not strictly required to use \pgls{docstring}. %
+However, let's stick with \cref{bp:funcDocstrings}. %
+Let's do things \emph{right}.%
+}
 This string consists of a title line shortly describing what the function does.
 Then follows an empty line.
-After that, we can (but not necessarily need to) place paragraphs of text providing a more detailled discussion.
+After that, we can (but not necessarily need to) place paragraphs of text providing a more detailed discussion.
 Then follows the list of parameters, each in the syntax \textil{:param parameter_name: description}\pythonIdx{:param:}.
 Then follows the return value description (if the function returns something) in the form \textil{:returns: description}\pythonIdx{:returns:}.%
 %
@@ -107,7 +112,7 @@ After the function and its body are defined, leave \emph{two} blank lines before
 Implementing a function computing the factorial of a positive integer number.}{}%
 %
 Now we know the general scheme based on which functions can be defined.
-After all of this long introduction, let us finally come to some example.
+After all of this long introduction, let us finally come to an example.
 Let's implement the factorial function as, well, function.
 The factorial is defined as follows~\cite{D1991TEHOTFF,CB2022FBDOTFF}%
 %
@@ -125,12 +130,12 @@ So we begin the header of our function a \pythonil{def factorial(}\pythonIdx{def
 It should receive a single parameter~\pythonil{a}, so we write it into the parentheses.
 \pythonil{a} will be type-hinted as integer via \pythonil{a: int}.
 The result of our function will be an integer as well, so we add the \pgls{typeHint} \pythonil{-> int}.
-The header of our function is ends with the colon~\pythonil{:} and is thus \pythonil{def factorial(a: int) -> int:}.
+The header of our function ends with the colon~\pythonil{:} and is thus \pythonil{def factorial(a: int) -> int:}.
 
 The body of this function is straightforward.
 We begin by initializing a variable \pythonil{product} with the value~\pythonil{1}.
 Then, we need a loop that iterates a variable~$i$ over all positive integers less than or equal to~\pythonil{a}.
-We want to multiply these values to~\pythonil{product}.
+In each step, we want to multiply the value~\pythonil{i} with~\pythonil{product} to get the next value of~\pythonil{product}.
 Well, we can skip over~$\pythonil{i}=1$, because that would be useless.
 So we will use a \pythonilIdx{for} loop iterating~\pythonil{i} over the \pythonil{range(2, a + 1)}\pythonIdx{range}.
 This effectively starts~\pythonil{i} at~\pythonil{2}.
@@ -149,7 +154,7 @@ And then we compute the factorials of the numbers from~$1$ to~$9$ in a \pythonil
 Inside this loop and in the \pgls{fstring}, we can use the function \pythonil{factorial} exactly like any other function we used before, like \pythonil{sqrt} or \pythonil{sin}.
 It may be an interesting side information at the end of this example that the factorial can actually be computed \emph{faster} than using this product form, see, e.g.~\cite{L2015ANKOFF}.
 
-Functions can have a more than one parameter or no parameter at all.
+Functions can have more than one parameter or no parameter at all.
 They can return one value or return nothing at all\footnote{%
 We already learned that if they return nothing, they actually return \pythonilIdx{None} back in \cref{sec:none}.%
 }.
@@ -170,7 +175,7 @@ Let us investigate these options by investigating another interesting mathematic
 The computation of the greatest common divisor, also known as~\pythonil{gcd}.
 This can be done using the Euclidean algorithm~\cite{EHF2008EEOGTGOJLH11FEEEELIEILHIATBG11EAPWMETBFR:ENT,B1999FAOTBEA,TKY2016BEOEAOTCEG}, going back to \citeauthor{EHF2008EEOGTGOJLH11FEEEELIEILHIATBG11EAPWMETBFR:ENT} who flourished about 300~\pgls{BCE} and is sketched in \cref{fig:euclidOfAlexandria}.
 
-The greatest common divisor of two numbers positive~$a\in\naturalNumbersO$ and~$b\in\naturalNumbersO$ is the greatest number~$g\in\naturalNumbersO=\pythonil{gcd}(a,b)$ such that~$a\bmod g=0$ and~$b \bmod g=0$, where~$\bmod$ is the \pgls{modulodiv} operator, i.e., the rest of a division, which, in turn, is equivalent to \python's~\pythonilIdx{\%}.
+The greatest common divisor of two numbers positive~$a\in\naturalNumbersO$ and~$b\in\naturalNumbersO$ is the greatest number~$g\in\naturalNumbersO=\pythonil{gcd}(a,b)$ such that~$a\bmod g=0$ and~$b \bmod g=0$, where~$\bmod$ is the \pgls{modulodiv} operator, i.e., the remainder of a division, which, in turn, is equivalent to \python's~\pythonilIdx{\%}.
 This means that $g$~divides both $a$ and $b$ without remainder.
 If $a=b$, then obviously $\pythonil{gcd}(a,b)=a=b$ as well.
 Otherwise, we know that $a=ig$ must be true for some~$i\in\naturalNumbersO$ and $b=jg$ will hold for some~$j\in\naturalNumbersO$.
@@ -245,7 +250,7 @@ Finally, we confirm that \pythonil{gcd} and \pythonil{math_gcd} compute the same
 Now that all is said and done, it should be mentioned that the Euclidean Algorithm has a particularly efficient binary variant which is faster than our implementation in \cref{lst:functions:def_gcd}.
 This binary variant may have been developed in China in the first century~\pgls{CE}~\cite{B1999FAOTBEA} and published in the famous \emph{Jiu Zhang Suanshu}~(九章算术)~\cite{OR2003LH,SCL1999TNCOTMACAC,S1998LHATFGAOCM,D2010AALHOCAS,C2002LFLHADWTDM}.
 
-We are now able, to implement our own functions.
+We are now able to implement our own functions.
 We can properly annotate them with \pglspl{typeHint} and \pglspl{docstring}.
 We can thus define re-usable blocks of code that can be called from multiple, arbitrary places in other code.
 And we can make them available as units that can be used by others who understand their documentation.
@@ -268,7 +273,7 @@ We can now reuse code.
 When we began our journey, we typed all commands into the \python\ interpreter and executed them one by one.
 Then we became able to write our code into files, which allowed us to execute the same program several times.
 Now we can even structure the code into functions, which we can explain via \pglspl{docstring} and annotate with \pglspl{typeHint}.
-We can alreay write useful and reasonably large programs
+We can already write useful and reasonably large programs
 However, so far, all of our programs in their entirety are stored in single files.
 
 This puts a certain limit on the complexity of the applications that we can realize.
@@ -324,10 +329,10 @@ Others are installed via a package manager like \pgls{pip}~\cite{PSF:P3D:IPM}~(w
 The \pythonil{my_math} module is found because it is in the same directory as the program \programUrl{functions:use_my_math}.
 
 We could have placed the \programUrl{functions:my_math} file into a sub-directory named \textil{math_pack} instead.
-Thenm we would import our functions from \textil{math_pack.my_math}, where \textil{math_pack} would be called a~\emph{package}.
+Then we would import our functions from \textil{math_pack.my_math}, where \textil{math_pack} would be called a~\emph{package}.
 Of course, we could also create another level of directories, say we could have directory \textil{utils}, containing directory \textil{math_pack}, containing our file \programUrl{functions:my_math}.
 In this case, we would import our functions like \pythonil{from utils.math_pack.my_math import}\dots.
-The names of package and modul are separated by a~\pythonilIdx{.} when importing from them.
+The names of package and module are separated by a~\pythonilIdx{.} when importing from them.
 This allows us to nicely and hierarchically structure our projects into modules and packages for different purposes.
 
 In \cref{lst:functions:use_my_math} we can use both \pythonil{sqrt} and \pythonil{factorial} exactly as if we had defined them in this program.
@@ -367,10 +372,9 @@ We are not limited anymore at the architectural level.
 However, our goal is not to just design large maintainable software {\dots} we also want it to be correct and reliable.
 
 Imagine that you have a big application consisting of unstructured code for reading and writing files, code for making mathematical computations, and so on.
-Then, it would not easy to figure out how to check whether the big application behaves exactly as it is supposed to.
+Then, it would not be easy to figure out how to check whether the big application behaves exactly as it is supposed to.
 There would be too many combinations of inputs and environments and conditions that we would need to test.
-And even if we would find that the application behaves incorrectly in a few cases.
-Then what?
+And even if we would find that the application behaves incorrectly in a few cases {\dots} then what?
 It would be very hard to figure out which of its many interacting lines of code causes the error.
 
 Here, dividing code into functions and placing it into modules has yet another advantage:
@@ -382,7 +386,7 @@ It is much easier to check whether our \pythonil{factorial} and \pythonil{sqrt} 
 \glslink{unitTest}{\emph{Unit Testing}} is a software testing technique where separate components or functions of an application are tested in isolation~\cite{P2021PUTAAOAEUTIP,R2006ASOUTP,TLG2006UTCU,O1991UTVIT,B2004JPG,O2003UTTETO}.%
 \end{definition}%
 %
-This idea works hierarchical.
+This idea works hierarchically.
 We implement and test the smallest functions~$\mathcal{A}$.
 We \inQuotes{code a little, test a little}~\cite{BG2000TIPLWT}, allowing us to both understand and verify our code.
 Then we move on.
@@ -402,7 +406,7 @@ And we tested the code that uses this code.
 And all tests pass.
 Surely, there still might be undetected errors.
 But we did cover the likely use cases with proper tests and they did work.
-Our work is not just some fiddly bricolage, it is a piece of sound engineering.
+Our work is not just some fiddly botch, it is a piece of sound engineering.
 
 But how does this work on a technical level?
 It's easy.
@@ -426,7 +430,7 @@ We could also have compared programmatically.
 We could have reported \inQuotes{Test Success!} if \pythonilIdx{isclose} for them yields \pythonil{True} and a \inQuotes{Test Error!} otherwise.
 
 The goal of using \pglspl{unitTest} is to ensure that each unit of the software performs as expected.
-Since tests can be developed along~(or even before!) the single functions are implemented, potential errors can be found early in the development process.
+Since tests can be developed alongside~(or even before!) the single functions are implemented, potential errors can be found early in the development process.
 As the \pglspl{unitTest} focus on smaller, well, units, they can be less complex and easier to understand.
 The consequent usage of \pglspl{unitTest} supports a modular and cleaner programming style, as it forces the developer to divide bigger programs into smaller pieces that can be invoked and tested in separation.
 
@@ -464,7 +468,7 @@ You will ask yourself how testing and especially the reuse of test cases works.
 It is, actually, fairly simple:
 We have our actual program code in one or multiple \python\ files.
 We have our test code in some other \python\ files.
-For the same of clarity, if the actual code is in a file~\programUrl{functions:my_math}, then we could the code for the tests into a file called~\programUrl{test_my_math}.
+For the sake of clarity, if the actual code is in a file~\programUrl{functions:my_math}, then we could put the code for the tests into a file called~\programUrl{functions:test_my_math}.
 
 \gitLoadPython{functions:test_my_math}{}{functions/test_my_math.py}{}%
 \listingPython{functions:test_my_math}{%
@@ -610,7 +614,7 @@ This timeout can be generous, maybe one hour, but it will serve as sentinel agai
 Timeouts protect automated builds or \pgls{continuousIntegration} systems from clogging.}%
 %
 \begin{sloppypar}%
-We can see from the output of \pytest, that the timout occurred when the argument \pythonil{inf} was passed in as value for the parameter \pythonil{number} of our \pythonil{sqrt} function.
+We can see from the output of \pytest, that the timeout occurred when the argument \pythonil{inf} was passed in as value for the parameter \pythonil{number} of our \pythonil{sqrt} function.
 What could have happened here?
 Again, we initially set \pythonil{guess = 1.0}.
 In the first iteration of the loop in \pythonil{sqrt}, we compute \pythonil{guess = 0.5 * (guess + number / guess)}.
@@ -622,7 +626,7 @@ And \pythonil{inf / inf} yields~\pythonil{nan}~\cite{G1991WECSSKAFPA}.
 \end{sloppypar}%
 %
 The \pythonil{nan} infects the rest of the computation, and the result turns into \pythonil{guess = nan}.
-From now on, all calculations yields \pythonil{nan}.
+From now on, all calculations yield~\pythonil{nan}.
 Now it holds that \pythonil{nan != nan} and \pythonil{isclose(nan, nan)} never becomes \pythonil{True}.
 Therefore, our loop never ends.
 The time limit protected us here.
@@ -658,8 +662,8 @@ These are also the results that we would expect.%
 In \cref{lst:functions:test_my_math_3}, we apply our \pglspl{unitTest} to this new version of our \pythonil{sqrt} function.
 As you can see in the output provided in \cref{exec:functions:test_my_math_3:pytest}, the tests now complete successfully.
 This was a good example of how tests can help us to spot errors in our code.
-When looking at \cref{lst:functions:use_my_math}, we certain assumed that all of our functions were implemented correctly.
-However, \pytest\ has helped us to spot two erros.
+When looking at \cref{lst:functions:use_my_math}, we certainly assumed that all of our functions were implemented correctly.
+However, \pytest\ has helped us to spot two errors.
 We then fixed these errors.%
 %
 \bestPractice{functionUnitTest}{%
@@ -694,7 +698,7 @@ And its core developers mark reliability, shown by thorough tests, as one of the
 
 Tests are incredibly important.
 And we have seen this here.
-I think that to most of us, our original \pythonil{sqrt} implementation looked pretty fine.
+I think that to most of us, our original \pythonil{sqrt} implementation looked fine.
 Of course, we probably noticed that it won't handle negative numbers in a reasonable way, but this one we can set aside for when we can raise \pythonilsIdx{Exception} by ourselves.
 I do not think that most of us saw the issue with \pythonil{0.0}.
 And I also doubt that many predicted the endless loop for~\pythonil{inf}.
@@ -726,7 +730,7 @@ What else can we do with parameters?
 
 We can also let parameters have so-called \emph{default values}.\pythonIdx{function!parameter!default value}\pythonIdx{function!argument!default}
 If a parameter has a default value, then specifying a value for the parameter when calling the function becomes optional.
-Wee can specify the value of the parameter \emph{or} we can simply omit it, i.e., not assign a value to it.
+We can specify the value of the parameter \emph{or} we can simply omit it, i.e., not assign a value to it.
 In the latter case, the parameter will then have the default value.
 From inside the function, this looks the same as if we passed in the default value.
 
@@ -793,7 +797,9 @@ Because that could lead to awful problems~\cite{H2025PM:MDA}.
 Default parameter values must always be immutable~\cite{H2025PM:MDA}.}%
 %
 The default value of a function argument must always be immutable.
-If you would pass in, e.g., a \pythonil{list}, then the function could modify the list and the next call to this function would then receive this modified list.
+Or, at least, \emph{should} be immutable, because, technically, you could use mutable values as well.
+Of course, technically, you can also set the value of the variable~\pythonilIdx{pi} in the \pythonilIdx{math}~module to~\pythonil{3}~(see \cref{sec:variablesCanBeModified}).
+If you \emph{would} pass in, e.g., a \pythonil{list}, then the function could modify the list and the next call to this function would then receive this modified list.
 Even worse, if the function was to return the list, it could be modified outside of the function.
 The behavior of such code could become arbitrarily hard to debug.
 
@@ -910,14 +916,14 @@ But there is one more interesting thing that we can do with functions.
 You see, in \python, all things are objects~\cite{H2025PM:EIAO,PSF:P3D:TPLR:DM}.
 References to objects can be stored by variables or passed in as function arguments.
 Functions are objects too~\cite{H2025PM:EIAO}.
-This means that we can also store functions in variables or pass them as argument to other functions!
+This means that we can also store functions in variables or pass them as arguments to other functions!
 
 At first glance, this sounds awfully odd.
 Why would someone like to pass a function as parameter to another function?
 At second glance, there are a wide variety of situations where we would actually want to do that.
 Having done so many mathematics-based examples in this book, let's pick one such situation arising in maths.
 
-In high school, you have learned about integration and differentiation.
+In high school, you would have learned about integration and differentiation.
 A \emph{definite integral} is the formal calculation of the area under a function over a certain range along the \pgls{xAxis}.
 It uses \pgls{infinitesimal}~\cite{EOWM2025MWAMTD:I,KS2013LITFTMIATFFBTRAB} stripes over the region to do so.
 
@@ -936,11 +942,13 @@ This area can obtained by using \pgls{infinitesimal}~(read:~immeasurably small) 
 While we cannot really use \inQuotes{immeasurably small} strips, we could use \inQuotes{fairly small} ones to approximate the right result.
 Let's say that we have a function~$f(x)$ as a parameter of our program.
 We would also have the interval limits~$a$ and~$b$ as parameters.
-Then we could divide the range~$[a,b]$ into $n$~strips.
+Then we could divide the range~$[a,b]$ into \scale~strips.
 For each strip, we could approximate the area beneath~$f(x)$.
-Then we add up the $n$~areas, and have a rough approximation of the total area.
-$n$~could be another parameter for our integration approach.
-The larger~$n$, the smaller will the strips get, the more accurate should our estimate become~(and the longer it will take to get it).%
+Then we add up the \scale~areas, and have a rough approximation of the total area.
+\scale~could be another parameter for our integration approach.
+The larger~\scale, the smaller will the strips get, the more accurate should our estimate become~(and the longer it will take to get it)\footnote{%
+Of course, eventually, we will run into numerical precision issues and the approximation will become worse again for larger~\scale\dots%
+}.
 %
 \begin{figure}%
 \centering%
@@ -956,24 +964,24 @@ Using the composite trapezoid method to numerically approximate definite integra
 This brings us to the question how we can do this, in particular, how to approximate the area of one such strip.
 The composite trapezoid method is one very simple implementation of this idea~\cite{S2021ITNM:NIATROTTR,E2013AITNMAA,A1991AITNA}.
 As illustrated in \cref{fig:normalDistPdfInteg}, it treats the strips as right trapezoids.
-The baseline of the trapezoid is a piece of the \pgls{xAxis} with length~$h=(b-a)/n$.
-Clearly, $n*h=b-a$ and thus, $n$~trapezoids of equal base length form the range of the \pgls{xAxis} under~$f(x)$.
+The baseline of the trapezoid is a piece of the \pgls{xAxis} with length~$h=(b-a)/\scale$.
+Clearly, $\scale*h=b-a$ and thus, \scale~trapezoids of equal base length form the range of the \pgls{xAxis} under~$f(x)$.
 The baseline first trapezoid starts right at~$x=a$ and extends to~$x=a+h$.
 The second trapezoid starts at~$x=a+h$ and extends to~$x=a+2h$.
-The last trapezoid starts at~$x=a+(n-1)h$ and extends to~$x=a+nh=b$.
+The last trapezoid starts at~$x=a+(\scale-1)h$ and extends to~$x=a+{\scale}h=b$.
 Each trapezoid has two parallel sides meeting with its baseline in right angles.
 The length of these sides are the values of~$f(x)$ at the corresponding x\nobreakdashes-coordinate.
 The area of the $i$\nobreakdashes-th trapezoid is thus~$h[f(a+(i-1)h)+f(a+ih)]/2$.
-Summing up the $n$~areas yields an approximation of the definite integral, as sketched in \cref{fig:normalDistPdfInteg}.
+Summing up the \scale~areas yields an approximation of the definite integral, as sketched in \cref{fig:normalDistPdfInteg}.
 
-Each value~$f(a+ih)$ except for $i=0$ and $i=n$ appears twice in the sum and each time is halved.
+Each value~$f(a+ih)$ except for $i=0$ and $i=\scale$ appears twice in the sum and each time is halved.
 Instead of computing these values twice, dividing them by two, and then adding them, we can simply compute them only once.
 
 We want to implement this method as a function \pythonil{integrate}.
 Obviously, \pythonil{integrate} has the parameters \pythonil{a} and \pythonil{b} denoting the limits of the interval to integrate over.
 We allow them to be either \pythonil{int} or \pythonils{float}, denoted by the \pgls{typeHint} \pythonil{float | int}.
 Let's give them the default values \pythonil{0.0} and \pythonil{1.0}, respectively.
-Then there is the parameter \pythonil{n}, an \pythonil{int}, denoting the number of trapzes we need to construct.
+Then there is the parameter \pythonil{n}, an \pythonil{int}, denoting the number of trapezoids we need to construct.
 A good default value for it may be \pythonil{100}.
 But we need another parameter, namely the function \pythonil{f} that we want to integrate.
 How can we specify this parameter?
@@ -999,12 +1007,12 @@ so we need to import it first if we want to use it.%
 \end{sloppypar}%
 %
 The actual implementation of \pythonil{integrate} is straightforward.
-Inside the function, we add up the different trapezes as shown in the simplified equation in \cref{fig:normalDistPdfInteg}.
+Inside the function, we add up the different trapezoids as shown in the simplified equation in \cref{fig:normalDistPdfInteg}.
 Only the values of \pythonil{f} at the interval ends \pythonil{a} and \pythonil{b} need to be halved in the sum.
 We therefore initialize the sum \pythonil{result} as \pythonil{0.5 * (f (a) + f(b))}.
-We compute the trapez base length~\pythonil{h} as~\pythonil{(b - a) / n}.
+We compute the trapezoid base length~\pythonil{h} as~\pythonil{(b - a) / n}.
 Then we iterate counter~\pythonil{i} from \pythonil{1} to \pythonil{n - 1} and add \pythonil{f(a + h * i)} to \pythonil{result} in each step.
-Finally, we return need to multiply this with the trapez base length~\pythonil{h} to get the approximation of the area under the curve.
+Finally, we return need to multiply this with the trapezoid base length~\pythonil{h} to get the approximation of the area under the curve.
 We thus return \pythonil{result * h}.
 
 Let's now test how well our trapezoid-based integration works.
@@ -1086,7 +1094,7 @@ Still, as an example of functions that work on other functions, it was suitable.
 \endhsection%
 %
 \hsection{Summary}%
-Functions are the central building block needed to create modular code.
+Functions are the central building blocks needed to create modular code.
 They allow us to put code into units with clearly defined interfaces.
 The input of a function are its parameters~(if any).
 The output is its return value~(if any).
