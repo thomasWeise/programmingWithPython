@@ -5,7 +5,7 @@ So far, we have mainly focused on writing correct code.
 We try to create code that is free of errors.
 
 When we execute our programs, then there are at least two things that can go wrong.
-On one hand, we can never really be sure that our program code is free of programming mistakes.
+On the one hand, we can never really be sure that our program code is free of programming mistakes.
 The larger a project gets, the more likely it is that there are some bugs hidden somewhere in the code.
 Thorough \pglspl{unitTest} can reduce the likelihood of bugs, but it cannot entirely prevent them.
 
@@ -13,7 +13,7 @@ On the other hand, our programs do not exist all by themselves in a vacuum.
 They receive input, maybe from files, maybe from the user, maybe from sensors.
 This input may be wrong.
 
-Coarsely, we can group both kinds of problems together as situations that were not anticipated, that are exceptions from the intended program flow.
+Coarsely, we can group both kinds of problems together as situations that were not anticipated, that are \emph{exceptions} from the intended program flow.
 We already have encountered such situations.
 For example, trying to access a character of a string at an index greater than or equal to the length of the string will lead to an~\pythonilIdx{IndexError}, as we saw in \cref{sec:strBasicOperations}.
 The attempt to modify an element of a \pythonil{tuple} is punished with a \pythonilIdx{TypeError} in \cref{sec:tuples}.
@@ -44,7 +44,7 @@ Matter of fact, our \pythonil{sqrt} function implemented in \cref{lst:functions:
 \end{enumerate}%
 %
 The latter is what \python\ does in the examples mentioned initially:
-While it \emph{could} simply ignore if we try to overwrite an element of a \pythonil{tuple}, it instead raises an~\pythonilIdx{TypeError}, for example.
+While it \emph{could} simply ignore if we try to overwrite an element of a \pythonil{tuple}, it instead raises a~\pythonilIdx{TypeError}, for example.
 Personally, I am also a fan of this approach.
 And the \python\ documentation is, too:%
 %
@@ -53,9 +53,9 @@ Errors should never pass silently. %
 Unless explicitly silenced.%
 }%
 %
-If we would follow the \pgls{GIGO} paradigm, then faulty data will propagate.
+If we follow the \pgls{GIGO} paradigm, then faulty data will propagate.
 Maybe the output of our function is fed as input into another function, whose output is then piped into another function, and so on.
-An error could then will lead to some crash down the line.
+An error could then lead to some crash down the line.
 Then again, if functions that are written under the assumption that \pgls{GIGO} is OK are paired with such that perform input sanitization, errors could remain unnoticed.
 The erroneous results could then become part of some actual, real-life decisions and designs.
 And even if found out, it will be extremely hard to discover where things went wrong in the long chain of computations and function calls.
@@ -67,10 +67,10 @@ Good luck finding the piece of code that caused the error then.
 Input sanitization could cover some error that happened earlier.
 But there are two more problems with this:
 First, it is not clear whether sanitized data is actually fixed.
-Assume that we have a function~\pythonil{compute} has a parameter~\pythonil{x} that should only accepts integers.
+Assume that we have a function~\pythonil{compute} that has a parameter~\pythonil{x} that only accepts integers.
 Now our function receives a value that was somehow corrupted to~\pythonil{5.5}.
-Should this santize to~\pythonil{5} or~\pythonil{6}?
-Either could be right and both could be wrong.
+Should this sanitize to~\pythonil{5} or~\pythonil{6}?
+Either could be right or both could be wrong.
 Would it make sense to simply always do~\pythonil{int(x)}?
 We can hardly make a fixed rule that will always pick the right choice.
 
@@ -85,7 +85,7 @@ Now we suddenly have people who call our function \pythonil{compute} with string
 \emph{And we will have to keep supporting that.}
 Because now there maybe exists code in some applications that relies on the option to pass strings to our function.
 If we change our mind and modify the function to no longer accept such nonsense{\dots}
-{\dots}then this other code, that just now worked perfectly fine, will crash.
+{\dots}then this other code, that until now worked perfectly fine, will crash.
 Thus, input sanitization also encourages sloppy programming.
 
 This leaves raising an \pythonilIdx{Exception}.
@@ -97,7 +97,7 @@ Raising an \pythonilIdx{Exception} means two things:%
 \item Information about the error and information about the current execution state~(the current line of code and the function call hierarchy) is stored in an object~(the \pythonilIdx{Exception}).%
 %
 \item The control flow immediately leaves the currently executed block of instructions as well as all calling blocks or functions.
-It jumps up in the call hierarchy until reaching code that handles the raised exception.
+It jumps up in the call hierarchy until reaching code that can properly process the raised exception.
 If no such code exists, the current process is terminated with an \pgls{exitCode} different from~\textil{0}.%
 %
 \end{enumerate}%
@@ -112,7 +112,7 @@ This makes it much easier to find out whether the error is caused by invalid inp
 %
 \item It prevents \pgls{GIGO} from occurring.
 Thus, it prevents a faulty situation or corrupted data from propagating out of the current context.
-If an error occurs, this the raised exception takes down the current path of execution and this stops the contaminated control flow.%
+If an error occurs, then the raised exception terminates the current path of execution and this stops the contaminated control flow.%
 %
 \item It forces programmers to explicitly deal with the error condition.
 An error cannot be simply ignored.
@@ -132,7 +132,7 @@ That an error causes the current process to crash unexpectedly or that all futur
 \bestPractice{exceptions}{%
 Errors should \emph{not} be ignored and input data should \emph{not} be artificially sanitized. %
 Instead, the input of functions should be checked for validity wherever reasonable. %
-Faulty input should always be signaled by errors conditions breaking the program flow. %
+Faulty input should always be signaled by error conditions breaking the program flow. %
 \pythonilsIdx{Exception} should be raised as early as possible and whenever an unexpected situation occurs.%
 }%
 %
@@ -144,7 +144,7 @@ Raising exceptions is very easy.
 \python\ offers us a variety of different types of exceptions.
 Some prominent examples are \pythonilIdx{ValueError}, which is used when a parameter has an incorrect value, and \pythonilIdx{TypeError}, which we use if a parameter has an illegal type.
 If you want to signal an error of a specific type, all you have to do is to write \pythonilIdx{raise}, followed by the exception type.
-If, additionally, you also want to provide an error message, then you can write provide this message as string in parentheses directly after the exception type name.%
+If, additionally, you also want to provide an error message, then you can provide this message as a string in parentheses directly after the exception type name.%
 %
 \pythonSyntax{syntax/raise_exception.py}%
 %
@@ -170,14 +170,14 @@ A new variant of the \pythonil{sqrt} function from back in \cref{lst:functions:m
 Using the new variant of the \pythonil{sqrt} function from \cref{lst:exceptions:sqrt_raise} that raises an \pythonilIdx{ArithmeticError} if its input is non-finite or negative.}%
 %
 Let us now first look at an example of how we can signal an error condition in our code.
-For this purpose, we re-visit the square root function that \pythonil{sqrt} we implemented back in file \programUrl{functions:my_math_3} shown as \cref{lst:functions:my_math_3} in \cref{sec:unitTesting}.
+For this purpose, we re-visit the square root function \pythonil{sqrt} that we implemented back in file \programUrl{functions:my_math_3} shown as \cref{lst:functions:my_math_3} in \cref{sec:unitTesting}.
 In that implementation, we realized that certain input values such as~\pythonil{inf}, \pythonil{-inf}, \pythonil{nan}, and~\pythonil{0.0} deserve special treatment.
-We also found that nothing could stop a user to pass a negative number as input to our \pythonil{sqrt} implementation.
+We also found that nothing could stop a user from passing a negative number as input to our \pythonil{sqrt} implementation.
 We did not yet have any means to deal with nonsense in a reasonable way, so we decided to just return~\pythonil{0.0} in that case.
 
 Obviously, this is a bad idea because passing a negative number to \pythonil{sqrt} can only mean two things:
-Either the programmer who did that does not know that a square root is.
-Or the negative input came as the result from another computation and that computation somehow was wrong.
+Either the programmer who did that does not know what a square root is.
+Or the negative input came as the result of another computation and that computation somehow was wrong.
 In the first case, we should somehow make it explicit to the programmer that the square root of a negative number is not defined\footnote{at least not as real number in the scope of a \pythonil{float}} and that they should question their approach to mathematics.
 In the second case, we should rather stop the computation right there and then before the incorrect results propagate and do some damage elsewhere.
 In both cases, raising an exception is much better than returning~\pythonil{0.0}.
@@ -190,9 +190,9 @@ In no situation would it return a wrong number, \pythonilIdx{inf}, or~\pythonilI
 We therefore create a new implementation of \pythonil{sqrt} in file \programUrl{exceptions:sqrt_raise} \cref{lst:exceptions:sqrt_raise}.
 
 We now have to decide which type of exception most appropriately represents the situation.
-On one hand, we could choose a \pythonilIdx{ValueError}, because the parameter value is invalid.
+On the one hand, we could choose a \pythonilIdx{ValueError}, because the parameter value is invalid.
 Or we choose an \pythonilIdx{ArithmeticError}, because the arithmetic computation fails.
-Both choices are completely valie.
+Both choices are completely valid.
 I here will choose \pythonilIdx{ArithmeticError} because I want to express the mathematical nature of the context.
 
 Before writing the actual \python\ code, we express the new behavior in the \pgls{docstring} of our function, by adding a corresponding \textil{:raises:} note.
@@ -203,7 +203,7 @@ Any other programmer using our code therefore can easily see what kind of \pytho
 In the actual code, we first check whether either \pythonil{not isfinite(number)}\pythonIdx{isfinite} or \pythonil{number < 0.0} holds.
 The \pythonilIdx{isfinite} function is offered by the \pythonilIdx{math} module and returns \pythonil{True} if its argument is a finite number.
 It will be \pythonil{False} for either \pythonilIdx{inf}, \pythonilIdx{-inf}, or~\pythonilIdx{nan}.
-The complete expression becomes \pythonil{True} if the input of the function is not a finite number greater or equal~0.
+The complete expression becomes \pythonil{True} if the input of the function is not a finite number greater than or equal to~0.
 In this case, the output of the \pythonil{sqrt} function would not be a finite number.
 
 If this situation, we \pythonil{raise ArithmeticError(f"sqrt(\{number\}) is not permitted.")}.\footnote{%
@@ -212,7 +212,7 @@ Imagine that \pythonil{number} would be a very huge string. %
 But since the context here is tight, I do this anyway.}
 \pythonilIdx{raise} is the keyword used to, well, raise an exception, i.e., to signal an error.
 \pythonilIdx{ArithmeticError} then creates the object with the information about the exception.
-We can pass a string as parameter to this function, and we here chose to pass in an \pgls{fstring} which contains the value of the number with which our \pythonil{sqrt} function was called.
+We can pass a string as a parameter to this function, and we here chose to pass in an \pgls{fstring} which contains the value of the number with which our \pythonil{sqrt} function was called.
 This line of code will force the control flow to immediately exit our \pythonil{sqrt} function.
 The \pythonilIdx{Exception} object \inQuotes{raises} up until it is \inQuotes{caught}~(which we discuss later).
 If it is not caught, the process itself is terminated.
@@ -221,14 +221,14 @@ This process termination can be observed in program \programUrl{exceptions:use_s
 In the program, we iteratively apply our new \pythonil{sqrt} function to the values inside a \pythonil{tuple} using a \pythonilIdx{for}~loop.
 We write the results of these computations to the \glsFull{stdout} using \pgls{fstring} and \pythonil{print}.
 We here use the optional parameter \pythonilIdx{flush}\pythonIdx{print!flush} of \pythonilIdx{print}, which has the default value~\pythonil{False}.
-We set it to \pythonil{flush=True}\pythonIdx{print!flush}, though, which forces that the output of \pythonilIdx{print} is directly and immediately written to the \pgls{stdout} and not cached.
+We set it to \pythonil{flush=True}\pythonIdx{print!flush}, though, which specifies that the output of \pythonilIdx{print} is directly and immediately written to the \pgls{stdout} stream and not buffered.
 This is useful in this special example to prevent mix-ups between the \pgls{stdout} stream receiving the normal output of the program and the \glsFull{stderr} stream where error messages appear.
 Both streams are captured and presented in \cref{exec:exceptions:use_sqrt_raise} and the order of the text could otherwise get mixed up.
 
 Anyway, the first five numbers are fine and \pythonil{sqrt} returns the proper results.
 However, the latter three numbers, \pythonilIdx{inf}, \pythonilIdx{nan}, and \pythonil{-1.0} all would cause an error.
 As can be seen, for \pythonil{0.0}, \pythonil{1.0}, \pythonil{2.0}, \pythonil{4.0}, and \pythonil{10.0}, the results are printed as anticipated.
-However, when the \pythonilIdx{for}~loop reaches \pythonilIdx{inf}, the program is terminated an the so-called \pgls{stackTrace} is written to the output.
+However, when the \pythonilIdx{for}~loop reaches \pythonilIdx{inf}, the program is terminated and the so-called \pgls{stackTrace} is written to the output.
 
 We briefly discussed the \pgls{stackTrace} already back in \cref{sec:errorsFromExceptions}, where we pointed out its high utility in locating the source of the error.
 This turns out to be true here as well.
@@ -285,11 +285,11 @@ Using the new variant of the \pythonil{sqrt} function from \cref{lst:exceptions:
 \listingToolOutput{exceptions:use_sqrt_raise_2:mypy}{%
 The results of static type checking with \mypy\ of the program given in \cref{lst:exceptions:use_sqrt_raise_2}.}
 
-Earlier in this chapter, we mentioned that it would be bad idea to be too lenient regarding the datatypes of our input parameters.
+Earlier in this chapter, we mentioned that it would be a bad idea to be too lenient regarding the datatypes of our input parameters.
 If we conveniently coerce inputs into types that we like, we might invite users to sloppily call our functions with arbitrary input types -- which we would then be forced to support indefinitely in future versions of our code.
 We should never permit the user to call a function with a type it is not suitable for.
-Of course, if we would try to invoke our current \pythonil{sqrt} function with, say, a string as input parameter, it would crash with an \pythonilIdx{TypeError}.
-This error would occur at some point because we cannot apply floating point arithmetics to strings.
+Of course, if we would try to invoke our current \pythonil{sqrt} function with, say, a string as input parameter, it would crash with a \pythonilIdx{TypeError}.
+This error would occur at some point because we cannot apply floating point arithmetic to strings.
 
 You may wonder how we, by ourselves, can explicitly create a \pythonilIdx{TypeError}?
 And how do we even manually detect whether a parameter has a certain type?
@@ -318,7 +318,7 @@ But the users of our function can \emph{ignore} this if they want to.
 {\dots}We just don't let them get away with it by checking the input type in the function.
 
 As a side note, \mypy\ \emph{does} detect that our new program \programUrl{exceptions:use_sqrt_raise_2} violates the \pgls{typeHint}, as shown in \cref{exec:exceptions:use_sqrt_raise_2:mypy}.
-If the programmer had checked their program using this tool, they would never have made the error.
+If the programmer had checked their program using this tool, they would never have made this error.
 
 We made another step towards professional programming.
 We now have the means to guard our code and our functions against errors caused by its users~(to some degree).
@@ -421,8 +421,8 @@ In \python, \pythonilsIdx{Exception} are raised\pythonIdx{raise} in such a situa
 An \pythonilIdx{Exception} disrupts the normal control flow and propagates upwards until a corresponding \pythonilIdx{except} clause is reached.
 Obviously, we cannot just treat every possible error condition in the same way.
 
-Running out of memory is a completely different situation than trying to read from a non-existing file.
-Therefore, different types of exceptions are raised:
+Running out of memory is a completely different situation than trying to read from a non-existent file.
+Therefore, different types of exceptions can be raised:
 The former problem causes a \pythonilIdx{MemoryError} while the latter raises an \pythonilIdx{FileNotFoundError}.
 The hierarchy of the different problem types is illustrated in \cref{fig:pythonExceptions}~\cite{PSF:P3D:TPSL:BIE}.
 Some exceptions are special cases of other exceptions.
@@ -438,7 +438,7 @@ And so should the \pglspl{docstring} of our own code as well as the library func
 \hsection{Handling Exceptions}%
 %
 We have learned how we can raise exceptions in order to signal errors.
-So far, the exceptions that we raised caused our processes to print an error message to the \pgls{stderr} and then to terminate.
+So far, the exceptions that we raised caused our processes to print an error message to the \pgls{stderr} stream and then to terminate.
 Of course, we do not want that all possible unexpected error conditions will immediately terminate our process.
 
 For example, maybe we created a program for painting a picture.
@@ -458,13 +458,13 @@ We use examples that are specifically constructed to cause certain errors to ill
 %
 \hsection{The \texttt{try}\dots\texttt{except} Block}%
 %
-The \pythonilIdx{try}\nobreakdashes-\pythonilIdx{except} clause exists as primary approach to recover from specific errors.
+The \pythonilIdx{try}\nobreakdashes-\pythonilIdx{except} clause exists as the primary approach to recover from specific errors.
 We place the code that may raise an exception into an indented block that is prefixed by \pythonil{try:}.
 After this block, we write the handlers for specific exception types.
 For example, if we know that the \pythonilIdx{try} block could raise an \pythonilIdx{ArithmeticError} for a reason from which recovery is possible, then we could write \pythonil{except ArithmeticError as ae:}\pythonIdx{except}\pythonIdx{as}.
-The code inside this \pythonilIdx{except} block would be executed if and only if indeed an \pythonilIdx{ArithmeticError} was raised somewhere in the \pythonilIdx{try} block.
+The code inside this \pythonilIdx{except} block would be executed if and only if an \pythonilIdx{ArithmeticError} was raised somewhere in the \pythonilIdx{try} block.
 In this case, the \pythonilIdx{ArithmeticError} would be available as local variable \pythonil{ae} in this block.
-Of course, multiple different types of \pythonilsIdx{Exception} may be raised, so we can have multiple \pythonilIdx{except} blocks.
+Of course, multiple types of \pythonilsIdx{Exception} may be raised, so we can have multiple \pythonilIdx{except} blocks.
 This looks like this:%
 %
 \pythonSyntax{syntax/try_except.py}%
@@ -497,7 +497,7 @@ In this block, we simply print the error.
 
 After the block, we print \pythonil{"The program is now finished."}.
 This code is executed only if no uncaught exception has left the \pythonil{try}-\pythonil{except} block.
-The output of the program given in \cref{exec:exceptions:try_except_str_index} shows that the program is executed as expected.
+The output of the program given in \cref{exec:exceptions:try_except_str_index} shows that the program executes as expected.
 We first get the results of the successful search for \pythonil{"Hello"}, followed by the output for the failed search.
 The last line then is \textil{The program is now finished.}
 If we had not specified the \pythonilIdx{except} block, the control flow would have left the loop, printed the \pgls{stackTrace}, and terminated the program instead.
@@ -513,7 +513,7 @@ However, it is important to only handle reasonable errors.
 For example, suppose your program should be writing text to a file.
 It is totally acceptable that this may fail for a variety of file system related reasons, like insufficient space on the device, an access rights violation, or an incorrect file name.
 Such errors may be handled with a corresponding \pythonilIdx{except} block and reasonable actions may be taken.
-If, on the other hand, a \pythonilIdx{ZeroDivisionError} would occur during our attempt to write the file, then this indicates that something else went really wrong.
+If, on the other hand, a \pythonilIdx{ZeroDivisionError} occurs during our attempt to write the file, then this indicates that something else went really wrong.
 Such an error is not OK in this context.
 We should only try to catch errors that are meaningful and that we anticipate in a given context.
 
@@ -564,7 +564,7 @@ We did declare the variable with a \pgls{typeHint}.
 But the \python\ interpreter ignores \pglspl{typeHint}.
 So it does not know this variable yet, as it does not have a value.
 Our program will terminate, because the \pythonilIdx{NameError} is never caught anywhere.
-It would not make sense to catch such an error, but it could only occur due to a bug.
+It would not make sense to catch such an error, since it could only occur due to a bug.
 And we indeed committed a bug here!
 Instead, the \pgls{stackTrace} and error information will be printed in \cref{exec:exceptions:try_multi_except}.%
 %
@@ -682,7 +682,8 @@ Of course, \emph{always} only holds as long as our \python\ interpreter is corre
 Anyway.
 We still need a \pythonilIdx{try} block that contains that code that may cause an error.
 Then follows a \pythonil{finally} block whose code is executed regardless of whether or not an error occurred in the \pythonil{try} block.
-In between the two blocks, we can optionally add \pythonilIdx{except} blocks to handle certain \pythonilsIdx{Exception} and an \pythonilIdx{else} block to be executed if no error occurs.%
+In between the two blocks, we can optionally add \pythonilIdx{except} blocks to handle certain \pythonilsIdx{Exception} and an \pythonilIdx{else} block to be executed if no error occurs.
+Notice that the order of the blocks cannot be changed, i.e., first comes the \pythonilIdx{try} block, then at least one of the \pythonilIdx{except}, \pythonilIdx{else}, and \pythonilIdx{finally} blocks, in that order.
 %
 \pythonSyntax{syntax/try_except_else_finally.py}%
 \FloatBarrier%
@@ -730,7 +731,7 @@ The \pythonilIdx{else} block is not reached but the \pythonilIdx{finally} block 
 Since the error was properly handled, the message in the \pythonil{print} instruction at the end of the function is written to the output as well.
 
 Invoking \pythonil{divide_and_print("3", 0)} means that we intentionally ignore the \pglspl{typeHint} in the function definition.
-The \python\ interpreter allows us to do this without complaint, as \pglspl{typeHint} are only hints and strict requirements~(different from other programming languages like~\pgls{Java} or~\pgls{C}).
+The \python\ interpreter allows us to do this without complaint, as \pglspl{typeHint} are only hints and not strict requirements~(different from other programming languages like~\pgls{Java} or~\pgls{C}).
 However, the division \pythonil{a / b} will fail since the string \pythonil{"3"} does not support a division operation.
 It raises\pythonIdx{raise} a \pythonilIdx{TypeError}, which is subsequently caught by our second \pythonilIdx{except} block.
 This means that the \pythonilIdx{else} block is again not reached.
@@ -773,19 +774,19 @@ The output of \ruff\ when applied to \cref{lst:exceptions:file_try_finally}: It 
 \listingToolOutput{exceptions:file_try_finally:pylint}{%
 The output of \pylint\ when applied to \cref{lst:exceptions:file_try_finally}: It suggests using the \pythonilIdx{with}~statement instead of \pythonilIdx{try}-\pythonilIdx{finally}.}
 %
-The \pythonilIdx{try}-\pythonilIdx{finally} block allows us to make sure that one action will always be performed, regardless if some other intermediate code fails~(and raises exceptions).
+The \pythonilIdx{try}-\pythonilIdx{finally} block allows us to make sure that one action will always be performed, regardless of whether some other intermediate code fails~(and raises exceptions).
 A use case for this is handling resources that need to be explicitly closed or freed.
 Typical examples of this are network connections or file~\glsFull{inOut}.
 
-Let us use file~\pgls{inOut} as an example here anyway in program \programUrl{exceptions:file_try_finally} given as \cref{lst:exceptions:file_try_finally}.
+Let us use file~\pgls{inOut} as an example in program \programUrl{exceptions:file_try_finally} given as \cref{lst:exceptions:file_try_finally}.
 In this program, we will create and open a text file with the name \textil{example.txt}.
 We will write a line of text into the file and then close it.
-Then we will open it again, read the text, and print it to the \pgls{stdout}.
+Then we will open it again, read the text, and print it to the \pgls{stdout} stream.
 At the end, we will delete the file to not leave it laying around.
 
 To implement these steps, we first import the necessary types and functions.
 We import the type~\pythonilIdx{IO} from the \pythonilIdx{typing}~module.
-\pythonIdx{IO}~is the basic type for text-based \pgls{inOut} streams and will later use it as \pgls{typeHint}.
+\pythonilIdx{IO}~is the basic type for text-based \pgls{inOut} streams and we will later use it as \pgls{typeHint}.
 We will also need the function~\pythonilIdx{remove}\pythonIdx{os!remove} from the module~\pythonilIdx{os}.
 
 We begin by opening the file \textil{example.txt} for writing.
@@ -793,9 +794,9 @@ To do so, we call the built-in function~\pythonilIdx{open}.
 We pass in the filename~\textil{"example.txt"} as first parameter.
 The second parameter, \pythonil{mode}\pythonIdx{open!mode}, is set to~\pythonil{"w"}, which means \inQuotes{open for writing.}
 If the file does not yet exist, then the~\pythonil{"w"} tells \pythonilIdx{open} to automatically create it.
-If the fle already exists, its contents will be discarted and we begin writing at its beginning.
+If the file already exists, its contents will be discarded and we begin writing at its beginning.
 
-The parameter \pythonil{encoding}\pythonIdx{open!encoding} is set to~\pythonil{"UTF-8"}\pythonIdx{UTF-8}, which defines that the text should be translated to binary form when it is stored in the file via the usual \pgls{utf8}~encoding~\cite{RFC3629,ISOIEC106462020ITUCCSU}.
+The parameter \pythonil{encoding}\pythonIdx{open!encoding} is set to~\pythonil{"UTF-8"}\pythonIdx{UTF-8}, which indicates that the text should be translated to binary form when it is stored in the file via the usual \pgls{utf8}~encoding~\cite{RFC3629,ISOIEC106462020ITUCCSU}.
 All stored data is binary and this is the most common format to store text in binary form in the internet.
 
 Anyway, if opening the text file succeeds, we now have a variable~\pythonil{stream_out}, which is an instance of~\pythonilIdx{IO}.
@@ -826,7 +827,7 @@ We do this again with \pythonilIdx{try}-\pythonilIdx{finally} statement, where w
 
 The line of text that we had written before can now be read in the \pythonilIdx{try}~block.
 This is done via~\pythonil{stream_in.readline()}\pythonIdx{readline}\pythonIdx{IO!readonline}.
-And, as you can see, it gets immediately written to the \pgls{stdout} via~\pythonil{print}.
+And, as you can see, it gets immediately written to the \pgls{stdout} stream via~\pythonil{print}.
 
 At the end of our program, we delete the file \textil{example.txt} by calling~\pythonil{remove("example.txt")}\pythonIdx{remove}\pythonIdx{os!remove}.
 We had imported the \pythonilIdx{remove}\pythonIdx{os!remove} function from the module~\pythonilIdx{os} exactly for this purpose.
@@ -835,7 +836,7 @@ The output of our program, given in \cref{lst:exceptions:file_try_finally} looks
 Since we are diligent programmers, we will, of course, also perform static code analysis by using tools such as \ruff\ and \pylint.
 Their output can be found in \cref{exec:exceptions:file_try_finally:ruff,exec:exceptions:file_try_finally:pylint}.
 Oddly enough, they complain:
-\ruff\ suggests to use a \inQuotes{context manager} instead of the \pythonilIdx{try}-\pythonilIdx{finally} statement.
+\ruff\ suggests using a \inQuotes{context manager} instead of the \pythonilIdx{try}-\pythonilIdx{finally} statement.
 \pylint\ suggests to go with a \pythonilIdx{with}~statement instead.
 They both mean the same.
 
@@ -852,13 +853,13 @@ We will therefore do this later in \cref{sec:dunder:contextManager}.}
 However, in a nutshell, a context manager is basically an object that has two special methods.
 The first one will be called right at the beginning of the \pythonilIdx{with} block, and its result will be stored in a local \pythonil{variable} (if the \pythonilIdx{with} block has the \pythonil{with expression as variable:}-shape).
 The second special method will be called after the end of the \pythonilIdx{with} block.
-This is always done, regardless whether an exception occurred inside the indented block of code directly under~\pythonilIdx{with}.%
+This is always done, regardless of whether an exception occurred inside the indented block of code directly under~\pythonilIdx{with}.%
 %
 \pythonSyntax{syntax/with.py}%
 \FloatBarrier%
 %
 This makes the syntax roughly equivalent to calling the first special method before a \pythonilIdx{try} block and the second special method in the corresponding \pythonilIdx{finally} block.
-It is just much shorter and looks more elegant.
+It is just much shorter and more elegant.
 
 \gitLoadAndExecPython{exceptions:file_with}{}{exceptions}{file_with.py}{}%
 \listingPythonAndOutput{exceptions:file_with}{%
@@ -890,7 +891,7 @@ Therefore, we can directly begin with the second \pythonil{with} block.
 Here we want to read the single line of text from the file.
 We specify the call to \pythonilIdx{open} corresponding to this purpose and remember its result in variable \pythonil{stream_in}.
 The body of this \pythonil{with} statement then does the \pythonil{stream_in.readline()}\pythonIdx{readline}.
-After its end, the stream is automatically close.
+After its end, the stream is automatically closed.
 And then, the file gets deleted via \pythonilIdx{remove}.%
 %
 \FloatBarrier%
@@ -914,7 +915,7 @@ Finally, we can also write robust code that makes sure that resources are proper
 Back in \cref{sec:unitTesting}, we introduced the concept of \pglspl{unitTest}.
 Together, we explored how the tool \pytest\ can be used to test our functions.
 We stated in \cref{bp:unitTestCoverage} that we should cover all the branches of the control flow inside a function with \pglspl{unitTest}.
-One kind of branch that is often overlooked are \pythonilsIdx{Exception} and exception handling~\cite{LRBP2021AEHTPIOSL}.
+One kind of branch that is often overlooked are \pythonilIdx{Exception} and exception handling~\cite{LRBP2021AEHTPIOSL}.
 
 If our function is supposed to \pythonilIdx{raise} a certain exception under some conditions, then we should have a \pgls{unitTest} that checks if this \pythonilsIdx{Exception} is actually raised as it should be.
 Now, any exception raised by a \pgls{unitTest} will cause the test to fail.
@@ -924,7 +925,7 @@ Luckily, \pytest\ offers us a device for this.
 The \pythonilIdx{pytest} module offers a context manager~\cite{PSF:P3D:TPSL:CUFWSC} named \pythonilIdx{raises}\pythonIdx{pytest!raises}.
 We just learned how we can use such context managers via the \pythonilIdx{with}-statement.
 If we want to check whether a function indeed raises a certain exception of type \pythonil{ExceptionType} for a given input, then we can wrap the corresponding function call into \pythonil{with raises(ExceptionType):}.
-This is block tells \pytest\ that in the following indented block an exception of type \pythonil{ExceptionType} must be raised.
+This block tells \pytest\ that in the following indented block an exception of type \pythonil{ExceptionType} must be raised.
 If such an exception is not raised, the test fails.
 If it is raised, the test succeeds.
 
@@ -963,7 +964,7 @@ The \pgls{regex} \pythonil{\"h.*llo\"} matches to \pythonil{\"hllo\"}, \pythonil
 There are many more patterns that we can form with \pglspl{regex} and there are also more special characters that we can use for that.
 However, for now, we will leave it at that.
 Feel free to explore~\cite{IEEE1993ISFITPOSIPP2SAU,PSF:P3D:PH:REH,N2018RQSRUAURE,N2019AITRE,PSF:P3D:TPSL:RREO} for more information.
-Still, I think that you can already see how using \pglspl{regex} to check whether error messages confirm to a certain structure is a very natural idea.
+Still, I think that you can already see how using \pglspl{regex} to check whether error messages conform to a certain structure is a very natural idea.
 
 Let us expand our \cref{lst:functions:test_my_math_3} for testing the \pythonil{sqrt} function.
 This time, we want to test the last variant of our \pythonil{sqrt} function developed as  \programUrl{exceptions:sqrt_raise_2} in \cref{lst:exceptions:sqrt_raise_2}.
@@ -1003,7 +1004,7 @@ In a \pythonil{for}~loop, we let a variable~\pythonil{number} iterate over the v
 Obviously, none of these values are of type \pythonil{float}.
 The check \pythonil{isinstance(number, float)} should prevent these values from entering the actual computation.
 Unless, of course, we misunderstood how \pythonilIdx{isinstance} works.
-If our function \pythonil{sqrt} works as we think it should, it should raise an \pythonilIdx{TypeError} with the error message \pythonil{\"number must be float!\"}.
+If our function \pythonil{sqrt} works as we think it should, it should raise a \pythonilIdx{TypeError} with the error message \pythonil{\"number must be float!\"}.
 We therefore place these function calls into a \pythonilIdx{with} block with context manager \pythonil{raises(TypeError, match=\"number must be float!\")}.
 \end{sloppypar}%
 %
@@ -1087,7 +1088,7 @@ We do this by using the \pythonil{with raises(...)}\pythonIdx{raises} statement.
 \end{enumerate}%
 %
 This allows us to cover both the expected and correct use of our function with tests as well as unexpected incorrect uses.
-We can then be confident that our code is unlikely to cause harm, neither due to bugs created by ourselves nor due to accidental misuse by other programmers due to misunderstandings~(which would immediately signaled to them by \pythonilsIdx{Exception}).
+We can then be confident that our code is unlikely to cause harm, neither due to bugs created by ourselves nor due to accidental misuse by other programmers due to misunderstandings~(which would be immediately signaled to them by \pythonilsIdx{Exception}).
 Notice that good \pglspl{unitTest} go hand in hand with good documentation in \pglspl{docstring}, because good \pglspl{docstring} reduce the chance of such misunderstandings.%
 %
 \bestPractice{testAll}{%
@@ -1122,7 +1123,7 @@ Imagine how annoying it is to run an experiment and to find out one week later t
 You then not only feel sad about the waste of time, but now need to waste even more time:
 Where was the error?
 Maybe it would take another week to painstakingly debug your code step-by-step to find out that some function was used incorrectly due to a typo.
-How much better would it have been if the experiment had crashed right at its start, printing an \pythonilIdx{Exception} and \pgls{stackTrace} to the \pgls{stdout} showing exactly where things went wrong?
+How much better would it have been if the experiment had crashed right at its start, printing an \pythonilIdx{Exception} and \pgls{stackTrace} to the \pgls{stdout} stream showing exactly where things went wrong?
 It would have saved you two weeks and lots of grief.
 
 Of course, there are also situations where it is possible to gracefully recover from an error.
@@ -1130,7 +1131,7 @@ For example, maybe our program is trying to delete a file that already has been 
 The operation would fail, but that does not do any harm.
 We should notify the user, but we do not need to crash our application.
 For these scenarios, the \pythonilIdx{except} blocks exist.
-They allow us to catch errors which we can reasonably expect and that are no show stoppers.
+They allow us to catch errors which we can reasonably expect and that are not show stoppers.
 
 The \pythonilIdx{finally} block allows us to properly complete an operation regardless whether an error happened or not.
 If we send data over an internet connection, we want to close this connection properly after we are done.

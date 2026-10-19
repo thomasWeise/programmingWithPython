@@ -143,7 +143,7 @@ As \cref{fig:variable:assignment1} illustrates, the value~\pythonil{1} will now 
 \begin{sloppypar}%
 We can use \pythonil{int_var} just like any other value.
 For example, we can compute \pythonil{2 + int_var} and pass the result to the \pythonilIdx{print} function.
-This will then print the text~\textil{3} to the \pgls{stdout} of our program.
+This will then print the text~\textil{3} to the \pgls{stdout} stream of our program.
 We can also use \pythonil{int_var} in \pglspl{fstring}\pythonIdx{f-string}\pythonIdx{str!f} about which we learned back in \cref{sec:fstrings}.
 \pythonil{f"int_var has value \{int_var\}."} will be \glslink{strinterpolation}{interpolated} to \pythonil{"int_var has value 1."}.%
 \end{sloppypar}%
@@ -157,7 +157,7 @@ It therefore corresponds to computing \pythonil{(3 * 1) + 1}, which equals~\pyth
 This value is stored somewhere in memory and \pythonil{int_var} points to it, as sketched in \cref{fig:variable:assignment2}.
 The value \pythonil{1} is now no longer referenced.
 Eventually, the \python\ interpreter could free the corresponding memory to use it for something else.
-Doing \pythonil{print(f"int_var is now \{int_var\}.")} will print \textil{int_var is now 4.} to the \pgls{stdout}.
+Doing \pythonil{print(f"int_var is now \{int_var\}.")} will print \textil{int_var is now 4.} to the \pgls{stdout} stream.
 
 Of course, we can have multiple variables.
 The command \pythonil{float_var = 3.5} creates a variable named \pythonil{float_var}.

@@ -44,7 +44,7 @@ Both \pythonil{str(the_int)} and \pythonil{repr(the_int)}\pythonil{repr} are \py
 This is to be expected, since this is all the information that is needed to completely recreate this value and, at the same time, it is also the most concise way to present the value.
 
 We then create another variable \pythonil{the_str} with value \pythonil{"123"}.
-Printing \pythonil{the_str} to the \pgls{stdout}, which means doing \pythonil{print(str(the_str))}, will make the text \textil{123} appear on the console.
+Printing \pythonil{the_str} to the \pgls{stdout} stream, which means doing \pythonil{print(str(the_str))}, will make the text \textil{123} appear on the console.
 Printing \pythonil{repr(the_str)}, however, produces~\textil{'123'}.
 Notice the added single quotation marks on each side?
 These are necessary.
@@ -643,7 +643,7 @@ We will not change the local variables \pythonil{negative} and~\pythonil{b} in o
 %
 \bestPractice{varFinal}{%
 Every time you declare a variable that you do not intend to change, mark it with the \pgls{typeHint}~\pythonilIdx{Final}~\cite{PEP591}. %
-On one hand, this conveys the intention \inQuotes{this does not change} to anybody who reads the code. %
+On the one hand, this conveys the intention \inQuotes{this does not change} to anybody who reads the code. %
 On the other hand, if you do accidentally change it later, tools like \mypy\ can notify you about this error in your code.%
 }%
 %
@@ -1514,7 +1514,7 @@ Notice that, so far, we have just cached strings and did not yet write anything 
 This should come when a \pythonilIdx{with} body begins.
 At this moment, the \python~interpreter will call the method \pythonilIdx{\_\_enter\_\_}\pythonIdx{dunder!\_\_enter\_\_} of the context manager.
 All we need to do in this method is to invoke~\pythonil{self.__dest(self.__head)}.
-If \pythonil{__dest} was, for example, the \pythonil{print}~function, this would write the element start to the \pgls{stdout}.
+If \pythonil{__dest} was, for example, the \pythonil{print}~function, this would write the element start to the \pgls{stdout} stream.
 The method \pythonilIdx{\_\_enter\_\_}\pythonIdx{dunder!\_\_enter\_\_} also must return an object which can be assigned to a variable for use inside the \pythonilIdx{with} block using the \pythonilIdx{as} statement.
 We here want to return our \pythonil{Element} object itself, so we write~\pythonil{return self}.
 The proper \pgls{typeHint} for the return type in such situations is~\pythonilIdx{Self}\pythonIdx{typing!Self}.%
@@ -1563,7 +1563,7 @@ With this, our simple \pgls{API} for a subset of the \pgls{XML} standard~\cite{B
 %
 \gitLoadAndExecPython{dunder:xml_user_print}{}{dunder}{xml_user_print.py}{}%
 \listingPythonAndOutput{dunder:xml_user_print}{%
-An example of using our simple context manager-based \pgls{XML} output API from \cref{lst:dunder:xml_context:part_1,lst:dunder:xml_context:part_2}, where the output is printed to the \pgls{stdout}.}{,style=xml_style}%
+An example of using our simple context manager-based \pgls{XML} output API from \cref{lst:dunder:xml_context:part_1,lst:dunder:xml_context:part_2}, where the output is printed to the \pgls{stdout} stream.}{,style=xml_style}%
 %
 \gitLoadAndExecPython{dunder:xml_user_file}{}{dunder}{xml_user_file.py}{}%
 \listingPythonAndOutput{dunder:xml_user_file}{%
@@ -1585,7 +1585,7 @@ Our \python\ code basically mirrors the \pgls{XML} structure.
 The output of the program in \cref{exec:dunder:xml_user_print} looks very much like our example, with a slightly different indentation and line breaking.
 But this is permitted and acceptable under the \pgls{XML} standard~\cite{BPSMM2008EMLX1FE}.
 
-Instead of writing to the \pgls{stdout}, we can also recall our very first example of the \pythonilIdx{with} statement back in \cref{sec:withAndContextManagers}:
+Instead of writing to the \pgls{stdout} stream, we can also recall our very first example of the \pythonilIdx{with} statement back in \cref{sec:withAndContextManagers}:
 writing to and reading from a file.
 \Cref{lst:dunder:xml_user_file} is almost exactly the same as \cref{lst:dunder:xml_user_print}.
 The difference is that we now \pythonilIdx{open} a text output stream~\pythonil{stream_out} to a file~\textil{example.xml} and the stream's~\pythonilIdx{write}\pythonIdx{IO!write}~method as destination to our~\pgls{API}.
@@ -1593,7 +1593,7 @@ As a result, all the text is now written to a file instead.
 
 We later \pythonilIdx{open} the file again and read all of its lines one-by-one via the~\pythonil{for line in stream_in} loop.
 Files are actually \pythonilsIdx{Iterator} of line strings!
-All the file contents get written to the \pgls{stdout}.
+All the file contents get written to the \pgls{stdout} stream.
 Since \pythonilIdx{write} does not append newline characters, this format is much more compact, as can be seen in~\cref{exec:dunder:xml_user_file}.
 But it is perfectly valid~\pgls{XML}.
 
@@ -1603,7 +1603,7 @@ Obviously, we do not implement the complete standard, which is much more complic
 And you should never use our class if you really wanted to produce \pgls{XML} in a productive code.
 We also omitted type and sanity checks -- for example, we should forbid element names that are empty or contain special characters like~\textil{<}.
 A real implementation would be more conservative~(and too long to serve as a good example in this book).
-Still, on one hand, our \pgls{XML} is valid.
+Still, on the one hand, our \pgls{XML} is valid.
 On the other hand, you \emph{could} use extend and improve this class to have all the functionality that you need, if you wanted to.
 So this is actually another example that, at this stage and with what you have learned, you can already do real things.%
 %
