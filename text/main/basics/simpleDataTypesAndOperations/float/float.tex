@@ -180,29 +180,29 @@ Therefore, we need a \inQuotes{way back} from \pythonilIdx{float} to \pythonilId
 The first and maybe most common one is \pythonilIdx{round}.
 This function accepts a \pythonilIdx{float} and rounds it to the nearest integer.
 If two integer numbers are equally close to it, it returns the one that is even~\cite{PSF:P3D:TPSL:BIF}.
-This rounding method is called Banker's Rounding.
+This rounding method is called \emph{\pgls{bankersRounding}}.
 It is defined in the IEEE~754 standard for floating point arithmetics~\cite{IEEE2019ISFFPA} and used in many applications today, including Alipay\textsuperscript{+}~\cite{APDOC:BR}.
 
 This rounding behavior can be very surprising, as we learned in school that $x.5$ should be rounded to~$x+1$.
 Well, I learned it like this in Germany (and \pgls{Java}'s~\pythonil{Math.round} also works like that\cite{O2024JPSEJDKV2AS}), but elsewhere it may be taught differently{\dots}
-Under Banker's Rounding, this will only happen with \pythonilIdx{round} if $x+1$~is even.
-The reason why Banker's Rounding is preferred is that it is not biased in any direction~\cite{MB2005RA1,SE:SO:WDP3RHTE}.
+Under \pgls{bankersRounding}, this will only happen with \pythonilIdx{round} if $x+1$~is even.
+The reason why \pgls{bankersRounding} is preferred is that it is not biased in any direction~\cite{MB2005RA1,SE:SO:WDP3RHTE}.
 If $x.5$ is always rounded toward~$x+1$ and we have many numbers of the form $x.5$, then the average rounded result tends to be somewhat larger than the average of the unrounded numbers.
-Banker's Rounding avoids this problem by sometimes rounding numbers ending in~5 to larger and sometimes to smaller values.
+\Pgls{bankersRounding} avoids this problem by sometimes rounding numbers ending in~5 to larger and sometimes to smaller values.
 
 Let's look at the following example.
 Assume we have a list~$S$ of numbers such that~$S=(0.5, 1.5, 2.5, 3.5, 4.5, 5.5)$.
 Traditional \inQuotes{school rounding,} which rounds up numbers ending in~.5, would give us~$S_s = (1, 2, 3, 4, 5, 6)$, as all numbers are rounded up since they all end in~0.5.
-Banker's rounding as practiced by \python\ yields~$S_b=(0, 2, 2, 4, 4, 6)$.
+\Pgls{bankersRounding} as practiced by \python\ yields~$S_b=(0, 2, 2, 4, 4, 6)$.
 It will round down~0.5, 2.5, and~4.5, and it rounds up 1.5, 3.5, and~5.5.
 Let's look at the sums of all the values in the lists.
 For the original list~$S$, we get~$\sum_{\forall s\in S} s=18$.
 For the school-rounding method, we get~$\sum_{\forall s_s\in S_s} s_s=21$.
-For the Banker's rounding method, we get~$\sum_{\forall s_b\in S_b} s_b=18$.
-We find that, with Banker's rounding, the sum of the rounded values is closer to the sum of the original values.
+For the \pgls{bankersRounding} method, we get~$\sum_{\forall s_b\in S_b} s_b=18$.
+We find that, with \pgls{bankersRounding}, the sum of the rounded values is closer to the sum of the original values.
 This would also hold for the arithmetic means~\arithMean.
 This, of course, only plays a role if many values ending in~.5 appear.
-But it is quite clear why banker's would like that.
+But it is quite clear why bankers would like that.
 If you work in a bank and shuffle around large sums of money, you certainly would like these sums to add up properly{\dots}
 
 We find examples of the behavior of \pythonilIdx{round} in \cref{exec:float_rounding}.
