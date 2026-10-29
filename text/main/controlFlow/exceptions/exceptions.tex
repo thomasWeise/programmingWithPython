@@ -488,7 +488,7 @@ Our string~\pythonil{r} is \pythonil{"Hello World!"}.
 In the \pythonilIdx{try}-block, we place a \pythonil{for} loop which lets a variable~\pythonil{s} iteratively take on three values.
 In its first iteration, \pythonil{s = "Hello"} and \pythonil{r.index(s)} will yield~\pythonil{0}.
 This is printed to the output.
-In the second iteration, \pythonil{s = "world"}, which cannot be found since searching in strings is case-sensitive.
+In the second iteration, \pythonil{s = "world"}, which cannot be found since searching in strings is \pgls{caseSensitive}.
 \pythonil{r.index(s)} will therefore raise an exception.
 
 The \pythonilIdx{except} block after the \pythonil{try} block is executed if anywhere inside the \pythonil{try} block a \pythonilIdx{ValueError} is raised.

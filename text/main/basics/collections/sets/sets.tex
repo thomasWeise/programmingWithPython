@@ -97,7 +97,7 @@ Either way, we obtain \pythonil{letters_list}, which contains all the strings in
 \bestPractice{strSort}{%
 Careful when sorting or comparing strings: %
 The default order is \emph{uppercase characters before lowercase characters}, i.e., \pythonil{"A" < "a"}. %
-If you want that upper- and lowercase characters are treated the same~(e.g., that~\pythonil{"A"} is considered as equal to~\pythonil{"a"}), as is the case in dictionary ordering, i.e., if you want to sort a collection \pythonil{my_text} of strings in a case-insensitive manner, use %
+If you want that upper-\ and lowercase characters are treated the same~(e.g., that~\pythonil{"A"} is considered as equal to~\pythonil{"a"}), as is the case in dictionary ordering, i.e., if you want to sort a collection \pythonil{my_text} of strings in a \pgls{caseInsensitive} manner, use %
 \pythonil{sorted(my_text, key=str.casefold)}\pythonIdx{str!casefold}\pythonIdx{casefold}\pythonIdx{sorted}.%
 }%
 %
