@@ -9,8 +9,8 @@ There is only the single type \pythonilIdx{int} and it can store any integer val
 \begin{sloppypar}%
 In an ideal world, we would have a similar feature also for real numbers.
 However, such a thing cannot be practically implemented.
-You will certainly remember the numbers $\numberPi\approx3.141\decSep592\decSep653\decSep590\dots$ and $\numberE\approx2.718\decSep281\decSep828\decSep459\dots$ from high school maths.
-They are transcendental~\cite{N1939TTOP,APM1991AAAFI:TOEAP,F2011TTOEAP}, i.e., their fractional digits never end and nobody has yet detected an orderly pattern in them.
+You will certainly remember \pgls{irrational} numbers like~$\sqrt{2}$, $\numberPi\approx3.141\decSep592\decSep653\decSep590\dots$ and $\numberE\approx2.718\decSep281\decSep828\decSep459\dots$ from high school maths.
+Their fractional digits never end, nobody has yet detected an orderly pattern in them.
 Since these numbers are \inQuotes{infinitely long,} we would require infinitely much memory to store them \emph{if} we wanted to represent them \emph{exactly}.
 So we don't and neither does \python.
 We cannot really represent the real numbers~\realNumbers\ exactly in the memory of our computers.%
@@ -114,7 +114,7 @@ This is again not an exact value but a rounded value.
 We always need to keep this in mind.%
 \end{sloppypar}%
 %
-Let us recall our initial example of the transcendental irrational numbers~\numberPi\ and~\numberE.
+Let us recall our initial example of the \pgls{transcendental} numbers~\numberPi\ and~\numberE.
 Certainly, these are very important constants that would be used in many computations.
 We can make them accessible in our code by importing them from the \pythonilIdx{math} module.\footnote{%
 We will learn about these mechanism in detail later on.}
@@ -122,7 +122,7 @@ This can be done by typing \pythonil{from math import pi, e}\pythonIdx{import}\p
 When we then type \pythonilIdx{pi} and \pythonilIdx{e}, we can get to see their value in floating point representations: \pythonil{3.141592653589793} and \pythonil{2.718281828459045}, respectively.
 Again, these are not the exact values, but they are as close as we can get in this format.
 
-Surprisingly, we do not necessarily need irrational or transcendental numbers to experience this cut-off.
+Surprisingly, we do even need \pgls{irrational} let alone \pgls{transcendental} numbers to experience this cut-off.
 There is no way to write down all the digits of fractions like~$\frac{1}{7}$ as decimals.
 We always need to cut off somewhere, e.g., we could write~$0.14285714285714285$, but that is not exactly the same as~$\frac{1}{7}$.
 As we discussed before, floating point numbers are stored in a binary format, i.e., represented by bits.
@@ -519,7 +519,7 @@ We can store very large numbers and are only limited by the memory available on 
 Very large integer numbers are, however, something of a corner case {\dots} they do not happen often.
 
 Real numbers in~\realNumbers\ are a whole different beast.
-They include irrational numbers like~$\sqrt{2}$ and transcendental numbers like~\numberPi.
+They include \pgls{irrational} numbers like~$\sqrt{2}$ and \pgls{transcendental} numbers like~\numberPi.
 These numbers are needed \emph{often} and they have infinitely many fractional digits.
 Thus, there is no way to exactly represent them in computer memory exactly.
 Another problem is that we may need both very large numbers like~$10^{300}$ and very small numbery like~$10^{-300}$.
