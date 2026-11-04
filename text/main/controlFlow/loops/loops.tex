@@ -553,8 +553,8 @@ Our \pythonilIdx{while} loop should keep iterating as long as~\pythonil{guess !=
 
 The loop condition here deserves some discussion, because it is both quite interesting and quite important.
 Let us think about it for a bit.
-First, it is clear that if we could actually represent the real numbers \realNumbers\ at infinite precision, we would never reach \pythonil{guess == old_guess} for any \pythonil{number} with an irrational square root.
-Therefore, for irrational roots, our algorithm would never terminate.
+First, it is clear that if we could actually represent the real numbers \realNumbers\ at infinite precision, we would never reach \pythonil{guess == old_guess} for any \pythonil{number} with an \pgls{irrational} square root.
+Therefore, for \pgls{irrational} roots, our algorithm would never terminate.
 However, the \pythonil{float} datatype has limited precision~(see \cref{sec:howFloatingPointNumbersWork}).
 
 We work with limited precision and thus eventually reach a point where we won't be able to further improve the approximation precision of the square root.
