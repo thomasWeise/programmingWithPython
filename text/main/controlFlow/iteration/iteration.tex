@@ -30,7 +30,7 @@ Invoking \pythonil{l.extend(\{1, 2, 3\})}\pythonIdx{list!extend}\pythonIdx{exten
 You will very often encounter situations where you transform, process, or create sequences of data elements.
 As sketched in \cref{fig:iteration}, there are many different manifestations of the concepts of \emph{iterating} over objects that are \emph{iterable} in \python.
 
-The most primitive concept is the \pythonilIdx{Iterator}~\cite{PEP234,PSF:P3D:TPSL:BIT:IT,PSF:P3D:G:I2}.
+The most primitive concept is the \pythonilIdx{Iterator}\scite{PEP234,PSF:P3D:TPSL:BIT:IT,PSF:P3D:G:I2}.
 This is an object that represents one visitation of a sequence of items.
 If you have an \pythonilIdx{Iterator} object~\pythonil{u}, then you can get the next item from the sequence it represents by calling \pythonil{next(u)}.
 If there is no next element, this will raise a \pythonil{StopIteration} exception.
@@ -40,11 +40,11 @@ A \pythonil{for} loop, for example, will consume elements from an \pythonilIdx{I
 
 Many data structures like collections allow us to visit their elements as often as we wish.
 They are instances of the \pythonilIdx{Iterable} interface.
-We can invoke \pythonil{iter(coll)} on a collection \pythonil{coll} implementing this \pythonilIdx{Iterable}~\cite{PSF:P3D:G:I1} interface and will get an \pythonilIdx{Iterator}.
+We can invoke \pythonil{iter(coll)} on a collection \pythonil{coll} implementing this \pythonilIdx{Iterable}\scite{PSF:P3D:G:I1} interface and will get an \pythonilIdx{Iterator}.
 Whenever we iterate over a list, a new \pythonilIdx{Iterator} is created this way.
 
-As a side note, the operator \pythonilIdx{iter} can also be applied to an \pythonilIdx{Iterator}, not just to an \pythonilIdx{Iterable}~\cite{PSF:P3D:TPSL:BIT:IT}.
-If applied to an \pythonilIdx{Iterator}, it returns the iterator itself~\cite{PSF:P3D:G:I2}.
+As a side note, the operator \pythonilIdx{iter} can also be applied to an \pythonilIdx{Iterator}, not just to an \pythonilIdx{Iterable}\scite{PSF:P3D:TPSL:BIT:IT}.
+If applied to an \pythonilIdx{Iterator}, it returns the iterator itself\scite{PSF:P3D:G:I2}.
 Hence, all \pglspl{API} that require an \pythonilIdx{Iterable} as parameter and \emph{use it only once} can also accept an \pythonilIdx{Iterator}.
 
 Finally, we can also create collections like lists, sets, and dictionaries via so-called \emph{comprehension}.
@@ -72,7 +72,7 @@ Compare \cref{exec:iteration:set_iteration} and \cref{exec:iteration:set_iterati
 %
 \begin{sloppypar}%
 Any object that allows us to access its elements one-by-one, i.e., \emph{iteratively} is an instance of \pythonilIdx{typing.Iterable}\pythonIdx{Iterable}.
-The actual iteration over the contents is then done by a \pythonilIdx{typing.Iterator}\pythonIdx{Iterator}~\cite{PEP234,PSF:P3D:TPSL:BIT:IT,PSF:P3D:G:I2}.
+The actual iteration over the contents is then done by a \pythonilIdx{typing.Iterator}\pythonIdx{Iterator}\scite{PEP234,PSF:P3D:TPSL:BIT:IT,PSF:P3D:G:I2}.
 This distinction is necessary because we want to allow some objects to be iterated over multiple times.%
 \end{sloppypar}%
 %
@@ -80,7 +80,7 @@ Let's say you have the list \pythonil{x = ["a", "b", "c"]}, as in \cref{exec:ite
 We can use this list~\pythonil{x} in \pythonil{for xi in x}-kind of loops arbitrarily often.
 We use \pythonil{x} in two different such \pythonil{for} loops.
 \pythonil{x} is an instance of \pythonilIdx{list} and every list is also an instance
-of~\pythonilIdx{Iterable}\pythonIdx{typing.Iterable}~\cite{PSF:P3D:G:I1}.
+of~\pythonilIdx{Iterable}\pythonIdx{typing.Iterable}\scite{PSF:P3D:G:I1}.
 We show this by first importing the type \pythonilIdx{Iterable} from package \pythonilIdx{typing}.
 As we already learned, the operator \pythonil{isinstance(obj, tpe)} returns \pythonil{True} if object \pythonil{obj} is an instance of type \pythonil{tpe}.
 \pythonil{isinstance(x, Iterable)}\pythonIdx{isinstance} is therefore \pythonil{True}, because the list~\pythonil{x} can be iterated over.
@@ -138,7 +138,7 @@ The only differences are that we now output numbers instead of strings and that 
 
 With this, we now know how \pythonil{for} loops in \python\ actually work.
 They create an iterator over a sequence and then consume the elements of this iterator, each time executing the loop body, until hitting a \pythonilIdx{StopIteration} exception.
-All collection classes in \python\ that offer a sequential view on their data therefore support the \pythonilIdx{Iterable}/\pythonilIdx{Iterator}-\pgls{API}~\cite{PEP234}.
+All collection classes in \python\ that offer a sequential view on their data therefore support the \pythonilIdx{Iterable}/\pythonilIdx{Iterator}-\pgls{API}\scite{PEP234}.
 Due to this \pgls{API} structure, it is not even necessary to hold all the elements of a collection in memory at any point in time, as long as we can compute them as needed.
 An example of this are \pythonilsIdx{range}, which provide us with \pythonil{int}-sequences with arbitrarily many numbers that are created~(and discarded) one-by-one during the iteration.%
 %
@@ -154,7 +154,7 @@ This is very handy, but can also become cumbersome if we either have many elemen
 Needing to write a \pgls{literal} in the same way that creates a list with the first one hundred natural numbers may be somewhat annoying.
 If we want to create a list with the logarithms of first five natural numbers.
 Writing something like \pythonil{[log(1), log(2), log(3), log(4), log(5)]}\pythonIdx{log} looks clunky as well.
-Luckily, \python\ offers the much more convenient syntax of list comprehension\pythonIdx{list!comprehension}\pythonIdx{comprehension!list}~\cite{PEP202}:%
+Luckily, \python\ offers the much more convenient syntax of list comprehension\pythonIdx{list!comprehension}\pythonIdx{comprehension!list}\scite{PEP202}:%
 %
 \pythonSyntax{syntax/list_comprehension.py}%
 \FloatBarrier%
@@ -247,14 +247,14 @@ Whichever is faster, i.e., needs less time, has the better performance.
 
 Now measuring the runtime needed by something is always a dodgy subject.
 The runtime of a \python\ program obviously depends on the machine and CPU it is running on.
-It is also affected by the operating system, the available RAM, the disk speed, and of course by other processes running on the same machine at the same time~\cite{WCLTTCMY2014BOAAOSFFTTSP}.
+It is also affected by the operating system, the available RAM, the disk speed, and of course by other processes running on the same machine at the same time\scite{WCLTTCMY2014BOAAOSFFTTSP}.
 Clearly, it also depends on which version of the \python\ interpreter we use and our results of the measurement could be different after each software update.
-So every runtime measurement is always fuzzy and imprecise~\cite{WCLTTCMY2014BOAAOSFFTTSP}.
+So every runtime measurement is always fuzzy and imprecise\scite{WCLTTCMY2014BOAAOSFFTTSP}.
 Whatever we would measure would have to take with a grain of salt, but we will try it anyway.%
 %
 \usefulTool{timeit}{%
 \pythonilIdx{timeit} is a tool for measuring execution time of small code snippets that ships directly with \python. %
-This module avoids a number of common traps for measuring execution times, see~\cite{PSF:P3D:TPSL:TMETOSCS,P2002AI}.%
+This module avoids a number of common traps for measuring execution times, see\scite{PSF:P3D:TPSL:TMETOSCS,P2002AI}.%
 }%
 %
 \pythonilIdx{timeit} allows us to measure the runtime of a certain statement.
@@ -267,10 +267,10 @@ Finally, it returns the list.
 To measure the runtime of this function, we first \pythonilIdx{import} the function \pythonilIdx{repeat}\pythonIdx{timeit!repeat} from the module~\pythonilIdx{timeit}.
 We tell \pythonilIdx{repeat} to call our function \pythonil{create_by_append} one time~(\pythonil{number=1}) and measure the consumed runtime.
 It will return the runtime in seconds and stored as a \pythonil{float}.
-However, factors like those mentioned above, scheduling by the operating system, maybe garbage collection by the \python\ iterpreter, and so on, a single measurement would not be very reliable~\cite{P2002AI}.
+However, factors like those mentioned above, scheduling by the operating system, maybe garbage collection by the \python\ iterpreter, and so on, a single measurement would not be very reliable\scite{P2002AI}.
 We thus instruct \pythonilIdx{repeat} function to take 50 such measurements~(argument \pythonil{repeat=50}).
 All of the measured runtimes are then return as a \pythonil{list[float]}.
-The documentation of \pythonilIdx{timeit}~\cite{PSF:P3D:TPSL:TMETOSCS} says:%
+The documentation of \pythonilIdx{timeit}\scite{PSF:P3D:TPSL:TMETOSCS} says:%
 %
 \cquotation{PSF:P3D:TPSL:TMETOSCS}{%
 \emph{Note:}~it's tempting to calculate mean and standard deviation from the result vector and report these.
@@ -282,7 +282,7 @@ After that, you should look at the entire vector and apply common sense rather t
 }%
 %
 \bestPractice{timeMeasurement}{%
-When measuring the runtime of code for one specific set of inputs, it makes sense to perform multiple measurements and to take the \emph{minimum} of the observed values~\cite{PSF:P3D:TPSL:TMETOSCS}. %
+When measuring the runtime of code for one specific set of inputs, it makes sense to perform multiple measurements and to take the \emph{minimum} of the observed values\scite{PSF:P3D:TPSL:TMETOSCS}. %
 The reason is that there are many factors~(CPU temperature, other processes, \dots) that may \emph{negatively} impact the runtime. %
 However, there is no factor that can make your code faster than what your hardware permits. %
 So the minimum is likely to give the most accurate impression of how fast your code can theoretically run on your machine. %
@@ -291,12 +291,12 @@ Notice, however, that there might be effects such as caching that could corrupt 
 %
 So we do just that.
 \pythonilIdx{repeat} gives us a list with measured runtimes.
-The \pythonilIdx{min} function accepts a sequence of elements and returns the smallest one~\cite{PSF:P3D:TPSL:BIF}.
+The \pythonilIdx{min} function accepts a sequence of elements and returns the smallest one\scite{PSF:P3D:TPSL:BIF}.
 Thus, we print the result of \pythonilIdx{min} applied to the list returned by \pythonilIdx{repeat}.
 We format the output to be in milliseconds and rounded to three digits, to be a bit more readable.
 The result can be seen in \cref{exec:iteration:list_of_numbers_append}.
 
-Now the \pgls{formatPDF} document of this book is built automatically using a \github~Action~\cite{C2024GA}.
+Now the \pgls{formatPDF} document of this book is built automatically using a \github~Action\scite{C2024GA}.
 This action executes all the \python\ example programs and weaves their output into the book.
 Every time I update the book, this process is repeated.
 This means that, when writing this text, I do not know what value you will see in \cref{exec:iteration:list_of_numbers_append}.
@@ -355,7 +355,7 @@ But a certain amount of selected tests would probably be quite helpful for the r
 
 Well, nothing stops us from just writing this down.
 However, in an ideal case, \pytest\ would also pick up these test cases from the \pglspl{docstring} and then actually execute and check them.
-Indeed, this perfect synthesis of documentation and testing is possible, with so-called \pglspl{doctest}~\cite{PSF:P3D:TPSL:DTIPE}.
+Indeed, this perfect synthesis of documentation and testing is possible, with so-called \pglspl{doctest}\scite{PSF:P3D:TPSL:DTIPE}.
 
 We explore this idea by using one last example of list comprehension.
 Consider the following scenario:
@@ -386,7 +386,7 @@ We therefore insert a small snippet of \python\ code followed by its expected ou
 The first line of such codes is prefixed py~\pythonil{>>>}\pythonIdx{>\strut>\strut>}. %
 If a statement needs multiple lines, any following line is prefixed by~\pythonil{...}\pythonIdx{\idxdots}. %
 After the snippet, the expected output is written. %
-The \pglspl{doctest} can be performed by modules like \pythonilIdx{doctest}~\cite{PSF:P3D:TPSL:DTIPE} or tools such as \pytest~\cite{KPDT2024PD:HTRD}~(\cref{ut:pytest}). %
+The \pglspl{doctest} can be performed by modules like \pythonilIdx{doctest}\scite{PSF:P3D:TPSL:DTIPE} or tools such as \pytest\scite{KPDT2024PD:HTRD}~(\cref{ut:pytest}). %
 They collect the code, run it, and compare its output to the expected output in the \pgls{docstring}. %
 If they do not match, the tests fail. %
 We use \pytest\ in this book, with the default configuration given in \cref{lst:bash:pytest_doctest}.%
@@ -475,7 +475,7 @@ Set comprehension works exactly like list comprehension, and our first examples 
 \end{sloppypar}%
 %
 Let us now try do something more interesting:
-We want to create the set \pythonil{primes} of the prime numbers~\cite{W2024MAWWR:PN,CP2005PNACP,R1994PNACMFF} in the range~2 to~99.
+We want to create the set \pythonil{primes} of the prime numbers\scite{W2024MAWWR:PN,CP2005PNACP,R1994PNACMFF} in the range~2 to~99.
 We already created a beautiful program doing this efficiently in \cref{lst:loops:for_loop_sequence_primes}.
 This time, we will use set comprehension\pythonIdx{set!comprehension}\pythonIdx{comprehension!set}.
 
@@ -509,7 +509,7 @@ With this expression, we could thus achieve the same result, if, at least, we al
 %
 \hsection{Dictionary Comprehension}%
 %
-Dictionary comprehension\pythonIdx{dict!comprehension}\pythonIdx{comprehension!dict} works almost the same as set and list comprehension~\cite{PEP274}.
+Dictionary comprehension\pythonIdx{dict!comprehension}\pythonIdx{comprehension!dict} works almost the same as set and list comprehension\scite{PEP274}.
 Different from them, it assigns values to keys and therefore has two expressions denoting each entry, separated by~\pythonilIdx{:}.
 This is also the difference between the syntax of set and dictionary comprehension.
 Both of them use curly braces, but in dictionary comprehension\pythonIdx{dict!comprehension}\pythonIdx{comprehension!dict}, keys and values are separated by~\pythonilIdx{:}, whereas in a set comprehension, only single values are given.
@@ -574,8 +574,8 @@ All of them hold all their elements in memory.
 
 However, this is not the right solution for all tasks.
 Let's say you have a sequence of elements and you just want to add them all up.
-The \pythonilIdx{sum} function does exactly this~\cite{PSF:P3D:TPSL:BIF}.
-It accepts an \pythonilIdx{Iterable} as input~\cite{PSF:P3D:TPSL:BIF}.
+The \pythonilIdx{sum} function does exactly this\scite{PSF:P3D:TPSL:BIF}.
+It accepts an \pythonilIdx{Iterable} as input\scite{PSF:P3D:TPSL:BIF}.
 It repeatedly invokes~\pythonilIdx{next} to get its elements and adds them in a running sum.
 \pythonil{sum([i ** 2 for i in range(100)])} adds up the squares of the values~\pythonil{i} for~$\pythonil{i}\in\intRange{0}{99}$.
 The list comprehension therefore first creates a \pythonilIdx{list} holding all these square values.
@@ -592,7 +592,7 @@ All it requires is an \pythonilIdx{Iterable} as argument to which it will apply 
 Then it applies \pythonilIdx{next} to the \pythonilIdx{Iterable} to get the elements, which it then adds up.
 At no point does it require all elements to co-exist at the same time in memory.
 
-To allow us to create \inQuotes{lazy} sequences that create and return their elements as needed~(instead of keeping them all in memory all the time), \emph{generator expressions} exist~\cite{PEP289}.
+To allow us to create \inQuotes{lazy} sequences that create and return their elements as needed~(instead of keeping them all in memory all the time), \emph{generator expressions} exist\scite{PEP289}.
 The syntax for generator expressions is basically the same as for list comprehension, except that we use parentheses instead of square brackets.
 There is one special case, though.
 If we pass a generator expression as function parameter to a function \pythonil{my_func}, then we can omit the parentheses.%
@@ -865,18 +865,18 @@ Source:~Thorvaldsens Museum exhibit~\href{https://kataloget.thorvaldsensmuseum.d
 %
 \gitLoadAndExecPython{iteration:fibonacci_generator}{}{iteration}{fibonacci_generator.py}{}%
 \listingPythonAndOutput{iteration:fibonacci_generator}{%
-A generator function yielding the infinite sequence of Fibonacci numbers\pythonIdx{Generator}~\cite{W2024MAWWR:FN,S2022FLAATIMEOLPBOC}.}{}%
+A generator function yielding the infinite sequence of Fibonacci numbers\pythonIdx{Generator}\scite{W2024MAWWR:FN,S2022FLAATIMEOLPBOC}.}{}%
 %
 \gitLoadPython{iteration:prime_generator}{}{iteration/prime_generator.py}{}%
 \listingPython{iteration:prime_generator}{%
-A generator function yielding the infinite sequence of prime numbers\pythonIdx{Generator}~\cite{W2024MAWWR:PN,CP2005PNACP,R1994PNACMFF}.}%
+A generator function yielding the infinite sequence of prime numbers\pythonIdx{Generator}\scite{W2024MAWWR:PN,CP2005PNACP,R1994PNACMFF}.}%
 %
 \gitExec{exec:iteration:prime_generator:doctest}{\programmingWithPythonCodeRepo}{.}{_scripts_/pytest_doctest.sh iteration prime_generator.py}%
 \listingToolOutput{iteration:prime_generator:doctest}{%
 The output of \pytest\ executing the \pglspl{doctest} for the prime number generator function given as \programUrl{lst:iteration:prime_generator} in \cref{lst:iteration:prime_generator}: %
 The test succeeded.}%
 %
-The final element in \cref{fig:iteration} that we did not yet discuss are \emph{generator functions}~\cite{PEP255}.
+The final element in \cref{fig:iteration} that we did not yet discuss are \emph{generator functions}\scite{PEP255}.
 From the perspective of the user of a generator function, it is a function that behaves like an \pythonilIdx{Iterator} of values.
 We can process the sequence of values provided by this \pythonilIdx{Iterator} in exactly the same ways already discussed.
 We can iterate over it using a \pythonilIdx{for}~loop.
@@ -910,9 +910,9 @@ The function is resumed after the \pythonilIdx{yield} only when \pythonilIdx{nex
 When the control flow reaches the end of the function, the sequence ends as well.
 This becomes visible when we create a generator function that returns an infinite sequence.
 
-Fibonacci, illustrated in \cref{fig:fibonacci}, was a medieval Italian mathematician who lived in the 12th and 13th century~\pgls{CE}~\cite{EOEBEB:F}.
-He wrote the book \emph{Liber Abaci}~\cite{S2022FLAATIMEOLPBOC}, which introduced Arabic numbers to Europe.
-He is also known for the Fibonacci number sequence, which follow the sequence~$F_n=F_{n-1} + F_{n-2}$ where~$F_0=0$ and~$F_1=1$~\cite{W2024MAWWR:FN,S2022FLAATIMEOLPBOC}.
+Fibonacci, illustrated in \cref{fig:fibonacci}, was a medieval Italian mathematician who lived in the 12th and 13th century~\pgls{CE}\scite{EOEBEB:F}.
+He wrote the book \emph{Liber Abaci}\scite{S2022FLAATIMEOLPBOC}, which introduced Arabic numbers to Europe.
+He is also known for the Fibonacci number sequence, which follow the sequence~$F_n=F_{n-1} + F_{n-2}$ where~$F_0=0$ and~$F_1=1$\scite{W2024MAWWR:FN,S2022FLAATIMEOLPBOC}.
 
 We want to iterate over this sequence.
 We therefore define the function \pythonil{fibonacci}, which is annotated to return a \pythonilIdx{Generator}.
@@ -936,7 +936,7 @@ However, we stop the iteration via~\pythonilIdx{break} once~\pythonil{a > 30}.
 It should be mentioned that doing something like \pythonil{list(fibonacci())} would be a very bad idea.
 It would attempt to produce an infinitely large list, which would lead to an \pythonilIdx{MemoryError}.
 
-As the final example of generator functions, let us wrap our code for enumerating prime numbers~\cite{W2024MAWWR:PN,CP2005PNACP,R1994PNACMFF} from back in \cref{sec:loopsOverSequences} into a generator function.
+As the final example of generator functions, let us wrap our code for enumerating prime numbers\scite{W2024MAWWR:PN,CP2005PNACP,R1994PNACMFF} from back in \cref{sec:loopsOverSequences} into a generator function.
 We do this in \programUrl{iteration:prime_generator} given as \cref{lst:iteration:prime_generator}.
 Back in \cref{lst:loops:for_loop_sequence_primes}, when we produced prime numbers for the last time, we used nested \pythonilIdx{for}~loops.
 Back then, the outer loop would iterate at most to~199.
@@ -999,9 +999,9 @@ However, the generator function can continue until either its end is reached or 
 An example of \pythonilIdx{takewhile}\pythonIdx{itertools!takewhile} and \pythonilIdx{filter}.}{}%
 %
 Sequences play a very important role in \python\ programming.
-The fact that generator functions and the \pythonilIdx{yield} keyword were added to the language just to provide a natural way to construct complex sequences speaks for itself~\cite{PEP255}.
+The fact that generator functions and the \pythonilIdx{yield} keyword were added to the language just to provide a natural way to construct complex sequences speaks for itself\scite{PEP255}.
 Naturally, there also are several utilities for working with and transforming sequences.
-Some of these tools are directly provided as built-in functions, some ship with the module~\pythonilIdx{itertools}~\cite{PSF:P3D:TPSL:IFCIFEL}.
+Some of these tools are directly provided as built-in functions, some ship with the module~\pythonilIdx{itertools}\scite{PSF:P3D:TPSL:IFCIFEL}.
 Here we want to discuss a few of them.
 
 The first two tools we will look at are the built-in function \pythonilIdx{filter} and the \pythonilIdx{takewhile}\pythonIdx{itertools!takewhile} function from the \pythonilIdx{itertools} module.
@@ -1009,7 +1009,7 @@ In the previous section, we implemented a generator function returning the endle
 What would we do if we wanted a convenient way to create a list of all prime numbers which are less than 50 by using this never-ending generator?
 The answer can be found in our program \programUrl{iteration:filter_takewhile} given in \cref{lst:iteration:filter_takewhile}.
 
-\pythonilIdx{takewhile} is a function with two parameters~\cite{PSF:P3D:TPSL:IFCIFEL}.
+\pythonilIdx{takewhile} is a function with two parameters\scite{PSF:P3D:TPSL:IFCIFEL}.
 The second parameter is an \pythonilIdx{Iterable}.
 Let's say that this \pythonilIdx{Iterable} provides a sequence of elements of some type~\pythonil{T}.
 The first parameter then is a predicate, which is a function accepting one element of type~\pythonil{T} and returning a \pythonil{bool} value.
@@ -1021,7 +1021,7 @@ This is a practical example where \pythonilsIdx{lambda} come in especially handy
 Therefore, the answer to \inQuotes{How can I extract all the numbers less than~50 from the prime sequence?} is simply to call \pythonil{takewhile(lambda z: z < 50, primes())}.
 This sequence is now no longer infinitely long and can conveniently be converted to a \pythonil{list}.
 
-The built-in function~\pythonilIdx{filter} works quite similarly~\cite{PSF:P3D:TPSL:BIF}.
+The built-in function~\pythonilIdx{filter} works quite similarly\scite{PSF:P3D:TPSL:BIF}.
 It, too, accepts a predicate and an~\pythonilIdx{Iterable} as input.
 Different from \pythonil{takewhile}, the new \pythonilIdx{Iterator} created by \pythonilIdx{filter} does not stop if the predicate returns~\pythonil{False}.
 However, it returns only those elements for which the predicate returned~\pythonil{True}.
@@ -1037,7 +1037,7 @@ The smallest one is $1^2+1=2$ and the largest one is~$26^2+1=677$.
 \listingPythonAndOutput{iteration:map}{%
 An example of the function \pythonilIdx{map}.}{}%
 %
-Another important utility function when dealing with sequences is the built-in function~\pythonilIdx{map}~\cite{PSF:P3D:TPSL:BIF}.
+Another important utility function when dealing with sequences is the built-in function~\pythonilIdx{map}\scite{PSF:P3D:TPSL:BIF}.
 We explore its use in \programUrl{iteration:map} given as \cref{lst:iteration:map}.
 Back in \cref{lst:iteration:generator_expressions_to_collection}, we used a generator expression to process data that we extracted from a \pgls{CSV}-formatted string.
 Instead of doing \pythonil{int(s) for s in csv_text.split(\",\")} we can simply write \pythonil{map(int, csv_text.split(\",\")}.
@@ -1078,11 +1078,11 @@ An example of the function \pythonilIdx{zip}.}%
 The output of \pytest\ executing the \pglspl{doctest} for the \pythonilIdx{zip} example from \cref{lst:iteration:zip}.}%
 %
 \begin{sloppypar}%
-As last example of sequence processing we play a bit with the \pythonilIdx{zip} function~\cite{PSF:P3D:TPSL:BIF}.
+As last example of sequence processing we play a bit with the \pythonilIdx{zip} function\scite{PSF:P3D:TPSL:BIF}.
 This function accepts several \pythonilsIdx{Iterable} as arguments and returns a new \pythonilIdx{Iterator} which steps through all of input iterables in synch, returning tuples with one value of each of them.
 For example, \pythonil{zip([1, 2, 3], [\"a\", \"b\", \"c\"])} returns an \pythonilIdx{Iterator} that produces the sequence~\pythonil{(1, \"a\")}, \pythonil{(2, \"b\")}, and \pythonil{(3, \"c\")}.
 Sometimes, the input \pythonilsIdx{Iterable} may be of different length.
-To make sure that such an error is properly reported with a~\pythonilIdx{ValueError}, we must always supply the named argument~\pythonil{strict=True}~\cite{PEP618}.%
+To make sure that such an error is properly reported with a~\pythonilIdx{ValueError}, we must always supply the named argument~\pythonil{strict=True}\scite{PEP618}.%
 \end{sloppypar}%
 %
 In \programUrl{iteration:zip}, provided as \cref{lst:iteration:zip}, we use \pythonilIdx{zip} to implement a function \pythonil{distance} that computes the Euclidean distance of two $n$\nobreakdashes-dimensional vectors or points~\pythonil{p1} and~\pythonil{p2}.
@@ -1113,7 +1113,7 @@ The output of \pytest\ in \cref{exec:iteration:zip:doctest} shows that the examp
 
 This concludes our treatment of operations on \pythonilsIdx{Iterator}.
 We could only scratch the surface here.
-The module~\pythonilIdx{itertools}~\cite{PSF:P3D:TPSL:IFCIFEL} which ships with \python\ offers many more useful functions.
+The module~\pythonilIdx{itertools}\scite{PSF:P3D:TPSL:IFCIFEL} which ships with \python\ offers many more useful functions.
 However, an understanding of the principles of \pythonilIdx{map}, \pythonilIdx{filter}, and~\pythonilIdx{zip} will enable the reader to explore these tools by themselves.%
 \FloatBarrier%
 \endhsection%

@@ -8,7 +8,7 @@ The integers include all whole numbers and negative numbers and zero, without fr
 
 In many programming languages, there are different integer datatypes with different ranges.
 In \pgls{Java}, a \pythonil{byte} is an integer datatype with range~\intRange{-2^7}{2^7-1}, a \pythonil{short} has range~\intRange{-2^{15}}{2^{17}-1}, an \pythonilIdx{int} has range~\intRange{-2^{31}}{2^{31}-1}, and \pythonil{long} has range~\intRange{-2^{63}}{2^{63}-1}, for example.
-The draft for the \softwareStyle{C17} standard for the \pgls{C}~programming language lists five signed and five unsigned integer types, plus several ways to extend them~\cite{ISOIEC98892017PLCWDOS}.
+The draft for the \softwareStyle{C17} standard for the \pgls{C}~programming language lists five signed and five unsigned integer types, plus several ways to extend them\scite{ISOIEC98892017PLCWDOS}.
 The different integer types of both languages have different ranges and sizes, and the programmer must carefully choose which she needs to use in which situation.
 
 \python~3 only has one integer type, called \pythonilIdx{int}.
@@ -61,7 +61,7 @@ Fractional division with~\pythonil{/}, however, returns \pythonilIdx{float} valu
 For now, let's just say that they can represent fractional parts (to a limited precision), which is denoted by having a \python{.} in the text output of the numbers.
 Computing \pythonil{32 / 4} thus yields~\pythonil{8.0}, \pythonil{33 / 4} gives us \pythonil{8.25}, \pythonil{34 / 4} yields~\pythonil{8.5}, \pythonil{35 / 4} results in \pythonil{8.75}, and, finally, \pythonil{36 / 4} returns~\pythonil{9.0}.
 Notice that the result of this division operator is always a floating point number, even if the number itself is an integer.\footnote{%
-Notice also that this behavior is introduced in \python~3, whereas \pythonilIdx{/} behaves like \pythonilIdx{//} in \python~2~\cite{PEP238}.}%
+Notice also that this behavior is introduced in \python~3, whereas \pythonilIdx{/} behaves like \pythonilIdx{//} in \python~2\scite{PEP238}.}%
 %
 \bestPractice{intDivision}{Always be careful with which division operator you use for \pythonils{int}\pythonIdx{int}. %
 If you need an integer result, make sure to use \pythonilIdx{//}. %

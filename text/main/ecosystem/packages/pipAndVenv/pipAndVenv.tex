@@ -2,7 +2,7 @@
 \hsection{pip and Virtual Environments}%
 \label{sec:pipAndVenv}%
 %
-The go-to tool for installing \python\ \pglspl{package} is \pip~\cite{PSF:P3D:IPM,PD2024PD}.%
+The go-to tool for installing \python\ \pglspl{package} is \pip\scite{PSF:P3D:IPM,PD2024PD}.%
 %
 \usefulTool{pip}{%
 \pip\ is a software that can be used to install \pglspl{package} under \python. %
@@ -10,14 +10,14 @@ The go-to tool for installing \python\ \pglspl{package} is \pip~\cite{PSF:P3D:IP
 \item With the command \bashil{pip install thePackage}, the \pgls{package}~\bashil{thePackage} is installed.%
 \item With the command \bashil{pip install "thePackage==version"}, the version~\bashil{version} of the \pgls{package}~\bashil{thePackage} is installed.%
 \item With the command \bashil{pip install -r requirements.txt}, the \pglspl{package} listed in the requirements file \textil{requirements.txt} are installed. %
-A requirements file allows to put multiple package/version dependencies that would otherwise command line arguments of \pip\ into a single file~\cite{PD2024PD:RFF}.%
+A requirements file allows to put multiple package/version dependencies that would otherwise command line arguments of \pip\ into a single file\scite{PD2024PD:RFF}.%
 \end{itemize}%
 %
 \pip\ should always be used in a \pgls{virtualEnvironment}, see~\cref{bp:venvInstall,bp:pipVenv}.%
 }%
 %
 The standard way to install \pglspl{package} for use with \python\ is in a so-called \pgls{virtualEnvironment}.
-A \pgls{virtualEnvironment} is a directory with an isolated \python\ installation and \pgls{package} directory~\cite{PSF:P3D:TPT:VEAP,PEP405}.
+A \pgls{virtualEnvironment} is a directory with an isolated \python\ installation and \pgls{package} directory\scite{PSF:P3D:TPT:VEAP,PEP405}.
 Multiple separate \pglspl{virtualEnvironment} can exist on a computer, all with their own set of installed \pglspl{package}.
 This allows you to have different \python\ setups for different applications by installing them into different \pglspl{virtualEnvironment}.
 \Pglspl{virtualEnvironment} are particularly useful if different applications need different versions of the same \pglspl{package}.
@@ -40,7 +40,7 @@ This enforces that \pip\ is really executed in a \pgls{virtualEnvironment} and w
 \listingPython{packages:numpy_user}{%
 A small \python\ script using the \numpy\ library.}%
 %
-For demonstration purposes, let us assume that we have written a program using the \pgls{package} \numpy~\cite{HMvdWGVCWTBSKPHvKBHFdRWPGMSRWAGO2020APWN,DBvR2024ITN,J2018NPSCADSAWNSAM}.
+For demonstration purposes, let us assume that we have written a program using the \pgls{package} \numpy\scite{HMvdWGVCWTBSKPHvKBHFdRWPGMSRWAGO2020APWN,DBvR2024ITN,J2018NPSCADSAWNSAM}.
 The small program in \cref{lst:packages:numpy_user} only creates and prints a \numpy\ array, but for this, obviously, \numpy\ is needed.
 \numpy\ is not available in fresh \python\ installations and needs to be installed so that we can run our program.
 This will be the example that we will use to demonstrate the use of \pglspl{virtualEnvironment} in the following sections.

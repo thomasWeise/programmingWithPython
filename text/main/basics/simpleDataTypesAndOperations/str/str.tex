@@ -18,7 +18,7 @@ Either enclosed by double quotes, e.g., \pythonil{"Hello World!"}\pythonIdx{\tex
 The quotation marks are only used to delimit the strings, i.e., to tell \python\ where the string begins or ends.
 They are not themselves part of the string.%
 %
-\bestPractice{strDoubleQuote}{When defining a string \pgls{literal}, the double-quotation mark variant~(\pythonil{"..."}\pythonIdx{\textquotedbl\idxdots\textquotedbl}) may be preferred over the single-quotation mark variant~(\pythonil{'...'}\pythonIdx{\textquotesingle}).~(The \citetitle{PEP8}~\cite{PEP8} does not give a recommendation, but maybe for consistency with the~\citetitle{PEP257}~\cite{PEP257}, see also~\cref{bp:longstrDoubleQuote}.)}%
+\bestPractice{strDoubleQuote}{When defining a string \pgls{literal}, the double-quotation mark variant~(\pythonil{"..."}\pythonIdx{\textquotedbl\idxdots\textquotedbl}) may be preferred over the single-quotation mark variant~(\pythonil{'...'}\pythonIdx{\textquotesingle}).~(The \citetitle{PEP8}\scite{PEP8} does not give a recommendation, but maybe for consistency with the~\citetitle{PEP257}\scite{PEP257}, see also~\cref{bp:longstrDoubleQuote}.)}%
 %
 One basic operation is string concatenation\pythonIdx{str!concatenation}\pythonIdx{str!+}\pythonIdx{+}:
 \pythonil{"Hello" + ' ' + "World"}\pythonIdx{\textquotedbl\idxdots\textquotedbl}\pythonIdx{\textquotesingle\idxdots\textquotesingle} concatenates the three strings \pythonil{"Hello"}, \pythonil{" "}, and \pythonil{"World"}.
@@ -142,7 +142,7 @@ As the final examples of string functions, we can use \pythonilIdx{startswith} a
 \pythonil{"Hello World!".endswith("Hello")} is \pythonilIdx{False}, too, but \pythonil{"Hello World!".endswith("World!")} is \pythonilIdx{True}.
 
 Of course, these were just a small selection of the many string operations available in \python.
-You can find more in the \href{https://docs.python.org/3/library/stdtypes.html\#textseq}{official documentation}~\cite{PSF:P3D:TPSL:TSTS}.%
+You can find more in the \href{https://docs.python.org/3/library/stdtypes.html\#textseq}{official documentation}\scite{PSF:P3D:TPSL:TSTS}.%
 \FloatBarrier%
 \endhsection%
 %
@@ -168,7 +168,7 @@ However, converting data to strings like this is rather tedious.
 \gitEvalPython{str_fstrings}{}{simple_datatypes/str_fstrings.py}%
 \listingBox{exec:str_fstrings}{\python\ \pglspl{fstring} in action.}{,style=python_console_style}%
 
-\pythonIdx{str!f}\pythonIdx{f-string}Let us therefore discuss a very powerful and much more convenient gadget in \python's string processing toolbox: format strings, or \glspl{fstring}\pythonIdx{f-string}\pythonIdx{str!f} for short~\cite{PSF:P3D:TPT:FSL,PEP498,M2017WAFSIPAHCIUT,B2023PFS}.
+\pythonIdx{str!f}\pythonIdx{f-string}Let us therefore discuss a very powerful and much more convenient gadget in \python's string processing toolbox: format strings, or \glspl{fstring}\pythonIdx{f-string}\pythonIdx{str!f} for short\scite{PSF:P3D:TPT:FSL,PEP498,M2017WAFSIPAHCIUT,B2023PFS}.
 An \pgls{fstring} is like a normal string, except that it starts with \pythonil{f"}\pythonIdx{f\textquotedbl\idxdots\textquotedbl} instead of \pythonil{"}.
 And, most importantly, it can contain other data and even complete expressions inside curly braces~(\pythonil{\{...\}}\pythonIdx{\textbraceleft\idxdots\textbraceright!f-string}) which are then embedded into the string.%
 %
@@ -273,7 +273,7 @@ It will be interpreted as a single \inQuotes{\textbraceright}~brace.
 \pythonil{f"Single braces without expression: \{\{ and \}\}."} simply becomes \pythonil{"Single braces without expression: \{ and \}."}
 
 As the final example, let us look at a very cool feature of \pglspl{fstring}\pythonIdx{f-string!=}.
-Often, we want to print an expression together with its result~\cite{PSF:P3D:WNIP:WNIP38FSFSDEAD}.
+Often, we want to print an expression together with its result\scite{PSF:P3D:WNIP:WNIP38FSFSDEAD}.
 Earlier, we wrote \pythonil{f"\{5\}\ + \{4\}\ = \{5 + 4\}"} is evaluated to \pythonil{"5 + 4 = 9"}.
 What we actually wanted to print was the expression \pythonil{5 + 4} together with its result.
 This can be done much easier:
@@ -298,10 +298,10 @@ All of them need to be explicitly created, because this is what we demanded with
 
 When using an \pgls{fstring}, there is no explicit need to create the intermediate concatenation results as objects.
 There might just be some text in a buffer somewhere under the hood that is finally returned as a string.
-Furthermore, \pglspl{fstring} are parsed when the code is loaded and evaluated during runtime, meaning that no runtime parsing is required~\cite{G2025MFIP}.
-There even exist specified \python\ bytecode for \pglspl{fstring}~\cite{PCPI:IFSIFO}.
-They also do not require an explicit or implicit function call and they can access the symbols of the current scope directly without needing them to be passed as arguments~\cite{G2025MFIP}.
-For all of these reasons, \Pglspl{fstring} therefore are fast and efficient~\cite{DEVC:WFAAPODSCMIP}.
+Furthermore, \pglspl{fstring} are parsed when the code is loaded and evaluated during runtime, meaning that no runtime parsing is required\scite{G2025MFIP}.
+There even exist specified \python\ bytecode for \pglspl{fstring}\scite{PCPI:IFSIFO}.
+They also do not require an explicit or implicit function call and they can access the symbols of the current scope directly without needing them to be passed as arguments\scite{G2025MFIP}.
+For all of these reasons, \Pglspl{fstring} therefore are fast and efficient\scite{DEVC:WFAAPODSCMIP}.
 Having learned about them, you are now able to swiftly and elegantly convert the results of your computations to beautiful text.%
 \FloatBarrier%
 \endhsection%
@@ -326,12 +326,12 @@ This works for scientific notation~(\pythonil{float("2.233e4")} yields \pythonil
 The \pythonilIdx{float} function also extends the special values that a floating point value can take one.
 Consequently, \pythonil{float("inf")} gives us~\pythonilIdx{inf} and \pythonil{float("nan")} returns~\pythonilIdx{nan}.
 
-But the function \pythonilIdx{bool} works \emph{differently} from what one might expect~\cite{PSF:P3D:TPSL:BIF:B}.
+But the function \pythonilIdx{bool} works \emph{differently} from what one might expect\scite{PSF:P3D:TPSL:BIF:B}.
 \pythonil{bool(\"True\")}\pythonIdx{bool({\textquotedbl}True{\textquotedbl})} indeed yields \pythonilIdx{True}.
 However, \pythonil{bool(\"False\")}\pythonIdx{bool({\textquotedbl}False{\textquotedbl})}, too, yields \pythonilIdx{True}.
 One would think that \pythonil{bool(\"False\")}\pythonIdx{bool({\textquotedbl}False{\textquotedbl})} should return \pythonilIdx{False}, but it does not.
 The reason is that \pythonilIdx{bool} does not compare the string it receives as argument to the string constants that \pythonil{str(True)} and \pythonil{str(False)} return.
-Instead, it performs a \emph{truth value testing} procedure~\cite{PSF:P3D:TPSL:BIF:B,PSF:P3D:TPSL:TVT}.
+Instead, it performs a \emph{truth value testing} procedure\scite{PSF:P3D:TPSL:BIF:B,PSF:P3D:TPSL:TVT}.
 
 You see, in \python, we can test many objects for their truth value.
 \pythonilIdx{True} and \pythonil{False} obviously have truth values \pythonilIdx{True} and \pythonilIdx{False}, respectively.
@@ -381,7 +381,7 @@ On the other hand, if our string is delimited with single quotation marks~\pytho
 Well, you can say, if I need a double quotation mark, then I will delimit my string with single quotation marks and vice versa.
 This is all good as long as you do not need \emph{both} single and double quotation marks inside the string.
 
-The answer to this problem is \emph{\glslink{escapeSequence}{escaping}}\pythonIdx{str!escaping}\pythonIdx{escaping}~\cite{PSF:P3D:TPLR:ES}.
+The answer to this problem is \emph{\glslink{escapeSequence}{escaping}}\pythonIdx{str!escaping}\pythonIdx{escaping}\scite{PSF:P3D:TPLR:ES}.
 The idea is very simple:
 If we need a certain quotation mark, then we simply put a backslash~(\inQuotes{\textbackslash})\pythonIdx{\textbackslash} before it.
 The backslash tells the \python\ interpreter that the next character should be considered as a normal character and not be interpreted as any special character, like a string delimiter.
@@ -436,7 +436,7 @@ In such strings, you can insert linebreaks by hitting \keys{\return} completely 
 You can use the \pglspl{escapeSequence} from the previous section as well.
 The main use case are \pglspl{docstring}, which we will discuss later, see, e.g., \cref{bp:module:docstrings}.%
 %
-\bestPractice{longstrDoubleQuote}{When defining a multi-line string \pgls{literal}, the double-quotation mark variant~(\pythonil{"""..."""})\pythonIdx{\textquotedbl\textquotedbl\textquotedbl\idxdots\textquotedbl\textquotedbl\textquotedbl} is preferred over the single-quotation mark variant~(\pythonil{'''...'''}\pythonIdx{\textquotesingle\textquotesingle\textquotesingle})~\cite{PEP257,PEP8}.}%
+\bestPractice{longstrDoubleQuote}{When defining a multi-line string \pgls{literal}, the double-quotation mark variant~(\pythonil{"""..."""})\pythonIdx{\textquotedbl\textquotedbl\textquotedbl\idxdots\textquotedbl\textquotedbl\textquotedbl} is preferred over the single-quotation mark variant~(\pythonil{'''...'''}\pythonIdx{\textquotesingle\textquotesingle\textquotesingle})\scite{PEP257,PEP8}.}%
 %
 \cref{exec:str_multiline} shows what happens if we print such a multi-line string.
 We first create the string by writing the three lines \textil{This is a multi-line string.}, \textil{I can hit enter to begin a new line.}, and \textil{This linebreak is then part of the string.}.
@@ -459,7 +459,7 @@ First-time readers can safely skip over it.}%
 \begin{figure}%
 \centering%
 \includegraphics[width=0.65\linewidth]{\currentDir/unicodeCharacterTableSubset}%
-\caption{A subset of the \pgls{unicode} character table including the Basic Lating characters as well as some Simplified Chinese characters~(简体中文)~\cite{SCR1956ROTSCOPTSCCS1}.}%
+\caption{A subset of the \pgls{unicode} character table including the Basic Lating characters as well as some Simplified Chinese characters~(简体中文)\scite{SCR1956ROTSCOPTSCCS1}.}%
 \label{fig:unicodeCharacterTableSubset}%
 \end{figure}%
 %
@@ -467,7 +467,7 @@ First-time readers can safely skip over it.}%
 \begin{figure}%
 \centering%
 \includegraphics[width=0.75\linewidth]{\currentDir/strUnicodeEscape}%
-\caption{\inQuotes{Hello}, i.e., \inQuotes{你好。} in Simplified Chinese~(简体中文)~\cite{SCR1956ROTSCOPTSCCS1} and entered via \pgls{unicode} escaped string.}%
+\caption{\inQuotes{Hello}, i.e., \inQuotes{你好。} in Simplified Chinese~(简体中文)\scite{SCR1956ROTSCOPTSCCS1} and entered via \pgls{unicode} escaped string.}%
 \label{exec:str_unicode}%
 \end{figure}%
 %
@@ -480,15 +480,15 @@ But how does this work with text?
 Well, by representing each character of a text as a number.
 A \pythonilIdx{str} is then nothing but a list of these numbers.
 The system then knows how to interpret these numbers as characters.
-Maybe the most well-known historical mapping is ASCII~\cite{ASA1963ASCII,USAS1967USCFII}, which used seven bits per character.
+Maybe the most well-known historical mapping is ASCII\scite{ASA1963ASCII,USAS1967USCFII}, which used seven bits per character.
 It therefore contained only latin characters, punctuation marks, numbers, and some control characters~(like the newline and tab characters we learned when discussing string escaping).
 Since different languages use different characters -- and more than $2^7=128$ in total -- many different mappings have historically evolved and still exist today.
-In China, different mappings specialized to Chinese characters exist additionally, including the historical GB~2312~\cite{GBT23121980PROCNSG21CCECSFIE}, GBK~\cite{GBK1995CICSNSE}, or the newer GB~18030~\cite{GB180302022ITCCCS}.
+In China, different mappings specialized to Chinese characters exist additionally, including the historical GB~2312\scite{GBT23121980PROCNSG21CCECSFIE}, GBK\scite{GBK1995CICSNSE}, or the newer GB~18030\scite{GB180302022ITCCCS}.
 Today, the vast majority of computers and systems understand one common standard that covers all languages:
-\pgls{unicode}~\cite{TUC2023U1510,TUC2023U151ACS,ISOIEC106462020ITUCCSU}, the most frequently used mapping of characters to numbers.
+\pgls{unicode}\scite{TUC2023U1510,TUC2023U151ACS,ISOIEC106462020ITUCCSU}, the most frequently used mapping of characters to numbers.
 Therefore, \python\ uses \pgls{unicode} as well\pythonIdx{str!unicode}.
 
-\cref{fig:unicodeCharacterTableSubset} illustrates a subset of the \pgls{unicode} code table, including the Basic Latin characters, which are basically still compatible with~ASCII, and some Simplified Chinese characters~(简体中文)~\cite{SCR1956ROTSCOPTSCCS1}.
+\cref{fig:unicodeCharacterTableSubset} illustrates a subset of the \pgls{unicode} code table, including the Basic Latin characters, which are basically still compatible with~ASCII, and some Simplified Chinese characters~(简体中文)\scite{SCR1956ROTSCOPTSCCS1}.
 Most \pgls{unicode} characters can be identified by a number represented as four hexadecimal digits (mentioned back in \cref{sec:int:bitstrings}).
 The rows \cref{fig:unicodeCharacterTableSubset} are annotated with the first three of these digits and the columns with fourth and last hexadecimal digits.
 

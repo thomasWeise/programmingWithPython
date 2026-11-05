@@ -29,7 +29,7 @@ But is this all that's wrong?
 \mypy~is a tool that looks for type-related errors and \emph{only} for type-related errors.
 But did we commit \emph{only} type-related errors?
 Are there tools that help us to find \emph{other} errors?
-\Pglspl{linter} are tools for analyzing program code to identify bugs, problems, vulnerabilities, and inconsistent code styles~\cite{J1978LACPC,RJYKK2022CULTDVM}.
+\Pglspl{linter} are tools for analyzing program code to identify bugs, problems, vulnerabilities, and inconsistent code styles\scite{J1978LACPC,RJYKK2022CULTDVM}.
 As promised in the title of this section, we will also use another tool to analyze this program:~the \pgls{linter}~\ruff.
 
 \begin{figure}%
@@ -40,7 +40,7 @@ As promised in the title of this section, we will also use another tool to analy
 \end{figure}%
 %
 \usefulTool{ruff}{%
-\ruff\ is a very fast \python\ \pgls{linter} that checks the code for all kinds of problems, ranging from formatting and style issues over missing documentation to performance problems and potential errors~\cite{M2022RAEFPLACFWIR}. %
+\ruff\ is a very fast \python\ \pgls{linter} that checks the code for all kinds of problems, ranging from formatting and style issues over missing documentation to performance problems and potential errors\scite{M2022RAEFPLACFWIR}. %
 It can be installed via \bashil{pip install ruff} as shown in \cref{fig:pipInstallRuff} on \cpageref{fig:pipInstallRuff}. %
 You can then apply \ruff\ using the command \bashil{ruff check fileToScan.py}. %
 We provide a script for using \ruff\ with a reasonable default configuration in \cref{lst:bash:ruff} on \cpageref{lst:bash:ruff}.%
@@ -52,11 +52,11 @@ The results of linting with \ruff\ of the program \programUrl{lists:lists_error}
 %
 Let us apply \ruff\ to the program \programUrl{lists:lists_error} given in \cref{lst:lists:lists_error}.
 This can be done by executing the command \bashil{ruff check myfile.py}, where \textil{myfile.py} is the file to be checked~(you can also specify a directory).
-\ruff\ has many additional parameters, which are explained at~\cite{PSF:TPPIP:R,M2022RAEFPLACFWIR}.
+\ruff\ has many additional parameters, which are explained at\scite{PSF:TPPIP:R,M2022RAEFPLACFWIR}.
 For example, if we want to analyze our code with respect to version~3.12 of \python, we would specify the command line argument~\textil{--target-version py312}.
 With the optional \textil{--select=...} argument, we can list additional groups of rules to be checked.
 As you can see, we select quite a few!
-Check~\cite{M2022RAEFPLACFWIR} under \citeurl{M2022RAEFPLACFWIR} in the \emph{Rules} section for the complete list.
+Check\scite{M2022RAEFPLACFWIR} under \citeurl{M2022RAEFPLACFWIR} in the \emph{Rules} section for the complete list.
 Sometimes, we wish to ignore some rules which do not apply to our programming scenario.
 This can be done using the optional \textil{--ignore=...} argument.
 You can find the complete command that we used to execute \ruff\ in the top part of \cref{exec:lists:lists_error:ruff}.
@@ -68,10 +68,10 @@ First, it complains that any python file should start with a string specifying t
 The use of such \pglspl{docstring} makes it easier for other programmers to understand what is done by which file in projects that are composed of multiple \python\ scripts.%
 %
 \bestPractice{module:docstrings}{
-Each \python\ file should start with a string describing its purpose~\cite{PEP257}. %
+Each \python\ file should start with a string describing its purpose\scite{PEP257}. %
 This can either be a single line, like a headline, or a longer text. %
 In the second case, the first line must be a headline, followed by an empty line, followed by the rest of the text. %
-Either way, it must be a string delimited by~\pythonil{"""..."""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl\idxdots\textquotedbl\textquotedbl\textquotedbl}~\cite{PEP257,PEP8}.%
+Either way, it must be a string delimited by~\pythonil{"""..."""}\pythonIdx{\textquotedbl\textquotedbl\textquotedbl\idxdots\textquotedbl\textquotedbl\textquotedbl}\scite{PEP257,PEP8}.%
 \pythonIdx{str!doc}%
 }%
 %

@@ -22,14 +22,14 @@ It would not immediately be clear whether the first number of the tuple is the r
 Indeed, we could also represent complex numbers in polar form, in which case the two tuple elements would have yet different meanings.
 Also, the standard textual representation of tuples of two \pythonils{float} would be something like~\pythonil{"(3.0, 4.0)"}, whereas we would probably prefer something like~\pythonil{"3+4i"} for complex numbers.
 
-The first important use-cases of \pythoniles{class} in \python\ is that they offer us a way to define a data structure together with the operations for it as one semantic unit~\cite{PSF:P3D:TPT:C}.
+The first important use-cases of \pythoniles{class} in \python\ is that they offer us a way to define a data structure together with the operations for it as one semantic unit\scite{PSF:P3D:TPT:C}.
 This allows us to define a \pythonil{class} for complex numbers which has attributes with the names \pythonil{real_part} and \pythonil{imaginary_part}.
 We can define operators like addition and subtraction that work with instances of this \pythonil{class}, making it immediately clear how and when they are to be used.
 And this \pythonil{class} can then have default textual representations of our liking.
 
 A second situation where ability to define functions and we have learned so far hits a limit arises with \pglspl{API} that have different implementations.
 Let us be ambitious and imagine that you wanted to create a versatile system that can produce documents.
-On the output side, you want to support different formats, say \libreoffice~\cite{DF2024LTDF,GL2012LTSOOSSCBAFACSOL}, \microsoftWord~\cite{MS2024MW,DR2019STFAWAUMW}, and Adobe~\pgls{formatPDF}~\cite{A2024WDPM,A2008P3DMPDFP1P1}.
+On the output side, you want to support different formats, say \libreoffice\scite{DF2024LTDF,GL2012LTSOOSSCBAFACSOL}, \microsoftWord\scite{MS2024MW,DR2019STFAWAUMW}, and Adobe~\pgls{formatPDF}\scite{A2024WDPM,A2008P3DMPDFP1P1}.
 On the input side, you would like to provide the user/programmer with a uniform way to create documents.
 
 This input side \pgls{API} should be the same for all output formats.
@@ -58,12 +58,12 @@ Classes therefore can solve two important problems where the basic datatypes, co
 First, they allow us to semantically and clearly group data and operations together.
 Second, they offer us a simple way to group several operations into one \pgls{API}, which then -- transparently to the user -- can be implemented in different ways.
 In this chapter, we discuss \pythoniles{class} in \python.
-Syntactly, \pythoniles{classes} follow the general blueprint below~\cite{PSF:P3D:TPT:C}.%
+Syntactly, \pythoniles{classes} follow the general blueprint below\scite{PSF:P3D:TPT:C}.%
 %
 \pythonSyntax{syntax/class_init_method.py}%
 \FloatBarrier%
 %
-Classes are datatypes that combine data elements with the code working on them~\cite{PSF:P3D:TPT:C}.
+Classes are datatypes that combine data elements with the code working on them\scite{PSF:P3D:TPT:C}.
 A class is basically a blueprint or a concept, whereas objects are the concrete instances of the classes.
 For example \pythonil{int} is basically a class of integer numbers, whereas \pythonil{5} is an instance of this class.
 
@@ -74,7 +74,7 @@ The first item after the class declaration is usually the \pgls{docstring} of th
 It can be a single descriptive line or a multi-line documentation, in which case it begins with a single summary line, followed by an empty line, followed by the comprehensive documentation text.
 %
 \bestPractice{className}{\sloppy%
-Class names should follow the CapWords convention~(often also called \emph{camel case}~\cite{ZZH2021AESOTUAEOISIP}), i.e., look like \pythonil{MyClass} or \pythonil{UniversityDepartment} (not \pythonil{my_class} or \pythonil{university_department})~\cite{PEP8}.}%
+Class names should follow the CapWords convention~(often also called \emph{camel case}\scite{ZZH2021AESOTUAEOISIP}), i.e., look like \pythonil{MyClass} or \pythonil{UniversityDepartment} (not \pythonil{my_class} or \pythonil{university_department})\scite{PEP8}.}%
 %
 A class can have a initializer method \dunder{init}.
 This special method can take arbitrarily many parameters, but never returns a value.
@@ -191,25 +191,25 @@ However, that would make the example overly long, so I am not doing this here.%
 
 Otherwise, we set \pythonil{self.x: Final[int | float] = x} and \pythonil{self.y: Final[int | float] = y}.
 These lines create the attributes \pythonil{self.x} and \pythonil{self.y} of the object which was passed in via the parameter~\pythonil{self}.
-The \pgls{typeHint} \pythonilIdx{Final} from the \pythonilIdx{typing} module annotates a variable or attribute as immutable~\cite{PEP591}.
+The \pgls{typeHint} \pythonilIdx{Final} from the \pythonilIdx{typing} module annotates a variable or attribute as immutable\scite{PEP591}.
 In other words, we do not allow the coordinates of our \pythonils{Point} to change after object creation.%
 %
 \bestPractice{attributeTypeHint}{%
-Every attribute of an object must be annotated with a \pgls{typeHint} when created in the initializer~\dunder{init}~\cite{LM2024WTMD}. %
+Every attribute of an object must be annotated with a \pgls{typeHint} when created in the initializer~\dunder{init}\scite{LM2024WTMD}. %
 Here, \pglspl{typeHint} work exactly like with normal variables.}%
 %
 \bestPractice{attributeFinal}{%
 The \pgls{typeHint} \pythonilIdx{Final}\pythonIdx{typing!Final} marks a variable or attribute as immutable. %
 All attributes that you do not intend to change should be annotated with~\pythonilIdx{Final}\pythonIdx{typing!Final}. %
-Notice that this is a \pgls{typeHint}, i.e., it will not be enforced by the \python\ interpreter~\cite{PEP591} and malicious code can \emph{still} change the attribute value. %
+Notice that this is a \pgls{typeHint}, i.e., it will not be enforced by the \python\ interpreter\scite{PEP591} and malicious code can \emph{still} change the attribute value. %
 Type checkers like \mypy\ can detect such incorrect changes, though, and issue warnings.%
 }%
 %
 We will explore this issue a bit later in detail.%
 %
 \bestPractice{attributeDocstring}{%
-An attribute is documented in the line \emph{above} the attribute initialization by writing a \emph{comment} starting with \pythonilIdx{\#: }, which explains the meaning of the attribute~\cite{SD2024SIDFD:DCAD}. %
-(Sometimes, the documentation is given as string directly below the attribute definition~\cite{PEP287}, but we stick to the former method, because it has proper tool support, e.g., by~\sphinx.)%
+An attribute is documented in the line \emph{above} the attribute initialization by writing a \emph{comment} starting with \pythonilIdx{\#: }, which explains the meaning of the attribute\scite{SD2024SIDFD:DCAD}. %
+(Sometimes, the documentation is given as string directly below the attribute definition\scite{PEP287}, but we stick to the former method, because it has proper tool support, e.g., by~\sphinx.)%
 }%
 %
 After properly defining our initializer, we can now do something like~\pythonil{p = Point(1, 2)}.
@@ -333,9 +333,9 @@ Now we are now able to extend the programming language with our own datatypes, t
 The objects of our \pythonil{Point} class are \emph{immutable}.
 Once created, the attributes cannot be changed anymore, at least not without violating the language rules.
 The thing that (should) stop anyone from changing them is the \pythonilIdx{Final} \pgls{typeHint}.
-As said before, in \python, \pglspl{typeHint} are just hints and not enforced by the interpreter~\cite{PEP591}.
+As said before, in \python, \pglspl{typeHint} are just hints and not enforced by the interpreter\scite{PEP591}.
 Thus, the attributes \pythonil{x} and \pythonil{y} of instances of \pythonil{Point} can actually be changed.
-However, tools like \mypy\ will detect such mistakes and report them~\cite{PEP591}.%
+However, tools like \mypy\ will detect such mistakes and report them\scite{PEP591}.%
 
 \gitLoadAndExecPython{classes:point_user_wrong}{}{classes}{point_user_wrong.py}{}%
 \listingPythonAndOutput{classes:point_user_wrong}{%
@@ -453,7 +453,7 @@ Consequenly, adding~\pythonil{1} to~$10^{16}=\pythonil{1e16}$ would require 17~d
 This exceeds the capacity of our \pythonils{float}.
 Hence, the least-significant digit just \inQuotes{falls off.}
 The result of \pythonil{1e16 + 1} computed mit \pythonils{float} is still~\pythonil{1e16}.
-It is not possible to represent the number~$1+10^{16}$ exactly with the 64~bit double precision floating point numbers that \python\ offers~\cite{PSF:P3D:TPT:FPAIAL,IEEE2019ISFFPA,H1997IS7FPN}.
+It is not possible to represent the number~$1+10^{16}$ exactly with the 64~bit double precision floating point numbers that \python\ offers\scite{PSF:P3D:TPT:FPAIAL,IEEE2019ISFFPA,H1997IS7FPN}.
 
 Usually, that itself is totally fine:
 There are only very few application were we really need more than 15 digits of precision.
@@ -484,7 +484,7 @@ However, we want to be able to represent the final result of a sum at least as a
 For example, we want a way to compute the sum \pythonil{(1e18 + 1) + -1e18} such that the result is \pythonil{1.0}.
 Is this possible?
 
-Luckily, in the 1960s, \citeauthor{K1965PFRORTE}~\cite{K1965PFRORTE} and \citeauthor{B1968NSIMA}~\cite{B1968NSIMA} had an idea how to extend the precision of additions~\cite{G1991WECSSKAFPA,L2020RWECSSKAFPA}:
+Luckily, in the 1960s, \citeauthor{K1965PFRORTE}\scite{K1965PFRORTE} and \citeauthor{B1968NSIMA}\scite{B1968NSIMA} had an idea how to extend the precision of additions\scite{G1991WECSSKAFPA,L2020RWECSSKAFPA}:
 We add numbers up in a \pythonil{sum} variable and carry with us a variable~\pythonil{cs} where we remember how far off this sum is.
 Imagine again that we want to compute \pythonil{1e18 + 1 - 1e18}.
 How could we do that to arrive at the result~\pythonil{1.0}?
@@ -568,24 +568,24 @@ The price thus is that we needed additional variables and needed to update them 
 \FloatBarrier%
 %
 \insertAlgorithm{kahanSum}{%
-The second-order \citeauthor{K1965PFRORTE}-\citeauthor{B1968NSIMA}-\citeauthor{N1974REVZSES} summation algorithm~\cite{B1968NSIMA,K1965PFRORTE,N1974REVZSES,K2006AGKBSA} over an array~\aVar{x} of $n$~numbers as defined by~\citeauthor{K2006AGKBSA} in~\cite{K2006AGKBSA}.}{%
+The second-order \citeauthor{K1965PFRORTE}-\citeauthor{B1968NSIMA}-\citeauthor{N1974REVZSES} summation algorithm\scite{B1968NSIMA,K1965PFRORTE,N1974REVZSES,K2006AGKBSA} over an array~\aVar{x} of $n$~numbers as defined by~\citeauthor{K2006AGKBSA} in\scite{K2006AGKBSA}.}{%
 %
 \aAssign{\aVar{sum}}{0}\aSep%
 \aAssign{\aVar{cs}}{0}\aSep%
 \aAssign{\aVar{ccs}}{0}\algoCmtEndline{Initialze sum, 1st order- and 2nd order error.}%
 %
 \For(\algoCmtInline{For each of the $n$ numbers to add.}){$\aVar{i} \in \intRange{0}{n-1}$}{%
-\aAssign{\aVar{t}}{\aVar{sum}+\aArrayIndex{\aVar{x}}{\aVar{i}}}\algoCmtEndline{Compute the sum and (below) the first-order error term~\cite{B1968NSIMA,K1965PFRORTE}.}%
-\lIf(\algoCmtInline{the tweak by \citeauthor{N1974REVZSES}~\cite{N1974REVZSES}}){$|\aVar{sum}|\geq|\aArrayIndex{\aVar{x}}{\aVar{i}}|$}{%
+\aAssign{\aVar{t}}{\aVar{sum}+\aArrayIndex{\aVar{x}}{\aVar{i}}}\algoCmtEndline{Compute the sum and (below) the first-order error term\scite{B1968NSIMA,K1965PFRORTE}.}%
+\lIf(\algoCmtInline{the tweak by \citeauthor{N1974REVZSES}\scite{N1974REVZSES}}){$|\aVar{sum}|\geq|\aArrayIndex{\aVar{x}}{\aVar{i}}|$}{%
 \aAssign{\aVar{c}}{(\aVar{sum}-\aVar{t})+\aArrayIndex{\aVar{x}}{\aVar{i}}}%
 }\lElse{%
 \aAssign{\aVar{c}}{(\aArrayIndex{\aVar{x}}{\aVar{i}}-\aVar{t})+\aVar{sum}}%
 }%
 %
 \aAssign{\aVar{sum}}{\aVar{t}}\algoCmtEndline{The overall sum is updated.}%
-\aAssign{\aVar{t}}{\aVar{cs}+\aVar{c}}\algoCmtEndline{The second-order error summation by~\citeauthor{K2006AGKBSA}~\cite{K2006AGKBSA} begins.}%
+\aAssign{\aVar{t}}{\aVar{cs}+\aVar{c}}\algoCmtEndline{The second-order error summation by~\citeauthor{K2006AGKBSA}\scite{K2006AGKBSA} begins.}%
 %
-\lIf(\algoCmtInline{the tweak by \citeauthor{N1974REVZSES}~\cite{N1974REVZSES} again}){$|\aVar{cs}|\geq|\aVar{c}|$}{%
+\lIf(\algoCmtInline{the tweak by \citeauthor{N1974REVZSES}\scite{N1974REVZSES} again}){$|\aVar{cs}|\geq|\aVar{c}|$}{%
 \aAssign{\aVar{cc}}{(\aVar{cs}-\aVar{t})+\aVar{c}}%
 }\lElse{%
 \aAssign{\aVar{c}}{(\aVar{c}-\aVar{t})+\aVar{cs}}%
@@ -599,8 +599,8 @@ The second-order \citeauthor{K1965PFRORTE}-\citeauthor{B1968NSIMA}-\citeauthor{N
 }% end algorithm
 
 There exists a variety of different implementations of this so-called \citeauthor{K1965PFRORTE}-Sum or \citeauthor{K1965PFRORTE}-\citeauthor{B1968NSIMA}-Sum.
-\Citeauthor{N1974REVZSES}, for example, came up with a tweak to improve the precision in \citeyear{N1974REVZSES} in the case that the running sum is smaller than the numbers we add~\cite{N1974REVZSES}.
-\Citeauthor{K2006AGKBSA}~\cite{K2006AGKBSA} then improved the precision further by, basically, maintaining an error sum for the error sum, i.e., created a second degree error sum~(and more).
+\Citeauthor{N1974REVZSES}, for example, came up with a tweak to improve the precision in \citeyear{N1974REVZSES} in the case that the running sum is smaller than the numbers we add\scite{N1974REVZSES}.
+\Citeauthor{K2006AGKBSA}\scite{K2006AGKBSA} then improved the precision further by, basically, maintaining an error sum for the error sum, i.e., created a second degree error sum~(and more).
 This more advanced and accurate algorithm is given in \cref{algo:kahanSum}.
 
 It is not really necessary to discuss the details of the algorithm.
@@ -700,7 +700,7 @@ We create the three attributes~\pythonil{__sum}, \pythonil{__cs}, and \pythonil{
 These names are directly taken from the variable names in \cref{algo:kahanSum}, but notice the double leading underscores in front of the names.%
 %
 \bestPractice{doubleUnderscore}{%
-Names of attributes and methods that start with a double leading underscore~(\pythonilIdx{\_\_}) are to be treated as \emph{private}~\cite{PSF:P3D:TPLR:PNM,PSF:P3D:TPT:C:PV}. %
+Names of attributes and methods that start with a double leading underscore~(\pythonilIdx{\_\_}) are to be treated as \emph{private}\scite{PSF:P3D:TPLR:PNM,PSF:P3D:TPT:C:PV}. %
 They should not be accessed or modified from outside the class. %
 All internal attributes and methods of a class that should not be exposed to the outside therefore should be named following this convention~(with two leading underscores). %
 \python\ applies some internal name mangling to make such attributes harder to access from outside the class\cite{PEP8}
@@ -728,7 +728,7 @@ Looking at the algorithm, in each iteration, a value~\aArrayIndex{\aVar{x}}{\aVa
 Our \pythonil{add} method therefore has the parameter~\pythonil{value}, with the value that we want to add to the sum.
 Then we just have to write down the loop body from \cref{algo:kahanSum} into \pythonil{add}.
 We replace~\aVar{sum}, \aVar{cs}, \aVar{ccs}, and~\aArrayIndex{\aVar{x}}{\aVar{i}} with \pythonil{self.__sum}, \pythonil{self.__cs}, \pythonil{self.__ccs}, and~\pythonil{value}, respectively.
-We write the conditional for the tweak by \citeauthor{N1974REVZSES}~\cite{N1974REVZSES} as an inline \pythonil{if...else}~statement~(see \cref{sec:inlineIfThenElse}).
+We write the conditional for the tweak by \citeauthor{N1974REVZSES}\scite{N1974REVZSES} as an inline \pythonil{if...else}~statement~(see \cref{sec:inlineIfThenElse}).
 For computing the absolute value~$|a|$ of a number~$a$, we can use \python's \pythonilIdx{abs}~function.
 For the sake of simplicity, we can let
 And that's already it.
@@ -780,7 +780,7 @@ So with our \pythonil{KahanSum} with two error terms, we can have intermediate r
 
 The second question is \emph{What does \pythonilIdx{fsum} do differently?}
 Actually, not very much.
-It is based on the algorithm by \citeauthor{S1997APFPAAFRGP}~\cite{S1997APFPAAFRGP,H2005BFPSATFPPR}, which dynamically allocates a list of helper variables to obtain a provably exact sum~(within the result range of~\pythonil{float}).
+It is based on the algorithm by \citeauthor{S1997APFPAAFRGP}\scite{S1997APFPAAFRGP,H2005BFPSATFPPR}, which dynamically allocates a list of helper variables to obtain a provably exact sum~(within the result range of~\pythonil{float}).
 It basically is a dynamic version of the \citeauthor{K1965PFRORTE} Sum, which uses more error term variables as needed and also drops them when they are no longer needed.
 The general principle is the same, just that a list of values replaces \pythonil{cs} and \pythonil{ccs}.
 
@@ -852,7 +852,7 @@ Since this, again, is only a \pgls{typeHint}, it is just information for the pro
 The \python\ interpreter ignores it.
 We can do \pythonil{a: Final[int] = 5} and then \pythonil{a = 6} without punishment.
 Similarly, marking attributes as private by using names starting with a double underscore~(\pythonilIdx{\_\_}) does not actually make them private.
-The \python\ interpreter applies some name mangling~\cite{PEP8} to make them harder to access, but a crafty programmer can still read and write them.
+The \python\ interpreter applies some name mangling\scite{PEP8} to make them harder to access, but a crafty programmer can still read and write them.
 Tools like \mypy, however, will also spot such misconduct.
 
 \python\ places the responsibility into our hands to properly adher to standards and coding rules.

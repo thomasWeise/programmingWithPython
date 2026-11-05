@@ -3,7 +3,7 @@
 %
 Functions are blocks of code that can be invoked from anywhere else in a program.
 You already learned many functions, from the basic \pythonilIdx{print} routine that just prints the value of its parameter to the \pythonilIdx{sqrt} function from the \pythonilIdx{math} module which computes the square root.
-Now you will learn how to make your own functions~\cite{PSF:P3D:TPT:MCFT}.%
+Now you will learn how to make your own functions\scite{PSF:P3D:TPT:MCFT}.%
 %
 \hsection{Defining and Calling Functions}%
 \label{sec:definingFunctions}%
@@ -20,8 +20,8 @@ The syntax for defining our own functions in \python\ is as follows:%
 %
 \pythonIdx{function!def}A function in \python\ is created by using the \pythonilIdx{def}\pythonIdx{function!def} keyword, followed by the name of the function.%
 %
-\bestPractice{functionNames}{Function names should be lower case, with underscores separating multiple words if need be~\cite{PEP8}. %
-This style is called \emph{snake case}~\cite{ZZH2021AESOTUAEOISIP}.}%
+\bestPractice{functionNames}{Function names should be lower case, with underscores separating multiple words if need be\scite{PEP8}. %
+This style is called \emph{snake case}\scite{ZZH2021AESOTUAEOISIP}.}%
 %
 \pythonIdx{function!parameter}After the function name follows an opening and a closing parenthesis, i.e., \pythonil{(...)}\pythonIdx{(\idxdots)}.
 A function can have parameters through which we can pass values to it.
@@ -39,7 +39,7 @@ The parameters of a function are written between the opening and closing parenth
 Each parameter has a name, which is the name under which it can be accessed inside the function.
 The parameters are separated by commas.
 We can specify arbitrarily many parameters or no parameter at all.
-Notice that, just like variables, all such parameters should be annotated with \pglspl{typeHint}~(see \cref{sec:variableTypesAndTypeHints})~\cite{PEP3107}.
+Notice that, just like variables, all such parameters should be annotated with \pglspl{typeHint}~(see \cref{sec:variableTypesAndTypeHints})\scite{PEP3107}.
 This is especially important:
 You do want that users of your function can clearly understand whether they can pass integers, strings, or floating point numbers as parameter values to your function or not.
 If we define a function \pythonil{add(value_1, value_2)}, it would not be clear at all what datatypes we can pass in for \pythonil{value_1} and \pythonil{value_2}.
@@ -56,7 +56,7 @@ The sequence of parameter types and the return type of a function together are c
 The function header ends with a colon~(\pythonilIdx{:}).%
 %
 \bestPractice{functionTypeHints}{\pythonIdx{function!type hint}%
-All parameters and the return value of a function should be annotated with \pglspl{typeHint}~\cite{PEP3107}. %
+All parameters and the return value of a function should be annotated with \pglspl{typeHint}\scite{PEP3107}. %
 From my perspective: \emph{A function without \pglspl{typeHint} is wrong.}%
 }%
 %
@@ -104,7 +104,7 @@ From my perspective: \emph{A function without \pgls{docstring} is wrong.}%
 }%
 %
 \bestPractice{functionSpace}{%
-After the function and its body are defined, leave \emph{two} blank lines before writing the next code~\cite{PEP8}.%
+After the function and its body are defined, leave \emph{two} blank lines before writing the next code\scite{PEP8}.%
 }%
 %
 \gitLoadAndExecPython{functions:def_factorial}{}{functions}{def_factorial.py}{}%
@@ -114,7 +114,7 @@ Implementing a function computing the factorial of a positive integer number.}{}
 Now we know the general scheme based on which functions can be defined.
 After all of this long introduction, let us finally come to an example.
 Let's implement the factorial function as, well, function.
-The factorial is defined as follows~\cite{D1991TEHOTFF,CB2022FBDOTFF}%
+The factorial is defined as follows\scite{D1991TEHOTFF,CB2022FBDOTFF}%
 %
 \begin{equation}%
 \factorial{a}=\left\{\begin{array}{rl}%
@@ -152,7 +152,7 @@ We can now compute the factorial of any positive integer number~\pythonil{x} by 
 After the function body, we leave two empty lines.
 And then we compute the factorials of the numbers from~$1$ to~$9$ in a \pythonilIdx{for}~loop and print them by using \pglspl{fstring}.
 Inside this loop and in the \pgls{fstring}, we can use the function \pythonil{factorial} exactly like any other function we used before, like \pythonil{sqrt} or \pythonil{sin}.
-It may be an interesting side information at the end of this example that the factorial can actually be computed \emph{faster} than using this product form, see, e.g.~\cite{L2015ANKOFF}.
+It may be an interesting side information at the end of this example that the factorial can actually be computed \emph{faster} than using this product form, see, e.g.\scite{L2015ANKOFF}.
 
 Functions can have more than one parameter or no parameter at all.
 They can return one value or return nothing at all\footnote{%
@@ -173,7 +173,7 @@ Implementing the Euclidean Algorithm as a function and calling it from another f
 
 Let us investigate these options by investigating another interesting mathematical operation:
 The computation of the greatest common divisor, also known as~\pythonil{gcd}.
-This can be done using the Euclidean algorithm~\cite{EHF2008EEOGTGOJLH11FEEEELIEILHIATBG11EAPWMETBFR:ENT,B1999FAOTBEA,TKY2016BEOEAOTCEG}, going back to \citeauthor{EHF2008EEOGTGOJLH11FEEEELIEILHIATBG11EAPWMETBFR:ENT} who flourished about 300~\pgls{BCE} and is sketched in \cref{fig:euclidOfAlexandria}.
+This can be done using the Euclidean algorithm\scite{EHF2008EEOGTGOJLH11FEEEELIEILHIATBG11EAPWMETBFR:ENT,B1999FAOTBEA,TKY2016BEOEAOTCEG}, going back to \citeauthor{EHF2008EEOGTGOJLH11FEEEELIEILHIATBG11EAPWMETBFR:ENT} who flourished about 300~\pgls{BCE} and is sketched in \cref{fig:euclidOfAlexandria}.
 
 The greatest common divisor of two numbers positive~$a\in\naturalNumbersO$ and~$b\in\naturalNumbersO$ is the greatest number~$g\in\naturalNumbersO=\pythonil{gcd}(a,b)$ such that~$a\bmod g=0$ and~$b \bmod g=0$, where~$\bmod$ is the \pgls{modulodiv} operator, i.e., the remainder of a division, which, in turn, is equivalent to \python's~\pythonilIdx{\%}.
 This means that $g$~divides both $a$ and $b$ without remainder.
@@ -248,7 +248,7 @@ And we use it in the \pgls{fstring} in \pythonil{print_gcd} under that name.%
 %
 Finally, we confirm that \pythonil{gcd} and \pythonil{math_gcd} compute the same result for four test cases at the bottom of our program.
 Now that all is said and done, it should be mentioned that the Euclidean Algorithm has a particularly efficient binary variant which is faster than our implementation in \cref{lst:functions:def_gcd}.
-This binary variant may have been developed in China in the first century~\pgls{CE}~\cite{B1999FAOTBEA} and published in the famous \emph{Jiu Zhang Suanshu}~(九章算术)~\cite{OR2003LH,SCL1999TNCOTMACAC,S1998LHATFGAOCM,D2010AALHOCAS,C2002LFLHADWTDM}.
+This binary variant may have been developed in China in the first century~\pgls{CE}\scite{B1999FAOTBEA} and published in the famous \emph{Jiu Zhang Suanshu}~(九章算术)\scite{OR2003LH,SCL1999TNCOTMACAC,S1998LHATFGAOCM,D2010AALHOCAS,C2002LFLHADWTDM}.
 
 We are now able to implement our own functions.
 We can properly annotate them with \pglspl{typeHint} and \pglspl{docstring}.
@@ -284,10 +284,10 @@ We will therefore now learn how to distribute code over multiple files.
 This answers two main questions:
 How can we avoid writing our applications as a single, huge, and unstructured file which would be impossible to maintain in the long run?
 How can we divide our application into smaller units that we can test, improve, and maintain separately and maybe use and reuse in different contexts?
-A big part of the answer to this question are \emph{modules} and \emph{packages}~\cite{PSF:P3D:TPLR:TIS}.
+A big part of the answer to this question are \emph{modules} and \emph{packages}\scite{PSF:P3D:TPLR:TIS}.
 
 For all intents and purposes within this book, a \emph{module}\pythonIdx{module} is a \python\ file and a \emph{package}\pythonIdx{package} is a directory wherein such files are located.
-As described in~\cite{PSF:P3D:TPLR:TIS}, modules do not necessarily need to be files and packages can probably be created otherwise as well, but let us keep it simple here.
+As described in\scite{PSF:P3D:TPLR:TIS}, modules do not necessarily need to be files and packages can probably be created otherwise as well, but let us keep it simple here.
 
 Indeed, we have already worked with modules, most prominently the~\pythonilIdx{math} module.
 This module is basically a collection of mathematical functions.
@@ -299,7 +299,7 @@ The function \pythonil{factorial} from \cref{lst:functions:def_factorial} and a 
 The \pythonil{sqrt} function basically encapsulates our code from back in \cref{lst:loops:while_loop_sqrt}, where we implemented the Heron's Method to compute the square root, as a function.
 Now, \pythonil{number}, the input of this algorithm, comes in as a parameter.%
 %
-\bestPractice{packageAndModuleNames}{Package and module names should be short and lowercase. Underscores can be used to improve readability.~\cite{PEP8}}%
+\bestPractice{packageAndModuleNames}{Package and module names should be short and lowercase. Underscores can be used to improve readability.\scite{PEP8}}%
 %
 Our new module has the name \textil{my_math}, because it is in file \programUrl{functions:my_math}.
 It does not look very special or different from what we did so far.
@@ -325,7 +325,7 @@ There is a module \pythonil{my_math} \pythonilIdx{from} which we want to \python
 %
 Now, the \python\ interpreter knows a lot of modules.
 Several modules ship with any \python\ installation, like \pythonilIdx{math}.
-Others are installed via a package manager like \pgls{pip}~\cite{PSF:P3D:IPM}~(we will eventually discuss this in-depth later).
+Others are installed via a package manager like \pgls{pip}\scite{PSF:P3D:IPM}~(we will eventually discuss this in-depth later).
 The \pythonil{my_math} module is found because it is in the same directory as the program \programUrl{functions:use_my_math}.
 
 We could have placed the \programUrl{functions:my_math} file into a sub-directory named \textil{math_pack} instead.
@@ -383,12 +383,12 @@ It is much easier to check whether our \pythonil{factorial} and \pythonil{sqrt} 
 %
 \begin{definition}[Unit Testing]
 \label{def:unitTesting}%
-\glslink{unitTest}{\emph{Unit Testing}} is a software testing technique where separate components or functions of an application are tested in isolation~\cite{P2021PUTAAOAEUTIP,R2006ASOUTP,TLG2006UTCU,O1991UTVIT,B2004JPG,O2003UTTETO}.%
+\glslink{unitTest}{\emph{Unit Testing}} is a software testing technique where separate components or functions of an application are tested in isolation\scite{P2021PUTAAOAEUTIP,R2006ASOUTP,TLG2006UTCU,O1991UTVIT,B2004JPG,O2003UTTETO}.%
 \end{definition}%
 %
 This idea works hierarchically.
 We implement and test the smallest functions~$\mathcal{A}$.
-We \inQuotes{code a little, test a little}~\cite{BG2000TIPLWT}, allowing us to both understand and verify our code.
+We \inQuotes{code a little, test a little}\scite{BG2000TIPLWT}, allowing us to both understand and verify our code.
 Then we move on.
 We implement and test the functions~$\mathcal{B}$ that use these smaller functions~$\mathcal{A}$.
 We implement and test the functions~$\mathcal{C}$ that use the functions~$\mathcal{B}$~(and maybe also~$\mathcal{A}$).
@@ -438,7 +438,7 @@ Finally, \pglspl{unitTest} are especially useful if an application is developed,
 It is important that test cases are preserved and re-tested every time the software changes.
 This way, we can discover if a change that we applied to an older piece of code breaks a \pgls{unitTest}.
 In other words, we can detect if a change on some module has unanticipated consequences on other code, which may lead to unexpected and unwanted changes of the behavior our program.
-Especially with its increased automation, e.g., due to \pgls{continuousIntegration}, \pglspl{unitTest} in software development have steadily gained importance during the past decades~\cite{W2000WISTAWIISH,TLG2006UTCU,R2006ASOUTP} and are an important cornerstone of \python\ software development~\cite{P2021PUTAAOAEUTIP,O2022PTWP,DG2020TIP}.%
+Especially with its increased automation, e.g., due to \pgls{continuousIntegration}, \pglspl{unitTest} in software development have steadily gained importance during the past decades\scite{W2000WISTAWIISH,TLG2006UTCU,R2006ASOUTP} and are an important cornerstone of \python\ software development\scite{P2021PUTAAOAEUTIP,O2022PTWP,DG2020TIP}.%
 %
 %
 \begin{figure}%
@@ -449,7 +449,7 @@ Especially with its increased automation, e.g., due to \pgls{continuousIntegrati
 \end{figure}%
 %
 Let us now test our code.
-We will use \pytest\ for this, a \python\ framework for unit testing~\cite{KPDT2024PD}.
+We will use \pytest\ for this, a \python\ framework for unit testing\scite{KPDT2024PD}.
 We install it by opening the \pgls{terminal} by either pressing \ubuntuTerminal\ under \ubuntu\ \linux\ or \ubuntuTerminal\ or under \microsoftWindows\ via \windowsTerminal.
 As sketched in \cref{fig:pipInstallPytest}, we then type in \bashil{pip install pytest pytest-timeout}\pythonIdx{pip} and hit \keys{\return}.~(Normally, we would do that in a \pgls{virtualEnvironment}, which we discuss later in \cref{sec:pipAndVenv}.)
 It is important that we install \emph{two} \python\ packages here:
@@ -457,7 +457,7 @@ The package \textil{pytest} offers the basic testing functionality.
 The package \textil{pytest-timeout} allows us to limit the runtime of tests, which is a very important feature~(as you will see).%
 %
 \usefulTool{pytest}{%
-\pytest\ is a \python\ framework for writing and executing software tests~\cite{KPDT2024PD}.
+\pytest\ is a \python\ framework for writing and executing software tests\scite{KPDT2024PD}.
 It can be installed via \bashil{pip install pytest pytest-timeout} as shown in \cref{fig:pipInstallPytest} on \cpageref{fig:pipInstallPytest}. %
 You can then apply \pytest\ using the command \bashil{pytest --timeout=toInS file(s)}, where \textil{toInS} should be replaced with a reasonable timeout in seconds and \textil{file(s)} is one or multiple files with test cases. %
 We provide a script for using \pytest\ with a reasonable default configuration in \cref{lst:bash:pytest} on \cpageref{lst:bash:pytest}. %
@@ -622,7 +622,7 @@ This is the same as \pythonil{guess = 0.5 * (1 + inf / 1)}, which is the same as
 This makes \pythonil{guess} become \pythonil{inf}, too.
 Then, in the second iteration, we again have \pythonil{guess = 0.5 * (guess + number / guess)}.
 This now is the same as \pythonil{guess = 0.5 * (inf + inf / inf)}.
-And \pythonil{inf / inf} yields~\pythonil{nan}~\cite{G1991WECSSKAFPA}.
+And \pythonil{inf / inf} yields~\pythonil{nan}\scite{G1991WECSSKAFPA}.
 \end{sloppypar}%
 %
 The \pythonil{nan} infects the rest of the computation, and the result turns into \pythonil{guess = nan}.
@@ -686,14 +686,14 @@ No single factor is likely responsible for \sqlite's popularity.
 Instead, in addition to its fundamentally embeddable design, several characteristics combine to make \sqlite\ useful in a broad range of scenarios.
 In particular, \sqlite\ strives to be:\par\relax[\dots]\par\relax%
 \textbf{Reliable}.
-There are over 600~lines of test code for every line of code in \sqlite~\cite{HWACIS:HO2023WKUOS}.
+There are over 600~lines of test code for every line of code in \sqlite\scite{HWACIS:HO2023WKUOS}.
 Tests cover 100\% of branches in the library.
 The test suite is extremely diverse, including fuzz tests, boundary value tests, regression tests, and tests that simulate operating system crashes, power losses, \pgls{inOut}~errors, and out-of-memory errors.
-Due to its reliability, \sqlite\ is often used in mission-critical applications such as flight software~\cite{HWACIS:HO2024HSIT}%
+Due to its reliability, \sqlite\ is often used in mission-critical applications such as flight software\scite{HWACIS:HO2024HSIT}%
 }%
 %
 \sqlite\ is the most used \pgls{SQL} \pgls{db} in the world.
-It is installed in nearly every smartphone, computer, web browser, television, and automobile~\cite{WB2019RHSOOS,GPBHKP2022SPPAF,C20245YOQ}.
+It is installed in nearly every smartphone, computer, web browser, television, and automobile\scite{WB2019RHSOOS,GPBHKP2022SPPAF,C20245YOQ}.
 And its core developers mark reliability, shown by thorough tests, as one of the four reasons for that.
 
 Tests are incredibly important.
@@ -734,7 +734,7 @@ We can specify the value of the parameter \emph{or} we can simply omit it, i.e.,
 In the latter case, the parameter will then have the default value.
 From inside the function, this looks the same as if we passed in the default value.
 
-As a simple example, let us implement the \pgls{mathPDF} of the normal distribution~\cite{AS1972HOMFWFGAMT,EHP2000SD,W2007HBOSDFE}.
+As a simple example, let us implement the \pgls{mathPDF} of the normal distribution\scite{AS1972HOMFWFGAMT,EHP2000SD,W2007HBOSDFE}.
 You may remember from high school math that this function, let's call it~$f$, defined as%
 %
 \begin{equation}%
@@ -785,16 +785,16 @@ Obviously, we must always specify the first parameter~(\pythonil{x}), because it
 
 Default values do not need to be \pglspl{literal}.
 They can also be the results of expressions, such as~\pythonil{sqrt(2.0)}.
-However, they are only evaluated exactly once, when the function is defined~\cite{H2025PM:MDA}.
+However, they are only evaluated exactly once, when the function is defined\scite{H2025PM:MDA}.
 Then they are stored in the function header and reused whenever needed.
 This has an interesting implication:
 What if the default value for a function argument is mutable, say, a \pythonil{list} or \pythonil{set}?
 Well, they never should be.
-Because that could lead to awful problems~\cite{H2025PM:MDA}.
+Because that could lead to awful problems\scite{H2025PM:MDA}.
 %
 \bestPractice{defaultValues}{%
 \pythonIdx{function!parameter!default value}\pythonIdx{function!argument!default}%
-Default parameter values must always be immutable~\cite{H2025PM:MDA}.}%
+Default parameter values must always be immutable\scite{H2025PM:MDA}.}%
 %
 The default value of a function argument must always be immutable.
 Or, at least, \emph{should} be immutable, because, technically, you could use mutable values as well.
@@ -913,9 +913,9 @@ We learned how functions can return their results.
 We learned how to test functions.
 And we just learned that we can basically construct a function call by placing the parameter values into collection objects and then invoke the function by \inQuotes{unpacking} the collection using either~\pythonil{*}~(for position-based parameters) or~\pythonil{**}~(for dictionaries).
 But there is one more interesting thing that we can do with functions.
-You see, in \python, all things are objects~\cite{H2025PM:EIAO,PSF:P3D:TPLR:DM}.
+You see, in \python, all things are objects\scite{H2025PM:EIAO,PSF:P3D:TPLR:DM}.
 References to objects can be stored by variables or passed in as function arguments.
-Functions are objects too~\cite{H2025PM:EIAO}.
+Functions are objects too\scite{H2025PM:EIAO}.
 This means that we can also store functions in variables or pass them as arguments to other functions!
 
 At first glance, this sounds awfully odd.
@@ -925,12 +925,12 @@ Having done so many mathematics-based examples in this book, let's pick one such
 
 In high school, you would have learned about integration and differentiation.
 A \emph{definite integral} is the formal calculation of the area under a function over a certain range along the \pgls{xAxis}.
-It uses \pgls{infinitesimal}~\cite{EOWM2025MWAMTD:I,KS2013LITFTMIATFFBTRAB} stripes over the region to do so.
+It uses \pgls{infinitesimal}\scite{EOWM2025MWAMTD:I,KS2013LITFTMIATFFBTRAB} stripes over the region to do so.
 
 The second\footnote{%
-Depending on the source, sometimes this is also called the first fundamental theorem of calculus~\cite{W2024MAWWR:SFTOC}.%
+Depending on the source, sometimes this is also called the first fundamental theorem of calculus\scite{W2024MAWWR:SFTOC}.%
 } %
-fundamental theorem of calculus states~\cite{W2024MAWWR:SFTOC,A1991C:1:PFATSFTOC}:
+fundamental theorem of calculus states\scite{W2024MAWWR:SFTOC,A1991C:1:PFATSFTOC}:
 Given a function~$f(x)$ which is continuous over the real interval~$[a,b]$ and its antiderivative~$F(x)$, the definite integral $\int_a^b f(x)\,dx = F(b)-F(a)$~(where antiderivative means that~$F'=f$).
 In other words, if we want to get the area beneath~$f(x)$ over the interval~$[a,b]$, we would first obtain the antiderivative and then simply calculate~$F(b)-F(a)$.
 
@@ -962,7 +962,7 @@ Of course, eventually, we will run into numerical precision issues and the appro
 Using the composite trapezoid method to numerically approximate definite integrals, as sketched in \cref{fig:normalDistPdfInteg}.}{}%
 
 This brings us to the question how we can do this, in particular, how to approximate the area of one such strip.
-The composite trapezoid method is one very simple implementation of this idea~\cite{S2021ITNM:NIATROTTR,E2013AITNMAA,A1991AITNA}.
+The composite trapezoid method is one very simple implementation of this idea\scite{S2021ITNM:NIATROTTR,E2013AITNMAA,A1991AITNA}.
 As illustrated in \cref{fig:normalDistPdfInteg}, it treats the strips as right trapezoids.
 The baseline of the trapezoid is a piece of the \pgls{xAxis} with length~$h=(b-a)/\scale$.
 Clearly, $\scale*h=b-a$ and thus, \scale~trapezoids of equal base length form the range of the \pgls{xAxis} under~$f(x)$.
@@ -989,8 +989,8 @@ How can we specify this parameter?
 The answer is given as program \programUrl{functions:integral} shown in \cref{lst:functions:integral}.
 The most interesting part of our \pythonil{integrate} function is its header.
 More precisely, it is the first parameter:~\pythonil{f: Callable[[float], float | int]}\pythonIdx{Callable}\pythonIdx{typing}.
-\pythonilIdx{Callable} is the \pgls{typeHint} for anything that can be called, i.e., functions~\cite{PSF:P3D:TPSL:ACO}.
-Like the \pglspl{typeHint} for lists and tuples, it can be parameterized following a scheme with square braces~\cite{PEP612}:%
+\pythonilIdx{Callable} is the \pgls{typeHint} for anything that can be called, i.e., functions\scite{PSF:P3D:TPSL:ACO}.
+Like the \pglspl{typeHint} for lists and tuples, it can be parameterized following a scheme with square braces\scite{PEP612}:%
 %
 \pythonSyntax{syntax/callable.py}%
 %
@@ -999,7 +999,7 @@ Inside the \pythonil{Callable[...]}, we first provide the list of types of the p
 Then follows a comma~\pythonil{,} and then follows the return type.
 The \pythonil{f: Callable[[float], float | int]} in our listing thus states that our function \pythonil{integrate} expects, as first parameter, \emph{another function}~\pythonil{f}.
 \pythonil{f}~must accept one parameter of type~\pythonil{float}.
-The return type of~\pythonil{f} is \pythonil{float | int}, i.e., it should return either a~\pythonil{float} or an~\pythonil{int}\pythonIdx{\textbar!type hints}~\cite{PEP604}.
+The return type of~\pythonil{f} is \pythonil{float | int}, i.e., it should return either a~\pythonil{float} or an~\pythonil{int}\pythonIdx{\textbar!type hints}\scite{PEP604}.
 Notice that the type \pythonilIdx{Callable} is provided by the module~\pythonilIdx{typing}\footnote{%
 \cite{PSF:P3D:TPSL:ACO}~states that this import is now deprecated and we should use \pythonil{collections.abc.Callable}\pythonIdx{collections.abc} instead. %
 In the past, this created some errors for me, so for now we stick with using~\pythonilIdx{typing}.}, %
@@ -1026,7 +1026,7 @@ where the \pythonil{_}\pythonIdx{\_} indicates that we are actually going to ign
 We could then invoke~\pythonil{integrate(const_1)}.
 
 However, there also is a more compact way to specify functions that we are only going to use once:
-The so-called \pythonilsIdx{lambda}~\cite{PSF:P3D:TPLR:L}, nameless functions defined inline, which have the structure%
+The so-called \pythonilsIdx{lambda}\scite{PSF:P3D:TPLR:L}, nameless functions defined inline, which have the structure%
 %
 \pythonSyntax{syntax/lambda.py}%
 %
@@ -1083,12 +1083,12 @@ Even \mypy\ accepts this function as valid parameter, as its output~(or better, 
 
 The standard normal distribution has standard deviation~$\sigma=1$ and mean~$\mu=0$.
 If we integrate it over the interval~$[-1,1]$, we basically compute the probability that a standard normally distributed random variable~${\mathcal{X}}$ is drawn from the interval~$[\mu-\sigma,\mu+\sigma]$, i.e., from within one standard deviation from the mean.
-As you may still know from high school math, this probability is roughly~68.26\%~\cite{AS1972HOMFWFGAMT,EHP2000SD,W2007HBOSDFE}.
-Similarly, the probability that such a random variable is sampled from within~$[-2,2]$, i.e., not more than two standard deviations away from the mean, is about~95.44\%~\cite{AS1972HOMFWFGAMT,EHP2000SD,W2007HBOSDFE}.
+As you may still know from high school math, this probability is roughly~68.26\%\scite{AS1972HOMFWFGAMT,EHP2000SD,W2007HBOSDFE}.
+Similarly, the probability that such a random variable is sampled from within~$[-2,2]$, i.e., not more than two standard deviations away from the mean, is about~95.44\%\scite{AS1972HOMFWFGAMT,EHP2000SD,W2007HBOSDFE}.
 The output of our little integrator function in \cref{exec:functions:integral} fits perfectly to this.
 
 As a final clarification, let us mention that trapezoid-based approximation of definite integrals is by no means the best approach.
-Others methods, like Simpson's rule, may often provide better results~\cite{E2013AITNMAA}.
+Others methods, like Simpson's rule, may often provide better results\scite{E2013AITNMAA}.
 Still, as an example of functions that work on other functions, it was suitable.%
 \FloatBarrier%
 \endhsection%

@@ -31,7 +31,7 @@ Only put immutable objects into sets.%
 }%
 %
 Different from tuples, sets themselves are not immutable.
-Furthermore, sets are \emph{unordered} collections~\cite{PSF:P3D:TPSL:STSF}.
+Furthermore, sets are \emph{unordered} collections\scite{PSF:P3D:TPSL:STSF}.
 Therefore, also different from tuples and lists, they cannot be indexed, i.e., the square-bracket notation does not work with sets.%
 %
 \bestPractice{setsUnordered}{%
@@ -46,8 +46,8 @@ Plus lists are ordered and indexable.
 So what is the advantage of sets?
 
 Sets are fast.
-In \python, sets are implemented based on the concept of hash tables and thus inherit the computational performance of these data structures~\cite{K1998SAS,CLRS2009ITA,SKS2019DSC}.
-The operation for checking whether one object is contained in a set can be done in \bigOb{1} on average, whereas lists need \bigOb{\scale} on average, with \scale~being the list length~\cite{H2025PM:PBOTTCODDSIPP33,PSF:TPW:TC,N2022CCSFPO}.
+In \python, sets are implemented based on the concept of hash tables and thus inherit the computational performance of these data structures\scite{K1998SAS,CLRS2009ITA,SKS2019DSC}.
+The operation for checking whether one object is contained in a set can be done in \bigOb{1} on average, whereas lists need \bigOb{\scale} on average, with \scale~being the list length\scite{H2025PM:PBOTTCODDSIPP33,PSF:TPW:TC,N2022CCSFPO}.
 This means that checking whether an element is contained in a set costs approximately a constant number of CPU cycles, whereas doing the same for a list takes a number of cycles roughly proportional to the length of the list.
 Lists thus can be preferred if we either only have very few elements to check or if we need to access elements using integer indices.
 If we have more than just very few elements and either need to perform efficient lookups or set operations such as those discussed in the following text, sets are the way to go.%
@@ -55,7 +55,7 @@ If we have more than just very few elements and either need to perform efficient
 \begin{sloppypar}%
 In program \programUrl{sets:sets_1} given as \cref{lst:sets:sets_1}, we provide a first example of creating and working with sets.
 Set \pglspl{literal} can be created by using curly braces, i.e, \pythonil{\{...\}}\pythonIdx{\textbraceleft\idxdots\textbraceright!set}.
-They can be type-hinted using the notation \pythonil{set[elementType]}\pythonIdx{set!type hint} where \pythonil{elementType} is the type of elements to be stored in the set~\cite{PEP585}.
+They can be type-hinted using the notation \pythonil{set[elementType]}\pythonIdx{set!type hint} where \pythonil{elementType} is the type of elements to be stored in the set\scite{PEP585}.
 The line \pythonil{upper: set[str] = \{"A", "G", "B", "T", "V"\}} creates the variable \pythonil{upper}, which points to a set of the five uppercase latin characters~\pythonil{"A"}, \pythonil{"G"}, \pythonil{"B"}, \pythonil{"T"}, and~\pythonil{"V"}.
 The \pgls{typeHint}~\pythonil{set[str]} states that this is a set that shall contain only strings.\footnote{%
 The \pgls{typeHint}~\pythonil{set[int|str]} would denote a set that can contain both strings and integers.%
@@ -87,7 +87,7 @@ We add all the elements of set \pythonil{lower} to the set \pythonil{letters} by
 
 We can also convert the set \pythonil{letters} to a list or tuple.
 \pythonil{list(letters)}\pythonIdx{list} will achieve the former, \pythonil{tuple(letters)}\pythonIdx{tuple} the latter.
-However, since sets are unordered~\cite{PSF:P3D:TPSL:STSF,PSF:P3D:TPLR:ST} and the order in which the elements would appear in the created list or tuple is not defined.
+However, since sets are unordered\scite{PSF:P3D:TPSL:STSF,PSF:P3D:TPLR:ST} and the order in which the elements would appear in the created list or tuple is not defined.
 The elements of the set thus could appear in a strange or unexpected order in the new collection.
 Here we therefore use the function \pythonilIdx{sorted}, which accepts an arbitrary collection of objects as input and returns a sorted list.
 \pythonil{sorted(letters)} therefore creates a list where all the elements of letters appear in a sorted fashion.

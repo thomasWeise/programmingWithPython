@@ -13,14 +13,14 @@ A second example of using lists in \python: inserting and deleting elements, sor
 \listingPythonAndOutput{lists:lists_3}{%
 A third example of using lists in \python: slicing, adding, and multiplying lists.}{}%
 %
-A \pythonilIdx{list} is a mutable sequence of objects which can be accessed via their index~\cite{PSF:P3D:TPLR:S}.
+A \pythonilIdx{list} is a mutable sequence of objects which can be accessed via their index\scite{PSF:P3D:TPLR:S}.
 They work very similar to the strings we already discussed in \cref{sec:str}, but instead of (only) characters, they can contain any kind of objects and they can be modified.%
 %
 \begin{sloppypar}%
 With program \programUrl{lists:lists_1} in \cref{lst:lists:lists_1}, we provide some first examples of using lists.
 A list can be defined by simply writing its contents, separated by~\pythonilIdx{,} inside square brackets~\pythonil{[...]}\pythonIdx{[\idxdots]}.
 \pythonil{["apple", "pear", "orange"]} creates a list with three elements, namely the strings \pythonil{"apple"}, \pythonil{"pear"}, and~\pythonil{"orange"}.
-If we want to store a list in a variable, then we can use the \pgls{typeHint}~\pythonil{list[elementType]}\pythonIdx{list!type hint} where \pythonil{elementType} is to be replaced with the type of the list elements~\cite{PEP585}.
+If we want to store a list in a variable, then we can use the \pgls{typeHint}~\pythonil{list[elementType]}\pythonIdx{list!type hint} where \pythonil{elementType} is to be replaced with the type of the list elements\scite{PEP585}.
 \pythonil{fruits: list[str] = ["apple", "pear", "orange"]} therefore creates the list \pythonil{fruits} with the contents listed above.
 It also tells any automated type checking tool and other programmers that we intend that only \pythonil{str} values should be stored inside the list.%
 \end{sloppypar}%
@@ -107,7 +107,7 @@ Similarly, if you multiply a list by an integer~\pythonil{n}, you get a new list
 You would get the same result doing \pythonil{3 * [5, 6, 7]}.
 
 In \cref{sec:strBasicOperations}, we discussed string slicing.
-Lists can be sliced in pretty much the same way\pythonIdx{list!slicing}\pythonIdx{slicing}\pythonIdx{slice}~\cite{PSF:P3D:TPLR:S}.
+Lists can be sliced in pretty much the same way\pythonIdx{list!slicing}\pythonIdx{slicing}\pythonIdx{slice}\scite{PSF:P3D:TPLR:S}.
 When slicing a list~\pythonil{l} or a string, you can provide either two or three values in the square brackets\pythonIdx{[\idxdots]}\pythonIdx{[i:j:k]}, i.e., either do~\pythonil{l[i:j]}\pythonIdx{[i:j]}\pythonIdx{slicing} or \pythonil{l[i:j:k]}.
 If \pythonil{j < 0}, then it is replaced with~\pythonil{len(l) - j}\pythonIdx{len}.
 In both the two and three indices case, \pythonil{i} is the inclusive start index and \pythonil{j} is the exclusive end index, i.e., all elements with index~\pythonil{m} such that \pythonil{i <= m < j}.

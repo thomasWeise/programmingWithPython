@@ -22,7 +22,7 @@ We cannot really represent the real numbers~\realNumbers\ exactly in the memory 
 \begin{figure}%
 \centering%
 \includegraphics[width=0.7\linewidth]{\currentDir/floatIEEEStructure}%
-\caption{The structure of an 64~bit / double precision IEEE~Standard 754 floating point number~\cite{IEEE2019ISFFPA,H1997IS7FPN}.}%
+\caption{The structure of an 64~bit / double precision IEEE~Standard 754 floating point number\scite{IEEE2019ISFFPA,H1997IS7FPN}.}%
 \label{fig:floatIEEEStructure}%
 \end{figure}%
 %
@@ -30,7 +30,7 @@ But how does it work in \python?
 How can we deal with the fact that we cannot represent arbitrary fractional numbers exactly even in typical everyday cases like~\numberPi\ and~\numberE?
 How can we deal with the situation that real numbers exist as big as~$10^{300}$ and as small as~$10^{-300}$?
 With \pythonilIdx{float}, \python\ offers us one type for fractional numbers.
-This datatype represents numbers usually in the same internal structure as \pythonils{double} in the \pgls{C}~programming language~\cite{PSF:P3D:TPSL:NTIFC} -- it is based on the 64~bit IEEE~Standard 754 floating point number layout~\cite{IEEE2019ISFFPA,H1997IS7FPN,G1991WECSSKAFPA}.
+This datatype represents numbers usually in the same internal structure as \pythonils{double} in the \pgls{C}~programming language\scite{PSF:P3D:TPSL:NTIFC} -- it is based on the 64~bit IEEE~Standard 754 floating point number layout\scite{IEEE2019ISFFPA,H1997IS7FPN,G1991WECSSKAFPA}.
 The idea behind this standard is exactly to be able to represent both very large numbers, like~$10^{300}$ and very small numbers, like~$10^{-300}$, while accepting that we cannot exactly represent~$10^{300}+10^{-300}$.
 In order to achieve this, the 64~bits are divided into three pieces, as illustrated in \cref{fig:floatIEEEStructure}.
 %
@@ -61,7 +61,7 @@ But more about this later.%
 \end{sloppypar}%
 %
 Luckily, you will never really need to know these exact information in your day-to-day programming work.
-There also exist many different formats of floating point numbers, using different numbers of bits for significand and exponent~\cite{IEEE2019ISFFPA,G1991WECSSKAFPA}.
+There also exist many different formats of floating point numbers, using different numbers of bits for significand and exponent\scite{IEEE2019ISFFPA,G1991WECSSKAFPA}.
 The important thing to remember is:
 Floating point numbers~(\pythonils{float}) can represent a wide range of different values.
 Their range is large but still limited.
@@ -69,7 +69,7 @@ They can represent integers and fractions.
 However, their accuracy is always limited to about 15~digits.
 In other words, regardless whether your \pythonilIdx{float} stores a very large or a very small number, you can have at most 15~digits of precision.
 For example, adding~1 to~$10^{16}$ would still yield~$10^{16}$, because only 15~digits are \inQuotes{stored} and the~1 will just \inQuotes{fall off.}
-You cannot represent numbers arbitrarily precisely with \pythonils{float}~\cite{PSF:P3D:TPT:FPAIAL}.
+You cannot represent numbers arbitrarily precisely with \pythonils{float}\scite{PSF:P3D:TPT:FPAIAL}.
 Except for that, \pythonils{float} are pretty cool, though.%
 %
 %
@@ -100,7 +100,7 @@ The square root of 3.3 can be computed as $3.3^{0.5}$.
 We can write this as \pythonil{3.3 ** 0.5}\pythonIdx{**!power}, which yields \pythonil{1.816590212458495}.
 This brings us back to the previous section:
 $\sqrt{3.3}$~is not actually 1.816\decSep590\decSep212\decSep458\decSep495.
-It is an irrational number~\cite{S1988WPCHD,B1991IWNT} and irrational numbers cannot be expressed as fractions of integer numbers (by definition, otherwise they would be rational numbers).
+It is an irrational number\scite{S1988WPCHD,B1991IWNT} and irrational numbers cannot be expressed as fractions of integer numbers (by definition, otherwise they would be rational numbers).
 Since they cannot be expressed as integer fractions, we cannot write them down exactly in any way like $\frac{1\decSep816\decSep590\decSep212\decSep458\decSep495\dots}{1\decSep000\decSep000\decSep000\decSep000\decSep000\dots}$, regardless of how large a denominator we would pick.
 Hence, we cannot represent them exactly using discrete binary values of our computer's memory.
 Hence, the floating point representation cuts off somewhere.
@@ -126,7 +126,7 @@ Surprisingly, we do even need \pgls{irrational} let alone \pgls{transcendental} 
 There is no way to write down all the digits of fractions like~$\frac{1}{7}$ as decimals.
 We always need to cut off somewhere, e.g., we could write~$0.14285714285714285$, but that is not exactly the same as~$\frac{1}{7}$.
 As we discussed before, floating point numbers are stored in a binary format, i.e., represented by bits.
-In the binary system, we encounter this problem already for fractions like~$\frac{1}{10}=0.1$~\cite{PSF:P3D:TPT:FPAIAL}.
+In the binary system, we encounter this problem already for fractions like~$\frac{1}{10}=0.1$\scite{PSF:P3D:TPT:FPAIAL}.
 Essentially, we could write $\frac{1}{10}\approx\frac{1}{2^4}+\frac{1}{2^5}+\frac{1}{2^8}+\frac{1}{2^9}+\frac{1}{2^{12}}+\frac{1}{2^{13}}+\frac{1}{2^{16}}+\dots$, but we would never quite get there.
 This means that $0.1$~cannot be exactly represented as \pythonil{float}.
 Therefore, adding it up ten times also does not exactly equal~$1$.
@@ -156,13 +156,13 @@ For $\arctan{\tan{1}}$ we even get the exact result \pythonil{1.0} by computing 
 %
 \bestPractice{floatImprecise}{%
 Always assume that any \pythonilIdx{float} value is imprecise. %
-Never expect it to be exact~\cite{PTVF2007NRTAOSC:EAAS,BHK2006CNFCMEARFCS:NS}.%
+Never expect it to be exact\scite{PTVF2007NRTAOSC:EAAS,BHK2006CNFCMEARFCS:NS}.%
 }%
 %
 Due to the limited precision, it could be that you add two numbers~$a+b=c$ but then find that $c-a\neq b$, because some digit was lost. %
 This is obvious when adding a very small number to a very large number.
-We only have about 15~digits, so doing something like~$10^{20} + 1$ will usually work out to just be~$10^{20}$ in floating point arithmetics~\cite{PTVF2007NRTAOSC:EAAS}.
-But digits could also be lost when adding numbers of roughly the same scale, because their sum could just be larger so that the 15-digit-window shifts such that the least-significant digit falls off~\cite{BHK2006CNFCMEARFCS:NS}{\dots}%
+We only have about 15~digits, so doing something like~$10^{20} + 1$ will usually work out to just be~$10^{20}$ in floating point arithmetics\scite{PTVF2007NRTAOSC:EAAS}.
+But digits could also be lost when adding numbers of roughly the same scale, because their sum could just be larger so that the 15-digit-window shifts such that the least-significant digit falls off\scite{BHK2006CNFCMEARFCS:NS}{\dots}%
 %
 \FloatBarrier%
 \endhsection%
@@ -179,14 +179,14 @@ Therefore, we need a \inQuotes{way back} from \pythonilIdx{float} to \pythonilId
 
 The first and maybe most common one is \pythonilIdx{round}.
 This function accepts a \pythonilIdx{float} and rounds it to the nearest integer.
-If two integer numbers are equally close to it, it returns the one that is even~\cite{PSF:P3D:TPSL:BIF:R}.
-This rounding method is called \emph{\pgls{bankersRounding}}~\cite{PWZLZZLW2025HIOIBFPRA}.
-It is defined in the IEEE~754 standard for floating point arithmetics~\cite{IEEE2019ISFFPA} and used in many applications today, including Alipay\textsuperscript{+}~\cite{APDOC:BR}.
+If two integer numbers are equally close to it, it returns the one that is even\scite{PSF:P3D:TPSL:BIF:R}.
+This rounding method is called \emph{\pgls{bankersRounding}}\scite{PWZLZZLW2025HIOIBFPRA}.
+It is defined in the IEEE~754 standard for floating point arithmetics\scite{IEEE2019ISFFPA} and used in many applications today, including Alipay\textsuperscript{+}\scite{APDOC:BR}.
 
 This rounding behavior can be very surprising, as we learned in school that numbers of the form~$x.5$ should be rounded to~$x+1$.
 Well, I learned it like this in Germany~(and \pgls{Java}'s~\pythonil{Math.round} also works like that\cite{O2024JPSEJDKV2AS}), but elsewhere it may be taught differently{\dots}
 Under \pgls{bankersRounding}, this will only happen with \pythonilIdx{round} if $x+1$~is even.
-The reason why \pgls{bankersRounding} is preferred is that it is not biased in any direction~\cite{MB2005RA1,SE:SO:WDP3RHTE}.
+The reason why \pgls{bankersRounding} is preferred is that it is not biased in any direction\scite{MB2005RA1,SE:SO:WDP3RHTE}.
 If $x.5$ is always rounded toward~$x+1$ and we have many numbers of the form~$x.5$, then the average rounded result tends to be somewhat larger than the average of the unrounded numbers.
 \Pgls{bankersRounding} avoids this problem by sometimes rounding numbers ending in~5 to larger and sometimes to smaller values.%
 %
@@ -241,7 +241,7 @@ With \pythonils{float}\pythonIdx{float}, this works exactly as invoking \pythoni
 The result of \pythonil{int(x)} and \pythonil{trunc(x)} is the same for all finite \pythonils{float}~\pythonil{x}.
 The semantic difference between the two functions is that \pythonil{int(x)} means~\emph{\inQuotes{Convert \pythonil{x} to an~\pythonil{int}.}} whereas \pythonil{trunc(x)} means~\emph{\inQuotes{Discards the fractional digits and return integer part of the number as an~\pythonil{int}.}}
 \pythonil{int(x)}~thus is inherently a datatype conversion function whereas \pythonil{trunc(x)}~is a mathematical operation.
-Besides these semantic differences, there is not much of a practical relevant difference between the two functions~\cite{PEP3141}.
+Besides these semantic differences, there is not much of a practical relevant difference between the two functions\scite{PEP3141}.
 
 If you want to round the way I learned in school, namely that~$x.5$ becomes $x + 1$, then this goes via \pythonilIdx{int} or \pythonilIdx{trunc}:~We can simply compute~\pythonil{int(x + 0.5)} (or \pythonil{trunc(x + 0.5)}).
 \Cref{exec:float_rounding} shows this, too.
@@ -292,18 +292,18 @@ This notation is illustrated in \cref{fig:scientificNotation}.
 \emph{This notation only applies to \pythonils{float}\pythonIdx{float}, \textbf{not} \pythonils{int}\pythonIdx{int}.}
 Also, please be aware that this is just a notation, a way to represent numbers as text.
 It is only used for input and output of numbers.
-Internally, the numbers are still stored in exactly the IEEE~754~Standard format~\cite{IEEE2019ISFFPA,H1997IS7FPN}.
+Internally, the numbers are still stored in exactly the IEEE~754~Standard format\scite{IEEE2019ISFFPA,H1997IS7FPN}.
 This is very similar to the fact that we can enter integer numbers in hexadecimal, decimal, octal, or binary format -- but regardless of how we enter them, they are still stored in the \inQuotes{same} \pythonil{int} structure, which does not remember in which format the numbers were originally specified.
 
 In \cref{exec:float_scientific_notation} we provide some examples of this notation.
 When we write \pythonil{0.001} or \pythonil{0.0001} in a \python\ console, the output is still this same number.
 However, \pythonil{0.00009} is presented as \pythonil{9e-05}, which stands for~$9*10^{-5}$.%
 %
-Did you know that you are allowed to insert underscores (\pythonil{_}\pythonIdx{\_}) anywhere in a number (\pythonilIdx{int} or \pythonilIdx{float})as a visual aid~\cite{PEP515}?
+Did you know that you are allowed to insert underscores (\pythonil{_}\pythonIdx{\_}) anywhere in a number (\pythonilIdx{int} or \pythonilIdx{float})as a visual aid\scite{PEP515}?
 If not, you know now.
 %
 \bestPractice{underscoresInNumbers}{%
-If you need to specify large \pythonils{int} or \pythonils{float}, using underscores~(\pythonil{_}\pythonIdx{\_}) to separate groups of digits can be very helpful~\cite{PEP515}. %
+If you need to specify large \pythonils{int} or \pythonils{float}, using underscores~(\pythonil{_}\pythonIdx{\_}) to separate groups of digits can be very helpful\scite{PEP515}. %
 For example, \pythonil{37_859_378} is much easier to read than~\pythonil{37859378}.%
 }
 %
@@ -356,14 +356,14 @@ We said that \python\ can store very small numbers, like $10^{-300}$, in the \py
 But how small really?
 Finding this out from the documentation is actually not so easy.
 Luckily, \pgls{Java} uses the same IEEE~754~Standard\cite{IEEE2019ISFFPA} for its datatyoe \pythonil{double}.
-In its documentation~\cite{O2024JPSEJDKV2AS:CD}, we find that the minimum value is~$2^{-1074}$, which is approximately~$4.940\decSep656\decSep458\decSep412\decSep465\decSep44*10^{-324}$.
+In its documentation\scite{O2024JPSEJDKV2AS:CD}, we find that the minimum value is~$2^{-1074}$, which is approximately~$4.940\decSep656\decSep458\decSep412\decSep465\decSep44*10^{-324}$.
 So we would expect the smallest possible floating point value in \python\ to also be in this range.
 
 In \cref{exec:float_very_large}, we take a look what happens if we approach this number.
 We use the scientific notation and begin to print the number~\pythonil{1e-323} (which is~$10^{-323}$).
 This number is correctly represented as \pythonilIdx{float} and shows up in the console exactly as we wrote it.
 However, if we go a bit smaller and enter \pythonil{9e-324}, which is~$9*10^{-324}=0.9*10^{-323}$, we find that it again shows up in the console as \pythonil{1e-323}.
-This is because the number is already subnormal~\cite{IEEE2019ISFFPA,H1997IS7FPN}, i.e., uses only a few of the significand bits.
+This is because the number is already subnormal\scite{IEEE2019ISFFPA,H1997IS7FPN}, i.e., uses only a few of the significand bits.
 The full precision of 15~digits is no longer available at this small scale.
 Thus \pythonil{9e-324} and \pythonil{1e-323} map to the same \pythonilIdx{float}.
 Converting this \pythonilIdx{float} to text yields \pythonil{'1e-323'}.
@@ -373,7 +373,7 @@ Matter of fact, \pythonil{6e-324}, \pythonilIdx{5e-324}, \pythonil{4e-324}, and 
 
 It turns out that this number is already the smallest \pythonilIdx{float} that can be represented:
 \pythonil{2e-324} simply becomes \pythonilIdx{0.0}.
-This value is simply too small to be represented as a 64~bit / double precision IEEE~Standard 754 floating point number~\cite{IEEE2019ISFFPA,H1997IS7FPN}.
+This value is simply too small to be represented as a 64~bit / double precision IEEE~Standard 754 floating point number\scite{IEEE2019ISFFPA,H1997IS7FPN}.
 The text \pythonil{2e-324} that we enter into the \python\ console will therefore be translated to the \pythonilIdx{float}~\pythonil{0.0}.
 The comparison \pythonil{2e-324 == 0.0}\pythonIdx{==} therefore results in \pythonilIdx{True}, while \pythonil{3e-324 == 0.0} is still \pythonilIdx{False}.\footnote{%
 See \cref{sec:bool} for more information on comparisons and the \pythonilIdx{bool} datatype with its values \pythonilIdx{True} and \pythonilIdx{False}.%
@@ -385,7 +385,7 @@ They become zero.
 \listingBox{exec:float_very_large}{What happens with very large floating point numbers in \python?\pythonIdx{inf}}{,style=python_console_style,literate={0}{0\-}1 {1}{1\-}1 {2}{2\-}1 {3}{3\-}1 {4}{4\-}1 {5}{5\-}1 {6}{6\-}1 {7}{7\-}1 {8}{8\-}1 {9}{9\-}1,breakatwhitespace=false,breaklines=true}
 
 But what happens to numbers that are too big for the available range?
-Again, according to the nice documentation of \pgls{Java}~\cite{O2024JPSEJDKV2AS:CD}, the maximum 64~bit double precision floating point number value is~$(2-2^{-52})*2^{1023}\approx1.797\decSep693\decSep134\decSep862\decSep315\decSep708\dots*10^{308}$.
+Again, according to the nice documentation of \pgls{Java}\scite{O2024JPSEJDKV2AS:CD}, the maximum 64~bit double precision floating point number value is~$(2-2^{-52})*2^{1023}\approx1.797\decSep693\decSep134\decSep862\decSep315\decSep708\dots*10^{308}$.
 We can enter this value as \pythonilIdx{1.7976931348623157e+308}\pythonIdx{float!largest} and it indeed prints correctly in \cref{exec:float_very_large}.
 If we step it up a little bit and enter \pythonil{1.7976931348623158e+308}, due to the limited precision, we again get \pythonilIdx{1.7976931348623157e+308}\pythonIdx{float!largest}.
 However, if we try entering \pythonil{1.7976931348623159e+308} into the \python\ console, something strange happens:
@@ -443,7 +443,7 @@ Or \emph{not a number}\pythonIdx{Not a Number}.
 Or \pythonilIdx{nan}, which stands for, well, Not a Number\pythonIdx{Not a Number}.
 
 \pythonilIdx{nan} means that the result of a computation is neither a finite number or infinite.
-It is the result of shenanigans such as \pythonil{inf - inf} or \pythonil{inf / inf} or \pythonil{0 * inf}~\cite{G1991WECSSKAFPA}.
+It is the result of shenanigans such as \pythonil{inf - inf} or \pythonil{inf / inf} or \pythonil{0 * inf}\scite{G1991WECSSKAFPA}.
 A \pythonilIdx{nan} value anywhere in a computation infects the result of the computation to also become \pythonilIdx{nan}.
 \pythonil{nan + 1} remains \pythonilIdx{nan} and so does \pythonil{nan + inf}.
 
@@ -495,7 +495,7 @@ Maybe we just made an error when writing down the formula.
 Also, let's not just consider \inQuotes{errors} here.
 It is not entirely impossible that someone tried to \emph{intentionally} and maliciously manipulate the input of our program.
 Maybe someone tries to trigger some otherwise impossible behavior of our code\dots
-Values like \pythonilIdx{nan} can be a real security concern~\cite{C2026ROT2UCCAOONPA}.
+Values like \pythonilIdx{nan} can be a real security concern\scite{C2026ROT2UCCAOONPA}.
 
 Therefore, if we want to further process results of a computation where such a thing might happen for one reasone or another, we often want to make sure that it is neither \pythonilIdx{inf} nor \pythonilIdx{-inf} nor \pythonilIdx{nan}.
 This can be done via the function \pythonilIdx{isfinite}, which we can import from the \pythonilIdx{math} module\pythonIdx{import}\pythonIdx{from}, as you can see in \cref{exec:float_check_finite}.
@@ -524,7 +524,7 @@ These numbers are needed \emph{often} and they have infinitely many fractional d
 Thus, there is no way to exactly represent them in computer memory exactly.
 Another problem is that we may need both very large numbers like~$10^{300}$ and very small numbery like~$10^{-300}$.
 
-Floating point numbers~\cite{G2023CAIP}, provided as the \python\ datatype \pythonilIdx{float}, solve all of these problems (to some degree).
+Floating point numbers\scite{G2023CAIP}, provided as the \python\ datatype \pythonilIdx{float}, solve all of these problems (to some degree).
 They offer a precision of about 15~digits for a wide range of large and small numbers.
 15~digits are more than enough for most applications.
 Many functions for floating point numbers, like logarithms and trigonometric functions, are offered by the \pythonilIdx{math} module.

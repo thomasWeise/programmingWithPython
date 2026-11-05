@@ -44,7 +44,7 @@ If you do not intend to change the sequence, use a \pythonilIdx{tuple}.}%
 \begin{sloppypar}%
 \Cref{lst:tuples:tuples_1} shows us some of the things we can do with tuples.
 We create a tuple \pythonil{fruits} to hold three strings.
-The proper \pgls{typeHint} for this is \pythonil{tuple[str, str, str]}\pythonIdx{tuple!type hint}~\cite{PEP585}.
+The proper \pgls{typeHint} for this is \pythonil{tuple[str, str, str]}\pythonIdx{tuple!type hint}\scite{PEP585}.
 The line \pythonil{fruits: tuple[str, str, str] = ("apple", "pear", "orange")} thus creates a tuple~\pythonil{fruits} which contains three strings, namely \pythonil{"apple"}, \pythonil{"pear"}, and~\pythonil{"orange"}
 We also annotated the variable with a \pgls{typeHint} informing any static code analysis tool that we indeed intend to store three strings in the tuple.
 Notice that the tuple is defined using parentheses, whereas a list with the same content would have been defined using square brackets, e.g., as \pythonil{fruits: list[str] = ["apple", "pear", "orange"]}.%
@@ -55,7 +55,7 @@ If we are not sure about the actual number of elements that we will put in a tup
 \pythonil{tuple[str, ...]} denotes a tuple that can receive an arbitrary amount of strings.\pythonIdx{tuple!type hint!...}
 The line \pythonil{veggies: tuple[str, ...] = ("onion", "potato", "leek", "garlic")} is therefore correct and defined a tuple~\pythonil{veggies} consisting of four strings.
 This makes sense especially if we convert a \pythonil{list[str]} to a tuple. %
-Notice that using the ellipsis~\pythonil{...}\pythonIdx{\idxdots} in the \pythonilIdx{tuple} \pgls{typeHint} is \emph{only} permitted for homogeneous tuples, i.e., tuples where all elements are of the same type~\cite{PEP483,PEP484}.%
+Notice that using the ellipsis~\pythonil{...}\pythonIdx{\idxdots} in the \pythonilIdx{tuple} \pgls{typeHint} is \emph{only} permitted for homogeneous tuples, i.e., tuples where all elements are of the same type\scite{PEP483,PEP484}.%
 \end{sloppypar}%
 %
 The elements of tuples can be accessed using the normal square brackets, exactly like list elements.

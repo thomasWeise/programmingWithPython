@@ -1,6 +1,6 @@
 \hsection{Dunder Methods}%
 %
-In \python, \emph{everything is an object}~\cite{PSF:P3D:TPLR:OVAT,J2022PPEIAOSCD}.
+In \python, \emph{everything is an object}\scite{PSF:P3D:TPLR:OVAT,J2022PPEIAOSCD}.
 Functions, modules, classes, datatypes, values of simple datatypes, and so on -- all are objects.
 Many of these objects have special functionality.
 For example, we can add, multiply, and divide numerical objects.
@@ -27,11 +27,11 @@ In \python, we can distinguish two forms of string representations of a given ob
 \begin{enumerate}%
 %
 \item \pythonil{str(o)}\pythonIdx{str} should return a concise and brief representation of the object~\pythonil{o}.
-This representation is mainly for end users~\cite{PSF:P3D:TPLR:DM:S}.
+This representation is mainly for end users\scite{PSF:P3D:TPLR:DM:S}.
 \pythonil{str(o)} invokes the \dunder{str} dunder method of~\pythonil{o}, if it has been implemented.
 Otherwise, \pythonil{o.__repr__()} is used instead.%
 %
-\item \pythonil{repr(o)}\pythonIdx{repr} should ideally return a string representation that contains all the information that is needed to re-create the object~\cite{PSF:P3D:TPLR:DM:R}.
+\item \pythonil{repr(o)}\pythonIdx{repr} should ideally return a string representation that contains all the information that is needed to re-create the object\scite{PSF:P3D:TPLR:DM:R}.
 The target audience here are programmers who are working on the code, who may need to write precise information into log files, or who are searching for errors.
 \pythonil{repr(o)} invokes the \dunder{repr} dunder method, if it has been implemented.
 Otherwise, it returns the default representation, which is the type name and ID of the object.%
@@ -60,7 +60,7 @@ Then we create the list~\pythonil{l2}, which contains the three strings~\pythoni
 Then we print both lists, which will use \pythonil{str(l1)} and \pythonil{str(l2)} internally.
 The result of \pythonil{print(f"\{l1 = \}, but \{l2 = \}")} is \textil{l1 = [1, 2, 3], but l2 = ['1', '2', '3']}.
 Notice that the single quotation marks around the string elements of \pythonil{l2} are printed?
-When obtaining the string representations of the standard \python\ collections with either \pythonilIdx{str} or \pythonilIdx{repr}, the elements of the collections are converted to strings using \pythonilIdx{repr}, not~\pythonilIdx{str}~\cite{PEP3140}.
+When obtaining the string representations of the standard \python\ collections with either \pythonilIdx{str} or \pythonilIdx{repr}, the elements of the collections are converted to strings using \pythonilIdx{repr}, not~\pythonilIdx{str}\scite{PEP3140}.
 Otherwise, we could not distinguish \pythonil{l1} and \pythonil{l2} in the output.%
 \end{sloppypar}%
 %
@@ -114,11 +114,11 @@ We could fix this by implementing the \dunder{eq} dunder method.
 This method would receive an arbitrary object~\pythonil{other} as input and should return \pythonil{True} if that is equal to the object whose method was invoked.
 Similar to the \pythonil{str(o)} function, which invokes \pythonil{o.__str__()} , the \pythonil{a == b} operator invokes \pythonil{a.__eq__(b)}, if \pythonil{a} implements \dunder{eq}.
 
-If you implement \dunder{eq}, \python\ will make the reasonable assumption that \pythonil{(a != b) == not (a == b)}\pythonIdx{"!=}\pythonIdx{==}, i.e., assume that two objects are unequal if and only if they are not equal~\cite{PEP207}.
+If you implement \dunder{eq}, \python\ will make the reasonable assumption that \pythonil{(a != b) == not (a == b)}\pythonIdx{"!=}\pythonIdx{==}, i.e., assume that two objects are unequal if and only if they are not equal\scite{PEP207}.
 However, this is not necessarily always the case\footnote{%
-In~\cite{PEP207}, it is stated that IEEE~754 floating point numbers do not satisfy that \pythonilIdx{==} and \pythonil{!=}\pythonIdx{"!=} are each other's complements. %
-However, I could not find for an example where this was true in the standard~\cite{IEEE2019ISFFPA}, maybe with the exception of signaling~\pythonilsIdx{nan}, which does not matter in \python. %
-Maybe it was true for some \python\ implementations back then, as~\cite{PEP754} indicates.%
+In\scite{PEP207}, it is stated that IEEE~754 floating point numbers do not satisfy that \pythonilIdx{==} and \pythonil{!=}\pythonIdx{"!=} are each other's complements. %
+However, I could not find for an example where this was true in the standard\scite{IEEE2019ISFFPA}, maybe with the exception of signaling~\pythonilsIdx{nan}, which does not matter in \python. %
+Maybe it was true for some \python\ implementations back then, as\scite{PEP754} indicates.%
 }. %
 Therefore, \python\ also allows us to implement an \dunder{ne} dunder method which is called by \pythonil{a != b} as \pythonil{a.__ne__(b)} if it is implemented\cite{PEP207}.
 
@@ -210,14 +210,14 @@ This one is still missing.%
 %
 If we can fulfill these criteria, \pythonils{Point} can be elements of sets or keys in dictionaries.
 So we only have to implement one more method, namely \dunder{hash}.
-For the two dunder methods \dunder{eq} and \dunder{hash]}, it must hold that~\cite{PSF:P3D:TPLR:DM:H}%
+For the two dunder methods \dunder{eq} and \dunder{hash]}, it must hold that\scite{PSF:P3D:TPLR:DM:H}%
 %
 \begin{equation}%
 \pythonil{a.\_\_eq\_\_(b)} \Rightarrow \pythonil{a.\_\_hash\_\_()} = \pythonil{b.\_\_hash\_\_()}%
 \label{eq:eqAndHash1}%
 \end{equation}%
 %
-This is equivalent~\cite{PSF:P3D:TPSL:BIE,PSF:P3D:TPLR:DM:H} to:%
+This is equivalent\scite{PSF:P3D:TPSL:BIE,PSF:P3D:TPLR:DM:H} to:%
 %
 \begin{equation}%
 \pythonil{a == b} \Rightarrow \pythonil{hash(a)} = \pythonil{hash(b)}%
@@ -229,13 +229,13 @@ What is a hash value?
 Why is an integer hash value needed?
 Why does the equality of two objects require them to have the same hash value?
 
-Dictionaries in \python~(and \pgls{Java}) internally use tables, where key-value relationships are stored~\cite{G2020PHTUTH,L2011PDI}.
+Dictionaries in \python~(and \pgls{Java}) internally use tables, where key-value relationships are stored\scite{G2020PHTUTH,L2011PDI}.
 Sets are basically the same, but only store the keys.
 The internal tables could be represented as linear lists.
 Differently from lists, new elements are not added at the end.
 Instead, they would be more like lists of a fixed length where new elements are placed at specific indices where they can be found again.
-These hash tables~\cite{K1998SAS,CLRS2009ITA,SKS2019DSC} are very fast.
-They have an element-wise read, search, and update time complexity of~\bigOb{1}~\cite{H2025PM:PBOTTCODDSIPP33,PSF:TPW:TC,N2022CCSFPO}.
+These hash tables\scite{K1998SAS,CLRS2009ITA,SKS2019DSC} are very fast.
+They have an element-wise read, search, and update time complexity of~\bigOb{1}\scite{H2025PM:PBOTTCODDSIPP33,PSF:TPW:TC,N2022CCSFPO}.
 An element in a list~\pythonil{l} can be searched in \bigOb{\pythonil{len(l)}} instead, i.e., finding one paricular element is much slower.
 
 As said, you can imagine that a hash table uses something like a list as backing store.
@@ -245,7 +245,7 @@ We use a list of \pythonil{int | None} values and it is filled initially with on
 If we want to store an integer~\pythonil{i}, we would compute the \pgls{modulodiv} \pythonil{i \% len(l)} an just place it at that index.
 If we want to check whether an integer~\pythonil{j} is in the list, we again compute \pythonil{j \% len(l)} and check whether it is equal to the element at that index~(using \dunder{eq}).
 Both operations, insertion and search, now work in~\bigOb{1}.
-Of course, this is a very coarse simplification~\cite{G2020PHTUTH,L2011PDI}.
+Of course, this is a very coarse simplification\scite{G2020PHTUTH,L2011PDI}.
 There could be two different integers with the same result for \pythonil{i \% len(l)}, for example.
 Dictionaries and sets need to handle such collisions.
 They also need to grow if they begin to fill up, and so on.
@@ -271,7 +271,7 @@ As said, the reality is more complex, because of potentially occurring collision
 Anyway, if we want to add an object to the set~\pythonil{s}:
 Then again the index is computed via the hash value and if the object is not already there, it is placed there.
 Dictionaries work the same, but instead store key-value pairs, where the hash values of the keys are computed to find the right places in the internal tables.
-You can read about the details in these very interesting sources here~\cite{G2020PHTUTH,L2011PDI}.
+You can read about the details in these very interesting sources here\scite{G2020PHTUTH,L2011PDI}.
 
 It is already clear, however, that calling \dunder{hash} twice for the same object~\pythonil{a} must return the same value.
 Since this hash value is used to find the place in the table where the object should be, this must never change.
@@ -288,7 +288,7 @@ The only required property is that objects which compare equal have the same has
 it is advised to mix together the hash values of the components of the object that also play a part in comparison of objects by packing them into a \pythonil{tuple} and hashing the tuple.}%
 %
 \bestPractice{hash}{%
-For implementing \dunder{eq} and \dunder{hash}, the following rules hold~\cite{PSF:P3D:TPLR:DM:H}:%
+For implementing \dunder{eq} and \dunder{hash}, the following rules hold\scite{PSF:P3D:TPLR:DM:H}:%
 \sloppy%
 \begin{itemize}\sloppy%
 %
@@ -398,7 +398,7 @@ And since we did a lot of math-nerdery in this book already {\dots} of course we
 We implement the basic arithmetic operations for a class~\pythonil{Fraction} that represents fractions~$q\in\rationalNumbers$, i.e., it holds that~$q=\frac{a}{b}$ with~$a,b\in\integerNumbers$ and~$b\neq0$.\footnote{
 \python\ already has such a type built-in. %
 Our goal here is to explore dunder methods, so we make our own class instead. %
-In any actual application, you would use the more efficient class \pythonilIdx{Fraction} from the module~\pythonilIdx{fractions}~\cite{PSF:P3D:TPSL:FRN}.%
+In any actual application, you would use the more efficient class \pythonilIdx{Fraction} from the module~\pythonilIdx{fractions}\scite{PSF:P3D:TPSL:FRN}.%
 }
 In other words, we want to pour primary school mathematics into a new numerical type.
 To refresh our memory, $a$~is called the \pgls{numerator} and $b$~is called the \pgls{denominator} of the fraction~$\frac{a}{b}$.
@@ -412,7 +412,7 @@ We construct the initializer dunder method \dunder{init} in \cref{lst:dunder:fra
 Since the fraction~$\frac{a}{b}$ can be defined by the two integer numbers~$a$ and~$b$, it makes sense to also have two \pythonil{int} attributes~\pythonil{a} and~\pythonil{b}.
 We want our fractions to be immutable.
 You cannot change the value of~\pythonil{5}, and you should also not be able to change the value of~\pythonil{1/3}.
-The attributes will therefore receive the \pgls{typeHint} \pythonilIdx{Final[int]}~\cite{PEP591}.
+The attributes will therefore receive the \pgls{typeHint} \pythonilIdx{Final[int]}\scite{PEP591}.
 
 Our fractions should be \emph{canonical}.
 It is totally possible that two fractions~$\frac{a}{b}=\frac{c}{d}$ with $a\neq c$ and $b\neq c$.
@@ -452,14 +452,14 @@ Instead of creating them again and again, we can define them as constants.
 A constant is a variable that must never be changed.%
 %
 \bestPractice{constants}{%
-Constants are module-level variables which must be assign a value upon definition and which must be annotated with the \pgls{typeHint}~\pythonilIdx{Final}~\cite{PEP591}.%
+Constants are module-level variables which must be assign a value upon definition and which must be annotated with the \pgls{typeHint}~\pythonilIdx{Final}\scite{PEP591}.%
 }%
 \bestPractice{constNames}{%
 The names of constants contain only capital letters with underscores separating words. %
-Examples include \pythonil{MAX_OVERFLOW} and \pythonil{TOTAL}~\cite{PEP8}.%
+Examples include \pythonil{MAX_OVERFLOW} and \pythonil{TOTAL}\scite{PEP8}.%
 }%
 \bestPractice{constDoc}{%
-Constants are documented by writing a comment starting with \pythonilIdx{\#: } immediately above them~\cite{SD2024SIDFD:DCAD}.%
+Constants are documented by writing a comment starting with \pythonilIdx{\#: } immediately above them\scite{SD2024SIDFD:DCAD}.%
 }%
 %
 We define three constants, \pythonil{ZERO}, \pythonil{ONE}, and \pythonil{ONE_HALF}, which hold corresponding instances of \pythonil{Fraction}.
@@ -550,7 +550,7 @@ Part~5 of the \pythonil{Fraction} class: All order-related dunder methods\python
 \listingToolOutput{dunder:fraction:doctest}{%
 The output of \pytest\ executing the \pglspl{doctest} for our \pythonil{Fraction} class.}%
 %
-Finally, in \cref{lst:dunder:fraction:part_5} we implement the six rich comparison dunder methods given in~\cite{PEP207}:%
+Finally, in \cref{lst:dunder:fraction:part_5} we implement the six rich comparison dunder methods given in\scite{PEP207}:%
 %
 \begin{itemize}%
 \item \dunder{eq} implements the functionality of~\pythonilIdx{==}, as we already discussed before.%
@@ -642,7 +642,7 @@ Then we also copy the \pgls{denominator} into a variable~\pythonil{b}.
 We will not change the local variables \pythonil{negative} and~\pythonil{b} in our method, so we mark them both with the \pgls{typeHint}~\pythonilIdx{Final}.%
 %
 \bestPractice{varFinal}{%
-Every time you declare a variable that you do not intend to change, mark it with the \pgls{typeHint}~\pythonilIdx{Final}~\cite{PEP591}. %
+Every time you declare a variable that you do not intend to change, mark it with the \pgls{typeHint}~\pythonilIdx{Final}\scite{PEP591}. %
 On the one hand, this conveys the intention \inQuotes{this does not change} to anybody who reads the code. %
 On the other hand, if you do accidentally change it later, tools like \mypy\ can notify you about this error in your code.%
 }%
@@ -822,7 +822,7 @@ With a tool called \debugger\ which ships with \python\ and \pycharm.%
 \usefulTool{debugger}{%
 A \debugger\ is a tool that ships with many programming languages and \pglspl{ide}. %
 It allows you to execute a program step-by-step while observing the current values of variables. %
-This way, you can find errors in the code more easily~\cite{W2024PME,A2002D,R2007PPBPDTAM}. %
+This way, you can find errors in the code more easily\scite{W2024PME,A2002D,R2007PPBPDTAM}. %
 A comprehensive example on how to use the \debugger\ in \pycharm\ is given in~\cref{sec:dunder:debugging}.%
 }%
 %
@@ -1353,7 +1353,7 @@ We, of course, add \pglspl{doctest} to our function.
 For example, we test the expression \pythonil{sqrt(Fraction(2, 1)).decimal_str(750)}.
 This computes~$\sqrt{\frac{2}{1}}=\sqrt{2}$ by performing ten steps of Heron's algorithm.
 Then it translates the result to a decimal string with \emph{750 fractional digits}.
-We take the correct value from~\cite{S2024DEOSRO2,NB1997TSROTT1MD}.
+We take the correct value from\scite{S2024DEOSRO2,NB1997TSROTT1MD}.
 Unless our function provides this number of digits correctly \emph{after only ten steps}, the \pgls{doctest} will fail!%
 \end{sloppypar}%
 %
@@ -1362,9 +1362,9 @@ Of course, we just approximate the square root through several steps.
 Thus, the value of the fraction might not actually be~2.
 However, when rendered to 100~decimals of precision, it should return~\pythonil{"2"}.
 
-Finally, we want to compute the golden ratio~\numberGoldenRatio~\cite{EOEBEB:GR,EHF2008EEOGTGOJLH11FEEEELIEILHIATBG11EAPWMETBFR,S2024DEOGRPOT}, which equals~$\frac{1+\sqrt{5}}{2}$.
+Finally, we want to compute the golden ratio~\numberGoldenRatio\scite{EOEBEB:GR,EHF2008EEOGTGOJLH11FEEEELIEILHIATBG11EAPWMETBFR,S2024DEOGRPOT}, which equals~$\frac{1+\sqrt{5}}{2}$.
 We can write this as \pythonil{ONE_HALF * (ONE + sqrt(Fraction(5, 1)))}.
-In the \pgls{doctest}, we want to see whether our results are correct to 420~fractional digits, which we take from~\cite{F1996TGR1T2P}.
+In the \pgls{doctest}, we want to see whether our results are correct to 420~fractional digits, which we take from\scite{F1996TGR1T2P}.
 
 The results of the \pglspl{doctest} executed by \pytest\ can be seen in \cref{exec:dunder:fraction_sqrt:doctest}.
 They all pass.
@@ -1406,12 +1406,12 @@ At this stage, it will not surprise you that these \inQuotes{special methods} ar
 These methods are \pythonilIdx{\_\_enter\_\_} and \pythonilIdx{\_\_exit\_\_}.
 Since \pythonilIdx{with}~blocks are nice syntactical sugar of the \python\ language, we will here play around with them a little bit.
 
-As an example, let us create a simple API that allows us to write output in a subset of the \glsreset{XML}\pgls{XML} format~\cite{BPSMM2008EMLX1FE,K2019ITXJY,CH2013XFCAMLTMC}.
+As an example, let us create a simple API that allows us to write output in a subset of the \glsreset{XML}\pgls{XML} format\scite{BPSMM2008EMLX1FE,K2019ITXJY,CH2013XFCAMLTMC}.
 \pgls{XML} is a format for data interchange which was predominant in distributed systems the~2000s.
 After that, it began to fade out.
-It got replaced~\cite{A2020XLATDOEOL}  by \pgls{JSON}~\cite{E2017SE4TJDIS,RFC8259} and \pgls{YAML}~\cite{DNMAASBE2021YAMLYV1,K2019ITXJY,CGTYB2022YFFDCAIE} in many applications.
-It is still very relevant today, for example, as foundation of several document formats such as those used in \libreoffice~\cite{DF2024LTDF,GL2012LTSOOSSCBAFACSOL} and \microsoftWord~\cite{MS2024MW,DR2019STFAWAUMW}, or as the basis for the \pgls{SVG} format~\cite{DDGLMSWFJJ2011SVGSSE}.
-If you are a bit familiar with web design, then you will find that \pgls{XML} looks a bit like the \glsreset{HTML}\pgls{HTML}~\cite{HBFLDNOP2014HAVAAAFHAX}.%
+It got replaced\scite{A2020XLATDOEOL}  by \pgls{JSON}\scite{E2017SE4TJDIS,RFC8259} and \pgls{YAML}\scite{DNMAASBE2021YAMLYV1,K2019ITXJY,CGTYB2022YFFDCAIE} in many applications.
+It is still very relevant today, for example, as foundation of several document formats such as those used in \libreoffice\scite{DF2024LTDF,GL2012LTSOOSSCBAFACSOL} and \microsoftWord\scite{MS2024MW,DR2019STFAWAUMW}, or as the basis for the \pgls{SVG} format\scite{DDGLMSWFJJ2011SVGSSE}.
+If you are a bit familiar with web design, then you will find that \pgls{XML} looks a bit like the \glsreset{HTML}\pgls{HTML}\scite{HBFLDNOP2014HAVAAAFHAX}.%
 %
 \begin{sloppypar}%
 As shown below, an \pgls{XML}~documents begins with the \pgls{XML} version declaration~\xmlil{<?xml version="1.0"?>}.
@@ -1475,7 +1475,7 @@ The former accepts a dictionary where the keys are single characters and the cor
 It creates some \python-internal data structure which then can be passed to \pythonilIdx{translate}\pythonIdx{str!translate} to perform the replacement.
 For example, we could do~\pythonil{x = str.maketrans(\{"A": "XYZ"\})}.
 Then, \pythonil{"ABCBA".translate(x)} would yield~\pythonil{"XYZBCBXYZ"}.
-This is very useful to painlessly implement rudimentary support to escape special characters based on the \pgls{XML}~standard~\cite{BPSMM2008EMLX1FE}.
+This is very useful to painlessly implement rudimentary support to escape special characters based on the \pgls{XML}~standard\scite{BPSMM2008EMLX1FE}.
 
 Then we define the \pythonil{class Element}.
 The initializer~\dunder{init} of this class has four important parameters.
@@ -1521,7 +1521,7 @@ The proper \pgls{typeHint} for the return type in such situations is~\pythonilId
 \end{sloppypar}%
 %
 \bestPractice{typeHintSelf}{%
-Methods that return~\pythonilIdx{self} should be annotated with the \pgls{typeHint}~\pythonilIdx{Self}\pythonIdx{typing!Self}~\cite{PEP673}. %
+Methods that return~\pythonilIdx{self} should be annotated with the \pgls{typeHint}~\pythonilIdx{Self}\pythonIdx{typing!Self}\scite{PEP673}. %
 Static code analysis tools then see that the method always returns an object of the same class as the object itself.%
 }%
 %
@@ -1533,7 +1533,7 @@ Therefore, we write \pythonil{self.__dest(self.__foot)}.
 The \pythonilIdx{\_\_exit\_\_}\pythonIdx{dunder!\_\_exit\_\_} method looks a bit different from \pythonilIdx{\_\_enter\_\_}\pythonIdx{dunder!\_\_enter\_\_}.
 First, it also gets three parameters: the exception type~\pythonil{exc_type}, the exception value~\pythonil{exc_value}, and the stack~\pythonil{traceback}.
 These parameters are filled with the information about any \pythonilIdx{Exception} raised within the \pythonilIdx{with}~body.
-Otherwise, they will be~\pythonil{None}~\cite{PSF:P3D:TPLR:WSCM}.
+Otherwise, they will be~\pythonil{None}\scite{PSF:P3D:TPLR:WSCM}.
 We here just define a single parameter~\pythonil{*exc}.
 This syntax tells \python\ to capture all positional arguments into a single tuple.
 Since we do not care about exceptions here, we just write this to safe space, honestly, because I do not want to write three lines of \pgls{docstring} where one suffices.
@@ -1543,7 +1543,7 @@ We then always return~\pythonil{False}, which basically tells the \python~interp
 The proper \pgls{typeHint} for this is \pgls{literal} is \pythonil{Literal[False]}\pythonIdx{Literal}\pythonIdx{typing!Literal}.%
 %
 \bestPractice{returnLiteralTypeHint}{%
-If a parameter of a function can take on only some special constant values~\pythonil{X}, say certain integer or string \pglspl{literal}, the proper \pgls{typeHint} is \pythonil{Literal[X]}\pythonIdx{Literal}\pythonIdx{typing!Literal}~\cite{PSF:STWP:L,PEP586}. %
+If a parameter of a function can take on only some special constant values~\pythonil{X}, say certain integer or string \pglspl{literal}, the proper \pgls{typeHint} is \pythonil{Literal[X]}\pythonIdx{Literal}\pythonIdx{typing!Literal}\scite{PSF:STWP:L,PEP586}. %
 The same holds if your function always returns the same, simple constant(s)~\pythonil{X}.%
 }%
 %
@@ -1559,7 +1559,7 @@ The method~\pythonil{element} is used to branch off new sub-elements.
 It basically would take the same parameters as the initializer~\pythonil{\_\_init\_\_}.
 However, the new element must use the same output destination and it cannot be a root element (because it is a sub-element).
 Therefore, we only need to pass the parameters~\pythonil{name} and~\pythonil{attrs} to a new instance of~\pythonil{Element}, whereas we hand over \pythonil{self.__dest} as destination and \pythonil{False} as \pythonil{is_root}.
-With this, our simple \pgls{API} for a subset of the \pgls{XML} standard~\cite{BPSMM2008EMLX1FE} is already completed.%
+With this, our simple \pgls{API} for a subset of the \pgls{XML} standard\scite{BPSMM2008EMLX1FE} is already completed.%
 %
 \gitLoadAndExecPython{dunder:xml_user_print}{}{dunder}{xml_user_print.py}{}%
 \listingPythonAndOutput{dunder:xml_user_print}{%
@@ -1583,7 +1583,7 @@ It also escapes all special characters for us.
 The other elements are created in the same convenient fashion.
 Our \python\ code basically mirrors the \pgls{XML} structure.
 The output of the program in \cref{exec:dunder:xml_user_print} looks very much like our example, with a slightly different indentation and line breaking.
-But this is permitted and acceptable under the \pgls{XML} standard~\cite{BPSMM2008EMLX1FE}.
+But this is permitted and acceptable under the \pgls{XML} standard\scite{BPSMM2008EMLX1FE}.
 
 Instead of writing to the \pgls{stdout} stream, we can also recall our very first example of the \pythonilIdx{with} statement back in \cref{sec:withAndContextManagers}:
 writing to and reading from a file.
@@ -1598,7 +1598,7 @@ Since \pythonilIdx{write} does not append newline characters, this format is muc
 But it is perfectly valid~\pgls{XML}.
 
 We now have learned how the functionality of the \pythonilIdx{with}~statement is implemented internally.
-And we used it to hammer together a very compact and yet functional \pgls{API} for a subset of the \pgls{XML} standard~\cite{BPSMM2008EMLX1FE}.
+And we used it to hammer together a very compact and yet functional \pgls{API} for a subset of the \pgls{XML} standard\scite{BPSMM2008EMLX1FE}.
 Obviously, we do not implement the complete standard, which is much more complicated.
 And you should never use our class if you really wanted to produce \pgls{XML} in a productive code.
 We also omitted type and sanity checks -- for example, we should forbid element names that are empty or contain special characters like~\textil{<}.
@@ -1625,8 +1625,8 @@ So this is actually another example that, at this stage and with what you have l
 .3 \dunder{format}\DTcomment{used in \pglspl{fstring}: \pythonil{f"\{a:s\}"}~$\cong$~\pythonil{a.\_\_format\_\_(s)}}.
 .2 Type Conversion.
 .3 \dunder{bool}\DTcomment{convert to \pythonilIdx{bool}: \pythonil{bool(a)}\pythonIdx{bool}~$\cong$~\pythonil{a.\_\_bool\_\_()}; used in conditions, e.g, in~\pythonil{if}}.
-.3 \dunder{int}\DTcomment{convert to \pythonilIdx{int}: \pythonil{int(a)}\pythonIdx{int}~$\cong$~\pythonil{a.\_\_int\_\_()}~\cite{PEP3141}}.
-.3 \dunder{float}\DTcomment{convert to \pythonilIdx{float}: \pythonil{float(a)}\pythonIdx{float}~$\cong$~\pythonil{a.\_\_float\_\_()}~\cite{PEP3141}}.
+.3 \dunder{int}\DTcomment{convert to \pythonilIdx{int}: \pythonil{int(a)}\pythonIdx{int}~$\cong$~\pythonil{a.\_\_int\_\_()}\scite{PEP3141}}.
+.3 \dunder{float}\DTcomment{convert to \pythonilIdx{float}: \pythonil{float(a)}\pythonIdx{float}~$\cong$~\pythonil{a.\_\_float\_\_()}\scite{PEP3141}}.
 .3 \dunder{complex}\DTcomment{convert to \pythonilIdx{complex}: \pythonil{complex(a)}~$\cong$~\pythonil{a.\_\_complex\_\_()}}.
 .3 \dunder{bytes}\DTcomment{convert to \pythonilIdx{bytes}: \pythonil{bytes(a)}~$\cong$~\pythonil{a.\_\_bytes\_\_()}}.
 .2 Hashing, see \cref{sec:hashDunder}.
@@ -1667,7 +1667,7 @@ So this is actually another example that, at this stage and with what you have l
 %
 \dirtree{%
 .1 \pythonilIdx{\_\_}.
-.2 Arithmetics~\cite{PEP3141}, see \cref{sec:arithmeticsAndOrder} for selected examples.
+.2 Arithmetics\scite{PEP3141}, see \cref{sec:arithmeticsAndOrder} for selected examples.
 .3 \dunder{abs}\DTcomment{absolute value: \pythonil{abs(a)}\pythonIdx{abs}~$\cong$~\pythonil{a.\_\_abs\_\_()}}.
 .3 \dunder{minus}\DTcomment{negate: \pythonil{-a}\pythonIdx{-}~$\cong$~\pythonil{a.\_\_minus\_\_()}}.
 .3 \dunder{pos}\DTcomment{positive: \pythonil{+a}\pythonIdx{+}~$\cong$~\pythonil{a.\_\_pos\_\_()}}.
@@ -1690,10 +1690,10 @@ So this is actually another example that, at this stage and with what you have l
 .3 \dunder{rmatmul}\DTcomment{right-ma, see \cref{sec:arithmeticsAndOrder}trix-multiply: \pythonil{a @ b}\pythonIdx{"@}~$\cong$~\pythonil{b.\_\_rmatmul\_\_(a)}, if \pythonil{a.\_\_matmul\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
 .3 \dunder{divmod}\DTcomment{compute the result of an integer division as well as the remainder and return them as 2-tuple: \pythonil{divmod(a, b)}\pythonIdx{divmod}~$\cong$~\pythonil{a.\_\_divmod\_\_(b)}}.
 .3 \dunder{rdivmod}\DTcomment{right-sided \pythonilIdx{divmod}: \pythonil{divmod(a, b)}\pythonIdx{divmod}~$\cong$~\pythonil{b.\_\_divmod\_\_(a)}, if \pythonil{a.\_\_divmod\_\_(b)} yields~\pythonilIdx{NotImplemented}}.
-.3 \dunder{round}\DTcomment{round: \pythonil{round(a)}\pythonIdx{round}~$\cong$~\pythonil{a.\_\_round\_\_()}~\cite{PEP3141}}.
-.3 \dunder{trunc}\DTcomment{truncated to integer: \pythonil{math.trunc(a)}\pythonIdx{trunc}\pythonIdx{math!trunc}~$\cong$~\pythonil{a.\_\_trunc\_\_()}~\cite{PEP3141}}.
-.3 \dunder{floor}\DTcomment{round towards~$-\infty$: \pythonil{math.floor(a)}\pythonIdx{floor}\pythonIdx{math!floor}~$\cong$~\pythonil{a.\_\_floor\_\_()}~\cite{PEP3141}}.
-.3 \dunder{ceil}\DTcomment{round towards~$+\infty$: \pythonil{math.ceil(a)}\pythonIdx{ceil}\pythonIdx{math!ceil}~$\cong$~\pythonil{a.\_\_ceil\_\_()}~\cite{PEP3141}}.
+.3 \dunder{round}\DTcomment{round: \pythonil{round(a)}\pythonIdx{round}~$\cong$~\pythonil{a.\_\_round\_\_()}\scite{PEP3141}}.
+.3 \dunder{trunc}\DTcomment{truncated to integer: \pythonil{math.trunc(a)}\pythonIdx{trunc}\pythonIdx{math!trunc}~$\cong$~\pythonil{a.\_\_trunc\_\_()}\scite{PEP3141}}.
+.3 \dunder{floor}\DTcomment{round towards~$-\infty$: \pythonil{math.floor(a)}\pythonIdx{floor}\pythonIdx{math!floor}~$\cong$~\pythonil{a.\_\_floor\_\_()}\scite{PEP3141}}.
+.3 \dunder{ceil}\DTcomment{round towards~$+\infty$: \pythonil{math.ceil(a)}\pythonIdx{ceil}\pythonIdx{math!ceil}~$\cong$~\pythonil{a.\_\_ceil\_\_()}\scite{PEP3141}}.
 .2 In-Place Arithmetics.
 .3 \dunder{iadd}\DTcomment{in-place addition: \pythonil{a += b}\pythonIdx{+=}~$\cong$~\pythonil{a.\_\_iadd\_\_(b)}, returns~\pythonilIdx{self}}.
 .3 \dunder{isub}\DTcomment{in-place subtraction: \pythonil{a -= b}\pythonIdx{-=}~$\cong$~\pythonil{a.\_\_isub\_\_(b)}, returns~\pythonilIdx{self}}.
@@ -1739,7 +1739,7 @@ So this is actually another example that, at this stage and with what you have l
 \label{fig:pythonDunder:3}%
 \end{figure}%
 %
-Besides the examples mentioned above, there are many more duner methods in \python~\cite{H2025PM:EDMIP}.
+Besides the examples mentioned above, there are many more duner methods in \python\scite{H2025PM:EDMIP}.
 We can only provide an abridged overview in \cref{fig:pythonDunder:1,fig:pythonDunder:2,fig:pythonDunder:3}.
 
 From \cref{fig:pythonDunder:1} we learn that there are three string representation dunder functions.
@@ -1810,7 +1810,7 @@ Doing \pythonil{a += b} would invoke~\pythonil{a.\_\_iadd\_\_(b)}, which then sh
 Finally, \cref{fig:pythonDunder:3} lists the dunder methods for operators such as~\pythonilIdx{\&}, \pythonil{|}\pythonIdx{\textbar}, \pythonil{\^}\pythonIdx{\textasciicircum}, \pythonil{>>}\pythonIdx{>\strut>}, and \pythonil{<<}\pythonIdx{<\strut<}, which we learned about when we first got in touch with integer numbers in~\cref{sec:int:bitstrings}.
 These dunder methods follow the same schematic as those for arithmetics and also have \inQuotes{\pythonil{r}} and \inQuotes{\pythonil{i}}~variants.
 
-Even more dunder methods are listed in the comprehensive overview~\cite{H2025PM:EDMIP}.
+Even more dunder methods are listed in the comprehensive overview\scite{H2025PM:EDMIP}.
 %
 %\FloatBarrier%
 \endhsection%

@@ -156,7 +156,7 @@ Every instance of \pythonil{Circle} is also an instance of \pythonil{Shape}.
 Because \pythonil{Circle} is a special case of \pythonil{Shape}.
 
 It also holds that \pythonil{isinstance(cir, object)}.
-\pythonilIdx{object} is the ultimate base class of any class in \python~\cite{PSF:P3D:G:O,PSF:P3D:TPSL:BIF:O}.
+\pythonilIdx{object} is the ultimate base class of any class in \python\scite{PSF:P3D:G:O,PSF:P3D:TPSL:BIF:O}.
 If you do not provide a base class in the class definition, \pythonilIdx{object} is used.
 This is the case for our class \pythonil{Shape} and also for our older classes \pythonil{Point} and \pythonil{KahanSum}.
 Any \pythonil{Circle} is there also an \pythonilIdx{object}.
@@ -279,8 +279,8 @@ Your objects would basically act as a blank canvas.
 They would probably provide a method to draw a rectangle with certain coordinates in a certain color.
 The would probably provide another method to draw a line of a certain width and color connecting two points.
 You could define this as an abstract base class with (at least) two methods \pythonil{draw_line} and \pythonil{draw_rectangle}.
-We could then go an implement these methods in a subclass in such a way that constructs an \pgls{SVG} graphic~\cite{DDGLMSWFJJ2011SVGSSE} in memory.
-Another subclass could instead construct an Adobe~\pgls{formatPDF}~\cite{A2024WDPM,A2008P3DMPDFP1P1} graphic.
+We could then go an implement these methods in a subclass in such a way that constructs an \pgls{SVG} graphic\scite{DDGLMSWFJJ2011SVGSSE} in memory.
+Another subclass could instead construct an Adobe~\pgls{formatPDF}\scite{A2024WDPM,A2008P3DMPDFP1P1} graphic.
 Doing this would be more complex and exceed the space that we can reasonable use for an example in this book.
 Yet, the principle of the approach would not be very different from what you have already learned here.%
 \endhsection%

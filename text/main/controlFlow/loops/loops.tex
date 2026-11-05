@@ -11,7 +11,7 @@ This is basically equivalent to let the control flow jump back to the beginning 
 Before we delve into this new concept, let us pause a minute and enjoy the significance of what we are going to learn.%
 %
 \begin{definition}[Structured Programming Theorem]%
-The \emph{Structured Program Theorem} states that any computable function can be computed using only three different control flow elements, namely \emph{(1)}~the sequential execution of instructions, \emph{(2)}~the selective execution of instructions~(i.e., alternatives, conditionals), and~\emph{(3)}~the iterative~(repetitive) execution of instructions~(until some condition is met)~\cite{B1964OAFOTMATRPL,BJ1966FDTMALWOTFR,S2011C1GIICS:TBJTAAITSPWP,H1980OFT}.%
+The \emph{Structured Program Theorem} states that any computable function can be computed using only three different control flow elements, namely \emph{(1)}~the sequential execution of instructions, \emph{(2)}~the selective execution of instructions~(i.e., alternatives, conditionals), and~\emph{(3)}~the iterative~(repetitive) execution of instructions~(until some condition is met)\scite{B1964OAFOTMATRPL,BJ1966FDTMALWOTFR,S2011C1GIICS:TBJTAAITSPWP,H1980OFT}.%
 \end{definition}%
 %
 We already learned the first two elements of the control flow.
@@ -80,7 +80,7 @@ We then \pythonilIdx{print} the dictionary and get the expected output in \cref{
 \end{sloppypar}%
 %
 \bestPractice{underscore}{%
-If we do not care about the value of a variable (or parameter), we should name it~\pythonil{_}\pythonIdx{\_}~\cite{PEP635}. %
+If we do not care about the value of a variable (or parameter), we should name it~\pythonil{_}\pythonIdx{\_}\scite{PEP635}. %
 This information is useful for other programmers as well as static code analysis tools.%
 }%
 %
@@ -165,7 +165,7 @@ The branches of alternatives can contain loops as well.
 Let us explore this by computing the list of all prime numbers less than~200 in \cref{lst:loops:for_loop_nested_primes}.%
 %
 \begin{definition}[Prime Number]%
-A prime number~$p\in\naturalNumbersO$ is a positive integer~$p>1$, i.e., greater than one, that has no positive integer divisors other than~$1$ and~$p$ itself~\cite{W2024MAWWR:PN,CP2005PNACP,R1994PNACMFF}.%
+A prime number~$p\in\naturalNumbersO$ is a positive integer~$p>1$, i.e., greater than one, that has no positive integer divisors other than~$1$ and~$p$ itself\scite{W2024MAWWR:PN,CP2005PNACP,R1994PNACMFF}.%
 \end{definition}%
 %
 In our example program, we want to store all of these prime numbers~$p<200$ in the list\pythonIdx{list} \pythonil{primes}.
@@ -405,7 +405,7 @@ And because I advocate using static code analysis tools, I let another such tool
 \end{figure}%
 %
 \usefulTool{pylint}{%
-\pylint\ is a \python\ \pgls{linter} that analyzes code for style, potential errors, and possible improvements~\cite{PC2024PL}. %
+\pylint\ is a \python\ \pgls{linter} that analyzes code for style, potential errors, and possible improvements\scite{PC2024PL}. %
 It can be installed via \bashil{pip install pylint} as shown in \cref{fig:pipInstallPylint} on \cpageref{fig:pipInstallPylint}. %
 You can then apply \pylint\ using the command \bashil{pylint fileToScan.py}. %
 We provide a script for using \pylint\ with a reasonable default configuration in \cref{lst:bash:pylint} on \cpageref{lst:bash:pylint}.%
@@ -441,7 +441,7 @@ Anyway, \pylint\ gets installed.
 We can apply it a file \textil{fileToScan.py} by typing \bashil{pylint fileToScan.py} in a \pgls{terminal}~(\textil{fileToScan.py} can also be a directory).
 Like with \ruff, in the context of this book, we will disable some \pgls{linter} rules for \pylint, too.
 This can be done by adding the parameter \textil{--disable=...} with the rules to be deactivated.
-The list of rules that \pylint\ applies when analyzing a file can be found at~\cite{PC2024PL}.%
+The list of rules that \pylint\ applies when analyzing a file can be found at\scite{PC2024PL}.%
 %
 \begin{sloppypar}%
 Let us now apply both our new \pgls{linter} \pylint\ as well as \ruff, which we ave already used, to the two ideas for enumerating over the data and indices of collections.
@@ -456,7 +456,7 @@ Our two \pglspl{linter} have discovered the same issue, just with different prog
 They independently propose using a function called \pythonilIdx{enumerate} to solve the problem of iterating over collections and knowing the index of the current element.
 But what is \pythonilIdx{enumerate}?
 
-\pythonilIdx{enumerate} accepts a collection as parameter and creates a sequence of index-value tuples~\cite{PEP279}.
+\pythonilIdx{enumerate} accepts a collection as parameter and creates a sequence of index-value tuples\scite{PEP279}.
 We can unpack such tuples while iterating over this sequence~(see \cref{lst:loops:for_loop_sequence}).
 Therefore, when using \pythonilIdx{enumerate}, we can change the head of our loop to the form \pythonil{for i, v in enumerate(data)}.
 Notice that the index~\pythonil{i} comes first and the value~\pythonil{v} comes second in this unpacked-tuple-based enumeration.
@@ -487,20 +487,20 @@ Keep learning and adding new tools to your tool belt.%
 \caption{Heron of Alexandria. %
 Codex of Saint Gregory Nazianzenos. Greek manuscript of the ninth century~\pgls{CE}. %
 Public Domain. %
-Source:~\cite{GR:TAGWITWFST}.%
+Source:\scite{GR:TAGWITWFST}.%
 }%
 \label{fig:heronOfAlexandria}%
 \end{figure}%
 %
-Old clay tablets show that the Babylonians were able to approximate~$\sqrt{2}$ maybe as far back as 4000~years ago~\cite{FR1998SRAIOBMY7IC,S2011NA:NA}.
-Our friend LIU Hui~(刘徽), too, developed an algorithm for computing the square root of a number~\cite{S1997APFPAAFRGP}, which he probably used for approximating~\numberPi~(see \cref{{sec:approximatePiLiuHui}}).
+Old clay tablets show that the Babylonians were able to approximate~$\sqrt{2}$ maybe as far back as 4000~years ago\scite{FR1998SRAIOBMY7IC,S2011NA:NA}.
+Our friend LIU Hui~(刘徽), too, developed an algorithm for computing the square root of a number\scite{S1997APFPAAFRGP}, which he probably used for approximating~\numberPi~(see \cref{{sec:approximatePiLiuHui}}).
 However, the mathematician Hero(n) of Alexandria lived in the first century~\pgls{CE}, proposed a different method earlier on.
-He specified the algorithm for computing the square root of numbers which, today, is known as Heron's Method~\cite{S2011NA:NA,K2009BMOCTSRJBOFTAOCC}.
-This famous researcher, illustrated in \cref{fig:heronOfAlexandria}, was also a famous engineer who invented a steam engine~\cite{GR:TAGWITWFST} and a formula for the computation of the area of a triangle~\cite{L2020RWECSSKAFPA}.
+He specified the algorithm for computing the square root of numbers which, today, is known as Heron's Method\scite{S2011NA:NA,K2009BMOCTSRJBOFTAOCC}.
+This famous researcher, illustrated in \cref{fig:heronOfAlexandria}, was also a famous engineer who invented a steam engine\scite{GR:TAGWITWFST} and a formula for the computation of the area of a triangle\scite{L2020RWECSSKAFPA}.
 
 Let's say that we want to find the square root~$\sqrt{a}$ of a given~$a$.
 Then, this algorithm starts with a guess~$x_0$, let's say~$x_0=1$.
-In each iteration, it will compute a new guess~$x_{i+1}$ based on the current approximation~$x_i$ as follows~\cite{S2011NA:NA,K2009BMOCTSRJBOFTAOCC}:%
+In each iteration, it will compute a new guess~$x_{i+1}$ based on the current approximation~$x_i$ as follows\scite{S2011NA:NA,K2009BMOCTSRJBOFTAOCC}:%
 %
 \begin{equation}%
 x_{i+1}=\frac{1}{2}\left(x_i+\frac{a}{x_i}\right)%
@@ -512,7 +512,7 @@ If $x_i$ was too big, i.e., $x_i>\sqrt{a}$, then~$\frac{a}{x_i}<\sqrt{a}<x_i$.
 If $x_i$ was too small, i.e., $x_i<\sqrt{a}$, then $\frac{a}{x_i}>\sqrt{a}>x_i$.
 By computing the average of~$x_i$ and~$\frac{a}{x_i}$ as the next guess, we hope to approach~$\sqrt{a}$.
 If $x_i=\sqrt{a}$, then $\frac{a}{x_i}=\sqrt{a}$ by definition and~$x_{i+1}=x_i$.
-Showing that this actually works and that the error gets smaller over time is more complicated~\cite{S2011NA:NA}.
+Showing that this actually works and that the error gets smaller over time is more complicated\scite{S2011NA:NA}.
 But luckily, we do not need to do that here.
 Let's simply trust the two thousand year old genius Heron.
 
@@ -529,7 +529,7 @@ The \pythonilIdx{while} construct comes to the rescue\cite{PSF:P3D:TPT:MCFT}:%
 %
 \gitLoadAndExecPython{loops:while_loop_sqrt}{}{loops}{while_loop_sqrt.py}{}%
 \listingPythonAndOutput{loops:while_loop_sqrt}{%
-We compute the square root of a number using Heron's Method~\cite{S2011NA:NA,K2009BMOCTSRJBOFTAOCC} implemented as py \pythonilIdx{while} loop.}{}%
+We compute the square root of a number using Heron's Method\scite{S2011NA:NA,K2009BMOCTSRJBOFTAOCC} implemented as py \pythonilIdx{while} loop.}{}%
 %
 Like the \pythonil{for}~loop, the \pythonilIdx{while}~loop has a head and a body.
 The head consists of a \pythonil{while}, followed by a loop condition \pythonil{booleanExpression} and a colon~\pythonil{:}.
@@ -562,25 +562,25 @@ So looping while \pythonil{guess != old_guess} should work and we should eventua
 But this very imperfection can come and bite us when comparing floating point numbers from an unexpected direction.%
 %
 \bestPractice{noFloatEqual}{%
-Due to the limited precision of floating point numbers, comparing the result of a floating point computation with another value using the strict \pythonil{==} or \pythonil{!=} operators is discouraged~\cite{L2020RWECSSKAFPA,PEP485}. %
+Due to the limited precision of floating point numbers, comparing the result of a floating point computation with another value using the strict \pythonil{==} or \pythonil{!=} operators is discouraged\scite{L2020RWECSSKAFPA,PEP485}. %
 It may lead to unanticipated results. %
 For example \pythonil{(0.1 + 0.2) == 0.3} gives \pythonil{False}. %
-Using functions like \pythonilIdx{isclose} from the \pythonilIdx{math} module that test whether two values are approximately the same based on their relative and absolute difference can be a~(somewhat~\cite{G1991WECSSKAFPA}) safer choice~\cite{PEP485}.%
+Using functions like \pythonilIdx{isclose} from the \pythonilIdx{math} module that test whether two values are approximately the same based on their relative and absolute difference can be a~(somewhat\scite{G1991WECSSKAFPA}) safer choice\scite{PEP485}.%
 }%
 %
 Now, if the direct comparison of floating point numbers for equality can cause us trouble in an \pythonil{if}, it will probably not surprise you that it may cause even worse problems in a \pythonil{while}:%
 %
 \bestPractice{noFloatEqualAsCondition}{%
 As a corollary of \cref{bp:noFloatEqual}: %
-Do not use strict equality or inequality comparisons of \pythonils{float} as loop termination criteria~\cite{L2020RWECSSKAFPA}, as they quite likely lead to endless loops that never terminate. %
+Do not use strict equality or inequality comparisons of \pythonils{float} as loop termination criteria\scite{L2020RWECSSKAFPA}, as they quite likely lead to endless loops that never terminate. %
 There can always be inputs that cause endless oscillations between values or the appearance of \pythonilIdx{nan} values~(see \cref{sec:float:special}). %
-The former issue can again be made somewhat less likely by using methods like the function \pythonilIdx{isclose} from the \pythonilIdx{math} module that checks whether two numbers approximately equal based on their relative and absolute difference~\cite{PEP485}.%
+The former issue can again be made somewhat less likely by using methods like the function \pythonilIdx{isclose} from the \pythonilIdx{math} module that checks whether two numbers approximately equal based on their relative and absolute difference\scite{PEP485}.%
 }%
 %
 So we do not use \pythonil{guess != old_guess} as loop criterion.
 We import the function \pythonilIdx{isclose} from the module \pythonilIdx{math}.
 Then we write \pythonil{not isclose(guess, old_guess)} instead of \pythonil{guess != old_guess}.
-The function \pythonilIdx{isclose} will consider \pythonil{guess} and \pythonil{old_guess} to be equal if their relative difference is less than one part in a billion~\cite{PEP485}.
+The function \pythonilIdx{isclose} will consider \pythonil{guess} and \pythonil{old_guess} to be equal if their relative difference is less than one part in a billion\scite{PEP485}.
 Our loop will thus terminate once the current and the last guess are quite close to each other.%
 %
 \begin{sloppypar}%
@@ -625,9 +625,9 @@ This works for both \pythonilIdx{for} and \pythonilIdx{while} loops\cite{PSF:P3D
 %
 \gitLoadAndExecPython{loops:while_loop_search}{}{loops}{while_loop_search.py}{}%
 \listingPythonAndOutput{loops:while_loop_search}{%
-We implement binary search~\cite{K1998SAS,H2024POIC:BS,B1999PP} using a \pythonilIdx{while} loop with a \pythonilIdx{break} statement.}{}%
+We implement binary search\scite{K1998SAS,H2024POIC:BS,B1999PP} using a \pythonilIdx{while} loop with a \pythonilIdx{break} statement.}{}%
 %
-We now use this construct to implement a binary search~\cite{K1998SAS,H2024POIC:BS,B1999PP}.
+We now use this construct to implement a binary search\scite{K1998SAS,H2024POIC:BS,B1999PP}.
 Binary search is an algorithm that finds the index of an element in a \emph{sorted} sequence \pythonil{data} of values.
 
 The core concept of binary search is that we consider a segment~$S$ of the list in which the element~$E$ we search may be contained.
@@ -640,7 +640,7 @@ Otherwise, i.e., if~$E=M$, we have found the element.
 Of course, if we did not yet find~$E$ bit the selected half of $S$ is empty because $S$ only had one or two elements left in it {\dots} then $E$ is not in $S$ and, hence, not in \pythonil{data}.
 
 This means in one step we have effectively halved the size of~$S$.
-If~$\scale=\pythonil{len(data)}$, then we can do this halving at most $\log_2 \scale$~times and the time complexity of binary search is~\bigOb{\log{\scale}}~\cite{K1998SAS,H2024POIC:BS,B1999PP}.%
+If~$\scale=\pythonil{len(data)}$, then we can do this halving at most $\log_2 \scale$~times and the time complexity of binary search is~\bigOb{\log{\scale}}\scite{K1998SAS,H2024POIC:BS,B1999PP}.%
 %
 \begin{sloppypar}%
 In~\cref{lst:loops:while_loop_search}, we want to find the indices of some characters in the alphabetically sorted string~\pythonil{data = "abdfjlmoqsuvwyz"}.
@@ -665,7 +665,7 @@ This is therefore the loop condition of the inner loop.
 
 Inside the binary search loop, we first compute the mid index as \pythonil{mid = (lower + upper) // 2}\footnote{%
 Interestingly, this works only because \python~3 has integers of infinite range~(see \cref{sec:int}). %
-In programming languages like \pgls{C} or \pgls{Java} where integer types have limited ranges, we need to do \pythonil{mid = lower + (upper - lower) // 2}~\cite{H2024POIC:BS}.%
+In programming languages like \pgls{C} or \pgls{Java} where integer types have limited ranges, we need to do \pythonil{mid = lower + (upper - lower) // 2}\scite{H2024POIC:BS}.%
 }.
 We obtain the value \pythonil{mid_str} as the single character at that index via \pythonil{mid_str = data[mid]}.
 

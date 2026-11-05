@@ -24,10 +24,10 @@ Notice that each of these conditionally executed statements is indented by four 
 After the body block of the \pythonilIdx{if}~statement, the normal program code resumes without additional indentation.
 The statements that are not indented anymore will be executed regardless of the outcome of the Boolean expression.%
 %
-\bestPractice{indentation}{Blocks are indented by four spaces~\cite{PEP8}.}%
+\bestPractice{indentation}{Blocks are indented by four spaces\scite{PEP8}.}%
 %
 Let's use this construct to check whether a year is a leap year.
-According to the Gregorian calendar, a year~$y$ is a leap year if $y$~is divisible by~4 but not by~100; or if it is divisible by~400~\cite{EOEBEB:LR}.
+According to the Gregorian calendar, a year~$y$ is a leap year if $y$~is divisible by~4 but not by~100; or if it is divisible by~400\scite{EOEBEB:LR}.
 Program \programUrl{conditionals:if} in \cref{lst:conditionals:if} implements this rule.
 We begin by storing the year that we want to investigate in the integer variable \pythonil{year}.
 But how can we check the condition?
@@ -182,7 +182,7 @@ First, we define the \pythonil{age} as an integer variable and pick a value, say
 We want to fill a string in the variable \pythonil{phase} that describes the current phase of life of that person.
 
 Initially, nothing is filled in, so we set \pythonil{phase = None}.
-We used the \pgls{typeHint} \pythonil{str | None} to specify that the variable can either be a string or \pythonil{None}~\cite{PEP604}.
+We used the \pgls{typeHint} \pythonil{str | None} to specify that the variable can either be a string or \pythonil{None}\scite{PEP604}.
 
 Anyway, we start with the first conditional and write \pythonil{if age <= 3}.
 If this evaluates to \pythonilIdx{True}, then we set \pythonil{phase = "infancy"}.
@@ -216,7 +216,7 @@ We can compact the \pythonil{else ... if} branch into an \pythonilIdx{elif} stat
 This program achieves in 15 lines for what \cref{lst:conditionals:if_else_nested} needs~16, and it is easier to read, too.
 (In this program, I left the additional example of the \pythonil{min} and \pythonil{max} function away.)%
 %
-\bestPractice{elifOverElseIf}{Prefer \pythonilIdx{elif} over nested \pythonil{else ... if} constructs~\cite{M2022RAEFPLACFWIR}.}%
+\bestPractice{elifOverElseIf}{Prefer \pythonilIdx{elif} over nested \pythonil{else ... if} constructs\scite{M2022RAEFPLACFWIR}.}%
 %
 \FloatBarrier%
 \endhsection%
@@ -253,7 +253,7 @@ Likewise, in the \pythonil{if...elif...else} statement, each branch \emph{only} 
 There are many cases where we use an alternative \emph{only} to decide which value should be stored in a certain variable.
 In languages like \pgls{C} and \pgls{Java}, you have a ternary operator looking like \textil{condition ? valueIfTrue : valueIfFalse} as shorthand in such situations.
 \python, too, offers us a compact syntax for this, and \ruff\ can again give us some idea about that in \cref{exec:conditionals:if_else_could_be_inline:ruff}:
-The inline ternary \pythonil{if...else} statement~\cite{PEP308}, which has the following syntax:%
+The inline ternary \pythonil{if...else} statement\scite{PEP308}, which has the following syntax:%
 %
 \pythonSyntax{syntax/if_else_inline.py}%
 %
@@ -270,7 +270,7 @@ This statement can again arbitrarily nested, as we show in the second variant:
 Here, again, value \pythonil{valueA} will be assigned to \pythonil{variable} if \pythonil{conditionForUsingValueA} evaluates to \pythonil{True}.
 Otherwise, \pythonil{valueB} is used if \pythonil{conditionForUsingValueB} evaluates to \pythonil{True} and, again otherwise, \pythonil{valueC} is used.%
 %
-\bestPractice{inlineIfThenElse}{If your \pythonil{if...else} statement is only used to decide which value to assign to a variable, use the inline ternary variant discussed in \cref{sec:inlineIfThenElse}, as it is more compact~\cite{M2022RAEFPLACFWIR}.}%
+\bestPractice{inlineIfThenElse}{If your \pythonil{if...else} statement is only used to decide which value to assign to a variable, use the inline ternary variant discussed in \cref{sec:inlineIfThenElse}, as it is more compact\scite{M2022RAEFPLACFWIR}.}%
 %
 We apply this syntax to refine \cref{lst:conditionals:if_else_could_be_inline} and obtain the much more compact \cref{lst:conditionals:inline_if_else}.
 Both programs are equivalent, but the second one only has~13 instead of 22~lines of code.
@@ -283,7 +283,7 @@ With the statements we discussed in this section, you are now able to create a p
 Before this, we could only perform straightforward computations and calculate the results of simple functions.
 Now our variables can receive the result of a function~${\mathcal{A}}$ if the input meets a condition~$B$ and otherwise the result of a function~${\mathcal{C}}$.
 This is already quite nice.
-For example, we can now implement and hard-code decision trees~\cite{RN2022AIAMA,SSBD2014UMLFTTA} and \cref{lst:conditionals:if_elif} is basically an example of that.
+For example, we can now implement and hard-code decision trees\scite{RN2022AIAMA,SSBD2014UMLFTTA} and \cref{lst:conditionals:if_elif} is basically an example of that.
 With alternatives, we can basically \inQuotes{jump over} instructions.
 Still, with the exceptions that we can now omit steps, the instructions in our programs are still executed in the sequence in which we wrote them down.
 While our control flow can now branch, it cannot perform anything more fancy and advanced {\dots} like looping back upon itself\dots%

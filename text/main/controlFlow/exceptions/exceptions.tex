@@ -31,7 +31,7 @@ We can imagine three different approaches:%
 %
 \item We simply ignore the issue.
 If the input of our program or function is faulty, then the output will be wrong, too.
-This is often called \pgls{GIGO}~\cite{PKBCBR2005GIGOAELAOMBEUP}.
+This is often called \pgls{GIGO}\scite{PKBCBR2005GIGOAELAOMBEUP}.
 Converting the integer \pythonil{10 ** 400} to a \pythonil{float} could just yield~\pythonil{inf}, for example.%
 %
 \item We try to sanitize the input.
@@ -39,7 +39,7 @@ For example, our \pythonil{factorial} function in \cref{lst:functions:def_factor
 If someone were to pass in the floating point value~\pythonil{2.4} instead, we could round it to~\pythonil{2} and return the corresponding result.
 Matter of fact, our \pythonil{sqrt} function implemented in \cref{lst:functions:my_math_2} returns \pythonil{0.0} if we pass in a negative number.%
 %
-\item We can guard the function by raising an \pythonilIdx{Exception}~\cite{MAGTOC2024EHFAP,SF2013ASROSR,GRRX2001ACSOEHMFBDOOS}.%
+\item We can guard the function by raising an \pythonilIdx{Exception}\scite{MAGTOC2024EHFAP,SF2013ASROSR,GRRX2001ACSOEHMFBDOOS}.%
 %
 \end{enumerate}%
 %
@@ -411,7 +411,7 @@ Safe coding therefore always is a trade-off.%
 .2 \pythonilIdx{SystemExit}\DTcomment{raised by \pythonilIdx{exit}; not an error}.
 }%
 %
-\caption{An overview of the hierarchy of \pythonilsIdx{Exception} in \python~\cite{PSF:P3D:TPSL:BIE}.}%
+\caption{An overview of the hierarchy of \pythonilsIdx{Exception} in \python\scite{PSF:P3D:TPSL:BIE}.}%
 \label{fig:pythonExceptions}%
 \end{figure}%
 %
@@ -424,7 +424,7 @@ Obviously, we cannot just treat every possible error condition in the same way.
 Running out of memory is a completely different situation than trying to read from a non-existent file.
 Therefore, different types of exceptions can be raised:
 The former problem causes a \pythonilIdx{MemoryError} while the latter raises an \pythonilIdx{FileNotFoundError}.
-The hierarchy of the different problem types is illustrated in \cref{fig:pythonExceptions}~\cite{PSF:P3D:TPSL:BIE}.
+The hierarchy of the different problem types is illustrated in \cref{fig:pythonExceptions}\scite{PSF:P3D:TPSL:BIE}.
 Some exceptions are special cases of other exceptions.
 For example \pythonilsIdx{ArithmeticError} denote general errors during an arithmetic computation, whereas \pythonilsIdx{OverflowError} mark such computation errors that cause a value to become too large for representation.
 Therefore, each \pythonilIdx{OverflowError} is also an \pythonilIdx{ArithmeticError}.
@@ -523,7 +523,7 @@ The action could be to call us and to report a bug.
 Then we can improve the program and fix the bug.%
 %
 \bestPractice{onlyCatchMeaningfulExceptions}{%
-Only \pythonilsIdx{Exception} should be caught by \pythonilIdx{except} blocks that we can meaningfully handle~\cite{PEP760,PEP8}. %
+Only \pythonilsIdx{Exception} should be caught by \pythonilIdx{except} blocks that we can meaningfully handle\scite{PEP760,PEP8}. %
 The \pythonilIdx{except} block is not to be used to just catch any exception, to implement \gls{GIGO}, or to try to sanitize erroneous input.%
 }%
 %
@@ -796,7 +796,7 @@ The second parameter, \pythonil{mode}\pythonIdx{open!mode}, is set to~\pythonil{
 If the file does not yet exist, then the~\pythonil{"w"} tells \pythonilIdx{open} to automatically create it.
 If the file already exists, its contents will be discarded and we begin writing at its beginning.
 
-The parameter \pythonil{encoding}\pythonIdx{open!encoding} is set to~\pythonil{"UTF-8"}\pythonIdx{UTF-8}, which indicates that the text should be translated to binary form when it is stored in the file via the usual \pgls{utf8}~encoding~\cite{RFC3629,ISOIEC106462020ITUCCSU}.
+The parameter \pythonil{encoding}\pythonIdx{open!encoding} is set to~\pythonil{"UTF-8"}\pythonIdx{UTF-8}, which indicates that the text should be translated to binary form when it is stored in the file via the usual \pgls{utf8}~encoding\scite{RFC3629,ISOIEC106462020ITUCCSU}.
 All stored data is binary and this is the most common format to store text in binary form in the internet.
 
 Anyway, if opening the text file succeeds, we now have a variable~\pythonil{stream_out}, which is an instance of~\pythonilIdx{IO}.
@@ -847,7 +847,7 @@ The context manager handles the entry into, and the exit from, the desired runti
 Typical uses of context managers include saving and restoring various kinds of global state, locking and unlocking resources, closing opened files, etc.}%
 %
 The \pythonilIdx{with} statement has the following syntax.
-Here the \pythonil{expression} is an expression that returns a so-called context manager~\cite{PSF:P3D:TPLR:WSCM,PSF:P3D:TPSL:CUFWSC,PSF:P3D:TPLR:TWS,PEP343} object.
+Here the \pythonil{expression} is an expression that returns a so-called context manager\scite{PSF:P3D:TPLR:WSCM,PSF:P3D:TPSL:CUFWSC,PSF:P3D:TPLR:TWS,PEP343} object.
 We did not yet discuss classes, so right now, we are still lacking some background knowledge needed to discuss what a context manager exactly is or how it works.\footnote{%
 We will therefore do this later in \cref{sec:dunder:contextManager}.}
 However, in a nutshell, a context manager is basically an object that has two special methods.
@@ -915,14 +915,14 @@ Finally, we can also write robust code that makes sure that resources are proper
 Back in \cref{sec:unitTesting}, we introduced the concept of \pglspl{unitTest}.
 Together, we explored how the tool \pytest\ can be used to test our functions.
 We stated in \cref{bp:unitTestCoverage} that we should cover all the branches of the control flow inside a function with \pglspl{unitTest}.
-One kind of branch that is often overlooked are \pythonilIdx{Exception} and exception handling~\cite{LRBP2021AEHTPIOSL}.
+One kind of branch that is often overlooked are \pythonilIdx{Exception} and exception handling\scite{LRBP2021AEHTPIOSL}.
 
 If our function is supposed to \pythonilIdx{raise} a certain exception under some conditions, then we should have a \pgls{unitTest} that checks if this \pythonilsIdx{Exception} is actually raised as it should be.
 Now, any exception raised by a \pgls{unitTest} will cause the test to fail.
 This seems to contradict our goal to intentionally raise the exceptions.
 Luckily, \pytest\ offers us a device for this.
 
-The \pythonilIdx{pytest} module offers a context manager~\cite{PSF:P3D:TPSL:CUFWSC} named \pythonilIdx{raises}\pythonIdx{pytest!raises}.
+The \pythonilIdx{pytest} module offers a context manager\scite{PSF:P3D:TPSL:CUFWSC} named \pythonilIdx{raises}\pythonIdx{pytest!raises}.
 We just learned how we can use such context managers via the \pythonilIdx{with}-statement.
 If we want to check whether a function indeed raises a certain exception of type \pythonil{ExceptionType} for a given input, then we can wrap the corresponding function call into \pythonil{with raises(ExceptionType):}.
 This block tells \pytest\ that in the following indented block an exception of type \pythonil{ExceptionType} must be raised.
@@ -963,7 +963,7 @@ The \pgls{regex} \pythonil{\"h.*llo\"} matches to \pythonil{\"hllo\"}, \pythonil
 
 There are many more patterns that we can form with \pglspl{regex} and there are also more special characters that we can use for that.
 However, for now, we will leave it at that.
-Feel free to explore~\cite{IEEE1993ISFITPOSIPP2SAU,PSF:P3D:PH:REH,N2018RQSRUAURE,N2019AITRE,PSF:P3D:TPSL:RREO} for more information.
+Feel free to explore\scite{IEEE1993ISFITPOSIPP2SAU,PSF:P3D:PH:REH,N2018RQSRUAURE,N2019AITRE,PSF:P3D:TPSL:RREO} for more information.
 Still, I think that you can already see how using \pglspl{regex} to check whether error messages conform to a certain structure is a very natural idea.
 
 Let us expand our \cref{lst:functions:test_my_math_3} for testing the \pythonil{sqrt} function.
