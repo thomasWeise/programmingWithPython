@@ -9,18 +9,6 @@ A first example of using tuples in \python:~creating, indexing, and printing of 
 \listingPythonAndOutput{tuples:tuples_2}{%
 A second example of using tuples in \python:~tuples with elements of different types and tuple unpacking.}{}%
 %
-\gitLoadAndExecPythonAndErrors{tuples:tuples_3}{}{collections}{tuples_3.py}{}%
-\listingPythonAndError{tuples:tuples_3}{%
-A third example of using tuples in \python:~testing the immutability property.}%
-%
-\gitExec{exec:tuples:tuples_3:mypy}{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh collections tuples_3.py}%
-\listingToolOutput{tuples:tuples_3:mypy}{%
-The results of static type checking with \mypy\ of the program \programUrl{tuples:tuples_3} given in \cref{lst:tuples:tuples_3}.}%
-%
-\gitExec{exec:tuples:tuples_3:ruff}{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh collections tuples_3.py}%
-\listingToolOutput{tuples:tuples_3:ruff}{%
-The results of the \ruff\ \pgls{linter} applied to the program \programUrl{tuples:tuples_3} given in \cref{lst:tuples:tuples_3}.}%
-%
 \pythonIdx{tuple}%
 Tuples are very similar to lists, with three differences:
 First, they are immutable.
@@ -108,11 +96,34 @@ Among these two tuples, the one with the smallest third element comes first.
 
 Finally, this example program shows us that we can unpack tuples just like lists\pythonIdx{tuple!unpacking}\pythonIdx{unpacking}.
 \pythonil{a, b, c = mixed} stores \pythonil{"apple"} in~\pythonil{a}, \pythonil{12} in~\pythonil{b}, and~\pythonil{1e25} in~\pythonil{c}.
+This is reminiscent of the multi-assignments we learned about in \cref{sec:multiAssignments}, because this is how they basically work.
 Interestingly, we can also create tuples the other way around.
 We can omit the parentheses when creating tuples in cases where no confusion is possible.
 \pythonil{mixed = "x", 4, 4.5} has the same effect as \pythonil{mixed = ("x", 4, 4.5)}.
 
-Let us finally explore the immutability of tuples in \cref{lst:tuples:tuples_2}.
+\gitLoadAndExecPython{collections:divmod}{}{collections}{divmod.py}{}%
+\listingPythonAndOutput{collections:divmod}{%
+An example for multi-assignment and unpacking based on the \pythonilIdx{divmod} operator, which returns \emph{two} results.}{}%
+
+Another example for multi-assignments via tuple-unpacking is given in \cref{lst:collections:divmod}.
+The standard \python\ function \pythonil{divmod(x, y)}\pythonIdx{divmod} returns two values in one tuple.
+The first value is the result of the integer division\pythonIdx{//} \pythonil{x // y}.
+The second value is the result of the \pgls{modulodiv}, i.e., \pythonil{x \% y}\pythonIdx{\%}.
+These two results can be unpacked directly into variables~\pythonil{a} and~\pythonil{b} by writing~\pythonil{a, b = divmod(x, y)}.
+
+\gitLoadAndExecPythonAndErrors{tuples:tuples_3}{}{collections}{tuples_3.py}{}%
+\listingPythonAndError{tuples:tuples_3}{%
+A third example of using tuples in \python:~testing the immutability property.}%
+%
+\gitExec{exec:tuples:tuples_3:mypy}{\programmingWithPythonCodeRepo}{.}{_scripts_/mypy.sh collections tuples_3.py}%
+\listingToolOutput{tuples:tuples_3:mypy}{%
+The results of static type checking with \mypy\ of the program \programUrl{tuples:tuples_3} given in \cref{lst:tuples:tuples_3}.}%
+%
+\gitExec{exec:tuples:tuples_3:ruff}{\programmingWithPythonCodeRepo}{.}{_scripts_/ruff.sh collections tuples_3.py}%
+\listingToolOutput{tuples:tuples_3:ruff}{%
+The results of the \ruff\ \pgls{linter} applied to the program \programUrl{tuples:tuples_3} given in \cref{lst:tuples:tuples_3}.}%
+
+Let us finally explore the immutability of tuples with \cref{lst:tuples:tuples_3}.
 As stated before, we are not permitted to add, remove, insert, delete, or overwrite any element of a tuple.
 What happens if we try create a tuple that contains a list?
 The line \pythonil{mt: tuple[int, list[int]] = (1, [2])} does just this.
