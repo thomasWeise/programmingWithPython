@@ -363,11 +363,11 @@ We will also see how the \pythonilIdx{for}~keyword can be used to construct sequ
 %
 \gitLoadAndExecPython{loops:for_loop_no_enumerate_1}{}{loops}{for_loop_no_enumerate_1.py}{}%
 \listingPythonAndOutput{loops:for_loop_no_enumerate_1}{%
-Enumerating over the index-value pairs of a list (inefficiently) by using the index as loop variable and directly indexing the container.}{}%
+Enumerating over the index-value pairs of a list (inefficiently) by using the index as loop variable and directly indexing the collection.}{}%
 %
 \gitLoadAndExecPython{loops:for_loop_no_enumerate_2}{}{loops}{for_loop_no_enumerate_2.py}{}%
 \listingPythonAndOutput{loops:for_loop_no_enumerate_2}{%
-Enumerating over the index-value pairs of a list (inefficiently) by iterating over the container and manually maintaining the current index in a variable.}{}%
+Enumerating over the index-value pairs of a list (inefficiently) by iterating over the collection and manually maintaining the current index in a variable.}{}%
 %
 Assume that we have a list \pythonil{data} of integer values~\pythonil{v}.
 If we want to iterate over all the values~\pythonil{v} in~\pythonil{data}, then \pythonil{for v in data} would do the trick.
@@ -384,7 +384,7 @@ This is illustrated in \cref{lst:loops:for_loop_no_enumerate_1}.
 The drawback of this method is that it will \emph{only} work for \pythonilsIdx{list} and \pythonilsIdx{tuple}.
 Among the collection data structures discussed so far, only \pythonilsIdx{list} and \pythonilsIdx{tuple} are directly indexable.
 However, as we have seen, we can iterate over all of them.
-Therefore, the second option to achieve our goal would be to just \inQuotes{normally} iterate over the container.
+Therefore, the second option to achieve our goal would be to just \inQuotes{normally} iterate over the collection.
 Of course, then we do not know the index of the current element.
 Well, nothing can stop us from using an additional integer variable~\pythonil{i} and maintain its proper value by ourselves.
 We would initialize it as \pythonil{i: int = 0} before the loop.
@@ -447,7 +447,7 @@ The list of rules that \pylint\ applies when analyzing a file can be found at\sc
 Let us now apply both our new \pgls{linter} \pylint\ as well as \ruff, which we ave already used, to the two ideas for enumerating over the data and indices of collections.
 We first analyze \programUrl{loops:for_loop_no_enumerate_1}, the program where we let the index variable iterate and use it to access the data elements.
 In \cref{exec:loops:for_loop_no_enumerate_1:pylint}, \pylint\ suggests that we should iterate over the list \pythonil{data} using the \pythonilIdx{enumerate} function, whereas \ruff, at the time of this writing, has no issue with this approach~(see \cref{exec:loops:for_loop_no_enumerate_1:ruff}).
-Now we analyze \programUrl{loops:for_loop_no_enumerate_2}, where we iterate over the elements of the container and manually maintain an index variable~\pythonil{i}.
+Now we analyze \programUrl{loops:for_loop_no_enumerate_2}, where we iterate over the elements of the collection and manually maintain an index variable~\pythonil{i}.
 Interestingly, this time \ruff\ suggests us to~\inQuotes{Use \inSQuotes{\pythonil{enumerate()}} for index variable \inSQuotes{\pythonil{i}} in \inSQuotes{\pythonil{for}} loop}, as shown in \cref{exec:loops:for_loop_no_enumerate_2:ruff}.
 \pylint, on the other hand, does not discover any problem with \programUrl{loops:for_loop_no_enumerate_2}.%
 \end{sloppypar}%

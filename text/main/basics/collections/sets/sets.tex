@@ -123,7 +123,7 @@ The result, $\pythonil{odd}\setminus\pythonil{prime}$, contains a the three elem
 \end{sloppypar}%
 %
 Notice that all of these operations create new and independent sets.
-If we want to delete all elements that occur in some container from an existing set, i.e., modify the set, then we use the method~\pythonil{difference_update}\pythonIdx{difference\_update}\pythonIdx{set!difference\_update}.
+If we want to delete all elements that occur in some collection from an existing set, i.e., modify the set, then we use the method~\pythonil{difference_update}\pythonIdx{difference\_update}\pythonIdx{set!difference\_update}.
 \pythonil{odd.difference_update(prime)} modifies the set~\pythonil{odd} by deleting all elements from~\pythonil{prime} from it.
 This operation did not create a new set, but change the existing one.
 \pythonil{odd == only_odd} would now hold.
