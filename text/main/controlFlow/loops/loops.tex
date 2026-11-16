@@ -210,7 +210,7 @@ If \pythonil{candidate > 8}, then the loop is actually entered and \pythonil{che
 \end{sloppypar}%
 %
 In the body of our inner loop, we try to find out whether \pythonil{check} is an integer divisor of \pythonil{candidate}.
-We can do this by computing the remainder of the division~$\pythonil{canddiate}/\pythonil{check}$.
+We can do this by computing the remainder of the division~$\pythonil{candidate}/\pythonil{check}$.
 Back in \cref{sec:int:integerArithmetics} we learned the \pgls{modulodiv} operator \expandafter\pythonilIdx{\%}, which does exactly that.
 If \pythonil{candidate \% check} is~\pythonil{0}, then we can divide \pythonil{candidate} by \pythonil{check} without remainder.
 Then, \pythonil{candidate} is divisible by \pythonil{check} and cannot be a prime number.
